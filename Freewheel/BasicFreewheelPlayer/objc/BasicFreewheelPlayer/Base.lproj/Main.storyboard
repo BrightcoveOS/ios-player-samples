@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EKw-Te-fwH" userLabel="videoContainer">
+                                <rect key="frame" x="0.0" y="20" width="600" height="300"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YD8-3s-Dz1" userLabel="adSlot">
+                                <rect key="frame" x="150" y="328" width="300" height="250"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="lJd-DT-8x2"/>
+                                    <constraint firstAttribute="height" constant="250" id="rWG-iR-m9F"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="YD8-3s-Dz1" firstAttribute="top" secondItem="EKw-Te-fwH" secondAttribute="bottom" constant="8" id="9xn-Fa-1Sc"/>
+                            <constraint firstItem="EKw-Te-fwH" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="A8z-zG-cYD"/>
+                            <constraint firstItem="EKw-Te-fwH" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/2" id="bv8-IU-5H4"/>
+                            <constraint firstItem="EKw-Te-fwH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="mde-5C-gvc"/>
+                            <constraint firstAttribute="centerX" secondItem="YD8-3s-Dz1" secondAttribute="centerX" id="oB1-9U-USq"/>
+                            <constraint firstAttribute="trailing" secondItem="EKw-Te-fwH" secondAttribute="trailing" id="sC8-Ko-lNR"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="adSlot" destination="YD8-3s-Dz1" id="gfW-Jq-bXs"/>
+                        <outlet property="videoContainerView" destination="EKw-Te-fwH" id="adr-Uf-wQr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
