@@ -30,6 +30,10 @@ IMA samples demonstrate how to utilize the IMA Plugin. These are intended to cov
 
 IMA+Widevine samples demonstrate how to utilize the IMA Plugin in coorporation with the Widevine Plugin.
 
+##### Omniture
+
+Omniture samples demonstrate how to utilize the Omniture Plugin.
+
 ##### Player
 
 Player samples demonstrate how to utilize the core SDK. These are intended to cover use cases like custom controls, analytics, and playback.
