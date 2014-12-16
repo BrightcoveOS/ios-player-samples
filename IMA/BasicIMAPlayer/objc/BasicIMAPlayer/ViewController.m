@@ -42,14 +42,19 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     [[NSNotificationCenter defaultCenter] removeObserver:_notificationReceipt];
 }
 
-- (instancetype)initWithCoder:(NSCoder *)coder
+- (void)viewDidLoad
 {
-    self = [super initWithCoder:coder];
-    if (self)
-    {
-        [self setup];
-    }
-    return self;
+    [super viewDidLoad];
+    // Do any additional setup after loading the view, typically from a nib.
+    [self setup];
+    
+    self.playbackController.view.frame = self.videoContainer.bounds;
+    self.playbackController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    
+    // Make sure the content view won't cover the any subviews (ad view) in ad container view.
+    [self.videoContainer insertSubview:self.playbackController.view atIndex:0];
+    
+    [self requestContentFromCatalog];
 }
 
 - (void)setup
@@ -64,45 +69,49 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     renderSettings.webOpenerPresentingController = self;
     renderSettings.webOpenerDelegate = self;
 
-    _playbackController = [manager createIMAPlaybackControllerWithSettings:imaSettings adsRenderingSettings:renderSettings viewStrategy:[manager IMAAdViewStrategyWrapperWithViewStrategey:[manager defaultControlsViewStrategy]]];
-    _playbackController.delegate = self;
-    _playbackController.autoAdvance = YES;
-    _playbackController.autoPlay = YES;
+    IMAAdDisplayContainer *adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:self.videoContainer companionSlots:nil];
+    
+    // BCOVIMAAdsRequestPolicy provides methods to specify VAST or VMAP/Server Side Ad Rules. Select the appropriate method to select your ads policy.
+    BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy videoPropertiesVMAPAdTagUrlAdsRequestPolicyWithAdDisplayContainer:adDisplayContainer];
+    
+    
+    
+    self.playbackController = [manager createIMAPlaybackControllerWithSettings:imaSettings adsRenderingSettings:renderSettings adsRequestPolicy:adsRequestPolicy viewStrategy:[manager defaultControlsViewStrategy]];
+    self.playbackController.delegate = self;
+    self.playbackController.autoAdvance = YES;
+    self.playbackController.autoPlay = YES;
 
-    // Creating a playback controller based on the above code will initialize a
-    // IMA component using it's default settings. These settings and defaults
-    // are explained in BCOVIMASessionProvider.h.
+    // Creating a playback controller based on the above code will create
+    // VMAP / Server Side Ad Rules. These settings are explained in BCOVIMAAdsRequestPolicy.h.
     // If you want to change these settings, you can initialize the plugin like so:
     //
-    // BCOVIMASessionProviderOptions *options = [BCOVIMASessionProviderOptions VMAPOptions];
-    // options.adsRequestPolicy = [BCOVIMAAdsRequestPolicy adsRequestPolicyWithVMAPAdTagUrl:kViewControllerIMAVMAPResponseAdTag companionAdSlots:nil];
-    // id<BCOVPlaybackSessionProvider> sessionProvider = [manager createIMASessionProviderWithSettings:imaSettings adsRenderingSettings:renderSettings upstreamSessionProvider:nil options:options];
-    //
-    // id<BCOVPlaybackController> playbackController = [manager createPlaybackControllerWithSessionProvider:sessionProvider viewStrategy:[manager IMAAdViewStrategyWrapperWithViewStrategey:[manager defaultControlsViewStrategy]]];
+    // BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy adsRequestPolicyWithVMAPAdTagUrl:kViewControllerIMAVMAPResponseAdTag adDisplayContainer:adDisplayContainer];
     //
     // or for VAST:
     //
-    // BCOVIMASessionProviderOptions *options = [BCOVIMASessionProviderOptions VASTOptions];
-    // options.adsRequestPolicy = [BCOVIMAAdsRequestPolicy adsRequestPolicyWithVASTAdTagsInCuePointsAndAdsCuePointProgressPolicy:[BCOVCuePointProgressPolicy progressPolicyProcessingCuePoints:BCOVProgressPolicyProcessFinalCuePoint resumingPlaybackFrom:BCOVProgressPolicyResumeFromContentPlayhead ignoringPreviouslyProcessedCuePoints:YES]];
-    // id<BCOVPlaybackSessionProvider> sessionProvider = [manager createIMASessionProviderWithSettings:imaSettings adsRenderingSettings:renderSettings upstreamSessionProvider:nil options:options];
-    //
-    // id<BCOVPlaybackController> playbackController = [manager createPlaybackControllerWithSessionProvider:sessionProvider viewStrategy:[manager IMAAdViewStrategyWrapperWithViewStrategey:[manager defaultControlsViewStrategy]]];
+    // BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy adsRequestPolicyWithVASTAdTagsInCuePointsAndAdsCuePointProgressPolicy:[BCOVCuePointProgressPolicy progressPolicyProcessingCuePoints:nil adDisplayContainer:adDisplayContainer];
 
-    _catalogService = [[BCOVCatalogService alloc] initWithToken:kViewControllerCatalogToken];
+    
+    
+    // With a custom view strategy, the ad container view and ad companion slots can be tied with the video content view.
+    // BCOVPlaybackControllerViewStrategy viewStrategy = ^UIView* (UIView *view, id<BCOVPlaybackController> playbackController){
+        
+    //        BCOVPlaybackControllerViewStrategy defaultControlsViewStrategy = [manager defaultControlsViewStrategy];
+    //        UIView *contentAndDefaultControlsView = defaultControlsViewStrategy(view, playbackController);
+    //
+    // Make sure the content view won't cover the any subviews (ad view) in ad container view.
+    //        [self.videoContainer insertSubview:contentAndDefaultControlsView atIndex:0];
+    //
+    //        return self.videoContainer;
+    // };
+    //
+    // _playbackController = [manager createIMAPlaybackControllerWithSettings:imaSettings adsRenderingSettings:renderSettings adsRequestPolicy:adsRequestPolicy viewStrategy:viewStrategy];
+    //
+    
+    
+    self.catalogService = [[BCOVCatalogService alloc] initWithToken:kViewControllerCatalogToken];
 
     [self resumeAdAfterForeground];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-
-    self.playbackController.view.frame = self.videoContainer.bounds;
-    self.playbackController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self.videoContainer addSubview:self.playbackController.view];
-
-    [self requestContentFromCatalog];
 }
 
 - (void)resumeAdAfterForeground
