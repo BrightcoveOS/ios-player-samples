@@ -43,14 +43,17 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     [[NSNotificationCenter defaultCenter] removeObserver:_notificationReceipt];
 }
 
-- (instancetype)initWithCoder:(NSCoder *)coder
+- (void)viewDidLoad
 {
-    self = [super initWithCoder:coder];
-    if (self)
-    {
-        [self setup];
-    }
-    return self;
+    [super viewDidLoad];
+    // Do any additional setup after loading the view, typically from a nib.
+    [self setup];
+    
+    self.playbackController.view.frame = self.videoContainer.bounds;
+    self.playbackController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [self.videoContainer insertSubview:self.playbackController.view atIndex:0];
+    
+    [self requestContentFromCatalog];
 }
 
 - (void)setup
@@ -82,31 +85,23 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     renderSettings.webOpenerPresentingController = self;
     renderSettings.webOpenerDelegate = self;
 
+    IMAAdDisplayContainer *adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:self.videoContainer companionSlots:nil];
+    
+    BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy videoPropertiesVMAPAdTagUrlAdsRequestPolicyWithAdDisplayContainer:adDisplayContainer];
+    
     // Create an IMA session provider. We pass the Widevine session provider
     // as the upstream session provider, thus creating our pipeline.
     // When using IMA and Widevine together, Widevine *must* be placed first.
-    id<BCOVPlaybackSessionProvider> imaSessionProvider = [manager createIMASessionProviderWithSettings:imaSettings adsRenderingSettings:renderSettings upstreamSessionProvider:widevineSessionProvider options:[BCOVIMASessionProviderOptions VMAPOptions]];
+    id<BCOVPlaybackSessionProvider> imaSessionProvider = [manager createIMASessionProviderWithSettings:imaSettings adsRenderingSettings:renderSettings adsRequestPolicy:adsRequestPolicy upstreamSessionProvider:widevineSessionProvider];
+    
+    self.playbackController = [manager createPlaybackControllerWithSessionProvider:imaSessionProvider viewStrategy:[manager defaultControlsViewStrategy]];
+    self.playbackController.delegate = self;
+    self.playbackController.autoAdvance = YES;
+    self.playbackController.autoPlay = YES;
 
-    _playbackController = [manager createPlaybackControllerWithSessionProvider:imaSessionProvider viewStrategy:[manager IMAAdViewStrategyWrapperWithViewStrategey:[manager defaultControlsViewStrategy]]];
-    _playbackController.delegate = self;
-    _playbackController.autoAdvance = YES;
-    _playbackController.autoPlay = YES;
-
-    _catalogService = [[BCOVCatalogService alloc] initWithToken:kViewControllerCatalogToken];
+    self.catalogService = [[BCOVCatalogService alloc] initWithToken:kViewControllerCatalogToken];
 
     [self resumeAdAfterForeground];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-
-    self.playbackController.view.frame = self.videoContainer.bounds;
-    self.playbackController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self.videoContainer addSubview:self.playbackController.view];
-
-    [self requestContentFromCatalog];
 }
 
 - (void)resumeAdAfterForeground
