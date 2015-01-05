@@ -15,8 +15,8 @@
 @import MediaPlayer;
 
 // ** Customize these values with your own account information **
-static NSString * const kViewControllerCatalogToken = @"nFCuXstvl910WWpPnCeFlDTNrpXA5mXOO9GPkuTCoLKRyYpPF1ikig..";
-static NSString * const kViewControllerPlaylistID = @"3766400043001";
+static NSString * const kViewControllerCatalogToken = @"ZUPNyrUqRdcAtjytsjcJplyUc9ed8b0cD_eWIe36jXqNWKzIcE6i8A..";
+static NSString * const kViewControllerPlaylistID = @"3637400917001";
 
 
 @interface ViewController () <BCOVPlaybackControllerDelegate, BCOVAMCSessionConsumerHeartbeatDelegate, BCOVAMCSessionConsumerMeidaDelegate>
