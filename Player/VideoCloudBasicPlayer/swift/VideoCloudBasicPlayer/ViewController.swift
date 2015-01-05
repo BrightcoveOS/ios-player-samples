@@ -9,8 +9,8 @@
 import UIKit
 
 
-let kViewControllerCatalogToken = "nFCuXstvl910WWpPnCeFlDTNrpXA5mXOO9GPkuTCoLKRyYpPF1ikig.."
-let kViewControllerPlaylistID = "3766400043001"
+let kViewControllerCatalogToken = "ZUPNyrUqRdcAtjytsjcJplyUc9ed8b0cD_eWIe36jXqNWKzIcE6i8A.."
+let kViewControllerPlaylistID = "3637400917001"
 
 
 class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
