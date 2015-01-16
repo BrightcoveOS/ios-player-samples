@@ -218,6 +218,10 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
                 break;
         }
     }
+    else if ([type isEqualToString:kBCOVWidevineLifecycleEventWViOsApi])
+    {
+        NSLog(@"ViewController Debug - Widevine Event: %@", lifecycleEvent.properties);
+    }
 }
 
 #pragma mark UI Styling
