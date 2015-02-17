@@ -34,6 +34,10 @@ IMA+Widevine samples demonstrate how to utilize the IMA Plugin in coorporation w
 
 Omniture samples demonstrate how to utilize the Omniture Plugin.
 
+##### OUX
+
+OUX samples demonstrate how to utilize the OUX Plugin.
+
 ##### Player
 
 Player samples demonstrate how to utilize the core SDK. These are intended to cover use cases like custom controls, analytics, and playback.

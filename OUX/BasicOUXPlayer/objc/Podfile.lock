@@ -1,0 +1,13 @@
+PODS:
+  - Brightcove-Player-SDK (4.3.0)
+  - Brightcove-Player-SDK-OUX (1.0.0.1):
+    - Brightcove-Player-SDK (~> 4.3)
+
+DEPENDENCIES:
+  - Brightcove-Player-SDK-OUX (~> 1.0)
+
+SPEC CHECKSUMS:
+  Brightcove-Player-SDK: 131aa1f7839b67771860cf8586c58d32385da3ae
+  Brightcove-Player-SDK-OUX: 74099f72c4582b9b2a96a4587b99003fc778e8d8
+
+COCOAPODS: 0.35.0
