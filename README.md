@@ -1,5 +1,7 @@
 Brightcove Player SDK for iOS Samples
 =====================================
+Learn more about the [Brightcove Native Player SDKs](http://docs.brightcove.com/en/video-cloud/mobile-sdks/index.html).
+
 These are a collection of sample applications for the Brightcove Player SDK for iOS, organized by subject area. An installation of [Cocoapods][cocoapods] is required to download sample dependencies.
 
 ### Prerequisites
