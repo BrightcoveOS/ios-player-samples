@@ -19,12 +19,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f1A-E2-Abt" userLabel="companion slot container view">
-                                <rect key="frame" x="150" y="358" width="300" height="250"/>
+                                <rect key="frame" x="0.0" y="358" width="600" height="242"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="3Vg-Pc-fl1"/>
                                     <constraint firstAttribute="width" constant="300" id="SYy-Cx-ZdY"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="3Vg-Pc-fl1"/>
+                                        <exclude reference="SYy-Cx-ZdY"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uqT-RI-g5z" userLabel="video container view">
                                 <rect key="frame" x="0.0" y="20" width="600" height="338"/>
@@ -36,11 +42,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="f1A-E2-Abt" secondAttribute="bottom" id="4cy-a0-n9m"/>
                             <constraint firstItem="f1A-E2-Abt" firstAttribute="top" secondItem="uqT-RI-g5z" secondAttribute="bottom" id="G0D-Lk-Shy"/>
                             <constraint firstItem="uqT-RI-g5z" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="JGb-vT-1VN"/>
+                            <constraint firstAttribute="trailing" secondItem="f1A-E2-Abt" secondAttribute="trailing" id="Qtf-YO-PsC"/>
                             <constraint firstItem="uqT-RI-g5z" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="SL9-iS-wbe"/>
                             <constraint firstAttribute="centerX" secondItem="f1A-E2-Abt" secondAttribute="centerX" id="e1Q-9a-0T2"/>
                             <constraint firstAttribute="trailing" secondItem="uqT-RI-g5z" secondAttribute="trailing" id="q6B-jI-Uxb"/>
+                            <constraint firstItem="f1A-E2-Abt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ubq-4l-Kxx"/>
                         </constraints>
                     </view>
                     <connections>

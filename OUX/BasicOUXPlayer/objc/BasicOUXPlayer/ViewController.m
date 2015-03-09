@@ -11,7 +11,7 @@
 #import "BCOVPlayerSDK.h"
 #import "BCOVOUX.h"
 
-static NSString *kViewControllerVideoURLString = @"http://onceux.unicornmedia.com/now/ads/vmap/adaptive/m3u8/95ea75e1-dd2a-4aea-851a-28f46f8e8195/43f54cc0-aa6b-4b2c-b4de-63d707167bf9/9b118b95-38df-4b99-bb50-8f53d62f6ef8??umtp=0";
+static NSString *kViewControllerVideoURLString = @"http://onceux.unicornmedia.com/now/ads/vmap/od/auto/c6589dd5-8f31-4ae3-8a5f-a54ca3d7c973/632f6399-9e87-4ce2-a7c0-39209be2b5d0/bee45a63-71ea-4a20-800f-b67091867eeb/content.once";
 
 
 @interface ViewController () <BCOVPlaybackControllerDelegate>
@@ -31,7 +31,7 @@ static NSString *kViewControllerVideoURLString = @"http://onceux.unicornmedia.co
     BCOVPlayerSDKManager *manager = [BCOVPlayerSDKManager sharedManager];
     
     // Create a companion slot.
-    BCOVOUXCompanionSlot *companionSlot = [[BCOVOUXCompanionSlot alloc] initWithView:self.companionSlotContainerView width:300 height:250];
+    BCOVOUXCompanionSlot *companionSlot = [[BCOVOUXCompanionSlot alloc] initWithView:self.companionSlotContainerView width:500 height:61];
     
     // In order to display an ad progress banner on the top of the view, we create this display container.  This object is also responsible for populating the companion slots.
     BCOVOUXAdComponentDisplayContainer *adCompoentDisplayContainer = [[BCOVOUXAdComponentDisplayContainer alloc] initWithAdComponentContainer:self.videoContainerView companionSlots:@[companionSlot]];
