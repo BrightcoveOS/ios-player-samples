@@ -44,4 +44,8 @@ OUX samples demonstrate how to utilize the OUX Plugin.
 
 Player samples demonstrate how to utilize the core SDK. These are intended to cover use cases like custom controls, analytics, and playback.
 
+#### SidecarSubtitles
+
+SidecarSubtitles samples demonstrate how to utilize the sidecarSubtitles Plugin.
+
 [cocoapods]: http://www.cocoapods.org
