@@ -1,5 +1,5 @@
 PODS:
-  - Brightcove-Player-SDK (4.3.2)
+  - Brightcove-Player-SDK (4.3.3)
   - Brightcove-Player-SDK-SidecarSubtitles (1.0.0):
     - Brightcove-Player-SDK (~> 4.3)
 
@@ -7,7 +7,7 @@ DEPENDENCIES:
   - Brightcove-Player-SDK-SidecarSubtitles (~> 1.0)
 
 SPEC CHECKSUMS:
-  Brightcove-Player-SDK: 34aa62546b1f915637a7946938eeb3a122370110
+  Brightcove-Player-SDK: a66b890fe7b3f75955c6ff536ebaba51d55952ee
   Brightcove-Player-SDK-SidecarSubtitles: 57021db654157af6fc97ff2938295a6c399128f1
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.36.0

@@ -18,7 +18,7 @@
 // ** Customize these values with your own account information **
 static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM1Sh_RsWQTEtCCpMbpKrbKQN_lhGY3fSZE-Cbp67h2aDRTDuifFXnT3yEYrxPNy640VTr224uWjtky-6YDzzqIDRyjqZq_wXu4Py0MSUMdf2rPmS102D6QGi8bIEQEXutS-eeVp";
 static NSString * const kViewControllerAccountID = @"3636334180001";
-static NSString * const kViewControllerVideoID = @"3636334180001";
+static NSString * const kViewControllerVideoID = @"3987127390001";
 
 @interface ViewController () <BCOVPlaybackControllerDelegate>
 
@@ -70,7 +70,14 @@ static NSString * const kViewControllerVideoID = @"3636334180001";
 {
     [self.service findVideoWithVideoID:kViewControllerVideoID parameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
         
-        [self.playbackController setVideos:@[ video ]];
+        if (video)
+        {
+            [self.playbackController setVideos:@[ video ]];
+        }
+        else
+        {
+            NSLog(@"ViewController Debug - Error retrieving video: `%@`", error);
+        }
         
     }];
 }
