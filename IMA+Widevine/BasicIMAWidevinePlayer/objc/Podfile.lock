@@ -1,18 +1,18 @@
 PODS:
-  - Brightcove-Player-SDK (4.2.1)
-  - Brightcove-Player-SDK-IMA (1.1.1):
-    - Brightcove-Player-SDK (~> 4.2)
-    - Brightcove-Player-SDK-IMA/Default
-  - Brightcove-Player-SDK-IMA/Core (1.1.1):
-    - Brightcove-Player-SDK (~> 4.2)
-  - Brightcove-Player-SDK-IMA/Default (1.1.1):
-    - Brightcove-Player-SDK (~> 4.2)
+  - Brightcove-Player-SDK (4.3.3)
+  - Brightcove-Player-SDK-IMA (1.3.0):
+    - Brightcove-Player-SDK (~> 4.3)
+    - Brightcove-Player-SDK-IMA/Default (= 1.3.0)
+  - Brightcove-Player-SDK-IMA/Core (1.3.0):
+    - Brightcove-Player-SDK (~> 4.3)
+  - Brightcove-Player-SDK-IMA/Default (1.3.0):
+    - Brightcove-Player-SDK (~> 4.3)
     - Brightcove-Player-SDK-IMA/Core
-    - GoogleAds-IMA-iOS-SDK (= 3.0.beta.9)
+    - GoogleAds-IMA-iOS-SDK (= 3.0.beta.12)
   - Brightcove-Player-SDK-Widevine (1.2.0):
     - Brightcove-Player-SDK (~> 4.2)
     - Widevine-iOS (= 6.0.0.12790)
-  - GoogleAds-IMA-iOS-SDK (3.0.beta.9)
+  - GoogleAds-IMA-iOS-SDK (3.0.beta.12)
   - Widevine-iOS (6.0.0.12790)
 
 DEPENDENCIES:
@@ -20,10 +20,10 @@ DEPENDENCIES:
   - Brightcove-Player-SDK-Widevine
 
 SPEC CHECKSUMS:
-  Brightcove-Player-SDK: 7b05e549d7b6cdbb897fce2fec441d6aadc6aac0
-  Brightcove-Player-SDK-IMA: 13ccc8291054e0fd88dd7444d40f8124524b7051
+  Brightcove-Player-SDK: a66b890fe7b3f75955c6ff536ebaba51d55952ee
+  Brightcove-Player-SDK-IMA: 47593c7ff0a92a3ece565dff5996e9fa23856f35
   Brightcove-Player-SDK-Widevine: db1ce118212a10ee9347b2948184eb16a73fa86e
-  GoogleAds-IMA-iOS-SDK: 6d0693eee0c634b68941f9a4dede462012a256eb
+  GoogleAds-IMA-iOS-SDK: aff35500c44b7d082cdd1d0f2297190e3e888b2f
   Widevine-iOS: 650dccafb65ed5a96c05d47fc2e04dce36904e9d
 
-COCOAPODS: 0.34.4
+COCOAPODS: 0.36.0

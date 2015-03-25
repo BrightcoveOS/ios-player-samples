@@ -2,8 +2,8 @@
 //  ViewController.m
 //  BasicIMAWidevinePlayer
 //
-//  Created by Mike Moscardini on 10/27/14.
-//  Copyright (c) 2014 BrightCove. All rights reserved.
+//  Copyright (c) 2015 Brightcove, Inc. All rights reserved.
+//  License: https://accounts.brightcove.com/en/terms-and-conditions
 //
 
 #import <BCOVIMA.h>
@@ -84,15 +84,13 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     IMAAdsRenderingSettings *renderSettings = [[IMAAdsRenderingSettings alloc] init];
     renderSettings.webOpenerPresentingController = self;
     renderSettings.webOpenerDelegate = self;
-
-    IMAAdDisplayContainer *adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:self.videoContainer companionSlots:nil];
     
-    BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy videoPropertiesVMAPAdTagUrlAdsRequestPolicyWithAdDisplayContainer:adDisplayContainer];
+    BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy videoPropertiesVMAPAdTagUrlAdsRequestPolicy];
     
     // Create an IMA session provider. We pass the Widevine session provider
     // as the upstream session provider, thus creating our pipeline.
     // When using IMA and Widevine together, Widevine *must* be placed first.
-    id<BCOVPlaybackSessionProvider> imaSessionProvider = [manager createIMASessionProviderWithSettings:imaSettings adsRenderingSettings:renderSettings adsRequestPolicy:adsRequestPolicy upstreamSessionProvider:widevineSessionProvider];
+    id<BCOVPlaybackSessionProvider> imaSessionProvider = [manager createIMASessionProviderWithSettings:imaSettings adsRenderingSettings:renderSettings adsRequestPolicy:adsRequestPolicy adContainer:self.videoContainer companionSlots:nil upstreamSessionProvider:widevineSessionProvider];
     
     self.playbackController = [manager createPlaybackControllerWithSessionProvider:imaSessionProvider viewStrategy:[manager defaultControlsViewStrategy]];
     self.playbackController.delegate = self;
