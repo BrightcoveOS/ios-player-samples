@@ -2,11 +2,12 @@
 //  ViewController.m
 //  BasicIMAPlayer
 //
-//  Created by Mike Moscardini on 10/27/14.
-//  Copyright (c) 2014 BrightCove. All rights reserved.
+//  Copyright (c) 2014 Brightcove, Inc. All rights reserved.
+//  License: https://accounts.brightcove.com/en/terms-and-conditions
 //
 
 #import <BCOVIMA.h>
+#import <Brightcove-Player-SDK/BCOVPlayerSDK.h>
 
 #import "ViewController.h"
 
@@ -20,7 +21,7 @@ static NSString * const kViewControllerIMALanguage = @"en";
 static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=%2F15018773%2Feverything2&ciu_szs=300x250%2C468x60%2C728x90&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=dummy&correlator=[timestamp]&cmsid=133&vid=10XWSh7W4so&ad_rule=1";
 
 
-@interface ViewController () <BCOVPlaybackControllerDelegate>
+@interface ViewController () <BCOVPlaybackControllerDelegate, IMAWebOpenerDelegate>
 
 @property (nonatomic, strong) BCOVCatalogService *catalogService;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
@@ -52,7 +53,7 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     self.playbackController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
     // Make sure the content view won't cover the any subviews (ad view) in ad container view.
-    [self.videoContainer insertSubview:self.playbackController.view atIndex:0];
+    [self.videoContainer addSubview:self.playbackController.view];
     
     [self requestContentFromCatalog];
 }
@@ -68,15 +69,11 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     IMAAdsRenderingSettings *renderSettings = [[IMAAdsRenderingSettings alloc] init];
     renderSettings.webOpenerPresentingController = self;
     renderSettings.webOpenerDelegate = self;
-
-    IMAAdDisplayContainer *adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:self.videoContainer companionSlots:nil];
     
     // BCOVIMAAdsRequestPolicy provides methods to specify VAST or VMAP/Server Side Ad Rules. Select the appropriate method to select your ads policy.
-    BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy videoPropertiesVMAPAdTagUrlAdsRequestPolicyWithAdDisplayContainer:adDisplayContainer];
+    BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy videoPropertiesVMAPAdTagUrlAdsRequestPolicy];
     
-    
-    
-    self.playbackController = [manager createIMAPlaybackControllerWithSettings:imaSettings adsRenderingSettings:renderSettings adsRequestPolicy:adsRequestPolicy viewStrategy:[manager defaultControlsViewStrategy]];
+    self.playbackController = [manager createIMAPlaybackControllerWithSettings:imaSettings adsRenderingSettings:renderSettings adsRequestPolicy:adsRequestPolicy adContainer:self.videoContainer companionSlots:nil viewStrategy:[manager defaultControlsViewStrategy]];
     self.playbackController.delegate = self;
     self.playbackController.autoAdvance = YES;
     self.playbackController.autoPlay = YES;
@@ -85,11 +82,11 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     // VMAP / Server Side Ad Rules. These settings are explained in BCOVIMAAdsRequestPolicy.h.
     // If you want to change these settings, you can initialize the plugin like so:
     //
-    // BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy adsRequestPolicyWithVMAPAdTagUrl:kViewControllerIMAVMAPResponseAdTag adDisplayContainer:adDisplayContainer];
+    // BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy adsRequestPolicyWithVMAPAdTagUrl:kViewControllerIMAVMAPResponseAdTag];
     //
     // or for VAST:
     //
-    // BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy adsRequestPolicyWithVASTAdTagsInCuePointsAndAdsCuePointProgressPolicy:[BCOVCuePointProgressPolicy progressPolicyProcessingCuePoints:nil adDisplayContainer:adDisplayContainer];
+    // BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy adsRequestPolicyWithVASTAdTagsInCuePointsAndAdsCuePointProgressPolicy:[BCOVCuePointProgressPolicy progressPolicyProcessingCuePoints:nil]];
 
     
     
@@ -100,7 +97,7 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     //        UIView *contentAndDefaultControlsView = defaultControlsViewStrategy(view, playbackController);
     //
     // Make sure the content view won't cover the any subviews (ad view) in ad container view.
-    //        [self.videoContainer insertSubview:contentAndDefaultControlsView atIndex:0];
+    //        [self.videoContainer addSubview:contentAndDefaultControlsView];
     //
     //        return self.videoContainer;
     // };

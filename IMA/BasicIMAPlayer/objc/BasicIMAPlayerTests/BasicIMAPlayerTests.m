@@ -2,8 +2,8 @@
 //  BasicIMAPlayerTests.m
 //  BasicIMAPlayerTests
 //
-//  Created by Mike Moscardini on 10/27/14.
-//  Copyright (c) 2014 BrightCove. All rights reserved.
+//  Copyright (c) 2014 Brightcove, Inc. All rights reserved.
+//  License: https://accounts.brightcove.com/en/terms-and-conditions
 //
 
 #import <UIKit/UIKit.h>
