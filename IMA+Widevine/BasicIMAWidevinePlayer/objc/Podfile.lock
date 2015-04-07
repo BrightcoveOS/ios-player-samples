@@ -23,7 +23,7 @@ SPEC CHECKSUMS:
   Brightcove-Player-SDK: a66b890fe7b3f75955c6ff536ebaba51d55952ee
   Brightcove-Player-SDK-IMA: 47593c7ff0a92a3ece565dff5996e9fa23856f35
   Brightcove-Player-SDK-Widevine: db1ce118212a10ee9347b2948184eb16a73fa86e
-  GoogleAds-IMA-iOS-SDK: aff35500c44b7d082cdd1d0f2297190e3e888b2f
+  GoogleAds-IMA-iOS-SDK: ce1c9191e3859466391de21c3e17d22ecbf77ecb
   Widevine-iOS: 650dccafb65ed5a96c05d47fc2e04dce36904e9d
 
 COCOAPODS: 0.36.0
