@@ -14,4 +14,4 @@ SPEC CHECKSUMS:
   Brightcove-Player-SDK-Widevine: db1ce118212a10ee9347b2948184eb16a73fa86e
   Widevine-iOS: 650dccafb65ed5a96c05d47fc2e04dce36904e9d
 
-COCOAPODS: 0.36.0
+COCOAPODS: 0.37.2

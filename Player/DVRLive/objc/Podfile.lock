@@ -1,10 +1,10 @@
 PODS:
-  - Brightcove-Player-SDK (4.3.1)
+  - Brightcove-Player-SDK (4.3.3)
 
 DEPENDENCIES:
   - Brightcove-Player-SDK
 
 SPEC CHECKSUMS:
-  Brightcove-Player-SDK: 9c7971d8badfdaad4ffc3db4600ca8a487d041ed
+  Brightcove-Player-SDK: a66b890fe7b3f75955c6ff536ebaba51d55952ee
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.37.2
