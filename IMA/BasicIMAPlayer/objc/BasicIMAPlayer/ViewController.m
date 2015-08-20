@@ -6,6 +6,8 @@
 //  License: https://accounts.brightcove.com/en/terms-and-conditions
 //
 
+#import "IMAAdsLoader.h"
+
 #import <BCOVIMA.h>
 #import <Brightcove-Player-SDK/BCOVPlayerSDK.h>
 
