@@ -28,8 +28,8 @@ static NSString * const kViewControllerPlaylistID = @"4504410987001";
 - (NSArray *)isPlaybackInitialized
 {
     if (!_isPlaybackInitialized) {
-        _isPlaybackInitialized = [[NSMutableArray alloc] initWithCapacity:_numberOfVideos];
-        for (int i = 0; i < _numberOfVideos; ++i) {
+        _isPlaybackInitialized = [[NSMutableArray alloc] initWithCapacity:self.numberOfVideos];
+        for (int i = 0; i < self.numberOfVideos; ++i) {
             _isPlaybackInitialized[i] = @(NO);
         }
     }
@@ -62,7 +62,7 @@ static NSString * const kViewControllerPlaylistID = @"4504410987001";
     BCOVPlayerSDKManager *manager = [BCOVPlayerSDKManager sharedManager];
     
     NSMutableArray *playbackControllers = [[NSMutableArray alloc] initWithCapacity:self.numberOfVideos];
-    for (int i = 0; i < _numberOfVideos; ++i) {
+    for (int i = 0; i < self.numberOfVideos; ++i) {
         id<BCOVPlaybackController> playbackController = [manager createPlaybackControllerWithViewStrategy:[manager defaultControlsViewStrategy]];
         playbackController.delegate = self;
         playbackController.autoAdvance = YES;
