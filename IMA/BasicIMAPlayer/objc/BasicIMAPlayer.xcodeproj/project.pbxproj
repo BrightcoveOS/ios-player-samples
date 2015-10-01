@@ -12,20 +12,9 @@
 		493733BB19FEB9EE009F1E08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 493733B919FEB9EE009F1E08 /* Main.storyboard */; };
 		493733BD19FEB9EE009F1E08 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 493733BC19FEB9EE009F1E08 /* Images.xcassets */; };
 		493733C019FEB9EE009F1E08 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493733BE19FEB9EE009F1E08 /* LaunchScreen.xib */; };
-		493733CC19FEB9EF009F1E08 /* BasicIMAPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 493733CB19FEB9EF009F1E08 /* BasicIMAPlayerTests.m */; };
 		493733D619FEBAE8009F1E08 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 493733D519FEBAE8009F1E08 /* AppDelegate.m */; };
 		ABC94D3562CE8912125A018F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA4671CA45C36C6044450CE /* libPods.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		493733C619FEB9EF009F1E08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 493733A419FEB9EE009F1E08 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 493733AB19FEB9EE009F1E08;
-			remoteInfo = BasicIMAPlayer;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		33755F20230272C923C10A47 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -38,7 +27,6 @@
 		493733BA19FEB9EE009F1E08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		493733BC19FEB9EE009F1E08 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		493733BF19FEB9EE009F1E08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		493733C519FEB9EF009F1E08 /* BasicIMAPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BasicIMAPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		493733CA19FEB9EF009F1E08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		493733CB19FEB9EF009F1E08 /* BasicIMAPlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BasicIMAPlayerTests.m; sourceTree = "<group>"; };
 		493733D519FEBAE8009F1E08 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -52,13 +40,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABC94D3562CE8912125A018F /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		493733C219FEB9EF009F1E08 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +69,6 @@
 			isa = PBXGroup;
 			children = (
 				493733AC19FEB9EE009F1E08 /* BasicIMAPlayer.app */,
-				493733C519FEB9EF009F1E08 /* BasicIMAPlayerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -165,31 +145,13 @@
 			productReference = 493733AC19FEB9EE009F1E08 /* BasicIMAPlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		493733C419FEB9EF009F1E08 /* BasicIMAPlayerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 493733D219FEB9EF009F1E08 /* Build configuration list for PBXNativeTarget "BasicIMAPlayerTests" */;
-			buildPhases = (
-				493733C119FEB9EF009F1E08 /* Sources */,
-				493733C219FEB9EF009F1E08 /* Frameworks */,
-				493733C319FEB9EF009F1E08 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				493733C719FEB9EF009F1E08 /* PBXTargetDependency */,
-			);
-			name = BasicIMAPlayerTests;
-			productName = BasicIMAPlayerTests;
-			productReference = 493733C519FEB9EF009F1E08 /* BasicIMAPlayerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		493733A419FEB9EE009F1E08 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = BrightCove;
 				TargetAttributes = {
 					493733AB19FEB9EE009F1E08 = {
@@ -199,10 +161,6 @@
 								enabled = 1;
 							};
 						};
-					};
-					493733C419FEB9EF009F1E08 = {
-						CreatedOnToolsVersion = 6.1;
-						TestTargetID = 493733AB19FEB9EE009F1E08;
 					};
 				};
 			};
@@ -220,7 +178,6 @@
 			projectRoot = "";
 			targets = (
 				493733AB19FEB9EE009F1E08 /* BasicIMAPlayer */,
-				493733C419FEB9EF009F1E08 /* BasicIMAPlayerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -233,13 +190,6 @@
 				493733BB19FEB9EE009F1E08 /* Main.storyboard in Resources */,
 				493733C019FEB9EE009F1E08 /* LaunchScreen.xib in Resources */,
 				493733BD19FEB9EE009F1E08 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		493733C319FEB9EF009F1E08 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,23 +239,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		493733C119FEB9EF009F1E08 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				493733CC19FEB9EF009F1E08 /* BasicIMAPlayerTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		493733C719FEB9EF009F1E08 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 493733AB19FEB9EE009F1E08 /* BasicIMAPlayer */;
-			targetProxy = 493733C619FEB9EF009F1E08 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		493733B919FEB9EE009F1E08 /* Main.storyboard */ = {
@@ -347,6 +281,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -410,9 +345,11 @@
 			baseConfigurationReference = E117D101F50B287D531CCC0C /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = BasicIMAPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.brightcove.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -422,44 +359,12 @@
 			baseConfigurationReference = 33755F20230272C923C10A47 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = BasicIMAPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.brightcove.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		493733D319FEB9EF009F1E08 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = BasicIMAPlayerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BasicIMAPlayer.app/BasicIMAPlayer";
-			};
-			name = Debug;
-		};
-		493733D419FEB9EF009F1E08 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = BasicIMAPlayerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BasicIMAPlayer.app/BasicIMAPlayer";
 			};
 			name = Release;
 		};
@@ -480,15 +385,6 @@
 			buildConfigurations = (
 				493733D019FEB9EF009F1E08 /* Debug */,
 				493733D119FEB9EF009F1E08 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		493733D219FEB9EF009F1E08 /* Build configuration list for PBXNativeTarget "BasicIMAPlayerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				493733D319FEB9EF009F1E08 /* Debug */,
-				493733D419FEB9EF009F1E08 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

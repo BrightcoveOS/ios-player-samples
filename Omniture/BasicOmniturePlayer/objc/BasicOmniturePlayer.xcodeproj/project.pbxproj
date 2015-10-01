@@ -8,27 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		494ADEB97823E69F16661953 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFF2C544B0C44C6834A5214E /* libPods.a */; };
+		49A7B6751BBDA6AA003535C6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49A7B6741BBDA6AA003535C6 /* Default-568h@2x.png */; settings = {ASSET_TAGS = (); }; };
 		9840591F1A3F8A9000732E8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9840591E1A3F8A9000732E8C /* main.m */; };
 		984059221A3F8A9000732E8C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 984059211A3F8A9000732E8C /* AppDelegate.m */; };
 		984059251A3F8A9000732E8C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 984059241A3F8A9000732E8C /* ViewController.m */; };
 		984059281A3F8A9000732E8C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 984059261A3F8A9000732E8C /* Main.storyboard */; };
 		9840592A1A3F8A9000732E8C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 984059291A3F8A9000732E8C /* Images.xcassets */; };
 		9840592D1A3F8A9000732E8C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9840592B1A3F8A9000732E8C /* LaunchScreen.xib */; };
-		984059391A3F8A9000732E8C /* BasicOmniturePlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 984059381A3F8A9000732E8C /* BasicOmniturePlayerTests.m */; };
 		9840599D1A3F8B3D00732E8C /* ADBMobileConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = 984059431A3F8B3D00732E8C /* ADBMobileConfig.json */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		984059331A3F8A9000732E8C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 984059111A3F8A9000732E8C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 984059181A3F8A9000732E8C;
-			remoteInfo = BasicOmniturePlayer;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		49A7B6741BBDA6AA003535C6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		50FC10259E28E1B7065D58A1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		984059191A3F8A9000732E8C /* BasicOmniturePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicOmniturePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9840591D1A3F8A9000732E8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -40,7 +31,6 @@
 		984059271A3F8A9000732E8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		984059291A3F8A9000732E8C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9840592C1A3F8A9000732E8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		984059321A3F8A9000732E8C /* BasicOmniturePlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BasicOmniturePlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		984059371A3F8A9000732E8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		984059381A3F8A9000732E8C /* BasicOmniturePlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BasicOmniturePlayerTests.m; sourceTree = "<group>"; };
 		984059431A3F8B3D00732E8C /* ADBMobileConfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ADBMobileConfig.json; sourceTree = "<group>"; };
@@ -54,13 +44,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				494ADEB97823E69F16661953 /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9840592F1A3F8A9000732E8C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +70,7 @@
 		984059101A3F8A9000732E8C = {
 			isa = PBXGroup;
 			children = (
+				49A7B6741BBDA6AA003535C6 /* Default-568h@2x.png */,
 				984059421A3F8B3D00732E8C /* AdobeMobile */,
 				9840591B1A3F8A9000732E8C /* BasicOmniturePlayer */,
 				984059351A3F8A9000732E8C /* BasicOmniturePlayerTests */,
@@ -100,7 +84,6 @@
 			isa = PBXGroup;
 			children = (
 				984059191A3F8A9000732E8C /* BasicOmniturePlayer.app */,
-				984059321A3F8A9000732E8C /* BasicOmniturePlayerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -176,39 +159,17 @@
 			productReference = 984059191A3F8A9000732E8C /* BasicOmniturePlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		984059311A3F8A9000732E8C /* BasicOmniturePlayerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9840593F1A3F8A9000732E8C /* Build configuration list for PBXNativeTarget "BasicOmniturePlayerTests" */;
-			buildPhases = (
-				9840592E1A3F8A9000732E8C /* Sources */,
-				9840592F1A3F8A9000732E8C /* Frameworks */,
-				984059301A3F8A9000732E8C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				984059341A3F8A9000732E8C /* PBXTargetDependency */,
-			);
-			name = BasicOmniturePlayerTests;
-			productName = BasicOmniturePlayerTests;
-			productReference = 984059321A3F8A9000732E8C /* BasicOmniturePlayerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		984059111A3F8A9000732E8C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Brightcove Inc";
 				TargetAttributes = {
 					984059181A3F8A9000732E8C = {
 						CreatedOnToolsVersion = 6.1;
-					};
-					984059311A3F8A9000732E8C = {
-						CreatedOnToolsVersion = 6.1;
-						TestTargetID = 984059181A3F8A9000732E8C;
 					};
 				};
 			};
@@ -226,7 +187,6 @@
 			projectRoot = "";
 			targets = (
 				984059181A3F8A9000732E8C /* BasicOmniturePlayer */,
-				984059311A3F8A9000732E8C /* BasicOmniturePlayerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -239,14 +199,8 @@
 				984059281A3F8A9000732E8C /* Main.storyboard in Resources */,
 				9840599D1A3F8B3D00732E8C /* ADBMobileConfig.json in Resources */,
 				9840592D1A3F8A9000732E8C /* LaunchScreen.xib in Resources */,
+				49A7B6751BBDA6AA003535C6 /* Default-568h@2x.png in Resources */,
 				9840592A1A3F8A9000732E8C /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		984059301A3F8A9000732E8C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,23 +250,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9840592E1A3F8A9000732E8C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				984059391A3F8A9000732E8C /* BasicOmniturePlayerTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		984059341A3F8A9000732E8C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 984059181A3F8A9000732E8C /* BasicOmniturePlayer */;
-			targetProxy = 984059331A3F8A9000732E8C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		984059261A3F8A9000732E8C /* Main.storyboard */ = {
@@ -354,6 +292,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -417,17 +356,20 @@
 			baseConfigurationReference = F1E84EC93975D5F3EA821A20 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/video-heartbeat/ios/libs/VideoHeartbeat",
 				);
 				INFOPLIST_FILE = BasicOmniturePlayer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/mobile-services/iOS/AdobeMobileLibrary",
 					"$(PROJECT_DIR)/video-heartbeat/ios/libs/VideoHeartbeat",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Brightcove.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -437,52 +379,21 @@
 			baseConfigurationReference = 50FC10259E28E1B7065D58A1 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/video-heartbeat/ios/libs/VideoHeartbeat",
 				);
 				INFOPLIST_FILE = BasicOmniturePlayer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/mobile-services/iOS/AdobeMobileLibrary",
 					"$(PROJECT_DIR)/video-heartbeat/ios/libs/VideoHeartbeat",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Brightcove.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		984059401A3F8A9000732E8C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = BasicOmniturePlayerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BasicOmniturePlayer.app/BasicOmniturePlayer";
-			};
-			name = Debug;
-		};
-		984059411A3F8A9000732E8C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = BasicOmniturePlayerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BasicOmniturePlayer.app/BasicOmniturePlayer";
 			};
 			name = Release;
 		};
@@ -503,15 +414,6 @@
 			buildConfigurations = (
 				9840593D1A3F8A9000732E8C /* Debug */,
 				9840593E1A3F8A9000732E8C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9840593F1A3F8A9000732E8C /* Build configuration list for PBXNativeTarget "BasicOmniturePlayerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				984059401A3F8A9000732E8C /* Debug */,
-				984059411A3F8A9000732E8C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

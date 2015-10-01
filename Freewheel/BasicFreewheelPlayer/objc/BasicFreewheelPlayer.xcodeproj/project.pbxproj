@@ -13,19 +13,8 @@
 		4937342119FEDC24009F1E08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4937341F19FEDC24009F1E08 /* Main.storyboard */; };
 		4937342319FEDC24009F1E08 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4937342219FEDC24009F1E08 /* Images.xcassets */; };
 		4937342619FEDC24009F1E08 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4937342419FEDC24009F1E08 /* LaunchScreen.xib */; };
-		4937343219FEDC25009F1E08 /* BasicFreewheelPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4937343119FEDC25009F1E08 /* BasicFreewheelPlayerTests.m */; };
 		688CD9F48F90A9594C09A9F9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 520F16295DB28D6F5F81593F /* libPods.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		4937342C19FEDC25009F1E08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4937340A19FEDC24009F1E08 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4937341119FEDC24009F1E08;
-			remoteInfo = BasicFreewheelPlayer;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		4937341219FEDC24009F1E08 /* BasicFreewheelPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicFreewheelPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -38,7 +27,6 @@
 		4937342019FEDC24009F1E08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4937342219FEDC24009F1E08 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4937342519FEDC24009F1E08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		4937342B19FEDC25009F1E08 /* BasicFreewheelPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BasicFreewheelPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4937343019FEDC25009F1E08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4937343119FEDC25009F1E08 /* BasicFreewheelPlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BasicFreewheelPlayerTests.m; sourceTree = "<group>"; };
 		520F16295DB28D6F5F81593F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,13 +40,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				688CD9F48F90A9594C09A9F9 /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4937342819FEDC25009F1E08 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,7 +61,6 @@
 			isa = PBXGroup;
 			children = (
 				4937341219FEDC24009F1E08 /* BasicFreewheelPlayer.app */,
-				4937342B19FEDC25009F1E08 /* BasicFreewheelPlayerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -165,31 +145,13 @@
 			productReference = 4937341219FEDC24009F1E08 /* BasicFreewheelPlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4937342A19FEDC25009F1E08 /* BasicFreewheelPlayerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4937343819FEDC25009F1E08 /* Build configuration list for PBXNativeTarget "BasicFreewheelPlayerTests" */;
-			buildPhases = (
-				4937342719FEDC25009F1E08 /* Sources */,
-				4937342819FEDC25009F1E08 /* Frameworks */,
-				4937342919FEDC25009F1E08 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4937342D19FEDC25009F1E08 /* PBXTargetDependency */,
-			);
-			name = BasicFreewheelPlayerTests;
-			productName = BasicFreewheelPlayerTests;
-			productReference = 4937342B19FEDC25009F1E08 /* BasicFreewheelPlayerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		4937340A19FEDC24009F1E08 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = BrightCove;
 				TargetAttributes = {
 					4937341119FEDC24009F1E08 = {
@@ -199,10 +161,6 @@
 								enabled = 1;
 							};
 						};
-					};
-					4937342A19FEDC25009F1E08 = {
-						CreatedOnToolsVersion = 6.1;
-						TestTargetID = 4937341119FEDC24009F1E08;
 					};
 				};
 			};
@@ -220,7 +178,6 @@
 			projectRoot = "";
 			targets = (
 				4937341119FEDC24009F1E08 /* BasicFreewheelPlayer */,
-				4937342A19FEDC25009F1E08 /* BasicFreewheelPlayerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -233,13 +190,6 @@
 				4937342119FEDC24009F1E08 /* Main.storyboard in Resources */,
 				4937342619FEDC24009F1E08 /* LaunchScreen.xib in Resources */,
 				4937342319FEDC24009F1E08 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4937342919FEDC25009F1E08 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,23 +239,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4937342719FEDC25009F1E08 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4937343219FEDC25009F1E08 /* BasicFreewheelPlayerTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		4937342D19FEDC25009F1E08 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4937341119FEDC24009F1E08 /* BasicFreewheelPlayer */;
-			targetProxy = 4937342C19FEDC25009F1E08 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4937341F19FEDC24009F1E08 /* Main.storyboard */ = {
@@ -347,6 +281,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -410,9 +345,11 @@
 			baseConfigurationReference = A07D7EC7A5DFE51B47F6E7DC /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = BasicFreewheelPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.brightcove.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -422,44 +359,12 @@
 			baseConfigurationReference = 988082931E63904FC361CD53 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = BasicFreewheelPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.brightcove.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		4937343919FEDC25009F1E08 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = BasicFreewheelPlayerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BasicFreewheelPlayer.app/BasicFreewheelPlayer";
-			};
-			name = Debug;
-		};
-		4937343A19FEDC25009F1E08 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = BasicFreewheelPlayerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BasicFreewheelPlayer.app/BasicFreewheelPlayer";
 			};
 			name = Release;
 		};
@@ -480,15 +385,6 @@
 			buildConfigurations = (
 				4937343619FEDC25009F1E08 /* Debug */,
 				4937343719FEDC25009F1E08 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4937343819FEDC25009F1E08 /* Build configuration list for PBXNativeTarget "BasicFreewheelPlayerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4937343919FEDC25009F1E08 /* Debug */,
-				4937343A19FEDC25009F1E08 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
