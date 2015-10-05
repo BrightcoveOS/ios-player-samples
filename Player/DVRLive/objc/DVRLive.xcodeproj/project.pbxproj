@@ -13,19 +13,8 @@
 		989F28CE1AA50335000DAB8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 989F28CC1AA50335000DAB8B /* Main.storyboard */; };
 		989F28D01AA50335000DAB8B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 989F28CF1AA50335000DAB8B /* Images.xcassets */; };
 		989F28D31AA50335000DAB8B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 989F28D11AA50335000DAB8B /* LaunchScreen.xib */; };
-		989F28DF1AA50335000DAB8B /* DVRLiveTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 989F28DE1AA50335000DAB8B /* DVRLiveTests.m */; };
 		F7CBF6580F918FC6DE7EEC63 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 690D573FFD94CE1A5A8D59D4 /* libPods.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		989F28D91AA50335000DAB8B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 989F28B71AA50335000DAB8B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 989F28BE1AA50335000DAB8B;
-			remoteInfo = DVRLive;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		690D573FFD94CE1A5A8D59D4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,7 +30,6 @@
 		989F28CD1AA50335000DAB8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		989F28CF1AA50335000DAB8B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		989F28D21AA50335000DAB8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		989F28D81AA50335000DAB8B /* DVRLiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DVRLiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		989F28DD1AA50335000DAB8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		989F28DE1AA50335000DAB8B /* DVRLiveTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DVRLiveTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -52,13 +40,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7CBF6580F918FC6DE7EEC63 /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		989F28D51AA50335000DAB8B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +78,6 @@
 			isa = PBXGroup;
 			children = (
 				989F28BF1AA50335000DAB8B /* DVRLive.app */,
-				989F28D81AA50335000DAB8B /* DVRLiveTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -165,24 +145,6 @@
 			productReference = 989F28BF1AA50335000DAB8B /* DVRLive.app */;
 			productType = "com.apple.product-type.application";
 		};
-		989F28D71AA50335000DAB8B /* DVRLiveTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 989F28E51AA50335000DAB8B /* Build configuration list for PBXNativeTarget "DVRLiveTests" */;
-			buildPhases = (
-				989F28D41AA50335000DAB8B /* Sources */,
-				989F28D51AA50335000DAB8B /* Frameworks */,
-				989F28D61AA50335000DAB8B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				989F28DA1AA50335000DAB8B /* PBXTargetDependency */,
-			);
-			name = DVRLiveTests;
-			productName = DVRLiveTests;
-			productReference = 989F28D81AA50335000DAB8B /* DVRLiveTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -194,10 +156,6 @@
 				TargetAttributes = {
 					989F28BE1AA50335000DAB8B = {
 						CreatedOnToolsVersion = 6.1.1;
-					};
-					989F28D71AA50335000DAB8B = {
-						CreatedOnToolsVersion = 6.1.1;
-						TestTargetID = 989F28BE1AA50335000DAB8B;
 					};
 				};
 			};
@@ -215,7 +173,6 @@
 			projectRoot = "";
 			targets = (
 				989F28BE1AA50335000DAB8B /* DVRLive */,
-				989F28D71AA50335000DAB8B /* DVRLiveTests */,
 			);
 		};
 /* End PBXProject section */
@@ -228,13 +185,6 @@
 				989F28CE1AA50335000DAB8B /* Main.storyboard in Resources */,
 				989F28D31AA50335000DAB8B /* LaunchScreen.xib in Resources */,
 				989F28D01AA50335000DAB8B /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		989F28D61AA50335000DAB8B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,23 +234,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		989F28D41AA50335000DAB8B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				989F28DF1AA50335000DAB8B /* DVRLiveTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		989F28DA1AA50335000DAB8B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 989F28BE1AA50335000DAB8B /* DVRLive */;
-			targetProxy = 989F28D91AA50335000DAB8B /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		989F28CC1AA50335000DAB8B /* Main.storyboard */ = {
@@ -405,9 +339,13 @@
 			baseConfigurationReference = 8C8DA855232DCD35CD8DF924 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = DVRLive/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.brightcove.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -417,44 +355,14 @@
 			baseConfigurationReference = 6ABE3E428F126C192F462FA9 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = DVRLive/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.brightcove.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		989F28E61AA50335000DAB8B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = DVRLiveTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DVRLive.app/DVRLive";
-			};
-			name = Debug;
-		};
-		989F28E71AA50335000DAB8B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = DVRLiveTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DVRLive.app/DVRLive";
 			};
 			name = Release;
 		};
@@ -475,15 +383,6 @@
 			buildConfigurations = (
 				989F28E31AA50335000DAB8B /* Debug */,
 				989F28E41AA50335000DAB8B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		989F28E51AA50335000DAB8B /* Build configuration list for PBXNativeTarget "DVRLiveTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				989F28E61AA50335000DAB8B /* Debug */,
-				989F28E71AA50335000DAB8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

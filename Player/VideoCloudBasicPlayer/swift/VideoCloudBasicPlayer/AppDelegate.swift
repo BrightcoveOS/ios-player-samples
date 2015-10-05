@@ -23,10 +23,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // for more information on how to use this in your own app.
 
         var categoryError :NSError?
-        var success = AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: &categoryError)
+        var success: Bool
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            success = true
+        } catch let error as NSError {
+            categoryError = error
+            success = false
+        }
 
         if !success {
-            println("AppDelegate Debug - Error setting AVAudioSession category.  Because of this, there may be no sound. \(categoryError!)")
+            print("AppDelegate Debug - Error setting AVAudioSession category.  Because of this, there may be no sound. \(categoryError!)")
         }
 
         return true
