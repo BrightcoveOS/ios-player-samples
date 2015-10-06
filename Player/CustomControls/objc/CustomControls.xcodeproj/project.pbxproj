@@ -13,21 +13,10 @@
 		49E642211A0280DD00D284AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49E6421F1A0280DD00D284AC /* Main.storyboard */; };
 		49E642231A0280DD00D284AC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49E642221A0280DD00D284AC /* Images.xcassets */; };
 		49E642261A0280DD00D284AC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49E642241A0280DD00D284AC /* LaunchScreen.xib */; };
-		49E642321A0280DD00D284AC /* CustomControlsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E642311A0280DD00D284AC /* CustomControlsTests.m */; };
 		49E6423E1A02932F00D284AC /* ControlsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E6423C1A02932F00D284AC /* ControlsViewController.m */; };
 		49E6423F1A02932F00D284AC /* ControlsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49E6423D1A02932F00D284AC /* ControlsViewController.xib */; };
 		B03A493930F97BCD8D699D6C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0DB68626830925D43DB64A /* libPods.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		49E6422C1A0280DD00D284AC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 49E6420A1A0280DD00D284AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 49E642111A0280DD00D284AC;
-			remoteInfo = CustomControls;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		172C0D93AAC4553DCF7413DB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -41,7 +30,6 @@
 		49E642201A0280DD00D284AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		49E642221A0280DD00D284AC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		49E642251A0280DD00D284AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		49E6422B1A0280DD00D284AC /* CustomControlsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CustomControlsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49E642301A0280DD00D284AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49E642311A0280DD00D284AC /* CustomControlsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomControlsTests.m; sourceTree = "<group>"; };
 		49E6423B1A02932F00D284AC /* ControlsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlsViewController.h; sourceTree = "<group>"; };
@@ -57,13 +45,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B03A493930F97BCD8D699D6C /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		49E642281A0280DD00D284AC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,7 +74,6 @@
 			isa = PBXGroup;
 			children = (
 				49E642121A0280DD00D284AC /* CustomControls.app */,
-				49E6422B1A0280DD00D284AC /* CustomControlsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -173,24 +153,6 @@
 			productReference = 49E642121A0280DD00D284AC /* CustomControls.app */;
 			productType = "com.apple.product-type.application";
 		};
-		49E6422A1A0280DD00D284AC /* CustomControlsTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 49E642381A0280DD00D284AC /* Build configuration list for PBXNativeTarget "CustomControlsTests" */;
-			buildPhases = (
-				49E642271A0280DD00D284AC /* Sources */,
-				49E642281A0280DD00D284AC /* Frameworks */,
-				49E642291A0280DD00D284AC /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				49E6422D1A0280DD00D284AC /* PBXTargetDependency */,
-			);
-			name = CustomControlsTests;
-			productName = CustomControlsTests;
-			productReference = 49E6422B1A0280DD00D284AC /* CustomControlsTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -208,10 +170,6 @@
 							};
 						};
 					};
-					49E6422A1A0280DD00D284AC = {
-						CreatedOnToolsVersion = 6.1;
-						TestTargetID = 49E642111A0280DD00D284AC;
-					};
 				};
 			};
 			buildConfigurationList = 49E6420D1A0280DD00D284AC /* Build configuration list for PBXProject "CustomControls" */;
@@ -228,7 +186,6 @@
 			projectRoot = "";
 			targets = (
 				49E642111A0280DD00D284AC /* CustomControls */,
-				49E6422A1A0280DD00D284AC /* CustomControlsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -242,13 +199,6 @@
 				49E642261A0280DD00D284AC /* LaunchScreen.xib in Resources */,
 				49E6423F1A02932F00D284AC /* ControlsViewController.xib in Resources */,
 				49E642231A0280DD00D284AC /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		49E642291A0280DD00D284AC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,23 +249,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		49E642271A0280DD00D284AC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				49E642321A0280DD00D284AC /* CustomControlsTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		49E6422D1A0280DD00D284AC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 49E642111A0280DD00D284AC /* CustomControls */;
-			targetProxy = 49E6422C1A0280DD00D284AC /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		49E6421F1A0280DD00D284AC /* Main.storyboard */ = {
@@ -356,7 +290,9 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -398,8 +334,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -421,8 +359,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CustomControls/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.brightcove.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -433,43 +372,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CustomControls/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.brightcove.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		49E642391A0280DD00D284AC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = CustomControlsTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CustomControls.app/CustomControls";
-			};
-			name = Debug;
-		};
-		49E6423A1A0280DD00D284AC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = CustomControlsTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CustomControls.app/CustomControls";
 			};
 			name = Release;
 		};
@@ -490,15 +396,6 @@
 			buildConfigurations = (
 				49E642361A0280DD00D284AC /* Debug */,
 				49E642371A0280DD00D284AC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		49E642381A0280DD00D284AC /* Build configuration list for PBXNativeTarget "CustomControlsTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				49E642391A0280DD00D284AC /* Debug */,
-				49E6423A1A0280DD00D284AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
