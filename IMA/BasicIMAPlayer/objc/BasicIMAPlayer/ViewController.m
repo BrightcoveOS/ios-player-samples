@@ -8,8 +8,9 @@
 
 @import GoogleInteractiveMediaAds;
 
-#import <BCOVIMA.h>
-#import <Brightcove-Player-SDK/BCOVPlayerSDK.h>
+@import BrightcovePlayerSDK;
+@import BrightcoveIMA;
+
 
 #import "ViewController.h"
 
