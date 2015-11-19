@@ -8,8 +8,8 @@
 
 #import "ViewController.h"
 
-#import <Brightcove-Player-SDK/BCOVPlayerSDK.h>
-#import <Brightcove-Player-SDK-Player-UI/BCOVPUI.h>
+@import BrightcovePlayerSDK;
+@import BrightcovePlayerUI;
 
 
 // ** Customize these values with your own account information **
