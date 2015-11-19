@@ -9,6 +9,6 @@
 #ifndef VideoCloudBasicPlayer_VideoCloudBasicPlayer_Bridging_Header_h
 #define VideoCloudBasicPlayer_VideoCloudBasicPlayer_Bridging_Header_h
 
-#import "BCOVPlayerSDK.h"
+#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
 
 #endif

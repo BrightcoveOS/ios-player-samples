@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import <Brightcove-Player-SDK/BCOVPlayerSDK.h>
+@import BrightcovePlayerSDK;
 
 
 @interface ViewController : UIViewController <BCOVPlaybackControllerDelegate>

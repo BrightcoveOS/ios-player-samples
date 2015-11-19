@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		023F6D37C5E993BCC47AD3DF /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B690646CD269418A80DC4799 /* Pods.framework */; };
 		491576A519D9F2B700B2E657 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491576A419D9F2B700B2E657 /* AppDelegate.swift */; };
 		491576A719D9F2B700B2E657 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491576A619D9F2B700B2E657 /* ViewController.swift */; };
 		491576AA19D9F2B700B2E657 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 491576A819D9F2B700B2E657 /* Main.storyboard */; };
 		491576AC19D9F2B700B2E657 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 491576AB19D9F2B700B2E657 /* Images.xcassets */; };
 		491576AF19D9F2B700B2E657 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 491576AD19D9F2B700B2E657 /* LaunchScreen.xib */; };
-		96C46085E540E3294C8C342D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F729F41294113D50C0638071 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,8 +27,8 @@
 		491576BA19D9F2B700B2E657 /* VideoCloudBasicPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCloudBasicPlayerTests.swift; sourceTree = "<group>"; };
 		491576C419D9FCB400B2E657 /* VideoCloudBasicPlayer-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VideoCloudBasicPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
 		5207067449D630E9CCE94A47 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		B690646CD269418A80DC4799 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C195D7814DEFFD951DFB9507 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		F729F41294113D50C0638071 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,7 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96C46085E540E3294C8C342D /* libPods.a in Frameworks */,
+				023F6D37C5E993BCC47AD3DF /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,7 +104,7 @@
 		54C5EB22FB67368C89DEBA6F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F729F41294113D50C0638071 /* libPods.a */,
+				B690646CD269418A80DC4799 /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -130,6 +130,7 @@
 				4915769C19D9F2B700B2E657 /* Frameworks */,
 				4915769D19D9F2B700B2E657 /* Resources */,
 				815019B61F157242E99D4F86 /* Copy Pods Resources */,
+				0309D2739BD6B6AF90BC7347 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -147,6 +148,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = Brightcove;
 				TargetAttributes = {
@@ -187,6 +189,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0309D2739BD6B6AF90BC7347 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		815019B61F157242E99D4F86 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

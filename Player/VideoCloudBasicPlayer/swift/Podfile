@@ -1,5 +1,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '7.0'
+use_frameworks!
 
-pod 'Brightcove-Player-SDK'
+platform :ios, '8.0'
+
+pod 'Brightcove-Player-SDK/dynamic'

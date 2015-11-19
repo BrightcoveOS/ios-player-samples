@@ -8,7 +8,8 @@
 
 #import "ViewController.h"
 
-#import <Brightcove-Player-SDK/BCOVPlayerSDK.h>
+@import BrightcovePlayerSDK;
+
 
 static NSString * const kVideoURLString = <URL of Live HLS>;
 

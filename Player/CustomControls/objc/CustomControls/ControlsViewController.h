@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import <BCOVPlayerSDK.h>
+@import BrightcovePlayerSDK;
 
 @protocol ControlsViewControllerFullScreenDelegate <NSObject>
 
