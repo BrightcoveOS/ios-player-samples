@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 BrightCove. All rights reserved.
 //
 
-#import <Brightcove-Player-SDK/BCOVPlayerSDK.h>
+@import BrightcovePlayerSDK;
 
 
 @interface ViewController : UIViewController <BCOVPlaybackControllerDelegate>

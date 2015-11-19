@@ -6,7 +6,9 @@
 //  Copyright (c) 2014 BrightCove. All rights reserved.
 //
 
-#import <BCOVFW.h>
+
+@import BrightcoveFW;
+
 #import <AdManager/FWSDK.h>
 
 #import "ViewController.h"
