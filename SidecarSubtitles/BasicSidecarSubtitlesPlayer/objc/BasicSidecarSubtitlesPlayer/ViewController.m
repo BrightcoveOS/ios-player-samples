@@ -7,9 +7,9 @@
 //
 
 #import "ViewController.h"
-#import "BCOVPlayerSDK.h"
 
-#import "BCOVSidecarSubtitles.h"
+@import BrightcovePlayerSDK;
+@import BrightcoveSidecarSubtitles;
 
 @import MediaPlayer;
 @import AVFoundation;
