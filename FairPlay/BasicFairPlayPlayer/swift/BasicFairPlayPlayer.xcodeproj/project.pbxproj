@@ -1,0 +1,375 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		13EF0263EC082691033271B8 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0E2C0B3ACEEB59C27104699 /* Pods.framework */; };
+		49E4336D1C0F4CD900E73634 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E4336C1C0F4CD900E73634 /* AppDelegate.swift */; };
+		49E4336F1C0F4CD900E73634 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E4336E1C0F4CD900E73634 /* ViewController.swift */; };
+		49E433721C0F4CD900E73634 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49E433701C0F4CD900E73634 /* Main.storyboard */; };
+		49E433741C0F4CD900E73634 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49E433731C0F4CD900E73634 /* Assets.xcassets */; };
+		49E433771C0F4CD900E73634 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49E433751C0F4CD900E73634 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		49E433691C0F4CD900E73634 /* BasicFairPlayPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicFairPlayPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		49E4336C1C0F4CD900E73634 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		49E4336E1C0F4CD900E73634 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		49E433711C0F4CD900E73634 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		49E433731C0F4CD900E73634 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		49E433761C0F4CD900E73634 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		49E433781C0F4CD900E73634 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49E4337E1C0F54BF00E73634 /* BasicFairPlayPlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BasicFairPlayPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
+		BB4D5AB7DE0E63B918A727BE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		D67AE2AB4B2605FB88E5BA58 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		E0E2C0B3ACEEB59C27104699 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		49E433661C0F4CD900E73634 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13EF0263EC082691033271B8 /* Pods.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		07E1F3DEA6C4CE189EAE66FF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BB4D5AB7DE0E63B918A727BE /* Pods.debug.xcconfig */,
+				D67AE2AB4B2605FB88E5BA58 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		49E433601C0F4CD900E73634 = {
+			isa = PBXGroup;
+			children = (
+				49E4336B1C0F4CD900E73634 /* BasicFairPlayPlayer */,
+				49E4336A1C0F4CD900E73634 /* Products */,
+				07E1F3DEA6C4CE189EAE66FF /* Pods */,
+				F4C4AAFE21E6B6F6DF29BCF4 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		49E4336A1C0F4CD900E73634 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				49E433691C0F4CD900E73634 /* BasicFairPlayPlayer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		49E4336B1C0F4CD900E73634 /* BasicFairPlayPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				49E4337E1C0F54BF00E73634 /* BasicFairPlayPlayer-Bridging-Header.h */,
+				49E4336C1C0F4CD900E73634 /* AppDelegate.swift */,
+				49E4336E1C0F4CD900E73634 /* ViewController.swift */,
+				49E433701C0F4CD900E73634 /* Main.storyboard */,
+				49E433731C0F4CD900E73634 /* Assets.xcassets */,
+				49E433751C0F4CD900E73634 /* LaunchScreen.storyboard */,
+				49E433781C0F4CD900E73634 /* Info.plist */,
+			);
+			path = BasicFairPlayPlayer;
+			sourceTree = "<group>";
+		};
+		F4C4AAFE21E6B6F6DF29BCF4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E0E2C0B3ACEEB59C27104699 /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		49E433681C0F4CD900E73634 /* BasicFairPlayPlayer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49E4337B1C0F4CD900E73634 /* Build configuration list for PBXNativeTarget "BasicFairPlayPlayer" */;
+			buildPhases = (
+				EBDE33955AF0F22D78FE9796 /* Check Pods Manifest.lock */,
+				49E433651C0F4CD900E73634 /* Sources */,
+				49E433661C0F4CD900E73634 /* Frameworks */,
+				49E433671C0F4CD900E73634 /* Resources */,
+				71B8F5EEF440EB7E565ADA8E /* Embed Pods Frameworks */,
+				1B0957117E642BA16FD9E49E /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BasicFairPlayPlayer;
+			productName = BasicFairPlayPlayer;
+			productReference = 49E433691C0F4CD900E73634 /* BasicFairPlayPlayer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		49E433611C0F4CD900E73634 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0710;
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = Brightcove;
+				TargetAttributes = {
+					49E433681C0F4CD900E73634 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 49E433641C0F4CD900E73634 /* Build configuration list for PBXProject "BasicFairPlayPlayer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 49E433601C0F4CD900E73634;
+			productRefGroup = 49E4336A1C0F4CD900E73634 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				49E433681C0F4CD900E73634 /* BasicFairPlayPlayer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		49E433671C0F4CD900E73634 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49E433771C0F4CD900E73634 /* LaunchScreen.storyboard in Resources */,
+				49E433741C0F4CD900E73634 /* Assets.xcassets in Resources */,
+				49E433721C0F4CD900E73634 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1B0957117E642BA16FD9E49E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		71B8F5EEF440EB7E565ADA8E /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EBDE33955AF0F22D78FE9796 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		49E433651C0F4CD900E73634 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49E4336F1C0F4CD900E73634 /* ViewController.swift in Sources */,
+				49E4336D1C0F4CD900E73634 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		49E433701C0F4CD900E73634 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				49E433711C0F4CD900E73634 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		49E433751C0F4CD900E73634 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				49E433761C0F4CD900E73634 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		49E433791C0F4CD900E73634 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "BasicFairPlayPlayer/BasicFairPlayPlayer-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		49E4337A1C0F4CD900E73634 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "BasicFairPlayPlayer/BasicFairPlayPlayer-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		49E4337C1C0F4CD900E73634 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BB4D5AB7DE0E63B918A727BE /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = BasicFairPlayPlayer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.BasicFairPlayPlayer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		49E4337D1C0F4CD900E73634 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D67AE2AB4B2605FB88E5BA58 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = BasicFairPlayPlayer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.BasicFairPlayPlayer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		49E433641C0F4CD900E73634 /* Build configuration list for PBXProject "BasicFairPlayPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49E433791C0F4CD900E73634 /* Debug */,
+				49E4337A1C0F4CD900E73634 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49E4337B1C0F4CD900E73634 /* Build configuration list for PBXNativeTarget "BasicFairPlayPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49E4337C1C0F4CD900E73634 /* Debug */,
+				49E4337D1C0F4CD900E73634 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 49E433611C0F4CD900E73634 /* Project object */;
+}
