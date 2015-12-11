@@ -3,13 +3,13 @@ PODS:
     - Brightcove-Player-SDK-Player-UI/default (= 1.0.0)
   - Brightcove-Player-SDK-Player-UI/default (1.0.0):
     - Brightcove-Player-SDK/default (~> 5.0)
-  - Brightcove-Player-SDK/default (5.0.0)
+  - Brightcove-Player-SDK/default (5.0.2)
 
 DEPENDENCIES:
   - Brightcove-Player-SDK-Player-UI (= 1.0.0)
 
 SPEC CHECKSUMS:
-  Brightcove-Player-SDK: 27cb0cb5841e4cf7730052601b3ef298bd8de8b7
+  Brightcove-Player-SDK: be52cedbecf090bdb235ee76b867994f42dbb230
   Brightcove-Player-SDK-Player-UI: 664931ecbb2c269fbcebd62190958046c2502001
 
 COCOAPODS: 0.39.0
