@@ -8,8 +8,8 @@
 
 #import "ViewController.h"
 
-#import "BCOVPlayerSDK.h"
-#import "BCOVOUX.h"
+@import BrightcovePlayerSDK;
+@import BrightcoveOUX;
 
 static NSString *kViewControllerVideoURLString = @"http://onceux.unicornmedia.com/now/ads/vmap/od/auto/c6589dd5-8f31-4ae3-8a5f-a54ca3d7c973/632f6399-9e87-4ce2-a7c0-39209be2b5d0/bee45a63-71ea-4a20-800f-b67091867eeb/content.once";
 
