@@ -12,7 +12,7 @@ import UIKit
 
 let kViewControllerAccountId = ""
 let kViewControllerPolicyKey = ""
-let kViewControllerVideoId = ""
+let kViewControllerVideoReferenceId = ""
 
 let kViewControllerFairPlayApplicationId = ""
 let kViewControllerFairPlayPublisherId = ""
@@ -59,7 +59,7 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
     }
     
     func requestContentFromCatalog() {
-        playbackService.findVideoWithReferenceID(kViewControllerVideoId, parameters: nil) { (video: BCOVVideo!, jsonResponse: [NSObject : AnyObject]!, error: NSError!) -> Void in
+        playbackService.findVideoWithReferenceID(kViewControllerVideoReferenceId, parameters: nil) { (video: BCOVVideo!, jsonResponse: [NSObject : AnyObject]!, error: NSError!) -> Void in
             
             if let v = video
             {
