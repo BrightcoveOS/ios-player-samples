@@ -7,7 +7,7 @@ These are a collection of sample applications for the Brightcove Player SDK for 
 ### Prerequisites
 
 1. CocoaPods 0.39+
-1. Xcode 6.4+
+1. Xcode 7.0+
 
 ### Instructions
 
@@ -20,32 +20,38 @@ Note: If you intend to use these samples offline, be sure to run Cocoapods befor
 
 ### Samples
 
-##### Freewheel
+##### FairPlay
 
-Freewheel samples demonstrate how to utilize the Freewheel Plugin.
+FairPlay samples demonstrate how to use the FairPlay plugin in Swift.
+
+##### FairPlay+IMA
+To see an example of using FairPlay with IMA, look under IMA+Fairplay.
+
+##### FreeWheel
+
+FreeWheel samples demonstrate how to use the FreeWheel plugin.
 
 ##### IMA
 
-IMA samples demonstrate how to utilize the IMA Plugin. These are intended to cover use cases like VMAP, VAST, Server Side Ad rules, and advanced ad topics.
+IMA samples demonstrate how to use the IMA plugin. These are intended to cover use cases like VMAP, VAST, Server Side Ad rules, and advanced ad topics.
 
-##### IMA+Widevine
-
-IMA+Widevine samples demonstrate how to utilize the IMA Plugin in coorporation with the Widevine Plugin.
+##### IMA+Fairplay
+IMA+Fairplay samples show how to use FairPlay with the IMA ads plugin.
 
 ##### Omniture
 
-Omniture samples demonstrate how to utilize the Omniture Plugin.
+Omniture samples demonstrate how to use the Omniture plugin.
 
 ##### OUX
 
-OUX samples demonstrate how to utilize the OUX Plugin.
+OUX samples demonstrate how to use the OUX plugin.
 
 ##### Player
 
-Player samples demonstrate how to utilize the core SDK. These are intended to cover use cases like custom controls, analytics, and playback.
+Player samples demonstrate how to use the core SDK. These are intended to cover use cases like custom controls, analytics, and playback.
 
 #### SidecarSubtitles
 
-SidecarSubtitles samples demonstrate how to utilize the sidecarSubtitles Plugin.
+SidecarSubtitles samples demonstrate how to use the sidecarSubtitles plugin.
 
 [cocoapods]: http://www.cocoapods.org
