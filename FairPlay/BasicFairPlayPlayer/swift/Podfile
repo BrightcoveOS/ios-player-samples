@@ -4,4 +4,6 @@ use_frameworks!
 
 platform :ios, '8.0'
 
-pod 'Brightcove-Player-SDK-FairPlay/dynamic'
+target 'BasicFairPlayPlayer' do
+	pod 'Brightcove-Player-SDK-FairPlay/dynamic'
+end
