@@ -1,5 +1,9 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
+use_frameworks!
+
 platform :ios, '7.0'
 
-pod 'Brightcove-Player-SDK-OUX'
+target 'BasicOUXPlayer' do
+	pod 'Brightcove-Player-SDK-OUX'
+end
