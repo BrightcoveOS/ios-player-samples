@@ -4,4 +4,6 @@ use_frameworks!
 
 platform :tvos, '9.0'
 
-pod 'Brightcove-Player-SDK/dynamic'
+target 'AppleTV' do
+	pod 'Brightcove-Player-SDK/dynamic'
+end

@@ -3,4 +3,6 @@ source 'https://github.com/brightcove/BCOVSpecs.git'
 
 platform :ios, '7.0'
 
-pod 'Brightcove-Player-SDK-Omniture', '~> 1.0'
+target 'BasicOmniturePlayer' do
+	pod 'Brightcove-Player-SDK-Omniture', '~> 1.0'
+end
