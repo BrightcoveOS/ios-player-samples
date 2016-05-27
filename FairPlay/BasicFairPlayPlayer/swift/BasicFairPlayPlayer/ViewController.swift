@@ -77,6 +77,16 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
         NSLog("ViewController Debug - Advanced to new session.")
     }
     
+    func playbackController(controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession, didReceiveLifecycleEvent lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
+        
+        // Report any errors that may have occurred with playback.
+        if (kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType)
+        {
+            let error = lifecycleEvent.properties["error"] as! NSError;
+            NSLog("Playback error: %@", error);
+        }
+    }
+    
     // MARK: UI Styling
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
