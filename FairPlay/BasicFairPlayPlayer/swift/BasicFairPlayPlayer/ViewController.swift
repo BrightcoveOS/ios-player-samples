@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import BrightcovePlayerSDK
+import BrightcoveFairPlay
 
 //Customize these with your own settings.
 
@@ -21,7 +23,7 @@ let kViewControllerFairPlayPublisherId = ""
 class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
     
     let playbackService = BCOVPlaybackService(accountId: kViewControllerAccountId, policyKey: kViewControllerPolicyKey)
-    let fairPlayAuthService = BCOVFPSBrightcoveAuthProxy(applicationId: kViewControllerFairPlayApplicationId, publisherId: kViewControllerFairPlayPublisherId)
+    let fairPlayAuthService = BCOVFPSBrightcoveAuthProxy(publisherId: kViewControllerFairPlayPublisherId, applicationId: kViewControllerFairPlayApplicationId)
     var playbackController :BCOVPlaybackController?
     @IBOutlet weak var videoContainerView: UIView!
     
@@ -36,7 +38,18 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
             if let appCert = applicationCertificate
             {
                 let sdkManager = BCOVPlayerSDKManager.sharedManager()
-                let controller = sdkManager.createFairPlayPlaybackControllerWithApplicationCertificate(appCert, authorizationProxy:self.fairPlayAuthService!, viewStrategy: sdkManager.defaultControlsViewStrategy())
+                
+                // Set up source selection to prefer HLS files using HTTPS
+                let options = BCOVBasicSessionProviderOptions()
+                options.sourceSelectionPolicy = BCOVBasicSourceSelectionPolicy.sourceSelectionHLSWithScheme(kBCOVSourceURLSchemeHTTPS)
+
+                // Create chain of session providers
+                let psp = sdkManager.createBasicSessionProviderWithOptions(options)
+                let fps = sdkManager.createFairPlaySessionProviderWithApplicationCertificate(appCert, authorizationProxy:self.fairPlayAuthService!, upstreamSessionProvider:psp)
+
+                // Create playback controller
+                let controller = sdkManager.createPlaybackControllerWithSessionProvider(fps, viewStrategy:sdkManager.defaultControlsViewStrategy())
+
                 controller.autoAdvance = false;
                 controller.autoPlay = true;
                 controller.delegate = self
