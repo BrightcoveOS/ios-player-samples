@@ -58,4 +58,4 @@ This sample doesn't utilize a view stategy. If you need to use plugin like IMA t
 }
 ```
 
-The `BCOVPlaybackControllerViewStrategy` layers the controls view on top of the videoView. This composed view is then passed into the `-[BCOVSDKManager IMAAdViewStrategyWrapperWithViewStrategey:viewStrategy];
+The `BCOVPlaybackControllerViewStrategy` layers the controls view on top of the videoView. This composed view is then passed into the `-[BCOVSDKManager IMAAdViewStrategyWrapperWithViewStrategey:viewStrategy];`
