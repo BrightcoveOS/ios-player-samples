@@ -13,11 +13,9 @@
 		493733BD19FEB9EE009F1E08 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 493733BC19FEB9EE009F1E08 /* Images.xcassets */; };
 		493733C019FEB9EE009F1E08 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493733BE19FEB9EE009F1E08 /* LaunchScreen.xib */; };
 		493733D619FEBAE8009F1E08 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 493733D519FEBAE8009F1E08 /* AppDelegate.m */; };
-		DDEC00427FDF1C31E1D7F6E6 /* Pods_FairPlayIMAPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C1BF9B95BB0AB146B1D88CE /* Pods_FairPlayIMAPlayer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		03884B2BD135C7879000D35F /* Pods-FairPlayIMAPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FairPlayIMAPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FairPlayIMAPlayer/Pods-FairPlayIMAPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		493733AC19FEB9EE009F1E08 /* FairPlayIMAPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FairPlayIMAPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		493733B019FEB9EE009F1E08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		493733B119FEB9EE009F1E08 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -28,7 +26,6 @@
 		493733BC19FEB9EE009F1E08 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		493733BF19FEB9EE009F1E08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		493733D519FEBAE8009F1E08 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		7C1BF9B95BB0AB146B1D88CE /* Pods_FairPlayIMAPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FairPlayIMAPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,28 +33,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDEC00427FDF1C31E1D7F6E6 /* Pods_FairPlayIMAPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0E2D8CE7C030EB4FC36DF1A5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				7C1BF9B95BB0AB146B1D88CE /* Pods_FairPlayIMAPlayer.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		493733A319FEB9EE009F1E08 = {
 			isa = PBXGroup;
 			children = (
 				493733AE19FEB9EE009F1E08 /* FairPlayIMAPlayer */,
 				493733AD19FEB9EE009F1E08 /* Products */,
-				F6427B997EE0A8246CD7A585 /* Pods */,
-				0E2D8CE7C030EB4FC36DF1A5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -93,14 +79,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		F6427B997EE0A8246CD7A585 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				03884B2BD135C7879000D35F /* Pods-FairPlayIMAPlayer.debug.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -108,12 +86,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 493733CF19FEB9EF009F1E08 /* Build configuration list for PBXNativeTarget "FairPlayIMAPlayer" */;
 			buildPhases = (
-				03A3CC327EA08D385F30D626 /* Check Pods Manifest.lock */,
 				493733A819FEB9EE009F1E08 /* Sources */,
 				493733A919FEB9EE009F1E08 /* Frameworks */,
 				493733AA19FEB9EE009F1E08 /* Resources */,
-				9A7BA547A3ACB009D1150FE3 /* Copy Pods Resources */,
-				73459E2660440ACACF6A0976 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -173,54 +148,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		03A3CC327EA08D385F30D626 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		73459E2660440ACACF6A0976 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FairPlayIMAPlayer/Pods-FairPlayIMAPlayer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9A7BA547A3ACB009D1150FE3 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FairPlayIMAPlayer/Pods-FairPlayIMAPlayer-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		493733A819FEB9EE009F1E08 /* Sources */ = {
@@ -336,7 +263,6 @@
 		};
 		493733D019FEB9EF009F1E08 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 03884B2BD135C7879000D35F /* Pods-FairPlayIMAPlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ENABLE_BITCODE = NO;
@@ -350,7 +276,6 @@
 		};
 		493733D119FEB9EF009F1E08 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 03884B2BD135C7879000D35F /* Pods-FairPlayIMAPlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ENABLE_BITCODE = NO;
