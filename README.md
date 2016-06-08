@@ -13,7 +13,7 @@ These are a collection of sample applications for the Brightcove Player SDK for 
 
 Unless otherwise instructed, samples can be run by:  
 
-1. From the project directory, run `pod update`. 
+1. From the project directory, run `pod install`. 
 1. Open the corresponding `.xcworkspace` file.
 
 Note: If you intend to use these samples offline, be sure to run Cocoapods before going offline in order to download the required dependencies.
