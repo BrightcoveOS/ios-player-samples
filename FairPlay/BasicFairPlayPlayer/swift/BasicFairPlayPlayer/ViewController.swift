@@ -21,7 +21,7 @@ let kViewControllerFairPlayPublisherId = ""
 class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
     
     let playbackService = BCOVPlaybackService(accountId: kViewControllerAccountId, policyKey: kViewControllerPolicyKey)
-    let fairPlayAuthService = BCOVFPSBrightcoveAuthProxy(applicationId: kViewControllerFairPlayApplicationId, publisherId: kViewControllerFairPlayPublisherId)
+    let fairPlayAuthService = BCOVFPSBrightcoveAuthProxy(publisherId: kViewControllerFairPlayPublisherId, applicationId: kViewControllerFairPlayApplicationId)
     var playbackController :BCOVPlaybackController?
     @IBOutlet weak var videoContainerView: UIView!
     
