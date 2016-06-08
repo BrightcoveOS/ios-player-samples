@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		349B259D1D089CA4001658E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4937341F19FEDC24009F1E08 /* Main.storyboard */; };
+		349B259E1D089CA9001658E8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4937342419FEDC24009F1E08 /* LaunchScreen.xib */; };
+		349B259F1D089CAE001658E8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4937342219FEDC24009F1E08 /* Images.xcassets */; };
 		4937341819FEDC24009F1E08 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4937341719FEDC24009F1E08 /* main.m */; };
 		4937341B19FEDC24009F1E08 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4937341A19FEDC24009F1E08 /* AppDelegate.m */; };
 		4937341E19FEDC24009F1E08 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4937341D19FEDC24009F1E08 /* ViewController.m */; };
@@ -105,6 +108,7 @@
 			buildPhases = (
 				4937340E19FEDC24009F1E08 /* Sources */,
 				4937340F19FEDC24009F1E08 /* Frameworks */,
+				349B259C1D089C88001658E8 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -151,6 +155,19 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		349B259C1D089C88001658E8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				349B259D1D089CA4001658E8 /* Main.storyboard in Resources */,
+				349B259E1D089CA9001658E8 /* LaunchScreen.xib in Resources */,
+				349B259F1D089CAE001658E8 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4937340E19FEDC24009F1E08 /* Sources */ = {
