@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		13EF0263EC082691033271B8 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0E2C0B3ACEEB59C27104699 /* Pods.framework */; };
 		49E4336D1C0F4CD900E73634 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E4336C1C0F4CD900E73634 /* AppDelegate.swift */; };
 		49E4336F1C0F4CD900E73634 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E4336E1C0F4CD900E73634 /* ViewController.swift */; };
 		49E433721C0F4CD900E73634 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49E433701C0F4CD900E73634 /* Main.storyboard */; };
@@ -24,9 +23,6 @@
 		49E433761C0F4CD900E73634 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49E433781C0F4CD900E73634 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49E4337E1C0F54BF00E73634 /* BasicFairPlayPlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BasicFairPlayPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
-		BB4D5AB7DE0E63B918A727BE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		D67AE2AB4B2605FB88E5BA58 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		E0E2C0B3ACEEB59C27104699 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,29 +30,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13EF0263EC082691033271B8 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		07E1F3DEA6C4CE189EAE66FF /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				BB4D5AB7DE0E63B918A727BE /* Pods.debug.xcconfig */,
-				D67AE2AB4B2605FB88E5BA58 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		49E433601C0F4CD900E73634 = {
 			isa = PBXGroup;
 			children = (
 				49E4336B1C0F4CD900E73634 /* BasicFairPlayPlayer */,
 				49E4336A1C0F4CD900E73634 /* Products */,
-				07E1F3DEA6C4CE189EAE66FF /* Pods */,
-				F4C4AAFE21E6B6F6DF29BCF4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -82,14 +66,6 @@
 			path = BasicFairPlayPlayer;
 			sourceTree = "<group>";
 		};
-		F4C4AAFE21E6B6F6DF29BCF4 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E0E2C0B3ACEEB59C27104699 /* Pods.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -97,12 +73,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 49E4337B1C0F4CD900E73634 /* Build configuration list for PBXNativeTarget "BasicFairPlayPlayer" */;
 			buildPhases = (
-				EBDE33955AF0F22D78FE9796 /* Check Pods Manifest.lock */,
 				49E433651C0F4CD900E73634 /* Sources */,
 				49E433661C0F4CD900E73634 /* Frameworks */,
 				49E433671C0F4CD900E73634 /* Resources */,
-				71B8F5EEF440EB7E565ADA8E /* Embed Pods Frameworks */,
-				1B0957117E642BA16FD9E49E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -158,54 +131,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		1B0957117E642BA16FD9E49E /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		71B8F5EEF440EB7E565ADA8E /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EBDE33955AF0F22D78FE9796 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		49E433651C0F4CD900E73634 /* Sources */ = {
@@ -326,7 +251,6 @@
 		};
 		49E4337C1C0F4CD900E73634 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BB4D5AB7DE0E63B918A727BE /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = BasicFairPlayPlayer/Info.plist;
@@ -338,7 +262,6 @@
 		};
 		49E4337D1C0F4CD900E73634 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D67AE2AB4B2605FB88E5BA58 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = BasicFairPlayPlayer/Info.plist;
