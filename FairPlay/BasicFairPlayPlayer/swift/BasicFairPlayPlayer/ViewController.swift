@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import BrightcovePlayerSDK
+import BrightcoveFairPlay
 
 //Customize these with your own settings.
 
@@ -36,7 +38,18 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
             if let appCert = applicationCertificate
             {
                 let sdkManager = BCOVPlayerSDKManager.sharedManager()
-                let controller = sdkManager.createFairPlayPlaybackControllerWithApplicationCertificate(appCert, authorizationProxy:self.fairPlayAuthService!, viewStrategy: sdkManager.defaultControlsViewStrategy())
+                
+                // Set up source selection to prefer HLS files using HTTPS
+                let options = BCOVBasicSessionProviderOptions()
+                options.sourceSelectionPolicy = BCOVBasicSourceSelectionPolicy.sourceSelectionHLSWithScheme(kBCOVSourceURLSchemeHTTPS)
+
+                // Create chain of session providers
+                let psp = sdkManager.createBasicSessionProviderWithOptions(options)
+                let fps = sdkManager.createFairPlaySessionProviderWithApplicationCertificate(appCert, authorizationProxy:self.fairPlayAuthService!, upstreamSessionProvider:psp)
+
+                // Create playback controller
+                let controller = sdkManager.createPlaybackControllerWithSessionProvider(fps, viewStrategy:sdkManager.defaultControlsViewStrategy())
+
                 controller.autoAdvance = false;
                 controller.autoPlay = true;
                 controller.delegate = self
@@ -75,6 +88,16 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
     
     func playbackController(controller: BCOVPlaybackController!, didAdvanceToPlaybackSession session: BCOVPlaybackSession!) {
         NSLog("ViewController Debug - Advanced to new session.")
+    }
+    
+    func playbackController(controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession, didReceiveLifecycleEvent lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
+        
+        // Report any errors that may have occurred with playback.
+        if (kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType)
+        {
+            let error = lifecycleEvent.properties["error"] as! NSError;
+            NSLog("Playback error: %@", error);
+        }
     }
     
     // MARK: UI Styling
