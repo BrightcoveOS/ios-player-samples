@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4D4288A5B7EC671FE9B2628A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB9D04E9723F15BE01BAAD3 /* libPods.a */; };
 		98A16AB11A23813F008A3B77 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A16AB01A23813F008A3B77 /* main.m */; };
 		98A16AB41A23813F008A3B77 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A16AB31A23813F008A3B77 /* AppDelegate.m */; };
 		98A16AB71A23813F008A3B77 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A16AB61A23813F008A3B77 /* ViewController.m */; };
@@ -41,9 +40,6 @@
 		98A16AC41A23813F008A3B77 /* BasicSidecarSubtitlesPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BasicSidecarSubtitlesPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98A16AC91A23813F008A3B77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98A16ACA1A23813F008A3B77 /* BasicSidecarSubtitlesPlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BasicSidecarSubtitlesPlayerTests.m; sourceTree = "<group>"; };
-		A3C8E173A1F0DF939156F4FE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		E4F9DD1692F4286AB018F953 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		EAB9D04E9723F15BE01BAAD3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +47,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D4288A5B7EC671FE9B2628A /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,22 +60,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0C10A05917FB0D793614A8DC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				EAB9D04E9723F15BE01BAAD3 /* libPods.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		98A16AA21A23813F008A3B77 = {
 			isa = PBXGroup;
 			children = (
 				98A16AAD1A23813F008A3B77 /* BasicSidecarSubtitlesPlayer */,
 				98A16AC71A23813F008A3B77 /* BasicSidecarSubtitlesPlayerTests */,
 				98A16AAC1A23813F008A3B77 /* Products */,
-				9FDA26546D8A7B7AD513EEBD /* Pods */,
-				0C10A05917FB0D793614A8DC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -134,15 +119,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		9FDA26546D8A7B7AD513EEBD /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E4F9DD1692F4286AB018F953 /* Pods.debug.xcconfig */,
-				A3C8E173A1F0DF939156F4FE /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -150,12 +126,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98A16ACE1A23813F008A3B77 /* Build configuration list for PBXNativeTarget "BasicSidecarSubtitlesPlayer" */;
 			buildPhases = (
-				80DB28CA6B2785D1F8080A6C /* Check Pods Manifest.lock */,
 				98A16AA71A23813F008A3B77 /* Sources */,
 				98A16AA81A23813F008A3B77 /* Frameworks */,
 				98A16AA91A23813F008A3B77 /* Resources */,
-				84B8C1C79CEC80427457F0BF /* Copy Pods Resources */,
-				6DB8B7946183422C6BFAB29A /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -240,54 +213,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		6DB8B7946183422C6BFAB29A /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		80DB28CA6B2785D1F8080A6C /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		84B8C1C79CEC80427457F0BF /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		98A16AA71A23813F008A3B77 /* Sources */ = {
@@ -419,7 +344,6 @@
 		};
 		98A16ACF1A23813F008A3B77 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E4F9DD1692F4286AB018F953 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -437,7 +361,6 @@
 		};
 		98A16AD01A23813F008A3B77 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3C8E173A1F0DF939156F4FE /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

@@ -86,8 +86,8 @@ NSString * kFairPlayHLSVideoURL = @"http://example.com/fps/hlsvideo.m3u8";
 
     // Create an authorization proxy for FairPlay
     // using the FairPlay Application ID and the FairPlay Publisher ID
-    BCOVFPSBrightcoveAuthProxy *proxy = [[BCOVFPSBrightcoveAuthProxy alloc] initWithApplicationId:kFairPlayApplicationId
-                                                                                      publisherId:kFairPlayPublisherId];
+    BCOVFPSBrightcoveAuthProxy *proxy = [[BCOVFPSBrightcoveAuthProxy alloc] initWithPublisherId:kFairPlayPublisherId
+                                                                                  applicationId:kFairPlayApplicationId];
 
     // Retrieve the FairPlay application certificate
     NSLog(@"Retrieving FairPlay application certificate");
