@@ -19,7 +19,6 @@ let kViewControllerVideoReferenceId = ""
 let kViewControllerFairPlayApplicationId = ""
 let kViewControllerFairPlayPublisherId = ""
 
-
 class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
     
     let playbackService = BCOVPlaybackService(accountId: kViewControllerAccountId, policyKey: kViewControllerPolicyKey)
@@ -48,19 +47,24 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
                 let fps = sdkManager.createFairPlaySessionProviderWithApplicationCertificate(appCert, authorizationProxy:self.fairPlayAuthService!, upstreamSessionProvider:psp)
 
                 // Create playback controller
-                let controller = sdkManager.createPlaybackControllerWithSessionProvider(fps, viewStrategy:sdkManager.defaultControlsViewStrategy())
+                let controller = sdkManager.createPlaybackControllerWithSessionProvider(fps, viewStrategy:nil)
 
                 controller.autoAdvance = false;
                 controller.autoPlay = true;
                 controller.delegate = self
-                
                 controller.view.frame = self.videoContainerView.bounds
                 controller.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
                 self.videoContainerView.addSubview(controller.view)
-                
+
                 self.playbackController = controller;
-                
+
                 self.requestContentFromCatalog()
+
+                let controlView = BCOVPUIBasicControlView.basicControlViewWithVODLayout()
+                let playerView = BCOVPUIPlayerView(playbackController: self.playbackController, options: nil, controlsView: controlView)
+                playerView.frame = self.videoContainerView.bounds
+                playerView.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+                self.videoContainerView.addSubview(playerView)
             }
             else
             {

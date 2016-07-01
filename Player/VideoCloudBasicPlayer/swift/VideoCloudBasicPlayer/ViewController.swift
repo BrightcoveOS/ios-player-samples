@@ -21,7 +21,7 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
 
     required init?(coder aDecoder: NSCoder) {
         let manager = BCOVPlayerSDKManager.sharedManager();
-        playbackController = manager.createPlaybackControllerWithViewStrategy(manager.defaultControlsViewStrategy())
+        playbackController = manager.createPlaybackControllerWithViewStrategy(nil)
 
         super.init(coder: aDecoder)
 
@@ -34,9 +34,11 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        playbackController.view.frame = videoContainerView.bounds
-        playbackController.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
-        videoContainerView.addSubview(playbackController.view)
+        let controlView = BCOVPUIBasicControlView.basicControlViewWithVODLayout()
+        let playerView = BCOVPUIPlayerView(playbackController: self.playbackController, options: nil, controlsView: controlView)
+        playerView.frame = self.videoContainerView.bounds
+        playerView.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+        self.videoContainerView.addSubview(playerView)
 
         requestContentFromCatalog()
     }

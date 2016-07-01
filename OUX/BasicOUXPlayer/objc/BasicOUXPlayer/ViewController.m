@@ -17,6 +17,7 @@ static NSString *kViewControllerVideoURLString = @"http://onceux.unicornmedia.co
 @interface ViewController () <BCOVPlaybackControllerDelegate>
 
 @property (nonatomic, strong) id<BCOVPlaybackController> controller;
+@property (nonatomic) BCOVPUIPlayerView *playerView;
 @property (weak, nonatomic) IBOutlet UIView *videoContainerView;
 @property (weak, nonatomic) IBOutlet UIView *companionSlotContainerView;
 
@@ -34,20 +35,25 @@ static NSString *kViewControllerVideoURLString = @"http://onceux.unicornmedia.co
     BCOVOUXCompanionSlot *companionSlot = [[BCOVOUXCompanionSlot alloc] initWithView:self.companionSlotContainerView width:500 height:61];
     
     // In order to display an ad progress banner on the top of the view, we create this display container.  This object is also responsible for populating the companion slots.
-    BCOVOUXAdComponentDisplayContainer *adCompoentDisplayContainer = [[BCOVOUXAdComponentDisplayContainer alloc] initWithAdComponentContainer:self.videoContainerView companionSlots:@[companionSlot]];
+    BCOVOUXAdComponentDisplayContainer *adComponentDisplayContainer = [[BCOVOUXAdComponentDisplayContainer alloc] initWithCompanionSlots:@[companionSlot]];
     
-    self.controller = [manager createOUXPlaybackControllerWithViewStrategy:[manager BCOVOUXdefaultControlsViewStrategy]];
+    self.controller = [manager createOUXPlaybackControllerWithViewStrategy:nil];
     
     // In order for the ad display container to receive ad information, we add it as a session consumer.
-    [self.controller addSessionConsumer:adCompoentDisplayContainer];
+    [self.controller addSessionConsumer:adComponentDisplayContainer];
     
     self.controller.delegate = self;
     self.controller.autoPlay = YES;
-    
-    self.controller.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    self.controller.view.frame = self.videoContainerView.bounds;
-    [self.videoContainerView addSubview:self.controller.view];
-    
+
+    BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
+    // Set playback controller later.
+    self.playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:nil options:nil controlsView:controlView];
+    self.playerView.frame = self.videoContainerView.bounds;
+    self.playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [self.videoContainerView addSubview:self.playerView];
+
+    self.playerView.playbackController = self.controller;
+
     // Create video
     BCOVVideo *video = [BCOVVideo videoWithURL:[NSURL URLWithString:kViewControllerVideoURLString]];
     [self.controller setVideos:@[video]];

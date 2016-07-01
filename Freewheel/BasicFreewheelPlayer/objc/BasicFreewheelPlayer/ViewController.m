@@ -25,6 +25,8 @@ static NSString * const kViewControllerSlotId= @"300x250";
 
 @property (nonatomic, strong) BCOVCatalogService *catalogService;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
+@property (nonatomic) BCOVPUIPlayerView *playerView;
+
 @property (nonatomic, weak) IBOutlet UIView *videoContainerView;
 
 @property (nonatomic, weak) id<FWContext> adContext;
@@ -59,7 +61,7 @@ static NSString * const kViewControllerSlotId= @"300x250";
 
     BCOVPlayerSDKManager *manager = [BCOVPlayerSDKManager sharedManager];
 
-    _playbackController = [manager createFWPlaybackControllerWithAdContextPolicy:[self adContextPolicy] viewStrategy:[manager defaultControlsViewStrategy]];
+    _playbackController = [manager createFWPlaybackControllerWithAdContextPolicy:[self adContextPolicy] viewStrategy:nil];
     _playbackController.delegate = self;
     _playbackController.autoAdvance = YES;
     _playbackController.autoPlay = YES;
@@ -83,9 +85,11 @@ static NSString * const kViewControllerSlotId= @"300x250";
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 
-    self.playbackController.view.frame = self.videoContainerView.bounds;
-    self.playbackController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self.videoContainerView addSubview:self.playbackController.view];
+    BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
+    _playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:_playbackController options:nil controlsView:controlView];
+    _playerView.frame = _videoContainerView.bounds;
+    _playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [_videoContainerView addSubview:_playerView];
 
     [self requestContentFromCatalog];
 }
@@ -106,7 +110,7 @@ static NSString * const kViewControllerSlotId= @"300x250";
         // please refer to your Freewheel documentation or contact your Freewheel
         // account executive. Basic information is provided below.
         id<FWContext> adContext = [strongSelf.adManager newContext];
-
+        
         // These are player/app specific values.
         [adContext setPlayerProfile:@"90750:3pqa_ios" defaultTemporalSlotProfile:nil defaultVideoPlayerSlotProfile:nil defaultSiteSectionSlotProfile:nil];
         [adContext setSiteSectionId:@"brightcove_ios" idType:FW_ID_TYPE_CUSTOM pageViewRandom:0 networkId:0 fallbackId:0];
@@ -115,16 +119,20 @@ static NSString * const kViewControllerSlotId= @"300x250";
         [adContext setVideoAssetId:@"brightcove_demo_video" idType:FW_ID_TYPE_CUSTOM duration:videoDuration durationType:FW_VIDEO_ASSET_DURATION_TYPE_EXACT location:nil autoPlayType:true videoPlayRandom:0 networkId:0 fallbackId:0];
 
         // This is the view where the ads will be rendered.
-        [adContext setVideoDisplayBase:strongSelf.videoContainerView];
+        [adContext setVideoDisplayBase:strongSelf.playerView.contentOverlayView];
 
         // These are required to use Freewheel's OOTB ad controls.
-        [adContext setParameter:FW_PARAMETER_USE_CONTROL_PANEL withValue:@"YES" forLevel:FW_PARAMETER_LEVEL_GLOBAL];
+        [adContext setParameter:FW_PARAMETER_USE_CONTROL_PANEL withValue:@"NO" forLevel:FW_PARAMETER_LEVEL_GLOBAL];
         [adContext setParameter:FW_PARAMETER_CLICK_DETECTION withValue:@"NO" forLevel:FW_PARAMETER_LEVEL_GLOBAL];
 
         // This registers a companion view slot with size 300x250. If you don't
         // need companion ads, this can be removed.
         [adContext addSiteSectionNonTemporalSlot:kViewControllerSlotId adUnit:nil width:300 height:250 slotProfile:nil acceptCompanion:YES initialAdOption:FW_SLOT_OPTION_INITIAL_AD_STAND_ALONE acceptPrimaryContentType:nil acceptContentType:nil compatibleDimensions:nil];
 
+        [adContext addTemporalSlot:@"midroll60" adUnit:FW_ADUNIT_MIDROLL timePosition:60.00 slotProfile:nil cuePointSequence:1 minDuration:0 maxDuration:100 acceptPrimaryContentType:nil acceptContentType:nil];
+        
+        [adContext addTemporalSlot:@"midroll120" adUnit:FW_ADUNIT_MIDROLL timePosition:120.00 slotProfile:nil cuePointSequence:1 minDuration:0 maxDuration:100 acceptPrimaryContentType:nil acceptContentType:nil];
+        
         // We save the adContext to the class so that we can access outside the
         // block. In this case, we will need to retrieve the companion ad slot.
         strongSelf.adContext = adContext;
