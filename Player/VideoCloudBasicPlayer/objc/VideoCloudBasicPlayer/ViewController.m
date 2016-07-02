@@ -14,10 +14,11 @@ static NSString * const kViewControllerCatalogToken = @"ZUPNyrUqRdcAtjytsjcJplyU
 static NSString * const kViewControllerPlaylistID = @"3637400917001";
 
 
-@interface ViewController () <BCOVPlaybackControllerDelegate>
+@interface ViewController () <BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate>
 
 @property (nonatomic, strong) BCOVCatalogService *catalogService;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
+@property (nonatomic) BCOVPUIPlayerView *playerView;
 @property (nonatomic, weak) IBOutlet UIView *videoContainer;
 
 @end
@@ -41,7 +42,7 @@ static NSString * const kViewControllerPlaylistID = @"3637400917001";
 {
     BCOVPlayerSDKManager *manager = [BCOVPlayerSDKManager sharedManager];
 
-    _playbackController = [manager createPlaybackControllerWithViewStrategy:[manager defaultControlsViewStrategy]];
+    _playbackController = [manager createPlaybackController];
     _playbackController.delegate = self;
     _playbackController.autoAdvance = YES;
     _playbackController.autoPlay = YES;
@@ -54,9 +55,17 @@ static NSString * const kViewControllerPlaylistID = @"3637400917001";
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 
-    self.playbackController.view.frame = self.videoContainer.bounds;
-    self.playbackController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self.videoContainer addSubview:self.playbackController.view];
+    BCOVPUIPlayerViewOptions *options = [[BCOVPUIPlayerViewOptions alloc] init];
+    options.presentingViewController = self;
+
+    BCOVPUIBasicControlView *controlsView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
+    BCOVPUIPlayerView *playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:options controlsView:controlsView ];
+    playerView.delegate = self;
+    playerView.frame = _videoContainer.bounds;
+    playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [_videoContainer addSubview:playerView];
+    _playerView = playerView;
+    _playerView.playbackController = _playbackController;
 
     [self requestContentFromCatalog];
 }

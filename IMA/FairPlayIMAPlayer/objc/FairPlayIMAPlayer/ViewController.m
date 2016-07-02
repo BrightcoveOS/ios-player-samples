@@ -25,11 +25,11 @@ NSString * kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.doubleclick.n
 
 
 // Replace with your own FairPlay account info:
-NSString * kFairPlayPublisherId = @"26abd0b8-1e0f-4ec5-83ca-30d1a0b6e2e5";
-NSString * kFairPlayApplicationId = @"197a5c6f-faa2-4d22-9e23-63e2149816e3";
+NSString * kFairPlayPublisherId = @"";
+NSString * kFairPlayApplicationId = @"";
 
 // FairPlay-protected content URL
-NSString * kFairPlayHLSVideoURL = @"http://hlsak-a.akamaihd.net/3742124955001/3742124955001_4965511237001_4965495649001.m3u8?pubId=3742124955001&videoId=4965495649001";
+NSString * kFairPlayHLSVideoURL = @"";
 
 
 @interface ViewController () <BCOVPlaybackControllerDelegate, IMAWebOpenerDelegate>

@@ -59,6 +59,8 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     self.playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.videoContainer addSubview:self.playerView];
     
+    self.playerView.playbackController = self.playbackController;
+
     [self requestContentFromCatalog];
 }
 

@@ -39,6 +39,7 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
         playerView.frame = self.videoContainerView.bounds
         playerView.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
         self.videoContainerView.addSubview(playerView)
+        playerView.playbackController = playbackController
 
         requestContentFromCatalog()
     }

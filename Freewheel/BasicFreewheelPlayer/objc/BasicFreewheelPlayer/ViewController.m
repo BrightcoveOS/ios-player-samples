@@ -110,7 +110,7 @@ static NSString * const kViewControllerSlotId= @"300x250";
         // please refer to your Freewheel documentation or contact your Freewheel
         // account executive. Basic information is provided below.
         id<FWContext> adContext = [strongSelf.adManager newContext];
-        
+
         // These are player/app specific values.
         [adContext setPlayerProfile:@"90750:3pqa_ios" defaultTemporalSlotProfile:nil defaultVideoPlayerSlotProfile:nil defaultSiteSectionSlotProfile:nil];
         [adContext setSiteSectionId:@"brightcove_ios" idType:FW_ID_TYPE_CUSTOM pageViewRandom:0 networkId:0 fallbackId:0];
