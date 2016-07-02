@@ -5,5 +5,5 @@ use_frameworks!
 platform :ios, '8.0'
 
 target 'BasicPlayerUI' do
-	pod 'Brightcove-Player-SDK-Player-UI', '~> 1.0'
+  pod 'Brightcove-Player-SDK/dynamic'
 end

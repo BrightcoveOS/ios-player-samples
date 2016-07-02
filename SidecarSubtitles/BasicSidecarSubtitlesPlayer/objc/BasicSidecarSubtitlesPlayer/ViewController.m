@@ -20,10 +20,11 @@ static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM1S
 static NSString * const kViewControllerAccountID = @"3636334180001";
 static NSString * const kViewControllerVideoID = @"3987127390001";
 
-@interface ViewController () <BCOVPlaybackControllerDelegate>
+@interface ViewController () <BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate>
 
 @property (nonatomic, strong) BCOVPlaybackService *service;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
+@property (nonatomic) BCOVPUIPlayerView *playerView;
 
 @property (nonatomic, weak) IBOutlet UIView *videoContainer;
 @property (nonatomic, strong) AVPlayerViewController *playerViewController;
@@ -46,11 +47,11 @@ static NSString * const kViewControllerVideoID = @"3987127390001";
 {
     BCOVPlayerSDKManager *manager = [BCOVPlayerSDKManager sharedManager];
 
-    _playbackController = [manager createSidecarSubtitlesPlaybackControllerWithViewStrategy:[manager defaultControlsViewStrategy]];
+    _playbackController = [manager createSidecarSubtitlesPlaybackControllerWithViewStrategy:nil];
     _playbackController.delegate = self;
     _playbackController.autoAdvance = YES;
     _playbackController.autoPlay = YES;
-    
+
     _service = [[BCOVPlaybackService alloc] initWithAccountId:kViewControllerAccountID policyKey:kViewControllerPlaybackServicePolicyKey];
 }
 
@@ -58,12 +59,18 @@ static NSString * const kViewControllerVideoID = @"3987127390001";
 {
     [super viewDidLoad];
 
-    self.playbackController.view.frame = self.videoContainer.bounds;
-    self.playbackController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self.videoContainer addSubview:self.playbackController.view];
-    
+    BCOVPUIPlayerViewOptions *options = [[BCOVPUIPlayerViewOptions alloc] init];
+    options.presentingViewController = self;
+
+    BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
+    _playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:nil options:nil controlsView:controlView];
+    _playerView.frame = _videoContainer.bounds;
+    _playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [_videoContainer addSubview:_playerView];
+
+    _playerView.playbackController = _playbackController;
+
     [self requestContentFromPlaybackService];
-    
 }
 
 - (void)requestContentFromPlaybackService

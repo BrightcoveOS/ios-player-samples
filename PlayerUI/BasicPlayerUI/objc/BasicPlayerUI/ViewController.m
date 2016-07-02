@@ -9,7 +9,6 @@
 #import "ViewController.h"
 
 @import BrightcovePlayerSDK;
-@import BrightcovePlayerUI;
 
 
 // ** Customize these values with your own account information **
@@ -21,9 +20,8 @@ static NSString * const kViewControllerPlaylistID = @"3637400917001";
 
 @property (nonatomic, strong) BCOVCatalogService *catalogService;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
+@property (nonatomic) BCOVPUIPlayerView *playerView;
 @property (nonatomic, weak) IBOutlet UIView *videoContainer;
-
-@property (nonatomic, weak) BCOVPUIPlayerView *playerView;
 
 @end
 
@@ -62,12 +60,16 @@ static NSString * const kViewControllerPlaylistID = @"3637400917001";
     BCOVPUIPlayerViewOptions *options = [[BCOVPUIPlayerViewOptions alloc] init];
     options.presentingViewController = self;
 
-    BCOVPUIPlayerView *playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:options];
-    playerView.delegate = self;
-    self.playerView = playerView;
+    BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
+    // Set playback controller later.
+    _playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:nil options:nil controlsView:controlView];
+    _playerView.frame = _videoContainer.bounds;
+    _playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [_videoContainer addSubview:_playerView];
 
-    [self.videoContainer addSubview:self.playerView];
-    [ViewController addConstraintsForView:self.playerView];
+    _playerView.playbackController = _playbackController;
+
+    [ViewController addConstraintsForView:_playerView];
 
     [self requestContentFromCatalog];
 }
