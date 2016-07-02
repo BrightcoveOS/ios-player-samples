@@ -90,6 +90,7 @@ static NSString * const kViewControllerSlotId= @"300x250";
     _playerView.frame = _videoContainerView.bounds;
     _playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [_videoContainerView addSubview:_playerView];
+    _playerView.playbackController = _playbackController;
 
     [self requestContentFromCatalog];
 }

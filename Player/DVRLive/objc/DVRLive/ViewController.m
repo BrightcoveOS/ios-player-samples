@@ -15,7 +15,7 @@ static NSString * const kVideoURLString = <URL of Live HLS>;
 
 @interface ViewController () <BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate>
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
-@property (nonatomic, weak) UIView *playerView;
+@property (nonatomic) BCOVPUIPlayerView *playerView;
 @property (nonatomic, weak) IBOutlet UIView *videoContainer;
 
 @end
@@ -61,6 +61,7 @@ static NSString * const kVideoURLString = <URL of Live HLS>;
     playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [_videoContainer addSubview:playerView];
     _playerView = playerView;
+    _playerView.playbackController = _playbackController;
 
     NSURL *videoURL = [NSURL URLWithString:kVideoURLString];
     BCOVSource *source = [[BCOVSource alloc] initWithURL:videoURL deliveryMethod:kBCOVSourceDeliveryHLS properties:nil];
