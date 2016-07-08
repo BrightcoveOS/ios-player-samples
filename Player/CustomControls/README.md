@@ -1,8 +1,9 @@
 Custom Controls Sample
 =====================================
-### Fullscreen Button
 
-This sample doesn't utilize a view stategy. If you need to use plugin like IMA that uses a view strategy. You could do the following:
+This sample does not utilize a view stategy, nor does it use the Brightcove Player UI controls that are included in version 5.1.0 of the Brightcove Native Player SDK. To see customization examples using the Player UI controls, please take a look at the [PlayerUICustomization](https://github.com/BrightcoveOS/ios-player-samples/tree/master/PlayerUI/PlayerUICustomization/objc) example.
+
+Using this example, if you need to use a plugin like IMA that uses a view strategy, you could do the following:
 
 ```
 - (void)setup

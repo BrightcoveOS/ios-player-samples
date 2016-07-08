@@ -25,6 +25,8 @@ static NSString * const kViewControllerSlotId= @"300x250";
 
 @property (nonatomic, strong) BCOVCatalogService *catalogService;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
+@property (nonatomic) BCOVPUIPlayerView *playerView;
+
 @property (nonatomic, weak) IBOutlet UIView *videoContainerView;
 
 @property (nonatomic, weak) id<FWContext> adContext;
@@ -59,21 +61,23 @@ static NSString * const kViewControllerSlotId= @"300x250";
 
     BCOVPlayerSDKManager *manager = [BCOVPlayerSDKManager sharedManager];
 
-    _playbackController = [manager createFWPlaybackControllerWithAdContextPolicy:[self adContextPolicy] viewStrategy:[manager defaultControlsViewStrategy]];
+    _playbackController = [manager createFWPlaybackControllerWithAdContextPolicy:[self adContextPolicy] viewStrategy:nil];
     _playbackController.delegate = self;
     _playbackController.autoAdvance = YES;
     _playbackController.autoPlay = YES;
 
     // Creating a playback controller based on the above code will initialize a
-    // Freewheel component using it's default settings. These settings and defaults
+    // Freewheel component using its default settings. These settings and defaults
     // are explained in BCOVFWSessionProviderOptions.h.
     // If you want to change these settings, you can initialize the plugin like so:
     //
     // BCOVFWSessionProviderOptions *options = [[BCOVFWSessionProviderOptions alloc] init];
-    // options.cuePointProgressPolicy = [BCOVCuePointProgressPolicy progressPolicyProcessingCuePoints:resumingPlaybackFrom:ignoringPreviouslyProcessedCuePoints:];
-    // id<BCOVPlaybackSessionProvider> sessionProvider = [playbackManager createFWSessionProviderWithAdContextPolicy:[self adContextPolicy] upstreamSessionProvider:nil options:options];
-    //
-    // id<BCOVPlaybackController> playbackController = [playbackManager createPlaybackControllerWithSessionProvider:sessionProvider viewStrategy:[playbackManager defaultControlsViewStrategy]];
+    // options.cuePointProgressPolicy = [BCOVCuePointProgressPolicy progressPolicyProcessingCuePoints:(BCOVProgressPolicyCuePointsToProcess) resumingPlaybackFrom: (BCOVProgressPolicyResumePosition) ignoringPreviouslyProcessedCuePoints:(BOOL)];
+    // id<BCOVPlaybackSessionProvider> sessionProvider = [manager createFWSessionProviderWithAdContextPolicy:[self adContextPolicy] upstreamSessionProvider:nil options:options];
+    // _playbackController = [manager createPlaybackControllerWithSessionProvider:sessionProvider viewStrategy:nil];
+    // _playbackController.delegate = self;
+    // _playbackController.autoAdvance = YES;
+    // _playbackController.autoPlay = YES;
 
     _catalogService = [[BCOVCatalogService alloc] initWithToken:kViewControllerCatalogToken];
 }
@@ -83,9 +87,12 @@ static NSString * const kViewControllerSlotId= @"300x250";
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 
-    self.playbackController.view.frame = self.videoContainerView.bounds;
-    self.playbackController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self.videoContainerView addSubview:self.playbackController.view];
+    BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
+    _playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:_playbackController options:nil controlsView:controlView];
+    _playerView.frame = _videoContainerView.bounds;
+    _playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [_videoContainerView addSubview:_playerView];
+    _playerView.playbackController = _playbackController;
 
     [self requestContentFromCatalog];
 }
@@ -115,16 +122,20 @@ static NSString * const kViewControllerSlotId= @"300x250";
         [adContext setVideoAssetId:@"brightcove_demo_video" idType:FW_ID_TYPE_CUSTOM duration:videoDuration durationType:FW_VIDEO_ASSET_DURATION_TYPE_EXACT location:nil autoPlayType:true videoPlayRandom:0 networkId:0 fallbackId:0];
 
         // This is the view where the ads will be rendered.
-        [adContext setVideoDisplayBase:strongSelf.videoContainerView];
+        [adContext setVideoDisplayBase:strongSelf.playerView.contentOverlayView];
 
         // These are required to use Freewheel's OOTB ad controls.
-        [adContext setParameter:FW_PARAMETER_USE_CONTROL_PANEL withValue:@"YES" forLevel:FW_PARAMETER_LEVEL_GLOBAL];
+        [adContext setParameter:FW_PARAMETER_USE_CONTROL_PANEL withValue:@"NO" forLevel:FW_PARAMETER_LEVEL_GLOBAL];
         [adContext setParameter:FW_PARAMETER_CLICK_DETECTION withValue:@"NO" forLevel:FW_PARAMETER_LEVEL_GLOBAL];
 
         // This registers a companion view slot with size 300x250. If you don't
         // need companion ads, this can be removed.
         [adContext addSiteSectionNonTemporalSlot:kViewControllerSlotId adUnit:nil width:300 height:250 slotProfile:nil acceptCompanion:YES initialAdOption:FW_SLOT_OPTION_INITIAL_AD_STAND_ALONE acceptPrimaryContentType:nil acceptContentType:nil compatibleDimensions:nil];
 
+        [adContext addTemporalSlot:@"midroll60" adUnit:FW_ADUNIT_MIDROLL timePosition:60.00 slotProfile:nil cuePointSequence:1 minDuration:0 maxDuration:100 acceptPrimaryContentType:nil acceptContentType:nil];
+        
+        [adContext addTemporalSlot:@"midroll120" adUnit:FW_ADUNIT_MIDROLL timePosition:120.00 slotProfile:nil cuePointSequence:1 minDuration:0 maxDuration:100 acceptPrimaryContentType:nil acceptContentType:nil];
+        
         // We save the adContext to the class so that we can access outside the
         // block. In this case, we will need to retrieve the companion ad slot.
         strongSelf.adContext = adContext;

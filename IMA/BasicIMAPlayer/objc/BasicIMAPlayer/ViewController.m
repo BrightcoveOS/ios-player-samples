@@ -28,6 +28,7 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
 
 @property (nonatomic, strong) BCOVCatalogService *catalogService;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
+@property (nonatomic) BCOVPUIPlayerView *playerView;
 @property (nonatomic, weak) IBOutlet UIView *videoContainer;
 
 @property (nonatomic, assign) BOOL adIsPlaying;
@@ -52,12 +53,14 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     // Do any additional setup after loading the view, typically from a nib.
     [self setup];
     
-    self.playbackController.view.frame = self.videoContainer.bounds;
-    self.playbackController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
+    self.playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:nil controlsView:controlView];
+    self.playerView.frame = self.videoContainer.bounds;
+    self.playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [self.videoContainer addSubview:self.playerView];
     
-    // Make sure the content view won't cover the any subviews (ad view) in ad container view.
-    [self.videoContainer addSubview:self.playbackController.view];
-    
+    self.playerView.playbackController = self.playbackController;
+
     [self requestContentFromCatalog];
 }
 
@@ -76,7 +79,7 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     // BCOVIMAAdsRequestPolicy provides methods to specify VAST or VMAP/Server Side Ad Rules. Select the appropriate method to select your ads policy.
     BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy videoPropertiesVMAPAdTagUrlAdsRequestPolicy];
     
-    self.playbackController = [manager createIMAPlaybackControllerWithSettings:imaSettings adsRenderingSettings:renderSettings adsRequestPolicy:adsRequestPolicy adContainer:self.videoContainer companionSlots:nil viewStrategy:[manager defaultControlsViewStrategy]];
+    self.playbackController = [manager createIMAPlaybackControllerWithSettings:imaSettings adsRenderingSettings:renderSettings adsRequestPolicy:adsRequestPolicy adContainer:self.videoContainer companionSlots:nil viewStrategy:nil];
     self.playbackController.delegate = self;
     self.playbackController.autoAdvance = YES;
     self.playbackController.autoPlay = YES;

@@ -5,6 +5,6 @@ use_frameworks!
 platform :ios, '7.0'
 
 target 'BasicOUXPlayer' do
-	pod 'Brightcove-Player-SDK-OUX', '~> 2.0.0'
-	pod 'Brightcove-Player-SDK', '~> 5.0.0'
+  pod 'Brightcove-Player-SDK-OUX'
+  pod 'Brightcove-Player-SDK'
 end

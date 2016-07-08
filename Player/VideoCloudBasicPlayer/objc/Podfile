@@ -5,5 +5,5 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'VideoCloudBasicPlayer' do
-	pod 'Brightcove-Player-SDK',  '~> 5.0.0'
+  pod 'Brightcove-Player-SDK'
 end

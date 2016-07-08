@@ -6,6 +6,6 @@ use_frameworks!
 platform :ios, '7.0'
 
 target 'BasicFreewheelPlayer' do
-	pod 'Brightcove-Player-SDK-FW', '~> 2.0.0'
-	pod 'Brightcove-Player-SDK', '~> 5.0.0'
+  pod 'Brightcove-Player-SDK-FW'
+  pod 'Brightcove-Player-SDK'
 end

@@ -35,6 +35,7 @@ NSString * kFairPlayHLSVideoURL = @"http://example.com/fps/hlsvideo.m3u8";
 @interface ViewController () <BCOVPlaybackControllerDelegate, IMAWebOpenerDelegate>
 
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
+@property (nonatomic) BCOVPUIPlayerView *playerView;
 @property (nonatomic, weak) IBOutlet UIView *videoContainer;
 
 @property (nonatomic, assign) BOOL adIsPlaying;
@@ -113,19 +114,23 @@ NSString * kFairPlayHLSVideoURL = @"http://example.com/fps/hlsvideo.m3u8";
 
             NSLog(@"Creating playback controller");
             // Create playback controller with the chain of session providers.
-            id<BCOVPlaybackController> playbackController = [sdkManager createPlaybackControllerWithSessionProvider:imaSessionProvider
-                                                                                                       viewStrategy:[sdkManager defaultControlsViewStrategy]];
+            id<BCOVPlaybackController> playbackController = [sdkManager createPlaybackControllerWithSessionProvider:imaSessionProvider viewStrategy:nil];
 
             playbackController.delegate = self;
             playbackController.autoAdvance = YES;
             playbackController.autoPlay = YES;
 
-            // Match the parent view and install
-            playbackController.view.frame = self.videoContainer.bounds;
-            playbackController.view.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
-            [self.videoContainer addSubview:playbackController.view];
-
             _playbackController = playbackController;
+
+            // Match the parent view and install
+            BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
+            self.playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:_playbackController options:nil controlsView:controlView];
+            _playerView.frame = self.videoContainer.bounds;
+            _playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+            [_videoContainer addSubview:self.playerView];
+
+            _playerView.playbackController = _playbackController;
+
             NSLog(@"Created a new playbackController");
 
             [self requestContent];

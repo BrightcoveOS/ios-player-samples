@@ -5,7 +5,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'FairPlayIMAPlayer' do
-	pod 'Brightcove-Player-SDK-IMA', '~> 2.0.0'
-	pod 'Brightcove-Player-SDK-FairPlay/dynamic', '~> 1.0.0'
-	pod 'Brightcove-Player-SDK', '~> 5.0.0'
+  pod 'Brightcove-Player-SDK-IMA'
+  pod 'Brightcove-Player-SDK-FairPlay/dynamic'
+  pod 'Brightcove-Player-SDK'
 end
