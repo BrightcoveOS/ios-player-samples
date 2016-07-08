@@ -67,15 +67,17 @@ static NSString * const kViewControllerSlotId= @"300x250";
     _playbackController.autoPlay = YES;
 
     // Creating a playback controller based on the above code will initialize a
-    // Freewheel component using it's default settings. These settings and defaults
+    // Freewheel component using its default settings. These settings and defaults
     // are explained in BCOVFWSessionProviderOptions.h.
     // If you want to change these settings, you can initialize the plugin like so:
     //
     // BCOVFWSessionProviderOptions *options = [[BCOVFWSessionProviderOptions alloc] init];
-    // options.cuePointProgressPolicy = [BCOVCuePointProgressPolicy progressPolicyProcessingCuePoints:resumingPlaybackFrom:ignoringPreviouslyProcessedCuePoints:];
-    // id<BCOVPlaybackSessionProvider> sessionProvider = [playbackManager createFWSessionProviderWithAdContextPolicy:[self adContextPolicy] upstreamSessionProvider:nil options:options];
-    //
-    // id<BCOVPlaybackController> playbackController = [playbackManager createPlaybackControllerWithSessionProvider:sessionProvider viewStrategy:[playbackManager defaultControlsViewStrategy]];
+    // options.cuePointProgressPolicy = [BCOVCuePointProgressPolicy progressPolicyProcessingCuePoints:(BCOVProgressPolicyCuePointsToProcess) resumingPlaybackFrom: (BCOVProgressPolicyResumePosition) ignoringPreviouslyProcessedCuePoints:(BOOL)];
+    // id<BCOVPlaybackSessionProvider> sessionProvider = [manager createFWSessionProviderWithAdContextPolicy:[self adContextPolicy] upstreamSessionProvider:nil options:options];
+    // _playbackController = [manager createPlaybackControllerWithSessionProvider:sessionProvider viewStrategy:nil];
+    // _playbackController.delegate = self;
+    // _playbackController.autoAdvance = YES;
+    // _playbackController.autoPlay = YES;
 
     _catalogService = [[BCOVCatalogService alloc] initWithToken:kViewControllerCatalogToken];
 }
