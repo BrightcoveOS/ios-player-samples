@@ -30,8 +30,11 @@ Note: If you intend to use these samples offline, be sure to run Cocoapods befor
 
 FairPlay samples demonstrate how to use the FairPlay plugin in Swift.
 
-##### FairPlay+IMA
-To see an example of using FairPlay with IMA, look under IMA+Fairplay.
+##### FairPlayIMAPlayer
+To see an example of using FairPlay with IMA, refer to the FairPlayIMAPlayer sample app in the IMA folder.
+
+###### A note about the FairPlay sample apps
+1. In both of the FairPlay sample apps, there are references to `FairPlayPublisherId` and `FairPlayApplicationId`. These terms refer to FairPlay credentials that Brightcove does not provide, which are instead acquired through Apple directly.
 
 ##### FreeWheel
 

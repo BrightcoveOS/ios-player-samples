@@ -12,8 +12,8 @@ import BrightcoveFairPlay
 
 //Customize these with your own settings.
 
-let kViewControllerAccountId = ""
-let kViewControllerPolicyKey = ""
+let kViewControllerVideoCloudAccountId = ""
+let kViewControllerVideoCloudPolicyKey = ""
 let kViewControllerVideoReferenceId = ""
 
 let kViewControllerFairPlayApplicationId = ""
@@ -21,7 +21,7 @@ let kViewControllerFairPlayPublisherId = ""
 
 class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
     
-    let playbackService = BCOVPlaybackService(accountId: kViewControllerAccountId, policyKey: kViewControllerPolicyKey)
+    let playbackService = BCOVPlaybackService(accountId: kViewControllerVideoCloudAccountId, policyKey: kViewControllerVideoCloudPolicyKey)
     let fairPlayAuthService = BCOVFPSBrightcoveAuthProxy(publisherId: kViewControllerFairPlayPublisherId, applicationId: kViewControllerFairPlayApplicationId)
     var playbackController :BCOVPlaybackController?
     @IBOutlet weak var videoContainerView: UIView!
