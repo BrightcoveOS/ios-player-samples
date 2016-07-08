@@ -6,7 +6,7 @@ These are a collection of sample applications for the Brightcove Player SDK for 
 
 ### Prerequisites
 
-1. CocoaPods 0.39+
+1. CocoaPods 1.0+
 1. Xcode 7.0+
 
 ### Instructions
