@@ -5,5 +5,5 @@ use_frameworks!
 platform :ios, '7.0'
 
 target 'DVRLive' do
-	pod 'Brightcove-Player-SDK'
+  pod 'Brightcove-Player-SDK'
 end
