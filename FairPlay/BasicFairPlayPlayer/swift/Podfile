@@ -6,5 +6,5 @@ platform :ios, '8.0'
 
 target 'BasicFairPlayPlayer' do
   pod 'Brightcove-Player-SDK-FairPlay/dynamic'
-  pod 'Brightcove-Player-SDK'
+  pod 'Brightcove-Player-SDK/dynamic'
 end
