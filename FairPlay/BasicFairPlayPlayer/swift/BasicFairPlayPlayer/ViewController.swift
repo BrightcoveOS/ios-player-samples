@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import BrightcovePlayerSDK
-import BrightcoveFairPlay
 
 //Customize these with your own settings.
 
