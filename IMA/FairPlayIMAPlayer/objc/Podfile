@@ -6,6 +6,5 @@ use_frameworks!
 
 target 'FairPlayIMAPlayer' do
   pod 'Brightcove-Player-SDK-IMA'
-  pod 'Brightcove-Player-SDK-FairPlay/dynamic'
-  pod 'Brightcove-Player-SDK'
+  pod 'Brightcove-Player-SDK-FairPlay'
 end
