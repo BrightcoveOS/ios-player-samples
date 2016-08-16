@@ -299,7 +299,8 @@
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/video-heartbeat/ios/libs/VideoHeartbeat",
+					"\"$(PROJECT_DIR)/mobile-services/sdks/iOS/AdobeMobileLibrary\"",
+					"\"$(PROJECT_DIR)/video-heartbeat-v2/sdks/iOS/libs/Headers\"",
 				);
 				INFOPLIST_FILE = BasicOmniturePlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -321,7 +322,8 @@
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/video-heartbeat/ios/libs/VideoHeartbeat",
+					"\"$(PROJECT_DIR)/mobile-services/sdks/iOS/AdobeMobileLibrary\"",
+					"\"$(PROJECT_DIR)/video-heartbeat-v2/sdks/iOS/libs/Headers\"",
 				);
 				INFOPLIST_FILE = BasicOmniturePlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
