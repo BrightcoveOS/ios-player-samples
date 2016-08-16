@@ -1,8 +1,12 @@
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/brightcove/BCOVSpecs.git'
+source 'https://bithub.brightcove.com/trodgers/test-specs.git'
+
+use_frameworks!
 
 platform :ios, '7.0'
 
 target 'BasicOmniturePlayer' do
-	pod 'Brightcove-Player-SDK-Omniture', '~> 1.0'
+	pod 'Brightcove-Player-SDK', '~> 5.1.0'
+	pod 'Brightcove-Player-SDK-Omniture-test', '~> 1.1.0'
 end

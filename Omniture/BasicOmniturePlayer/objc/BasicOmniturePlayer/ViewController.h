@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+
+#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
+#import <BrightcoveAMC/BrightcoveAMC.h>
+
+
 @interface ViewController : UIViewController
-
-
 @end
 

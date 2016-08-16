@@ -1,18 +1,20 @@
 //
 //  ViewController.m
-//  BasicOmniturePlayer
+//  BCOVOmniturePlayer
 //
 //  Copyright (c) 2014 Brightcove, Inc. All rights reserved.
 //  License: https://accounts.brightcove.com/en/terms-and-conditions
 //
 
+// Adobe Media Heartbeat
+#import "ADBMediaHeartbeat.h"
+#import "ADBMediaHeartbeatConfig.h"
+
+// Adobe Mobile Marketing Cloud
+#import "ADBMobile.h"
+
 #import "ViewController.h"
 
-#import "BCOVPlayerSDK.h"
-
-#import "BCOVAMC.h"
-
-@import MediaPlayer;
 
 // ** Customize these values with your own account information **
 static NSString * const kViewControllerCatalogToken = @"ZUPNyrUqRdcAtjytsjcJplyUc9ed8b0cD_eWIe36jXqNWKzIcE6i8A..";
@@ -24,6 +26,7 @@ static NSString * const kViewControllerPlaylistID = @"3637400917001";
 @property (nonatomic, strong) BCOVCatalogService *catalogService;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
 @property (nonatomic, weak) IBOutlet UIView *videoContainerView;
+@property (nonatomic) BCOVPUIPlayerView *playerView;
 
 @end
 
@@ -43,15 +46,15 @@ static NSString * const kViewControllerPlaylistID = @"3637400917001";
 {
     BCOVPlayerSDKManager *manager = [BCOVPlayerSDKManager sharedManager];
     
-    _playbackController = [manager createPlaybackControllerWithViewStrategy:[manager defaultControlsViewStrategy]];
+    _playbackController = [manager createPlaybackControllerWithViewStrategy:nil];
     _playbackController.delegate = self;
     _playbackController.autoAdvance = YES;
     _playbackController.autoPlay = NO;
 
-    // Use Adobe Video Haartbeat analytics
+    // Use Adobe Video Media Heartbeat v2.0 analytics
     [_playbackController addSessionConsumer: [self videoHeartbeatSessionConsumer]];
-    // or Use Adobe media analytics
-    //[_playbackController addSessionConsumer: [self mediaAnalyticsSessionConsumer]];
+    // OR use Adobe media analytics
+//    [_playbackController addSessionConsumer: [self mediaAnalyticsSessionConsumer]];
 
     
     _catalogService = [[BCOVCatalogService alloc] initWithToken:kViewControllerCatalogToken];
@@ -61,52 +64,47 @@ static NSString * const kViewControllerPlaylistID = @"3637400917001";
 
 #pragma mark BCOVAMCSessionConsumer
 
+- (BCOVAMCSessionConsumer *)videoHeartbeatSessionConsumer
+{
+    BCOVAMCVideoHeartbeatConfigurationPolicy videoHeartbeatConfigurationPolicy = ^ADBMediaHeartbeatConfig *(id<BCOVPlaybackSession> session) {
+        
+        ADBMediaHeartbeatConfig *configData = [[ADBMediaHeartbeatConfig alloc] init];
+        
+        configData.trackingServer = @"ovppartners.hb.omtrdc.net";
+        configData.channel = @"test-channel";
+        configData.appVersion = @"1.0.0";
+        configData.ovp = @"Brightcove";
+        configData.playerName = @"BasicOmniturePlayer";
+        configData.ssl = NO;
+        
+        // NOTE: remove this in production code.
+        configData.debugLogging = YES;
+        
+        return configData;
+    };
+    
+    BCOVAMCAnalyticsPolicy *heartbeatPolicy = [[BCOVAMCAnalyticsPolicy alloc] initWithHeartbeatConfigurationPolicy:videoHeartbeatConfigurationPolicy];
+    
+    return [BCOVAMCSessionConsumer heartbeatAnalyticsConsumerWithPolicy:heartbeatPolicy delegate:self];
+}
+
 - (BCOVAMCSessionConsumer *)mediaAnalyticsSessionConsumer
 {
     BCOVAMCMediaSettingPolicy mediaSettingPolicy = ^ADBMediaSettings *(id<BCOVPlaybackSession> session) {
-        ADBMediaSettings *settings = [ADBMobile mediaCreateSettingsWithName:@"BasicOmniturePlayerMeidaSettings"
+        ADBMediaSettings *settings = [ADBMobile mediaCreateSettingsWithName:@"BCOVOmniturePlayerMeidaSettings"
         // You can set video length to 0. Omniture plugin will update it later for you.
                                                                      length:0
                                                                  playerName:@"BasicOmniturePlayer"
                                                                    playerID:@"BasicOmniturePlayer"];
         // Adobe media analytics setting customization
         // settings.milestones = @"25,50,75";
+        
         return settings;
     };
     
     BCOVAMCAnalyticsPolicy *mediaPolicy = [[BCOVAMCAnalyticsPolicy alloc] initWithMediaSettingsPolicy:mediaSettingPolicy];
     
     return [BCOVAMCSessionConsumer mediaAnalyticsConsumerWithPolicy:mediaPolicy delegate:self];
-}
-
-- (BCOVAMCSessionConsumer *)videoHeartbeatSessionConsumer
-{
-    BCOVAMCVideoHeartbeatConfigurationPolicy videoHeartbeatConfigurationPolicy = ^ADB_VHB_ConfigData *(id<BCOVPlaybackSession> session) {
-        
-        ADB_VHB_ConfigData *configuData = [[ADB_VHB_ConfigData alloc] initWithTrackingServer:@"sample-server" jobId:@"sample-job" publisher:@"sample-publisher"];
-        configuData.channel = @"test_channel";
-        
-        // Set this to true to activate the debug tracing.
-        // NOTE: remove this in production code.
-        configuData.debugLogging = YES;
-        return configuData;
-    };
-    
-    BCOVAMCVideoHeartbeatVideoInfoPolicy videoHeartbeatVideoInfoPolicy = ^ADB_VHB_VideoInfo *(id<BCOVPlaybackSession> session) {
-        
-        ADB_VHB_VideoInfo *videoInfo = [[ADB_VHB_VideoInfo alloc] init];
-        // Use session.video.properties[<key>] as videoID
-        NSString *videoID = session.video.properties[kBCOVCatalogJSONKeyId];
-        videoInfo.id = videoID;
-        videoInfo.name = videoID;
-        videoInfo.playerName = @"BasicOmniturePlayer";
-        return videoInfo;
-        
-    };
-    
-    BCOVAMCAnalyticsPolicy *heartbeatPolicy = [[BCOVAMCAnalyticsPolicy alloc] initWithHeartbeatConfigurationPolicy: videoHeartbeatConfigurationPolicy videoInfoPolicy: videoHeartbeatVideoInfoPolicy];
-    
-    return [BCOVAMCSessionConsumer heartbeatAnalyticsConsumerWithPolicy:heartbeatPolicy delegate:self];
 }
 
 
@@ -122,9 +120,13 @@ static NSString * const kViewControllerPlaylistID = @"3637400917001";
 
 - (void)UISetup
 {
-    self.playbackController.view.frame = self.videoContainerView.bounds;
-    self.playbackController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self.videoContainerView addSubview:self.playbackController.view];
+    // Create and configure Control View.
+    BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
+    self.playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:nil controlsView:controlView];
+    self.playerView.frame = self.videoContainerView.bounds;
+    self.playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    
+    [self.videoContainerView addSubview:self.playerView];
     
     [self requestContentFromCatalog];
 }
@@ -160,16 +162,13 @@ static NSString * const kViewControllerPlaylistID = @"3637400917001";
 }
 
 #pragma mark - BCOVAMCSessionConsumerHeartbeatDelegate
-- (void)heartbeatOnSession:(id<BCOVPlaybackSession>)session error:(ADB_VHB_ErrorInfo *)errorInfo;
-{
-    NSLog(@"error = %@ %@", errorInfo.message, errorInfo.details);
-}
+
 - (void)heartbeatVideoUnloadedOnSession:(id<BCOVPlaybackSession>)session;
 {
-    
+    // FIXME: does this get called?
 }
 
-#pragma mark - @protocol BCOVAMCSessionConsumerMeidaDelegate <NSObject>
+#pragma mark - @protocol BCOVAMCSessionConsumerMediaDelegate <NSObject>
 
 - (void)mediaOnSession:(id<BCOVPlaybackSession>)session mediaState:(ADBMediaState *)mediaState;
 {
