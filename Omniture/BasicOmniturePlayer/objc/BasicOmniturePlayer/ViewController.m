@@ -165,7 +165,7 @@ static NSString * const kViewControllerPlaylistID = @"3637400917001";
 
 - (void)heartbeatVideoUnloadedOnSession:(id<BCOVPlaybackSession>)session;
 {
-    // FIXME: does this get called?
+    NSLog(@"ViewController Debug - heartbeatVideoUnloadedOnSession:");
 }
 
 #pragma mark - @protocol BCOVAMCSessionConsumerMediaDelegate <NSObject>
