@@ -68,7 +68,7 @@ static NSString * const kViewControllerSlotId= @"300x250";
 
     // Creating a playback controller based on the above code will initialize a
     // Freewheel component using its default settings. These settings and defaults
-    // are explained in BCOVFWSessionProviderOptions.h.
+    // are explained in BCOVFWSessionProvider.h.
     // If you want to change these settings, you can initialize the plugin like so:
     //
     // BCOVFWSessionProviderOptions *options = [[BCOVFWSessionProviderOptions alloc] init];
