@@ -6,8 +6,13 @@ These are a collection of sample applications for the Brightcove Player SDKs for
 
 ### Prerequisites
 
-1. CocoaPods 1.0+
+1. CocoaPods 0.39.0+
 1. Xcode 7.0+
+
+### A note about Xcode 8
+A number of sample apps were written in Swift and have not yet been updated to modern Swift standards. When those projects are opened using Xcode 8, the user will be prompted to convert the source files. The project can be safely converted to Swift 2.3. As a result of the conversion, no source changes will be made however the .xcodeproj file will be updated to reflect the Swift 2.3 language version.
+
+A future release of the ios-player-samples will provide updated Swift projects.
 
 ### Instructions
 
