@@ -102,7 +102,7 @@ static NSString * const kViewControllerVideoID = @"3987127390001";
                                kBCOVSSTextTracksKeyLabel: @"English",
                                kBCOVSSTextTracksKeyDefault: @YES,
                                kBCOVSSTextTracksKeySourceLanguage: @"en",
-                               kBCOVSSTextTracksKeySource: @"Add your VTT caption file URL here",
+                               kBCOVSSTextTracksKeySource: @"http://players.brightcove.net/3636334163001/ios_native_player_sdk/vtt/sample.vtt",
                                kBCOVSSTextTracksKeyMIMEType: @"text/vtt"
                                }
                             ];
