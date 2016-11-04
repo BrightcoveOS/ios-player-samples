@@ -79,7 +79,14 @@ static NSString * const kViewControllerVideoID = @"3987127390001";
         
         if (video)
         {
-            [self.playbackController setVideos:@[ video ]];
+            BCOVVideo *updatedVideo = [video update:^(id<BCOVMutableVideo> mutableVideo) {
+                NSArray *textTracks = @[];
+                textTracks = [self setupSubtitles];
+                NSMutableDictionary *updatedDictionary = [mutableVideo.properties mutableCopy];
+                updatedDictionary[kBCOVSSVideoPropertiesKeyTextTracks] = textTracks;
+                mutableVideo.properties = updatedDictionary;
+            }];
+            [self.playbackController setVideos:@[updatedVideo]];
         }
         else
         {
@@ -89,6 +96,18 @@ static NSString * const kViewControllerVideoID = @"3987127390001";
     }];
 }
 
+- (NSArray *)setupSubtitles
+{
+    NSArray *textTracks = @[@{ kBCOVSSTextTracksKeyKind: kBCOVSSTextTracksKindSubtitles,
+                               kBCOVSSTextTracksKeyLabel: @"English",
+                               kBCOVSSTextTracksKeyDefault: @YES,
+                               kBCOVSSTextTracksKeySourceLanguage: @"en",
+                               kBCOVSSTextTracksKeySource: @"http://players.brightcove.net/3636334163001/ios_native_player_sdk/vtt/sample.vtt",
+                               kBCOVSSTextTracksKeyMIMEType: @"text/vtt"
+                               }
+                            ];
+    return textTracks;
+}
 
 #pragma mark BCOVPlaybackControllerDelegate Methods
 
