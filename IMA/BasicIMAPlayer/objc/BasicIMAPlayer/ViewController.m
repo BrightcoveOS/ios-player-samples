@@ -245,6 +245,32 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     }
 }
 
+/**
+ * Called when playback enters a new ad sequence within a playback session.
+ *
+ * @param controller The playback controller in which this transition occurred.
+ * @param session The playback session within which the ad transition occurred.
+ * @param adSequence The ad sequence being entered.
+ */
+- (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didEnterAdSequence:(BCOVAdSequence *)adSequence
+{
+    // Hide all controls for ads (so they're not visible when full-screen)
+    self.playerView.controlsContainerView.alpha = 0.0;
+}
+
+/**
+ * Called when playback exits an ad sequence within a playback session.
+ *
+ * @param controller The playback controller in which this transition occurred.
+ * @param session The playback session within which the ad transition occurred.
+ * @param adSequence The ad sequence being exited.
+ */
+- (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didExitAdSequence:(BCOVAdSequence *)adSequence
+{
+    // Show all controls now that ads are done
+    self.playerView.controlsContainerView.alpha = 1.0;
+}
+
 #pragma mark UI Styling
 
 - (UIStatusBarStyle)preferredStatusBarStyle
