@@ -6,6 +6,6 @@ use_frameworks!
 platform :ios, '8.0'
 
 target 'BasicOmniturePlayer' do
-	pod 'Brightcove-Player-SDK', '~> 5.1'
-	pod 'Brightcove-Player-SDK-Omniture', '~> 1.1'
+	pod 'Brightcove-Player-SDK'
+	pod 'Brightcove-Player-SDK-Omniture'
 end
