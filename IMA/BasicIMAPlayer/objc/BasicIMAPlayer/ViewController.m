@@ -52,20 +52,34 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self setup];
-    
-    BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
-    self.playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:nil controlsView:controlView];
-    self.playerView.frame = self.videoContainer.bounds;
-    self.playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self.videoContainer addSubview:self.playerView];
-    
-    self.playerView.playbackController = self.playbackController;
-
     [self requestContentFromCatalog];
+}
+
+- (void)createPlayerView
+{
+    if (!self.playerView)
+    {
+        BCOVPUIPlayerViewOptions *options = [[BCOVPUIPlayerViewOptions alloc] init];
+        options.presentingViewController = self;
+
+        BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
+        // Set playback controller later.
+        self.playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:nil options:options controlsView:controlView];
+        self.playerView.frame = self.videoContainer.bounds;
+        self.playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        [self.videoContainer addSubview:self.playerView];
+    }
+    else
+    {
+        NSLog(@"PlayerView already exists, not trying to re-create it.");
+    }
 }
 
 - (void)setup
 {
+
+    [self createPlayerView];
+
     BCOVPlayerSDKManager *manager = [BCOVPlayerSDKManager sharedManager];
 
     IMASettings *imaSettings = [[IMASettings alloc] init];
@@ -83,6 +97,8 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     self.playbackController.delegate = self;
     self.playbackController.autoAdvance = YES;
     self.playbackController.autoPlay = YES;
+
+    self.playerView.playbackController = self.playbackController;
 
     // Creating a playback controller based on the above code will create
     // VMAP / Server Side Ad Rules. These settings are explained in BCOVIMAAdsRequestPolicy.h.
@@ -109,19 +125,14 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     // };
     //
     // _playbackController = [manager createIMAPlaybackControllerWithSettings:imaSettings adsRenderingSettings:renderSettings adsRequestPolicy:adsRequestPolicy viewStrategy:viewStrategy];
-    //
-    
-    
-    self.catalogService = [[BCOVCatalogService alloc] initWithToken:kViewControllerCatalogToken];
 
     [self resumeAdAfterForeground];
 }
 
 - (void)resumeAdAfterForeground
 {
-    // When the app goes to the background, the Google IMA library will pause
-    // the ad. This code demonstrates how you would resume the ad when entering
-    // the foreground.
+    // When the app goes to the background, the Google IMA library will pause the ad. This code demonstrates how you would
+    // set up a notification to resume the ad when entering or re-entering the foreground.
 
     ViewController * __weak weakSelf = self;
 
@@ -146,6 +157,8 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     // You are responsible for determining where the ad tag should originate from.
     // We advise that if you choose to hard code it into your app, that you provide
     // a mechanism to update it without having to submit an update to your app.
+
+    self.catalogService = [[BCOVCatalogService alloc] initWithToken:kViewControllerCatalogToken];
 
     [self.catalogService findPlaylistWithPlaylistID:kViewControllerPlaylistID parameters:nil completion:^(BCOVPlaylist *playlist, NSDictionary *jsonResponse, NSError *error) {
 
@@ -230,6 +243,32 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
                 break;
         }
     }
+}
+
+/**
+ * Called when playback enters a new ad sequence within a playback session.
+ *
+ * @param controller The playback controller in which this transition occurred.
+ * @param session The playback session within which the ad transition occurred.
+ * @param adSequence The ad sequence being entered.
+ */
+- (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didEnterAdSequence:(BCOVAdSequence *)adSequence
+{
+    // Hide all controls for ads (so they're not visible when full-screen)
+    self.playerView.controlsContainerView.alpha = 0.0;
+}
+
+/**
+ * Called when playback exits an ad sequence within a playback session.
+ *
+ * @param controller The playback controller in which this transition occurred.
+ * @param session The playback session within which the ad transition occurred.
+ * @param adSequence The ad sequence being exited.
+ */
+- (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didExitAdSequence:(BCOVAdSequence *)adSequence
+{
+    // Show all controls now that ads are done
+    self.playerView.controlsContainerView.alpha = 1.0;
 }
 
 #pragma mark UI Styling
