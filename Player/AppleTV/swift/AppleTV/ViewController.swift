@@ -10,20 +10,22 @@ import UIKit
 import AVKit
 
 
-let kViewControllerCatalogToken = "ZUPNyrUqRdcAtjytsjcJplyUc9ed8b0cD_eWIe36jXqNWKzIcE6i8A.."
-let kViewControllerPlaylistID = "3637400917001"
+let kViewControllerPlaybackServicePolicyKey = "BCpkADawqM1W-vUOMe6RSA3pA6Vw-VWUNn5rL0lzQabvrI63-VjS93gVUugDlmBpHIxP16X8TSe5LSKM415UHeMBmxl7pqcwVY_AZ4yKFwIpZPvXE34TpXEYYcmulxJQAOvHbv2dpfq-S_cm"
+let kViewControllerAccountID = "3636334163001"
+let kViewControllerVideoID = "3666678807001"
 
 
-class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
-
-    let catalogService = BCOVCatalogService(token:kViewControllerCatalogToken)
+class ViewController: UIViewController, BCOVPlaybackControllerDelegate
+{
+    let playbackService = BCOVPlaybackService(accountId: kViewControllerAccountID, policyKey: kViewControllerPlaybackServicePolicyKey)
     let avpvc = AVPlayerViewController()
     let playbackController :BCOVPlaybackController
     @IBOutlet weak var videoContainerView: UIView!
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         let manager = BCOVPlayerSDKManager.sharedManager();
-        playbackController = manager.createPlaybackControllerWithViewStrategy(manager.defaultControlsViewStrategy())
+        playbackController = manager.createPlaybackControllerWithViewStrategy(nil)
         
         super.init(coder: aDecoder)
         
@@ -32,7 +34,8 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
         playbackController.autoPlay = true
     }
 
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
@@ -45,28 +48,31 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
         requestContentFromCatalog()
     }
     
-    func requestContentFromCatalog() {
-        catalogService.findPlaylistWithPlaylistID(kViewControllerPlaylistID, parameters: nil) { (playlist: BCOVPlaylist!, jsonResponse: [NSObject : AnyObject]!, error: NSError!) -> Void in
+    func requestContentFromCatalog()
+    {
+        playbackService.findVideoWithVideoID(kViewControllerVideoID, parameters: nil) { (video: BCOVVideo!, jsonResponse: [NSObject : AnyObject]!, error: NSError!) -> Void in
             
-            if let p = playlist
+            if let v = video
             {
-                self.playbackController.setVideos(p)
+                self.playbackController.setVideos([v])
             }
             else
             {
-                NSLog("ViewController Debug - Error retrieving playlist: %@", error)
+                NSLog("ViewController Debug - Error retrieving video playlist: %@", error)
             }
             
         }
     }
     
-    func playbackController(controller: BCOVPlaybackController!, didAdvanceToPlaybackSession session: BCOVPlaybackSession!) {
+    func playbackController(controller: BCOVPlaybackController!, didAdvanceToPlaybackSession session: BCOVPlaybackSession!)
+    {
         NSLog("ViewController Debug - Advanced to new session.")
         
         self.avpvc.player = session.player;
     }
     
-    func playbackController(controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didReceiveLifecycleEvent lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
+    func playbackController(controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didReceiveLifecycleEvent lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!)
+    {
         
         NSLog("Event: %@", lifecycleEvent.eventType)
     }

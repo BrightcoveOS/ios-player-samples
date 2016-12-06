@@ -16,9 +16,9 @@
 @import AVKit;
 
 // ** Customize these values with your own account information **
-static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM1Sh_RsWQTEtCCpMbpKrbKQN_lhGY3fSZE-Cbp67h2aDRTDuifFXnT3yEYrxPNy640VTr224uWjtky-6YDzzqIDRyjqZq_wXu4Py0MSUMdf2rPmS102D6QGi8bIEQEXutS-eeVp";
-static NSString * const kViewControllerAccountID = @"3636334180001";
-static NSString * const kViewControllerVideoID = @"3987127390001";
+static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM1W-vUOMe6RSA3pA6Vw-VWUNn5rL0lzQabvrI63-VjS93gVUugDlmBpHIxP16X8TSe5LSKM415UHeMBmxl7pqcwVY_AZ4yKFwIpZPvXE34TpXEYYcmulxJQAOvHbv2dpfq-S_cm";
+static NSString * const kViewControllerAccountID = @"3636334163001";
+static NSString * const kViewControllerVideoID = @"3666678807001";
 
 @interface ViewController () <BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate>
 
@@ -90,7 +90,7 @@ static NSString * const kViewControllerVideoID = @"3987127390001";
         }
         else
         {
-            NSLog(@"ViewController Debug - Error retrieving video: `%@`", error);
+            NSLog(@"ViewController Debug - Error retrieving video playlist: `%@`", error);
         }
         
     }];

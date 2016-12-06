@@ -19,5 +19,4 @@ Next, install the CocoaPods.
 pod install
 ```
 
-After installing the CocoaPods, add the Adobe SDK libraries to your `.xcworkspace` project file. 
-Navigate into the mobile-services directory to find `AdobeMobileLibrary.a` for iOS and add it to the xcworkspace project. Navigate into the video-heartbeat-v2 directory to find `VideoHeartbeat.a` for iOS and add it to the xcworkspace project.
+After installing the CocoaPods, add the Adobe SDK libraries to the `.xcworkspace` project file. Navigate into the mobile-services directory to find `AdobeMobileLibrary.a` for iOS and add it to the BasicOmniturePlayer project of BasicOmniturePlayer.xcworkspace. Navigate into the video-heartbeat-v2 directory to find `VideoHeartbeat.a` for iOS and add it to the BasicOmniturePlayer project of BasicOmniturePlayer.xcworkspace.

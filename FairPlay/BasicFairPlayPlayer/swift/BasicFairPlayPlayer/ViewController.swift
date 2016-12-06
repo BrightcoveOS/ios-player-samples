@@ -103,7 +103,7 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
         }
     }
     
-    // MARK: UI Styling
+    // MARK: - UI Styling
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
