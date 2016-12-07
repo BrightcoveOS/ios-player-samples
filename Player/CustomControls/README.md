@@ -56,7 +56,7 @@ Using this example, if you need to use a plugin like IMA that uses a view strate
 
     [self addChildViewController:self.controlsViewController];
 
-    [self requestContentFromCatalog];
+    [self requestContentFromPlaybackService];
 }
 ```
 
