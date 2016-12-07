@@ -96,7 +96,7 @@ static NSString * const kViewControllerSlotId= @"300x250";
     [_videoContainerView addSubview:_playerView];
     _playerView.playbackController = _playbackController;
 
-    [self requestContentFromCatalog];
+    [self requestContentFromPlaybackService];
 }
 
 - (BCOVFWSessionProviderAdContextPolicy)adContextPolicy
@@ -147,7 +147,7 @@ static NSString * const kViewControllerSlotId= @"300x250";
     } copy];
 }
 
-- (void)requestContentFromCatalog
+- (void)requestContentFromPlaybackService
 {
     // In order to play back content, we are going to request a video from the playback service.
     [self.playbackService findVideoWithVideoID:kViewControllerVideoID parameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {

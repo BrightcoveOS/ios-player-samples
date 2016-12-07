@@ -44,10 +44,10 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
         self.videoContainerView.addSubview(playerView)
         playerView.playbackController = playbackController
 
-        requestContentFromCatalog()
+        requestContentFromPlaybackService()
     }
 
-    func requestContentFromCatalog()
+    func requestContentFromPlaybackService()
     {
         playbackService.findVideoWithVideoID(kViewControllerVideoID, parameters: nil) { (video: BCOVVideo!, jsonResponse: [NSObject : AnyObject]!, error: NSError!) -> Void in
             

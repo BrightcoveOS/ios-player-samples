@@ -178,7 +178,7 @@ NSString * kFairPlayHLSVideoURL = @"http://example.com/fps/hlsvideo.m3u8";
 {
     NSLog(@"Request video content");
 
-    // Here, you can retrieve BCOVVideo objects from the Playback Service APIs. You can also
+    // Here, you can retrieve BCOVVideo objects from the Playback Service. You can also
     // create your own BCOVVideo objects directly from URLs if you have them, as shown here:
 
     BCOVVideo *video = [BCOVVideo videoWithURL:[NSURL URLWithString:kFairPlayHLSVideoURL]];

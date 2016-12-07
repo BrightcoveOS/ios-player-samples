@@ -45,10 +45,10 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate
         self.view.addSubview(self.avpvc.view);
         self.avpvc.didMoveToParentViewController(self);
         
-        requestContentFromCatalog()
+        requestContentFromPlaybackService()
     }
     
-    func requestContentFromCatalog()
+    func requestContentFromPlaybackService()
     {
         playbackService.findVideoWithVideoID(kViewControllerVideoID, parameters: nil) { (video: BCOVVideo!, jsonResponse: [NSObject : AnyObject]!, error: NSError!) -> Void in
             

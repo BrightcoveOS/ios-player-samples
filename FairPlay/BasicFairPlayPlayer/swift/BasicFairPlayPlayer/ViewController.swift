@@ -56,7 +56,7 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
 
                 self.playbackController = controller;
 
-                self.requestContentFromCatalog()
+                self.requestContentFromPlaybackService()
 
                 let controlView = BCOVPUIBasicControlView.basicControlViewWithVODLayout()
                 let playerView = BCOVPUIPlayerView(playbackController: self.playbackController, options: nil, controlsView: controlView)
@@ -74,7 +74,7 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
         
     }
     
-    func requestContentFromCatalog() {
+    func requestContentFromPlaybackService() {
         playbackService.findVideoWithReferenceID(kViewControllerVideoReferenceId, parameters: nil) { (video: BCOVVideo!, jsonResponse: [NSObject : AnyObject]!, error: NSError!) -> Void in
             
             if let v = video

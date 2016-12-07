@@ -113,7 +113,7 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
         _playbackController.autoAdvance = YES;
         _playbackController.autoPlay = YES;
 
-        // Initialize catalog service for retrieving videos
+        // Initialize playback service for retrieving videos
         _playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kViewControllerAccountID
                                                                 policyKey:kViewControllerPlaybackServicePolicyKey];
     }

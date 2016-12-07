@@ -130,11 +130,11 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
     
     [self.videoContainerView addSubview:self.playerView];
     
-    [self requestContentFromCatalog];
+    [self requestContentFromPlaybackService];
 }
 
 
-- (void)requestContentFromCatalog
+- (void)requestContentFromPlaybackService
 {
 	[self.playbackService findVideoWithVideoID:kViewControllerVideoID parameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
 

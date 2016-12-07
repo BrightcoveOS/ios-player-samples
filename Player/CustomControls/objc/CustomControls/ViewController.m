@@ -80,7 +80,7 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
     self.videoView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.videoContainer addSubview:self.videoView];
 
-    [self requestContentFromCatalog];
+    [self requestContentFromPlaybackService];
 }
 
 - (void)handleEnterFullScreenButtonPressed
@@ -105,7 +105,7 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
     }];
 }
 
-- (void)requestContentFromCatalog
+- (void)requestContentFromPlaybackService
 {
     [self.playbackService findVideoWithVideoID:kViewControllerVideoID parameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
         
