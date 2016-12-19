@@ -15,15 +15,16 @@
 
 
 // ** Customize these values with your own account information **
-static NSString * const kViewControllerCatalogToken = @"ZUPNyrUqRdcAtjytsjcJplyUc9ed8b0cD_eWIe36jXqNWKzIcE6i8A..";
-static NSString * const kViewControllerPlaylistID = @"3637400917001";
+static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM1W-vUOMe6RSA3pA6Vw-VWUNn5rL0lzQabvrI63-VjS93gVUugDlmBpHIxP16X8TSe5LSKM415UHeMBmxl7pqcwVY_AZ4yKFwIpZPvXE34TpXEYYcmulxJQAOvHbv2dpfq-S_cm";
+static NSString * const kViewControllerAccountID = @"3636334163001";
+static NSString * const kViewControllerVideoID = @"3666678807001";
 
 static NSString * const kViewControllerSlotId= @"300x250";
 
 
 @interface ViewController () <BCOVPlaybackControllerDelegate>
 
-@property (nonatomic, strong) BCOVCatalogService *catalogService;
+@property (nonatomic, strong) BCOVPlaybackService *playbackService;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
 @property (nonatomic) BCOVPUIPlayerView *playerView;
 
@@ -79,7 +80,8 @@ static NSString * const kViewControllerSlotId= @"300x250";
     // _playbackController.autoAdvance = YES;
     // _playbackController.autoPlay = YES;
 
-    _catalogService = [[BCOVCatalogService alloc] initWithToken:kViewControllerCatalogToken];
+    _playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kViewControllerAccountID
+                                                            policyKey:kViewControllerPlaybackServicePolicyKey];
 }
 
 - (void)viewDidLoad
@@ -94,7 +96,7 @@ static NSString * const kViewControllerSlotId= @"300x250";
     [_videoContainerView addSubview:_playerView];
     _playerView.playbackController = _playbackController;
 
-    [self requestContentFromCatalog];
+    [self requestContentFromPlaybackService];
 }
 
 - (BCOVFWSessionProviderAdContextPolicy)adContextPolicy
@@ -145,19 +147,18 @@ static NSString * const kViewControllerSlotId= @"300x250";
     } copy];
 }
 
-- (void)requestContentFromCatalog
+- (void)requestContentFromPlaybackService
 {
-    // In order to play back content, we are going to request a playlist from the
-    // catalog service.
-    [self.catalogService findPlaylistWithPlaylistID:kViewControllerPlaylistID parameters:nil completion:^(BCOVPlaylist *playlist, NSDictionary *jsonResponse, NSError *error) {
+    // In order to play back content, we are going to request a video from the playback service.
+    [self.playbackService findVideoWithVideoID:kViewControllerVideoID parameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
 
-        if (playlist)
+        if (video)
         {
-            [self.playbackController setVideos:playlist];
+            [self.playbackController setVideos:@[ video ]];
         }
         else
         {
-            NSLog(@"ViewController Debug - Error retrieving playlist: %@", error);
+            NSLog(@"ViewController Debug - Error retrieving video playlist: %@", error);
         }
         
     }];

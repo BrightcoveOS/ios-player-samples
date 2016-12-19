@@ -2,15 +2,22 @@ Brightcove Player SDK for iOS Samples
 =====================================
 Learn more about the [Brightcove Native Player SDKs](http://docs.brightcove.com/en/video-cloud/mobile-sdks/index.html).
 
-These are a collection of sample applications for the Brightcove Player SDKs for iOS and tvOS, organized by subject area. An installation of [CocoaPods][cocoapods] is required to download sample dependencies.
+ios-player-samples.git is a collection of sample applications for the Brightcove Player SDKs for iOS and tvOS, organized by subject area. An installation of [CocoaPods][cocoapods] 1.0.0 or higher is required to download the sample dependencies.
 
 ### Prerequisites
 
 1. CocoaPods 1.0+
 1. Xcode 8.0+
 
+### About CocoaPods
+With the release of CocoaPods 1.0.0, the master Podspec repository is no longer updated automatically. To ensure you are using the latest releases of the Brightcove software components, update your Podspec repository before building any of the sample applications by running the following on the command line:
+
+```
+pod repo update
+```
+
 ### About Xcode 8
-A number of sample apps were written in Swift and have not yet been updated to modern Swift standards. When those projects are opened using Xcode 8, the user might be prompted to convert the source files. The project can be safely converted to Swift 2.3. As a result of the conversion, no source changes will be made however the .xcodeproj file will be updated to reflect the Swift 2.3 language version.
+The Swift sample apps were developed with Swift 2 and have not yet been updated to Swift 3. When those projects are opened using Xcode 8.2, the user might be prompted to convert the source files to the newest version of the Swift language. Consider choosing to convert **Later** as conversion to Swift version 3 produces code which does not compile.
 
 A future release of the ios-player-samples will provide updated Swift projects.
 

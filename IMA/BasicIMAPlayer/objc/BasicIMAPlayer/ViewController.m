@@ -16,8 +16,9 @@
 
 
 // ** Customize these values with your own account information **
-static NSString * const kViewControllerCatalogToken = @"ZUPNyrUqRdcAtjytsjcJplyUc9ed8b0cD_eWIe36jXqNWKzIcE6i8A..";
-static NSString * const kViewControllerPlaylistID = @"3637400917001";
+static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM1W-vUOMe6RSA3pA6Vw-VWUNn5rL0lzQabvrI63-VjS93gVUugDlmBpHIxP16X8TSe5LSKM415UHeMBmxl7pqcwVY_AZ4yKFwIpZPvXE34TpXEYYcmulxJQAOvHbv2dpfq-S_cm";
+static NSString * const kViewControllerAccountID = @"3636334163001";
+static NSString * const kViewControllerVideoID = @"3666678807001";
 
 static NSString * const kViewControllerIMAPublisherID = @"insertyourpidhere";
 static NSString * const kViewControllerIMALanguage = @"en";
@@ -26,7 +27,7 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
 
 @interface ViewController () <BCOVPlaybackControllerDelegate, IMAWebOpenerDelegate>
 
-@property (nonatomic, strong) BCOVCatalogService *catalogService;
+@property (nonatomic, strong) BCOVPlaybackService *playbackService;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
 @property (nonatomic) BCOVPUIPlayerView *playerView;
 @property (nonatomic, weak) IBOutlet UIView *videoContainer;
@@ -61,7 +62,7 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     
     self.playerView.playbackController = self.playbackController;
 
-    [self requestContentFromCatalog];
+    [self requestContentFromPlaybackService];
 }
 
 - (void)setup
@@ -112,7 +113,8 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     //
     
     
-    self.catalogService = [[BCOVCatalogService alloc] initWithToken:kViewControllerCatalogToken];
+    self.playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kViewControllerAccountID
+                                                                policyKey:kViewControllerPlaybackServicePolicyKey];
 
     [self resumeAdAfterForeground];
 }
@@ -137,20 +139,22 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     }];
 }
 
-- (void)requestContentFromCatalog
+- (void)requestContentFromPlaybackService
 {
     // In order to play back content, we are going to request a playlist from the
-    // catalog service.  The data in the catalog does not have the required
-    // VMAP tag on the video, so this code demonstrates how to update a playlist
-    // to set the ad tags on the video.
-    // You are responsible for determining where the ad tag should originate from.
-    // We advise that if you choose to hard code it into your app, that you provide
-    // a mechanism to update it without having to submit an update to your app.
+    // playback service (Video Cloud Playback API). The data from the service does
+    // not have the required VMAP tag on the video, so this code demonstrates how
+    // to update a playlist to set the ad tags on the video. You are responsible
+    // for determining where the ad tag should originate from. We advise that if
+    // you choose to hard code it into your app, that you provide a mechanism to
+    // update it without having to submit an update to your app.
 
-    [self.catalogService findPlaylistWithPlaylistID:kViewControllerPlaylistID parameters:nil completion:^(BCOVPlaylist *playlist, NSDictionary *jsonResponse, NSError *error) {
+    [self.playbackService findVideoWithVideoID:kViewControllerVideoID parameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
 
-        if (playlist)
+        if (video)
         {
+            BCOVPlaylist *playlist = [[BCOVPlaylist alloc] initWithVideo:video];
+            
             BCOVPlaylist *updatedPlaylist = [playlist update:^(id<BCOVMutablePlaylist> mutablePlaylist) {
 
                 NSMutableArray *updatedVideos = [NSMutableArray arrayWithCapacity:mutablePlaylist.videos.count];
@@ -168,7 +172,7 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
         }
         else
         {
-            NSLog(@"ViewController Debug - Error retrieving playlist: %@", error);
+            NSLog(@"ViewController Debug - Error retrieving video playlist: %@", error);
         }
         
     }];

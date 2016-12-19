@@ -73,13 +73,14 @@
 
 
 // ** Customize these values with your own account information **
-static NSString * const kViewControllerCatalogToken = @"ZUPNyrUqRdcAtjytsjcJplyUc9ed8b0cD_eWIe36jXqNWKzIcE6i8A..";
-static NSString * const kPlaylistID = @"3637400917001";
+static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM1W-vUOMe6RSA3pA6Vw-VWUNn5rL0lzQabvrI63-VjS93gVUugDlmBpHIxP16X8TSe5LSKM415UHeMBmxl7pqcwVY_AZ4yKFwIpZPvXE34TpXEYYcmulxJQAOvHbv2dpfq-S_cm";
+static NSString * const kViewControllerAccountID = @"3636334163001";
+static NSString * const kViewControllerVideoID = @"3666678807001";
 
 
 @interface ViewController () <BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate>
 
-@property (nonatomic, strong) BCOVCatalogService *catalogService;
+@property (nonatomic, strong) BCOVPlaybackService *playbackService;
 @property (nonatomic) id<BCOVPlaybackController> playbackController;
 @property (nonatomic) IBOutlet UIView *videoView;
 @property (nonatomic) IBOutlet UILabel *layoutLabel;
@@ -112,8 +113,9 @@ static NSString * const kPlaylistID = @"3637400917001";
         _playbackController.autoAdvance = YES;
         _playbackController.autoPlay = YES;
 
-        // Initialize catalog service for retrieving videos
-        _catalogService = [[BCOVCatalogService alloc] initWithToken:kViewControllerCatalogToken];
+        // Initialize playback service for retrieving videos
+        _playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kViewControllerAccountID
+                                                                policyKey:kViewControllerPlaybackServicePolicyKey];
     }
 
     return self;
@@ -149,19 +151,19 @@ static NSString * const kPlaylistID = @"3637400917001";
     [self.videoView addSubview:self.playerView];
 
     NSLog(@"Request Content from the Video Cloud");
-    [self.catalogService findPlaylistWithPlaylistID:kPlaylistID
-                                         parameters:nil
-                                         completion:^(BCOVPlaylist *playlist, NSDictionary *jsonResponse, NSError *error)
-     {
-
-         if (playlist)
-         {
-             [self.playbackController setVideos:playlist];
-         }
-         else
-         {
-             NSLog(@"Error retrieving video playlist id (%@): `%@`", kPlaylistID, error);
-         }
+    [self.playbackService findVideoWithVideoID:kViewControllerVideoID
+                                    parameters:nil completion:^(BCOVVideo *video,
+                                                                NSDictionary *jsonResponse,
+                                                                NSError *error)
+    {
+        if (video)
+        {
+            [self.playbackController setVideos:@[ video ]];
+        }
+        else
+        {
+            NSLog(@"ViewController Debug - Error retrieving video playlist: `%@`", error);
+        }
 
      }];
 }

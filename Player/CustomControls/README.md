@@ -37,7 +37,8 @@ Using this example, if you need to use a plugin like IMA that uses a view strate
     [_playbackController setAllowsExternalPlayback:YES];
     [_playbackController addSessionConsumer:_controlsViewController];
 
-    _catalogService = [[BCOVCatalogService alloc] initWithToken:kViewControllerCatalogToken];
+    _playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kViewControllerAccountId
+                                                            policyKey:kViewControllerPlaybackServicePolicyKey];
 }
 
 - (void)viewDidLoad
@@ -55,7 +56,7 @@ Using this example, if you need to use a plugin like IMA that uses a view strate
 
     [self addChildViewController:self.controlsViewController];
 
-    [self requestContentFromCatalog];
+    [self requestContentFromPlaybackService];
 }
 ```
 
