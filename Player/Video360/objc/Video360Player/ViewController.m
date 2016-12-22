@@ -117,7 +117,7 @@ static NSString * const kSampleVideo360VideoID = @"5240309173001";
                                         }
                                         else
                                         {
-                                            NSLog(@"ViewController Debug - Error retrieving playlist: `%@`", error);
+                                            NSLog(@"Error retrieving video: %@", error);
                                         }
                                         
                                     }];
