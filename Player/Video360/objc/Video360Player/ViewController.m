@@ -164,7 +164,7 @@ static NSString * const kSampleVideo360VideoID = @"5240309173001";
 }
 
 
-#pragma mark BCOVPlaybackControllerDelegate Methods
+#pragma mark - BCOVPlaybackControllerDelegate Methods
 
 - (void)playbackController:(id<BCOVPlaybackController>)controller didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 {
