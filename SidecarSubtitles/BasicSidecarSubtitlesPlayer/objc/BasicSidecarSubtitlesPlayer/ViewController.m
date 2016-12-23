@@ -2,9 +2,30 @@
 //  ViewController.m
 //  BasicSidecarSubtitlesPlayer
 //
-//  Copyright (c) 2015 Brightcove, Inc. All rights reserved.
+//  Copyright (c) 2016 Brightcove, Inc. All rights reserved.
 //  License: https://accounts.brightcove.com/en/terms-and-conditions
 //
+
+/*
+ * This sample app shows how to retrieve a video from Video Cloud
+ * and add a sidecar VTT captions file to it for playback.
+ *
+ * The interesting methods in the code are `-requestContentFromPlaybackService` and
+ * `-setupSubtitles`.
+ *
+ * `-requestContentFromPlaybackService` retrieves a video from Video Cloud
+ * normally, but then it creates an array of text tracks, and adds them to the
+ * BCOVVideo object. BCOVVideo is an immutable object, but you can create a new
+ * modified copy of it by calling `BCOVVideo update:`.
+ *
+ * `-setupSubtitles` creates the array of subtitle dictionaries.
+ * When creating these dictionaries, be sure to make note of which fields
+ * are required are optional as specified in BCOVSSComponent.h.
+ *
+ * Note that in this sample the subtitle track does not match the audio of the
+ * video; it's only used as an example.
+ *
+ */
 
 #import "ViewController.h"
 
@@ -22,75 +43,88 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
 
 @interface ViewController () <BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate>
 
-@property (nonatomic, strong) BCOVPlaybackService *service;
+@property (nonatomic, strong) BCOVPlaybackService *playbackService;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
 @property (nonatomic) BCOVPUIPlayerView *playerView;
 
-@property (nonatomic, weak) IBOutlet UIView *videoContainer;
-@property (nonatomic, strong) AVPlayerViewController *playerViewController;
+@property (nonatomic, weak) IBOutlet UIView *videoContainerView;
 
 @end
 
+
 @implementation ViewController
-
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    if (self)
-    {
-        [self setup];
-    }
-    return self;
-}
-
-- (void)setup
-{
-    BCOVPlayerSDKManager *manager = [BCOVPlayerSDKManager sharedManager];
-
-    _playbackController = [manager createSidecarSubtitlesPlaybackControllerWithViewStrategy:nil];
-    _playbackController.delegate = self;
-    _playbackController.autoAdvance = YES;
-    _playbackController.autoPlay = YES;
-
-    _service = [[BCOVPlaybackService alloc] initWithAccountId:kViewControllerAccountID policyKey:kViewControllerPlaybackServicePolicyKey];
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    BCOVPUIPlayerViewOptions *options = [[BCOVPUIPlayerViewOptions alloc] init];
-    options.presentingViewController = self;
+    // Create Player View (PlayerUI)
+    [self createPlayerView];
 
-    BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
-    _playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:nil options:nil controlsView:controlView];
-    _playerView.frame = _videoContainer.bounds;
-    _playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [_videoContainer addSubview:_playerView];
+    {
+        BCOVPlayerSDKManager *manager = [BCOVPlayerSDKManager sharedManager];
+        
+        // Create the Playback Controller
+        self.playbackController = [manager createSidecarSubtitlesPlaybackControllerWithViewStrategy:nil];
+        self.playbackController.delegate = self;
+        self.playbackController.autoAdvance = YES;
+        self.playbackController.autoPlay = YES;
+    }
 
-    _playerView.playbackController = _playbackController;
+    // Link the playback controller to the player view
+    self.playerView.playbackController = self.playbackController;
+
+    // Instantiate Playback Service
+    self.playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kViewControllerAccountID policyKey:kViewControllerPlaybackServicePolicyKey];
 
     [self requestContentFromPlaybackService];
 }
 
+- (void)createPlayerView
+{
+    if (self.playerView == nil)
+    {
+        // Create PlayerUI views with normal VOD controls.
+        BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
+        self.playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:nil // can set this later
+                                                                        options:nil
+                                                                   controlsView:controlView];
+        
+        // Make the player view frame match its parent
+        self.playerView.frame = self.videoContainerView.bounds;
+        self.playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        
+        // Add to parent view
+        [self.videoContainerView addSubview:self.playerView];
+    }
+}
+
 - (void)requestContentFromPlaybackService
 {
-    [self.service findVideoWithVideoID:kViewControllerVideoID parameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
+    [self.playbackService findVideoWithVideoID:kViewControllerVideoID parameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
         
         if (video)
         {
+            // Add subtitle track to video object
             BCOVVideo *updatedVideo = [video update:^(id<BCOVMutableVideo> mutableVideo) {
-                NSArray *textTracks = @[];
-                textTracks = [self setupSubtitles];
+
+                // Get the subtitles array
+                NSArray *textTracks = [self setupSubtitles];
+
+                // Update the current dictionary (we don't want to lose the properties already in there)
                 NSMutableDictionary *updatedDictionary = [mutableVideo.properties mutableCopy];
+
+                // Store text tracks in the text tracks property
                 updatedDictionary[kBCOVSSVideoPropertiesKeyTextTracks] = textTracks;
                 mutableVideo.properties = updatedDictionary;
+
             }];
-            [self.playbackController setVideos:@[updatedVideo]];
+
+            [self.playbackController setVideos:@[ updatedVideo ]];
         }
         else
         {
-            NSLog(@"ViewController Debug - Error retrieving video playlist: `%@`", error);
+            NSLog(@"Error retrieving video playlist: `%@`", error);
         }
         
     }];
@@ -98,30 +132,27 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
 
 - (NSArray *)setupSubtitles
 {
-    NSArray *textTracks = @[@{ kBCOVSSTextTracksKeyKind: kBCOVSSTextTracksKindSubtitles,
-                               kBCOVSSTextTracksKeyLabel: @"English",
-                               kBCOVSSTextTracksKeyDefault: @YES,
-                               kBCOVSSTextTracksKeySourceLanguage: @"en",
-                               kBCOVSSTextTracksKeySource: @"http://players.brightcove.net/3636334163001/ios_native_player_sdk/vtt/sample.vtt",
-                               kBCOVSSTextTracksKeyMIMEType: @"text/vtt"
-                               }
-                            ];
+    // Create the array of subtitle dictionaries
+    NSArray *textTracks =
+    @[
+      @{
+          kBCOVSSTextTracksKeyKind: kBCOVSSTextTracksKindSubtitles,
+          kBCOVSSTextTracksKeyLabel: @"English",
+          kBCOVSSTextTracksKeyDefault: @YES,
+          kBCOVSSTextTracksKeySourceLanguage: @"en",
+          kBCOVSSTextTracksKeySource: @"http://players.brightcove.net/3636334163001/ios_native_player_sdk/vtt/sample.vtt",
+          kBCOVSSTextTracksKeyMIMEType: @"text/vtt"
+          }
+      ];
+    
     return textTracks;
 }
 
-#pragma mark BCOVPlaybackControllerDelegate Methods
+#pragma mark - BCOVPlaybackControllerDelegate Methods
 
 - (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didReceiveLifecycleEvent:(BCOVPlaybackSessionLifecycleEvent *)lifecycleEvent
 {
-    NSLog(@"ViewController Debug - Received lifecycle event.");
-}
-
-
-#pragma mark UI Styling
-
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
+    NSLog(@"Received lifecycle event: %@", lifecycleEvent.eventType);
 }
 
 @end

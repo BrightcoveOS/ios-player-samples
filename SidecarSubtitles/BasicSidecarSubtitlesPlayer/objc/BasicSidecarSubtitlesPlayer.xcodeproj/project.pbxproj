@@ -7,26 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2754668A6B09E3C7F21C574B /* Pods_BasicSidecarSubtitlesPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BF14238D7C5E47AE385F786 /* Pods_BasicSidecarSubtitlesPlayer.framework */; };
 		98A16AB11A23813F008A3B77 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A16AB01A23813F008A3B77 /* main.m */; };
 		98A16AB41A23813F008A3B77 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A16AB31A23813F008A3B77 /* AppDelegate.m */; };
 		98A16AB71A23813F008A3B77 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A16AB61A23813F008A3B77 /* ViewController.m */; };
 		98A16ABA1A23813F008A3B77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98A16AB81A23813F008A3B77 /* Main.storyboard */; };
 		98A16ABC1A23813F008A3B77 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98A16ABB1A23813F008A3B77 /* Images.xcassets */; };
 		98A16ABF1A23813F008A3B77 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98A16ABD1A23813F008A3B77 /* LaunchScreen.xib */; };
-		98A16ACB1A23813F008A3B77 /* BasicSidecarSubtitlesPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A16ACA1A23813F008A3B77 /* BasicSidecarSubtitlesPlayerTests.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		98A16AC51A23813F008A3B77 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 98A16AA31A23813F008A3B77 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 98A16AAA1A23813F008A3B77;
-			remoteInfo = BasicSidecarSubtitlesPlayer;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		2DC9311CA19F2A641164A7F3 /* Pods-BasicSidecarSubtitlesPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSidecarSubtitlesPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-BasicSidecarSubtitlesPlayer/Pods-BasicSidecarSubtitlesPlayer.release.xcconfig"; sourceTree = "<group>"; };
+		3679F5658AC5327DC9A88209 /* Pods-BasicSidecarSubtitlesPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSidecarSubtitlesPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BasicSidecarSubtitlesPlayer/Pods-BasicSidecarSubtitlesPlayer.debug.xcconfig"; sourceTree = "<group>"; };
+		4BF14238D7C5E47AE385F786 /* Pods_BasicSidecarSubtitlesPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasicSidecarSubtitlesPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98A16AAB1A23813F008A3B77 /* BasicSidecarSubtitlesPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicSidecarSubtitlesPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98A16AAF1A23813F008A3B77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98A16AB01A23813F008A3B77 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -37,9 +30,6 @@
 		98A16AB91A23813F008A3B77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		98A16ABB1A23813F008A3B77 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		98A16ABE1A23813F008A3B77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		98A16AC41A23813F008A3B77 /* BasicSidecarSubtitlesPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BasicSidecarSubtitlesPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		98A16AC91A23813F008A3B77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		98A16ACA1A23813F008A3B77 /* BasicSidecarSubtitlesPlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BasicSidecarSubtitlesPlayerTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,25 +37,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		98A16AC11A23813F008A3B77 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				2754668A6B09E3C7F21C574B /* Pods_BasicSidecarSubtitlesPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06FE3C0A9E4973817F93AD2A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4BF14238D7C5E47AE385F786 /* Pods_BasicSidecarSubtitlesPlayer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		294978E042136AD1A4399EFB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3679F5658AC5327DC9A88209 /* Pods-BasicSidecarSubtitlesPlayer.debug.xcconfig */,
+				2DC9311CA19F2A641164A7F3 /* Pods-BasicSidecarSubtitlesPlayer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		98A16AA21A23813F008A3B77 = {
 			isa = PBXGroup;
 			children = (
 				98A16AAD1A23813F008A3B77 /* BasicSidecarSubtitlesPlayer */,
-				98A16AC71A23813F008A3B77 /* BasicSidecarSubtitlesPlayerTests */,
 				98A16AAC1A23813F008A3B77 /* Products */,
+				294978E042136AD1A4399EFB /* Pods */,
+				06FE3C0A9E4973817F93AD2A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,7 +75,6 @@
 			isa = PBXGroup;
 			children = (
 				98A16AAB1A23813F008A3B77 /* BasicSidecarSubtitlesPlayer.app */,
-				98A16AC41A23813F008A3B77 /* BasicSidecarSubtitlesPlayerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,23 +103,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		98A16AC71A23813F008A3B77 /* BasicSidecarSubtitlesPlayerTests */ = {
-			isa = PBXGroup;
-			children = (
-				98A16ACA1A23813F008A3B77 /* BasicSidecarSubtitlesPlayerTests.m */,
-				98A16AC81A23813F008A3B77 /* Supporting Files */,
-			);
-			path = BasicSidecarSubtitlesPlayerTests;
-			sourceTree = "<group>";
-		};
-		98A16AC81A23813F008A3B77 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				98A16AC91A23813F008A3B77 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,9 +110,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98A16ACE1A23813F008A3B77 /* Build configuration list for PBXNativeTarget "BasicSidecarSubtitlesPlayer" */;
 			buildPhases = (
+				808100FBA4B20C162BA779DB /* [CP] Check Pods Manifest.lock */,
 				98A16AA71A23813F008A3B77 /* Sources */,
 				98A16AA81A23813F008A3B77 /* Frameworks */,
 				98A16AA91A23813F008A3B77 /* Resources */,
+				05C8706C3EE2B9C759061F53 /* [CP] Embed Pods Frameworks */,
+				AF0D683C12F0F1907B5F0B1D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -138,24 +125,6 @@
 			productName = BasicSidecarSubtitlesPlayer;
 			productReference = 98A16AAB1A23813F008A3B77 /* BasicSidecarSubtitlesPlayer.app */;
 			productType = "com.apple.product-type.application";
-		};
-		98A16AC31A23813F008A3B77 /* BasicSidecarSubtitlesPlayerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 98A16AD11A23813F008A3B77 /* Build configuration list for PBXNativeTarget "BasicSidecarSubtitlesPlayerTests" */;
-			buildPhases = (
-				98A16AC01A23813F008A3B77 /* Sources */,
-				98A16AC11A23813F008A3B77 /* Frameworks */,
-				98A16AC21A23813F008A3B77 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				98A16AC61A23813F008A3B77 /* PBXTargetDependency */,
-			);
-			name = BasicSidecarSubtitlesPlayerTests;
-			productName = BasicSidecarSubtitlesPlayerTests;
-			productReference = 98A16AC41A23813F008A3B77 /* BasicSidecarSubtitlesPlayerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -168,10 +137,6 @@
 				TargetAttributes = {
 					98A16AAA1A23813F008A3B77 = {
 						CreatedOnToolsVersion = 6.1;
-					};
-					98A16AC31A23813F008A3B77 = {
-						CreatedOnToolsVersion = 6.1;
-						TestTargetID = 98A16AAA1A23813F008A3B77;
 					};
 				};
 			};
@@ -189,7 +154,6 @@
 			projectRoot = "";
 			targets = (
 				98A16AAA1A23813F008A3B77 /* BasicSidecarSubtitlesPlayer */,
-				98A16AC31A23813F008A3B77 /* BasicSidecarSubtitlesPlayerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -205,14 +169,55 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		98A16AC21A23813F008A3B77 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		05C8706C3EE2B9C759061F53 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BasicSidecarSubtitlesPlayer/Pods-BasicSidecarSubtitlesPlayer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
-/* End PBXResourcesBuildPhase section */
+		808100FBA4B20C162BA779DB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		AF0D683C12F0F1907B5F0B1D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BasicSidecarSubtitlesPlayer/Pods-BasicSidecarSubtitlesPlayer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		98A16AA71A23813F008A3B77 /* Sources */ = {
@@ -225,23 +230,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		98A16AC01A23813F008A3B77 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				98A16ACB1A23813F008A3B77 /* BasicSidecarSubtitlesPlayerTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		98A16AC61A23813F008A3B77 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 98A16AAA1A23813F008A3B77 /* BasicSidecarSubtitlesPlayer */;
-			targetProxy = 98A16AC51A23813F008A3B77 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		98A16AB81A23813F008A3B77 /* Main.storyboard */ = {
@@ -350,6 +339,7 @@
 		};
 		98A16ACF1A23813F008A3B77 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3679F5658AC5327DC9A88209 /* Pods-BasicSidecarSubtitlesPlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -367,6 +357,7 @@
 		};
 		98A16AD01A23813F008A3B77 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2DC9311CA19F2A641164A7F3 /* Pods-BasicSidecarSubtitlesPlayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -379,42 +370,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Brightcove.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-			};
-			name = Release;
-		};
-		98A16AD21A23813F008A3B77 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = BasicSidecarSubtitlesPlayerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Brightcove.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BasicSidecarSubtitlesPlayer.app/BasicSidecarSubtitlesPlayer";
-			};
-			name = Debug;
-		};
-		98A16AD31A23813F008A3B77 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = BasicSidecarSubtitlesPlayerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Brightcove.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BasicSidecarSubtitlesPlayer.app/BasicSidecarSubtitlesPlayer";
 			};
 			name = Release;
 		};
@@ -435,15 +390,6 @@
 			buildConfigurations = (
 				98A16ACF1A23813F008A3B77 /* Debug */,
 				98A16AD01A23813F008A3B77 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		98A16AD11A23813F008A3B77 /* Build configuration list for PBXNativeTarget "BasicSidecarSubtitlesPlayerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				98A16AD21A23813F008A3B77 /* Debug */,
-				98A16AD31A23813F008A3B77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
