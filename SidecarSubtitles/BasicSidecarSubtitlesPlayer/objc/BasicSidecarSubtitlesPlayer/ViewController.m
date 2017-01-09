@@ -108,14 +108,23 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
             // Add subtitle track to video object
             BCOVVideo *updatedVideo = [video update:^(id<BCOVMutableVideo> mutableVideo) {
 
-                // Get the subtitles array
-                NSArray *textTracks = [self setupSubtitles];
+                // Get the existing text tracks, if any
+                NSArray *currentTextTracks = mutableVideo.properties[kBCOVSSVideoPropertiesKeyTextTracks];
 
+                // Get the subtitles array
+                NSArray *newTextTracks = [self setupSubtitles];
+
+                // Combine the two arrays together.
+                // We don't want to lose the original tracks that might already be in there.
+                NSArray *combinedTextTracks = ((currentTextTracks != nil)
+                                               ? [currentTextTracks arrayByAddingObjectsFromArray:newTextTracks]
+                                               : newTextTracks);
+                
                 // Update the current dictionary (we don't want to lose the properties already in there)
                 NSMutableDictionary *updatedDictionary = [mutableVideo.properties mutableCopy];
 
                 // Store text tracks in the text tracks property
-                updatedDictionary[kBCOVSSVideoPropertiesKeyTextTracks] = textTracks;
+                updatedDictionary[kBCOVSSVideoPropertiesKeyTextTracks] = combinedTextTracks;
                 mutableVideo.properties = updatedDictionary;
 
             }];
