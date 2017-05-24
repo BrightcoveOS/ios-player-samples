@@ -111,11 +111,12 @@ NSString * kFairPlayHLSVideoURL = @"http://example.com/fps/hlsvideo.m3u8";
                                                                                                    companionSlots:nil
                                                                                           upstreamSessionProvider:fps];
 
-
             NSLog(@"Creating playback controller");
+            
             // Create playback controller with the chain of session providers.
-            id<BCOVPlaybackController> playbackController = [sdkManager createPlaybackControllerWithSessionProvider:imaSessionProvider viewStrategy:nil];
-
+            id<BCOVPlaybackController> playbackController = [sdkManager createPlaybackControllerWithSessionProvider:imaSessionProvider
+                                                                                                       viewStrategy:nil];
+            
             playbackController.delegate = self;
             playbackController.autoAdvance = YES;
             playbackController.autoPlay = YES;
@@ -181,7 +182,7 @@ NSString * kFairPlayHLSVideoURL = @"http://example.com/fps/hlsvideo.m3u8";
     // Here, you can retrieve BCOVVideo objects from the Playback Service. You can also
     // create your own BCOVVideo objects directly from URLs if you have them, as shown here:
 
-    BCOVVideo *video = [BCOVVideo videoWithURL:[NSURL URLWithString:kFairPlayHLSVideoURL]];
+    BCOVVideo *video = [BCOVVideo videoWithHLSSourceURL:[NSURL URLWithString:kFairPlayHLSVideoURL]];
     BCOVPlaylist *playlist = [[BCOVPlaylist alloc] initWithVideo:video];
 
     video = [self updateVideoWithVMAPTag:video];
