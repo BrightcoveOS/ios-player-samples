@@ -1,9 +1,9 @@
-source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/brightcove/BrightcoveSpecs.git'
 
 use_frameworks!
 
 platform :tvos, '9.0'
 
 target 'BasicOUXtvOSPlayer' do
-	pod 'Brightcove-Player-SDK-OUX'
+	pod 'Brightcove-Player-OnceUX'
 end

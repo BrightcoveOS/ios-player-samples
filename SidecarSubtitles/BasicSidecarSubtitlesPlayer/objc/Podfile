@@ -1,9 +1,9 @@
-source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/brightcove/BrightcoveSpecs.git'
 
 use_frameworks!
 
 platform :ios, '8.0'
 
 target 'BasicSidecarSubtitlesPlayer' do
-  pod 'Brightcove-Player-SDK-SidecarSubtitles/dynamic'
+  pod 'Brightcove-Player-Core/dynamic'
 end
