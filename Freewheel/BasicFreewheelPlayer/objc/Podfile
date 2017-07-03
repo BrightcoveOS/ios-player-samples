@@ -1,11 +1,9 @@
-source 'https://github.com/CocoaPods/Specs.git'
-source 'https://github.com/brightcove/BCOVSpecs.git'
+source 'https://github.com/brightcove/BrightcoveSpecs.git'
 
 use_frameworks!
 
 platform :ios, '8.0'
 
 target 'BasicFreewheelPlayer' do
-  pod 'Brightcove-Player-SDK-FW'
-  pod 'Brightcove-Player-SDK'
+  pod 'Brightcove-Player-FreeWheel'
 end

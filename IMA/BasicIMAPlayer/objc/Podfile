@@ -1,9 +1,10 @@
 source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/brightcove/BrightcoveSpecs.git'
 
 use_frameworks!
 
 platform :ios, '8.0'
 
 target 'BasicIMAPlayer' do
-	pod 'Brightcove-Player-SDK-IMA'
+	pod 'Brightcove-Player-IMA'
 end

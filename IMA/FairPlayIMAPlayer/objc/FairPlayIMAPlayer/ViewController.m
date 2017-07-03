@@ -11,7 +11,6 @@
 
 @import GoogleInteractiveMediaAds;
 
-@import BrightcoveFairPlay;
 @import BrightcoveIMA;
 @import BrightcovePlayerSDK;
 

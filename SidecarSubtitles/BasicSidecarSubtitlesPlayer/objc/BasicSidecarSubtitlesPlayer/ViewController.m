@@ -30,7 +30,6 @@
 #import "ViewController.h"
 
 @import BrightcovePlayerSDK;
-@import BrightcoveSidecarSubtitles;
 
 @import MediaPlayer;
 @import AVFoundation;
