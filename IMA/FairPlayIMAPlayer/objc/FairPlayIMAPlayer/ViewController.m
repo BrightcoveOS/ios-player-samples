@@ -2,7 +2,7 @@
 //  ViewController.m
 //  FairPlayIMAPlayer
 //
-//  Copyright (c) 2016 Brightcove, Inc. All rights reserved.
+//  Copyright © 2017 Brightcove, Inc. All rights reserved.
 //  License: https://accounts.brightcove.com/en/terms-and-conditions
 //
 //  This sample app demonstrates how to set up the Brightcove SDK

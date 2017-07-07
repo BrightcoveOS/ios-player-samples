@@ -2,8 +2,7 @@
 //  ViewController.m
 //  NativeControls
 //
-//  Created by Mike Moscardini on 11/14/14.
-//  Copyright (c) 2014 Brightcove. All rights reserved.
+//  Copyright © 2017 Brightcove, Inc. All rights reserved.
 //
 
 #import <AVKit/AVKit.h>
@@ -53,6 +52,10 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
     _playbackController.autoAdvance = YES;
     _playbackController.autoPlay = YES;
 
+    // Prevents the Brightcove SDK from making an unnecessary AVPlayerLayer
+    // since the AVPlayerViewController already makes one
+    _playbackController.options = @{ kBCOVAVPlayerViewControllerCompatibilityKey: @YES };
+    
     _playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kViewControllerAccountID
                                                             policyKey:kViewControllerPlaybackServicePolicyKey];
 }

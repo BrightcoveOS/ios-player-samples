@@ -2,7 +2,7 @@
 //  DVRLiveTests.m
 //  DVRLiveTests
 //
-//  Copyright (c) 2015 Brightcove, Inc. All rights reserved.
+//  Copyright © 2017 Brightcove, Inc. All rights reserved.
 //  License: https://accounts.brightcove.com/en/terms-and-conditions
 //
 

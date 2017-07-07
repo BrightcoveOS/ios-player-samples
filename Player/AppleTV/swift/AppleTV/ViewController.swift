@@ -2,17 +2,16 @@
 //  ViewController.swift
 //  AppleTV
 //
-//  Created by Michael Moscardini on 3/10/16.
-//  Copyright © 2016 Brightcove. All rights reserved.
+//  Copyright © 2017 Brightcove. All rights reserved.
 //
 
 import UIKit
 import AVKit
 
 
-let kViewControllerPlaybackServicePolicyKey = "BCpkADawqM1W-vUOMe6RSA3pA6Vw-VWUNn5rL0lzQabvrI63-VjS93gVUugDlmBpHIxP16X8TSe5LSKM415UHeMBmxl7pqcwVY_AZ4yKFwIpZPvXE34TpXEYYcmulxJQAOvHbv2dpfq-S_cm"
-let kViewControllerAccountID = "3636334163001"
-let kViewControllerVideoID = "3666678807001"
+let kViewControllerPlaybackServicePolicyKey = "BCpkADawqM3n0ImwKortQqSZCgJMcyVbb8lJVwt0z16UD0a_h8MpEYcHyKbM8CGOPxBRp0nfSVdfokXBrUu3Sso7Nujv3dnLo0JxC_lNXCl88O7NJ0PR0z2AprnJ_Lwnq7nTcy1GBUrQPr5e"
+let kViewControllerAccountID = "4800266849001"
+let kViewControllerVideoID = "5255514387001"
 
 
 class ViewController: UIViewController, BCOVPlaybackControllerDelegate
@@ -24,14 +23,18 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate
     
     required init?(coder aDecoder: NSCoder)
     {
-        let manager = BCOVPlayerSDKManager.sharedManager();
-        playbackController = manager.createPlaybackControllerWithViewStrategy(nil)
+        let manager = BCOVPlayerSDKManager.shared();
+        playbackController = (manager?.createPlaybackController(viewStrategy: nil))!
         
         super.init(coder: aDecoder)
         
         playbackController.delegate = self
-        playbackController.autoAdvance = true
-        playbackController.autoPlay = true
+        playbackController.isAutoAdvance = true
+        playbackController.isAutoPlay = true
+        
+        // Prevents the Brightcove SDK from making an unnecessary AVPlayerLayer
+        // since the AVPlayerViewController already makes one
+        playbackController.options = [ kBCOVAVPlayerViewControllerCompatibilityKey: true ];
     }
 
     override func viewDidLoad()
@@ -41,41 +44,39 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate
         
         self.addChildViewController(self.avpvc);
         self.avpvc.view.frame = self.view.bounds;
-        self.avpvc.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        self.avpvc.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.view.addSubview(self.avpvc.view);
-        self.avpvc.didMoveToParentViewController(self);
+        self.avpvc.didMove(toParentViewController: self);
         
         requestContentFromPlaybackService()
     }
     
     func requestContentFromPlaybackService()
     {
-        playbackService.findVideoWithVideoID(kViewControllerVideoID, parameters: nil) { (video: BCOVVideo!, jsonResponse: [NSObject : AnyObject]!, error: NSError!) -> Void in
+        playbackService?.findVideo(withVideoID: kViewControllerVideoID, parameters: nil) { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
             
             if let v = video
             {
-                self.playbackController.setVideos([v])
+                self.playbackController.setVideos([v] as NSArray)
             }
             else
             {
-                NSLog("ViewController Debug - Error retrieving video playlist: %@", error)
+                print("ViewController Debug - Error retrieving video: \(error?.localizedDescription ?? "unknown error")")
             }
-            
         }
     }
     
-    func playbackController(controller: BCOVPlaybackController!, didAdvanceToPlaybackSession session: BCOVPlaybackSession!)
+    func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!)
     {
         NSLog("ViewController Debug - Advanced to new session.")
         
         self.avpvc.player = session.player;
     }
     
-    func playbackController(controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didReceiveLifecycleEvent lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!)
+    func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!)
     {
         
         NSLog("Event: %@", lifecycleEvent.eventType)
     }
-
 }
 
