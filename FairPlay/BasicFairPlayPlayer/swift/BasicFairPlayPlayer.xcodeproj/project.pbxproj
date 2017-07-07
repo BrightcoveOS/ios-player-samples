@@ -12,9 +12,11 @@
 		49E433721C0F4CD900E73634 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49E433701C0F4CD900E73634 /* Main.storyboard */; };
 		49E433741C0F4CD900E73634 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49E433731C0F4CD900E73634 /* Assets.xcassets */; };
 		49E433771C0F4CD900E73634 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49E433751C0F4CD900E73634 /* LaunchScreen.storyboard */; };
+		4EA9E3EC4F5E562288AF0AEA /* Pods_BasicFairPlayPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD9A15E4ED2E2A885FFDDA8 /* Pods_BasicFairPlayPlayer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E7A199CE58327B14DFF6744 /* Pods-BasicFairPlayPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicFairPlayPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-BasicFairPlayPlayer/Pods-BasicFairPlayPlayer.release.xcconfig"; sourceTree = "<group>"; };
 		49E433691C0F4CD900E73634 /* BasicFairPlayPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicFairPlayPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49E4336C1C0F4CD900E73634 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49E4336E1C0F4CD900E73634 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -23,6 +25,8 @@
 		49E433761C0F4CD900E73634 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49E433781C0F4CD900E73634 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49E4337E1C0F54BF00E73634 /* BasicFairPlayPlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BasicFairPlayPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
+		5685A41060F8C85C4162754D /* Pods-BasicFairPlayPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicFairPlayPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BasicFairPlayPlayer/Pods-BasicFairPlayPlayer.debug.xcconfig"; sourceTree = "<group>"; };
+		EBD9A15E4ED2E2A885FFDDA8 /* Pods_BasicFairPlayPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasicFairPlayPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,17 +34,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EA9E3EC4F5E562288AF0AEA /* Pods_BasicFairPlayPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		38385DDDD6FBFE7044521B80 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5685A41060F8C85C4162754D /* Pods-BasicFairPlayPlayer.debug.xcconfig */,
+				2E7A199CE58327B14DFF6744 /* Pods-BasicFairPlayPlayer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		49E433601C0F4CD900E73634 = {
 			isa = PBXGroup;
 			children = (
 				49E4336B1C0F4CD900E73634 /* BasicFairPlayPlayer */,
 				49E4336A1C0F4CD900E73634 /* Products */,
+				38385DDDD6FBFE7044521B80 /* Pods */,
+				B1F35FF66E218F92AE004177 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,6 +82,14 @@
 			path = BasicFairPlayPlayer;
 			sourceTree = "<group>";
 		};
+		B1F35FF66E218F92AE004177 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EBD9A15E4ED2E2A885FFDDA8 /* Pods_BasicFairPlayPlayer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -73,9 +97,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 49E4337B1C0F4CD900E73634 /* Build configuration list for PBXNativeTarget "BasicFairPlayPlayer" */;
 			buildPhases = (
+				8F91AE30C54EC9E77086A4F4 /* [CP] Check Pods Manifest.lock */,
 				49E433651C0F4CD900E73634 /* Sources */,
 				49E433661C0F4CD900E73634 /* Frameworks */,
 				49E433671C0F4CD900E73634 /* Resources */,
+				C2DA86C58EAABE8FCAA1CD32 /* [CP] Embed Pods Frameworks */,
+				79A12C15E5B20F645C432CBB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -98,7 +125,8 @@
 				TargetAttributes = {
 					49E433681C0F4CD900E73634 = {
 						CreatedOnToolsVersion = 7.1.1;
-						LastSwiftMigration = 0810;
+						DevelopmentTeam = XNV3M98BQL;
+						LastSwiftMigration = 0830;
 					};
 				};
 			};
@@ -132,6 +160,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		79A12C15E5B20F645C432CBB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BasicFairPlayPlayer/Pods-BasicFairPlayPlayer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8F91AE30C54EC9E77086A4F4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C2DA86C58EAABE8FCAA1CD32 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BasicFairPlayPlayer/Pods-BasicFairPlayPlayer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		49E433651C0F4CD900E73634 /* Sources */ = {
@@ -257,25 +333,29 @@
 		};
 		49E4337C1C0F4CD900E73634 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5685A41060F8C85C4162754D /* Pods-BasicFairPlayPlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = XNV3M98BQL;
 				INFOPLIST_FILE = BasicFairPlayPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.BasicFairPlayPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		49E4337D1C0F4CD900E73634 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E7A199CE58327B14DFF6744 /* Pods-BasicFairPlayPlayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = XNV3M98BQL;
 				INFOPLIST_FILE = BasicFairPlayPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.BasicFairPlayPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

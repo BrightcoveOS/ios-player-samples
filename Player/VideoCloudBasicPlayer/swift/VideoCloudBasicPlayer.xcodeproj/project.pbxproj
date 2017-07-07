@@ -12,9 +12,11 @@
 		491576AA19D9F2B700B2E657 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 491576A819D9F2B700B2E657 /* Main.storyboard */; };
 		491576AC19D9F2B700B2E657 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 491576AB19D9F2B700B2E657 /* Images.xcassets */; };
 		491576AF19D9F2B700B2E657 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 491576AD19D9F2B700B2E657 /* LaunchScreen.xib */; };
+		5DAA57ADCF495744FE407B66 /* Pods_VideoCloudBasicPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37EC293511B9E882E9DAAB44 /* Pods_VideoCloudBasicPlayer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		37EC293511B9E882E9DAAB44 /* Pods_VideoCloudBasicPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VideoCloudBasicPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4915769F19D9F2B700B2E657 /* VideoCloudBasicPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoCloudBasicPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		491576A319D9F2B700B2E657 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		491576A419D9F2B700B2E657 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -25,6 +27,8 @@
 		491576B919D9F2B700B2E657 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		491576BA19D9F2B700B2E657 /* VideoCloudBasicPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCloudBasicPlayerTests.swift; sourceTree = "<group>"; };
 		491576C419D9FCB400B2E657 /* VideoCloudBasicPlayer-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VideoCloudBasicPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
+		70D6E9CE0006EEE7187FBD8A /* Pods-VideoCloudBasicPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoCloudBasicPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VideoCloudBasicPlayer/Pods-VideoCloudBasicPlayer.debug.xcconfig"; sourceTree = "<group>"; };
+		B6F0FC8CDB6FC237E5198C7C /* Pods-VideoCloudBasicPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoCloudBasicPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-VideoCloudBasicPlayer/Pods-VideoCloudBasicPlayer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DAA57ADCF495744FE407B66 /* Pods_VideoCloudBasicPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +49,8 @@
 				491576A119D9F2B700B2E657 /* VideoCloudBasicPlayer */,
 				491576B719D9F2B700B2E657 /* VideoCloudBasicPlayerTests */,
 				491576A019D9F2B700B2E657 /* Products */,
+				5FAF008A1F6B16EA32D2694E /* Pods */,
+				F359100ED654C31BD7215067 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,6 +101,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		5FAF008A1F6B16EA32D2694E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				70D6E9CE0006EEE7187FBD8A /* Pods-VideoCloudBasicPlayer.debug.xcconfig */,
+				B6F0FC8CDB6FC237E5198C7C /* Pods-VideoCloudBasicPlayer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F359100ED654C31BD7215067 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				37EC293511B9E882E9DAAB44 /* Pods_VideoCloudBasicPlayer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -101,9 +125,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 491576BE19D9F2B700B2E657 /* Build configuration list for PBXNativeTarget "VideoCloudBasicPlayer" */;
 			buildPhases = (
+				6325AD921B6331BDD5028B3C /* [CP] Check Pods Manifest.lock */,
 				4915769B19D9F2B700B2E657 /* Sources */,
 				4915769C19D9F2B700B2E657 /* Frameworks */,
 				4915769D19D9F2B700B2E657 /* Resources */,
+				6EFEE57FA48D85DB2973698D /* [CP] Embed Pods Frameworks */,
+				9200338A0A6A3C84943770CC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -127,7 +154,7 @@
 				TargetAttributes = {
 					4915769E19D9F2B700B2E657 = {
 						CreatedOnToolsVersion = 6.0.1;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0830;
 					};
 				};
 			};
@@ -161,6 +188,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6325AD921B6331BDD5028B3C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6EFEE57FA48D85DB2973698D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VideoCloudBasicPlayer/Pods-VideoCloudBasicPlayer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9200338A0A6A3C84943770CC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VideoCloudBasicPlayer/Pods-VideoCloudBasicPlayer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4915769B19D9F2B700B2E657 /* Sources */ = {
@@ -288,6 +363,7 @@
 		};
 		491576BF19D9F2B700B2E657 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 70D6E9CE0006EEE7187FBD8A /* Pods-VideoCloudBasicPlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = VideoCloudBasicPlayer/Info.plist;
@@ -295,12 +371,13 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "VideoCloudBasicPlayer/VideoCloudBasicPlayer-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		491576C019D9F2B700B2E657 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B6F0FC8CDB6FC237E5198C7C /* Pods-VideoCloudBasicPlayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = VideoCloudBasicPlayer/Info.plist;
@@ -308,7 +385,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "VideoCloudBasicPlayer/VideoCloudBasicPlayer-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
