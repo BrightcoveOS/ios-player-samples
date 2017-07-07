@@ -3,7 +3,7 @@
 //  Video360Player
 //
 //  Created by Steve Bushell on 12/22/16.
-//  Copyright © 2016 Brightcove. All rights reserved.
+//  Copyright © 2017 Brightcove, Inc. All rights reserved.
 //
 
 #import "AppDelegate.h"

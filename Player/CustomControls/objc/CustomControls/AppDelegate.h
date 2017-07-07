@@ -2,8 +2,7 @@
 //  AppDelegate.h
 //  CustomControls
 //
-//  Created by Michael Moscardini on 10/30/14.
-//  Copyright (c) 2014 Brightcove. All rights reserved.
+//  Copyright © 2017 Brightcove, Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

@@ -2,8 +2,7 @@
 //  ViewController.m
 //  VideoCloudBasicPlayer
 //
-//  Created by Mike Moscardini on 9/29/14.
-//  Copyright (c) 2014 Brightcove. All rights reserved.
+//  Copyright © 2017 Brightcove, Inc. All rights reserved.
 //
 
 #import "ViewController.h"

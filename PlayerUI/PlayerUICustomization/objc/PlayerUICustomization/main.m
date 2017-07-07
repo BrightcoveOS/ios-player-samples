@@ -3,7 +3,7 @@
 //  PlayerUICustomization
 //
 //  Created by Steve Bushell on 6/26/16.
-//  Copyright © 2016 Brightcove. All rights reserved.
+//  Copyright © 2017 Brightcove, Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

@@ -2,8 +2,7 @@
 //  AppDelegate.m
 //  NativeControls
 //
-//  Created by Mike Moscardini on 11/14/14.
-//  Copyright (c) 2014 Brightcove. All rights reserved.
+//  Copyright © 2017 Brightcove, Inc. All rights reserved.
 //
 
 #import "AppDelegate.h"

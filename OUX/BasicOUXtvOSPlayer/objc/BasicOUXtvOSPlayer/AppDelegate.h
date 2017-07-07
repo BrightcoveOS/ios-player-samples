@@ -2,7 +2,7 @@
 //  AppDelegate.h
 //  BasicOUXtvOSPlayer
 //
-//  Copyright © 2016 Brightcove. All rights reserved.
+//  Copyright © 2017 Brightcove, Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
