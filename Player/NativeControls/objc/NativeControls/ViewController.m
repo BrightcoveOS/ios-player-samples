@@ -52,6 +52,10 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
     _playbackController.autoAdvance = YES;
     _playbackController.autoPlay = YES;
 
+    // Prevents the Brightcove SDK from making an unnecessary AVPlayerLayer
+    // since the AVPlayerViewController already makes one
+    _playbackController.options = @{ kBCOVAVPlayerViewControllerCompatibilityKey: @YES };
+    
     _playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kViewControllerAccountID
                                                             policyKey:kViewControllerPlaybackServicePolicyKey];
 }

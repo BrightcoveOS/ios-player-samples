@@ -2,8 +2,7 @@
 //  AppDelegate.swift
 //  VideoCloudBasicPlayer
 //
-//  Created by Mike Moscardini on 9/29/14.
-//  Copyright (c) 2014 Brightcove. All rights reserved.
+//  Copyright © 2017 Brightcove, Inc. All rights reserved.
 //
 
 import UIKit
@@ -14,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         // We need the below code in order to ensure that audio plays back when we
         // expect it to. For example, without setting this code, we won't hear the video
