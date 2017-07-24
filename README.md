@@ -16,10 +16,8 @@ With the release of CocoaPods 1.0.0, the master Podspec repository is no longer 
 pod repo update
 ```
 
-### About Xcode 8
-The Swift sample apps were developed with Swift 2 and have not yet been updated to Swift 3. When those projects are opened using Xcode 8.2, the user might be prompted to convert the source files to the newest version of the Swift language. Consider choosing to convert **Later** as conversion to Swift version 3 produces code which does not compile.
-
-A future release of the ios-player-samples will provide updated Swift projects.
+### About Swift
+The Swift sample apps are written in Swift language version 3.
 
 ### Instructions
 
