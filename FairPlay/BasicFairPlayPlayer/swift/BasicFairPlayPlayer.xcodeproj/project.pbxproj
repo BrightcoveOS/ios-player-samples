@@ -125,7 +125,6 @@
 				TargetAttributes = {
 					49E433681C0F4CD900E73634 = {
 						CreatedOnToolsVersion = 7.1.1;
-						DevelopmentTeam = XNV3M98BQL;
 						LastSwiftMigration = 0830;
 					};
 				};
@@ -336,7 +335,7 @@
 			baseConfigurationReference = 5685A41060F8C85C4162754D /* Pods-BasicFairPlayPlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = XNV3M98BQL;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BasicFairPlayPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.BasicFairPlayPlayer;
@@ -350,7 +349,7 @@
 			baseConfigurationReference = 2E7A199CE58327B14DFF6744 /* Pods-BasicFairPlayPlayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = XNV3M98BQL;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BasicFairPlayPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.BasicFairPlayPlayer;
