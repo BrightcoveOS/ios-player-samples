@@ -52,21 +52,35 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    [self setup];
-    
-    BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
-    self.playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:nil controlsView:controlView];
-    self.playerView.frame = self.videoContainer.bounds;
-    self.playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self.videoContainer addSubview:self.playerView];
-    
-    self.playerView.playbackController = self.playbackController;
 
+    [self setup];
     [self requestContentFromPlaybackService];
+}
+
+- (void)createPlayerView
+{
+    if (!self.playerView)
+    {
+        BCOVPUIPlayerViewOptions *options = [[BCOVPUIPlayerViewOptions alloc] init];
+        options.presentingViewController = self;
+        
+        BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
+        // Set playback controller later.
+        self.playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:nil options:options controlsView:controlView];
+        self.playerView.frame = self.videoContainer.bounds;
+        self.playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        [self.videoContainer addSubview:self.playerView];
+    }
+    else
+    {
+        NSLog(@"PlayerView already exists");
+    }
 }
 
 - (void)setup
 {
+    [self createPlayerView];
+
     BCOVPlayerSDKManager *manager = [BCOVPlayerSDKManager sharedManager];
 
     IMASettings *imaSettings = [[IMASettings alloc] init];
@@ -84,6 +98,8 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     self.playbackController.delegate = self;
     self.playbackController.autoAdvance = YES;
     self.playbackController.autoPlay = YES;
+
+    self.playerView.playbackController = self.playbackController;
 
     // Creating a playback controller based on the above code will create
     // VMAP / Server Side Ad Rules. These settings are explained in BCOVIMAAdsRequestPolicy.h.
@@ -236,11 +252,24 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     }
 }
 
-#pragma mark UI Styling
-
-- (UIStatusBarStyle)preferredStatusBarStyle
+- (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didEnterAdSequence:(BCOVAdSequence *)adSequence
 {
-    return UIStatusBarStyleLightContent;
+    // Hide all controls for ads (so they're not visible when full-screen)
+    self.playerView.controlsContainerView.alpha = 0.0;
+}
+
+- (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didExitAdSequence:(BCOVAdSequence *)adSequence
+{
+    // Show all controls when ads are finished.
+    self.playerView.controlsContainerView.alpha = 1.0;
+}
+
+#pragma mark IMAWebOpenerDelegate Methods
+
+- (void)webOpenerDidCloseInAppBrowser:(NSObject *)webOpener
+{
+    // Called when the in-app browser has closed.
+    [self.playbackController resumeAd];
 }
 
 @end

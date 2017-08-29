@@ -28,7 +28,7 @@ NSString * kFairPlayPublisherId = @"00000000-0000-0000-0000-000000000000";
 NSString * kFairPlayApplicationId = @"00000000-0000-0000-0000-000000000000";
 
 // FairPlay-protected content URL
-NSString * kFairPlayHLSVideoURL = @"http://example.com/fps/hlsvideo.m3u8";
+NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8";
 
 
 @interface ViewController () <BCOVPlaybackControllerDelegate, IMAWebOpenerDelegate>
@@ -55,9 +55,31 @@ NSString * kFairPlayHLSVideoURL = @"http://example.com/fps/hlsvideo.m3u8";
     [self setup];
 }
 
+- (void)createPlayerView
+{
+    if (!self.playerView)
+    {
+        BCOVPUIPlayerViewOptions *options = [[BCOVPUIPlayerViewOptions alloc] init];
+        options.presentingViewController = self;
+        
+        BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
+        // Set playback controller later.
+        self.playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:nil options:options controlsView:controlView];
+        self.playerView.frame = self.videoContainer.bounds;
+        self.playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        [self.videoContainer addSubview:self.playerView];
+    }
+    else
+    {
+        NSLog(@"PlayerView already exists");
+    }
+}
+
 - (void)setup
 {
     NSLog(@"Setting up Brightcove objects");
+
+    [self createPlayerView];
 
     // Get the shared SDK manager
     BCOVPlayerSDKManager *sdkManager = [BCOVPlayerSDKManager sharedManager];
@@ -122,14 +144,7 @@ NSString * kFairPlayHLSVideoURL = @"http://example.com/fps/hlsvideo.m3u8";
 
             _playbackController = playbackController;
 
-            // Match the parent view and install
-            BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
-            self.playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:_playbackController options:nil controlsView:controlView];
-            _playerView.frame = self.videoContainer.bounds;
-            _playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-            [_videoContainer addSubview:self.playerView];
-
-            _playerView.playbackController = _playbackController;
+            self.playerView.playbackController = _playbackController;
 
             NSLog(@"Created a new playbackController");
 
@@ -137,7 +152,7 @@ NSString * kFairPlayHLSVideoURL = @"http://example.com/fps/hlsvideo.m3u8";
         }
         else
         {
-            NSLog(@"--- ERROR: FairPlay application certification not found ---");
+            NSLog(@"--- ERROR: FairPlay application certificate not found ---");
         }
 
     }];
@@ -266,6 +281,26 @@ NSString * kFairPlayHLSVideoURL = @"http://example.com/fps/hlsvideo.m3u8";
                 break;
         }
     }
+}
+
+- (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didEnterAdSequence:(BCOVAdSequence *)adSequence
+{
+    // Hide all controls for ads (so they're not visible when full-screen)
+    self.playerView.controlsContainerView.alpha = 0.0;
+}
+
+- (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didExitAdSequence:(BCOVAdSequence *)adSequence
+{
+    // Show all controls when ads are finished.
+    self.playerView.controlsContainerView.alpha = 1.0;
+}
+
+#pragma mark IMAWebOpenerDelegate Methods
+
+- (void)webOpenerDidCloseInAppBrowser:(NSObject *)webOpener
+{
+    // Called when the in-app browser has closed.
+    [self.playbackController resumeAd];
 }
 
 @end
