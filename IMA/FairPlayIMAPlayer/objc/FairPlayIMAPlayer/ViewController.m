@@ -268,4 +268,24 @@ NSString * kFairPlayHLSVideoURL = @"http://example.com/fps/hlsvideo.m3u8";
     }
 }
 
+- (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didEnterAdSequence:(BCOVAdSequence *)adSequence
+{
+    // Hide all controls for ads (so they're not visible when full-screen)
+    self.playerView.controlsContainerView.alpha = 0.0;
+}
+
+- (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didExitAdSequence:(BCOVAdSequence *)adSequence
+{
+    // Show all controls when ads are finished.
+    self.playerView.controlsContainerView.alpha = 1.0;
+}
+
+#pragma mark IMAWebOpenerDelegate Methods
+
+- (void)webOpenerDidCloseInAppBrowser:(NSObject *)webOpener
+{
+    // Called when the in-app browser has closed.
+    [self.playbackController resumeAd];
+}
+
 @end
