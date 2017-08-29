@@ -28,7 +28,7 @@ NSString * kFairPlayPublisherId = @"00000000-0000-0000-0000-000000000000";
 NSString * kFairPlayApplicationId = @"00000000-0000-0000-0000-000000000000";
 
 // FairPlay-protected content URL
-NSString * kFairPlayHLSVideoURL = @"http://example.com/fps/hlsvideo.m3u8";
+NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8";
 
 
 @interface ViewController () <BCOVPlaybackControllerDelegate, IMAWebOpenerDelegate>
