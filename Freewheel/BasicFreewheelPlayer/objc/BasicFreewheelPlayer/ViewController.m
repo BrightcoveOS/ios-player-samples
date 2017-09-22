@@ -29,7 +29,7 @@ static NSString * const kViewControllerSlotId= @"300x250";
 
 @property (nonatomic, weak) IBOutlet UIView *videoContainerView;
 
-@property (nonatomic, weak) id<FWContext> adContext;
+@property (nonatomic, weak) BCOVFWContext *bcovAdContext;
 @property (nonatomic, strong) id<FWAdManager> adManager;
 @property (nonatomic, weak) IBOutlet UIView *adSlot;
 
@@ -57,7 +57,6 @@ static NSString * const kViewControllerSlotId= @"300x250";
     // the -[ViewController adContextPolicy] block.
     _adManager = newAdManager();
     [_adManager setNetworkId:90750];
-    [_adManager setServerUrl:@"http://demo.v.fwmrm.net"];
 
     BCOVPlayerSDKManager *manager = [BCOVPlayerSDKManager sharedManager];
 
@@ -102,7 +101,7 @@ static NSString * const kViewControllerSlotId= @"300x250";
 {
     ViewController * __weak weakSelf = self;
 
-    return [^ id<FWContext>(BCOVVideo *video, BCOVSource *source, NSTimeInterval videoDuration) {
+    return [^ BCOVFWContext * (BCOVVideo *video, BCOVSource *source, NSTimeInterval videoDuration) {
 
         ViewController *strongSelf = weakSelf;
 
@@ -114,14 +113,12 @@ static NSString * const kViewControllerSlotId= @"300x250";
         // please refer to your Freewheel documentation or contact your Freewheel
         // account executive. Basic information is provided below.
         id<FWContext> adContext = [strongSelf.adManager newContext];
-
-        // These are player/app specific values.
-        [adContext setPlayerProfile:@"90750:3pqa_ios" defaultTemporalSlotProfile:nil defaultVideoPlayerSlotProfile:nil defaultSiteSectionSlotProfile:nil];
-        [adContext setSiteSectionId:@"brightcove_ios" idType:FWIdTypeCustom pageViewRandom:0 networkId:0 fallbackIdString:0];
-
-        // This is an asset specific value.
-        [adContext setVideoAssetId:@"brightcove_demo_video" idType:FWIdTypeCustom duration:videoDuration durationType:FWVideoAssetDurationTypeExact location:nil autoPlayType:true videoPlayRandom:0 networkId:0 fallbackIdString:0];
-
+        
+        // These are player/app-specific and asset-specific values.
+        FWRequestConfiguration *adRequestConfig = [[FWRequestConfiguration alloc] initWithServerURL:@"http://demo.v.fwmrm.net" playerProfile:@"90750:3pqa_ios"];
+        adRequestConfig.siteSectionConfiguration = [[FWSiteSectionConfiguration alloc] initWithSiteSectionId:@"brightcove_ios" idType:FWIdTypeCustom];
+        adRequestConfig.videoAssetConfiguration = [[FWVideoAssetConfiguration alloc] initWithVideoAssetId:@"brightcove_demo_video" idType:FWIdTypeCustom duration:videoDuration durationType:FWVideoAssetDurationTypeExact autoPlayType:FWVideoAssetAutoPlayTypeAttended];
+        
         // This is the view where the ads will be rendered.
         [adContext setVideoDisplayBase:strongSelf.playerView.contentOverlayView];
 
@@ -131,17 +128,21 @@ static NSString * const kViewControllerSlotId= @"300x250";
 
         // This registers a companion view slot with size 300x250. If you don't
         // need companion ads, this can be removed.
-        [adContext addSiteSectionNonTemporalSlot:kViewControllerSlotId adUnit:nil width:300 height:250 slotProfile:nil acceptCompanion:YES initialAdOption:FWSlotInitialAdOptionStandAlone acceptPrimaryContentType:nil acceptContentType:nil compatibleDimensions:nil];
+//        [adContext addSiteSectionNonTemporalSlot:kViewControllerSlotId adUnit:nil width:300 height:250 slotProfile:nil acceptCompanion:YES initialAdOption:FWSlotInitialAdOptionStandAlone acceptPrimaryContentType:nil acceptContentType:nil compatibleDimensions:nil];
+        [adRequestConfig addSlotConfiguration:[[FWNonTemporalSlotConfiguration alloc] initWithCustomId:kViewControllerSlotId adUnit:FWAdUnitOverlay width:300 height:250]];
 
-        [adContext addTemporalSlot:@"midroll60" adUnit:FWAdUnitMidroll timePosition:60.00 slotProfile:nil cuePointSequence:1 minDuration:0 maxDuration:100 acceptPrimaryContentType:nil acceptContentType:nil];
-        
-        [adContext addTemporalSlot:@"midroll120" adUnit:FWAdUnitMidroll timePosition:120.00 slotProfile:nil cuePointSequence:1 minDuration:0 maxDuration:100 acceptPrimaryContentType:nil acceptContentType:nil];
+//        [adContext addTemporalSlot:@"midroll60" adUnit:FWAdUnitMidroll timePosition:60.00 slotProfile:nil cuePointSequence:1 minDuration:0 maxDuration:100 acceptPrimaryContentType:nil acceptContentType:nil];
+//        [adContext addTemporalSlot:@"midroll120" adUnit:FWAdUnitMidroll timePosition:120.00 slotProfile:nil cuePointSequence:1 minDuration:0 maxDuration:100 acceptPrimaryContentType:nil acceptContentType:nil];
+        [adRequestConfig addSlotConfiguration:[[FWTemporalSlotConfiguration alloc] initWithCustomId:@"midroll60" adUnit:FWAdUnitMidroll timePosition:60.0]];
+        [adRequestConfig addSlotConfiguration:[[FWTemporalSlotConfiguration alloc] initWithCustomId:@"midroll120" adUnit:FWAdUnitMidroll timePosition:120.0]];
+
+        BCOVFWContext *bcovAdContext = [[BCOVFWContext alloc] initWithAdContext:adContext requestConfiguration:adRequestConfig];
         
         // We save the adContext to the class so that we can access outside the
         // block. In this case, we will need to retrieve the companion ad slot.
-        strongSelf.adContext = adContext;
+        strongSelf.bcovAdContext = bcovAdContext;
 
-        return adContext;
+        return bcovAdContext;
         
     } copy];
 }
@@ -174,7 +175,7 @@ static NSString * const kViewControllerSlotId= @"300x250";
     // gets delivered, we check to see if the slot got populated with an ad,
     // and add it to our companion ad container.
     // If not using companion ads, this is not needed.
-    id<FWSlot> slot = [self.adContext getSlotByCustomId:kViewControllerSlotId];
+    id<FWSlot> slot = [self.bcovAdContext.adContext getSlotByCustomId:kViewControllerSlotId];
 
     if (slot)
     {
