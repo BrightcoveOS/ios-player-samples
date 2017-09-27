@@ -11,6 +11,6 @@
 @import BrightcovePlayerSDK;
 
 
-@interface ViewController : UIViewController <BCOVPlaybackControllerDelegate>
+@interface ViewController : UIViewController
 
 @end
