@@ -7,14 +7,13 @@
 
 #import "ViewController.h"
 
-
 // ** Customize these values with your own account information **
 static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM1W-vUOMe6RSA3pA6Vw-VWUNn5rL0lzQabvrI63-VjS93gVUugDlmBpHIxP16X8TSe5LSKM415UHeMBmxl7pqcwVY_AZ4yKFwIpZPvXE34TpXEYYcmulxJQAOvHbv2dpfq-S_cm";
 static NSString * const kViewControllerAccountID = @"3636334163001";
 static NSString * const kViewControllerVideoID = @"3666678807001";
 
 
-@interface ViewController () <BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate>
+@interface ViewController () <BCOVPlaybackControllerDelegate>
 
 @property (nonatomic, strong) BCOVPlaybackService *playbackService;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
@@ -40,9 +39,8 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
 
 - (void)setup
 {
-    BCOVPlayerSDKManager *manager = [BCOVPlayerSDKManager sharedManager];
+    _playbackController = [BCOVPlayerSDKManager.sharedManager createPlaybackController];
 
-    _playbackController = [manager createPlaybackController];
     _playbackController.delegate = self;
     _playbackController.autoAdvance = YES;
     _playbackController.autoPlay = YES;
@@ -56,16 +54,16 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 
-    BCOVPUIPlayerViewOptions *options = [[BCOVPUIPlayerViewOptions alloc] init];
-    options.presentingViewController = self;
+    // Set up our player view. Create with a standard VOD layout.
+    BCOVPUIPlayerView *playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:nil controlsView:[BCOVPUIBasicControlView basicControlViewWithVODLayout] ];
 
-    BCOVPUIBasicControlView *controlsView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
-    BCOVPUIPlayerView *playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:options controlsView:controlsView ];
-    playerView.delegate = self;
+    // Install in the container view and match its size.
     playerView.frame = _videoContainer.bounds;
     playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [_videoContainer addSubview:playerView];
     _playerView = playerView;
+
+    // Associate the playerView with the playback controller.
     _playerView.playbackController = _playbackController;
 
     [self requestContentFromPlaybackService];
@@ -91,15 +89,12 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
 
 - (void)playbackController:(id<BCOVPlaybackController>)controller didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 {
-    NSLog(@"ViewController Debug - Advanced to new session.");
+    NSLog(@"Advanced to new session.");
 }
 
-#pragma mark UI Styling
-
-- (UIStatusBarStyle)preferredStatusBarStyle
+- (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didProgressTo:(NSTimeInterval)progress
 {
-    return UIStatusBarStyleLightContent;
+    NSLog(@"Progress: %0.2f seconds", progress);
 }
 
 @end
-

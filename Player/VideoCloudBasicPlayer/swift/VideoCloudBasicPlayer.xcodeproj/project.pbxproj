@@ -26,7 +26,6 @@
 		491576AE19D9F2B700B2E657 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		491576B919D9F2B700B2E657 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		491576BA19D9F2B700B2E657 /* VideoCloudBasicPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCloudBasicPlayerTests.swift; sourceTree = "<group>"; };
-		491576C419D9FCB400B2E657 /* VideoCloudBasicPlayer-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VideoCloudBasicPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
 		70D6E9CE0006EEE7187FBD8A /* Pods-VideoCloudBasicPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoCloudBasicPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VideoCloudBasicPlayer/Pods-VideoCloudBasicPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		B6F0FC8CDB6FC237E5198C7C /* Pods-VideoCloudBasicPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoCloudBasicPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-VideoCloudBasicPlayer/Pods-VideoCloudBasicPlayer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,7 +64,6 @@
 		491576A119D9F2B700B2E657 /* VideoCloudBasicPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				491576C419D9FCB400B2E657 /* VideoCloudBasicPlayer-Bridging-Header.h */,
 				491576A419D9F2B700B2E657 /* AppDelegate.swift */,
 				491576A619D9F2B700B2E657 /* ViewController.swift */,
 				491576A819D9F2B700B2E657 /* Main.storyboard */,
@@ -370,7 +368,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "VideoCloudBasicPlayer/VideoCloudBasicPlayer-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -384,7 +381,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "VideoCloudBasicPlayer/VideoCloudBasicPlayer-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

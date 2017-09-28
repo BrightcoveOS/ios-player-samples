@@ -4,3 +4,4 @@ This sample is intended to show how to quickly integrate the Brightcove-Player-S
 
 * Creating a playback controller  
 * Requesting a playlist from the Video Cloud Playback API
+* Getting new-session and progress notifications through delegate methods
