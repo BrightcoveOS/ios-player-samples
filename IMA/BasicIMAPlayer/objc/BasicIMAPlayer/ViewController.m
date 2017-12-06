@@ -93,8 +93,13 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     
     // BCOVIMAAdsRequestPolicy provides methods to specify VAST or VMAP/Server Side Ad Rules. Select the appropriate method to select your ads policy.
     BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy videoPropertiesVMAPAdTagUrlAdsRequestPolicy];
-    
-    self.playbackController = [manager createIMAPlaybackControllerWithSettings:imaSettings adsRenderingSettings:renderSettings adsRequestPolicy:adsRequestPolicy adContainer:self.videoContainer companionSlots:nil viewStrategy:nil];
+
+    self.playbackController = [manager createIMAPlaybackControllerWithSettings:imaSettings
+                                                          adsRenderingSettings:renderSettings
+                                                              adsRequestPolicy:adsRequestPolicy
+                                                                   adContainer:self.playerView.contentOverlayView
+                                                                companionSlots:nil
+                                                                  viewStrategy:nil];
     self.playbackController.delegate = self;
     self.playbackController.autoAdvance = YES;
     self.playbackController.autoPlay = YES;
@@ -109,23 +114,18 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     //
     // or for VAST:
     //
-    // BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy adsRequestPolicyWithVASTAdTagsInCuePointsAndAdsCuePointProgressPolicy:[BCOVCuePointProgressPolicy progressPolicyProcessingCuePoints:nil]];
-
-    
-    
-    // With a custom view strategy, the ad container view and ad companion slots can be tied with the video content view.
-    // BCOVPlaybackControllerViewStrategy viewStrategy = ^UIView* (UIView *view, id<BCOVPlaybackController> playbackController){
-        
-    //        BCOVPlaybackControllerViewStrategy defaultControlsViewStrategy = [manager defaultControlsViewStrategy];
-    //        UIView *contentAndDefaultControlsView = defaultControlsViewStrategy(view, playbackController);
+    // BCOVCuePointProgressPolicy *policy = [BCOVCuePointProgressPolicy progressPolicyProcessingCuePoints:BCOVProgressPolicyProcessFinalCuePoint
+    //                                                                               resumingPlaybackFrom:BCOVProgressPolicyResumeFromContentPlayhead
+    //                                                               ignoringPreviouslyProcessedCuePoints:NO];
     //
-    // Make sure the content view won't cover the any subviews (ad view) in ad container view.
-    //        [self.videoContainer addSubview:contentAndDefaultControlsView];
+    // BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy adsRequestPolicyWithVASTAdTagsInCuePointsAndAdsCuePointProgressPolicy:policy];
     //
-    //        return self.videoContainer;
-    // };
-    //
-    // _playbackController = [manager createIMAPlaybackControllerWithSettings:imaSettings adsRenderingSettings:renderSettings adsRequestPolicy:adsRequestPolicy viewStrategy:viewStrategy];
+    // _playbackController = [manager createIMAPlaybackControllerWithSettings:imaSettings
+    //                                                   adsRenderingSettings:renderSettings
+    //                                                       adsRequestPolicy:adsRequestPolicy
+    //                                                            adContainer:self.playerView.contentOverlayView
+    //                                                         companionSlots:nil
+    //                                                           viewStrategy:nil];
     //
     
     
