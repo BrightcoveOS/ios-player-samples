@@ -97,7 +97,7 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     self.playbackController = [manager createIMAPlaybackControllerWithSettings:imaSettings
                                                           adsRenderingSettings:renderSettings
                                                               adsRequestPolicy:adsRequestPolicy
-                                                                   adContainer:self.videoContainer
+                                                                   adContainer:self.playerView.contentOverlayView
                                                                 companionSlots:nil
                                                                   viewStrategy:nil];
     self.playbackController.delegate = self;
@@ -123,7 +123,7 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     // _playbackController = [manager createIMAPlaybackControllerWithSettings:imaSettings
     //                                                   adsRenderingSettings:renderSettings
     //                                                       adsRequestPolicy:adsRequestPolicy
-    //                                                            adContainer:self.videoContainer
+    //                                                            adContainer:self.playerView.contentOverlayView
     //                                                         companionSlots:nil
     //                                                           viewStrategy:nil];
     //
