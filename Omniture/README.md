@@ -9,8 +9,8 @@ Use of this player sample requires an Adobe analytics account and the custom ADB
 The Adobe analytics SDKs **are not** included in this sample project. To add them, open a Terminal window, cd to the `objc` folder inside the `BasicOmniturePlayer` folder, and run the following `git` commands:
 
 ```
-git clone -b v4.11.1-iOS --single-branch https://github.com/Adobe-Marketing-Cloud/mobile-services.git
-git clone -b ios-v2.0.0 --single-branch https://github.com/Adobe-Marketing-Cloud/video-heartbeat-v2.git
+git clone -b v4.14.1-iOS --single-branch https://github.com/Adobe-Marketing-Cloud/mobile-services.git
+git clone -b ios-v2.0.1 --single-branch https://github.com/Adobe-Marketing-Cloud/video-heartbeat-v2.git
 ```
 
 Next, install the CocoaPods.
