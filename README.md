@@ -54,6 +54,10 @@ FreeWheel samples demonstrate how to use the FreeWheel plugin.
 
 IMA samples demonstrate how to use the IMA plugin. These are intended to cover use cases like VMAP, VAST, Server Side Ad rules, and advanced ad topics.
 
+##### Offline
+
+OfflinePlayer demonstrates downloading offline-enabled HLS videos and playing them back with or without a network connection. Xcode 9.0+ is required to build and run this sample app.
+
 ##### Omniture
 
 Omniture samples demonstrate how to use the Omniture plugin.
