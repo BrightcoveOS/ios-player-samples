@@ -1,9 +1,9 @@
 //
 //  DownloadsViewController.m
-//  BCOVOfflineDRM
+//  OfflinePlayer
 //
 //  Created by Steve Bushell on 1/27/17.
-//  Copyright (c) 2017 Brightcove. All rights reserved.
+//  Copyright (c) 2018 Brightcove. All rights reserved.
 //
 
 #import "DownloadsViewController.h"
@@ -11,7 +11,7 @@
 
 DownloadsViewController *gDownloadsViewController;
 
-// - The Download View Controller displays a list of HLS videos that have been
+// - The Downloads View Controller displays a list of HLS videos that have been
 // downloaded, including videos that are "preloaded", meaning their FairPlay
 // licenses have been acquired, and the video content is yet to be downloaded.
 // - You can tap on a video to select it, and thus display information about it.
@@ -340,6 +340,7 @@ static unsigned long long int directorySize(NSString *folderPath)
     [self createPlayerView];
 
     {
+        // Long press on a downloaded video gives the option of downloading all tracks
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
                                                    initWithTarget:self action:@selector(handleLongPress:)];
         longPress.minimumPressDuration = 1.0; //seconds
@@ -403,8 +404,8 @@ static unsigned long long int directorySize(NSString *folderPath)
 
 - (void)freeSpaceUpdate:(NSTimer *)timer
 {
-    const double cMB = (1024.0 * 1024.0);
-    const double cGB = (cMB * 1024.0);
+    const double cMB = (1000.0 * 1000.0);
+    const double cGB = (cMB * 1000.0);
     NSDictionary *attributes = [NSFileManager.defaultManager attributesOfFileSystemForPath:@"/var" error:nil];
     
     NSNumber *freeSizeNumber = attributes[NSFileSystemFreeSize];
@@ -908,6 +909,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"download_cell"
                                                             forIndexPath:indexPath];
     cell.textLabel.text = video.properties[@"name"];
+    // Use red label to indicate that the video is protected with FairPlay
     cell.textLabel.textColor = (video.usesFairPlay ? [UIColor colorWithRed:0.75 green:0.0 blue:0.0 alpha:1.0] : UIColor.blackColor);
     NSString *detailString = video.properties[@"description"];
     if ((detailString == nil) || (detailString.length == 0))
@@ -934,7 +936,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         {
             NSString *videoFilePath = video.properties[kBCOVOfflineVideoFilePathPropertyKey];
             unsigned long long int videoSize = directorySize(videoFilePath);
-            megabytes = (double)videoSize / (1024.0 * 1024.0);
+            megabytes = (double)videoSize / (1000.0 * 1000.0);
             
             // Store the computed value
             gVideosViewController.downloadSizeDictionary[offlineVideoToken] = @(megabytes);
@@ -982,8 +984,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     }
 
     DownloadCell *downloadCell = (DownloadCell *)cell;
-    
-    
+        
     if (offlineVideoStatus == nil)
     {
         [downloadCell setStateImage:eVideoStateOnlineOnly];

@@ -1,9 +1,9 @@
 //
 //  VideosViewController.m
-//  BCOVOfflineDRM
+//  OfflinePlayer
 //
 //  Created by Steve Bushell on 1/27/17.
-//  Copyright (c) 2017 Brightcove. All rights reserved.
+//  Copyright (c) 2018 Brightcove. All rights reserved.
 //
 
 #import "VideosViewController.h"
@@ -87,7 +87,8 @@ VideosViewController *gVideosViewController;
     NSDictionary *videoDownloadDictionary = self.videoPreloadQueue.firstObject;
     BCOVVideo *video = videoDownloadDictionary[@"video"];
     NSDictionary *parameters = videoDownloadDictionary[@"parameters"];
-    
+
+    // Once the preload queue is empty, start the download queue
     if (video == nil)
     {
         [self downloadVideoFromQueue];
@@ -619,6 +620,9 @@ didFinishAggregateDownloadWithError:(NSError *)error NS_AVAILABLE_IOS(11_0)
     {
         NSLog(@"Creating a new playbackController");
 
+        // This app shows how to set up your playback controller for playback of FairPlay-protected videos.
+        // The playback controller, as well as the download manager will work with either FairPlay-protected
+        // videos, or "clear" videos (no DRM protection).
         BCOVPlayerSDKManager *sdkManager = [BCOVPlayerSDKManager sharedManagerWithOptions:@{@"log_level": @1 }]; // level one shows logs errors to the debug console
 
         // Publisher/application IDs not required for Dynamic Delivery
@@ -661,7 +665,7 @@ didFinishAggregateDownloadWithError:(NSError *)error NS_AVAILABLE_IOS(11_0)
     // Simulator warning
 #if (TARGET_OS_SIMULATOR)
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Reminder..."
-                                                                   message:@"FairPlay videos won't display in a simulator."
+                                                                   message:@"FairPlay videos won't download or display in a simulator."
                                                             preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action) {}];
@@ -715,15 +719,15 @@ didFinishAggregateDownloadWithError:(NSError *)error NS_AVAILABLE_IOS(11_0)
         self.refreshControl = [[UIRefreshControl alloc] init];
         [self.refreshControl addTarget:self action:@selector(handleTableRefresh:) forControlEvents:UIControlEventValueChanged];
         
-        if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_9_x_Max)
-        {
-            // iOS 9 and earlier: background view is the refresh control
-            self.videosTableView.backgroundView = self.refreshControl;
-        }
-        else
+        if (@available (iOS 10.0, *))
         {
             // iOS 10 and later: proper refresh control support
             self.videosTableView.refreshControl = self.refreshControl;
+        }
+        else
+        {
+            // iOS 9 and earlier: background view is the refresh control
+            self.videosTableView.backgroundView = self.refreshControl;
         }
     }
 
@@ -741,8 +745,6 @@ didFinishAggregateDownloadWithError:(NSError *)error NS_AVAILABLE_IOS(11_0)
                                                     [self presentViewController:alert animated:YES completion:nil];
 
                                                 }];
-    
-    [NSURLCache.sharedURLCache removeAllCachedResponses];
     
     [self createPlayerView];
     [self setup];
@@ -1174,6 +1176,7 @@ didFinishAggregateDownloadWithError:(NSError *)error NS_AVAILABLE_IOS(11_0)
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"video_cell"
                                                             forIndexPath:indexPath];
     cell.textLabel.text = video.properties[@"name"];
+    // Use red label to indicate that the video is protected with FairPlay
     cell.textLabel.textColor = (video.usesFairPlay ? [UIColor colorWithRed:0.75 green:0.0 blue:0.0 alpha:1.0] : UIColor.blackColor);
     NSString *detailString = video.properties[@"description"];
     if ((detailString == nil) || (detailString.length == 0))
@@ -1186,6 +1189,7 @@ didFinishAggregateDownloadWithError:(NSError *)error NS_AVAILABLE_IOS(11_0)
     // "reference_id"
     cell.detailTextLabel.numberOfLines = 2;
     NSNumber *durationNumber = video.properties[@"duration"];
+    // raw duration is in milliseconds
     int duration = durationNumber.intValue / 1000;
     NSNumber *sizeNumber = self.estimatedDownloadSizeDictionary[videoID];
     double megabytes = sizeNumber.doubleValue;
