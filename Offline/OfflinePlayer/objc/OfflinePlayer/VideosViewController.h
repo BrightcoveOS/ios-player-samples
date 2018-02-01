@@ -46,6 +46,12 @@ typedef enum
 // Use a newly retrieved playlist in the table
 - (void)usePlaylist:(nonnull NSArray *)playlist;
 
+// Return license parameters as a mutable dictionary in case you want to add more params later
+- (nonnull NSMutableDictionary *)generateLicenseParameters;
+
+// Return download parameters as a mutable dictionary in case you want to add more params later
+- (nonnull NSMutableDictionary *)generateDownloadParameters;
+
 // Called by the download tab to indicate we need to update after a download deletion
 - (void)didRemoveVideoFromTable:(nonnull BCOVOfflineVideoToken)brightcoveOfflineToken;
 

@@ -137,7 +137,7 @@ SettingsViewController *gSettingsViewController;
 {
     if (self.rentalDurationTextField == nil)
     {
-        return 3e9;
+        return 3600;
     }
 
     unsigned long long durationSeconds = self.rentalDurationTextField.text.longLongValue;
@@ -151,7 +151,8 @@ SettingsViewController *gSettingsViewController;
     @{
       kBCOVOfflineVideoManagerAllowsCellularDownloadKey: @(switchControl.on),
       kBCOVOfflineVideoManagerAllowsCellularPlaybackKey: @(switchControl.on),
-      kBCOVOfflineVideoManagerAllowsCellularAnalyticsKey: @(switchControl.on)
+      kBCOVOfflineVideoManagerAllowsCellularAnalyticsKey: @(switchControl.on),
+      kBCOVOfflineVideoManagerAnalyticsStorageLimitKey: @(1.0 * 1000.0 * 1000.0)
       };
     
     // Re-initialize with same delegate, but new options.

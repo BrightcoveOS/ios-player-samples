@@ -12,9 +12,17 @@
 
 // Dynamic Delivery account credentials
 // Your account can contain FairPlay-protected HLS videos, or unprotected HLS videos
+// TODO: BOZO
+#if 0
 NSString * const kDynamicDeliveryAccountID = @"5434391461001";
 NSString * const kDynamicDeliveryPolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
 NSString * const kDynamicDeliveryPlaylistRefID = @"brightcove-native-sdk-plist";
+#else
+// Enter your Brightcove Dynamic Delivery account information here:
+NSString * const kDynamicDeliveryAccountID = @"3636334164001";
+NSString * const kDynamicDeliveryPolicyKey = @"BCpkADawqM04pilWqSIDfTmwPNiBscekcQB9wQ3IiTUZ4baBIx6LyLTrACuS0KJPOlpeEui10NOSgQ8zPTk8iSRPkQXSCGBrEqJD_4vJtX31zRvnk-4Wq8svz8j6abVYnqTijMliCf_1lIoa";
+NSString * const kDynamicDeliveryPlaylistRefID = @"offline_drm_fairplay_dash_playlist";
+#endif
 
 // For quick access to this controller from other tabs
 VideosViewController *gVideosViewController;
@@ -87,7 +95,7 @@ VideosViewController *gVideosViewController;
     NSDictionary *videoDownloadDictionary = self.videoPreloadQueue.firstObject;
     BCOVVideo *video = videoDownloadDictionary[@"video"];
     NSDictionary *parameters = videoDownloadDictionary[@"parameters"];
-
+    
     // Once the preload queue is empty, start the download queue
     if (video == nil)
     {
@@ -623,7 +631,7 @@ didFinishAggregateDownloadWithError:(NSError *)error NS_AVAILABLE_IOS(11_0)
         // This app shows how to set up your playback controller for playback of FairPlay-protected videos.
         // The playback controller, as well as the download manager will work with either FairPlay-protected
         // videos, or "clear" videos (no DRM protection).
-        BCOVPlayerSDKManager *sdkManager = [BCOVPlayerSDKManager sharedManagerWithOptions:@{@"log_level": @1 }]; // level one shows logs errors to the debug console
+        BCOVPlayerSDKManager *sdkManager = [BCOVPlayerSDKManager sharedManager];
 
         // Publisher/application IDs not required for Dynamic Delivery
         self.authProxy = [[BCOVFPSBrightcoveAuthProxy alloc] initWithPublisherId:nil
@@ -699,7 +707,11 @@ didFinishAggregateDownloadWithError:(NSError *)error NS_AVAILABLE_IOS(11_0)
     @{
       kBCOVOfflineVideoManagerAllowsCellularDownloadKey: @(NO),
       kBCOVOfflineVideoManagerAllowsCellularPlaybackKey: @(NO),
-      kBCOVOfflineVideoManagerAllowsCellularAnalyticsKey: @(NO)
+      kBCOVOfflineVideoManagerAllowsCellularAnalyticsKey: @(NO),
+      kBCOVOfflineVideoManagerAnalyticsStorageLimitKey: @(1.0 * 1000.0 * 1000.0), // Set very low for testing
+      // Optionally set the maximum number of HTTP connections
+      // kBCOVOfflineVideoManagerHTTPMaximumConnectionsPerHostKey: @(1)
+      
       };
     [BCOVOfflineVideoManager initializeOfflineVideoManagerWithDelegate:self
                                                                options:optionsDictionary];
@@ -927,26 +939,20 @@ didFinishAggregateDownloadWithError:(NSError *)error NS_AVAILABLE_IOS(11_0)
     return NO;
 }
 
-// Return download parameters as a mutable dictionary in case you want to add more params later
-- (NSMutableDictionary *)generateDownloadParameters
+// Return license parameters as a mutable dictionary in case you want to add more params later
+- (NSMutableDictionary *)generateLicenseParameters
 {
-    NSMutableDictionary *downloadParameters = NSMutableDictionary.dictionary;
-    
+    NSMutableDictionary *licenseParameters = NSMutableDictionary.dictionary;
+
     // Generate the license parameters based on the Settings tab
     BOOL isPurchaseLicense = [gSettingsViewController purchaseLicenseType];
-    long long int bitrate = gSettingsViewController.bitrate;
-    
-    NSLog(@"Requested bitrate: %lld", bitrate);
-    
-    downloadParameters[kBCOVOfflineVideoManagerRequestedBitrateKey] = @(bitrate);
-    
     // License details are only needed for FairPlay-protected videos.
     // It's harmless to add it for non-FairPlay videos too.
     
     if (isPurchaseLicense)
     {
         NSLog(@"Requesting Purchase License");
-        downloadParameters[kBCOVFairPlayLicensePurchaseKey] = @YES;
+        licenseParameters[kBCOVFairPlayLicensePurchaseKey] = @YES;
     }
     else
     {
@@ -956,9 +962,27 @@ didFinishAggregateDownloadWithError:(NSError *)error NS_AVAILABLE_IOS(11_0)
               @"rentalDuration: %llu",
               rentalDuration);
         
-        downloadParameters[kBCOVFairPlayLicenseRentalDurationKey] = @(rentalDuration);
+        licenseParameters[kBCOVFairPlayLicenseRentalDurationKey] = @(rentalDuration);
     }
+
+    return licenseParameters;
+}
+
+// Return download parameters as a mutable dictionary in case you want to add more params later
+- (NSMutableDictionary *)generateDownloadParameters
+{
+    NSMutableDictionary *downloadParameters = NSMutableDictionary.dictionary;
     
+    // Get base license parameters
+    downloadParameters = [self generateLicenseParameters];
+
+    // Add bitrate parameter for the primary download
+    long long int bitrate = gSettingsViewController.bitrate;
+    
+    NSLog(@"Requested bitrate: %lld", bitrate);
+    
+    downloadParameters[kBCOVOfflineVideoManagerRequestedBitrateKey] = @(bitrate);
+
     return downloadParameters;
 }
 
