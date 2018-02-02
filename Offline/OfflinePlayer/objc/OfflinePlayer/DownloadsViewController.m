@@ -11,18 +11,26 @@
 
 DownloadsViewController *gDownloadsViewController;
 
-// - The Downloads View Controller displays a list of HLS videos that have been
+// The Downloads View Controller displays a list of HLS videos that have been
 // downloaded, including videos that are "preloaded", meaning their FairPlay
 // licenses have been acquired, and the video content is yet to be downloaded.
-// - You can tap on a video to select it, and thus display information about it.
-// After selecting it, you can play the video.
-// - You can long-press on a video to download it's secondary audio tracks (iOS 11+)
-// - You can slide to delete a video.
+//
+// You can tap on a video to select it, and thus display information about it.
+//
+// After selecting it, tap "play" to play the video.
+//
+// Long-press on a video to download its secondary audio tracks (iOS 11+)
+//
+// Slide to delete a video.
+//
+// Tap "More…" to log information about the current video, renew the FairPlay
+// license, or delete the video.
+//
 @interface DownloadsViewController () <BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) IBOutlet UIView *downloadProgressView;
 @property (nonatomic) IBOutlet UIButton *playButton;
-@property (nonatomic) IBOutlet UIButton *logStatusButton;
+@property (nonatomic) IBOutlet UIButton *moreButton;
 @property (nonatomic) IBOutlet UIButton *pauseButton;
 @property (nonatomic) IBOutlet UIButton *cancelButton;
 @property (nonatomic, weak) IBOutlet UITableView *downloadsTableView;
@@ -89,8 +97,8 @@ static unsigned long long int directorySize(NSString *folderPath)
     [self.playButton addTarget:self
                         action:@selector(doPlayHideButton:)
               forControlEvents:UIControlEventTouchUpInside];
-    [self.logStatusButton addTarget:self
-                          action:@selector(doLogStatusButton:)
+    [self.moreButton addTarget:self
+                          action:@selector(doMoreButton:)
                 forControlEvents:UIControlEventTouchUpInside];
     [self.pauseButton addTarget:self
                         action:@selector(doPauseResumeButton:)
@@ -177,22 +185,148 @@ static unsigned long long int directorySize(NSString *folderPath)
     }
 }
 
-- (IBAction)doLogStatusButton:(UIButton *)button
+- (IBAction)doMoreButton:(UIButton *)button
+{
+    BCOVOfflineVideoToken offlineVideoToken = self.selectedOfflineVideoToken;
+    if (offlineVideoToken.length == 0)
+    {
+        NSLog(@"No video was selected");
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"More Options"
+                                                                       message:@"No video was selected"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                             handler:^(UIAlertAction * action) { }];
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    
+    BCOVVideo *video = [BCOVOfflineVideoManager.sharedManager videoObjectFromOfflineVideoToken:offlineVideoToken];
+    NSString *videoName = video.properties[kBCOVVideoPropertyKeyName] ?: @"unknown";
+    NSString *message = [NSString stringWithFormat:@"Additional Options for offline video \"%@\"", videoName];
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"More Options"
+                                                                   message:message
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* cancelAction =
+    [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                           handler:^(UIAlertAction * action) { }];
+    
+    UIAlertAction* logStatusAction =
+    [UIAlertAction actionWithTitle:@"Log Status" style:UIAlertActionStyleDefault
+                           handler:^(UIAlertAction * action) { [self logStatus]; }];
+    
+    UIAlertAction* renewLicenseAction =
+    [UIAlertAction actionWithTitle:@"Renew License" style:UIAlertActionStyleDefault
+                           handler:^(UIAlertAction * action) {
+                               
+                               NSDictionary *licenseParameters = [gVideosViewController generateLicenseParameters];
+                               
+                               [BCOVOfflineVideoManager.sharedManager renewFairPlayLicense:offlineVideoToken
+                                                                                parameters:licenseParameters
+                                                                                completion:^(BCOVOfflineVideoToken offlineVideoToken, NSError *error) {
+                                                                                    
+                                                                                    NSLog(@"FairPlay license renewal completed with error: %@", error);
+                                                                                    
+                                                                                    // Show the new license
+                                                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                        
+                                                                                        [self updateInfoForSelectedDownload];
+                                                                                        
+                                                                                    });
+                                                                                    
+                                                                                }];
+                               
+                           }];
+    
+    UIAlertAction* deleteVideoAction =
+    [UIAlertAction actionWithTitle:@"Delete Offline Video" style:UIAlertActionStyleDefault
+                           handler:^(UIAlertAction * action) {
+                               
+                               // Confirm that the user meant to delete this video
+                               NSString *videoName = video.properties[kBCOVVideoPropertyKeyName] ?: @"unknown";
+                               NSString *message = [NSString stringWithFormat:@"Are you sure you want to delete the offline video \"%@\"", videoName];
+                               UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Delete Offline Video"
+                                                                                              message:message
+                                                                                       preferredStyle:UIAlertControllerStyleAlert];
+                               
+                               UIAlertAction* cancelAction =
+                               [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                      handler:^(UIAlertAction * action) { }];
+                               
+                               UIAlertAction* deleteVideoAction =
+                               [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive
+                                                      handler:^(UIAlertAction * action) {
+                                                      
+                                                          [self deleteOfflineVideo:offlineVideoToken];
+
+                                                      }];
+
+                               [alert addAction:cancelAction];
+                               [alert addAction:deleteVideoAction];
+                               
+                               [self presentViewController:alert animated:YES completion:nil];
+
+                           }];
+    
+    // Buttons appear in the order they are added here
+    [alert addAction:logStatusAction];
+    if (video.usesFairPlay)
+    {
+        [alert addAction:renewLicenseAction];
+    }
+    [alert addAction:deleteVideoAction];
+    [alert addAction:cancelAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)deleteOfflineVideo:(BCOVOfflineVideoToken)offlineVideoToken
+{
+    // Delete the selected offline video
+
+    // Delete from storage through the offline video mananger
+    [gVideosViewController.offlineVideoManager deleteOfflineVideo:offlineVideoToken];
+    
+    // Report deletion so that the video page can update download status
+    [gVideosViewController didRemoveVideoFromTable:offlineVideoToken];
+    
+    // Remove from our local list of video tokens
+    NSMutableArray *updatedOfflineVideoTokenArray = gVideosViewController.offlineVideoTokenArray.mutableCopy;
+    [updatedOfflineVideoTokenArray removeObject:offlineVideoToken];
+    gVideosViewController.offlineVideoTokenArray = updatedOfflineVideoTokenArray;
+    
+    if (self.currentlyPlayingOfflineVideoToken != nil
+        && [self.currentlyPlayingOfflineVideoToken isEqualToString:offlineVideoToken])
+    {
+        // Hide this video if it was playing
+        [self doPlayHideButton:nil];
+    }
+    
+    // Remove poster image:
+    self.posterImageView.image = nil;
+    
+    // Update text in info panel
+    [self updateInfoForSelectedDownload];
+    
+    [gVideosViewController updateStatus];
+    [self refresh];
+}
+
+- (void)logStatus
 {
     // Log a variety of information to the debug console
     // about the currently selected offline video token.
-    BCOVVideo *video = [BCOVOfflineVideoManager.sharedManager videoObjectFromOfflineVideoToken:self.selectedOfflineVideoToken];
     
+    BCOVVideo *video = [BCOVOfflineVideoManager.sharedManager videoObjectFromOfflineVideoToken:self.selectedOfflineVideoToken];
+
     if (video == nil)
     {
         NSLog(@"Could not find video for token %@", self.selectedOfflineVideoToken);
         return;
     }
-
+    
     NSLog(@"Video Properties:\n%@", video.properties);
-
-    BCOVOfflineVideoStatus *offlineVideoStatus = [BCOVOfflineVideoManager.sharedManager offlineVideoStatusForToken:self.selectedOfflineVideoToken];
-
+    
     NSNumber *sidebandCaptionsValue = video.properties[kBCOVOfflineVideoUsesSidebandSubtitleKey];
     if (sidebandCaptionsValue.boolValue == YES)
     {
@@ -204,17 +338,15 @@ static unsigned long long int directorySize(NSString *folderPath)
             [sidebandLanguagesString appendString:language];
             [sidebandLanguagesString appendString:@", "];
         }
-
+        
         int stringLength = (int)sidebandLanguagesString.length;
         if (stringLength >= 2)
         {
             [sidebandLanguagesString substringToIndex:stringLength];
         }
-
+        
         NSLog(@"Video uses sideband subtitles with languages: %@", sidebandLanguagesString);
     }
-    
-    NSLog(@"Offline Video Status:\n%@", offlineVideoStatus);
 }
 
 - (IBAction)doPauseResumeButton:(id)sender
@@ -253,74 +385,74 @@ static unsigned long long int directorySize(NSString *folderPath)
 
 - (IBAction)doCancelButton:(id)sender
 {
-	if (@available(iOS 11.2, *))
-	{
-		// iOS 11.2+: cancel normally
-		[self cancelVideoDownload];
-	}
-	else
-	{
-		if (@available(iOS 11.0, *))
-		{
-			// iOS 11.0 and 11.1: work around iOS download manager bugs
-			[self forceStopAllDownloadTasks];
-		}
-		else
-		{
-			// iOS 10.x: cancel normally
-			[self cancelVideoDownload];
-		}
-	}
+    if (@available(iOS 11.2, *))
+    {
+        // iOS 11.2+: cancel normally
+        [self cancelVideoDownload];
+    }
+    else
+    {
+        if (@available(iOS 11.0, *))
+        {
+            // iOS 11.0 and 11.1: work around iOS download manager bugs
+            [self forceStopAllDownloadTasks];
+        }
+        else
+        {
+            // iOS 10.x: cancel normally
+            [self cancelVideoDownload];
+        }
+    }
 }
 
 - (void)forceStopAllDownloadTasks
 {
-	// iOS 11.0 and 11.1 have a bug in which some downloads cannot be stopped using normal methods.
-	// As a workaround, you can call "forceStopAllDownloadTasks" to cancel all the video downloads
-	// that are still in progress.
-	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Stop All Downloads"
-																   message:@"Do you want to stop all the downloads in progress?"
-															preferredStyle:UIAlertControllerStyleAlert];
-	UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Stop All" style:UIAlertActionStyleDefault
-														  handler:^(UIAlertAction * action) {
-
-															  [BCOVOfflineVideoManager.sharedManager forceStopAllDownloadTasks];
-
-														  }];
-	UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
-														 handler:^(UIAlertAction * action) {}];
-
-	[alert addAction:defaultAction];
-	[alert addAction:cancelAction];
-	[self presentViewController:alert animated:YES completion:nil];
+    // iOS 11.0 and 11.1 have a bug in which some downloads cannot be stopped using normal methods.
+    // As a workaround, you can call "forceStopAllDownloadTasks" to cancel all the video downloads
+    // that are still in progress.
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Stop All Downloads"
+                                                                   message:@"Do you want to stop all the downloads in progress?"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Stop All" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              
+                                                              [BCOVOfflineVideoManager.sharedManager forceStopAllDownloadTasks];
+                                                              
+                                                          }];
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * action) {}];
+    
+    [alert addAction:defaultAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)cancelVideoDownload
 {
-	BCOVOfflineVideoManager *sharedManager = BCOVOfflineVideoManager.sharedManager;
-
-	BCOVOfflineVideoStatus *offlineVideoStatus = [sharedManager offlineVideoStatusForToken:self.selectedOfflineVideoToken];
-
-	switch (offlineVideoStatus.downloadState)
-	{
-		case BCOVOfflineVideoDownloadStateRequested:
-		case BCOVOfflineVideoDownloadStateTracksRequested:
-		case BCOVOfflineVideoDownloadStateDownloading:
-		case BCOVOfflineVideoDownloadStateTracksDownloading:
-		case BCOVOfflineVideoDownloadStateSuspended:
-		case BCOVOfflineVideoDownloadStateTracksSuspended:
-			[sharedManager cancelVideoDownload:self.selectedOfflineVideoToken];
-			break;
-
-		case BCOVOfflineVideoDownloadLicensePreloaded:
-		case BCOVOfflineVideoDownloadStateCancelled:
-		case BCOVOfflineVideoDownloadStateTracksCancelled:
-		case BCOVOfflineVideoDownloadStateCompleted:
-		case BCOVOfflineVideoDownloadStateTracksCompleted:
-		case BCOVOfflineVideoDownloadStateError:
-		case BCOVOfflineVideoDownloadStateTracksError:
-			break;
-	}
+    BCOVOfflineVideoManager *sharedManager = BCOVOfflineVideoManager.sharedManager;
+    
+    BCOVOfflineVideoStatus *offlineVideoStatus = [sharedManager offlineVideoStatusForToken:self.selectedOfflineVideoToken];
+    
+    switch (offlineVideoStatus.downloadState)
+    {
+        case BCOVOfflineVideoDownloadStateRequested:
+        case BCOVOfflineVideoDownloadStateTracksRequested:
+        case BCOVOfflineVideoDownloadStateDownloading:
+        case BCOVOfflineVideoDownloadStateTracksDownloading:
+        case BCOVOfflineVideoDownloadStateSuspended:
+        case BCOVOfflineVideoDownloadStateTracksSuspended:
+            [sharedManager cancelVideoDownload:self.selectedOfflineVideoToken];
+            break;
+            
+        case BCOVOfflineVideoDownloadLicensePreloaded:
+        case BCOVOfflineVideoDownloadStateCancelled:
+        case BCOVOfflineVideoDownloadStateTracksCancelled:
+        case BCOVOfflineVideoDownloadStateCompleted:
+        case BCOVOfflineVideoDownloadStateTracksCompleted:
+        case BCOVOfflineVideoDownloadStateError:
+        case BCOVOfflineVideoDownloadStateTracksError:
+            break;
+    }
 }
 
 - (void)viewDidLoad
@@ -340,7 +472,7 @@ static unsigned long long int directorySize(NSString *folderPath)
     [self createPlayerView];
 
     {
-        // Long press on a downloaded video gives the option of downloading all tracks
+        // Long press on a downloaded video gives the option of downloading all tracks (iOS 11+ only)
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
                                                    initWithTarget:self action:@selector(handleLongPress:)];
         longPress.minimumPressDuration = 1.0; //seconds
@@ -410,17 +542,17 @@ static unsigned long long int directorySize(NSString *folderPath)
     
     NSNumber *freeSizeNumber = attributes[NSFileSystemFreeSize];
     NSNumber *fileSystemSizeNumber = attributes[NSFileSystemSize];
-
-	// 1234567.890 -> @"1,234,567.9"
-	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-	formatter.numberStyle = NSNumberFormatterDecimalStyle;
-	formatter.minimumFractionDigits = 1;
-	formatter.maximumFractionDigits = 1;
-
-    NSString *freeSpaceString = [NSString stringWithFormat:@"Free: %@ MB of %@ GB",
-								 [formatter stringFromNumber:[NSNumber numberWithDouble:freeSizeNumber.doubleValue / cMB]],
-                                 [formatter stringFromNumber:[NSNumber numberWithDouble:fileSystemSizeNumber.doubleValue / cGB]]];
     
+    // 1234567.890 -> @"1,234,567.9"
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    formatter.minimumFractionDigits = 1;
+    formatter.maximumFractionDigits = 1;
+    
+    NSString *freeSpaceString = [NSString stringWithFormat:@"Free: %@ MB of %@ GB",
+                                 [formatter stringFromNumber:[NSNumber numberWithDouble:freeSizeNumber.doubleValue / cMB]],
+                                 [formatter stringFromNumber:[NSNumber numberWithDouble:fileSystemSizeNumber.doubleValue / cGB]]];
+
     self.freeSpaceLabel.textColor = [UIColor blackColor];
     if (freeSizeNumber.doubleValue / cMB < 500)
     {
@@ -490,10 +622,10 @@ static unsigned long long int directorySize(NSString *folderPath)
     
     NSString *licenseText =
     ({
-        NSString *text;
+        NSString *text = @"unknown license";
         NSNumber *purchaseNumber = video.properties[kBCOVFairPlayLicensePurchaseKey];
-        NSNumber *rentalDurationNumber = video.properties[kBCOVFairPlayLicenseRentalDurationKey];
-
+        NSNumber *absoluteExpirationNumber = video.properties[kBCOVOfflineVideoLicenseAbsoluteExpirationTimePropertyKey];
+        
         do
         {
             if (!video.usesFairPlay)
@@ -508,11 +640,10 @@ static unsigned long long int directorySize(NSString *folderPath)
                 break;
             }
             
-            if (rentalDurationNumber != nil)
+            if (absoluteExpirationNumber != nil)
             {
-                double rentalDuration = rentalDurationNumber.doubleValue;
-                NSDate *startDate = [NSDate dateWithTimeIntervalSinceReferenceDate:startTime];
-                NSDate *expirationDate = [startDate dateByAddingTimeInterval:rentalDuration];
+                NSTimeInterval absoluteExpirationTime = absoluteExpirationNumber.doubleValue;
+                NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:absoluteExpirationTime];
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                 dateFormatter.dateStyle = kCFDateFormatterMediumStyle;
                 dateFormatter.timeStyle = NSDateFormatterShortStyle;
@@ -521,7 +652,25 @@ static unsigned long long int directorySize(NSString *folderPath)
                 
                 break;
             }
-            
+            else
+            {
+                NSNumber *rentalDurationNumber = video.properties[kBCOVFairPlayLicenseRentalDurationKey];
+                
+                if (rentalDurationNumber != nil)
+                {
+                    double rentalDuration = rentalDurationNumber.doubleValue;
+                    NSDate *startDate = [NSDate dateWithTimeIntervalSinceReferenceDate:startTime];
+                    NSDate *expirationDate = [startDate dateByAddingTimeInterval:rentalDuration];
+                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                    dateFormatter.dateStyle = kCFDateFormatterMediumStyle;
+                    dateFormatter.timeStyle = NSDateFormatterShortStyle;
+                    text = [NSString stringWithFormat:@"rental (expires %@)",
+                            [dateFormatter stringFromDate:expirationDate]];
+
+                    break;
+                }
+            }
+        
         } while (false);
         
         text;
@@ -614,8 +763,9 @@ static unsigned long long int directorySize(NSString *folderPath)
 - (void)handleLongPress:(UILongPressGestureRecognizer *)longPress
 {
     // Long press on a downloaded video gives the option of downloading all tracks.
-    // Refer to the Brightcove OfflinePlayback.md for details on downloading
-    // additional tracks on iOS 10.
+    // On iOS 11, this is done here, after the main video has been downloaded.
+    // In iOS 10, tracks are downloaded along with the main video.
+    // Refer to OfflinePlayback.md for details.
     if (@available(iOS 11.0, *))
     {
         switch (longPress.state)
@@ -722,6 +872,20 @@ static unsigned long long int directorySize(NSString *folderPath)
     {
         NSError *error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError];
         NSLog(@"Error: `%@`", error.userInfo[NSUnderlyingErrorKey]);
+        
+        if (error.code == kBCOVOfflineVideoManagerErrorCodeExpiredLicense)
+        {
+            NSString *videoName = session.video.properties[kBCOVVideoPropertyKeyName] ?: @"unknown";
+            NSLog(@"License has expired for the video \"%@\"", videoName);
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"License Expired"
+                                                                           message:[NSString stringWithFormat:@"The FairPlay license for the video \"%@\" has expired.", videoName]
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action) {}];
+            
+            [alert addAction:defaultAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
     }
 }
 
@@ -838,7 +1002,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     
     // Delete from storage through the offline video mananger
     [gVideosViewController.offlineVideoManager deleteOfflineVideo:offlineVideoToken];
-
+    
     // Report deletion so that the video page can update download status
     [gVideosViewController didRemoveVideoFromTable:offlineVideoToken];
     
@@ -859,7 +1023,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     
     // Remove poster image:
     self.posterImageView.image = nil;
-
+    
     // Update text in info panel
     [self updateInfoForSelectedDownload];
     
@@ -927,6 +1091,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     // "reference_id"
     cell.detailTextLabel.numberOfLines = 2;
     NSNumber *durationNumber = video.properties[@"duration"];
+    // raw duration is in milliseconds
     int duration = durationNumber.intValue / 1000;
     NSString *twoLineDetailString;
 
