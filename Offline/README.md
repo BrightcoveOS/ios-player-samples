@@ -7,7 +7,7 @@ The Brightcove Native Player SDK allows you to download and play back HLS videos
 
 - iOS 10.3+
 - Xcode 9+
-- Brightcove Native Player SDK v6.2.0+
+- Brightcove Native Player SDK v6.2.2+
 - Brightcove Account with Dynamic Delivery
 
 iOS does not allow FairPlay-protected video to display in a simulator, nor does it allow video downloads to a simulator, so it's important to develop on an actual device.
