@@ -137,7 +137,7 @@ SettingsViewController *gSettingsViewController;
 {
     if (self.rentalDurationTextField == nil)
     {
-        return 3e9;
+        return 3600;
     }
 
     unsigned long long durationSeconds = self.rentalDurationTextField.text.longLongValue;
