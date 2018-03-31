@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  AppleTV
 //
-//  Copyright © 2017 Brightcove, Inc. All rights reserved.
+//  Copyright © 2018 Brightcove, Inc. All rights reserved.
 //
 
 import UIKit
