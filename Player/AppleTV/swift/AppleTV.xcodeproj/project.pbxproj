@@ -11,8 +11,6 @@
 		4910CD9D1C91DB4B00016798 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4910CD9C1C91DB4B00016798 /* ViewController.swift */; };
 		4910CDA01C91DB4B00016798 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4910CD9E1C91DB4B00016798 /* Main.storyboard */; };
 		4910CDA21C91DB4B00016798 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4910CDA11C91DB4B00016798 /* Assets.xcassets */; };
-		AA0C93FD206BCECE007A716A /* BrightcovePlayerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0C93FB206BCE77007A716A /* BrightcovePlayerSDK.framework */; };
-		AA0C93FE206BCECE007A716A /* BrightcovePlayerSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA0C93FB206BCE77007A716A /* BrightcovePlayerSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA0C9401206C291E007A716A /* SampleTabBarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0C9400206C291E007A716A /* SampleTabBarItemView.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,7 +21,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				AA0C93FE206BCECE007A716A /* BrightcovePlayerSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -37,7 +34,6 @@
 		4910CD9F1C91DB4B00016798 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4910CDA11C91DB4B00016798 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4910CDA31C91DB4B00016798 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AA0C93FB206BCE77007A716A /* BrightcovePlayerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BrightcovePlayerSDK.framework; sourceTree = "<group>"; };
 		AA0C9400206C291E007A716A /* SampleTabBarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleTabBarItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -46,7 +42,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA0C93FD206BCECE007A716A /* BrightcovePlayerSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,7 +81,6 @@
 		BD51C1D5826D28E0E0F199AF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AA0C93FB206BCE77007A716A /* BrightcovePlayerSDK.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -274,10 +268,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = AppleTV/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.AppleTV;
@@ -291,10 +282,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = AppleTV/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.AppleTV;
