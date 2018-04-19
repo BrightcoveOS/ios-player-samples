@@ -123,14 +123,19 @@ NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/st
             id<BCOVPlaybackSessionProvider> fps = [sdkManager createFairPlaySessionProviderWithApplicationCertificate:applicationCertificate
                                                                                                    authorizationProxy:proxy
                                                                                               upstreamSessionProvider:nil];
-
+            
+            // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition: which allows us
+            // to modify the IMAAdsRequest object before it is used to load ads.
+            NSDictionary *imaPlaybackSessionOptions = @{ kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self };
+            
             // FairPlay is set as the upstream session provider when creating the IMA session provider.
             id<BCOVPlaybackSessionProvider> imaSessionProvider = [sdkManager createIMASessionProviderWithSettings:imaSettings
                                                                                              adsRenderingSettings:renderSettings
                                                                                                  adsRequestPolicy:adsRequestPolicy
                                                                                                       adContainer:self.videoContainer
                                                                                                    companionSlots:nil
-                                                                                          upstreamSessionProvider:fps];
+                                                                                          upstreamSessionProvider:fps
+                                                                                                          options:imaPlaybackSessionOptions];
 
             NSLog(@"Creating playback controller");
             
@@ -242,7 +247,7 @@ NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/st
     }];
 }
 
-#pragma mark BCOVPlaybackControllerDelegate Methods
+#pragma mark - BCOVPlaybackControllerDelegate Methods
 
 - (void)playbackController:(id<BCOVPlaybackController>)controller didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 {
@@ -305,7 +310,17 @@ NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/st
     self.playerView.controlsContainerView.alpha = 1.0;
 }
 
-#pragma mark IMAWebOpenerDelegate Methods
+#pragma mark - IMAPlaybackSessionDelegate Methods
+
+- (void)willCallIMAAdsLoaderRequestAdsWithRequest:(IMAAdsRequest *)adsRequest forPosition:(NSTimeInterval)position
+{
+    // for demo purposes, increase the VAST ad load timeout.
+    adsRequest.vastLoadTimeout = 3000.;
+    NSLog(@"ViewController Debug - IMAAdsRequest.vastLoadTimeout set to %.1f milliseconds.", adsRequest.vastLoadTimeout);
+    
+}
+
+#pragma mark - IMAWebOpenerDelegate Methods
 
 - (void)webOpenerDidCloseInAppBrowser:(NSObject *)webOpener
 {

@@ -93,13 +93,18 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     
     // BCOVIMAAdsRequestPolicy provides methods to specify VAST or VMAP/Server Side Ad Rules. Select the appropriate method to select your ads policy.
     BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy videoPropertiesVMAPAdTagUrlAdsRequestPolicy];
+    
+    // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition: which allows us to modify the IMAAdsRequest object
+    // before it is used to load ads.
+    NSDictionary *imaPlaybackSessionOptions = @{ kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self };
 
     self.playbackController = [manager createIMAPlaybackControllerWithSettings:imaSettings
                                                           adsRenderingSettings:renderSettings
                                                               adsRequestPolicy:adsRequestPolicy
                                                                    adContainer:self.playerView.contentOverlayView
                                                                 companionSlots:nil
-                                                                  viewStrategy:nil];
+                                                                  viewStrategy:nil
+                                                                       options:imaPlaybackSessionOptions];
     self.playbackController.delegate = self;
     self.playbackController.autoAdvance = YES;
     self.playbackController.autoPlay = YES;
@@ -211,7 +216,7 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     }];
 }
 
-#pragma mark BCOVPlaybackControllerDelegate Methods
+#pragma mark - BCOVPlaybackControllerDelegate Methods
 
 - (void)playbackController:(id<BCOVPlaybackController>)controller didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 {
@@ -274,7 +279,17 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     self.playerView.controlsContainerView.alpha = 1.0;
 }
 
-#pragma mark IMAWebOpenerDelegate Methods
+#pragma mark - IMAPlaybackSessionDelegate Methods
+
+- (void)willCallIMAAdsLoaderRequestAdsWithRequest:(IMAAdsRequest *)adsRequest forPosition:(NSTimeInterval)position
+{
+    // for demo purposes, increase the VAST ad load timeout.
+    adsRequest.vastLoadTimeout = 3000.;
+    NSLog(@"ViewController Debug - IMAAdsRequest.vastLoadTimeout set to %.1f milliseconds.", adsRequest.vastLoadTimeout);
+    
+}
+
+#pragma mark - IMAWebOpenerDelegate Methods
 
 - (void)webOpenerDidCloseInAppBrowser:(NSObject *)webOpener
 {
