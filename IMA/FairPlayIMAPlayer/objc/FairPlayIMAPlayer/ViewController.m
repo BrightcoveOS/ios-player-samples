@@ -317,7 +317,6 @@ NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/st
     // for demo purposes, increase the VAST ad load timeout.
     adsRequest.vastLoadTimeout = 3000.;
     NSLog(@"ViewController Debug - IMAAdsRequest.vastLoadTimeout set to %.1f milliseconds.", adsRequest.vastLoadTimeout);
-    
 }
 
 #pragma mark - IMAWebOpenerDelegate Methods
