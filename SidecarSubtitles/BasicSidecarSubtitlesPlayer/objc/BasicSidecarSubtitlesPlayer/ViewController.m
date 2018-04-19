@@ -144,12 +144,33 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
     NSArray *textTracks =
     @[
       @{
+          // required tracks descriptor: kBCOVSSTextTracksKindSubtitles or kBCOVSSTextTracksKindCaptions
           kBCOVSSTextTracksKeyKind: kBCOVSSTextTracksKindSubtitles,
-          kBCOVSSTextTracksKeyLabel: @"English",
-          kBCOVSSTextTracksKeyDefault: @YES,
+          
+          // required language code
           kBCOVSSTextTracksKeySourceLanguage: @"en",
+          
+          // required display name
+          kBCOVSSTextTracksKeyLabel: @"English",
+          
+          // required: source URL of WebVTT file or playlist as NSString
           kBCOVSSTextTracksKeySource: @"http://players.brightcove.net/3636334163001/ios_native_player_sdk/vtt/sample.vtt",
-          kBCOVSSTextTracksKeyMIMEType: @"text/vtt"
+          
+          // optional MIME type
+          kBCOVSSTextTracksKeyMIMEType: @"text/vtt",
+          
+          // optional "default" indicator
+          kBCOVSSTextTracksKeyDefault: @YES,
+          
+          // duration is required for WebVTT URLs (ending in ".vtt");
+          // optional for WebVTT playlists (ending in ".m3u8")
+          kBCOVSSTextTracksKeyDuration: @959, // seconds as NSNumber
+          
+          // The source type is only needed if your source URL
+          // does not end in "vtt" or "m3u8" and thus its type is ambiguous.
+          // Our URL ends in "vtt" so we don't need to set this, but it won't hurt.
+          kBCOVSSTextTracksKeySourceType: kBCOVSSTextTracksKeySourceTypeWebVTTURL
+          
           }
       ];
     
