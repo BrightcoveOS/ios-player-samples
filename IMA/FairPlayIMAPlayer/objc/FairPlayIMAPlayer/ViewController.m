@@ -53,6 +53,20 @@ NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/st
 
     // Do any additional setup after loading the view, typically from a nib.
     [self setup];
+    
+    // FairPlay doesn't work when we're running in a simulator, so put up an alert.
+#if (TARGET_OS_SIMULATOR)
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"FairPlay Warning"
+                                                                   message:@"FairPlay only works on actual iOS devices, not in a simulator.\n\nYou will not be able to view any FairPlay content."
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault  handler:^(UIAlertAction *action) {}];
+
+    [alert addAction:defaultAction];
+    [self presentViewController:alert animated:YES completion:nil];
+
+#endif
 }
 
 - (void)createPlayerView
