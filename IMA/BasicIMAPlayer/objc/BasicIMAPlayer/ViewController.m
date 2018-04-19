@@ -228,6 +228,16 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     if ([type isEqualToString:kBCOVIMALifecycleEventAdsLoaderLoaded])
     {
         NSLog(@"ViewController Debug - Ads loaded.");
+        
+        // When ads load successfully, the kBCOVIMALifecycleEventAdsLoaderLoaded lifecycle event
+        // returns an NSDictionary containing a reference to the IMAAdsManager.
+        IMAAdsManager *adsManager = lifecycleEvent.properties[kBCOVIMALifecycleEventPropertyKeyAdsManager];
+        if (adsManager != nil)
+        {
+            // Lower the volume of ads by half.
+            adsManager.volume = adsManager.volume / 2.0;
+            NSLog (@"ViewController Debug - IMAAdsManager.volume set to %0.1f.", adsManager.volume);
+        }
     }
     else if ([type isEqualToString:kBCOVIMALifecycleEventAdsManagerDidReceiveAdEvent])
     {
