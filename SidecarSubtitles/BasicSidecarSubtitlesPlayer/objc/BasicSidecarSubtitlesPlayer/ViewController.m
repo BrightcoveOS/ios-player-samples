@@ -167,8 +167,8 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
           kBCOVSSTextTracksKeyDuration: @959, // seconds as NSNumber
           
           // The source type is only needed if your source URL
-          // does not end in "vtt" or "m3u8" and thus its type is ambiguous.
-          // Our URL ends in "vtt" so we don't need to set this, but it won't hurt.
+          // does not end in ".vtt" or ".m3u8" and thus its type is ambiguous.
+          // Our URL ends in ".vtt" so we don't need to set this, but it won't hurt.
           kBCOVSSTextTracksKeySourceType: kBCOVSSTextTracksKeySourceTypeWebVTTURL
           
           }
