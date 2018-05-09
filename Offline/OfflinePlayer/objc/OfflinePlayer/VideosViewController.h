@@ -63,6 +63,12 @@ typedef enum
 - (void)downloadAllSecondaryTracksForOfflineVideoToken:(nonnull BCOVOfflineVideoToken)offlineVideoToken;
 
 
+// Give other controllers a way to retrieve videos.
+// Used for FairPlay license renewal.
+- (void)retrieveVideoWithAccount:(NSString *)accountID
+                         videoID:(NSString *)videoID
+                      completion:(void (^)(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error))completionHandler;
+
 @end
 
 
