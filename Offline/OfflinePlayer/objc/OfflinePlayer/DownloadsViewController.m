@@ -219,23 +219,44 @@ static unsigned long long int directorySize(NSString *folderPath)
     [UIAlertAction actionWithTitle:@"Renew License" style:UIAlertActionStyleDefault
                            handler:^(UIAlertAction * action) {
                                
+                               BCOVVideo *video = [BCOVOfflineVideoManager.sharedManager videoObjectFromOfflineVideoToken:offlineVideoToken];
+
+                               // Get account and video id from offline video so we can request it againBCOVVideo *video = [BCOVOfflineVideoManager.sharedManager videoObjectFromOfflineVideoToken:offlineVideoToken];
+                               NSString *accountID = video.properties[kBCOVVideoPropertyKeyAccountId];
+                               NSString *videoID = video.properties[kBCOVVideoPropertyKeyId];
+
                                NSDictionary *licenseParameters = [gVideosViewController generateLicenseParameters];
                                
-                               [BCOVOfflineVideoManager.sharedManager renewFairPlayLicense:offlineVideoToken
-                                                                                parameters:licenseParameters
-                                                                                completion:^(BCOVOfflineVideoToken offlineVideoToken, NSError *error) {
-                                                                                    
-                                                                                    NSLog(@"FairPlay license renewal completed with error: %@", error);
-                                                                                    
-                                                                                    // Show the new license
-                                                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                        
-                                                                                        [self updateInfoForSelectedDownload];
-                                                                                        
-                                                                                    });
-                                                                                    
-                                                                                }];
-                               
+                               // Get updated video object to pass to renewal method
+                               [gVideosViewController retrieveVideoWithAccount:accountID
+                                                                       videoID:videoID
+                                                                    completion:^(BCOVVideo *newVideo, NSDictionary *jsonResponse, NSError *error)
+                                {
+                                if (error != nil)
+                                    {
+                                    NSLog(@"Could not retrieve new video during FairPlay license renewal. Error: %@", error);
+                                    }
+                                else
+                                    {
+                                    [BCOVOfflineVideoManager.sharedManager
+                                     renewFairPlayLicense:offlineVideoToken
+                                     video:newVideo
+                                     parameters:licenseParameters
+                                     completion:^(BCOVOfflineVideoToken offlineVideoToken, NSError *error) {
+
+                                         NSLog(@"FairPlay license renewal completed with error: %@", error);
+
+                                         // Show the new license
+                                         dispatch_async(dispatch_get_main_queue(), ^{
+
+                                             [self updateInfoForSelectedDownload];
+
+                                         });
+
+                                     }];
+                                    }
+
+                                }];
                            }];
     
     UIAlertAction* deleteVideoAction =

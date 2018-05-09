@@ -323,6 +323,28 @@ static BOOL sDownloadInProgress = NO;
     [self.videosTableView reloadData];
 }
 
+- (void)retrieveVideoWithAccount:(NSString *)accountID
+                         videoID:(NSString *)videoID
+                      completion:(void (^)(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error))completionHandler
+{
+    NSAssert(completionHandler!=nil, @"Completion handler cannot be nil");
+
+    // Retrieve a playlist through the BCOVPlaybackService
+    BCOVPlaybackServiceRequestFactory *playbackServiceRequestFactory = [[BCOVPlaybackServiceRequestFactory alloc] initWithAccountId:kDynamicDeliveryAccountID
+                                                                                                                          policyKey:kDynamicDeliveryPolicyKey];
+    BCOVPlaybackService *playbackService = [[BCOVPlaybackService alloc] initWithRequestFactory:playbackServiceRequestFactory];
+
+    [playbackService findVideoWithVideoID:videoID
+                               parameters:nil
+                               completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error)
+     {
+
+     // Pass on to caller
+     completionHandler(video, jsonResponse, error);
+
+     }];
+}
+
 - (void)retrievePlaylist
 {
     [self.refreshControl beginRefreshing];
