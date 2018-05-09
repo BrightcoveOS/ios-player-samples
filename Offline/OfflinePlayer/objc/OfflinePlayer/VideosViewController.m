@@ -12,13 +12,9 @@
 
 // Dynamic Delivery account credentials
 // Your account can contain FairPlay-protected HLS videos, or unprotected HLS videos
-//NSString * const kDynamicDeliveryAccountID = @"5434391461001";
-//NSString * const kDynamicDeliveryPolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
-//NSString * const kDynamicDeliveryPlaylistRefID = @"brightcove-native-sdk-plist";
-
-NSString * const kDynamicDeliveryAccountID = @"3636334164001";
-NSString * const kDynamicDeliveryPolicyKey = @"BCpkADawqM04pilWqSIDfTmwPNiBscekcQB9wQ3IiTUZ4baBIx6LyLTrACuS0KJPOlpeEui10NOSgQ8zPTk8iSRPkQXSCGBrEqJD_4vJtX31zRvnk-4Wq8svz8j6abVYnqTijMliCf_1lIoa";
-NSString * const kDynamicDeliveryPlaylistRefID = @"offline_drm_playlist";
+NSString * const kDynamicDeliveryAccountID = @"5434391461001";
+NSString * const kDynamicDeliveryPolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
+NSString * const kDynamicDeliveryPlaylistRefID = @"brightcove-native-sdk-plist";
 
 // For quick access to this controller from other tabs
 VideosViewController *gVideosViewController;
