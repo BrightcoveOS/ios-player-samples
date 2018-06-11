@@ -11,7 +11,7 @@
 @import BrightcovePlayerSDK;
 @import BrightcoveOUX;
 
-static NSString *kViewControllerVideoURLString = @"http://onceux.unicornmedia.com/now/ads/vmap/od/auto/c6589dd5-8f31-4ae3-8a5f-a54ca3d7c973/632f6399-9e87-4ce2-a7c0-39209be2b5d0/bee45a63-71ea-4a20-800f-b67091867eeb/content.once";
+static NSString *kViewControllerVideoURLString = @"http://once.unicornmedia.com/now/ads/vmap/od/auto/c501c3ee-7f1c-4020-aa6d-0b1ef0bbd4a9/354a749c-217b-498e-b4f9-c48cd131f807/66496c0e-6969-41b1-859f-9bdf288cfdd3/content.once";
 
 
 @interface ViewController () <BCOVPlaybackControllerDelegate>
