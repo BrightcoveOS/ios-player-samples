@@ -10,24 +10,19 @@
 @import BrightcovePlayerSDK;
 @import BrightcoveOUX;
 
-// Sample Once URL
-static NSString *kViewControllerVideoURLString = @"http://once.unicornmedia.com/now/ads/vmap/od/auto/c501c3ee-7f1c-4020-aa6d-0b1ef0bbd4a9/354a749c-217b-498e-b4f9-c48cd131f807/66496c0e-6969-41b1-859f-9bdf288cfdd3/content.once";
-
 
 @interface ViewController () <BCOVPlaybackControllerDelegate>
 
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
+@property (nonatomic, weak) IBOutlet UIView *videoContainer;
 
 // currentSession is weak so that it can be released properly
 @property (nonatomic, weak) id<BCOVPlaybackSession> currentSession;
+@property (nonatomic) BCOVTVPlayerView *playerView;
 
 @property (nonatomic) NSTimeInterval currentTime;
 @property (nonatomic) NSTimeInterval duration;
 @property (nonatomic) BOOL playingAdSequence;
-
-@property (nonatomic) UILabel *currentTimeLabel;
-@property (nonatomic) UILabel *durationLabel;
-
 @property (nonatomic) UIView *topDrawerView;
 
 @end
@@ -38,232 +33,90 @@ static NSString *kViewControllerVideoURLString = @"http://once.unicornmedia.com/
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Set up our playback controller
-    self.playbackController = [[BCOVPlayerSDKManager sharedManager] createOUXPlaybackControllerWithViewStrategy:nil];
-    
-    self.playbackController.delegate = self;
-    self.playbackController.autoPlay = YES;
-    self.playbackController.autoAdvance = YES;
-    
-    self.playbackController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    self.playbackController.view.frame = self.view.bounds;
-    [self.view addSubview:self.playbackController.view];
-    
-    // Create video
-    BCOVVideo *video = [BCOVVideo videoWithURL:[NSURL URLWithString:kViewControllerVideoURLString]];
-    [self.playbackController setVideos:@[video]];
-
-    [self installGestureRecognizers];
+    [self createPlayerView];
+    [self createPlaybackController];
 }
 
-#pragma mark - Gesture Recognizers
-
-- (void)installGestureRecognizers
+- (void)createPlayerView
 {
-    // Detect button presses
-    // "Arrows" are taps on the trackpad
-    [self addTapGestureRecognizerWithPressType:UIPressTypeUpArrow selector:@selector(upArrow:)];
-    [self addTapGestureRecognizerWithPressType:UIPressTypeDownArrow selector:@selector(downArrow:)];
-    [self addTapGestureRecognizerWithPressType:UIPressTypeLeftArrow selector:@selector(leftArrow:)];
-    [self addTapGestureRecognizerWithPressType:UIPressTypeRightArrow selector:@selector(rightArrow:)];
-    [self addTapGestureRecognizerWithPressType:UIPressTypeSelect selector:@selector(selection:)];
-    [self addTapGestureRecognizerWithPressType:UIPressTypePlayPause selector:@selector(playPause:)];
-
-    // This is for demo purposes only. Don't add a gesture for the menu button in your top-level controller.
-    [self addTapGestureRecognizerWithPressType:UIPressTypeMenu selector:@selector(menu:)];
-
-    // Detect swipes on the Siri Remote's trackpad
-    [self addSwipeGestureRecognizerWithDirection:UISwipeGestureRecognizerDirectionLeft selector:@selector(swipeLeft:)];
-    [self addSwipeGestureRecognizerWithDirection:UISwipeGestureRecognizerDirectionRight selector:@selector(swipeRight:)];
-    [self addSwipeGestureRecognizerWithDirection:UISwipeGestureRecognizerDirectionUp selector:@selector(swipeUp:)];
-    [self addSwipeGestureRecognizerWithDirection:UISwipeGestureRecognizerDirectionDown selector:@selector(swipeDown:)];
-}
-
-- (void)addTapGestureRecognizerWithPressType:(UIPressType)pressType selector:(SEL)selector
-{
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:selector];
-    tapRecognizer.allowedPressTypes = @[ @(pressType) ];
-    [self.view addGestureRecognizer:tapRecognizer];
-}
-
-- (void)addSwipeGestureRecognizerWithDirection:(UISwipeGestureRecognizerDirection)direction selector:(SEL)selector
-{
-    UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:selector];
-    swipeRecognizer.direction = direction;
-    [self.view addGestureRecognizer:swipeRecognizer];
-}
-
-- (void)upArrow:(UITapGestureRecognizer *)upArrowRecognizer
-{
-    NSLog(@"upArrow");
-    [self showMessage:@"Up Arrow"];
-}
-
-- (void)downArrow:(UITapGestureRecognizer *)downArrowRecognizer
-{
-    NSLog(@"downArrow");
-    [self showMessage:@"Down Arrow"];
-}
-
-- (void)leftArrow:(UITapGestureRecognizer *)leftArrowRecognizer
-{
-    NSLog(@"leftArrow");
-
-    if (!self.playingAdSequence)
+    if (self.playerView == nil)
     {
-        [self showMessage:@"Seeking backwards 5 seconds"];
-        [self seek:-5];
-    }
-    else
-    {
-        [self showMessage:@"Cannot seek during ad"];
-    }
-}
-
-- (void)rightArrow:(UITapGestureRecognizer *)rightArrowRecognizer
-{
-    NSLog(@"rightArrow");
-
-    if (!self.playingAdSequence)
-    {
-        [self showMessage:@"Seeking forwards 5 seconds"];
-        [self seek:5];
-    }
-    else
-    {
-        [self showMessage:@"Cannot seek during ad"];
-    }
-}
-
-- (void)selection:(UITapGestureRecognizer *)selectionRecognizer
-{
-    NSLog(@"select");
-
-    if (self.playbackController)
-    {
-        BOOL playing = self.currentSession.player.rate > 0.1;
+        [self loadViewIfNeeded];
         
-        if (playing)
-        {
-            [self showMessage:@"Pause"];
-            [self.playbackController pause];
-        }
-        else
-        {
-            [self showMessage:@"Play"];
-            [self.playbackController play];
-        }
+        BCOVTVPlayerViewOptions *options = [[BCOVTVPlayerViewOptions alloc] init];
+        options.presentingViewController = self;
+        //options.hideControlsInterval = 3000;
+        //options.hideControlsAnimationDuration = 0.2;
+        
+        self.playerView = [[BCOVTVPlayerView alloc] initWithOptions:options];
+        self.playerView.frame = self.videoContainer.bounds;
+        
+        NSAssert(self.videoContainer != nil, @"Video container hasn't loaded yet");
+        [self.videoContainer addSubview:self.playerView];
     }
 }
 
-- (void)menu:(UITapGestureRecognizer *)menuRecognizer
+- (void)createPlaybackController
 {
-    // This gesture is usually disabled for your top-level view controller
-    // so that the menu button will take you to the Apple TV home screen.
-    NSLog(@"menu");
-
-    [self showMessage:@"Menu button pressed"];
-}
-
-- (void)playPause:(UITapGestureRecognizer *)playPauseRecognizer
-{
-    NSLog(@"playPause");
-
-    if (self.playbackController)
+    if (!self.playbackController)
     {
-        BOOL playing = self.currentSession.player.rate > 0.1;
-
-        if (playing)
-        {
-            [self showMessage:@"Pause"];
-            [self.playbackController pause];
-        }
-        else
-        {
-            [self showMessage:@"Play"];
-            [self.playbackController play];
-        }
-    }
-}
-
-- (void)swipeLeft:(UISwipeGestureRecognizer *)sender
-{
-    NSLog(@"swipe left");
-    
-    if (!self.playingAdSequence)
-    {
-        [self showMessage:@"Seeking backwards 15 seconds"];
-        [self seek:-15];
+        NSLog(@"Creating a new playbackController");
+        self.playbackController = [[BCOVPlayerSDKManager sharedManager] createOUXPlaybackControllerWithViewStrategy:nil];
+        self.playbackController.delegate = self;
+        self.playbackController.autoAdvance = YES;
+        self.playbackController.autoPlay = YES;
+        self.playerView.playbackController = self.playbackController;
+        NSLog(@"Created a new playbackController");
+        
+        // Create video
+        BCOVVideo *video = [self createOUXVideoObject];
+        [self.playbackController setVideos:@[video]];
     }
     else
     {
-        [self showMessage:@"Cannot seek during ad"];
+        NSLog(@"The playbackController already exists, ignoring the call to create it.");
     }
 }
 
-- (void)swipeRight:(UISwipeGestureRecognizer *)sender
+// Create a BCOVVideo from the OnceUX source.
+- (BCOVVideo *)createOUXVideoObject
 {
-    NSLog(@"swipe right");
-    
-    if (!self.playingAdSequence)
-    {
-        [self showMessage:@"Seeking forwards 15 seconds"];
-        [self seek:15];
-    }
-    else
-    {
-        [self showMessage:@"Cannot seek during ad"];
-    }
+    // Sample Once URL
+    static NSString *kViewControllerVideoURLString = @"http://once.unicornmedia.com/now/ads/vmap/od/auto/c501c3ee-7f1c-4020-aa6d-0b1ef0bbd4a9/354a749c-217b-498e-b4f9-c48cd131f807/66496c0e-6969-41b1-859f-9bdf288cfdd3/content.once";
+    NSURL *url = [NSURL URLWithString:kViewControllerVideoURLString];
+    // set the delivery method
+    BCOVSource *source = [[BCOVSource alloc] initWithURL:url deliveryMethod:kBCOVSourceDeliveryHLS properties:nil];
+    // fill out properties for the Info Panel display
+    return [[BCOVVideo alloc] initWithSource:source cuePoints:[BCOVCuePointCollection collectionWithArray:@[]]
+                                  properties:@{@"name":@"Sintel",
+                                               @"thumbnail":@"https://solutions.brightcove.com/bsahlas/assets/title-Sintel.jpg",
+                                               @"duration":@"90000",
+                                               @"long_description":@"\"Sintel\" is an independently produced short film, initiated by the Blender Foundation as a means to further improve andvalidate the free/open source 3D creation suite Blender. With initial funding provided by 1000s of donations via the internet community, it has again proven to be a viable development model for both open 3D technology as for independent animation film. This 15 minute film has been realized in the studio of the Amsterdam Blender Institute, by an international team of artists and developers. In addition to that, several crucial technical and creative targets have been realized online, by developers and artists and teams all over the world."
+                                               @"\n\n"
+                                               @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eleifend fringilla nisi, sed commodo massa varius vitae. Mauris ut augue consequat, interdum nunc sed, viverra mauris. Sed eget imperdiet diam. Mauris volutpat porta elementum. Nulla ut massa ante. Duis et tellus ultricies, vestibulum erat viverra, venenatis libero. Duis feugiat et ligula eu interdum. Quisque pretium a quam quis pellentesque. Nulla vestibulum efficitur ex, sit amet luctus elit scelerisque id. Nam ut dolor tempus, sollicitudin quam quis, placerat nunc. Quisque ipsum magna, facilisis non viverra non, aliquam ut arcu.\n\nNulla dapibus sapien sit amet molestie fermentum. Aenean rhoncus hendrerit lorem vel volutpat. Sed ultrices euismod dui, ut rutrum elit cursus et. Nullam dictum sollicitudin dolor, et efficitur erat. Phasellus eleifend finibus odio eu fermentum. Mauris vehicula metus odio, et viverra velit aliquam id. Donec ornare est magna, id feugiat elit blandit et. Curabitur sodales justo quis varius dignissim.\n\nVivamus vitae magna id augue condimentum bibendum. Integer sit amet convallis odio, quis molestie metus. Sed ac lacus quis sem sodales euismod. Suspendisse quis hendrerit quam, nec pellentesque elit. Fusce pellentesque ultricies enim, in sodales dolor sollicitudin iaculis. Pellentesque mattis lobortis dignissim. In interdum diam in mattis mollis. Donec blandit enim quis odio varius vestibulum. Suspendisse erat ex, pharetra at urna ut, ullamcorper facilisis nunc. Fusce aliquet lorem eget arcu convallis elementum. Fusce vehicula gravida nisl et consequat. Curabitur aliquet luctus tellus eu condimentum. Phasellus vel eros ac velit condimentum consectetur. Proin lorem eros, venenatis eget cursus ut, tincidunt ac ligula"
+                                               }];
 }
 
+#pragma mark - UIFocusEnvironment protol methods
 
-- (void)swipeUp:(UISwipeGestureRecognizer *)sender
+// Preferred focus for tvOS 9
+- (UIView *)preferredFocusedView
 {
-    NSLog(@"swipe up");
-    
-    [self showMessage:@"Swipe up"];
+    return self.playerView;
 }
 
-- (void)swipeDown:(UISwipeGestureRecognizer *)sender
+// Preferred focus for tvOS 10+
+- (NSArray<id<UIFocusEnvironment>> *)preferredFocusEnvironments
 {
-    NSLog(@"swipe down");
-    
-    [self showMessage:@"Swipe down"];
+    return (@[ self.playerView.controlsView ?: self ]);
 }
 
-- (void)seek:(NSTimeInterval)seconds
-{
-    CMTime skipToTime = CMTimeMake(self.currentTime + seconds, 1);
-
-    [self.playbackController seekToTime:skipToTime completionHandler:^(BOOL finished) {
-
-        NSLog(@"Seeked to time %.1f", CMTimeGetSeconds(skipToTime));
-
-    }];
-}
-
-#pragma mark - BCOVPlaybackControllerBasicDelegate
+#pragma mark - Playback Controller delegate methods
 
 - (void)playbackController:(id<BCOVPlaybackController>)controller didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 {
     self.currentSession = session;
-
     NSLog(@"ViewController Debug - Advanced to new session.");
-}
-
-- (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didProgressTo:(NSTimeInterval)progress
-{
-    // Store time for display and seeking
-    self.currentTime = progress;
-    
-    [self updateTimeLabels];
-}
-
-- (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didChangeDuration:(NSTimeInterval)duration
-{
-    // Store duration for display
-    self.duration = duration;
 }
 
 #pragma mark - BCOVPlaybackControllerAdsDelegate
@@ -271,23 +124,11 @@ static NSString *kViewControllerVideoURLString = @"http://once.unicornmedia.com/
 - (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didEnterAdSequence:(BCOVAdSequence *)adSequence
 {
     NSLog(@"ViewController Debug - Entering ad sequence");
-    [self showMessage:@"Entering ad sequence"];
-
-    self.playingAdSequence = YES;
-
-    // Hide labels during ads
-    [self showTimeLabels:NO];
 }
 
 - (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didExitAdSequence:(BCOVAdSequence *)adSequence
 {
     NSLog(@"ViewController Debug - Exiting ad sequence");
-    [self showMessage:@"Exiting ad sequence"];
-
-    self.playingAdSequence = NO;
-
-    // Show labels after ads end
-    [self showTimeLabels:YES];
 }
 
 - (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didEnterAd:(BCOVAd *)ad
@@ -308,105 +149,7 @@ static NSString *kViewControllerVideoURLString = @"http://once.unicornmedia.com/
 
 - (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didReceiveLifecycleEvent:(BCOVPlaybackSessionLifecycleEvent *)lifecycleEvent
 {
-//    NSLog(@"ViewController Debug - lifecycle event type: %@", lifecycleEvent.eventType);
-}
-
-#pragma mark - On-screen Message
-
-- (void)showMessage:(NSString *)message
-{
-    UILabel *label = [[UILabel alloc] initWithFrame:self.view.frame];
-    label.text = message;
-    label.textColor = [UIColor redColor];
-    label.font = [UIFont boldSystemFontOfSize:96];
-    [label sizeToFit];
-    
-    CGRect labelFrame = label.frame;
-    CGRect labelBackgroundFrame = CGRectInset(labelFrame, -32.0, -20.0);
-    UIView *labelBackgroundView = [[UIView alloc] initWithFrame:labelBackgroundFrame];
-    labelBackgroundView.backgroundColor = [UIColor colorWithWhite:0.25 alpha:1.0];
-    labelBackgroundView.layer.cornerRadius = 50.0;
-    
-    [self.view addSubview:labelBackgroundView];
-    [labelBackgroundView addSubview:label];
-    labelBackgroundView.center = self.view.center;
-    label.center = [labelBackgroundView convertPoint:labelBackgroundView.center fromView:labelBackgroundView.superview];
-
-    // Now make everything go away
-    [UIView animateWithDuration:1.0
-                          delay:0.5
-                        options:UIViewAnimationOptionAllowUserInteraction
-                     animations:^ {
-                         
-                         labelBackgroundView.alpha = 0.0;
-                         
-                     } completion:^(BOOL finished) {
-                         
-                         [label removeFromSuperview];
-                         [labelBackgroundView removeFromSuperview];
-                         
-                     }];
-}
-
-#pragma mark - Time Labels
-
-- (void)showTimeLabels:(BOOL)show
-{
-    self.currentTimeLabel.alpha = show ? 1.0 : 0.0;
-    self.durationLabel.alpha = show ? 1.0 : 0.0;
-}
-
-- (void)updateTimeLabels
-{
-    // Apple-recommended minimum margins
-    const float cSideMargin = 90.0;
-    const float cBottomMargin = 60.0;
-
-    const float cTimeLabelFontSize = 48;
-
-    if (self.currentTimeLabel == nil)
-    {
-        // Create a current time label in the lower left corner.
-        UILabel *label = [[UILabel alloc] initWithFrame:self.view.frame];
-        label.text = @"00.00.00";
-        label.textColor = [UIColor whiteColor];
-        label.font = [UIFont systemFontOfSize:cTimeLabelFontSize];
-        [label sizeToFit];
-        label.text = @"0.00";
-        label.textAlignment = NSTextAlignmentLeft;
-        
-        CGRect labelFrame = label.frame;
-        labelFrame.origin.x = cSideMargin;
-        labelFrame.origin.y = self.view.frame.size.height - cBottomMargin - labelFrame.size.height;
-        label.frame = labelFrame;
-        
-        [self.view addSubview:label];
-        self.currentTimeLabel = label;
-    }
-
-    if (self.durationLabel == nil)
-    {
-        // Create a duration label in the lower left corner.
-        UILabel *label = [[UILabel alloc] initWithFrame:self.view.frame];
-        label.text = @"00.00.00";
-        label.textColor = [UIColor whiteColor];
-        label.font = [UIFont systemFontOfSize:cTimeLabelFontSize];
-        [label sizeToFit];
-        label.text = @"0.00";
-        label.textAlignment = NSTextAlignmentRight;
-        
-        CGRect labelFrame = label.frame;
-        labelFrame.origin.x = self.view.frame.size.width - cSideMargin - labelFrame.size.width;
-        labelFrame.origin.y = self.view.frame.size.height - cBottomMargin - labelFrame.size.height;
-        label.frame = labelFrame;
-        
-        [self.view addSubview:label];
-        self.durationLabel = label;
-    }
-
-    // Update label text.
-    self.currentTimeLabel.text = [NSString stringWithFormat:@"%.02f", self.currentTime];
-    self.durationLabel.text = [NSString stringWithFormat:@"%.02f", self.duration];
+    NSLog(@"ViewController Debug - lifecycle event type: %@", lifecycleEvent.eventType);
 }
 
 @end
