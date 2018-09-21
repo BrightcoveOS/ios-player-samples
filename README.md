@@ -1,6 +1,6 @@
 Brightcove Player SDK for iOS Samples
 =====================================
-Learn more about the [Brightcove Native Player SDKs](https://support.brightcove.com/getting-started-sdks).
+Learn more about the [Brightcove Native Player SDKs](https://support.brightcove.com/brightcove-native-player-sdks).
 
 ios-player-samples.git is a collection of sample applications for the Brightcove Player SDKs for iOS and tvOS, organized by subject area. An installation of [CocoaPods][cocoapods] 1.0.0 or higher is required to download the sample dependencies.
 
@@ -23,7 +23,7 @@ The Swift sample apps are written in Swift language version 3.
 
 Unless otherwise instructed, samples can be run by following these steps:
 
-1. From the project directory, run `pod install`. 
+1. From the project directory, run `pod install`.
 1. Open the corresponding `.xcworkspace` file.
 1. Where the Podfile's pod directives do not specify that a dynamic framework is being installed, there is some additional setup required to build and run the project:
     - Locate the `bcovpuiiconfont.ttf` file in the Pods/Brightcove-Player-SDK/ios/BrightcovePlayerSDK.framework folder.
