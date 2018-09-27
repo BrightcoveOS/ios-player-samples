@@ -7,10 +7,10 @@ ios-player-samples.git is a collection of sample applications for the Brightcove
 ### Prerequisites
 
 1. CocoaPods 1.0+
-1. Xcode 8.0+
+1. Xcode 9.0+
 
 ### About CocoaPods
-With the release of CocoaPods 1.0.0, the master Podspec repository is no longer updated automatically. To ensure you are using the latest releases of the Brightcove software components, update your Podspec repository before building any of the sample applications by running the following on the command line:
+To ensure you are using the latest releases of the Brightcove software components, update your Podspec repository before building any of the sample applications by running the following on the command line:
 
 ```
 pod repo update
