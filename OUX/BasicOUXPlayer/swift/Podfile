@@ -1,0 +1,9 @@
+source 'https://github.com/brightcove/BrightcoveSpecs.git'
+
+use_frameworks!
+
+platform :ios, '9.0'
+
+target 'BasicOUXPlayer' do
+  pod 'Brightcove-Player-OnceUX/dynamic'
+end
