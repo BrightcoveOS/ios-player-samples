@@ -22,20 +22,20 @@ class SampleTabBarItemView: BCOVTVTabBarItemView {
         
         // Create and install button 1
         button1 = {
-            let button = UIButton.init(type: UIButtonType.system)
+            let button = UIButton.init(type: .system)
             button.frame = CGRect.init(x:20, y:40, width:280, height:80)
-            button.setTitle("Button 1", for:UIControlState.normal)
-            button.addTarget(self, action: #selector(self.buttonHandler), for: UIControlEvents.primaryActionTriggered)
+            button.setTitle("Button 1", for:.normal)
+            button.addTarget(self, action: #selector(self.buttonHandler), for: .primaryActionTriggered)
             self.addSubview(button)
             return button
             }()
 
         // Create and install button 1
         button2 = {
-            let button = UIButton.init(type: UIButtonType.system)
+            let button = UIButton.init(type: .system)
             button.frame = CGRect.init(x:340, y:40, width:280, height:80)
-            button.setTitle("Button 2", for:UIControlState.normal)
-            button.addTarget(self, action: #selector(self.buttonHandler), for: UIControlEvents.primaryActionTriggered)
+            button.setTitle("Button 2", for:.normal)
+            button.addTarget(self, action: #selector(self.buttonHandler), for: .primaryActionTriggered)
             self.addSubview(button)
             return button
         }()

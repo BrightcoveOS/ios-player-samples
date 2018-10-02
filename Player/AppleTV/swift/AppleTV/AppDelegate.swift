@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         // We need the below code in order to ensure that audio plays back when we
         // expect it to. For example, without setting this code, we won't hear the video
@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var categoryError :NSError?
         var success: Bool
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback)
             success = true
         } catch let error as NSError {
             categoryError = error

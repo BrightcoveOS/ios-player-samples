@@ -17,7 +17,7 @@ pod repo update
 ```
 
 ### About Swift
-The Swift sample apps are written in Swift language version 3.
+The Swift sample apps are written in Swift language version 4.2.
 
 ### Instructions
 
