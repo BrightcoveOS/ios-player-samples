@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ControlsViewController" customModule="CustomControls" customModuleProvider="target">
+            <connections>
+                <outlet property="controlsContainer" destination="2qq-lY-pFk" id="o9S-bJ-WRV"/>
+                <outlet property="durationLabel" destination="Xmv-vs-vdC" id="CUS-Ez-c1x"/>
+                <outlet property="externalScreenButton" destination="ZEW-zB-xK7" id="DY0-dH-jKp"/>
+                <outlet property="fullscreenButton" destination="Nwu-De-dq4" id="AHg-VF-leo"/>
+                <outlet property="playPauseButton" destination="3kV-Su-Do9" id="oC0-5j-qB0"/>
+                <outlet property="playheadLabel" destination="vJT-Ws-em4" id="wpY-So-dZq"/>
+                <outlet property="playheadSlider" destination="wxN-XO-cWP" id="Ug8-Yo-FO5"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="416"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2qq-lY-pFk" userLabel="controlsContainer">
+                    <rect key="frame" x="0.0" y="376" width="600" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3kV-Su-Do9" userLabel="playPauseButton">
+                            <rect key="frame" x="8" y="0.0" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="8Mg-N7-V5B"/>
+                                <constraint firstAttribute="width" constant="40" id="EWs-eU-mAF"/>
+                            </constraints>
+                            <inset key="contentEdgeInsets" minX="7" minY="7" maxX="7" maxY="7"/>
+                            <inset key="imageEdgeInsets" minX="7" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" image="Play Button">
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="selected" image="Pause Button"/>
+                            <connections>
+                                <action selector="handlePlayPauseButtonPressed:" destination="-1" eventType="touchUpInside" id="Hr3-xC-eW2"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vJT-Ws-em4" userLabel="playheadLabel">
+                            <rect key="frame" x="56" y="11" width="64" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="wxN-XO-cWP" userLabel="playheadSlider">
+                            <rect key="frame" x="126" y="5" width="300" height="31"/>
+                            <connections>
+                                <action selector="handlePlayheadSliderTouchBegin:" destination="-1" eventType="touchDown" id="6Gm-Gh-2MR"/>
+                                <action selector="handlePlayheadSliderTouchEnd:" destination="-1" eventType="touchUpInside" id="NLi-xE-7cv"/>
+                                <action selector="handlePlayheadSliderTouchEnd:" destination="-1" eventType="touchUpOutside" id="f2a-Qg-sZk"/>
+                                <action selector="handlePlayheadSliderValueChanged:" destination="-1" eventType="valueChanged" id="RgK-Ip-EOh"/>
+                            </connections>
+                        </slider>
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nwu-De-dq4" userLabel="fullscreenButton">
+                            <rect key="frame" x="504" y="0.0" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="IOl-Hv-MVH"/>
+                                <constraint firstAttribute="height" constant="40" id="qlC-4D-Osw"/>
+                            </constraints>
+                            <inset key="contentEdgeInsets" minX="7" minY="7" maxX="7" maxY="7"/>
+                            <state key="normal" image="Fullscreen Button">
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="handleFullScreenButtonPressed:" destination="-1" eventType="touchUpInside" id="Ps3-Qk-UBU"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xmv-vs-vdC" userLabel="durationLabel">
+                            <rect key="frame" x="432" y="11" width="64" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZEW-zB-xK7" userLabel="externalScreenButton" customClass="MPVolumeView">
+                            <rect key="frame" x="552" y="0.0" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="ftM-3r-Wwg"/>
+                                <constraint firstAttribute="width" constant="40" id="o4a-yd-8ps"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.66666668650000005" green="0.66666668650000005" blue="0.66666668650000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="3kV-Su-Do9" firstAttribute="leading" secondItem="2qq-lY-pFk" secondAttribute="leading" constant="8" id="22u-D1-lek"/>
+                        <constraint firstItem="Nwu-De-dq4" firstAttribute="leading" secondItem="Xmv-vs-vdC" secondAttribute="trailing" constant="8" id="4in-RH-QR0"/>
+                        <constraint firstItem="wxN-XO-cWP" firstAttribute="leading" secondItem="vJT-Ws-em4" secondAttribute="trailing" constant="8" id="9Wg-7i-8IU"/>
+                        <constraint firstAttribute="height" constant="40" id="KaX-aD-0pe"/>
+                        <constraint firstAttribute="centerY" secondItem="Xmv-vs-vdC" secondAttribute="centerY" id="NEY-Aq-O4t"/>
+                        <constraint firstItem="ZEW-zB-xK7" firstAttribute="leading" secondItem="Nwu-De-dq4" secondAttribute="trailing" constant="8" id="U5G-EC-k33"/>
+                        <constraint firstItem="Xmv-vs-vdC" firstAttribute="leading" secondItem="wxN-XO-cWP" secondAttribute="trailing" constant="8" id="Y3V-D3-8po"/>
+                        <constraint firstAttribute="centerY" secondItem="3kV-Su-Do9" secondAttribute="centerY" id="Zbc-Hf-aTi"/>
+                        <constraint firstAttribute="centerY" secondItem="vJT-Ws-em4" secondAttribute="centerY" id="a8S-9B-eRE"/>
+                        <constraint firstAttribute="trailing" secondItem="ZEW-zB-xK7" secondAttribute="trailing" constant="8" id="kEo-aP-fo1"/>
+                        <constraint firstAttribute="centerY" secondItem="Nwu-De-dq4" secondAttribute="centerY" id="n1W-WF-mRA"/>
+                        <constraint firstAttribute="centerY" secondItem="wxN-XO-cWP" secondAttribute="centerY" id="rMT-gq-Sy6"/>
+                        <constraint firstItem="vJT-Ws-em4" firstAttribute="leading" secondItem="3kV-Su-Do9" secondAttribute="trailing" constant="8" id="tMJ-aC-N8H"/>
+                        <constraint firstAttribute="centerY" secondItem="ZEW-zB-xK7" secondAttribute="centerY" id="vQI-Hn-qcG"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="2qq-lY-pFk" secondAttribute="trailing" id="86z-hL-I6A"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="2qq-lY-pFk" secondAttribute="bottom" id="jVZ-c3-o8x"/>
+                <constraint firstItem="2qq-lY-pFk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="yCK-0f-L6b"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Fullscreen Button" width="42" height="42"/>
+        <image name="Pause Button" width="40" height="41"/>
+        <image name="Play Button" width="93" height="118"/>
+    </resources>
+</document>
