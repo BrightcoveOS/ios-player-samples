@@ -1,0 +1,9 @@
+source 'https://github.com/brightcove/BrightcoveSpecs.git'
+
+platform :ios, '10.0'
+
+use_frameworks!
+
+target 'Video360Player' do
+	pod 'Brightcove-Player-Core/dynamic'
+end
