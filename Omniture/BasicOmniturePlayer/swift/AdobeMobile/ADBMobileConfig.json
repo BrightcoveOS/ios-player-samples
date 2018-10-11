@@ -1,0 +1,33 @@
+{
+  "lastModified": "2014-10-30T18:05:40.216Z",
+  "target": {
+    "clientCode": "",
+    "timeout": 5
+  },
+  "audienceManager": {
+    "server": ""
+  },
+  "acquisition": {
+    "server": "",
+    "appid": ""
+  },
+  "analytics": {
+    "rsids": "",
+    "server": "",
+    "ssl": false,
+    "offlineEnabled": false,
+    "charset": "ISO-8859-1",
+    "lifecycleTimeout": 300,
+    "privacyDefault": "optedin",
+    "batchLimit": 0,
+    "timezone": "PDT",
+    "timezoneOffset": -420,
+    "referrerTimeout": 0,
+    "poi": []
+  },
+  "messages": [],
+  "remotes": {
+    "analytics.poi": "",
+    "messages": ""
+  }
+}

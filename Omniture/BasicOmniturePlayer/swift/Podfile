@@ -1,0 +1,9 @@
+source 'https://github.com/brightcove/BrightcoveSpecs.git'
+
+use_frameworks!
+
+platform :ios, '10.0'
+
+target 'BasicOmniturePlayer' do
+	pod 'Brightcove-Player-Omniture'
+end
