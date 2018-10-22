@@ -1,0 +1,9 @@
+source 'https://github.com/brightcove/BrightcoveSpecs.git'
+
+use_frameworks!
+
+platform :ios, '10.0'
+
+target 'BasicFreewheelPlayer' do
+  pod 'Brightcove-Player-FreeWheel'
+end

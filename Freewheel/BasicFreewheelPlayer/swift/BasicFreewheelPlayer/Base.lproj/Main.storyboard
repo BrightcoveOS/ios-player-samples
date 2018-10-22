@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="BasicFreewheelPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wW4-w9-jIh" userLabel="adSlot">
+                                <rect key="frame" x="37.5" y="361.5" width="300" height="250"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="1RS-1h-6pB"/>
+                                    <constraint firstAttribute="width" constant="300" id="zHv-49-cA2"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WG2-Us-KdN" userLabel="videoContainer">
+                                <rect key="frame" x="0.0" y="20" width="375" height="333.5"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="wW4-w9-jIh" firstAttribute="top" secondItem="WG2-Us-KdN" secondAttribute="bottom" constant="8" id="F6P-gs-Rwh"/>
+                            <constraint firstItem="WG2-Us-KdN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Qeh-eT-pOu"/>
+                            <constraint firstItem="WG2-Us-KdN" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/2" id="ZRq-mK-ore"/>
+                            <constraint firstItem="WG2-Us-KdN" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="kEq-49-3u4"/>
+                            <constraint firstItem="wW4-w9-jIh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qqA-qb-25L"/>
+                            <constraint firstItem="WG2-Us-KdN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="x2r-31-CBN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="adSlot" destination="wW4-w9-jIh" id="zrr-Bj-xP2"/>
+                        <outlet property="videoContainerView" destination="WG2-Us-KdN" id="Aiz-rc-bqI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
