@@ -35,7 +35,7 @@ class DownloadManager: NSObject {
         // Additional tracks (subtitles, additional audio tracks)
         // are requested *after* the video is downloaded.
         if #available(iOS 11.0, *) {
-            let downloadParamaters = generateDownloadParameters()
+            let downloadParamaters = DownloadManager.generateDownloadParameters()
             
             let videoDownload = VideoDownload(video: video, paramaters: downloadParamaters)
             
@@ -66,7 +66,7 @@ class DownloadManager: NSObject {
                     return
                 }
                 
-                var downloadParamaters = strongSelf.generateDownloadParameters()
+                var downloadParamaters = DownloadManager.generateDownloadParameters()
                 
                 // Collect array of languages here.
                 // We're going to download all languages available in the video.
@@ -328,11 +328,17 @@ class DownloadManager: NSObject {
         })
         
     }
-    
-    private func generateDownloadParameters() -> [String:Any] {
 
+}
+
+// MARK: - Class Methods
+
+extension DownloadManager {
+    
+    class func generateDownloadParameters() -> [String:Any] {
+        
         // Get base license parameters
-        var downloadParameters = generateLicenseParameters()
+        var downloadParameters = DownloadManager.generateLicenseParameters()
         
         // Add bitrate parameter for the primary download
         let bitrate = AppDelegate.current().tabBarController.settingsViewController()?.bitrate() ?? 0
@@ -344,7 +350,7 @@ class DownloadManager: NSObject {
         return downloadParameters
     }
     
-    private func generateLicenseParameters() -> [String:Any] {
+    class func generateLicenseParameters() -> [String:Any] {
         
         var licenseParamaters: [String:Any] = [:]
         
@@ -363,12 +369,12 @@ class DownloadManager: NSObject {
             
             licenseParamaters[kBCOVFairPlayLicenseRentalDurationKey] = rentalDuration
         }
-            
+        
         return licenseParamaters
     }
     
-    func downloadAllSecondaryTracks(forOfflineVideoToken token: String) {
-     
+    class func downloadAllSecondaryTracks(forOfflineVideoToken token: String) {
+        
         // This demonstrates the "iOS 11 way" of downloading all secondary tracks
         // for your offline video.
         if #available(iOS 11.0, *) {
@@ -406,7 +412,7 @@ class DownloadManager: NSObject {
         
     }
     
-    private func mediaSelectionDescription(fromMediaSelection selection: AVMediaSelection, forToken token: String) -> String {
+    class func mediaSelectionDescription(fromMediaSelection selection: AVMediaSelection, forToken token: String) -> String {
         // Get the offline video object and its path
         guard let offlineVideo = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: token), let videoPath = offlineVideo.properties[kBCOVOfflineVideoFilePathPropertyKey] as? String else {
             return "MediaSelection(n/a)"
@@ -419,7 +425,7 @@ class DownloadManager: NSObject {
         return desc
     }
     
-    private func mediaSelectionDescription(fromMediaSelection selection: AVMediaSelection, withURLAsset asset: AVURLAsset) -> String {
+    class func mediaSelectionDescription(fromMediaSelection selection: AVMediaSelection, withURLAsset asset: AVURLAsset) -> String {
         
         // Return a string description of the specified Media Selection.
         guard let legibleMSG = asset.mediaSelectionGroup(forMediaCharacteristic: .legible), let audibleMSG = asset.mediaSelectionGroup(forMediaCharacteristic: .audible) else {
@@ -429,7 +435,24 @@ class DownloadManager: NSObject {
         let audibleDisplayName = selection.selectedMediaOption(in: audibleMSG)?.displayName ?? "-"
         return "MediaSelection(obj:\(selection), legible:\(legibleDisplayName), audible:\(audibleDisplayName))"
     }
-
+    
+    class func retrieveVideo(withVideoID videoID: String, completion: @escaping (BCOVVideo?, [AnyHashable:Any]?, Error?) -> Void) {
+    
+        // Retrieve a playlist through the BCOVPlaybackService
+        let factory = BCOVPlaybackServiceRequestFactory(accountId: ConfigConstants.AccountID, policyKey: ConfigConstants.PolicyKey)
+    
+        guard let service = BCOVPlaybackService(requestFactory: factory) else {
+            completion(nil, nil, nil)
+            return
+        }
+        
+        service.findVideo(withVideoID: videoID, parameters: nil, completion: { (video: BCOVVideo?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
+            
+            completion(video, jsonResponse, error)
+            
+        })
+        
+    }
 }
 
 // MARK: - BCOVOfflineVideoManagerDelegate

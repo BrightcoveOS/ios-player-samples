@@ -160,8 +160,7 @@ class DownloadedVideoViewController: BaseVideoViewController {
         let alert = UIAlertController(title: "Download Additional Tracks", message: message, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Download Tracks", style: .default, handler: { [weak self] (action: UIAlertAction) in
-            let downloadManager = self?.tabBarController?.streamingViewController()?.downloadManager
-            downloadManager?.downloadAllSecondaryTracks(forOfflineVideoToken: token)
+            DownloadManager.downloadAllSecondaryTracks(forOfflineVideoToken: token)
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -396,6 +395,43 @@ class DownloadedVideoViewController: BaseVideoViewController {
         videoContainerView.alpha = 0.0
     }
     
+    private func renewLicense(forOfflineVideoToken token: String) {
+        
+        guard let video = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: token), let videoID = video.properties[kBCOVVideoPropertyKeyId] as? String else {
+            return
+        }
+        
+        let licenseParmaters = DownloadManager.generateLicenseParameters()
+        
+        // Get updated video object to pass to renewal method
+        DownloadManager.retrieveVideo(withVideoID: videoID) { (video: BCOVVideo?, jsonResponse: [AnyHashable : Any]?, error: Error?) in
+            
+            if let error = error {
+                print("Could not retrieve new video during FairPlay license renewal. Error: \(error.localizedDescription)")
+            }
+            
+            if let video = video {
+                
+                BCOVOfflineVideoManager.shared()?.renewFairPlayLicense(token, video: video, parameters: licenseParmaters, completion: { [weak self] (offlineVideoToken: String?, error: Error?) in
+                    
+                    if let error = error {
+                        print("FairPlay license renewal completed with error: \(error.localizedDescription)")
+                    }
+                    
+                    // Show the new license
+                    
+                    DispatchQueue.main.async {
+                        self?.updateInfoForSelectedDownload()
+                    }
+                    
+                })
+                
+            }
+            
+        }
+        
+    }
+    
     // MARK: - IBActions
     
     @IBAction private func playButtonPressed() {
@@ -439,7 +475,7 @@ class DownloadedVideoViewController: BaseVideoViewController {
         
         if video.usesFairPlay {
             alert.addAction(UIAlertAction(title: "Renew License", style: .default, handler: { [weak self] (action: UIAlertAction) in
-                self?.logStatus()
+                self?.renewLicense(forOfflineVideoToken: token)
             }))
         }
         
