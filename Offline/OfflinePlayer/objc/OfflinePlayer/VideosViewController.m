@@ -629,10 +629,16 @@ didFinishAggregateDownloadWithError:(NSError *)error NS_AVAILABLE_IOS(11_0)
                                                                         options:options
                                                                    controlsView:controlView ];
 
-        self.playerView.frame = self.videoContainer.bounds;
-        self.playerView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
         self.playerView.delegate = self;
         [self.videoContainer addSubview:self.playerView];
+        self.playerView.translatesAutoresizingMaskIntoConstraints = NO;
+        [NSLayoutConstraint activateConstraints:@[
+                                                  [self.playerView.topAnchor constraintEqualToAnchor:self.videoContainer.topAnchor],
+                                                  [self.playerView.rightAnchor constraintEqualToAnchor:self.videoContainer.rightAnchor],
+                                                  [self.playerView.leftAnchor constraintEqualToAnchor:self.videoContainer.leftAnchor],
+                                                  [self.playerView.bottomAnchor constraintEqualToAnchor:self.videoContainer.bottomAnchor],
+                                                ]];
+        
     }
 }
 

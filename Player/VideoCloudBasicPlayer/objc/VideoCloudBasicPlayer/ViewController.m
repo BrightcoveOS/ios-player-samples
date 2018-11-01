@@ -57,10 +57,14 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
     // Set up our player view. Create with a standard VOD layout.
     BCOVPUIPlayerView *playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:nil controlsView:[BCOVPUIBasicControlView basicControlViewWithVODLayout] ];
 
-    // Install in the container view and match its size.
-    playerView.frame = _videoContainer.bounds;
-    playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [_videoContainer addSubview:playerView];
+    playerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+                                              [playerView.topAnchor constraintEqualToAnchor:_videoContainer.topAnchor],
+                                              [playerView.rightAnchor constraintEqualToAnchor:_videoContainer.rightAnchor],
+                                              [playerView.leftAnchor constraintEqualToAnchor:_videoContainer.leftAnchor],
+                                              [playerView.bottomAnchor constraintEqualToAnchor:_videoContainer.bottomAnchor],
+                                              ]];
     _playerView = playerView;
 
     // Associate the playerView with the playback controller.

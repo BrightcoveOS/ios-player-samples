@@ -144,11 +144,16 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
     self.playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:nil options:options controlsView:controlView];
     self.playerView.playbackController = self.playbackController;
     self.playerView.delegate = self;
-    self.playerView.frame = self.videoView.bounds;
-    self.playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 
     // Add BCOVPUIPlayerView to video view.
     [self.videoView addSubview:self.playerView];
+    self.playerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+                                              [self.playerView.topAnchor constraintEqualToAnchor:self.videoView.topAnchor],
+                                              [self.playerView.rightAnchor constraintEqualToAnchor:self.videoView.rightAnchor],
+                                              [self.playerView.leftAnchor constraintEqualToAnchor:self.videoView.leftAnchor],
+                                              [self.playerView.bottomAnchor constraintEqualToAnchor:self.videoView.bottomAnchor],
+                                              ]];
 
     NSLog(@"Request Content from the Video Cloud");
     [self.playbackService findVideoWithVideoID:kViewControllerVideoID

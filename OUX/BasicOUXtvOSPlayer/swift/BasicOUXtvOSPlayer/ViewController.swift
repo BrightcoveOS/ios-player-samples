@@ -21,8 +21,14 @@ class ViewController: UIViewController {
             return nil
         }
         
-        _playerView.frame = self.videoContainer.bounds
+        _playerView.translatesAutoresizingMaskIntoConstraints = false
         self.videoContainer.addSubview(_playerView)
+        NSLayoutConstraint.activate([
+            _playerView.topAnchor.constraint(equalTo: self.videoContainer.topAnchor),
+            _playerView.rightAnchor.constraint(equalTo: self.videoContainer.rightAnchor),
+            _playerView.leftAnchor.constraint(equalTo: self.videoContainer.leftAnchor),
+            _playerView.bottomAnchor.constraint(equalTo: self.videoContainer.bottomAnchor)
+        ])
         
         return _playerView
     }()

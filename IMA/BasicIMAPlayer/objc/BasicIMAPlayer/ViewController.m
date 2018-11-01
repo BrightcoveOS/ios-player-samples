@@ -67,9 +67,14 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
         BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
         // Set playback controller later.
         self.playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:nil options:options controlsView:controlView];
-        self.playerView.frame = self.videoContainer.bounds;
-        self.playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        self.playerView.translatesAutoresizingMaskIntoConstraints = NO;
         [self.videoContainer addSubview:self.playerView];
+        [NSLayoutConstraint activateConstraints:@[
+                                                  [self.playerView.topAnchor constraintEqualToAnchor:self.videoContainer.topAnchor],
+                                                  [self.playerView.rightAnchor constraintEqualToAnchor:self.videoContainer.rightAnchor],
+                                                  [self.playerView.leftAnchor constraintEqualToAnchor:self.videoContainer.leftAnchor],
+                                                  [self.playerView.bottomAnchor constraintEqualToAnchor:self.videoContainer.bottomAnchor],
+                                                  ]];
     }
     else
     {

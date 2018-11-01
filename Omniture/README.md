@@ -6,7 +6,7 @@ Use of this player sample requires an Adobe analytics account and the custom ADB
 
 ### Adobe SDKs
 
-The Adobe analytics SDKs **are not** included in this sample project. To add them, open a Terminal window, cd to the `objc` folder inside the `BasicOmniturePlayer` folder, and run the following `git` commands:
+The Adobe analytics SDKs **are not** included in this sample project. To add them, open a Terminal window, cd to the `objc` folder if using the Objective-C project, or the `swift` folder if using Swift, inside the `BasicOmniturePlayer` folder, and run the following `git` commands:
 
 ```
 git clone -b v4.14.1-iOS --single-branch https://github.com/Adobe-Marketing-Cloud/mobile-services.git

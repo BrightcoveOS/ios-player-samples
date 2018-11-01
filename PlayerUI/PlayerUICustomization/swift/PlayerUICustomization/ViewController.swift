@@ -191,13 +191,18 @@ class ViewController: UIViewController {
         guard let playerView = playerView else {
             return
         }
-        //playerView.playbackController = playbackController
+
         playerView.delegate = self
-        playerView.frame = videoView.bounds
-        playerView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         
         // Add BCOVPUIPlayerView to video view.
         videoView.addSubview(playerView)
+        playerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            playerView.topAnchor.constraint(equalTo: self.videoView.topAnchor),
+            playerView.rightAnchor.constraint(equalTo: self.videoView.rightAnchor),
+            playerView.leftAnchor.constraint(equalTo: self.videoView.leftAnchor),
+            playerView.bottomAnchor.constraint(equalTo: self.videoView.bottomAnchor)
+        ])
         
         print("Request Content from the Video Cloud")
         playbackService.findVideo(withVideoID: PlayerUIConstants.VideoID, parameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in

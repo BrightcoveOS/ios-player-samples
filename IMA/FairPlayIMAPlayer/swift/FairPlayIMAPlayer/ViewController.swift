@@ -39,12 +39,15 @@ class ViewController: UIViewController {
             return nil
         }
         
-        // Make the player view frame match its parent
-        _playerView.frame = self.videoContainerView.bounds
-        _playerView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        
         // Add to parent view
         self.videoContainerView.addSubview(_playerView)
+        _playerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            _playerView.topAnchor.constraint(equalTo: self.videoContainerView.topAnchor),
+            _playerView.rightAnchor.constraint(equalTo: self.videoContainerView.rightAnchor),
+            _playerView.leftAnchor.constraint(equalTo: self.videoContainerView.leftAnchor),
+            _playerView.bottomAnchor.constraint(equalTo: self.videoContainerView.bottomAnchor)
+        ])
         
         return _playerView
     }()

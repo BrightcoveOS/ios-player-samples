@@ -11,19 +11,56 @@
 
 import BrightcovePlayerSDK
 
-let kViewControllerPlaybackServicePolicyKey = "BCpkADawqM3n0ImwKortQqSZCgJMcyVbb8lJVwt0z16UD0a_h8MpEYcHyKbM8CGOPxBRp0nfSVdfokXBrUu3Sso7Nujv3dnLo0JxC_lNXCl88O7NJ0PR0z2AprnJ_Lwnq7nTcy1GBUrQPr5e"
-let kViewControllerAccountID = "4800266849001"
-let kViewControllerVideoID = "5754208017001"
+fileprivate struct playbackConfig {
+    static let policyKey = "BCpkADawqM3n0ImwKortQqSZCgJMcyVbb8lJVwt0z16UD0a_h8MpEYcHyKbM8CGOPxBRp0nfSVdfokXBrUu3Sso7Nujv3dnLo0JxC_lNXCl88O7NJ0PR0z2AprnJ_Lwnq7nTcy1GBUrQPr5e"
+    static let accountID = "4800266849001"
+    static let videoID = "5754208017001"
 
-class ViewController: UIViewController, BCOVPlaybackControllerDelegate
+
+class ViewController: UIViewController
 {
     @IBOutlet weak var videoContainerView: UIView!
     
-    var playerView: BCOVTVPlayerView?
+    lazy var playerView: BCOVTVPlayerView? = {
+        // Set ourself as the presenting view controller
+        // so that tab bar panels can present other view controllers
+        let options = BCOVTVPlayerViewOptions()
+        options.presentingViewController = self
+        
+        // Create and add to the video container view
+        guard let _playerView = BCOVTVPlayerView(options: options) else {
+            return nil
+        }
+        
+        // Link the playback controller to the Player View
+        _playerView.playbackController = playbackController
+        
+        videoContainerView.addSubview(_playerView)
+        
+        _playerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            _playerView.topAnchor.constraint(equalTo: videoContainerView.topAnchor),
+            _playerView.rightAnchor.constraint(equalTo: videoContainerView.rightAnchor),
+            _playerView.leftAnchor.constraint(equalTo: videoContainerView.leftAnchor),
+            _playerView.bottomAnchor.constraint(equalTo: videoContainerView.bottomAnchor)
+        ])
+        
+        return _playerView
+    }()
     
-    let playbackService = BCOVPlaybackService(accountId: kViewControllerAccountID, policyKey: kViewControllerPlaybackServicePolicyKey)
+    lazy var playbackService: BCOVPlaybackService = {
+        return BCOVPlaybackService(accountId: playbackConfig.accountID, policyKey: playbackConfig.policyKey)
+    }()
     
-    let playbackController: BCOVPlaybackController = BCOVPlayerSDKManager.shared().createPlaybackController()
+    lazy var playbackController: BCOVPlaybackController? = {
+        guard let _playbackController = BCOVPlayerSDKManager.shared().createPlaybackController() else {
+            return nil
+        }
+        _playbackController.delegate = self
+        _playbackController.isAutoAdvance = true
+        _playbackController.isAutoPlay = true
+        return _playbackController
+    }()
     
     required init?(coder aDecoder: NSCoder)
     {
@@ -33,81 +70,41 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        createTVPlayerView()
-        
         createSampleTabBarItemView()
-        
-        // Create and configure the playback controller
-        playbackController.delegate = self
-        playbackController.isAutoAdvance = true
-        playbackController.isAutoPlay = true
-        
-        // Link the playback controller to the Player View
-        playerView?.playbackController = playbackController
-        
         requestContentFromPlaybackService()
     }
-    
-    func createTVPlayerView() {
+
+    private func createSampleTabBarItemView() {
         
-        // Make sure storyboard bindings are set up
-        self.loadViewIfNeeded()
-        if (videoContainerView == nil)
-        {
-            print("videoContainerView not bound to storyboard")
+        guard let playerView = playerView, var topTabBarItemViews = playerView.settingsView.topTabBarItemViews else {
             return
         }
         
-        // Set ourself as the presenting view controller
-        // so that tab bar panels can present other view controllers
-        let options = BCOVTVPlayerViewOptions()
-        options.presentingViewController = self
+        let sampleTabBarItemView = SampleTabBarItemView(size: CGSize.init(width: 620, height: 200), playerView: playerView)
         
-        // Create and add to the video container view
-        playerView = BCOVTVPlayerView(options: options)
-        if (playerView != nil) {
-            playerView!.frame = self.videoContainerView.bounds
-            self.videoContainerView.addSubview(playerView!)
-        }
+        // Insert our new tab bar item view at the end of the top tab bar
+        topTabBarItemViews.append(sampleTabBarItemView)
+        playerView.settingsView.topTabBarItemViews = topTabBarItemViews
     }
 
-    func createSampleTabBarItemView() {
-        
-        if let sampleTabBarItemView = SampleTabBarItemView(size: CGSize.init(width: 620, height: 200), playerView: playerView) {
+    private func requestContentFromPlaybackService() {
+        playbackService.findVideo(withVideoID: playbackConfig.videoID, parameters: nil) { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
             
-            // Insert our new tab bar item view at the end of the top tab bar
-            var topTabBarItemViews = playerView?.settingsView.topTabBarItemViews
-            topTabBarItemViews?.append(sampleTabBarItemView)
-            playerView?.settingsView.topTabBarItemViews = topTabBarItemViews
-        }
-        
-    }
-
-    func requestContentFromPlaybackService() {
-        playbackService?.findVideo(withVideoID: kViewControllerVideoID, parameters: nil) { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
-            
-            if let v = video {
+            if let _video = video {
                 //  since "isAutoPlay" is true, setVideos will begin playing the content
-                self.playbackController.setVideos([v] as NSArray)
+                self?.playbackController?.setVideos([_video] as NSArray)
             } else {
                 print("ViewController Debug - Error retrieving video: \(error?.localizedDescription ?? "unknown error")")
             }
+            
         }
     }
-    
-    // MARK: Playback controller delegate methods
-    
-    func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
-        NSLog("ViewController Debug - Advanced to new session.")
-    }
-    
-    func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
-        NSLog("Event: %@", lifecycleEvent.eventType)
-    }
+  
+}
 
-    // MARK: UIFocusEnvironment overrides
+// MARK: - UIFocusEnvironment overrides
+
+extension ViewController {
     
     // Focus Environment override for tvOS 9
     override var preferredFocusedView: UIView? {
@@ -118,4 +115,19 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate
     override var preferredFocusEnvironments: [UIFocusEnvironment] {
         return (playerView != nil ? [ playerView! ] : [])
     }
+    
+}
+
+// MARK: - BCOVPlaybackControllerDelegate
+
+extension ViewController: BCOVPlaybackControllerDelegate {
+    
+    func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
+        NSLog("ViewController Debug - Advanced to new session.")
+    }
+    
+    func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
+        NSLog("Event: %@", lifecycleEvent.eventType)
+    }
+    
 }

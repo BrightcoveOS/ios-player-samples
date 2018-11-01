@@ -66,10 +66,15 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
             playbackController?.isAutoPlay = true
             playbackController?.delegate = self
             
-            if playbackController?.view != nil {
-                playbackController?.view.frame = self.videoContainerView.bounds
-                playbackController?.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-                self.videoContainerView.addSubview((playbackController!.view)!)
+            if let _view = playbackController?.view {
+                _view.translatesAutoresizingMaskIntoConstraints = false
+                videoContainerView.addSubview(_view)
+                NSLayoutConstraint.activate([
+                    _view.topAnchor.constraint(equalTo: videoContainerView.topAnchor),
+                    _view.rightAnchor.constraint(equalTo: videoContainerView.rightAnchor),
+                    _view.leftAnchor.constraint(equalTo: videoContainerView.leftAnchor),
+                    _view.bottomAnchor.constraint(equalTo: videoContainerView.bottomAnchor)
+                ])
             }
             
             self.playbackController = playbackController
@@ -90,17 +95,21 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
             self.fairPlayAuthProxy = BCOVFPSBrightcoveAuthProxy(publisherId: kViewControllerFairPlayPublisherId,
                                                                 applicationId: kViewControllerFairPlayApplicationId)
             
-            self.fairPlayAuthProxy?.retrieveApplicationCertificate() { (applicationCertificate: Data?, error: Error?) -> Void in
+            self.fairPlayAuthProxy?.retrieveApplicationCertificate() { [weak self] (applicationCertificate: Data?, error: Error?) -> Void in
                 guard let appCert = applicationCertificate else
                 {
                     print("ViewController Debug - Error retrieving app certificate: %@", error!)
                     return
                 }
                 
+                guard let strongSelf = self else {
+                    return
+                }
+                
                 // Create chain of session providers
                 let psp = sdkManager?.createBasicSessionProvider(with:nil)
                 let fps = sdkManager?.createFairPlaySessionProvider(withApplicationCertificate:appCert,
-                                                                    authorizationProxy:self.fairPlayAuthProxy!,
+                                                                    authorizationProxy:strongSelf.fairPlayAuthProxy!,
                                                                     upstreamSessionProvider:psp)
                 
                 // Create the playback controller
@@ -110,16 +119,21 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
                 playbackController?.isAutoPlay = true
                 playbackController?.delegate = self
                 
-                if playbackController?.view != nil {
-                    playbackController?.view.frame = self.videoContainerView.bounds
-                    playbackController?.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-                    self.videoContainerView.addSubview((playbackController!.view)!)
+                if let _view = playbackController?.view {
+                    _view.translatesAutoresizingMaskIntoConstraints = false
+                    strongSelf.videoContainerView.addSubview(_view)
+                    NSLayoutConstraint.activate([
+                        _view.topAnchor.constraint(equalTo: strongSelf.videoContainerView.topAnchor),
+                        _view.rightAnchor.constraint(equalTo: strongSelf.videoContainerView.rightAnchor),
+                        _view.leftAnchor.constraint(equalTo: strongSelf.videoContainerView.leftAnchor),
+                        _view.bottomAnchor.constraint(equalTo: strongSelf.videoContainerView.bottomAnchor)
+                    ])
                 }
+
+                strongSelf.playbackController = playbackController
                 
-                self.playbackController = playbackController
-                
-                self.requestContentFromPlaybackService()
-                self.createPlayerView()
+                strongSelf.requestContentFromPlaybackService()
+                strongSelf.createPlayerView()
             }
         }
     }
@@ -139,11 +153,19 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
     // Create the player view
     func createPlayerView() {
         let controlView = BCOVPUIBasicControlView.withVODLayout()
-        let playerView = BCOVPUIPlayerView(playbackController: self.playbackController, options: nil, controlsView: controlView)
-        playerView?.frame = self.videoContainerView.bounds
-        playerView?.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        self.videoContainerView.addSubview(playerView!)
-        playerView?.playbackController = self.playbackController
+        guard let playerView = BCOVPUIPlayerView(playbackController: self.playbackController, options: nil, controlsView: controlView) else {
+            return
+        }
+        videoContainerView.addSubview(playerView)
+        playerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            playerView.topAnchor.constraint(equalTo: videoContainerView.topAnchor),
+            playerView.rightAnchor.constraint(equalTo: videoContainerView.rightAnchor),
+            playerView.leftAnchor.constraint(equalTo: videoContainerView.leftAnchor),
+            playerView.bottomAnchor.constraint(equalTo: videoContainerView.bottomAnchor)
+            ])
+        
+        playerView.playbackController = self.playbackController
     }
     
     func playbackController(_: BCOVPlaybackController!, didAdvanceTo: BCOVPlaybackSession!) {
