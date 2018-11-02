@@ -56,7 +56,7 @@ static NSString * const kViewControllerSlotId= @"300x250";
     // We use it in the BCOVFWSessionProviderAdContextPolicy created by
     // the -[ViewController adContextPolicy] block.
     _adManager = newAdManager();
-    [_adManager setNetworkId:90750];
+    [_adManager setNetworkId:42015];
 
     BCOVPlayerSDKManager *manager = [BCOVPlayerSDKManager sharedManager];
 
@@ -115,9 +115,9 @@ static NSString * const kViewControllerSlotId= @"300x250";
         id<FWContext> adContext = [strongSelf.adManager newContext];
         
         // These are player/app-specific and asset-specific values.
-        FWRequestConfiguration *adRequestConfig = [[FWRequestConfiguration alloc] initWithServerURL:@"http://demo.v.fwmrm.net" playerProfile:@"90750:3pqa_ios"];
-        adRequestConfig.siteSectionConfiguration = [[FWSiteSectionConfiguration alloc] initWithSiteSectionId:@"brightcove_ios" idType:FWIdTypeCustom];
-        adRequestConfig.videoAssetConfiguration = [[FWVideoAssetConfiguration alloc] initWithVideoAssetId:@"brightcove_demo_video" idType:FWIdTypeCustom duration:videoDuration durationType:FWVideoAssetDurationTypeExact autoPlayType:FWVideoAssetAutoPlayTypeAttended];
+        FWRequestConfiguration *adRequestConfig = [[FWRequestConfiguration alloc] initWithServerURL:@"http://cue.v.fwmrm.net" playerProfile:@"96749:global-cocoa"];
+        adRequestConfig.siteSectionConfiguration = [[FWSiteSectionConfiguration alloc] initWithSiteSectionId:@"DemoSiteGroup.01" idType:FWIdTypeCustom];
+        adRequestConfig.videoAssetConfiguration = [[FWVideoAssetConfiguration alloc] initWithVideoAssetId:@"DemoVideoGroup.01" idType:FWIdTypeCustom duration:160 durationType:FWVideoAssetDurationTypeExact autoPlayType:FWVideoAssetAutoPlayTypeAttended];
         
         // This is the view where the ads will be rendered.
         [adContext setVideoDisplayBase:strongSelf.playerView.contentOverlayView];
