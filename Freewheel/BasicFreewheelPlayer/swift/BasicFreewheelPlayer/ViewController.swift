@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     
     private lazy var adManager: FWAdManager? = {
         let _adManager = newAdManager()
-        _adManager?.setNetworkId(90750)
+        _adManager?.setNetworkId(42015)
         return _adManager
     }()
     
@@ -49,9 +49,9 @@ class ViewController: UIViewController {
             }
             
             // These are player/app-specific and asset-specific values.
-            let adRequestConfig = FWRequestConfiguration(serverURL: "http://demo.v.fwmrm.net", playerProfile: "90750:3pqa_ios")
-            adRequestConfig.siteSectionConfiguration = FWSiteSectionConfiguration(siteSectionId: "brightcove_ios", idType: .custom)
-            adRequestConfig.videoAssetConfiguration = FWVideoAssetConfiguration(videoAssetId: "brightcove_demo_video", idType: .custom, duration: videoDuration, durationType: .exact, autoPlayType: .attended)
+            let adRequestConfig = FWRequestConfiguration(serverURL: "http://cue.v.fwmrm.net", playerProfile: "96749:global-cocoa")
+            adRequestConfig.siteSectionConfiguration = FWSiteSectionConfiguration(siteSectionId: "DemoSiteGroup.01", idType: .custom)
+            adRequestConfig.videoAssetConfiguration = FWVideoAssetConfiguration(videoAssetId: "DemoVideoGroup.01", idType: .custom, duration: videoDuration, durationType: .exact, autoPlayType: .attended)
             
             // This is the view where the ads will be rendered.
             adContext.setVideoDisplayBase(strongSelf.playerView?.contentOverlayView)
