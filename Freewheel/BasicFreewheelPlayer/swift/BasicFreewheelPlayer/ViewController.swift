@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         return _adManager
     }()
     
-    private lazy var adContextPolicy: BCOVFWSessionProviderAdContextPolicy? = {
+    private lazy var adContextPolicy: BCOVFWSessionProviderAdContextPolicy = {
         weak var weakSelf = self
         
         return { video, source, videoDuration in
@@ -75,9 +75,18 @@ class ViewController: UIViewController {
     
     private lazy var playbackController: BCOVPlaybackController? = {
         
-        guard let _playbackController = BCOVPlayerSDKManager.shared()?.createFWPlaybackController(adContextPolicy: adContextPolicy, viewStrategy: nil) else {
+        let options = BCOVFWSessionProviderOptions()
+        options.cuePointProgressPolicy = BCOVCuePointProgressPolicy(processingCuePoints: .processFinalCuePoint, resumingPlaybackFrom: .fromContentPlayhead, ignoringPreviouslyProcessedCuePoints: true)
+        
+        let sessionProvider = BCOVPlayerSDKManager.shared()?.createFWSessionProvider(adContextPolicy: adContextPolicy, upstreamSessionProvider: nil, options: options)
+        
+        guard let _playbackController = BCOVPlayerSDKManager.shared()?.createPlaybackController(with: sessionProvider, viewStrategy: nil) else {
             return nil
         }
+        
+        _playbackController.delegate = self
+        _playbackController.isAutoAdvance = true
+        _playbackController.isAutoPlay = true
         
         return _playbackController
     }()
