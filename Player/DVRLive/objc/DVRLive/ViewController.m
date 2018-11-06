@@ -57,9 +57,14 @@ static NSString * const kVideoURLString = <URL of Live HLS>;
 
     BCOVPUIPlayerView *playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:options controlsView:controlsView ];
     playerView.delegate = self;
-    playerView.frame = _videoContainer.bounds;
-    playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    playerView.translatesAutoresizingMaskIntoConstraints = NO;
     [_videoContainer addSubview:playerView];
+    [NSLayoutConstraint activateConstraints:@[
+                                              [playerView.topAnchor constraintEqualToAnchor:_videoContainer.topAnchor],
+                                              [playerView.rightAnchor constraintEqualToAnchor:_videoContainer.rightAnchor],
+                                              [playerView.leftAnchor constraintEqualToAnchor:_videoContainer.leftAnchor],
+                                              [playerView.bottomAnchor constraintEqualToAnchor:_videoContainer.bottomAnchor],
+                                              ]];
     _playerView = playerView;
     _playerView.playbackController = _playbackController;
 

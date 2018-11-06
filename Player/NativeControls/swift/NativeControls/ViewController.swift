@@ -40,9 +40,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         addChild(avpvc)
-        avpvc.view.frame = videoContainer.bounds
-        avpvc.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         videoContainer.addSubview(avpvc.view)
+        avpvc.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            avpvc.view.topAnchor.constraint(equalTo: self.videoContainer.topAnchor),
+            avpvc.view.rightAnchor.constraint(equalTo: self.videoContainer.rightAnchor),
+            avpvc.view.leftAnchor.constraint(equalTo: self.videoContainer.leftAnchor),
+            avpvc.view.bottomAnchor.constraint(equalTo: self.videoContainer.bottomAnchor)
+        ])
         avpvc.didMove(toParent: self)
         
         requestContentFromPlaybackService()

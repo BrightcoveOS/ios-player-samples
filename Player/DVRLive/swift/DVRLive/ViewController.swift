@@ -41,9 +41,14 @@ class ViewController: UIViewController {
         guard let playerView = BCOVPUIPlayerView(playbackController: playbackController, options: options, controlsView: controlsView) else {
             return
         }
-        playerView.frame = videoContainer.bounds
-        playerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         videoContainer.addSubview(playerView)
+        playerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            playerView.topAnchor.constraint(equalTo: self.videoContainer.topAnchor),
+            playerView.rightAnchor.constraint(equalTo: self.videoContainer.rightAnchor),
+            playerView.leftAnchor.constraint(equalTo: self.videoContainer.leftAnchor),
+            playerView.bottomAnchor.constraint(equalTo: self.videoContainer.bottomAnchor)
+        ])
         playerView.playbackController = playbackController
         
         let videoURL = URL(string: kVideoURLString)

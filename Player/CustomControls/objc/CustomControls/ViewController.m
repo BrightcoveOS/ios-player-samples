@@ -25,6 +25,8 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
 
 @property (nonatomic, strong) ControlsViewController *controlsViewController;
 @property (nonatomic, strong) UIViewController *fullscreenViewController;
+@property (nonatomic, strong) NSArray<NSLayoutConstraint *> *standardVideoViewConstraints;
+@property (nonatomic, strong) NSArray<NSLayoutConstraint *> *fullscreenVideoViewConstraints;
 
 @end
 
@@ -49,14 +51,14 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
     _fullscreenViewController = [[UIViewController alloc] init];
     _controlsViewController = [[ControlsViewController alloc] init];
     _controlsViewController.delegate = self;
-
+    
     _playbackController = [[BCOVPlayerSDKManager sharedManager] createPlaybackController];
     _playbackController.delegate = self;
     _playbackController.autoAdvance = YES;
     _playbackController.autoPlay = YES;
     [_playbackController setAllowsExternalPlayback:YES];
     [_playbackController addSessionConsumer:_controlsViewController];
-
+    
     _playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kViewControllerAccountID
                                                             policyKey:kViewControllerPlaybackServicePolicyKey];
 }
@@ -64,43 +66,90 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-
-    self.playbackController.view.frame = self.videoView.bounds;
-    self.playbackController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    
+    // Add the playbackController view
+    // to videoView and setup its constraints
     [self.videoView addSubview:self.playbackController.view];
-
+    self.playbackController.view.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+                                              [self.playbackController.view.topAnchor constraintEqualToAnchor:self.videoView.topAnchor],
+                                              [self.playbackController.view.rightAnchor constraintEqualToAnchor:self.videoView.rightAnchor],
+                                              [self.playbackController.view.leftAnchor constraintEqualToAnchor:self.videoView.leftAnchor],
+                                              [self.playbackController.view.bottomAnchor constraintEqualToAnchor:self.videoView.bottomAnchor],
+                                              ]];
+    
+    // Setup controlsViewController by
+    // adding it as a child view controller,
+    // adding its view as a subview of videoView
+    // and adding its constraints
     [self addChildViewController:self.controlsViewController];
-    self.controlsViewController.view.frame = self.videoView.bounds;
     [self.videoView addSubview:self.controlsViewController.view];
     [self.controlsViewController didMoveToParentViewController:self];
-
-    self.videoView.frame = self.videoContainer.bounds;
-    self.videoView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.controlsViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+                                              [self.controlsViewController.view.topAnchor constraintEqualToAnchor:self.videoView.topAnchor],
+                                              [self.controlsViewController.view.rightAnchor constraintEqualToAnchor:self.videoView.rightAnchor],
+                                              [self.controlsViewController.view.leftAnchor constraintEqualToAnchor:self.videoView.leftAnchor],
+                                              [self.controlsViewController.view.bottomAnchor constraintEqualToAnchor:self.videoView.bottomAnchor],
+                                              ]];
+    
+    // Then add videoView as a subview of videoContainer
     [self.videoContainer addSubview:self.videoView];
-
+    
+    // Setup the standard view constraints
+    // and activate them
+    self.videoView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.standardVideoViewConstraints = @[
+                                          [self.videoView.topAnchor constraintEqualToAnchor:self.videoContainer.topAnchor],
+                                          [self.videoView.rightAnchor constraintEqualToAnchor:self.videoContainer.rightAnchor],
+                                          [self.videoView.leftAnchor constraintEqualToAnchor:self.videoContainer.leftAnchor],
+                                          [self.videoView.bottomAnchor constraintEqualToAnchor:self.videoContainer.bottomAnchor],
+                                          ];
+    [NSLayoutConstraint activateConstraints:self.standardVideoViewConstraints];
+    
     [self requestContentFromPlaybackService];
+}
+
+- (NSArray<NSLayoutConstraint *> *)fullscreenVideoViewConstraints
+{
+    if (!_fullscreenVideoViewConstraints) {
+        UIEdgeInsets insets = UIEdgeInsetsZero;
+        if (@available(iOS 11, *))
+        {
+            insets = self.view.safeAreaInsets;
+        }
+        _fullscreenVideoViewConstraints = @[
+                                            [self.videoView.topAnchor constraintEqualToAnchor:self.fullscreenViewController.view.topAnchor constant:insets.top],
+                                                [self.videoView.rightAnchor constraintEqualToAnchor:self.fullscreenViewController.view.rightAnchor],
+                                                [self.videoView.leftAnchor constraintEqualToAnchor:self.fullscreenViewController.view.leftAnchor],
+                                                [self.videoView.bottomAnchor constraintEqualToAnchor:self.fullscreenViewController.view.bottomAnchor constant:-insets.bottom],
+                                                ];
+    }
+    
+    return _fullscreenVideoViewConstraints;
 }
 
 - (void)handleEnterFullScreenButtonPressed
 {
     [self.fullscreenViewController addChildViewController:self.controlsViewController];
-    self.videoView.frame = self.fullscreenViewController.view.bounds;
     [self.fullscreenViewController.view addSubview:self.videoView];
+    [NSLayoutConstraint deactivateConstraints:self.standardVideoViewConstraints];
+    [NSLayoutConstraint activateConstraints:self.fullscreenVideoViewConstraints];
     [self.controlsViewController didMoveToParentViewController:self.fullscreenViewController];
-
+    
     [self presentViewController:self.fullscreenViewController animated:NO completion:nil];
 }
 
 - (void)handleExitFullScreenButtonPressed
 {
     [self dismissViewControllerAnimated:NO completion:^{
-
-        self.videoView.frame = self.videoContainer.bounds;
+        
         [self addChildViewController:self.controlsViewController];
         [self.videoContainer addSubview:self.videoView];
+        [NSLayoutConstraint deactivateConstraints:self.fullscreenVideoViewConstraints];
+        [NSLayoutConstraint activateConstraints:self.standardVideoViewConstraints];
         [self.controlsViewController didMoveToParentViewController:self];
-
+        
     }];
 }
 
@@ -116,7 +165,7 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
         {
             NSLog(@"ViewController Debug - Error retrieving video playlist: `%@`", error);
         }
-
+        
     }];
 }
 

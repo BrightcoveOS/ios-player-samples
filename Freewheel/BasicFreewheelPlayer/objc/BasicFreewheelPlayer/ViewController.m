@@ -85,9 +85,14 @@ static NSString * const kViewControllerSlotId= @"300x250";
 
     BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
     _playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:_playbackController options:nil controlsView:controlView];
-    _playerView.frame = _videoContainerView.bounds;
-    _playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    _playerView.translatesAutoresizingMaskIntoConstraints = NO;
     [_videoContainerView addSubview:_playerView];
+    [NSLayoutConstraint activateConstraints:@[
+                                              [_playerView.topAnchor constraintEqualToAnchor:_videoContainerView.topAnchor],
+                                              [_playerView.rightAnchor constraintEqualToAnchor:_videoContainerView.rightAnchor],
+                                              [_playerView.leftAnchor constraintEqualToAnchor:_videoContainerView.leftAnchor],
+                                              [_playerView.bottomAnchor constraintEqualToAnchor:_videoContainerView.bottomAnchor],
+                                            ]];
     _playerView.playbackController = _playbackController;
 
     [self requestContentFromPlaybackService];
@@ -119,16 +124,12 @@ static NSString * const kViewControllerSlotId= @"300x250";
         [adContext setVideoDisplayBase:strongSelf.playerView.contentOverlayView];
 
         // These are required to use Freewheel's OOTB ad controls.
-//        [adContext setParameter:FW_PARAMETER_USE_CONTROL_PANEL withValue:@"NO" forLevel:FWParameterLevelGlobal];
         [adContext setParameter:FWParameterDetectClick withValue:@"NO" forLevel:FWParameterLevelGlobal];
 
         // This registers a companion view slot with size 300x250. If you don't
         // need companion ads, this can be removed.
-//        [adContext addSiteSectionNonTemporalSlot:kViewControllerSlotId adUnit:nil width:300 height:250 slotProfile:nil acceptCompanion:YES initialAdOption:FWSlotInitialAdOptionStandAlone acceptPrimaryContentType:nil acceptContentType:nil compatibleDimensions:nil];
         [adRequestConfig addSlotConfiguration:[[FWNonTemporalSlotConfiguration alloc] initWithCustomId:kViewControllerSlotId adUnit:FWAdUnitOverlay width:300 height:250]];
 
-//        [adContext addTemporalSlot:@"midroll60" adUnit:FWAdUnitMidroll timePosition:60.00 slotProfile:nil cuePointSequence:1 minDuration:0 maxDuration:100 acceptPrimaryContentType:nil acceptContentType:nil];
-//        [adContext addTemporalSlot:@"midroll120" adUnit:FWAdUnitMidroll timePosition:120.00 slotProfile:nil cuePointSequence:1 minDuration:0 maxDuration:100 acceptPrimaryContentType:nil acceptContentType:nil];
         [adRequestConfig addSlotConfiguration:[[FWTemporalSlotConfiguration alloc] initWithCustomId:@"midroll60" adUnit:FWAdUnitMidroll timePosition:60.0]];
         [adRequestConfig addSlotConfiguration:[[FWTemporalSlotConfiguration alloc] initWithCustomId:@"midroll120" adUnit:FWAdUnitMidroll timePosition:120.0]];
 

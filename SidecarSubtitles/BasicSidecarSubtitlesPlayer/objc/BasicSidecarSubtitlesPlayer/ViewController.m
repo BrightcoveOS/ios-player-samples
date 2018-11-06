@@ -89,12 +89,15 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
                                                                         options:nil
                                                                    controlsView:controlView];
         
-        // Make the player view frame match its parent
-        self.playerView.frame = self.videoContainerView.bounds;
-        self.playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        
         // Add to parent view
         [self.videoContainerView addSubview:self.playerView];
+        self.playerView.translatesAutoresizingMaskIntoConstraints = NO;
+        [NSLayoutConstraint activateConstraints:@[
+                                                  [self.playerView.topAnchor constraintEqualToAnchor:self.videoContainerView.topAnchor],
+                                                  [self.playerView.rightAnchor constraintEqualToAnchor:self.videoContainerView.rightAnchor],
+                                                  [self.playerView.leftAnchor constraintEqualToAnchor:self.videoContainerView.leftAnchor],
+                                                  [self.playerView.bottomAnchor constraintEqualToAnchor:self.videoContainerView.bottomAnchor],
+                                                  ]];
     }
 }
 

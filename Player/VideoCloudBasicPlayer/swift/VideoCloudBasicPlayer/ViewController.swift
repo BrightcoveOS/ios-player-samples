@@ -31,18 +31,24 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         // Set up our player view. Create with a standard VOD layout.
-        let playerView = BCOVPUIPlayerView(playbackController: self.playbackController, options: nil, controlsView: BCOVPUIBasicControlView.withVODLayout())
+        guard let playerView = BCOVPUIPlayerView(playbackController: self.playbackController, options: nil, controlsView: BCOVPUIBasicControlView.withVODLayout()) else {
+            return
+        }
         
         // Install in the container view and match its size.
-        playerView?.frame = self.videoContainerView.bounds
-        playerView?.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        self.videoContainerView.addSubview(playerView!)
+        self.videoContainerView.addSubview(playerView)
+        playerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            playerView.topAnchor.constraint(equalTo: self.videoContainerView.topAnchor),
+            playerView.rightAnchor.constraint(equalTo: self.videoContainerView.rightAnchor),
+            playerView.leftAnchor.constraint(equalTo: self.videoContainerView.leftAnchor),
+            playerView.bottomAnchor.constraint(equalTo: self.videoContainerView.bottomAnchor)
+        ])
         
         // Associate the playerView with the playback controller.
-        playerView?.playbackController = playbackController
+        playerView.playbackController = playbackController
         
         requestContentFromPlaybackService()
     }

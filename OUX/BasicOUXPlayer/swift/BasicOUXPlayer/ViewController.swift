@@ -43,9 +43,14 @@ class ViewController: UIViewController {
         // Set playback controller later.
         playerView = BCOVPUIPlayerView(playbackController: nil, options: nil, controlsView: controlView)
         if let playerView = playerView {
-            playerView.frame = videoContainerView.bounds
-            playerView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+            playerView.translatesAutoresizingMaskIntoConstraints = false
             videoContainerView.addSubview(playerView)
+            NSLayoutConstraint.activate([
+                playerView.topAnchor.constraint(equalTo: videoContainerView.topAnchor),
+                playerView.rightAnchor.constraint(equalTo: videoContainerView.rightAnchor),
+                playerView.leftAnchor.constraint(equalTo: videoContainerView.leftAnchor),
+                playerView.bottomAnchor.constraint(equalTo: videoContainerView.bottomAnchor)
+            ])
             playerView.playbackController = controller
         }
         

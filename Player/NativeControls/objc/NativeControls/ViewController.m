@@ -66,9 +66,14 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
     // Do any additional setup after loading the view, typically from a nib.
 
     [self addChildViewController:self.avpvc];
-    self.avpvc.view.frame = self.videoContainer.bounds;
-    self.avpvc.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.videoContainer addSubview:self.avpvc.view];
+    self.avpvc.view.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+                                              [self.avpvc.view.topAnchor constraintEqualToAnchor:self.videoContainer.topAnchor],
+                                              [self.avpvc.view.rightAnchor constraintEqualToAnchor:self.videoContainer.rightAnchor],
+                                              [self.avpvc.view.leftAnchor constraintEqualToAnchor:self.videoContainer.leftAnchor],
+                                              [self.avpvc.view.bottomAnchor constraintEqualToAnchor:self.videoContainer.bottomAnchor],
+                                              ]];
     [self.avpvc didMoveToParentViewController:self];
 
     [self requestContentFromPlaybackService];

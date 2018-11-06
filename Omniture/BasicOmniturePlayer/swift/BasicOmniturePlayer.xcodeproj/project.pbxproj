@@ -14,8 +14,6 @@
 		E9DEE5A5216F97B50033C285 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE5A4216F97B50033C285 /* Assets.xcassets */; };
 		E9DEE5A8216F97B50033C285 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE5A6216F97B50033C285 /* LaunchScreen.storyboard */; };
 		E9DEE5B3216F99EC0033C285 /* ADBMobileConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE5B2216F99EC0033C285 /* ADBMobileConfig.json */; };
-		E9DEE5C3216F9F830033C285 /* VideoHeartbeat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DEE5BE216F9E700033C285 /* VideoHeartbeat.a */; };
-		E9DEE5C4216F9F850033C285 /* AdobeMobileLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DEE5BD216F9E700033C285 /* AdobeMobileLibrary.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,8 +41,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9DEE5C4216F9F850033C285 /* AdobeMobileLibrary.a in Frameworks */,
-				E9DEE5C3216F9F830033C285 /* VideoHeartbeat.a in Frameworks */,
 				B55A55804222C47CB56984AB /* Pods_BasicOmniturePlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,6 +392,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/mobile-services/sdks/iOS/AdobeMobileLibrary\"",
+					"\"$(PROJECT_DIR)/video-heartbeat-v2/sdks/iOS/libs/Headers\"",
+				);
 				INFOPLIST_FILE = BasicOmniturePlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -425,6 +426,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/mobile-services/sdks/iOS/AdobeMobileLibrary\"",
+					"\"$(PROJECT_DIR)/video-heartbeat-v2/sdks/iOS/libs/Headers\"",
+				);
 				INFOPLIST_FILE = BasicOmniturePlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (

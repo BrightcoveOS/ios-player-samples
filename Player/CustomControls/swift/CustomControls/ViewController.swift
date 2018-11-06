@@ -54,6 +54,28 @@ class ViewController: UIViewController {
     private lazy var fullscreenViewController: UIViewController = {
        return UIViewController()
     }()
+    
+    private lazy var standardVideoViewConstraints: [NSLayoutConstraint] = {
+        return [
+            videoView.topAnchor.constraint(equalTo: self.videoContainer.topAnchor),
+            videoView.rightAnchor.constraint(equalTo: self.videoContainer.rightAnchor),
+            videoView.leftAnchor.constraint(equalTo: self.videoContainer.leftAnchor),
+            videoView.bottomAnchor.constraint(equalTo: self.videoContainer.bottomAnchor)
+        ]
+    }()
+    
+    private lazy var fullscreenVideoViewConstraints: [NSLayoutConstraint] = {
+        var insets = UIEdgeInsets.zero
+        if #available(iOS 11, *) {
+            insets = view.safeAreaInsets
+        }
+        return [
+            videoView.topAnchor.constraint(equalTo: self.fullscreenViewController.view.topAnchor, constant:insets.top),
+            videoView.rightAnchor.constraint(equalTo: self.fullscreenViewController.view.rightAnchor),
+            videoView.leftAnchor.constraint(equalTo: self.fullscreenViewController.view.leftAnchor),
+            videoView.bottomAnchor.constraint(equalTo: self.fullscreenViewController.view.bottomAnchor, constant:-insets.bottom)
+        ]
+    }()
 
     // MARK: - View Lifecyle
     
@@ -64,17 +86,39 @@ class ViewController: UIViewController {
             return
         }
         
-        playbackController.view.frame = videoView.bounds
+        // Add the playbackController view
+        // to videoView and setup its constraints
         videoView.addSubview(playbackController.view)
+        playbackController.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            playbackController.view.topAnchor.constraint(equalTo: self.videoView.topAnchor),
+            playbackController.view.rightAnchor.constraint(equalTo: self.videoView.rightAnchor),
+            playbackController.view.leftAnchor.constraint(equalTo: self.videoView.leftAnchor),
+            playbackController.view.bottomAnchor.constraint(equalTo: self.videoView.bottomAnchor)
+        ])
         
+        // Setup controlsViewController by
+        // adding it as a child view controller,
+        // adding its view as a subview of videoView
+        // and adding its constraints
         addChild(controlsViewController)
-        controlsViewController.view.frame = videoView.bounds
         videoView.addSubview(controlsViewController.view)
         controlsViewController.didMove(toParent: self)
+        controlsViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            controlsViewController.view.topAnchor.constraint(equalTo: self.videoView.topAnchor),
+            controlsViewController.view.rightAnchor.constraint(equalTo: self.videoView.rightAnchor),
+            controlsViewController.view.leftAnchor.constraint(equalTo: self.videoView.leftAnchor),
+            controlsViewController.view.bottomAnchor.constraint(equalTo: self.videoView.bottomAnchor)
+        ])
         
-        videoView.frame = videoContainer.bounds
+        // Then add videoView as a subview of videoContainer
         videoContainer.addSubview(videoView)
         
+        // Activate the standard view constraints
+        videoView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate(standardVideoViewConstraints)
+
         requestContentFromPlaybackService()
     }
     
@@ -114,9 +158,10 @@ extension ViewController: ControlsViewControllerFullScreenDelegate {
     func handleExitFullScreenButtonPressed() {
         dismiss(animated: false) {
             
-            self.videoView.frame = self.videoContainer.bounds
             self.addChild(self.controlsViewController)
             self.videoContainer.addSubview(self.videoView)
+            NSLayoutConstraint.deactivate(self.fullscreenVideoViewConstraints)
+            NSLayoutConstraint.activate(self.standardVideoViewConstraints)
             self.controlsViewController.didMove(toParent: self)
             
         }
@@ -124,8 +169,9 @@ extension ViewController: ControlsViewControllerFullScreenDelegate {
     
     func handleEnterFullScreenButtonPressed() {
         fullscreenViewController.addChild(controlsViewController)
-        videoView.frame = fullscreenViewController.view.bounds
         fullscreenViewController.view.addSubview(videoView)
+        NSLayoutConstraint.deactivate(self.standardVideoViewConstraints)
+        NSLayoutConstraint.activate(self.fullscreenVideoViewConstraints)
         controlsViewController.didMove(toParent: fullscreenViewController)
         
         present(fullscreenViewController, animated: false, completion: nil)

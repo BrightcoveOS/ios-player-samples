@@ -49,10 +49,17 @@
         //options.hideControlsAnimationDuration = 0.2;
         
         self.playerView = [[BCOVTVPlayerView alloc] initWithOptions:options];
-        self.playerView.frame = self.videoContainer.bounds;
         
         NSAssert(self.videoContainer != nil, @"Video container hasn't loaded yet");
         [self.videoContainer addSubview:self.playerView];
+        
+        self.playerView.translatesAutoresizingMaskIntoConstraints = NO;
+        [NSLayoutConstraint activateConstraints:@[
+                                                  [self.playerView.topAnchor constraintEqualToAnchor:self.videoContainer.topAnchor],
+                                                  [self.playerView.rightAnchor constraintEqualToAnchor:self.videoContainer.rightAnchor],
+                                                  [self.playerView.leftAnchor constraintEqualToAnchor:self.videoContainer.leftAnchor],
+                                                  [self.playerView.bottomAnchor constraintEqualToAnchor:self.videoContainer.bottomAnchor],
+                                                ]];
     }
 }
 
