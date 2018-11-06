@@ -80,6 +80,10 @@ class ViewController: UIViewController {
         
         let sessionProvider = BCOVPlayerSDKManager.shared()?.createFWSessionProvider(adContextPolicy: adContextPolicy, upstreamSessionProvider: nil, options: options)
         
+        // Creating a playback controller based on this code will initialize a Freewheel component using its default settings.
+        // See BCOVFWSessionProvider.h for details.
+        // let _playbackController1 = BCOVPlayerSDKManager.shared()?.createPlaybackController()
+
         guard let _playbackController = BCOVPlayerSDKManager.shared()?.createPlaybackController(with: sessionProvider, viewStrategy: nil) else {
             return nil
         }

@@ -65,6 +65,10 @@ static NSString * const kViewControllerSlotId= @"300x250";
 
     id<BCOVPlaybackSessionProvider> sessionProvider = [manager createFWSessionProviderWithAdContextPolicy:[self adContextPolicy] upstreamSessionProvider:nil options:options];
 
+    // Creating a playback controller based on this code will initialize a Freewheel component using its default settings.
+    // See BCOVFWSessionProvider.h for details.
+    // _playbackController = [manager createFWPlaybackControllerWithAdContextPolicy:[self adContextPolicy] viewStrategy:nil];
+    
     _playbackController = [manager createPlaybackControllerWithSessionProvider:sessionProvider viewStrategy:nil];
     _playbackController.delegate = self;
     _playbackController.autoAdvance = YES;
