@@ -60,23 +60,19 @@ static NSString * const kViewControllerSlotId= @"300x250";
 
     BCOVPlayerSDKManager *manager = [BCOVPlayerSDKManager sharedManager];
 
-    _playbackController = [manager createFWPlaybackControllerWithAdContextPolicy:[self adContextPolicy] viewStrategy:nil];
+    BCOVFWSessionProviderOptions *options = [[BCOVFWSessionProviderOptions alloc] init];
+    options.cuePointProgressPolicy = [BCOVCuePointProgressPolicy progressPolicyProcessingCuePoints:BCOVProgressPolicyProcessFinalCuePoint resumingPlaybackFrom:BCOVProgressPolicyResumeFromContentPlayhead ignoringPreviouslyProcessedCuePoints:YES];
+
+    id<BCOVPlaybackSessionProvider> sessionProvider = [manager createFWSessionProviderWithAdContextPolicy:[self adContextPolicy] upstreamSessionProvider:nil options:options];
+
+    // Creating a playback controller based on this code will initialize a Freewheel component using its default settings.
+    // See BCOVFWSessionProvider.h for details.
+    // _playbackController = [manager createFWPlaybackControllerWithAdContextPolicy:[self adContextPolicy] viewStrategy:nil];
+    
+    _playbackController = [manager createPlaybackControllerWithSessionProvider:sessionProvider viewStrategy:nil];
     _playbackController.delegate = self;
     _playbackController.autoAdvance = YES;
     _playbackController.autoPlay = YES;
-
-    // Creating a playback controller based on the above code will initialize a
-    // Freewheel component using its default settings. These settings and defaults
-    // are explained in BCOVFWSessionProvider.h.
-    // If you want to change these settings, you can initialize the plugin like so:
-    //
-    // BCOVFWSessionProviderOptions *options = [[BCOVFWSessionProviderOptions alloc] init];
-    // options.cuePointProgressPolicy = [BCOVCuePointProgressPolicy progressPolicyProcessingCuePoints:(BCOVProgressPolicyCuePointsToProcess) resumingPlaybackFrom: (BCOVProgressPolicyResumePosition) ignoringPreviouslyProcessedCuePoints:(BOOL)];
-    // id<BCOVPlaybackSessionProvider> sessionProvider = [manager createFWSessionProviderWithAdContextPolicy:[self adContextPolicy] upstreamSessionProvider:nil options:options];
-    // _playbackController = [manager createPlaybackControllerWithSessionProvider:sessionProvider viewStrategy:nil];
-    // _playbackController.delegate = self;
-    // _playbackController.autoAdvance = YES;
-    // _playbackController.autoPlay = YES;
 
     _playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kViewControllerAccountID
                                                             policyKey:kViewControllerPlaybackServicePolicyKey];
