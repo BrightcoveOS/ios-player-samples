@@ -2,7 +2,7 @@ source 'https://github.com/brightcove/BrightcoveSpecs.git'
 
 use_frameworks!
 
-platform :ios, '9.0'
+platform :ios, '10.0'
 
 target 'DVRLive' do
   pod 'Brightcove-Player-Core/dynamic'

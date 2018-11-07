@@ -15,16 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // We need the below code in order to ensure that audio plays back when we
-        // expect it to. For example, without setting this code, we won't hear the video
-        // when the mute switch is on. For simplicity in the sample, we are going to
-        // put this in the app delegate.  Check out https://developer.apple.com/Library/ios/documentation/Audio/Conceptual/AudioSessionProgrammingGuide/Introduction/Introduction.html
-        // for more information on how to use this in your own app.
+        // Set the AVAudioSession category to allow audio playback in the background
+        // or when the mute button is on. Refer to the AVAudioSession Class Reference:
+        // https://developer.apple.com/documentation/avfoundation/avaudiosession
         
         var categoryError :NSError?
         var success: Bool
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback)
+            // see https://developer.apple.com/documentation/avfoundation/avaudiosessioncategoryplayback
+            // and https://developer.apple.com/documentation/avfoundation/avaudiosessionmodemovieplayback
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback, options: .duckOthers)
             success = true
         } catch let error as NSError {
             categoryError = error
