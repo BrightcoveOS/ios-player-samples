@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var categoryError :NSError?
         var success: Bool
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback)
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback, options: .duckOthers)
             success = true
         } catch let error as NSError {
             categoryError = error
