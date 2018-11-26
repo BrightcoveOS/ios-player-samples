@@ -22,7 +22,7 @@ VideosViewController *gVideosViewController;
 // The Videos View Controller displays a list of HLS videos retrieved
 // from a Brightcove Dynamic Delivery account playlist.
 // You can tap the download button on a video to begin downloading the video.
-@interface VideosViewController () <BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface VideosViewController () <BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate, BCOVOfflineVideoManagerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 // Brightcove-related objects
 @property (nonatomic, strong) BCOVPlaybackService *playbackService;
@@ -573,6 +573,13 @@ didFinishAggregateDownloadWithError:(NSError *)error NS_AVAILABLE_IOS(11_0)
 {
     // Called when the thumbnail and poster frame downloads
     // for the specified video token are complete
+}
+
+- (void)offlineVideoStorageDidChange
+{
+    [self updateStatus];
+    [gDownloadsViewController refresh];
+    [gDownloadsViewController updateInfoForSelectedDownload];
 }
 
 #pragma mark - Support
