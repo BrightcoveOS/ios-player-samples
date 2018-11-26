@@ -510,4 +510,15 @@ extension DownloadManager: BCOVOfflineVideoManagerDelegate {
         }
     }
     
+    func offlineVideoStorageDidChange() {
+
+        // the offline storage changed. refresh to reflect new contents.
+        let videosVC = AppDelegate.current().tabBarController.streamingViewController()
+        videosVC?.updateStatus()
+        
+        let downloadsVC = AppDelegate.current().tabBarController.downloadsViewController()
+        downloadsVC?.refresh()
+        downloadsVC?.updateInfoForSelectedDownload()
+    }
+    
 }
