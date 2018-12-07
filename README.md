@@ -50,6 +50,10 @@ In both of the FairPlay sample apps, there are references to `FairPlayPublisherI
 
 FreeWheel samples demonstrate how to use the FreeWheel plugin.
 
+##### GoogleCast
+
+BasicCastPlayer demonstrates how to use the Google Cast plugin.
+
 ##### IMA
 
 IMA samples demonstrate how to use the IMA plugin. These are intended to cover use cases like VMAP, VAST, Server Side Ad rules, and advanced ad topics.
