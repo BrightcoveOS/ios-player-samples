@@ -2,7 +2,7 @@
 //  ViewController.m
 //  BasicFreewheelPlayer
 //
-//  Copyright © 2017 Brightcove, Inc. All rights reserved.
+//  Copyright © 2019 Brightcove, Inc. All rights reserved.
 //
 
 
