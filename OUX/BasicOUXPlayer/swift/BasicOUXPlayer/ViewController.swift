@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  BasicOUXPlayer
 //
-//  Copyright © 2018 Brightcove, Inc. All rights reserved.
+//  Copyright © 2019 Brightcove, Inc. All rights reserved.
 //
 
 import UIKit
