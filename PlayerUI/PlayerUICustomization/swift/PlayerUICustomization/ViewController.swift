@@ -167,6 +167,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         configurePlayer()
         updateLayout()
+        accessibilitySetup()
     }
     
     // MARK: - Helper Methods
@@ -279,6 +280,15 @@ class ViewController: UIViewController {
             label.removeFromSuperview()
         }
     }
+    
+    private func accessibilitySetup() {
+        playerView?.controlsView.setButtonsAccessibilityDelegate(self)
+        
+        playerView?.controlsView.durationLabel.accessibilityLabelPrefix = "Total Time";
+        playerView?.controlsView.currentTimeLabel.accessibilityLabelPrefix = "As of now";
+        playerView?.controlsView.progressSlider.accessibilityLabel = "Timeline";
+        playbackController?.view.accessibilityHint = "Double tap to show or hide controls";
+    }
 
 }
 
@@ -298,3 +308,29 @@ extension ViewController: BCOVPlaybackControllerDelegate {
 extension ViewController: BCOVPUIPlayerViewDelegate {
     
 }
+
+// MARK: - BCOVPUIButtonAccessibilityDelegate
+
+extension ViewController: BCOVPUIButtonAccessibilityDelegate {
+    
+    func accessibilityLabel(for button: BCOVPUIButton!, isPrimaryState: Bool) -> String! {
+        switch button.tag {
+        case BCOVPUIViewTag.buttonPlayback.rawValue:
+            return isPrimaryState ? NSLocalizedString("Start Playback", comment: "") : NSLocalizedString("Stop Playback", comment: "")
+        case BCOVPUIViewTag.buttonScreenMode.rawValue:
+            return isPrimaryState ? NSLocalizedString("Enter Fullscreen", comment: "") : NSLocalizedString("Exit Fullscreen", comment: "")
+        case BCOVPUIViewTag.buttonJumpBack.rawValue:
+            return nil
+        case BCOVPUIViewTag.buttonClosedCaption.rawValue:
+            return nil
+        case BCOVPUIViewTag.buttonVideo360.rawValue:
+            return nil
+        case BCOVPUIViewTag.buttonPreferredBitrate.rawValue:
+            return nil
+        default:
+            return nil
+        }
+    }
+    
+}
+
