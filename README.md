@@ -7,7 +7,7 @@ ios-player-samples.git is a collection of sample applications for the Brightcove
 ### Prerequisites
 
 1. CocoaPods 1.0+
-1. Xcode 9.0+
+1. Xcode 10.0+
 
 ### About CocoaPods
 To ensure you are using the latest releases of the Brightcove software components, update your Podspec repository before building any of the sample applications by running the following on the command line:
@@ -36,43 +36,47 @@ Note: If you intend to use these samples offline, be sure to run Cocoapods befor
 
 ### Samples
 
-##### FairPlay
+#### FairPlay
 
 FairPlay samples demonstrate how to use the FairPlay plugin in Swift.
 
-##### FairPlayIMAPlayer
+#### FairPlayIMAPlayer
 To see an example of using FairPlay with IMA, refer to the FairPlayIMAPlayer sample app in the IMA folder.
 
-###### A note about the FairPlay sample apps
+#### A note about the FairPlay sample apps
 In both of the FairPlay sample apps, there are references to `FairPlayPublisherId` and `FairPlayApplicationId`. These terms refer to FairPlay credentials that Brightcove does not provide, which are instead acquired through Apple directly.
 
-##### FreeWheel
+#### FreeWheel
 
 FreeWheel samples demonstrate how to use the FreeWheel plugin.
 
-##### GoogleCast
+#### GoogleCast
 
 BasicCastPlayer demonstrates how to use the Google Cast plugin.
 
-##### IMA
+#### IMA
 
 IMA samples demonstrate how to use the IMA plugin. These are intended to cover use cases like VMAP, VAST, Server Side Ad rules, and advanced ad topics.
 
-##### Offline
+#### Offline
 
 OfflinePlayer demonstrates downloading offline-enabled HLS videos and playing them back with or without a network connection. Xcode 9.0+ is required to build and run this sample app.
 
-##### Omniture
+#### Omniture
 
 Omniture samples demonstrate how to use the Omniture plugin.
 
-##### OUX
+#### OUX
 
 OUX samples demonstrate how to use the OUX plugin.
 
-##### Player
+#### Player
 
 Player samples demonstrate how to use the core SDK. These are intended to cover use cases like custom controls, analytics, and playback.
+
+#### PlayerUI
+
+PlayerUICustomization demonstrates modification of the BCOVPlayerUI controls and customization of VoiceOver properties for accessibility. 
 
 #### SidecarSubtitles
 
