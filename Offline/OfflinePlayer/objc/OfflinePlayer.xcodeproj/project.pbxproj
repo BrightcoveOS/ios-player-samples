@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -179,7 +179,7 @@
 				};
 			};
 			buildConfigurationList = 342B10C81FFED58C00A2D343 /* Build configuration list for PBXProject "OfflinePlayer" */;
-			compatibilityVersion = "Xcode 8.0";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -366,7 +366,10 @@
 				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = "OfflinePlayer/OfflinePlayer-Prefix.pch";
 				INFOPLIST_FILE = "OfflinePlayer/OfflinePlayer-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.OfflinePlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -381,7 +384,10 @@
 				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = "OfflinePlayer/OfflinePlayer-Prefix.pch";
 				INFOPLIST_FILE = "OfflinePlayer/OfflinePlayer-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.OfflinePlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
