@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -125,7 +125,7 @@
 				};
 			};
 			buildConfigurationList = AA1B3BD71E0C15AF00F6B4E0 /* Build configuration list for PBXProject "Video360Player" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -285,7 +285,10 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Video360Player/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.Video360Player;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -298,7 +301,10 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Video360Player/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.Video360Player;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

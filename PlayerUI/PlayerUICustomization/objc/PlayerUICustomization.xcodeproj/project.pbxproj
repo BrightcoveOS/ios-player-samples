@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -134,7 +134,7 @@
 				};
 			};
 			buildConfigurationList = AAB8B7891D205530005076DF /* Build configuration list for PBXProject "PlayerUICustomization" */;
-			compatibilityVersion = "Xcode 6.3";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -297,7 +297,10 @@
 				);
 				INFOPLIST_FILE = PlayerUICustomization/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.PlayerUICustomization;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -313,7 +316,10 @@
 				);
 				INFOPLIST_FILE = PlayerUICustomization/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.PlayerUICustomization;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

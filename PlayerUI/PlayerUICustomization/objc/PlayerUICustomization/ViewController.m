@@ -78,7 +78,7 @@ static NSString * const kViewControllerAccountID = @"3636334163001";
 static NSString * const kViewControllerVideoID = @"3666678807001";
 
 
-@interface ViewController () <BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate>
+@interface ViewController () <BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate, BCOVPUIButtonAccessibilityDelegate>
 
 @property (nonatomic, strong) BCOVPlaybackService *playbackService;
 @property (nonatomic) id<BCOVPlaybackController> playbackController;
@@ -171,6 +171,8 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
         }
 
      }];
+    
+    [self accessibilitySetup];
 }
 
 - (void)playbackController:(id<BCOVPlaybackController>)controller didCompletePlaylist:(id<NSFastEnumeration>)playlist
@@ -485,6 +487,39 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
     self.hideableLayoutView.removed = !removed;
 
     [self.playerView.controlsView setNeedsLayout];
+}
+
+- (void)accessibilitySetup
+{
+    [self.playerView.controlsView setButtonsAccessibilityDelegate:self];
+    
+    self.playerView.controlsView.durationLabel.accessibilityLabelPrefix = @"Total Time";
+    self.playerView.controlsView.currentTimeLabel.accessibilityLabelPrefix = @"As of now";
+    self.playerView.controlsView.progressSlider.accessibilityLabel = @"Timeline";
+    self.playbackController.view.accessibilityHint = @"Double tap to show or hide controls";
+}
+
+#pragma mark - BCOVPUIButtonAccessibilityDelegate
+
+- (NSString *)accessibilityLabelForButton:(BCOVPUIButton *)button isPrimaryState:(BOOL)isPrimaryState
+{
+    switch (button.tag)
+    {
+        case BCOVPUIViewTagButtonPlayback:
+            return isPrimaryState ? NSLocalizedString(@"Start Playback", nil) : NSLocalizedString(@"Stop PLayback", nil);
+        case BCOVPUIViewTagButtonScreenMode:
+            return isPrimaryState ? NSLocalizedString(@"Enter Fullscreen", nil) : NSLocalizedString(@"Exit Fullscreen", nil);
+        case BCOVPUIViewTagButtonJumpBack:
+            return nil;
+        case BCOVPUIViewTagButtonClosedCaption:
+            return nil;
+        case BCOVPUIViewTagButtonVideo360:
+            return nil;
+        case BCOVPUIViewTagButtonPreferredBitrate:
+            return nil;
+        default:
+            return nil;
+    }
 }
 
 @end

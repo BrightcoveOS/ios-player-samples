@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -59,6 +59,7 @@
 			children = (
 				8934A7C31D6E1C8000F61B9A /* BasicOUXtvOSPlayer */,
 				8934A7C21D6E1C8000F61B9A /* Products */,
+				E903C4AE22270B5B004A8D66 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,6 +91,15 @@
 			children = (
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E903C4AE22270B5B004A8D66 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				8934A7D91D6E2C1900F61B9A /* BrightcoveOUX.framework */,
+				8934A7DA1D6E2C1900F61B9A /* BrightcovePlayerSDK.framework */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -129,7 +139,7 @@
 				};
 			};
 			buildConfigurationList = 8934A7BC1D6E1C8000F61B9A /* Build configuration list for PBXProject "BasicOUXtvOSPlayer" */;
-			compatibilityVersion = "Xcode 6.3";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -281,7 +291,10 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = BasicOUXtvOSPlayer/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.BasicOUXtvOSPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -299,7 +312,10 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = BasicOUXtvOSPlayer/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.BasicOUXtvOSPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
