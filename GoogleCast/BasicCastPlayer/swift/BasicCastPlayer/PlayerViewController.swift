@@ -172,7 +172,7 @@ extension PlayerViewController: UITableViewDataSource {
             return cell
         }
         
-        guard let playlist = playlist, let video = playlist.videos[indexPath.row] as? BCOVVideo, let name = video.properties["name"] as? String else {
+        guard let playlist = playlist, let video = playlist.videos[indexPath.row] as? BCOVVideo, let name = video.properties[kBCOVVideoPropertyKeyName] as? String else {
             return cell
         }
 
@@ -183,7 +183,7 @@ extension PlayerViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return playlist?.properties["name"] as? String ?? nil
+            return playlist?.properties[kBCOVVideoPropertyKeyName] as? String ?? nil
         }
         return nil
     }

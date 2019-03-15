@@ -99,7 +99,7 @@ class ViewController: UIViewController {
         
         playbackService.findVideo(withVideoID: ConfigConstants.VideoID, parameters: nil) { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
             
-            if let projectionPropertyString = video?.properties["projection"] as? String {
+            if let projectionPropertyString = video?.properties[kBCOVVideoPropertyKeyProjection] as? String {
                 // Check "projection" property to confirm that this is a 360 degree video
                 
                 if projectionPropertyString == "equirectangular" {

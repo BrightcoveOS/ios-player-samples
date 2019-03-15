@@ -635,7 +635,7 @@ static unsigned long long int directorySize(NSString *folderPath)
         return;
     }
 
-    NSString *videoID = video.properties[@"id"];
+    NSString *videoID = video.properties[kBCOVVideoPropertyKeyId];
     NSNumber *sizeNumber = gVideosViewController.estimatedDownloadSizeDictionary[videoID];
     double megabytes = sizeNumber.doubleValue;
     
@@ -778,7 +778,7 @@ static unsigned long long int directorySize(NSString *folderPath)
     NSString *infoText = [NSString stringWithFormat:@"%@\n"
                           @"Status: %@\n"
                           @"License: %@\n",
-                          video.properties[@"name"],
+                          video.properties[kBCOVVideoPropertyKeyName],
                           downloadState,
                           licenseText];
     
@@ -859,7 +859,7 @@ static unsigned long long int directorySize(NSString *folderPath)
                 }
                 
                 BCOVVideo *offlineVideo = [BCOVOfflineVideoManager.sharedManager videoObjectFromOfflineVideoToken:offlineVideoToken];
-                NSString *videoName = offlineVideo.properties[@"name"];
+                NSString *videoName = offlineVideo.properties[kBCOVVideoPropertyKeyName];
                 NSString *message = [NSString stringWithFormat:@"Download all additional tracks for the video \"%@\"?", videoName];
                 
                 NSLog(@"Long press on \"%@\"", videoName);
@@ -1103,20 +1103,20 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     BCOVVideo *video = [BCOVOfflineVideoManager.sharedManager videoObjectFromOfflineVideoToken:offlineVideoToken];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"download_cell"
                                                             forIndexPath:indexPath];
-    cell.textLabel.text = video.properties[@"name"];
+    cell.textLabel.text = video.properties[kBCOVVideoPropertyKeyName];
     // Use red label to indicate that the video is protected with FairPlay
     cell.textLabel.textColor = (video.usesFairPlay ? [UIColor colorWithRed:0.75 green:0.0 blue:0.0 alpha:1.0] : UIColor.blackColor);
-    NSString *detailString = video.properties[@"description"];
+    NSString *detailString = video.properties[kBCOVVideoPropertyKeyDescription];
     if ((detailString == nil) || (detailString.length == 0))
     {
-        detailString = video.properties[@"reference_id"] ?: @"";
+        detailString = video.properties[kBCOVVideoPropertyKeyReferenceId] ?: @"";
     }
     
     // Detail text is two lines consisting of:
     // "duration in seconds / actual download size)"
     // "reference_id"
     cell.detailTextLabel.numberOfLines = 2;
-    NSNumber *durationNumber = video.properties[@"duration"];
+    NSNumber *durationNumber = video.properties[kBCOVVideoPropertyKeyDuration];
     // raw duration is in milliseconds
     int duration = durationNumber.intValue / 1000;
     NSString *twoLineDetailString;
