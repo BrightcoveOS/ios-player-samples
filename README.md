@@ -82,4 +82,8 @@ PlayerUICustomization demonstrates modification of the BCOVPlayerUI controls and
 
 SidecarSubtitles samples demonstrate how to use the sidecarSubtitles plugin.
 
+#### SSAI
+
+BasicSSAIPlayer demonstrates how to use the OUX plugin for server-side-ad-integration.
+
 [cocoapods]: http://www.cocoapods.org
