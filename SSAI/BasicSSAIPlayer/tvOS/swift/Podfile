@@ -1,0 +1,9 @@
+source 'https://github.com/brightcove/BrightcoveSpecs.git'
+
+use_frameworks!
+
+platform :tvos, '9.0'
+
+target 'BasicSSAIPlayer' do
+	pod 'Brightcove-Player-OnceUX'
+end
