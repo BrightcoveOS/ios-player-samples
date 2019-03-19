@@ -11,10 +11,10 @@
 @import BrightcovePlayerSDK;
 @import BrightcoveOUX;
 
-static NSString * const kViewControllerAccountID = @"";
-static NSString * const kViewControllerPlaybackServicePolicyKey = @"";
-static NSString * const kViewControllerVideoRefID = @"";
-static NSString * const kViewControllerAdConfigID = @"";
+static NSString * const kViewControllerAccountID = @"5434391461001";
+static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
+static NSString * const kViewControllerVideoID = @"5702141808001";
+static NSString * const kViewControllerAdConfigID = @"01bc7380-e5ca-46e5-a26d-dbcb9dca804b";
 
 @interface ViewController ()<BCOVPlaybackControllerDelegate, BCOVPlaybackControllerAdsDelegate>
 
@@ -90,7 +90,7 @@ static NSString * const kViewControllerAdConfigID = @"";
     __weak typeof(self) weakSelf = self;
     
     NSDictionary *queryParmaters = @{@"ad_config_id":kViewControllerAdConfigID};
-    [self.playbackService findVideoWithReferenceID:kViewControllerVideoRefID parameters:queryParmaters completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
+    [self.playbackService findVideoWithVideoID:kViewControllerVideoID parameters:queryParmaters completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
         
         if (video)
         {

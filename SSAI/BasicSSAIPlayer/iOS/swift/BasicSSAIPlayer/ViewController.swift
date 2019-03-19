@@ -12,10 +12,10 @@ import BrightcoveOUX
 
 // ** Customize these values with your own account information **
 struct Constants {
-    static let AccountID = ""
-    static let PlaybackServicePolicyKey = ""
-    static let VideoRef = ""
-    static let AdConfigId = ""
+    static let AccountID = "5434391461001"
+    static let PlaybackServicePolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
+    static let VideoId = "5702141808001"
+    static let AdConfigId = "01bc7380-e5ca-46e5-a26d-dbcb9dca804b"
 }
 
 class ViewController: UIViewController {
@@ -91,7 +91,7 @@ class ViewController: UIViewController {
     private func requestContentFromPlaybackService() {
         let queryParameters = ["ad_config_id": Constants.AdConfigId]
         
-        playbackService.findVideo(withReferenceID: Constants.VideoRef, parameters: queryParameters) { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
+        playbackService.findVideo(withVideoID: Constants.VideoId, parameters: queryParameters) { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
             
             guard let _video = video else {
                 print("ViewController Debug - Error retrieving video: \(error?.localizedDescription ?? "unknown error")")
