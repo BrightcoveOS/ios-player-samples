@@ -14,7 +14,7 @@
 static NSString * const kViewControllerAccountID = @"5434391461001";
 static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
 static NSString * const kViewControllerVideoID = @"5702141808001";
-static NSString * const kViewControllerAdConfigID = @"01bc7380-e5ca-46e5-a26d-dbcb9dca804b";
+static NSString * const kViewControllerAdConfigID = @"0e0bbcd1-bba0-45bf-a986-1288e5f9fc85";
 
 @interface ViewController ()<BCOVPlaybackControllerDelegate, BCOVPlaybackControllerAdsDelegate>
 
