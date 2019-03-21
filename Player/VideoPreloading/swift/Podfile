@@ -1,0 +1,9 @@
+source 'https://github.com/brightcove/BrightcoveSpecs.git'
+
+platform :ios, '10.0'
+
+use_frameworks!
+
+target 'VideoPreloading' do
+  pod 'Brightcove-Player-Core'
+end
