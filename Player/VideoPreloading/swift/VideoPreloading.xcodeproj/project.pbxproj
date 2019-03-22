@@ -1,0 +1,422 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E92272FB2243F8C5000474A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92272FA2243F8C5000474A4 /* AppDelegate.swift */; };
+		E92272FD2243F8C5000474A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92272FC2243F8C5000474A4 /* ViewController.swift */; };
+		E92273002243F8C5000474A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E92272FE2243F8C5000474A4 /* Main.storyboard */; };
+		E92273022243F8C6000474A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E92273012243F8C6000474A4 /* Assets.xcassets */; };
+		E92273052243F8C6000474A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E92273032243F8C6000474A4 /* LaunchScreen.storyboard */; };
+		E922730D2243FB85000474A4 /* VideoPreloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E922730C2243FB85000474A4 /* VideoPreloadManager.swift */; };
+		FD28D954FDEFE44B0139D489 /* Pods_VideoPreloading.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C08EB9730AE816E73EF7F40 /* Pods_VideoPreloading.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8C08EB9730AE816E73EF7F40 /* Pods_VideoPreloading.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VideoPreloading.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2BA234E6B54F5375F3C81BC /* Pods-VideoPreloading.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoPreloading.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VideoPreloading/Pods-VideoPreloading.debug.xcconfig"; sourceTree = "<group>"; };
+		B32C9A6764AC92419C99AA60 /* Pods-VideoPreloading.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoPreloading.release.xcconfig"; path = "Pods/Target Support Files/Pods-VideoPreloading/Pods-VideoPreloading.release.xcconfig"; sourceTree = "<group>"; };
+		E92272F72243F8C5000474A4 /* VideoPreloading.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoPreloading.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E92272FA2243F8C5000474A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E92272FC2243F8C5000474A4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E92272FF2243F8C5000474A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E92273012243F8C6000474A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E92273042243F8C6000474A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E92273062243F8C6000474A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E922730C2243FB85000474A4 /* VideoPreloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreloadManager.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E92272F42243F8C5000474A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD28D954FDEFE44B0139D489 /* Pods_VideoPreloading.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E7B1A6859C18CD8E65A6F682 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A2BA234E6B54F5375F3C81BC /* Pods-VideoPreloading.debug.xcconfig */,
+				B32C9A6764AC92419C99AA60 /* Pods-VideoPreloading.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E92272EE2243F8C5000474A4 = {
+			isa = PBXGroup;
+			children = (
+				E92272F92243F8C5000474A4 /* VideoPreloading */,
+				E92272F82243F8C5000474A4 /* Products */,
+				E7B1A6859C18CD8E65A6F682 /* Pods */,
+				F0D5607D19B880FF3B9FFB26 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		E92272F82243F8C5000474A4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E92272F72243F8C5000474A4 /* VideoPreloading.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E92272F92243F8C5000474A4 /* VideoPreloading */ = {
+			isa = PBXGroup;
+			children = (
+				E92272FA2243F8C5000474A4 /* AppDelegate.swift */,
+				E92272FC2243F8C5000474A4 /* ViewController.swift */,
+				E922730C2243FB85000474A4 /* VideoPreloadManager.swift */,
+				E92272FE2243F8C5000474A4 /* Main.storyboard */,
+				E92273012243F8C6000474A4 /* Assets.xcassets */,
+				E92273032243F8C6000474A4 /* LaunchScreen.storyboard */,
+				E92273062243F8C6000474A4 /* Info.plist */,
+			);
+			path = VideoPreloading;
+			sourceTree = "<group>";
+		};
+		F0D5607D19B880FF3B9FFB26 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8C08EB9730AE816E73EF7F40 /* Pods_VideoPreloading.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E92272F62243F8C5000474A4 /* VideoPreloading */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E92273092243F8C6000474A4 /* Build configuration list for PBXNativeTarget "VideoPreloading" */;
+			buildPhases = (
+				A6D657300DA724BA68B3A91D /* [CP] Check Pods Manifest.lock */,
+				E92272F32243F8C5000474A4 /* Sources */,
+				E92272F42243F8C5000474A4 /* Frameworks */,
+				E92272F52243F8C5000474A4 /* Resources */,
+				DD99DE8CCE4DCAD9AFF58F8B /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VideoPreloading;
+			productName = VideoPreloading;
+			productReference = E92272F72243F8C5000474A4 /* VideoPreloading.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E92272EF2243F8C5000474A4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = "Brightcove, Inc";
+				TargetAttributes = {
+					E92272F62243F8C5000474A4 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+				};
+			};
+			buildConfigurationList = E92272F22243F8C5000474A4 /* Build configuration list for PBXProject "VideoPreloading" */;
+			compatibilityVersion = "Xcode 10.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E92272EE2243F8C5000474A4;
+			productRefGroup = E92272F82243F8C5000474A4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E92272F62243F8C5000474A4 /* VideoPreloading */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E92272F52243F8C5000474A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E92273052243F8C6000474A4 /* LaunchScreen.storyboard in Resources */,
+				E92273022243F8C6000474A4 /* Assets.xcassets in Resources */,
+				E92273002243F8C5000474A4 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A6D657300DA724BA68B3A91D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VideoPreloading-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DD99DE8CCE4DCAD9AFF58F8B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-VideoPreloading/Pods-VideoPreloading-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/Brightcove-Player-Core/BCOVPUIResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BCOVPUIResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VideoPreloading/Pods-VideoPreloading-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E92272F32243F8C5000474A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E92272FD2243F8C5000474A4 /* ViewController.swift in Sources */,
+				E92272FB2243F8C5000474A4 /* AppDelegate.swift in Sources */,
+				E922730D2243FB85000474A4 /* VideoPreloadManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		E92272FE2243F8C5000474A4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E92272FF2243F8C5000474A4 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E92273032243F8C6000474A4 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E92273042243F8C6000474A4 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E92273072243F8C6000474A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E92273082243F8C6000474A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E922730A2243F8C6000474A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2BA234E6B54F5375F3C81BC /* Pods-VideoPreloading.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = VideoPreloading/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.VideoPreloading;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E922730B2243F8C6000474A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B32C9A6764AC92419C99AA60 /* Pods-VideoPreloading.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = VideoPreloading/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.VideoPreloading;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E92272F22243F8C5000474A4 /* Build configuration list for PBXProject "VideoPreloading" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E92273072243F8C6000474A4 /* Debug */,
+				E92273082243F8C6000474A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E92273092243F8C6000474A4 /* Build configuration list for PBXNativeTarget "VideoPreloading" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E922730A2243F8C6000474A4 /* Debug */,
+				E922730B2243F8C6000474A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E92272EF2243F8C5000474A4 /* Project object */;
+}
