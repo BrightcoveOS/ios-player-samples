@@ -38,7 +38,7 @@ extension StreamingTableDataSource: UITableViewDataSource {
         
         if let videoDictionary = videoManager?.videosTableViewData?[indexPath.row],
             let video = videoDictionary["video"] as? BCOVVideo,
-            let videoId = video.properties["id"] as? String,
+            let videoId = video.properties[kBCOVVideoPropertyKeyId] as? String,
             let estimatedDownloadSize = videoManager?.estimatedDownloadSizeDictionary?[videoId],
             let state = videoDictionary["state"] as? VideoState {
             let thumbnailImage = videoManager?.imageCacheDictionary?[videoId]

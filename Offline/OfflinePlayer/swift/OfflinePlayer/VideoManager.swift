@@ -123,7 +123,7 @@ class VideoManager: NSObject {
         // Estimate download size for each video
         BCOVOfflineVideoManager.shared()?.estimateDownloadSize(video, options: [kBCOVOfflineVideoManagerRequestedBitrateKey:bitrate], completion: { [weak self] (megabytes: Double, error: Error?) in
             
-            guard let videoID = video.properties["id"] as? String else {
+            guard let videoID = video.properties[kBCOVVideoPropertyKeyId] as? String else {
                 return
             }
             
@@ -150,7 +150,7 @@ class VideoManager: NSObject {
         DispatchQueue.global(qos: .default).async {
             
             // videoID is the key in the image cache dictionary
-            guard let videoID = video.properties["id"] as? String, let thumbnailSources = video.properties["thumbnail_sources"] as? [[String:Any]] else {
+            guard let videoID = video.properties[kBCOVVideoPropertyKeyId] as? String, let thumbnailSources = video.properties[kBCOVVideoPropertyKeyThumbnailSources] as? [[String:Any]] else {
                 return
             }
             

@@ -83,7 +83,7 @@ class ViewController: UIViewController {
     }
     
     private func requestContentFromPlaybackService() {
-        let queryParameters = ["ad_config_id": Constants.AdConfigId]
+        let queryParameters = [kBCOVPlaybackServiceParamaterKeyAdConfigId: Constants.AdConfigId]
 
         playbackService.findVideo(withVideoID: Constants.VideoId, parameters: queryParameters) { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
             

@@ -89,7 +89,7 @@ static NSString * const kViewControllerAdConfigID = @"0e0bbcd1-bba0-45bf-a986-12
 {
     __weak typeof(self) weakSelf = self;
     
-    NSDictionary *queryParmaters = @{@"ad_config_id":kViewControllerAdConfigID};
+    NSDictionary *queryParmaters = @{kBCOVPlaybackServiceParamaterKeyAdConfigId:kViewControllerAdConfigID};
     [self.playbackService findVideoWithVideoID:kViewControllerVideoID parameters:queryParmaters completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
         
         if (video)

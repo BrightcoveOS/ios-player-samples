@@ -102,7 +102,7 @@ VideosViewController *gVideosViewController;
     // to the video download queue.
     if (!video.usesFairPlay)
     {
-        NSLog(@"Video \"%@\" does not use FairPlay; preloading not necessary", video.properties[@"name"]);
+        NSLog(@"Video \"%@\" does not use FairPlay; preloading not necessary", video.properties[kBCOVVideoPropertyKeyName]);
         [self.videoDownloadQueue addObject:videoDownloadDictionary];
         
         NSAssert(NSThread.isMainThread, @"Must update UI on main thread");
@@ -132,7 +132,7 @@ VideosViewController *gVideosViewController;
                                                                        // Report any errors
                                                                        BCOVVideo *video = [BCOVOfflineVideoManager.sharedManager videoObjectFromOfflineVideoToken:offlineVideoToken];
                                                                        NSString *alertMessage = error.localizedDescription;
-                                                                       NSString *alertTitle = [NSString stringWithFormat:@"Video Preload Error (\"%@\")", video.properties[@"name"]];
+                                                                       NSString *alertTitle = [NSString stringWithFormat:@"Video Preload Error (\"%@\")", video.properties[kBCOVVideoPropertyKeyName]];
                                                                        UIAlertController* alert = [UIAlertController alertControllerWithTitle:alertTitle
                                                                                                                                       message:alertMessage
                                                                                                                                preferredStyle:UIAlertControllerStyleAlert];
@@ -178,7 +178,7 @@ static BOOL sDownloadInProgress = NO;
                                                         completion:^(NSArray<NSNumber *> *bitrates, NSError *error)
      {
 
-         NSLog(@"Variant Bitrates for video: %@", video.properties[@"name"]);
+         NSLog(@"Variant Bitrates for video: %@", video.properties[kBCOVVideoPropertyKeyName]);
          for (NSNumber *bitrateNumber in bitrates)
          {
              // Make sure the array contains the correct objects
@@ -212,7 +212,7 @@ static BOOL sDownloadInProgress = NO;
 
                                                     // Report any errors
                                                     BCOVVideo *video = [BCOVOfflineVideoManager.sharedManager videoObjectFromOfflineVideoToken:offlineVideoToken];
-                                                    BCOVVideo *videoName = video.properties[@"name"];
+                                                    BCOVVideo *videoName = video.properties[kBCOVVideoPropertyKeyName];
                                                     NSString *alertMessage = error.localizedDescription;
                                                     NSString *alertTitle = (videoName != nil ? [NSString stringWithFormat:@"Video Download Error (\"%@\")", videoName] : @"Video Download Error");
                                                     UIAlertController* alert = [UIAlertController alertControllerWithTitle:alertTitle
@@ -250,10 +250,10 @@ static BOOL sDownloadInProgress = NO;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
             // videoID is the key in the image cache dictionary
-            NSString *videoID = video.properties[@"id"];
+            NSString *videoID = video.properties[kBCOVVideoPropertyKeyId];
             
             // Find the https URL to our thumbnail
-            NSArray *thumbnailSourcesArray = video.properties[@"thumbnail_sources"];
+            NSArray *thumbnailSourcesArray = video.properties[kBCOVVideoPropertyKeyThumbnailSources];
             
             if (thumbnailSourcesArray)
             {
@@ -295,7 +295,7 @@ static BOOL sDownloadInProgress = NO;
                                                     
                                                     // Store the estimated size in our dictionary
                                                     // so we don't need to keep recomputing it
-                                                    NSString *videoID = video.properties[@"id"];
+                                                    NSString *videoID = video.properties[kBCOVVideoPropertyKeyId];
                                                     
                                                     if (videoID != nil)
                                                     {
@@ -371,8 +371,8 @@ static BOOL sDownloadInProgress = NO;
          if (playlist)
          {
              self.currentVideos = playlist.videos.mutableCopy;
-             self.currentPlaylistTitle = playlist.properties[@"name"];
-             self.currentPlaylistDescription = playlist.properties[@"description"];
+             self.currentPlaylistTitle = playlist.properties[kBCOVPlaylistPropertiesKeyName];
+             self.currentPlaylistDescription = playlist.properties[kBCOVPlaylistPropertiesKeyDescription];
 
              NSLog(@"Retrieved playlist containing %d videos", (int)self.currentVideos.count);
 
@@ -1218,24 +1218,24 @@ didFinishAggregateDownloadWithError:(NSError *)error NS_AVAILABLE_IOS(11_0)
     int row = (int)indexPath.row;
     NSDictionary *videoDictionary = self.videosTableViewData[row];
     BCOVVideo *video = videoDictionary[@"video"];
-    NSString *videoID = video.properties[@"id"];
+    NSString *videoID = video.properties[kBCOVVideoPropertyKeyId];
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"video_cell"
                                                             forIndexPath:indexPath];
-    cell.textLabel.text = video.properties[@"name"];
+    cell.textLabel.text = video.properties[kBCOVVideoPropertyKeyName];
     // Use red label to indicate that the video is protected with FairPlay
     cell.textLabel.textColor = (video.usesFairPlay ? [UIColor colorWithRed:0.75 green:0.0 blue:0.0 alpha:1.0] : UIColor.blackColor);
-    NSString *detailString = video.properties[@"description"];
+    NSString *detailString = video.properties[kBCOVVideoPropertyKeyDescription];
     if ((detailString == nil) || (detailString.length == 0))
     {
-        detailString = video.properties[@"reference_id"] ?: @"nil";
+        detailString = video.properties[kBCOVVideoPropertyKeyReferenceId] ?: @"nil";
     }
 
     // Detail text is two lines consisting of:
     // "duration in seconds / estimated download size)"
     // "reference_id"
     cell.detailTextLabel.numberOfLines = 2;
-    NSNumber *durationNumber = video.properties[@"duration"];
+    NSNumber *durationNumber = video.properties[kBCOVVideoPropertyKeyDuration];
     // raw duration is in milliseconds
     int duration = durationNumber.intValue / 1000;
     NSNumber *sizeNumber = self.estimatedDownloadSizeDictionary[videoID];

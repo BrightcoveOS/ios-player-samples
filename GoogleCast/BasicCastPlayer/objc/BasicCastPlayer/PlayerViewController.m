@@ -144,7 +144,7 @@ static NSString * const kPlaylistRefID = @"brightcove-native-sdk-plist";
     if (indexPath.section == 1)
     {
         BCOVVideo *video = self.playlist.videos[indexPath.row];
-        cell.textLabel.text = video.properties[@"name"];
+        cell.textLabel.text = video.properties[kBCOVVideoPropertyKeyName];
     }
     
     return cell;
@@ -152,7 +152,7 @@ static NSString * const kPlaylistRefID = @"brightcove-native-sdk-plist";
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return section == 0 ? self.playlist.properties[@"name"] : nil;
+    return section == 0 ? self.playlist.properties[kBCOVPlaylistPropertiesKeyName] : nil;
 }
 
 #pragma mark - UITableViewDelegate
