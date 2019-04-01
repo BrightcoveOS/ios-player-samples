@@ -108,7 +108,7 @@ static NSString * const kSampleVideo360VideoID = @"5240309173001";
                                         if (video)
                                         {
                                             // Check "projection" property to confirm that this is a 360 degree video
-                                            NSString *projectionPropertyString = video.properties[@"projection"];
+                                            NSString *projectionPropertyString = video.properties[kBCOVVideoPropertyKeyProjection];
                                             
                                             if (projectionPropertyString
                                                 && [projectionPropertyString isEqualToString:@"equirectangular"])

@@ -116,8 +116,8 @@ class StreamingVideoViewController: BaseVideoViewController {
             
             if let playlist = playlist, let videos = playlist.videos as? [BCOVVideo], let bitrate = self?.tabBarController?.settingsViewController()?.bitrate() {
                 self?.videoManager.currentVideos = videos
-                self?.videoManager.currentPlaylistTitle = playlist.properties["name"] as? String
-                self?.videoManager.currentPlaylistDescription = playlist.properties["description"] as? String
+                self?.videoManager.currentPlaylistTitle = playlist.properties[kBCOVPlaylistPropertiesKeyName] as? String
+                self?.videoManager.currentPlaylistDescription = playlist.properties[kBCOVPlaylistPropertiesKeyDescription] as? String
                 
                 self?.videoManager.usePlaylist(videos, withBitrate: bitrate)
             } else {
@@ -221,7 +221,7 @@ extension StreamingVideoViewController: ReloadDelegate {
         for videoDictionary in videosTableViewData {
             if let _video = videoDictionary["video"] as? BCOVVideo {
                 if (_video.matches(offlineVideo: video)) {
-                    if let name = video.properties["name"] as? String {
+                    if let name = video.properties[kBCOVVideoPropertyKeyName] as? String {
                         print("Reloading row for video \"\(name)\"")
                     }
                     tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)

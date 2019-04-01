@@ -103,7 +103,7 @@ class VideoTableViewCell: UITableViewCell {
         // Detail text is two lines consisting of:
         // "duration in seconds / estimated download size)"
         // "reference_id"
-        if let durationNumber = video.properties["duration"] as? NSNumber {
+        if let durationNumber = video.properties[kBCOVVideoPropertyKeyDuration] as? NSNumber {
             // raw duration is in milliseconds
             let duration = durationNumber.intValue / 1000
             let twoLineDetailString = "\(duration) sec / \(formattedSizeString(filesize: estimatedDownloadSize)) MB \n\(detailString)"
@@ -129,7 +129,7 @@ class VideoTableViewCell: UITableViewCell {
         // Detail text is two lines consisting of:
         // "duration in seconds / actual download size)"
         // "reference_id"
-        if let durationNumber = video.properties["duration"] as? NSNumber {
+        if let durationNumber = video.properties[kBCOVVideoPropertyKeyDuration] as? NSNumber {
         
             let duration = durationNumber.intValue / 1000
             
@@ -179,15 +179,15 @@ class VideoTableViewCell: UITableViewCell {
     }
     
     private func getDetailString(forVideo video: BCOVVideo) -> String {
-        guard let detailString = video.properties["description"] as? String else {
-            return video.properties["reference_id"] as? String ?? ""
+        guard let detailString = video.properties[kBCOVVideoPropertyKeyDescription] as? String else {
+            return video.properties[kBCOVVideoPropertyKeyReferenceId] as? String ?? ""
         }
         
         return detailString
     }
     
     private func setupTitleLabel(withVideo video: BCOVVideo) {
-        titleLabel.text = video.properties["name"] as? String
+        titleLabel.text = video.properties[kBCOVVideoPropertyKeyName] as? String
         
         // Use red label to indicate that the video is protected with FairPlay
         titleLabel.textColor = video.usesFairPlay ? UIColor(red: 0.75, green: 0.0, blue: 0.0, alpha: 1.0) : UIColor.black

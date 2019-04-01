@@ -152,7 +152,7 @@ class DownloadedVideoViewController: BaseVideoViewController {
             return
         }
         
-        let name = video.properties["name"] as? String ?? "unknown"
+        let name = video.properties[kBCOVVideoPropertyKeyName] as? String ?? "unknown"
         let message = "Download all additional tracks for the video \"\(name)\"?"
         
         print("Long press on \"\(name)\"")
@@ -229,7 +229,7 @@ class DownloadedVideoViewController: BaseVideoViewController {
         guard let selectedOfflineVideoToken = selectedOfflineVideoToken,
             let offlineVideoStatus = BCOVOfflineVideoManager.shared()?.offlineVideoStatus(forToken: selectedOfflineVideoToken),
             let video = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: selectedOfflineVideoToken),
-            let videoID = video.properties["id"] as? String,
+            let videoID = video.properties[kBCOVVideoPropertyKeyId] as? String,
             let estimatedMegabytes = tabBarController?.streamingViewController()?.videoManager.estimatedDownloadSizeDictionary?[videoID] else {
                 infoLabel?.text = "No video selected"
                 posterImageView?.layer.borderColor = UIColor.clear.cgColor
@@ -245,7 +245,7 @@ class DownloadedVideoViewController: BaseVideoViewController {
         let licenseText = video.licenseString()
         let downloadState = offlineVideoStatus.downloadStateString(estimatedMegabytes: estimatedMegabytes, actualMegabytes: actualMegabytes, startTime: startTimeNumber.doubleValue, endTime: endTimeNumber.doubleValue)
         
-        if let name = video.properties["name"] {
+        if let name = video.properties[kBCOVVideoPropertyKeyName] {
             infoLabel.text = "\(name)\nStatus: \(downloadState)\nLicense: \(licenseText)"
         }
         
@@ -465,7 +465,7 @@ class DownloadedVideoViewController: BaseVideoViewController {
             return
         }
         
-        let name = video.properties["name"] as? String ?? "unknown"
+        let name = video.properties[kBCOVVideoPropertyKeyName] as? String ?? "unknown"
         let message = "Additional options for offline video \"\(name)\""
         let alert = UIAlertController(title: "More Options", message: message, preferredStyle: .alert)
         

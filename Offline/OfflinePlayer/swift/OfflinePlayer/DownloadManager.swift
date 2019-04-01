@@ -222,7 +222,7 @@ class DownloadManager: NSObject {
         // to the video download queue.
         
         if !video.usesFairPlay {
-            if let videoName = video.properties["name"] as? String {
+            if let videoName = video.properties[kBCOVVideoPropertyKeyName] as? String {
                 print("Video \"\(videoName)\" does not use FairPlay; preloading not necessary")
             }
             
@@ -239,7 +239,7 @@ class DownloadManager: NSObject {
                     if let error = error {
                         
                         let video = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: offlineVideoToken)
-                        let name = video?.properties["name"] as? String ?? "unknown"
+                        let name = video?.properties[kBCOVVideoPropertyKeyName] as? String ?? "unknown"
                         
                         // Report any errors
                         UIAlertController.show(withTitle: "Video Preload Error (\(name))", andMessage: error.localizedDescription)
@@ -286,7 +286,7 @@ class DownloadManager: NSObject {
         // Display all available bitrates
         BCOVOfflineVideoManager.shared()?.variantBitrates(for: video, completion: { (bitrates: [NSNumber]?, error: Error?) in
             
-            if let name = video.properties["name"] as? String {
+            if let name = video.properties[kBCOVVideoPropertyKeyName] as? String {
                 print("Variant Bitrates for video: \(name)")
             }
             
@@ -310,7 +310,7 @@ class DownloadManager: NSObject {
                     self?.downloadVideoFromQueue()
                     
                     // Report any errors
-                    if let offlineVideoToken = offlineVideoToken, let offlineVideo = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: offlineVideoToken), let name = offlineVideo.properties["name"] {
+                    if let offlineVideoToken = offlineVideoToken, let offlineVideo = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: offlineVideoToken), let name = offlineVideo.properties[kBCOVVideoPropertyKeyName] {
                         UIAlertController.show(withTitle: "Video Download Error (\(name))", andMessage: error.localizedDescription)
                     } else {
                         UIAlertController.show(withTitle: "Video Download Error", andMessage: error.localizedDescription)
