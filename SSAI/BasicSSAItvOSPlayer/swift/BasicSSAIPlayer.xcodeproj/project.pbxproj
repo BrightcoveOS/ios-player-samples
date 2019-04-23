@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D6C21B1A4B5B21A76E05C827 /* Pods_BasicSSAIPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403517FE8F513681D7404A05 /* Pods_BasicSSAIPlayer.framework */; };
 		E9227296223FFF67000474A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9227295223FFF67000474A4 /* AppDelegate.swift */; };
 		E9227298223FFF67000474A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9227297223FFF67000474A4 /* ViewController.swift */; };
 		E922729B223FFF67000474A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9227299223FFF67000474A4 /* Main.storyboard */; };
@@ -15,9 +14,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1A23EA18A61334754B8FD867 /* Pods-BasicSSAIPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSSAIPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-BasicSSAIPlayer/Pods-BasicSSAIPlayer.release.xcconfig"; sourceTree = "<group>"; };
-		215602BDBEA955C7CEFAE39E /* Pods-BasicSSAIPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSSAIPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BasicSSAIPlayer/Pods-BasicSSAIPlayer.debug.xcconfig"; sourceTree = "<group>"; };
-		403517FE8F513681D7404A05 /* Pods_BasicSSAIPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasicSSAIPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9227292223FFF67000474A4 /* BasicSSAIPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicSSAIPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9227295223FFF67000474A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9227297223FFF67000474A4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -31,7 +27,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6C21B1A4B5B21A76E05C827 /* Pods_BasicSSAIPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,18 +36,8 @@
 		D19080C52FEDC35B639ED1FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				403517FE8F513681D7404A05 /* Pods_BasicSSAIPlayer.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		D894A95F495F1D52F9E367AF /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				215602BDBEA955C7CEFAE39E /* Pods-BasicSSAIPlayer.debug.xcconfig */,
-				1A23EA18A61334754B8FD867 /* Pods-BasicSSAIPlayer.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		E9227289223FFF67000474A4 = {
@@ -60,7 +45,6 @@
 			children = (
 				E9227294223FFF67000474A4 /* BasicSSAIPlayer */,
 				E9227293223FFF67000474A4 /* Products */,
-				D894A95F495F1D52F9E367AF /* Pods */,
 				D19080C52FEDC35B639ED1FF /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -92,11 +76,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E92272A1223FFF68000474A4 /* Build configuration list for PBXNativeTarget "BasicSSAIPlayer" */;
 			buildPhases = (
-				0F4DED08E6122E02E1EF8BD1 /* [CP] Check Pods Manifest.lock */,
 				E922728E223FFF67000474A4 /* Sources */,
 				E922728F223FFF67000474A4 /* Frameworks */,
 				E9227290223FFF67000474A4 /* Resources */,
-				65D9339E3EF33C9BBE47C676 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -151,55 +133,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		0F4DED08E6122E02E1EF8BD1 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BasicSSAIPlayer-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		65D9339E3EF33C9BBE47C676 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-BasicSSAIPlayer/Pods-BasicSSAIPlayer-frameworks.sh",
-				"${PODS_ROOT}/Brightcove-Player-Core/tvos/BrightcovePlayerSDK.framework",
-				"${PODS_ROOT}/Brightcove-Player-OnceUX/tvos/BrightcoveOUX.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcovePlayerSDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcoveOUX.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BasicSSAIPlayer/Pods-BasicSSAIPlayer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E922728E223FFF67000474A4 /* Sources */ = {
@@ -341,7 +274,6 @@
 		};
 		E92272A2223FFF68000474A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 215602BDBEA955C7CEFAE39E /* Pods-BasicSSAIPlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -362,7 +294,6 @@
 		};
 		E92272A3223FFF68000474A4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1A23EA18A61334754B8FD867 /* Pods-BasicSSAIPlayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

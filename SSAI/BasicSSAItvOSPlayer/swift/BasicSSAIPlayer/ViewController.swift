@@ -2,13 +2,13 @@
 //  ViewController.swift
 //  BasicSSAIPlayer
 //
-//  Created by Jeremy Blaker on 3/15/19.
+//  Created by Jeremy Blaker on 3/18/19.
 //  Copyright © 2019 Brightcove, Inc. All rights reserved.
 //
 
 import UIKit
 import BrightcovePlayerSDK
-import BrightcoveOUX
+import BrightcoveSSAI
 
 // ** Customize these values with your own account information **
 struct Constants {
@@ -20,7 +20,11 @@ struct Constants {
 
 class ViewController: UIViewController {
     @IBOutlet weak var videoContainerView: UIView!
-    @IBOutlet weak var companionSlotContainerView: UIView!
+    
+    private lazy var playbackService: BCOVPlaybackService = {
+        let factory = BCOVPlaybackServiceRequestFactory(accountId: Constants.AccountID, policyKey: Constants.PlaybackServicePolicyKey, baseURLStr: "https://edge.api.brightcove.com/playback/v1")
+        return BCOVPlaybackService(requestFactory: factory)
+    }()
     
     private lazy var fairplayAuthProxy: BCOVFPSBrightcoveAuthProxy? = {
         guard let _authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil, applicationId: nil) else {
@@ -29,31 +33,17 @@ class ViewController: UIViewController {
         return _authProxy
     }()
     
-    private lazy var playbackService: BCOVPlaybackService = {
-        let factory = BCOVPlaybackServiceRequestFactory(accountId: Constants.AccountID, policyKey: Constants.PlaybackServicePolicyKey, baseURLStr: "https://edge.api.brightcove.com/playback/v1")
-        return BCOVPlaybackService(requestFactory: factory)
-    }()
-    
     private lazy var playbackController: BCOVPlaybackController? = {
         guard let manager = BCOVPlayerSDKManager.shared(), let fairplayAuthProxy = fairplayAuthProxy else {
             return nil
         }
         
-        // Create a companion slot.
-        let companionSlot = BCOVOUXCompanionSlot(view: companionSlotContainerView, width: 300, height: 250)
-        
-        // In order to display an ad progress banner on the top of the view, we create this display container.  This object is also responsible for populating the companion slots.
-        let adComponentDisplayContainer = BCOVOUXAdComponentDisplayContainer(companionSlots: [companionSlot])
-        
         let fairplaySessionProvider = manager.createFairPlaySessionProvider(with: fairplayAuthProxy, upstreamSessionProvider: nil)
-        let ouxSessionProvider = manager.createOUXSessionProvider(withUpstreamSessionProvider: fairplaySessionProvider)
+        let ssaiSessionProvider = manager.createSSAISessionProvider(withUpstreamSessionProvider: fairplaySessionProvider)
         
-        guard let _playbackController = manager.createPlaybackController(with: ouxSessionProvider, viewStrategy: nil) else {
+        guard let _playbackController = manager.createPlaybackController(with: ssaiSessionProvider, viewStrategy: nil) else {
             return nil
         }
-        
-        // In order for the ad display container to receive ad information, we add it as a session consumer.
-        _playbackController.add(adComponentDisplayContainer)
         
         _playbackController.delegate = self
         _playbackController.isAutoPlay = true
@@ -63,10 +53,14 @@ class ViewController: UIViewController {
         return _playbackController
     }()
     
-    private lazy var playerView: BCOVPUIPlayerView? = {
+    private lazy var playerView: BCOVTVPlayerView? = {
+        let options = BCOVTVPlayerViewOptions()
+        options.presentingViewController = self
+        //options.hideControlsInterval = 3000
+        //options.hideControlsAnimationDuration = 0.2
+        
         // Create PlayerUI views with normal VOD controls.
-        let controlView = BCOVPUIBasicControlView.withVODLayout()
-        guard let _playerView = BCOVPUIPlayerView(playbackController: nil, options: nil, controlsView: controlView) else {
+        guard let _playerView = BCOVTVPlayerView(options: options) else {
             return nil
         }
         
@@ -90,7 +84,7 @@ class ViewController: UIViewController {
     
     private func requestContentFromPlaybackService() {
         let queryParameters = [kBCOVPlaybackServiceParamaterKeyAdConfigId: Constants.AdConfigId]
-        
+
         playbackService.findVideo(withVideoID: Constants.VideoId, parameters: queryParameters) { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
             
             guard let _video = video else {
@@ -101,8 +95,19 @@ class ViewController: UIViewController {
             self?.playbackController?.setVideos([_video] as NSFastEnumeration)
         }
     }
-}
     
+    override var preferredFocusEnvironments: [UIFocusEnvironment] {
+        guard let _playerView = self.playerView else {
+            return []
+        }
+        return [_playerView]
+    }
+    
+    override var preferredFocusedView: UIView? {
+        return self.playerView
+    }
+}
+
 // MARK: - BCOVPlaybackControllerDelegate
 extension ViewController: BCOVPlaybackControllerDelegate {
     
@@ -130,4 +135,5 @@ extension ViewController: BCOVPlaybackControllerAdsDelegate {
         print("ViewController Debug - Exiting ad")
     }
 }
+
 

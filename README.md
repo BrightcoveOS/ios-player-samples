@@ -1,5 +1,6 @@
 Brightcove Player SDK for iOS Samples
 =====================================
+
 Learn more about the [Brightcove Native Player SDKs](https://support.brightcove.com/brightcove-native-player-sdks).
 
 ios-player-samples.git is a collection of sample applications for the Brightcove Player SDKs for iOS and tvOS, organized by subject area. An installation of [CocoaPods][cocoapods] 1.0.0 or higher is required to download the sample dependencies.
@@ -10,6 +11,7 @@ ios-player-samples.git is a collection of sample applications for the Brightcove
 1. Xcode 10.0+
 
 ### About CocoaPods
+
 To ensure you are using the latest releases of the Brightcove software components, update your Podspec repository before building any of the sample applications by running the following on the command line:
 
 ```
@@ -17,6 +19,7 @@ pod repo update
 ```
 
 ### About Swift
+
 The Swift sample apps are written in Swift language version 4.2.
 
 ### Instructions
@@ -68,7 +71,7 @@ Omniture samples demonstrate how to use the Omniture plugin.
 
 #### OUX
 
-OUX samples demonstrate how to use the OUX plugin.
+OUX (OnceUX) has been deprecated and its sample projects will be removed in the  future. Please migrate your OUX apps to BrightcoveSSAI.
 
 #### Player
 
@@ -84,6 +87,6 @@ SidecarSubtitles samples demonstrate how to use the sidecarSubtitles plugin.
 
 #### SSAI
 
-BasicSSAIPlayer demonstrates how to use the OUX plugin for server-side-ad-integration.
+BasicSSAIPlayer demonstrates use of the SSAI plugin for playback of Dynamic Delivery with or without Server-Side Ad Insertion.
 
 [cocoapods]: http://www.cocoapods.org
