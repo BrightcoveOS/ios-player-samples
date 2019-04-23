@@ -9,7 +9,7 @@
 #import "ViewController.h"
 
 @import BrightcovePlayerSDK;
-@import BrightcoveOUX;
+@import BrightcoveSSAI;
 
 static NSString * const kViewControllerAccountID = @"5434391461001";
 static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
@@ -19,10 +19,9 @@ static NSString * const kViewControllerAdConfigID = @"0e0bbcd1-bba0-45bf-a986-12
 @interface ViewController ()<BCOVPlaybackControllerDelegate, BCOVPlaybackControllerAdsDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView *videoContainerView;
-@property (nonatomic, weak) IBOutlet UIView *companionSlotContainerView;
 
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
-@property (nonatomic, strong) BCOVPUIPlayerView *playerView;
+@property (nonatomic, strong) BCOVTVPlayerView *playerView;
 @property (nonatomic, strong) BCOVPlaybackService *playbackService;
 @property (nonatomic, strong) BCOVFPSBrightcoveAuthProxy *fairplayAuthProxy;
 
@@ -44,21 +43,12 @@ static NSString * const kViewControllerAdConfigID = @"0e0bbcd1-bba0-45bf-a986-12
     // Do any additional setup after loading the view, typically from a nib.
     BCOVPlayerSDKManager *manager = [BCOVPlayerSDKManager sharedManager];
     
-    // Create a companion slot.
-    BCOVOUXCompanionSlot *companionSlot = [[BCOVOUXCompanionSlot alloc] initWithView:self.companionSlotContainerView width:300 height:250];
-    
-    // In order to display an ad progress banner on the top of the view, we create this display container.  This object is also responsible for populating the companion slots.
-    BCOVOUXAdComponentDisplayContainer *adComponentDisplayContainer = [[BCOVOUXAdComponentDisplayContainer alloc] initWithCompanionSlots:@[companionSlot]];
-    
     self.fairplayAuthProxy = [[BCOVFPSBrightcoveAuthProxy alloc] initWithPublisherId:nil applicationId:nil];
     
     id<BCOVPlaybackSessionProvider> fairplaySessionProvider = [manager createFairPlaySessionProviderWithAuthorizationProxy:self.fairplayAuthProxy upstreamSessionProvider:nil];
-    id<BCOVPlaybackSessionProvider> ouxSessionProvider = [manager createOUXSessionProviderWithUpstreamSessionProvider:fairplaySessionProvider];
+    id<BCOVPlaybackSessionProvider> ssaiSessionProvider = [manager createSSAISessionProviderWithUpstreamSessionProvider:fairplaySessionProvider];
     
-    self.playbackController = [manager createPlaybackControllerWithSessionProvider:ouxSessionProvider viewStrategy:nil];
-    
-    // In order for the ad display container to receive ad information, we add it as a session consumer.
-    [self.playbackController addSessionConsumer:adComponentDisplayContainer];
+    self.playbackController = [manager createPlaybackControllerWithSessionProvider:ssaiSessionProvider viewStrategy:nil];
     
     self.playbackController.delegate = self;
     self.playbackController.autoPlay = YES;
@@ -66,8 +56,13 @@ static NSString * const kViewControllerAdConfigID = @"0e0bbcd1-bba0-45bf-a986-12
 
 - (void)setupPlayerView
 {
-    BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
-    self.playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:nil controlsView:controlView];
+    BCOVTVPlayerViewOptions *options = [[BCOVTVPlayerViewOptions alloc] init];
+    options.presentingViewController = self;
+    //options.hideControlsInterval = 3000;
+    //options.hideControlsAnimationDuration = 0.2;
+    
+    self.playerView = [[BCOVTVPlayerView alloc] initWithOptions:options];
+    self.playerView.playbackController = self.playbackController;
     
     [self.videoContainerView addSubview:self.playerView];
     self.playerView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -102,6 +97,18 @@ static NSString * const kViewControllerAdConfigID = @"0e0bbcd1-bba0-45bf-a986-12
         }
         
     }];
+}
+
+// Preferred focus for tvOS 9
+- (UIView *)preferredFocusedView
+{
+    return self.playerView;
+}
+
+// Preferred focus for tvOS 10+
+- (NSArray<id<UIFocusEnvironment>> *)preferredFocusEnvironments
+{
+    return (@[ self.playerView.controlsView ?: self ]);
 }
 
 #pragma mark - BCOVPlaybackControllerDelegate
