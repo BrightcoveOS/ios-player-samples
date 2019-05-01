@@ -10,6 +10,8 @@ ios-player-samples.git is a collection of sample applications for the Brightcove
 1. CocoaPods 1.0+
 1. Xcode 10.0+
 
+An Apple Developer Program account is required to run any sample app on a physical device. In order to provision your device, edit the sample app bundle identifier to make it unique to your organization.
+
 ### About CocoaPods
 
 To ensure you are using the latest releases of the Brightcove software components, update your Podspec repository before building any of the sample applications by running the following on the command line:
