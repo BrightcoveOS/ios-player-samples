@@ -32,6 +32,7 @@
 		4CD35B980B10FF7D9FCE2D98 /* Pods_BasicCastPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasicCastPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C4FDB1F77D65CA8ECADCC34 /* Pods-BasicCastPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicCastPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BasicCastPlayer/Pods-BasicCastPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		C087FA958FD1E4318252F202 /* Pods-BasicCastPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicCastPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-BasicCastPlayer/Pods-BasicCastPlayer.release.xcconfig"; sourceTree = "<group>"; };
+		E9B758952278E3AA008D1362 /* BasicCastPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BasicCastPlayer.entitlements; sourceTree = "<group>"; };
 		E9FF7E5D21BACA72000189E0 /* BasicCastPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicCastPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9FF7E6021BACA72000189E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9FF7E6221BACA72000189E0 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +92,7 @@
 		E9FF7E5F21BACA72000189E0 /* BasicCastPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				E9B758952278E3AA008D1362 /* BasicCastPlayer.entitlements */,
 				E9FF7E6021BACA72000189E0 /* AppDelegate.swift */,
 				E9FF7E6221BACA72000189E0 /* PlayerViewController.swift */,
 				E9FF7E6421BACA72000189E0 /* Main.storyboard */,
@@ -139,7 +141,7 @@
 						CreatedOnToolsVersion = 10.1;
 						SystemCapabilities = {
 							com.apple.AccessWiFi = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -404,8 +406,9 @@
 			baseConfigurationReference = 9C4FDB1F77D65CA8ECADCC34 /* Pods-BasicCastPlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BasicCastPlayer/BasicCastPlayer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XNV3M98BQL;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BasicCastPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -424,8 +427,9 @@
 			baseConfigurationReference = C087FA958FD1E4318252F202 /* Pods-BasicCastPlayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BasicCastPlayer/BasicCastPlayer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XNV3M98BQL;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BasicCastPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
