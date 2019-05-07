@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		66FE6FE08B6C0451BE6A783F /* Pods_BasicOUXPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 299AADC5D86A3FEEFADF27CD /* Pods_BasicOUXPlayer.framework */; };
 		E9C263C2215D52280042F45D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C263C1215D52280042F45D /* AppDelegate.swift */; };
 		E9C263C4215D52280042F45D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C263C3215D52280042F45D /* ViewController.swift */; };
 		E9C263C7215D52280042F45D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9C263C5215D52280042F45D /* Main.storyboard */; };
@@ -16,9 +15,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		299AADC5D86A3FEEFADF27CD /* Pods_BasicOUXPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasicOUXPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		386A576B64148A7E499C8897 /* Pods-BasicOUXPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicOUXPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BasicOUXPlayer/Pods-BasicOUXPlayer.debug.xcconfig"; sourceTree = "<group>"; };
-		517FF09461C5A6D894DADDE7 /* Pods-BasicOUXPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicOUXPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-BasicOUXPlayer/Pods-BasicOUXPlayer.release.xcconfig"; sourceTree = "<group>"; };
 		E9C263BE215D52280042F45D /* BasicOUXPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicOUXPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9C263C1215D52280042F45D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9C263C3215D52280042F45D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -33,37 +29,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66FE6FE08B6C0451BE6A783F /* Pods_BasicOUXPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8C9AB0E53C01D834871B0849 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				386A576B64148A7E499C8897 /* Pods-BasicOUXPlayer.debug.xcconfig */,
-				517FF09461C5A6D894DADDE7 /* Pods-BasicOUXPlayer.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		B7A8702388320CE510441E02 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				299AADC5D86A3FEEFADF27CD /* Pods_BasicOUXPlayer.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		E9C263B5215D52280042F45D = {
 			isa = PBXGroup;
 			children = (
 				E9C263C0215D52280042F45D /* BasicOUXPlayer */,
 				E9C263BF215D52280042F45D /* Products */,
-				8C9AB0E53C01D834871B0849 /* Pods */,
-				B7A8702388320CE510441E02 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,12 +71,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9C263D0215D52280042F45D /* Build configuration list for PBXNativeTarget "BasicOUXPlayer" */;
 			buildPhases = (
-				87357A6DE6A5AE30A51A4784 /* [CP] Check Pods Manifest.lock */,
 				E9C263BA215D52280042F45D /* Sources */,
 				E9C263BB215D52280042F45D /* Frameworks */,
 				E9C263BC215D52280042F45D /* Resources */,
-				B211F6513B34BA4D48B2A746 /* [CP] Copy Pods Resources */,
-				85468CBD404ECD405404F9C1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -156,77 +129,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		85468CBD404ECD405404F9C1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-BasicOUXPlayer/Pods-BasicOUXPlayer-frameworks.sh",
-				"${PODS_ROOT}/Brightcove-Player-Core/ios/dynamic/BrightcovePlayerSDK.framework",
-				"${PODS_ROOT}/Brightcove-Player-OnceUX/ios/dynamic/BrightcoveOUX.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcovePlayerSDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcoveOUX.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BasicOUXPlayer/Pods-BasicOUXPlayer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		87357A6DE6A5AE30A51A4784 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BasicOUXPlayer-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B211F6513B34BA4D48B2A746 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-BasicOUXPlayer/Pods-BasicOUXPlayer-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/Brightcove-Player-Core/BCOVPUIResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BCOVPUIResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BasicOUXPlayer/Pods-BasicOUXPlayer-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E9C263BA215D52280042F45D /* Sources */ = {
@@ -311,7 +213,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -366,7 +268,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -378,13 +280,11 @@
 		};
 		E9C263D1215D52280042F45D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 386A576B64148A7E499C8897 /* Pods-BasicOUXPlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BasicOUXPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -398,13 +298,11 @@
 		};
 		E9C263D2215D52280042F45D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 517FF09461C5A6D894DADDE7 /* Pods-BasicOUXPlayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BasicOUXPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

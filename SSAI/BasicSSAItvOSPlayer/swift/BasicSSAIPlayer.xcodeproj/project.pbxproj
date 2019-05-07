@@ -33,19 +33,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D19080C52FEDC35B639ED1FF /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		E9227289223FFF67000474A4 = {
 			isa = PBXGroup;
 			children = (
 				E9227294223FFF67000474A4 /* BasicSSAIPlayer */,
 				E9227293223FFF67000474A4 /* Products */,
-				D19080C52FEDC35B639ED1FF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

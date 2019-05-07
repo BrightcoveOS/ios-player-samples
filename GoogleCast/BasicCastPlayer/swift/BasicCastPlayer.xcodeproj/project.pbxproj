@@ -12,7 +12,6 @@
 		E9FF7E6621BACA72000189E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9FF7E6421BACA72000189E0 /* Main.storyboard */; };
 		E9FF7E6821BACA73000189E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9FF7E6721BACA73000189E0 /* Assets.xcassets */; };
 		E9FF7E6B21BACA73000189E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9FF7E6921BACA73000189E0 /* LaunchScreen.storyboard */; };
-		FA4B0D7492D89C82A3B1D08E /* Pods_BasicCastPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD35B980B10FF7D9FCE2D98 /* Pods_BasicCastPlayer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,9 +28,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4CD35B980B10FF7D9FCE2D98 /* Pods_BasicCastPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasicCastPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9C4FDB1F77D65CA8ECADCC34 /* Pods-BasicCastPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicCastPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BasicCastPlayer/Pods-BasicCastPlayer.debug.xcconfig"; sourceTree = "<group>"; };
-		C087FA958FD1E4318252F202 /* Pods-BasicCastPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicCastPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-BasicCastPlayer/Pods-BasicCastPlayer.release.xcconfig"; sourceTree = "<group>"; };
 		E9B758952278E3AA008D1362 /* BasicCastPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BasicCastPlayer.entitlements; sourceTree = "<group>"; };
 		E9FF7E5D21BACA72000189E0 /* BasicCastPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicCastPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9FF7E6021BACA72000189E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -47,37 +43,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA4B0D7492D89C82A3B1D08E /* Pods_BasicCastPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		01AFCC959AED7F60B5728A2E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				4CD35B980B10FF7D9FCE2D98 /* Pods_BasicCastPlayer.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		C8B5061C88A0B2B079E97AAD /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				9C4FDB1F77D65CA8ECADCC34 /* Pods-BasicCastPlayer.debug.xcconfig */,
-				C087FA958FD1E4318252F202 /* Pods-BasicCastPlayer.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		E9FF7E5421BACA72000189E0 = {
 			isa = PBXGroup;
 			children = (
 				E9FF7E5F21BACA72000189E0 /* BasicCastPlayer */,
 				E9FF7E5E21BACA72000189E0 /* Products */,
-				01AFCC959AED7F60B5728A2E /* Frameworks */,
-				C8B5061C88A0B2B079E97AAD /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -110,13 +86,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9FF7E6F21BACA73000189E0 /* Build configuration list for PBXNativeTarget "BasicCastPlayer" */;
 			buildPhases = (
-				0FC7323A3C448BE4B43F19B1 /* [CP] Check Pods Manifest.lock */,
 				E9FF7E5921BACA72000189E0 /* Sources */,
 				E9FF7E5A21BACA72000189E0 /* Frameworks */,
 				E9FF7E5B21BACA72000189E0 /* Resources */,
-				3BE794E38EC49CA585E4310F /* [CP] Embed Pods Frameworks */,
 				E90C665F21BB164700924187 /* Embed Frameworks */,
-				1C61EA780FA6272721BC2457 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -177,81 +150,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		0FC7323A3C448BE4B43F19B1 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BasicCastPlayer-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		1C61EA780FA6272721BC2457 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BasicCastPlayer/Pods-BasicCastPlayer-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/Brightcove-Player-Core/BCOVPUIResources.bundle",
-				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.3_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
-				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.3_static/GoogleCast.framework/GoogleCastUIResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BCOVPUIResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastCoreResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastUIResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BasicCastPlayer/Pods-BasicCastPlayer-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3BE794E38EC49CA585E4310F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BasicCastPlayer/Pods-BasicCastPlayer-frameworks.sh",
-				"${PODS_ROOT}/Brightcove-Player-Core/ios/dynamic/BrightcovePlayerSDK.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcovePlayerSDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BasicCastPlayer/Pods-BasicCastPlayer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E9FF7E5921BACA72000189E0 /* Sources */ = {
@@ -336,7 +234,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -391,7 +289,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -403,14 +301,12 @@
 		};
 		E9FF7E7021BACA73000189E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9C4FDB1F77D65CA8ECADCC34 /* Pods-BasicCastPlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = BasicCastPlayer/BasicCastPlayer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BasicCastPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -424,14 +320,12 @@
 		};
 		E9FF7E7121BACA73000189E0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C087FA958FD1E4318252F202 /* Pods-BasicCastPlayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = BasicCastPlayer/BasicCastPlayer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BasicCastPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

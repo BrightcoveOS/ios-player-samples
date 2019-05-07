@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B1B6368EFAFE3ACC1E438894 /* Pods_CustomControls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A96D208296299A8EDA1F29E8 /* Pods_CustomControls.framework */; };
 		E9DEE501216CEC440033C285 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE500216CEC440033C285 /* AppDelegate.swift */; };
 		E9DEE503216CEC440033C285 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE502216CEC440033C285 /* ViewController.swift */; };
 		E9DEE506216CEC440033C285 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE504216CEC440033C285 /* Main.storyboard */; };
@@ -18,9 +17,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		573FF0D5BA650652FFB58E00 /* Pods-CustomControls.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomControls.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CustomControls/Pods-CustomControls.debug.xcconfig"; sourceTree = "<group>"; };
-		A96D208296299A8EDA1F29E8 /* Pods_CustomControls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CustomControls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D10257C6EC49602F43556CA2 /* Pods-CustomControls.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomControls.release.xcconfig"; path = "Pods/Target Support Files/Pods-CustomControls/Pods-CustomControls.release.xcconfig"; sourceTree = "<group>"; };
 		E9DEE4FD216CEC430033C285 /* CustomControls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomControls.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9DEE500216CEC440033C285 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9DEE502216CEC440033C285 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -37,37 +33,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1B6368EFAFE3ACC1E438894 /* Pods_CustomControls.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		338E0D93AD97939BCFA50DB0 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				A96D208296299A8EDA1F29E8 /* Pods_CustomControls.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		7640926E3B9C39492D7472BA /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				573FF0D5BA650652FFB58E00 /* Pods-CustomControls.debug.xcconfig */,
-				D10257C6EC49602F43556CA2 /* Pods-CustomControls.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		E9DEE4F4216CEC430033C285 = {
 			isa = PBXGroup;
 			children = (
 				E9DEE4FF216CEC440033C285 /* CustomControls */,
 				E9DEE4FE216CEC430033C285 /* Products */,
-				7640926E3B9C39492D7472BA /* Pods */,
-				338E0D93AD97939BCFA50DB0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,12 +77,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9DEE50F216CEC450033C285 /* Build configuration list for PBXNativeTarget "CustomControls" */;
 			buildPhases = (
-				3D8D8EEBE11FD7C9777673D4 /* [CP] Check Pods Manifest.lock */,
 				E9DEE4F9216CEC430033C285 /* Sources */,
 				E9DEE4FA216CEC430033C285 /* Frameworks */,
 				E9DEE4FB216CEC430033C285 /* Resources */,
-				6951806CE321726AA0F109B5 /* [CP] Embed Pods Frameworks */,
-				C47A2630B070067722519893 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -163,75 +136,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		3D8D8EEBE11FD7C9777673D4 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CustomControls-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6951806CE321726AA0F109B5 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-CustomControls/Pods-CustomControls-frameworks.sh",
-				"${PODS_ROOT}/Brightcove-Player-Core/ios/dynamic/BrightcovePlayerSDK.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcovePlayerSDK.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CustomControls/Pods-CustomControls-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C47A2630B070067722519893 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-CustomControls/Pods-CustomControls-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/Brightcove-Player-Core/BCOVPUIResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BCOVPUIResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CustomControls/Pods-CustomControls-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E9DEE4F9216CEC430033C285 /* Sources */ = {
@@ -317,7 +221,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -372,7 +276,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -384,13 +288,11 @@
 		};
 		E9DEE510216CEC450033C285 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 573FF0D5BA650652FFB58E00 /* Pods-CustomControls.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = CustomControls/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -404,13 +306,11 @@
 		};
 		E9DEE511216CEC450033C285 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D10257C6EC49602F43556CA2 /* Pods-CustomControls.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = CustomControls/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

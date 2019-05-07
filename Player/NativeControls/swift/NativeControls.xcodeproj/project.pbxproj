@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA233354AE920D1501BEE023 /* Pods_NativeControls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3711D1811CE22AD880F87B3 /* Pods_NativeControls.framework */; };
 		E9C26386215D11FC0042F45D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C26385215D11FC0042F45D /* AppDelegate.swift */; };
 		E9C26388215D11FC0042F45D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C26387215D11FC0042F45D /* ViewController.swift */; };
 		E9C2638B215D11FC0042F45D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9C26389215D11FC0042F45D /* Main.storyboard */; };
@@ -16,9 +15,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		298347353C7A4A6AE3B7648A /* Pods-NativeControls.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeControls.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NativeControls/Pods-NativeControls.debug.xcconfig"; sourceTree = "<group>"; };
-		56CA8D6333DA68102ABD2C17 /* Pods-NativeControls.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeControls.release.xcconfig"; path = "Pods/Target Support Files/Pods-NativeControls/Pods-NativeControls.release.xcconfig"; sourceTree = "<group>"; };
-		E3711D1811CE22AD880F87B3 /* Pods_NativeControls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NativeControls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9C26382215D11FC0042F45D /* NativeControls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeControls.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9C26385215D11FC0042F45D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9C26387215D11FC0042F45D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -33,37 +29,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA233354AE920D1501BEE023 /* Pods_NativeControls.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		68C305B5B162872246216968 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E3711D1811CE22AD880F87B3 /* Pods_NativeControls.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		91AE9B7064273915F53AD4FA /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				298347353C7A4A6AE3B7648A /* Pods-NativeControls.debug.xcconfig */,
-				56CA8D6333DA68102ABD2C17 /* Pods-NativeControls.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		E9C26379215D11FC0042F45D = {
 			isa = PBXGroup;
 			children = (
 				E9C26384215D11FC0042F45D /* NativeControls */,
 				E9C26383215D11FC0042F45D /* Products */,
-				91AE9B7064273915F53AD4FA /* Pods */,
-				68C305B5B162872246216968 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,12 +71,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9C26394215D11FD0042F45D /* Build configuration list for PBXNativeTarget "NativeControls" */;
 			buildPhases = (
-				A97785043D76781ED27CC09A /* [CP] Check Pods Manifest.lock */,
 				E9C2637E215D11FC0042F45D /* Sources */,
 				E9C2637F215D11FC0042F45D /* Frameworks */,
 				E9C26380215D11FC0042F45D /* Resources */,
-				BD872D23D93FB707DA49AC8E /* [CP] Copy Pods Resources */,
-				5AFF9B8C00CFAA219B59E8AA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -156,75 +129,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		5AFF9B8C00CFAA219B59E8AA /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-NativeControls/Pods-NativeControls-frameworks.sh",
-				"${PODS_ROOT}/Brightcove-Player-Core/ios/dynamic/BrightcovePlayerSDK.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcovePlayerSDK.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NativeControls/Pods-NativeControls-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A97785043D76781ED27CC09A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-NativeControls-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BD872D23D93FB707DA49AC8E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-NativeControls/Pods-NativeControls-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/Brightcove-Player-Core/BCOVPUIResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BCOVPUIResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NativeControls/Pods-NativeControls-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E9C2637E215D11FC0042F45D /* Sources */ = {
@@ -309,7 +213,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -364,7 +268,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -376,13 +280,11 @@
 		};
 		E9C26395215D11FD0042F45D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 298347353C7A4A6AE3B7648A /* Pods-NativeControls.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NativeControls/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -396,13 +298,11 @@
 		};
 		E9C26396215D11FD0042F45D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56CA8D6333DA68102ABD2C17 /* Pods-NativeControls.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NativeControls/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

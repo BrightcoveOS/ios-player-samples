@@ -11,8 +11,6 @@
 		8934A7CC1D6E1C8000F61B9A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8934A7CB1D6E1C8000F61B9A /* ViewController.m */; };
 		8934A7CF1D6E1C8000F61B9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8934A7CD1D6E1C8000F61B9A /* Main.storyboard */; };
 		8934A7D11D6E1C8000F61B9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8934A7D01D6E1C8000F61B9A /* Assets.xcassets */; };
-		8934A7DB1D6E2C1900F61B9A /* BrightcoveOUX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8934A7D91D6E2C1900F61B9A /* BrightcoveOUX.framework */; };
-		8934A7DF1D6E2C5D00F61B9A /* BrightcovePlayerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8934A7DA1D6E2C1900F61B9A /* BrightcovePlayerSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,8 +35,6 @@
 		8934A7CE1D6E1C8000F61B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8934A7D01D6E1C8000F61B9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8934A7D21D6E1C8000F61B9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8934A7D91D6E2C1900F61B9A /* BrightcoveOUX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BrightcoveOUX.framework; path = "/Users/sbushell/Dropbox/Home/dev/forks/ios-player-samples/OUX/BasicOUXtvOSPlayer/objc/Frameworks/BrightcoveOUX.framework"; sourceTree = "<absolute>"; };
-		8934A7DA1D6E2C1900F61B9A /* BrightcovePlayerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BrightcovePlayerSDK.framework; path = "/Users/sbushell/Dropbox/Home/dev/forks/ios-player-samples/OUX/BasicOUXtvOSPlayer/objc/Frameworks/BrightcovePlayerSDK.framework"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,8 +42,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8934A7DB1D6E2C1900F61B9A /* BrightcoveOUX.framework in Frameworks */,
-				8934A7DF1D6E2C5D00F61B9A /* BrightcovePlayerSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +53,6 @@
 			children = (
 				8934A7C31D6E1C8000F61B9A /* BasicOUXtvOSPlayer */,
 				8934A7C21D6E1C8000F61B9A /* Products */,
-				E903C4AE22270B5B004A8D66 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -93,15 +86,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		E903C4AE22270B5B004A8D66 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				8934A7D91D6E2C1900F61B9A /* BrightcoveOUX.framework */,
-				8934A7DA1D6E2C1900F61B9A /* BrightcovePlayerSDK.framework */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -129,7 +113,7 @@
 		8934A7B91D6E1C8000F61B9A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Brightcove;
 				TargetAttributes = {
 					8934A7C01D6E1C8000F61B9A = {
@@ -140,7 +124,7 @@
 			};
 			buildConfigurationList = 8934A7BC1D6E1C8000F61B9A /* Build configuration list for PBXProject "BasicOUXtvOSPlayer" */;
 			compatibilityVersion = "Xcode 10.0";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -201,15 +185,24 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -248,15 +241,24 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -298,6 +300,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.BasicOUXtvOSPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
 		};
@@ -319,6 +322,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.BasicOUXtvOSPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};

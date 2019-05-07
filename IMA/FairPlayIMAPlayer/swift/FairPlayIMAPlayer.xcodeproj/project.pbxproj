@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AB600C985C8CF9B9382C0B84 /* Pods_FairPlayIMAPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 200767182A1D5CE9E95128EF /* Pods_FairPlayIMAPlayer.framework */; };
 		E93A3D2F217E10AD00F971F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93A3D2E217E10AD00F971F8 /* AppDelegate.swift */; };
 		E93A3D31217E10AE00F971F8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93A3D30217E10AE00F971F8 /* ViewController.swift */; };
 		E93A3D34217E10AE00F971F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E93A3D32217E10AE00F971F8 /* Main.storyboard */; };
@@ -17,9 +16,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		200767182A1D5CE9E95128EF /* Pods_FairPlayIMAPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FairPlayIMAPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7D75182F6DF2289DB0721A8B /* Pods-FairPlayIMAPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FairPlayIMAPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-FairPlayIMAPlayer/Pods-FairPlayIMAPlayer.release.xcconfig"; sourceTree = "<group>"; };
-		D88CE36814514EE3589420A0 /* Pods-FairPlayIMAPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FairPlayIMAPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FairPlayIMAPlayer/Pods-FairPlayIMAPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		E93A3D2B217E10AD00F971F8 /* FairPlayIMAPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FairPlayIMAPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E93A3D2E217E10AD00F971F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E93A3D30217E10AE00F971F8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,37 +31,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB600C985C8CF9B9382C0B84 /* Pods_FairPlayIMAPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7712D187F5257CF9A9ED6ABA /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				D88CE36814514EE3589420A0 /* Pods-FairPlayIMAPlayer.debug.xcconfig */,
-				7D75182F6DF2289DB0721A8B /* Pods-FairPlayIMAPlayer.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		D6D6E4BBF988CCCAF54CC952 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				200767182A1D5CE9E95128EF /* Pods_FairPlayIMAPlayer.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		E93A3D22217E10AD00F971F8 = {
 			isa = PBXGroup;
 			children = (
 				E93A3D2D217E10AD00F971F8 /* FairPlayIMAPlayer */,
 				E93A3D2C217E10AD00F971F8 /* Products */,
-				7712D187F5257CF9A9ED6ABA /* Pods */,
-				D6D6E4BBF988CCCAF54CC952 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,12 +74,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E93A3D3D217E10AE00F971F8 /* Build configuration list for PBXNativeTarget "FairPlayIMAPlayer" */;
 			buildPhases = (
-				442F905BEB58C5D5E8BD4650 /* [CP] Check Pods Manifest.lock */,
 				E93A3D27217E10AD00F971F8 /* Sources */,
 				E93A3D28217E10AD00F971F8 /* Frameworks */,
 				E93A3D29217E10AD00F971F8 /* Resources */,
-				3B302DD190BE636608DBA7C6 /* [CP] Embed Pods Frameworks */,
-				71CFEDAC2D3271AB958AFB44 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -159,79 +132,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		3B302DD190BE636608DBA7C6 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-FairPlayIMAPlayer/Pods-FairPlayIMAPlayer-frameworks.sh",
-				"${PODS_ROOT}/Brightcove-Player-Core/ios/dynamic/BrightcovePlayerSDK.framework",
-				"${PODS_ROOT}/Brightcove-Player-IMA/ios/BrightcoveIMA.framework",
-				"${PODS_ROOT}/GoogleAds-IMA-iOS-SDK/GoogleInteractiveMediaAds/GoogleInteractiveMediaAds.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcovePlayerSDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcoveIMA.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleInteractiveMediaAds.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FairPlayIMAPlayer/Pods-FairPlayIMAPlayer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		442F905BEB58C5D5E8BD4650 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-FairPlayIMAPlayer-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		71CFEDAC2D3271AB958AFB44 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-FairPlayIMAPlayer/Pods-FairPlayIMAPlayer-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/Brightcove-Player-Core/BCOVPUIResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BCOVPUIResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FairPlayIMAPlayer/Pods-FairPlayIMAPlayer-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E93A3D27217E10AD00F971F8 /* Sources */ = {
@@ -317,7 +217,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -372,7 +272,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -384,13 +284,11 @@
 		};
 		E93A3D3E217E10AE00F971F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D88CE36814514EE3589420A0 /* Pods-FairPlayIMAPlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = FairPlayIMAPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -404,13 +302,11 @@
 		};
 		E93A3D3F217E10AE00F971F8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7D75182F6DF2289DB0721A8B /* Pods-FairPlayIMAPlayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = FairPlayIMAPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
