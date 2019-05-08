@@ -331,8 +331,8 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/mobile-services/iOS/AdobeMobileLibrary",
-					"$(PROJECT_DIR)/video-heartbeat/ios/libs/VideoHeartbeat",
+					"\"$(SRCROOT)/mobile-services/sdks/iOS/AdobeMobileLibrary\"",
+					"\"$(SRCROOT)/video-heartbeat-v2/sdks/iOS/libs\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Brightcove.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -356,8 +356,8 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/mobile-services/iOS/AdobeMobileLibrary",
-					"$(PROJECT_DIR)/video-heartbeat/ios/libs/VideoHeartbeat",
+					"\"$(SRCROOT)/mobile-services/sdks/iOS/AdobeMobileLibrary\"",
+					"\"$(SRCROOT)/video-heartbeat-v2/sdks/iOS/libs\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Brightcove.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

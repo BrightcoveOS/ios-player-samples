@@ -332,7 +332,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/mobile-services/sdks/iOS/AdobeMobileLibrary",
 					"$(PROJECT_DIR)/video-heartbeat-v2/sdks/iOS/libs",
-					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.BasicOmniturePlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -364,7 +363,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/mobile-services/sdks/iOS/AdobeMobileLibrary",
 					"$(PROJECT_DIR)/video-heartbeat-v2/sdks/iOS/libs",
-					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.BasicOmniturePlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
