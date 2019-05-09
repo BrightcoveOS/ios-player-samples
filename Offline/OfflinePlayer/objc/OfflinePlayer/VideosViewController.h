@@ -23,6 +23,8 @@ typedef enum
     
 } VideoState;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface VideosViewController : UIViewController <BCOVOfflineVideoManagerDelegate, UITabBarControllerDelegate>
 
 @property (nonatomic, strong, nonnull) BCOVOfflineVideoManager *offlineVideoManager;
@@ -70,6 +72,8 @@ typedef enum
                       completion:(void (^)(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error))completionHandler;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 
 @interface VideoCell : UITableViewCell

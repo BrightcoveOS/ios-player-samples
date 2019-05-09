@@ -13,7 +13,10 @@ import GoogleInteractiveMediaAds
 struct PlaybackConfig {
     static let AccountID = ""
     static let PolicyKey = ""
-    static let PlaylistID = ""
+    static let PlaylistReferenceID = ""
+    
+    static let FairPlayPublisherId = ""
+    static var FairPlayApplicationId = ""
 }
 
 struct IMAConfig {
@@ -87,8 +90,8 @@ class ViewController: UIViewController {
         // before it is used to load ads.
         let imaPlaybackSessionOptions = [kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self]
         
-        guard let proxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil, applicationId: nil) else {
-            return
+        guard let proxy = BCOVFPSBrightcoveAuthProxy(publisherId: PlaybackConfig.FairPlayPublisherId, applicationId: PlaybackConfig.FairPlayApplicationId) else {
+                return
         }
         
         let fps = BCOVPlayerSDKManager.shared()?.createFairPlaySessionProvider(with: proxy, upstreamSessionProvider: nil)
@@ -133,7 +136,7 @@ class ViewController: UIViewController {
         let playbackServiceRequestFactory = BCOVPlaybackServiceRequestFactory(accountId: PlaybackConfig.AccountID, policyKey: PlaybackConfig.PolicyKey)
         
         let playbackService = BCOVPlaybackService(requestFactory: playbackServiceRequestFactory)
-        playbackService?.findPlaylist(withReferenceID: PlaybackConfig.PlaylistID, parameters: queryParams, completion: { [weak self] (playlist: BCOVPlaylist?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
+        playbackService?.findPlaylist(withReferenceID: PlaybackConfig.PlaylistReferenceID, parameters: queryParams, completion: { [weak self] (playlist: BCOVPlaylist?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
             
             
             let updatedPlaylist = playlist?.update({ (mutablePlaylist: BCOVMutablePlaylist?) in

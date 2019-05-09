@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		09E30266CB0EF5C13DA5F2E7 /* Pods_Video360Player.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72622ECD22CC59AE2C2FA35 /* Pods_Video360Player.framework */; };
 		E9DEE543216E39F60033C285 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE542216E39F60033C285 /* AppDelegate.swift */; };
 		E9DEE545216E39F60033C285 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE544216E39F60033C285 /* ViewController.swift */; };
 		E9DEE548216E39F60033C285 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE546216E39F60033C285 /* Main.storyboard */; };
@@ -16,9 +15,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		19B5F7A44361F57EFAED2D81 /* Pods-Video360Player.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Video360Player.release.xcconfig"; path = "Pods/Target Support Files/Pods-Video360Player/Pods-Video360Player.release.xcconfig"; sourceTree = "<group>"; };
-		B72622ECD22CC59AE2C2FA35 /* Pods_Video360Player.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Video360Player.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D9A9B308F0F6B9686FF52F2A /* Pods-Video360Player.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Video360Player.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Video360Player/Pods-Video360Player.debug.xcconfig"; sourceTree = "<group>"; };
 		E9DEE53F216E39F60033C285 /* Video360Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Video360Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9DEE542216E39F60033C285 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9DEE544216E39F60033C285 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -33,37 +29,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09E30266CB0EF5C13DA5F2E7 /* Pods_Video360Player.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		202F43A9A6DC41118FB749E8 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B72622ECD22CC59AE2C2FA35 /* Pods_Video360Player.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		C3B0B499F37EDD17E97F1DE3 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				D9A9B308F0F6B9686FF52F2A /* Pods-Video360Player.debug.xcconfig */,
-				19B5F7A44361F57EFAED2D81 /* Pods-Video360Player.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		E9DEE536216E39F60033C285 = {
 			isa = PBXGroup;
 			children = (
 				E9DEE541216E39F60033C285 /* Video360Player */,
 				E9DEE540216E39F60033C285 /* Products */,
-				C3B0B499F37EDD17E97F1DE3 /* Pods */,
-				202F43A9A6DC41118FB749E8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,12 +71,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9DEE551216E39F70033C285 /* Build configuration list for PBXNativeTarget "Video360Player" */;
 			buildPhases = (
-				D95A9A10BBAF117C1F2CFCFB /* [CP] Check Pods Manifest.lock */,
 				E9DEE53B216E39F60033C285 /* Sources */,
 				E9DEE53C216E39F60033C285 /* Frameworks */,
 				E9DEE53D216E39F60033C285 /* Resources */,
-				CC0D372555CE76B456511CBC /* [CP] Embed Pods Frameworks */,
-				0FC27FD74BDE9D64CACF8061 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -156,75 +129,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		0FC27FD74BDE9D64CACF8061 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Video360Player/Pods-Video360Player-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/Brightcove-Player-Core/BCOVPUIResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BCOVPUIResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Video360Player/Pods-Video360Player-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CC0D372555CE76B456511CBC /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Video360Player/Pods-Video360Player-frameworks.sh",
-				"${PODS_ROOT}/Brightcove-Player-Core/ios/dynamic/BrightcovePlayerSDK.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcovePlayerSDK.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Video360Player/Pods-Video360Player-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D95A9A10BBAF117C1F2CFCFB /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Video360Player-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E9DEE53B216E39F60033C285 /* Sources */ = {
@@ -309,7 +213,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -364,7 +268,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -376,13 +280,11 @@
 		};
 		E9DEE552216E39F70033C285 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D9A9B308F0F6B9686FF52F2A /* Pods-Video360Player.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Video360Player/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -396,13 +298,11 @@
 		};
 		E9DEE553216E39F70033C285 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 19B5F7A44361F57EFAED2D81 /* Pods-Video360Player.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Video360Player/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

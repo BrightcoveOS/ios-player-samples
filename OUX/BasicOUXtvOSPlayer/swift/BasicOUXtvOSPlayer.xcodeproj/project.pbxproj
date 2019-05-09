@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0EE356E3C4929323A51D8AE5 /* Pods_BasicOUXtvOSPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 395AD1EB2807CADA7402375D /* Pods_BasicOUXtvOSPlayer.framework */; };
 		E9DEE580216F89F80033C285 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE57F216F89F80033C285 /* AppDelegate.swift */; };
 		E9DEE582216F89F80033C285 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE581216F89F80033C285 /* ViewController.swift */; };
 		E9DEE585216F89F80033C285 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE583216F89F80033C285 /* Main.storyboard */; };
@@ -16,9 +15,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2BAF8750237B51701C95294A /* Pods-BasicOUXtvOSPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicOUXtvOSPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-BasicOUXtvOSPlayer/Pods-BasicOUXtvOSPlayer.release.xcconfig"; sourceTree = "<group>"; };
-		395AD1EB2807CADA7402375D /* Pods_BasicOUXtvOSPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasicOUXtvOSPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		967630F26BC0A8B000A6BFB6 /* Pods-BasicOUXtvOSPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicOUXtvOSPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BasicOUXtvOSPlayer/Pods-BasicOUXtvOSPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		E9DEE57C216F89F80033C285 /* BasicOUXtvOSPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicOUXtvOSPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9DEE57F216F89F80033C285 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9DEE581216F89F80033C285 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -33,37 +29,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EE356E3C4929323A51D8AE5 /* Pods_BasicOUXtvOSPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		71635A12F2C6127E82283AB8 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				967630F26BC0A8B000A6BFB6 /* Pods-BasicOUXtvOSPlayer.debug.xcconfig */,
-				2BAF8750237B51701C95294A /* Pods-BasicOUXtvOSPlayer.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		7907FDBD0A8F5680FF18F680 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				395AD1EB2807CADA7402375D /* Pods_BasicOUXtvOSPlayer.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		E9DEE573216F89F80033C285 = {
 			isa = PBXGroup;
 			children = (
 				E9DEE57E216F89F80033C285 /* BasicOUXtvOSPlayer */,
 				E9DEE57D216F89F80033C285 /* Products */,
-				71635A12F2C6127E82283AB8 /* Pods */,
-				7907FDBD0A8F5680FF18F680 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,11 +71,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9DEE58B216F89FA0033C285 /* Build configuration list for PBXNativeTarget "BasicOUXtvOSPlayer" */;
 			buildPhases = (
-				38103DE7E4E5B7DDF462648E /* [CP] Check Pods Manifest.lock */,
 				E9DEE578216F89F80033C285 /* Sources */,
 				E9DEE579216F89F80033C285 /* Frameworks */,
 				E9DEE57A216F89F80033C285 /* Resources */,
-				F1C7FB9DB2451B9608EAC1E6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -154,55 +128,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		38103DE7E4E5B7DDF462648E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BasicOUXtvOSPlayer-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F1C7FB9DB2451B9608EAC1E6 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-BasicOUXtvOSPlayer/Pods-BasicOUXtvOSPlayer-frameworks.sh",
-				"${PODS_ROOT}/Brightcove-Player-Core/tvos/BrightcovePlayerSDK.framework",
-				"${PODS_ROOT}/Brightcove-Player-OnceUX/tvos/BrightcoveOUX.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcovePlayerSDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcoveOUX.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BasicOUXtvOSPlayer/Pods-BasicOUXtvOSPlayer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E9DEE578216F89F80033C285 /* Sources */ = {
@@ -345,7 +270,6 @@
 		};
 		E9DEE58C216F89FA0033C285 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 967630F26BC0A8B000A6BFB6 /* Pods-BasicOUXtvOSPlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -360,13 +284,12 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
 		};
 		E9DEE58D216F89FA0033C285 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2BAF8750237B51701C95294A /* Pods-BasicOUXtvOSPlayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -381,7 +304,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};

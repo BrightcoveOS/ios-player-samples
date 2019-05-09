@@ -13,13 +13,9 @@
 		E92273022243F8C6000474A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E92273012243F8C6000474A4 /* Assets.xcassets */; };
 		E92273052243F8C6000474A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E92273032243F8C6000474A4 /* LaunchScreen.storyboard */; };
 		E922730D2243FB85000474A4 /* VideoPreloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E922730C2243FB85000474A4 /* VideoPreloadManager.swift */; };
-		FD28D954FDEFE44B0139D489 /* Pods_VideoPreloading.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C08EB9730AE816E73EF7F40 /* Pods_VideoPreloading.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8C08EB9730AE816E73EF7F40 /* Pods_VideoPreloading.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VideoPreloading.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A2BA234E6B54F5375F3C81BC /* Pods-VideoPreloading.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoPreloading.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VideoPreloading/Pods-VideoPreloading.debug.xcconfig"; sourceTree = "<group>"; };
-		B32C9A6764AC92419C99AA60 /* Pods-VideoPreloading.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoPreloading.release.xcconfig"; path = "Pods/Target Support Files/Pods-VideoPreloading/Pods-VideoPreloading.release.xcconfig"; sourceTree = "<group>"; };
 		E92272F72243F8C5000474A4 /* VideoPreloading.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoPreloading.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E92272FA2243F8C5000474A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E92272FC2243F8C5000474A4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,29 +31,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD28D954FDEFE44B0139D489 /* Pods_VideoPreloading.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E7B1A6859C18CD8E65A6F682 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A2BA234E6B54F5375F3C81BC /* Pods-VideoPreloading.debug.xcconfig */,
-				B32C9A6764AC92419C99AA60 /* Pods-VideoPreloading.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		E92272EE2243F8C5000474A4 = {
 			isa = PBXGroup;
 			children = (
 				E92272F92243F8C5000474A4 /* VideoPreloading */,
 				E92272F82243F8C5000474A4 /* Products */,
-				E7B1A6859C18CD8E65A6F682 /* Pods */,
-				F0D5607D19B880FF3B9FFB26 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,14 +67,6 @@
 			path = VideoPreloading;
 			sourceTree = "<group>";
 		};
-		F0D5607D19B880FF3B9FFB26 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				8C08EB9730AE816E73EF7F40 /* Pods_VideoPreloading.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -98,11 +74,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E92273092243F8C6000474A4 /* Build configuration list for PBXNativeTarget "VideoPreloading" */;
 			buildPhases = (
-				A6D657300DA724BA68B3A91D /* [CP] Check Pods Manifest.lock */,
 				E92272F32243F8C5000474A4 /* Sources */,
 				E92272F42243F8C5000474A4 /* Frameworks */,
 				E92272F52243F8C5000474A4 /* Resources */,
-				DD99DE8CCE4DCAD9AFF58F8B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -158,53 +132,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		A6D657300DA724BA68B3A91D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-VideoPreloading-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DD99DE8CCE4DCAD9AFF58F8B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-VideoPreloading/Pods-VideoPreloading-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/Brightcove-Player-Core/BCOVPUIResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BCOVPUIResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VideoPreloading/Pods-VideoPreloading-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E92272F32243F8C5000474A4 /* Sources */ = {
@@ -290,7 +217,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -345,7 +272,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -357,13 +284,11 @@
 		};
 		E922730A2243F8C6000474A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A2BA234E6B54F5375F3C81BC /* Pods-VideoPreloading.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = VideoPreloading/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -377,13 +302,11 @@
 		};
 		E922730B2243F8C6000474A4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B32C9A6764AC92419C99AA60 /* Pods-VideoPreloading.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = VideoPreloading/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

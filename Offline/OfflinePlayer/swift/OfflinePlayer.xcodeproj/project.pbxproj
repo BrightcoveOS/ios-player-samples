@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A77D719FFCB6EFBD24E57D39 /* Pods_OfflinePlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA58D46E1B1E49E4ABDE76E5 /* Pods_OfflinePlayer.framework */; };
 		E99B603D2170DDD400B65C75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99B603C2170DDD400B65C75 /* AppDelegate.swift */; };
 		E99B60422170DDD400B65C75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E99B60402170DDD400B65C75 /* Main.storyboard */; };
 		E99B60442170DDD500B65C75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E99B60432170DDD500B65C75 /* Assets.xcassets */; };
@@ -45,8 +44,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		31068733AE608179B9E24E3D /* Pods-OfflinePlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OfflinePlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OfflinePlayer/Pods-OfflinePlayer.debug.xcconfig"; sourceTree = "<group>"; };
-		DA58D46E1B1E49E4ABDE76E5 /* Pods_OfflinePlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OfflinePlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99B60392170DDD400B65C75 /* OfflinePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OfflinePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99B603C2170DDD400B65C75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E99B60412170DDD400B65C75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -83,7 +80,6 @@
 		E99B608D21767BE800B65C75 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		E99B608F2176809E00B65C75 /* BaseVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVideoViewController.swift; sourceTree = "<group>"; };
 		E99B609121777A9200B65C75 /* BCOVOfflineVideoStatus+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BCOVOfflineVideoStatus+Helpers.swift"; sourceTree = "<group>"; };
-		F6930EA90AF11CBC976DD432 /* Pods-OfflinePlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OfflinePlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-OfflinePlayer/Pods-OfflinePlayer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,37 +87,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A77D719FFCB6EFBD24E57D39 /* Pods_OfflinePlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		521FC67275B576EF20C6F5F8 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				DA58D46E1B1E49E4ABDE76E5 /* Pods_OfflinePlayer.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		728FD002DB4D3125F8F76071 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				31068733AE608179B9E24E3D /* Pods-OfflinePlayer.debug.xcconfig */,
-				F6930EA90AF11CBC976DD432 /* Pods-OfflinePlayer.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		E99B60302170DDD400B65C75 = {
 			isa = PBXGroup;
 			children = (
 				E99B603B2170DDD400B65C75 /* OfflinePlayer */,
 				E99B603A2170DDD400B65C75 /* Products */,
-				728FD002DB4D3125F8F76071 /* Pods */,
-				521FC67275B576EF20C6F5F8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -214,12 +190,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E99B604B2170DDD500B65C75 /* Build configuration list for PBXNativeTarget "OfflinePlayer" */;
 			buildPhases = (
-				7389D46F50BC6CEE5502863B /* [CP] Check Pods Manifest.lock */,
 				E99B60352170DDD400B65C75 /* Sources */,
 				E99B60362170DDD400B65C75 /* Frameworks */,
 				E99B60372170DDD400B65C75 /* Resources */,
-				C30AC5EEF8F901BE2BCEF648 /* [CP] Embed Pods Frameworks */,
-				701C1E79ABE156D603634B67 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -286,75 +259,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		701C1E79ABE156D603634B67 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-OfflinePlayer/Pods-OfflinePlayer-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/Brightcove-Player-Core/BCOVPUIResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BCOVPUIResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OfflinePlayer/Pods-OfflinePlayer-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7389D46F50BC6CEE5502863B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-OfflinePlayer-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C30AC5EEF8F901BE2BCEF648 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-OfflinePlayer/Pods-OfflinePlayer-frameworks.sh",
-				"${PODS_ROOT}/Brightcove-Player-Core/ios/dynamic/BrightcovePlayerSDK.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcovePlayerSDK.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OfflinePlayer/Pods-OfflinePlayer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E99B60352170DDD400B65C75 /* Sources */ = {
@@ -457,7 +361,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -512,7 +416,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -524,13 +428,11 @@
 		};
 		E99B604C2170DDD500B65C75 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 31068733AE608179B9E24E3D /* Pods-OfflinePlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = OfflinePlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -544,13 +446,11 @@
 		};
 		E99B604D2170DDD500B65C75 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F6930EA90AF11CBC976DD432 /* Pods-OfflinePlayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = OfflinePlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

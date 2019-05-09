@@ -12,11 +12,9 @@
 		491576AA19D9F2B700B2E657 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 491576A819D9F2B700B2E657 /* Main.storyboard */; };
 		491576AC19D9F2B700B2E657 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 491576AB19D9F2B700B2E657 /* Images.xcassets */; };
 		491576AF19D9F2B700B2E657 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 491576AD19D9F2B700B2E657 /* LaunchScreen.xib */; };
-		5DAA57ADCF495744FE407B66 /* Pods_VideoCloudBasicPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37EC293511B9E882E9DAAB44 /* Pods_VideoCloudBasicPlayer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		37EC293511B9E882E9DAAB44 /* Pods_VideoCloudBasicPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VideoCloudBasicPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4915769F19D9F2B700B2E657 /* VideoCloudBasicPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoCloudBasicPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		491576A319D9F2B700B2E657 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		491576A419D9F2B700B2E657 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -26,8 +24,6 @@
 		491576AE19D9F2B700B2E657 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		491576B919D9F2B700B2E657 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		491576BA19D9F2B700B2E657 /* VideoCloudBasicPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCloudBasicPlayerTests.swift; sourceTree = "<group>"; };
-		70D6E9CE0006EEE7187FBD8A /* Pods-VideoCloudBasicPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoCloudBasicPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VideoCloudBasicPlayer/Pods-VideoCloudBasicPlayer.debug.xcconfig"; sourceTree = "<group>"; };
-		B6F0FC8CDB6FC237E5198C7C /* Pods-VideoCloudBasicPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoCloudBasicPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-VideoCloudBasicPlayer/Pods-VideoCloudBasicPlayer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,7 +31,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5DAA57ADCF495744FE407B66 /* Pods_VideoCloudBasicPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,8 +43,6 @@
 				491576A119D9F2B700B2E657 /* VideoCloudBasicPlayer */,
 				491576B719D9F2B700B2E657 /* VideoCloudBasicPlayerTests */,
 				491576A019D9F2B700B2E657 /* Products */,
-				5FAF008A1F6B16EA32D2694E /* Pods */,
-				F359100ED654C31BD7215067 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,23 +92,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		5FAF008A1F6B16EA32D2694E /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				70D6E9CE0006EEE7187FBD8A /* Pods-VideoCloudBasicPlayer.debug.xcconfig */,
-				B6F0FC8CDB6FC237E5198C7C /* Pods-VideoCloudBasicPlayer.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		F359100ED654C31BD7215067 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				37EC293511B9E882E9DAAB44 /* Pods_VideoCloudBasicPlayer.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -123,12 +99,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 491576BE19D9F2B700B2E657 /* Build configuration list for PBXNativeTarget "VideoCloudBasicPlayer" */;
 			buildPhases = (
-				6325AD921B6331BDD5028B3C /* [CP] Check Pods Manifest.lock */,
 				4915769B19D9F2B700B2E657 /* Sources */,
 				4915769C19D9F2B700B2E657 /* Frameworks */,
 				4915769D19D9F2B700B2E657 /* Resources */,
-				6EFEE57FA48D85DB2973698D /* [CP] Embed Pods Frameworks */,
-				9200338A0A6A3C84943770CC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -147,7 +120,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Brightcove;
 				TargetAttributes = {
 					4915769E19D9F2B700B2E657 = {
@@ -158,7 +131,7 @@
 			};
 			buildConfigurationList = 4915769A19D9F2B700B2E657 /* Build configuration list for PBXProject "VideoCloudBasicPlayer" */;
 			compatibilityVersion = "Xcode 10.0";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -186,54 +159,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		6325AD921B6331BDD5028B3C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		6EFEE57FA48D85DB2973698D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VideoCloudBasicPlayer/Pods-VideoCloudBasicPlayer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9200338A0A6A3C84943770CC /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VideoCloudBasicPlayer/Pods-VideoCloudBasicPlayer-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4915769B19D9F2B700B2E657 /* Sources */ = {
@@ -275,14 +200,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -306,7 +239,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.brightcove.$(PRODUCT_NAME:rfc1034identifier";
@@ -324,14 +257,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -349,7 +290,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.brightcove.$(PRODUCT_NAME:rfc1034identifier";
 				SDKROOT = iphoneos;
@@ -362,11 +303,9 @@
 		};
 		491576BF19D9F2B700B2E657 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 70D6E9CE0006EEE7187FBD8A /* Pods-VideoCloudBasicPlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = VideoCloudBasicPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -378,11 +317,9 @@
 		};
 		491576C019D9F2B700B2E657 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B6F0FC8CDB6FC237E5198C7C /* Pods-VideoCloudBasicPlayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = VideoCloudBasicPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

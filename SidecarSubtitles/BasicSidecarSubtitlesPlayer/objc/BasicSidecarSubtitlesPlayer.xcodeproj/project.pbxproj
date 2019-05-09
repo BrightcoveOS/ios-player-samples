@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2754668A6B09E3C7F21C574B /* Pods_BasicSidecarSubtitlesPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BF14238D7C5E47AE385F786 /* Pods_BasicSidecarSubtitlesPlayer.framework */; };
 		98A16AB11A23813F008A3B77 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A16AB01A23813F008A3B77 /* main.m */; };
 		98A16AB41A23813F008A3B77 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A16AB31A23813F008A3B77 /* AppDelegate.m */; };
 		98A16AB71A23813F008A3B77 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A16AB61A23813F008A3B77 /* ViewController.m */; };
@@ -17,9 +16,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2DC9311CA19F2A641164A7F3 /* Pods-BasicSidecarSubtitlesPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSidecarSubtitlesPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-BasicSidecarSubtitlesPlayer/Pods-BasicSidecarSubtitlesPlayer.release.xcconfig"; sourceTree = "<group>"; };
-		3679F5658AC5327DC9A88209 /* Pods-BasicSidecarSubtitlesPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasicSidecarSubtitlesPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BasicSidecarSubtitlesPlayer/Pods-BasicSidecarSubtitlesPlayer.debug.xcconfig"; sourceTree = "<group>"; };
-		4BF14238D7C5E47AE385F786 /* Pods_BasicSidecarSubtitlesPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasicSidecarSubtitlesPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98A16AAB1A23813F008A3B77 /* BasicSidecarSubtitlesPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicSidecarSubtitlesPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98A16AAF1A23813F008A3B77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98A16AB01A23813F008A3B77 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -37,37 +33,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2754668A6B09E3C7F21C574B /* Pods_BasicSidecarSubtitlesPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		06FE3C0A9E4973817F93AD2A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				4BF14238D7C5E47AE385F786 /* Pods_BasicSidecarSubtitlesPlayer.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		294978E042136AD1A4399EFB /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				3679F5658AC5327DC9A88209 /* Pods-BasicSidecarSubtitlesPlayer.debug.xcconfig */,
-				2DC9311CA19F2A641164A7F3 /* Pods-BasicSidecarSubtitlesPlayer.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		98A16AA21A23813F008A3B77 = {
 			isa = PBXGroup;
 			children = (
 				98A16AAD1A23813F008A3B77 /* BasicSidecarSubtitlesPlayer */,
 				98A16AAC1A23813F008A3B77 /* Products */,
-				294978E042136AD1A4399EFB /* Pods */,
-				06FE3C0A9E4973817F93AD2A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -110,12 +86,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98A16ACE1A23813F008A3B77 /* Build configuration list for PBXNativeTarget "BasicSidecarSubtitlesPlayer" */;
 			buildPhases = (
-				808100FBA4B20C162BA779DB /* [CP] Check Pods Manifest.lock */,
 				98A16AA71A23813F008A3B77 /* Sources */,
 				98A16AA81A23813F008A3B77 /* Frameworks */,
 				98A16AA91A23813F008A3B77 /* Resources */,
-				05C8706C3EE2B9C759061F53 /* [CP] Embed Pods Frameworks */,
-				AF0D683C12F0F1907B5F0B1D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -132,7 +105,7 @@
 		98A16AA31A23813F008A3B77 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Brightcove Inc";
 				TargetAttributes = {
 					98A16AAA1A23813F008A3B77 = {
@@ -142,7 +115,7 @@
 			};
 			buildConfigurationList = 98A16AA61A23813F008A3B77 /* Build configuration list for PBXProject "BasicSidecarSubtitlesPlayer" */;
 			compatibilityVersion = "Xcode 10.0";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -170,54 +143,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		05C8706C3EE2B9C759061F53 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BasicSidecarSubtitlesPlayer/Pods-BasicSidecarSubtitlesPlayer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		808100FBA4B20C162BA779DB /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		AF0D683C12F0F1907B5F0B1D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BasicSidecarSubtitlesPlayer/Pods-BasicSidecarSubtitlesPlayer-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		98A16AA71A23813F008A3B77 /* Sources */ = {
@@ -260,14 +185,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -290,7 +223,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -306,14 +239,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -329,7 +270,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -339,14 +280,12 @@
 		};
 		98A16ACF1A23813F008A3B77 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3679F5658AC5327DC9A88209 /* Pods-BasicSidecarSubtitlesPlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = BasicSidecarSubtitlesPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -361,14 +300,12 @@
 		};
 		98A16AD01A23813F008A3B77 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2DC9311CA19F2A641164A7F3 /* Pods-BasicSidecarSubtitlesPlayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = BasicSidecarSubtitlesPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
