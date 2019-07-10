@@ -126,6 +126,11 @@
 					4915769E19D9F2B700B2E657 = {
 						CreatedOnToolsVersion = 6.0.1;
 						LastSwiftMigration = 0830;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};

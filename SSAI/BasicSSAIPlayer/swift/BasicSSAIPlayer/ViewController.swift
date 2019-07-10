@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     }()
     
     private lazy var playbackService: BCOVPlaybackService = {
-        let factory = BCOVPlaybackServiceRequestFactory(accountId: Constants.AccountID, policyKey: Constants.PlaybackServicePolicyKey, baseURLStr: "https://edge.api.brightcove.com/playback/v1")
+        let factory = BCOVPlaybackServiceRequestFactory(accountId: Constants.AccountID, policyKey: Constants.PlaybackServicePolicyKey)
         return BCOVPlaybackService(requestFactory: factory)
     }()
     

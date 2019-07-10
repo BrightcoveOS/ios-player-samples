@@ -13,7 +13,7 @@ static NSString * const kViewControllerAccountID = @"3636334163001";
 static NSString * const kViewControllerVideoID = @"3666678807001";
 
 
-@interface ViewController () <BCOVPlaybackControllerDelegate>
+@interface ViewController () <BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate>
 
 @property (nonatomic, strong) BCOVPlaybackService *playbackService;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
@@ -52,10 +52,13 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
 
     // Set up our player view. Create with a standard VOD layout.
-    BCOVPUIPlayerView *playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:nil controlsView:[BCOVPUIBasicControlView basicControlViewWithVODLayout] ];
+    BCOVPUIPlayerViewOptions *options = [BCOVPUIPlayerViewOptions new];
+    options.showPictureInPictureButton = YES;
+    
+    BCOVPUIPlayerView *playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:options controlsView:[BCOVPUIBasicControlView basicControlViewWithVODLayout] ];
+    playerView.delegate = self;
 
     [_videoContainer addSubview:playerView];
     playerView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -89,7 +92,7 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
     }];
 }
 
-#pragma mark BCOVPlaybackControllerDelegate Methods
+#pragma mark - BCOVPlaybackControllerDelegate
 
 - (void)playbackController:(id<BCOVPlaybackController>)controller didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 {
@@ -99,6 +102,33 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
 - (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didProgressTo:(NSTimeInterval)progress
 {
     NSLog(@"Progress: %0.2f seconds", progress);
+}
+
+#pragma mark - BCOVPUIPlayerViewDelegate
+
+- (void)pictureInPictureControllerDidStartPictureInPicture:(AVPictureInPictureController *)pictureInPictureController
+{
+    NSLog(@"pictureInPictureControllerDidStartPictureInPicture");
+}
+
+- (void)pictureInPictureControllerDidStopPictureInPicture:(AVPictureInPictureController *)pictureInPictureController
+{
+    NSLog(@"pictureInPictureControllerDidStopPictureInPicture");
+}
+
+- (void)pictureInPictureControllerWillStartPictureInPicture:(AVPictureInPictureController *)pictureInPictureController
+{
+    NSLog(@"pictureInPictureControllerWillStartPictureInPicture");
+}
+
+- (void)pictureInPictureControllerWillStopPictureInPicture:(AVPictureInPictureController *)pictureInPictureController
+{
+    NSLog(@"pictureInPictureControllerWillStopPictureInPicture");
+}
+
+- (void)pictureInPictureController:(AVPictureInPictureController *)pictureInPictureController failedToStartPictureInPictureWithError:(NSError *)error
+{
+    NSLog(@"failedToStartPictureInPictureWithError: %@", error.localizedDescription);
 }
 
 @end
