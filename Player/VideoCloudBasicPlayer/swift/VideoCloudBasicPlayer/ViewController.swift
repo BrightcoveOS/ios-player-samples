@@ -5,6 +5,7 @@
 //  Copyright © 2019 Brightcove, Inc. All rights reserved.
 //
 
+import AVKit
 import UIKit
 import BrightcovePlayerSDK
 
@@ -12,7 +13,7 @@ let kViewControllerPlaybackServicePolicyKey = "BCpkADawqM3n0ImwKortQqSZCgJMcyVbb
 let kViewControllerAccountID = "4800266849001"
 let kViewControllerVideoID = "5255514387001"
 
-class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
+class ViewController: UIViewController {
     
     let sharedSDKManager = BCOVPlayerSDKManager.shared()
     let playbackService = BCOVPlaybackService(accountId: kViewControllerAccountID, policyKey: kViewControllerPlaybackServicePolicyKey)
@@ -33,9 +34,14 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
         super.viewDidLoad()
         
         // Set up our player view. Create with a standard VOD layout.
-        guard let playerView = BCOVPUIPlayerView(playbackController: self.playbackController, options: nil, controlsView: BCOVPUIBasicControlView.withVODLayout()) else {
+        let options = BCOVPUIPlayerViewOptions()
+        options.showPictureInPictureButton = true
+        
+        guard let playerView = BCOVPUIPlayerView(playbackController: self.playbackController, options: options, controlsView: BCOVPUIBasicControlView.withVODLayout()) else {
             return
         }
+        
+        playerView.delegate = self
         
         // Install in the container view and match its size.
         self.videoContainerView.addSubview(playerView)
@@ -63,6 +69,10 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
             }
         }
     }
+
+}
+
+extension ViewController: BCOVPlaybackControllerDelegate {
     
     func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
         print("Advanced to new session")
@@ -71,4 +81,29 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
     func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didProgressTo progress: TimeInterval) {
         print("Progress: \(progress) seconds")
     }
+    
+}
+
+extension ViewController: BCOVPUIPlayerViewDelegate {
+    
+    func pictureInPictureControllerDidStartPicture(inPicture pictureInPictureController: AVPictureInPictureController) {
+        print("pictureInPictureControllerDidStartPicture")
+    }
+    
+    func pictureInPictureControllerDidStopPicture(inPicture pictureInPictureController: AVPictureInPictureController) {
+        print("pictureInPictureControllerDidStopPicture")
+    }
+    
+    func pictureInPictureControllerWillStartPicture(inPicture pictureInPictureController: AVPictureInPictureController) {
+        print("pictureInPictureControllerWillStartPicture")
+    }
+    
+    func pictureInPictureControllerWillStopPicture(inPicture pictureInPictureController: AVPictureInPictureController) {
+        print("pictureInPictureControllerWillStopPicture")
+    }
+    
+    func picture(_ pictureInPictureController: AVPictureInPictureController!, failedToStartPictureInPictureWithError error: Error!) {
+        print("failedToStartPictureInPictureWithError \(error.localizedDescription)")
+    }
+    
 }

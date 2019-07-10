@@ -76,7 +76,7 @@ static NSString * const kViewControllerAdConfigID = @"0e0bbcd1-bba0-45bf-a986-12
 
 - (void)setupPlaybackService
 {
-    BCOVPlaybackServiceRequestFactory *factory = [[BCOVPlaybackServiceRequestFactory alloc] initWithAccountId:kViewControllerAccountID policyKey:kViewControllerPlaybackServicePolicyKey baseURLStr:@"https://edge.api.brightcove.com/playback/v1"];
+    BCOVPlaybackServiceRequestFactory *factory = [[BCOVPlaybackServiceRequestFactory alloc] initWithAccountId:kViewControllerAccountID policyKey:kViewControllerPlaybackServicePolicyKey];
     self.playbackService = [[BCOVPlaybackService alloc] initWithRequestFactory:factory];
 }
 
