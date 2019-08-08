@@ -1377,6 +1377,10 @@ didFinishAggregateDownloadWithError:(NSError *)error NS_AVAILABLE_IOS(11_0)
     }
 
     [self.statusButton setImage:newImage forState:UIControlStateNormal];
+
+    // transparent regions of the button images do not respond to taps. setting the button background color fixes that.
+    // [239, 239, 244] is the table view background color.
+    [self.statusButton setBackgroundColor:[UIColor colorWithRed:239/255 green:239/255 blue:244/255 alpha:0.01]];
 }
 
 - (void)layoutSubviews
