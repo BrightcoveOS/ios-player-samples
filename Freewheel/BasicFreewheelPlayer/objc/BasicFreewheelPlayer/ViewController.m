@@ -116,7 +116,8 @@ static NSString * const kViewControllerSlotId= @"300x250";
         id<FWContext> adContext = [strongSelf.adManager newContext];
         
         // These are player/app-specific and asset-specific values.
-        FWRequestConfiguration *adRequestConfig = [[FWRequestConfiguration alloc] initWithServerURL:@"http://cue.v.fwmrm.net" playerProfile:@"96749:global-cocoa"];
+        CGSize playerSize = CGSizeMake(CGRectGetWidth(self.videoContainerView.frame), CGRectGetHeight(self.videoContainerView.frame));
+        FWRequestConfiguration *adRequestConfig = [[FWRequestConfiguration alloc] initWithServerURL:@"http://cue.v.fwmrm.net" playerProfile:@"96749:global-cocoa" playerDimensions:playerSize];
         adRequestConfig.siteSectionConfiguration = [[FWSiteSectionConfiguration alloc] initWithSiteSectionId:@"DemoSiteGroup.01" idType:FWIdTypeCustom];
         adRequestConfig.videoAssetConfiguration = [[FWVideoAssetConfiguration alloc] initWithVideoAssetId:@"DemoVideoGroup.01" idType:FWIdTypeCustom duration:160 durationType:FWVideoAssetDurationTypeExact autoPlayType:FWVideoAssetAutoPlayTypeAttended];
         

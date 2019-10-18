@@ -49,7 +49,8 @@ class ViewController: UIViewController {
             }
             
             // These are player/app-specific and asset-specific values.
-            let adRequestConfig = FWRequestConfiguration(serverURL: "http://cue.v.fwmrm.net", playerProfile: "96749:global-cocoa")
+            let playerSize = CGSize(width: self.videoContainerView.frame.width, height: self.videoContainerView.frame.height)
+            let adRequestConfig = FWRequestConfiguration(serverURL: "http://cue.v.fwmrm.net", playerProfile: "96749:global-cocoa", playerDimensions: playerSize)
             adRequestConfig.siteSectionConfiguration = FWSiteSectionConfiguration(siteSectionId: "DemoSiteGroup.01", idType: .custom)
             adRequestConfig.videoAssetConfiguration = FWVideoAssetConfiguration(videoAssetId: "DemoVideoGroup.01", idType: .custom, duration: videoDuration, durationType: .exact, autoPlayType: .attended)
             
