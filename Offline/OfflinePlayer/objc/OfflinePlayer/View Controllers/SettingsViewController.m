@@ -7,19 +7,19 @@
 //
 
 @import AVFoundation;
+@import BrightcovePlayerSDK;
 
 #import "SettingsViewController.h"
 
-
-SettingsViewController *gSettingsViewController;
+#import "InterfaceManager.h"
 
 @interface SettingsViewController ()
 
 // IBOutlets for our UI elements
-@property (nonatomic) IBOutlet UITextField *bitrateTextField;
-@property (nonatomic) IBOutlet UITextField *rentalDurationTextField;
-@property (nonatomic) IBOutlet UIView *rentalSettingsView;
-@property (nonatomic) IBOutlet UISegmentedControl *licenseTypeSegmentedControl;
+@property (nonatomic, weak) IBOutlet UITextField *bitrateTextField;
+@property (nonatomic, weak) IBOutlet UITextField *rentalDurationTextField;
+@property (nonatomic, weak) IBOutlet UIView *rentalSettingsView;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *licenseTypeSegmentedControl;
 
 @end
 
@@ -29,24 +29,12 @@ SettingsViewController *gSettingsViewController;
 
 #pragma mark Initialization method
 
-- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder;
-{
-    self = [super initWithCoder:aDecoder];
-    
-    if (self)
-    {
-        gSettingsViewController = self;
-    }
-    
-    return self;
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 
     // Become delegate so we can control orientation
-    gVideosViewController.tabBarController.delegate = self;
+    [InterfaceManager.sharedInstance updateTabBarDelegate:self];
 }
 
 - (UIInterfaceOrientationMask)tabBarControllerSupportedInterfaceOrientations:(UITabBarController *)tabBarController
@@ -77,18 +65,18 @@ SettingsViewController *gSettingsViewController;
 {
     [super viewDidLoad];
 
-    self.tabBarController = (UITabBarController*)self.parentViewController;
-
     [self setup];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [super viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     [self.view endEditing:YES];
 }
 
@@ -155,8 +143,11 @@ SettingsViewController *gSettingsViewController;
       };
     
     // Re-initialize with same delegate, but new options.
-    [BCOVOfflineVideoManager initializeOfflineVideoManagerWithDelegate:gVideosViewController
-                                                               options:optionsDictionary];
+    if (InterfaceManager.sharedInstance.videosViewController)
+    {
+        [BCOVOfflineVideoManager initializeOfflineVideoManagerWithDelegate:(id<BCOVOfflineVideoManagerDelegate>)InterfaceManager.sharedInstance.videosViewController
+                                                                   options:optionsDictionary];
+    }
 }
 
 @end

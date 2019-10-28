@@ -6,8 +6,6 @@
 //  Copyright (c) 2019 Brightcove. All rights reserved.
 //
 
-@import BrightcovePlayerSDK;
-
 #import <AVFoundation/AVFoundation.h>
 
 #import "AppDelegate.h"

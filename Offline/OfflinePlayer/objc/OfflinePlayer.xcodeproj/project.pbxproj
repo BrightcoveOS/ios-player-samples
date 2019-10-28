@@ -29,6 +29,13 @@
 		342B10DA1FFED58C00A2D343 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 342B10D91FFED58C00A2D343 /* Assets.xcassets */; };
 		342B10DD1FFED58C00A2D343 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 342B10DB1FFED58C00A2D343 /* LaunchScreen.storyboard */; };
 		342B10E01FFED58C00A2D343 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B10DF1FFED58C00A2D343 /* main.m */; };
+		E91C9E7823677A7600500348 /* VideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E91CAA6D23675D1300290B60 /* VideoTableViewCell.xib */; };
+		E91CAA5E23673C9B00290B60 /* VideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E91CAA5D23673C9B00290B60 /* VideoTableViewCell.m */; };
+		E91CAA72236765AA00290B60 /* InterfaceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E91CAA71236765AA00290B60 /* InterfaceManager.m */; };
+		E91CAA75236769AC00290B60 /* SettingsAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E91CAA74236769AC00290B60 /* SettingsAdapter.m */; };
+		E96D8AA92368DB7D007F6543 /* UIAlertController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = E96D8AA82368DB7D007F6543 /* UIAlertController+Convenience.m */; };
+		E9A6B425236A0EB700EB0690 /* BCOVVIdeo+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A6B424236A0EB700EB0690 /* BCOVVIdeo+Convenience.m */; };
+		E9E8A1AF2369DC9700976B25 /* DownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E8A1AE2369DC9700976B25 /* DownloadManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +67,19 @@
 		342B10D91FFED58C00A2D343 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		342B10DC1FFED58C00A2D343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		342B10DF1FFED58C00A2D343 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E91CAA5C23673C9B00290B60 /* VideoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoTableViewCell.h; sourceTree = "<group>"; };
+		E91CAA5D23673C9B00290B60 /* VideoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoTableViewCell.m; sourceTree = "<group>"; };
+		E91CAA6D23675D1300290B60 /* VideoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoTableViewCell.xib; sourceTree = "<group>"; };
+		E91CAA70236765A900290B60 /* InterfaceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceManager.h; sourceTree = "<group>"; };
+		E91CAA71236765AA00290B60 /* InterfaceManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceManager.m; sourceTree = "<group>"; };
+		E91CAA73236769AC00290B60 /* SettingsAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsAdapter.h; sourceTree = "<group>"; };
+		E91CAA74236769AC00290B60 /* SettingsAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsAdapter.m; sourceTree = "<group>"; };
+		E96D8AA72368DB7D007F6543 /* UIAlertController+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Convenience.h"; sourceTree = "<group>"; };
+		E96D8AA82368DB7D007F6543 /* UIAlertController+Convenience.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Convenience.m"; sourceTree = "<group>"; };
+		E9A6B423236A0EB700EB0690 /* BCOVVIdeo+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BCOVVIdeo+Convenience.h"; sourceTree = "<group>"; };
+		E9A6B424236A0EB700EB0690 /* BCOVVIdeo+Convenience.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "BCOVVIdeo+Convenience.m"; sourceTree = "<group>"; };
+		E9E8A1AD2369DC9700976B25 /* DownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadManager.h; sourceTree = "<group>"; };
+		E9E8A1AE2369DC9700976B25 /* DownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,13 +147,9 @@
 			children = (
 				342B10D01FFED58C00A2D343 /* AppDelegate.h */,
 				342B10D11FFED58C00A2D343 /* AppDelegate.m */,
-				342B10D61FFED58C00A2D343 /* Main.storyboard */,
-				223B44EE2003E7D400C6C60C /* DownloadsViewController.h */,
-				223B44E92003E7D400C6C60C /* DownloadsViewController.m */,
-				223B44EA2003E7D400C6C60C /* SettingsViewController.h */,
-				223B44ED2003E7D400C6C60C /* SettingsViewController.m */,
-				223B44EB2003E7D400C6C60C /* VideosViewController.h */,
-				223B44EC2003E7D400C6C60C /* VideosViewController.m */,
+				E927934C236B25C700435AD4 /* View Controllers */,
+				E927934B236B25B600435AD4 /* Table View Cells */,
+				E927934D236B25E000435AD4 /* Managers and Utilities */,
 				342B10D91FFED58C00A2D343 /* Assets.xcassets */,
 				22EF4ACB2003FEFF00F85A29 /* Images */,
 				342B10DB1FFED58C00A2D343 /* LaunchScreen.storyboard */,
@@ -141,6 +157,47 @@
 				342B10DF1FFED58C00A2D343 /* main.m */,
 			);
 			path = OfflinePlayer;
+			sourceTree = "<group>";
+		};
+		E927934B236B25B600435AD4 /* Table View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E91CAA5C23673C9B00290B60 /* VideoTableViewCell.h */,
+				E91CAA5D23673C9B00290B60 /* VideoTableViewCell.m */,
+				E91CAA6D23675D1300290B60 /* VideoTableViewCell.xib */,
+			);
+			path = "Table View Cells";
+			sourceTree = "<group>";
+		};
+		E927934C236B25C700435AD4 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				342B10D61FFED58C00A2D343 /* Main.storyboard */,
+				223B44EB2003E7D400C6C60C /* VideosViewController.h */,
+				223B44EC2003E7D400C6C60C /* VideosViewController.m */,
+				223B44EE2003E7D400C6C60C /* DownloadsViewController.h */,
+				223B44E92003E7D400C6C60C /* DownloadsViewController.m */,
+				223B44EA2003E7D400C6C60C /* SettingsViewController.h */,
+				223B44ED2003E7D400C6C60C /* SettingsViewController.m */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		E927934D236B25E000435AD4 /* Managers and Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E91CAA70236765A900290B60 /* InterfaceManager.h */,
+				E91CAA71236765AA00290B60 /* InterfaceManager.m */,
+				E9E8A1AD2369DC9700976B25 /* DownloadManager.h */,
+				E9E8A1AE2369DC9700976B25 /* DownloadManager.m */,
+				E91CAA73236769AC00290B60 /* SettingsAdapter.h */,
+				E91CAA74236769AC00290B60 /* SettingsAdapter.m */,
+				E96D8AA72368DB7D007F6543 /* UIAlertController+Convenience.h */,
+				E96D8AA82368DB7D007F6543 /* UIAlertController+Convenience.m */,
+				E9A6B423236A0EB700EB0690 /* BCOVVIdeo+Convenience.h */,
+				E9A6B424236A0EB700EB0690 /* BCOVVIdeo+Convenience.m */,
+			);
+			path = "Managers and Utilities";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,6 +265,7 @@
 				22EF4ADB2003FF0C00F85A29 /* error2.png in Resources */,
 				22EF4ADC2003FF0C00F85A29 /* inprogress.png in Resources */,
 				22EF4AD62003FF0500F85A29 /* bcov.png in Resources */,
+				E91C9E7823677A7600500348 /* VideoTableViewCell.xib in Resources */,
 				342B10DA1FFED58C00A2D343 /* Assets.xcassets in Resources */,
 				22EF4ADD2003FF0C00F85A29 /* paused.png in Resources */,
 				342B10D81FFED58C00A2D343 /* Main.storyboard in Resources */,
@@ -224,11 +282,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				223B44EF2003E7D400C6C60C /* DownloadsViewController.m in Sources */,
 				342B10E01FFED58C00A2D343 /* main.m in Sources */,
-				223B44F12003E7D400C6C60C /* SettingsViewController.m in Sources */,
-				223B44F02003E7D400C6C60C /* VideosViewController.m in Sources */,
+				E9A6B425236A0EB700EB0690 /* BCOVVIdeo+Convenience.m in Sources */,
+				E96D8AA92368DB7D007F6543 /* UIAlertController+Convenience.m in Sources */,
 				342B10D21FFED58C00A2D343 /* AppDelegate.m in Sources */,
+				E9E8A1AF2369DC9700976B25 /* DownloadManager.m in Sources */,
+				223B44F02003E7D400C6C60C /* VideosViewController.m in Sources */,
+				E91CAA5E23673C9B00290B60 /* VideoTableViewCell.m in Sources */,
+				223B44EF2003E7D400C6C60C /* DownloadsViewController.m in Sources */,
+				223B44F12003E7D400C6C60C /* SettingsViewController.m in Sources */,
+				E91CAA72236765AA00290B60 /* InterfaceManager.m in Sources */,
+				E91CAA75236769AC00290B60 /* SettingsAdapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
