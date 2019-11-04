@@ -13,6 +13,7 @@ class VideoTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailsLabel: UILabel!
     @IBOutlet weak var statusButton: UIButton!
+    @IBOutlet weak var statusButtonImageView: UIImageView!
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var progressView: UIProgressView! {
         didSet {
@@ -37,7 +38,7 @@ class VideoTableViewCell: UITableViewCell {
         titleLabel.text = nil
         detailsLabel.text = nil
         thumbnailImageView.image = nil
-        statusButton.setImage(nil, for: .normal)
+        statusButtonImageView.image = nil
     }
     
     private func updateStatusButtonImage(_ state: VideoState) {
@@ -62,7 +63,7 @@ class VideoTableViewCell: UITableViewCell {
         }
         
         DispatchQueue.main.async {
-            self.statusButton.setImage(stateImage, for: .normal)
+            self.statusButtonImageView.image = stateImage
         }
         
     }
@@ -166,7 +167,7 @@ class VideoTableViewCell: UITableViewCell {
         progressView.isHidden = false
         updateProgressView(withPercentage: offlineStatus.downloadPercent)
         
-        statusButton.setImage(UIImage(named: "downloaded"), for: .normal)
+        statusButtonImageView.image = UIImage(named: "downloaded")
         statusButton.isUserInteractionEnabled = false
     }
     

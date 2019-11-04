@@ -267,7 +267,11 @@ class DownloadManager: NSObject {
         
         // If we're already downoading, this will be called automatically
         // when the download is done
-        if downloadInProgress {
+        // Only needed for pre-iOS 11.4 only which can only handle
+        // One download at a time
+        if #available(iOS 11.4, *)
+        {}
+        else if downloadInProgress {
             return
         }
         
@@ -307,7 +311,12 @@ class DownloadManager: NSObject {
                     self?.downloadInProgress = false
                     
                     // try again with another video
-                    self?.downloadVideoFromQueue()
+                    if #available(iOS 11.4, *)
+                    {}
+                    else
+                    {
+                        self?.downloadVideoFromQueue()
+                    }
                     
                     // Report any errors
                     if let offlineVideoToken = offlineVideoToken, let offlineVideo = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: offlineVideoToken), let name = offlineVideo.properties[kBCOVVideoPropertyKeyName] {
@@ -490,7 +499,12 @@ extension DownloadManager: BCOVOfflineVideoManagerDelegate {
         downloadInProgress = false
         
         // Get the next video
-        downloadVideoFromQueue()
+        if #available(iOS 11.4, *)
+        {}
+        else
+        {
+            downloadVideoFromQueue()
+        }
         
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus, object: nil)

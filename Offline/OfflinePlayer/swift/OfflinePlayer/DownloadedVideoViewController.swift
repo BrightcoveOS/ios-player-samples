@@ -25,6 +25,7 @@ import BrightcovePlayerSDK
 
 class DownloadedVideoViewController: BaseVideoViewController {
     
+    @IBOutlet weak var noVideoSelectedLabel: UILabel!
     @IBOutlet weak var downloadProgressView: UIView!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var moreButton: UIButton!
@@ -159,7 +160,7 @@ class DownloadedVideoViewController: BaseVideoViewController {
         
         let alert = UIAlertController(title: "Download Additional Tracks", message: message, preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Download Tracks", style: .default, handler: { [weak self] (action: UIAlertAction) in
+        alert.addAction(UIAlertAction(title: "Download Tracks", style: .default, handler: { (action: UIAlertAction) in
             DownloadManager.downloadAllSecondaryTracks(forOfflineVideoToken: token)
         }))
         
@@ -231,13 +232,15 @@ class DownloadedVideoViewController: BaseVideoViewController {
             let video = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: selectedOfflineVideoToken),
             let videoID = video.properties[kBCOVVideoPropertyKeyId] as? String,
             let estimatedMegabytes = tabBarController?.streamingViewController()?.videoManager.estimatedDownloadSizeDictionary?[videoID] else {
-                infoLabel?.text = "No video selected"
+                noVideoSelectedLabel.isHidden = false
+                infoLabel.isHidden = true
                 posterImageView?.layer.borderColor = UIColor.clear.cgColor
                 playButton?.setTitle("--", for: .normal)
                 return
         }
         
         playButton?.setTitle("Play", for: .normal)
+        noVideoSelectedLabel.isHidden = true
         
         let actualMegabytes = dataSource.downloadSizeDictionary[selectedOfflineVideoToken] ?? 0
         let startTimeNumber = video.properties[kBCOVOfflineVideoDownloadStartTimePropertyKey] as? NSNumber ?? 0
@@ -246,6 +249,7 @@ class DownloadedVideoViewController: BaseVideoViewController {
         let downloadState = offlineVideoStatus.downloadStateString(estimatedMegabytes: estimatedMegabytes, actualMegabytes: actualMegabytes, startTime: startTimeNumber.doubleValue, endTime: endTimeNumber.doubleValue)
         
         if let name = video.properties[kBCOVVideoPropertyKeyName] {
+            infoLabel.isHidden = false
             infoLabel.text = "\(name)\nStatus: \(downloadState)\nLicense: \(licenseText)"
         }
         
