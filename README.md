@@ -8,7 +8,7 @@ ios-player-samples.git is a collection of sample applications for the Brightcove
 ### Prerequisites
 
 1. CocoaPods 1.0+
-1. Xcode 10.0+
+1. Xcode 11.0+
 
 An Apple Developer Program account is required to run any sample app on a physical device. In order to provision your device, edit the sample app bundle identifier to make it unique to your organization.
 
@@ -65,15 +65,11 @@ IMA samples demonstrate how to use the IMA plugin. These are intended to cover u
 
 #### Offline
 
-OfflinePlayer demonstrates downloading offline-enabled HLS videos and playing them back with or without a network connection. Xcode 9.0+ is required to build and run this sample app.
+OfflinePlayer demonstrates downloading offline-enabled HLS videos and playing them back with or without a network connection.
 
 #### Omniture
 
 Omniture samples demonstrate how to use the Omniture plugin.
-
-#### OUX
-
-OUX (OnceUX) has been deprecated and its sample projects will be removed in the  future. Please migrate your OUX apps to BrightcoveSSAI.
 
 #### Player
 
