@@ -15,7 +15,5 @@ pod install
 1. In the Project Navigator, expand the BasicFreewheelPlayer project.
 
 1. In Finder, select your AdManager.framework and drag it to the Frameworks group in the Xcode Project Navigator. When prompted, ensure that the AdManager.framework is being added to the BasicFreewheelPlayer target.
-
-1. **If you are using Xcode 9.0**, you must take an extra step to add the AdManager.framework to your application target. Select the AdManager.framework in the Project Navigator and  open the File Inspector. Make certain that BasicFreewheelPlayer is checked for Target Membership.
  
 1. In the Project Navigator, select the BasicFreewheelPlayer project. At the top of the Xcode Editor Area, choose Build Settings. Search for "Framework Search Paths". Add a framework search path that is the parent folder of your AdManager.framework (probably `iOS_AdManagerDistribution`).
