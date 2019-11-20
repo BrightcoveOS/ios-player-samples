@@ -140,27 +140,6 @@ static NSString * const kSampleVideo360VideoID = @"5240309173001";
     return UIInterfaceOrientationMaskAll;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    if (self.landscapeOnly)
-    {
-        switch (interfaceOrientation)
-        {
-            case UIInterfaceOrientationLandscapeLeft:
-            case UIInterfaceOrientationLandscapeRight:
-                // all good
-                break;
-            default:
-            {
-                return NO;
-                break;
-            }
-        }
-    }
-    
-    return YES;
-}
-
 - (BOOL)shouldAutorotate
 {
     return YES;
