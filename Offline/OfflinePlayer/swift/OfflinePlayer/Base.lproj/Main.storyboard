@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="t9h-Ix-WsY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="t9h-Ix-WsY">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -46,9 +46,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="PVe-om-ev0"/>
                                                 </constraints>
-                                                <state key="normal" title="Play">
-                                                    <color key="titleColor" red="0.24892729920000001" green="0.1381546025" blue="0.24417504509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
+                                                <state key="normal" title="Play"/>
                                                 <connections>
                                                     <action selector="playButtonPressed" destination="Ctt-m8-tXc" eventType="touchUpInside" id="ruD-7E-G2v"/>
                                                 </connections>
@@ -58,9 +56,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="YVB-2Z-oot"/>
                                                 </constraints>
-                                                <state key="normal" title="More…">
-                                                    <color key="titleColor" red="0.24892729920000001" green="0.1381546025" blue="0.24417504509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
+                                                <state key="normal" title="More…"/>
                                                 <connections>
                                                     <action selector="moreButtonPressed" destination="Ctt-m8-tXc" eventType="touchUpInside" id="uxs-D4-uRT"/>
                                                 </connections>
@@ -82,9 +78,7 @@
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="MEL-i0-7ZT"/>
                                                     <constraint firstAttribute="height" constant="30" id="gEX-PO-pCe"/>
                                                 </constraints>
-                                                <state key="normal" title="Pause">
-                                                    <color key="titleColor" red="0.24892729920000001" green="0.1381546025" blue="0.24417504509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
+                                                <state key="normal" title="Pause"/>
                                                 <connections>
                                                     <action selector="pauseButtonPressed" destination="Ctt-m8-tXc" eventType="touchUpInside" id="rZQ-HI-DfY"/>
                                                 </connections>
@@ -95,9 +89,7 @@
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="jHY-1F-Qj6"/>
                                                     <constraint firstAttribute="height" constant="30" id="zP4-7j-Xqf"/>
                                                 </constraints>
-                                                <state key="normal" title="Cancel">
-                                                    <color key="titleColor" red="0.24892729920000001" green="0.1381546025" blue="0.24417504509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
+                                                <state key="normal" title="Cancel"/>
                                                 <connections>
                                                     <action selector="cancelButtonPressed" destination="Ctt-m8-tXc" eventType="touchUpInside" id="sE6-ya-idt"/>
                                                 </connections>
