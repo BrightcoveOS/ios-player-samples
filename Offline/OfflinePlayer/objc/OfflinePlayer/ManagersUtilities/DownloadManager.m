@@ -250,11 +250,29 @@
     // `requestVideoDownload:mediaSelections:parameters:completion:`
     
     __weak typeof(self) weakSelf = self;
+    
     AVURLAsset *avURLAsset = [self.offlineVideoManager urlAssetForVideo:video error:nil];
-    NSArray<AVMediaSelection *> *mediaSelections = @[avURLAsset.preferredMediaSelection];
+    // If mediaSelections is `nil` the SDK will default to the AVURLAsset's `preferredMediaSelection`
+    NSArray<AVMediaSelection *> *mediaSelections = nil;
     if (@available(iOS 11.0, *)) {
-        mediaSelections = [avURLAsset allMediaSelections];
+        mediaSelections = avURLAsset.allMediaSelections;
     }
+    
+    AVMediaSelectionGroup *legibleMediaSelectionGroup = [avURLAsset mediaSelectionGroupForMediaCharacteristic:AVMediaCharacteristicLegible];
+    AVMediaSelectionGroup *audibleMediaSelectionGroup = [avURLAsset mediaSelectionGroupForMediaCharacteristic:AVMediaCharacteristicAudible];
+    
+    int counter = 0;
+    for (AVMediaSelection *s in mediaSelections)
+    {
+        AVMediaSelectionOption *legibleMediaSelectionOption = [s selectedMediaOptionInMediaSelectionGroup:legibleMediaSelectionGroup];
+        AVMediaSelectionOption *audibleMediaSelectionOption = [s selectedMediaOptionInMediaSelectionGroup:audibleMediaSelectionGroup];
+
+        NSLog(@"AVMediaSelection option %i | legible display name: %@", counter, legibleMediaSelectionOption.displayName ?: @"nil");
+        NSLog(@"AVMediaSelection option %i | audible display name: %@", counter, audibleMediaSelectionOption.displayName ?: @"nil");
+        
+        counter++;
+    }
+
     [self.offlineVideoManager requestVideoDownload:video
                                    mediaSelections:mediaSelections
                                         parameters:parameters

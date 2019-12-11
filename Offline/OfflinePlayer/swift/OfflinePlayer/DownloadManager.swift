@@ -315,15 +315,29 @@ class DownloadManager: NSObject {
             avURLAsset = try BCOVOfflineVideoManager.shared()?.urlAsset(for: video)
         } catch {}
         
+        // If mediaSelections is `nil` the SDK will default to the AVURLAsset's `preferredMediaSelection`
         var mediaSelections = [AVMediaSelection]()
         
         if let avURLAsset = avURLAsset {
             if #available(iOS 11.0, *) {
                 mediaSelections = avURLAsset.allMediaSelections
             }
-            else
-            {
-                mediaSelections = [avURLAsset.preferredMediaSelection]
+            
+            if let legibleMediaSelectionGroup = avURLAsset.mediaSelectionGroup(forMediaCharacteristic: .legible), let audibleMediaSelectionGroup = avURLAsset.mediaSelectionGroup(forMediaCharacteristic: .audible) {
+                
+                var counter = 0
+                for selection in mediaSelections {
+                    let legibleMediaSelectionOption = selection.selectedMediaOption(in: legibleMediaSelectionGroup)
+                    let audibleMediaSelectionOption = selection.selectedMediaOption(in: audibleMediaSelectionGroup)
+                    
+                    let legibleName = legibleMediaSelectionOption?.displayName ?? "nil"
+                    let audibleName = audibleMediaSelectionOption?.displayName ?? "nil"
+                    
+                    print("AVMediaSelection option \(counter) | legible display name: \(legibleName)")
+                    print("AVMediaSelection option \(counter) | audible display name: \(audibleName)")
+                    counter += 1
+                }
+                
             }
         }
         
