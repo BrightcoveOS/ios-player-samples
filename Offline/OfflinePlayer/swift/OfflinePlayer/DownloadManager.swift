@@ -302,7 +302,32 @@ class DownloadManager: NSObject {
             
         })
         
-        BCOVOfflineVideoManager.shared()?.requestVideoDownload(video, parameters: videoDownload.paramaters, completion: { [weak self] (offlineVideoToken: String?, error: Error?) in
+        // Prior to iOS 13 it was possible to download secondary tracks separately from the video itself.
+        // On iOS 13+ you must now download secondary tracks along with the video.
+        // The existing method for downloading videos is: `requestVideoDownload:parameters:completion:`
+        // You may still use this method on iOS 11 and 12.
+        // If you want to support iOS 13 and do not want to have any branching logic
+        // you can use the new method that is backwards compatible:
+        // `requestVideoDownload:mediaSelections:parameters:completion:`
+    
+        var avURLAsset: AVURLAsset?
+        do {
+            avURLAsset = try BCOVOfflineVideoManager.shared()?.urlAsset(for: video)
+        } catch {}
+        
+        var mediaSelections = [AVMediaSelection]()
+        
+        if let avURLAsset = avURLAsset {
+            if #available(iOS 11.0, *) {
+                mediaSelections = avURLAsset.allMediaSelections
+            }
+            else
+            {
+                mediaSelections = [avURLAsset.preferredMediaSelection]
+            }
+        }
+        
+        BCOVOfflineVideoManager.shared()?.requestVideoDownload(video, mediaSelections: mediaSelections, parameters: videoDownload.paramaters, completion: { [weak self] (offlineVideoToken: String?, error: Error?) in
             
             DispatchQueue.main.async {
 
@@ -380,45 +405,6 @@ extension DownloadManager {
         }
         
         return licenseParamaters
-    }
-    
-    class func downloadAllSecondaryTracks(forOfflineVideoToken token: String) {
-        
-        // This demonstrates the "iOS 11 way" of downloading all secondary tracks
-        // for your offline video.
-        if #available(iOS 11.0, *) {
-            
-            // Get the offline video object
-            guard let video = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: token), let offlineVideoPath = video.properties[kBCOVOfflineVideoFilePathPropertyKey] as? String else {
-                return
-            }
-            
-            // Get the path to the locally stored video and make an AVURLAsset out of it
-            let videoPathURL = URL(fileURLWithPath: offlineVideoPath)
-            
-            let urlAsset = AVURLAsset(url: videoPathURL)
-            
-            // Get all the available media selections
-            let mediaSelections = urlAsset.allMediaSelections
-            
-            if mediaSelections.count > 0 {
-                // Log the list of media selections that will be downloaded:
-                print("Found \(mediaSelections.count) media selections in \(token)")
-                for mediaSelection in mediaSelections {
-                    let desc = mediaSelectionDescription(fromMediaSelection: mediaSelection, forToken: token)
-                    print("\(desc)")
-                }
-                
-                BCOVOfflineVideoManager.shared()?.requestMediaSelectionsDownload(mediaSelections, offlineVideoToken: token)
-                
-            } else {
-                print("There are no secondary tracks to download")
-            }
-            
-        } else {
-            print("Secondary tracks can only be downloaded with this method on iOS 11+.")
-        }
-        
     }
     
     class func mediaSelectionDescription(fromMediaSelection selection: AVMediaSelection, forToken token: String) -> String {

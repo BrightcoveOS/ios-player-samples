@@ -114,15 +114,6 @@ static unsigned long long int directorySize(NSString *folderPath)
     
     [self createPlayerView];
 
-    {
-        // Long press on a downloaded video gives the option of downloading all tracks (iOS 11+ only)
-        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
-                                                   initWithTarget:self action:@selector(handleLongPress:)];
-        longPress.minimumPressDuration = 1.0; //seconds
-        longPress.delegate = self;
-        [self.downloadsTableView addGestureRecognizer:longPress];
-    }
-
     [self setup];
 }
 
@@ -821,104 +812,6 @@ static unsigned long long int directorySize(NSString *folderPath)
     self.moreButton.enabled = YES;
     self.pauseButton.enabled = YES;
     self.cancelButton.enabled = YES;
-}
-
-- (void)handleLongPress:(UILongPressGestureRecognizer *)longPress
-{
-    // Long press on a downloaded video gives the option of downloading all tracks.
-    // On iOS 11, this is done here, after the main video has been downloaded.
-    // In iOS 10, tracks are downloaded along with the main video.
-    // Refer to OfflinePlayback.md for details.
-    if (@available(iOS 11.0, *))
-    {
-        switch (longPress.state)
-        {
-            default:
-            case UIGestureRecognizerStatePossible:
-            case UIGestureRecognizerStateCancelled:
-            case UIGestureRecognizerStateFailed:
-                // nothing to do:
-                break;
-                
-            case UIGestureRecognizerStateBegan:
-            {
-                // Find the index of the cell that was long-tapped.
-                CGPoint p = [longPress locationInView:self.downloadsTableView];
-                
-                NSIndexPath *indexPath = [self.downloadsTableView indexPathForRowAtPoint:p];
-                int index = (int)indexPath.row;
-                if (index >= DownloadManager.sharedInstance.offlineVideoTokenArray.count)
-                {
-                    return;
-                }
-                
-                BCOVOfflineVideoToken offlineVideoToken = DownloadManager.sharedInstance.offlineVideoTokenArray[index];
-                BCOVOfflineVideoStatus *offlineVideoStatus = [BCOVOfflineVideoManager.sharedManager offlineVideoStatusForToken:offlineVideoToken];
-                
-                // Secondary tracks can be downloaded if...
-                // The video has completed downloading...
-                // or the track downloading resulted in an error...
-                // or track downloading was cancelled.
-                if ((offlineVideoStatus.downloadState != BCOVOfflineVideoDownloadStateCompleted)
-                    && (offlineVideoStatus.downloadState != BCOVOfflineVideoDownloadStateTracksError)
-                    && (offlineVideoStatus.downloadState != BCOVOfflineVideoDownloadStateTracksCancelled))
-                {
-                    // For other cases, show a warning alert and get out.
-                    
-                    NSString *message;
-                    
-                    switch (offlineVideoStatus.downloadState)
-                    {
-                        case BCOVOfflineVideoDownloadStateCompleted:
-                            // all good
-                            break;
-                        case BCOVOfflineVideoDownloadStateTracksCompleted:
-                            message = @"Additional tracks have already been downloaded.";
-                            break;
-                        case BCOVOfflineVideoDownloadStateTracksRequested:
-                        case BCOVOfflineVideoDownloadStateTracksDownloading:
-                            message = @"Additional tracks are already downloading.";
-                            break;
-                        default:
-                            message = @"Additional tracks can only be downloaded after the video has been successfully downloaded.";
-                            break;
-                    }
-                    
-                    [UIAlertController showAlertWithTitle:@"Download Additional Tracks" message:message actionTitle:@"Cancel" inController:self];
-                    
-                    return;
-                }
-                
-                BCOVVideo *offlineVideo = [BCOVOfflineVideoManager.sharedManager videoObjectFromOfflineVideoToken:offlineVideoToken];
-                NSString *videoName = offlineVideo.properties[kBCOVVideoPropertyKeyName];
-                NSString *message = [NSString stringWithFormat:@"Download all additional tracks for the video \"%@\"?", videoName];
-                
-                NSLog(@"Long press on \"%@\"", videoName);
-                
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Download Additional Tracks"
-                                                                               message:message
-                                                                        preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Download Tracks" style:UIAlertActionStyleDefault
-                                                                      handler:^(UIAlertAction *action) {
-                                                                          
-                                                                          [InterfaceManager.sharedInstance.videosViewController downloadAllSecondaryTracksForOfflineVideoToken:offlineVideoToken];
-                                                                          
-                                                                      }];
-                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
-                                                                     handler:nil];
-                
-                
-                [alert addAction:defaultAction];
-                [alert addAction:cancelAction];
-                [self presentViewController:alert animated:YES completion:nil];
-                
-                break;
-            }
-            case UIGestureRecognizerStateChanged:
-            case UIGestureRecognizerStateEnded:
-                break;
-        }
-    }
 }
 
 #pragma mark - BCOVPlaybackController Delegate Methods

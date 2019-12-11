@@ -241,8 +241,22 @@
      
      }];
     
+    // Prior to iOS 13 it was possible to download secondary tracks separately from the video itself.
+    // On iOS 13+ you must now download secondary tracks along with the video.
+    // The existing method for downloading videos is: `requestVideoDownload:parameters:completion:`
+    // You may still use this method on iOS 11 and 12.
+    // If you want to support iOS 13 and do not want to have any branching logic
+    // you can use the new method that is backwards compatible:
+    // `requestVideoDownload:mediaSelections:parameters:completion:`
+    
     __weak typeof(self) weakSelf = self;
+    AVURLAsset *avURLAsset = [self.offlineVideoManager urlAssetForVideo:video error:nil];
+    NSArray<AVMediaSelection *> *mediaSelections = @[avURLAsset.preferredMediaSelection];
+    if (@available(iOS 11.0, *)) {
+        mediaSelections = [avURLAsset allMediaSelections];
+    }
     [self.offlineVideoManager requestVideoDownload:video
+                                   mediaSelections:mediaSelections
                                         parameters:parameters
                                         completion:^(BCOVOfflineVideoToken offlineVideoToken, NSError *error) {
                                             
