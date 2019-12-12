@@ -24,6 +24,8 @@ class DownloadManager: NSObject {
     
     weak var delegate: ReloadDelegate?
     
+    static var shared = DownloadManager()
+    
     func doDownload(forVideo video: BCOVVideo) {
         
         if videoAlreadyProcessing(video) {
@@ -345,16 +347,16 @@ class DownloadManager: NSObject {
             
             DispatchQueue.main.async {
 
-                if let error = error {
+                if let error = error, let self = self {
                     
-                    self?.downloadInProgress = false
+                    self.downloadInProgress = false
                     
                     // try again with another video
                     if #available(iOS 11.4, *)
                     {}
                     else
                     {
-                        self?.downloadVideoFromQueue()
+                        self.downloadVideoFromQueue()
                     }
                     
                     // Report any errors
@@ -472,6 +474,22 @@ extension DownloadManager: BCOVOfflineVideoManagerDelegate {
         // This delegate method reports progress for the primary video download
         let percentString = String(format: "%0.2f", progressPercent)
         print("Offline download didProgressTo: \(percentString) for token: \(offlineVideoToken!)")
+        
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus, object: nil)
+            let downloadsVC = AppDelegate.current().tabBarController.downloadsViewController()
+            downloadsVC?.updateInfoForSelectedDownload()
+            downloadsVC?.refresh()
+        }
+    }
+    
+    func offlineVideoToken(_ offlineVideoToken: String!, aggregateDownloadTask: AVAggregateAssetDownloadTask!, didProgressTo progressPercent: TimeInterval, for mediaSelection: AVMediaSelection!) {
+        // iOS 11+ only
+        // The specific requested media selected option related to this
+        // offline video token has progressed to the specified percent
+        if let offlineVideoToken = offlineVideoToken {
+            print("aggregateDownloadTask:didProgressTo:\(progressPercent) for token: \(offlineVideoToken)")
+        }
         
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus, object: nil)
