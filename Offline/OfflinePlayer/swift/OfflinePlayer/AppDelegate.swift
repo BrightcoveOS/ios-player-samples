@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import BrightcovePlayerSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -43,6 +44,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         application.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
+        
+        let off = NSNumber(booleanLiteral: false)
+        
+        let options = [kBCOVOfflineVideoManagerAllowsCellularDownloadKey: off, kBCOVOfflineVideoManagerAllowsCellularPlaybackKey: off, kBCOVOfflineVideoManagerAllowsCellularAnalyticsKey: off]
+        BCOVOfflineVideoManager.initializeOfflineVideoManager(with: DownloadManager.shared, options: options)
         
         return true
     }

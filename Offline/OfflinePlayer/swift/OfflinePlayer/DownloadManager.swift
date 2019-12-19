@@ -24,6 +24,8 @@ class DownloadManager: NSObject {
     
     weak var delegate: ReloadDelegate?
     
+    static var shared = DownloadManager()
+    
     func doDownload(forVideo video: BCOVVideo) {
         
         if videoAlreadyProcessing(video) {
@@ -302,20 +304,59 @@ class DownloadManager: NSObject {
             
         })
         
-        BCOVOfflineVideoManager.shared()?.requestVideoDownload(video, parameters: videoDownload.paramaters, completion: { [weak self] (offlineVideoToken: String?, error: Error?) in
+        // Prior to iOS 13 it was possible to download secondary tracks separately from the video itself.
+        // On iOS 13+ you must now download secondary tracks along with the video.
+        // The existing method for downloading videos is: `requestVideoDownload:parameters:completion:`
+        // You may still use this method on iOS 11 and 12.
+        // If you want to support iOS 13 and do not want to have any branching logic
+        // you can use the new method that is backwards compatible:
+        // `requestVideoDownload:mediaSelections:parameters:completion:`
+    
+        var avURLAsset: AVURLAsset?
+        do {
+            avURLAsset = try BCOVOfflineVideoManager.shared()?.urlAsset(for: video)
+        } catch {}
+        
+        // If mediaSelections is `nil` the SDK will default to the AVURLAsset's `preferredMediaSelection`
+        var mediaSelections = [AVMediaSelection]()
+        
+        if let avURLAsset = avURLAsset {
+            if #available(iOS 11.0, *) {
+                mediaSelections = avURLAsset.allMediaSelections
+            }
+            
+            if let legibleMediaSelectionGroup = avURLAsset.mediaSelectionGroup(forMediaCharacteristic: .legible), let audibleMediaSelectionGroup = avURLAsset.mediaSelectionGroup(forMediaCharacteristic: .audible) {
+                
+                var counter = 0
+                for selection in mediaSelections {
+                    let legibleMediaSelectionOption = selection.selectedMediaOption(in: legibleMediaSelectionGroup)
+                    let audibleMediaSelectionOption = selection.selectedMediaOption(in: audibleMediaSelectionGroup)
+                    
+                    let legibleName = legibleMediaSelectionOption?.displayName ?? "nil"
+                    let audibleName = audibleMediaSelectionOption?.displayName ?? "nil"
+                    
+                    print("AVMediaSelection option \(counter) | legible display name: \(legibleName)")
+                    print("AVMediaSelection option \(counter) | audible display name: \(audibleName)")
+                    counter += 1
+                }
+                
+            }
+        }
+        
+        BCOVOfflineVideoManager.shared()?.requestVideoDownload(video, mediaSelections: mediaSelections, parameters: videoDownload.paramaters, completion: { [weak self] (offlineVideoToken: String?, error: Error?) in
             
             DispatchQueue.main.async {
 
-                if let error = error {
+                if let error = error, let self = self {
                     
-                    self?.downloadInProgress = false
+                    self.downloadInProgress = false
                     
                     // try again with another video
                     if #available(iOS 11.4, *)
                     {}
                     else
                     {
-                        self?.downloadVideoFromQueue()
+                        self.downloadVideoFromQueue()
                     }
                     
                     // Report any errors
@@ -382,45 +423,6 @@ extension DownloadManager {
         return licenseParamaters
     }
     
-    class func downloadAllSecondaryTracks(forOfflineVideoToken token: String) {
-        
-        // This demonstrates the "iOS 11 way" of downloading all secondary tracks
-        // for your offline video.
-        if #available(iOS 11.0, *) {
-            
-            // Get the offline video object
-            guard let video = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: token), let offlineVideoPath = video.properties[kBCOVOfflineVideoFilePathPropertyKey] as? String else {
-                return
-            }
-            
-            // Get the path to the locally stored video and make an AVURLAsset out of it
-            let videoPathURL = URL(fileURLWithPath: offlineVideoPath)
-            
-            let urlAsset = AVURLAsset(url: videoPathURL)
-            
-            // Get all the available media selections
-            let mediaSelections = urlAsset.allMediaSelections
-            
-            if mediaSelections.count > 0 {
-                // Log the list of media selections that will be downloaded:
-                print("Found \(mediaSelections.count) media selections in \(token)")
-                for mediaSelection in mediaSelections {
-                    let desc = mediaSelectionDescription(fromMediaSelection: mediaSelection, forToken: token)
-                    print("\(desc)")
-                }
-                
-                BCOVOfflineVideoManager.shared()?.requestMediaSelectionsDownload(mediaSelections, offlineVideoToken: token)
-                
-            } else {
-                print("There are no secondary tracks to download")
-            }
-            
-        } else {
-            print("Secondary tracks can only be downloaded with this method on iOS 11+.")
-        }
-        
-    }
-    
     class func mediaSelectionDescription(fromMediaSelection selection: AVMediaSelection, forToken token: String) -> String {
         // Get the offline video object and its path
         guard let offlineVideo = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: token), let videoPath = offlineVideo.properties[kBCOVOfflineVideoFilePathPropertyKey] as? String else {
@@ -472,6 +474,22 @@ extension DownloadManager: BCOVOfflineVideoManagerDelegate {
         // This delegate method reports progress for the primary video download
         let percentString = String(format: "%0.2f", progressPercent)
         print("Offline download didProgressTo: \(percentString) for token: \(offlineVideoToken!)")
+        
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus, object: nil)
+            let downloadsVC = AppDelegate.current().tabBarController.downloadsViewController()
+            downloadsVC?.updateInfoForSelectedDownload()
+            downloadsVC?.refresh()
+        }
+    }
+    
+    func offlineVideoToken(_ offlineVideoToken: String!, aggregateDownloadTask: AVAggregateAssetDownloadTask!, didProgressTo progressPercent: TimeInterval, for mediaSelection: AVMediaSelection!) {
+        // iOS 11+ only
+        // The specific requested media selected option related to this
+        // offline video token has progressed to the specified percent
+        if let offlineVideoToken = offlineVideoToken {
+            print("aggregateDownloadTask:didProgressTo:\(progressPercent) for token: \(offlineVideoToken)")
+        }
         
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus, object: nil)

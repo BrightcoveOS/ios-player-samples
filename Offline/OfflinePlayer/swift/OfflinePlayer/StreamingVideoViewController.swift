@@ -38,7 +38,7 @@ class StreamingVideoViewController: BaseVideoViewController {
     }()
     
     lazy var downloadManager: DownloadManager = {
-        let _downloadManager = DownloadManager()
+        let _downloadManager = DownloadManager.shared
         _downloadManager.delegate = self
         return _downloadManager
     }()
@@ -67,11 +67,6 @@ class StreamingVideoViewController: BaseVideoViewController {
         if let downloadsVC = tabBarController?.downloadsViewController() {
             downloadsVC.updateBadge()
         }
-        
-        let off = NSNumber(booleanLiteral: false)
-        
-        let options = [kBCOVOfflineVideoManagerAllowsCellularDownloadKey: off, kBCOVOfflineVideoManagerAllowsCellularPlaybackKey: off, kBCOVOfflineVideoManagerAllowsCellularAnalyticsKey: off]
-        BCOVOfflineVideoManager.initializeOfflineVideoManager(with: downloadManager, options: options)
         
         setup()
     }

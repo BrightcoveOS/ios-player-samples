@@ -5,5 +5,5 @@ use_frameworks!
 platform :ios, '10.0'
 
 target 'OfflinePlayer' do
-	pod 'Brightcove-Player-Core/dynamic', '>= 6.2.2'
+	pod 'Brightcove-Player-Core/dynamic'
 end

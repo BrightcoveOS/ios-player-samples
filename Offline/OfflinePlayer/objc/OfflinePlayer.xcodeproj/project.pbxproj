@@ -147,9 +147,9 @@
 			children = (
 				342B10D01FFED58C00A2D343 /* AppDelegate.h */,
 				342B10D11FFED58C00A2D343 /* AppDelegate.m */,
-				E927934C236B25C700435AD4 /* View Controllers */,
-				E927934B236B25B600435AD4 /* Table View Cells */,
-				E927934D236B25E000435AD4 /* Managers and Utilities */,
+				E927934C236B25C700435AD4 /* ViewControllers */,
+				E927934B236B25B600435AD4 /* TableViewCells */,
+				E927934D236B25E000435AD4 /* ManagersUtilities */,
 				342B10D91FFED58C00A2D343 /* Assets.xcassets */,
 				22EF4ACB2003FEFF00F85A29 /* Images */,
 				342B10DB1FFED58C00A2D343 /* LaunchScreen.storyboard */,
@@ -159,17 +159,17 @@
 			path = OfflinePlayer;
 			sourceTree = "<group>";
 		};
-		E927934B236B25B600435AD4 /* Table View Cells */ = {
+		E927934B236B25B600435AD4 /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
 				E91CAA5C23673C9B00290B60 /* VideoTableViewCell.h */,
 				E91CAA5D23673C9B00290B60 /* VideoTableViewCell.m */,
 				E91CAA6D23675D1300290B60 /* VideoTableViewCell.xib */,
 			);
-			path = "Table View Cells";
+			path = TableViewCells;
 			sourceTree = "<group>";
 		};
-		E927934C236B25C700435AD4 /* View Controllers */ = {
+		E927934C236B25C700435AD4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				342B10D61FFED58C00A2D343 /* Main.storyboard */,
@@ -180,10 +180,10 @@
 				223B44EA2003E7D400C6C60C /* SettingsViewController.h */,
 				223B44ED2003E7D400C6C60C /* SettingsViewController.m */,
 			);
-			path = "View Controllers";
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		E927934D236B25E000435AD4 /* Managers and Utilities */ = {
+		E927934D236B25E000435AD4 /* ManagersUtilities */ = {
 			isa = PBXGroup;
 			children = (
 				E91CAA70236765A900290B60 /* InterfaceManager.h */,
@@ -197,7 +197,7 @@
 				E9A6B423236A0EB700EB0690 /* BCOVVIdeo+Convenience.h */,
 				E9A6B424236A0EB700EB0690 /* BCOVVIdeo+Convenience.m */,
 			);
-			path = "Managers and Utilities";
+			path = ManagersUtilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -368,7 +368,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -419,7 +419,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
