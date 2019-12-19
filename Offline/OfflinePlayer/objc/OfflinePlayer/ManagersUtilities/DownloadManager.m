@@ -241,8 +241,40 @@
      
      }];
     
+    // Prior to iOS 13 it was possible to download secondary tracks separately from the video itself.
+    // On iOS 13+ you must now download secondary tracks along with the video.
+    // The existing method for downloading videos is: `requestVideoDownload:parameters:completion:`
+    // You may still use this method on iOS 11 and 12.
+    // If you want to support iOS 13 and do not want to have any branching logic
+    // you can use the new method that is backwards compatible:
+    // `requestVideoDownload:mediaSelections:parameters:completion:`
+    
     __weak typeof(self) weakSelf = self;
+    
+    AVURLAsset *avURLAsset = [self.offlineVideoManager urlAssetForVideo:video error:nil];
+    // If mediaSelections is `nil` the SDK will default to the AVURLAsset's `preferredMediaSelection`
+    NSArray<AVMediaSelection *> *mediaSelections = nil;
+    if (@available(iOS 11.0, *)) {
+        mediaSelections = avURLAsset.allMediaSelections;
+    }
+    
+    AVMediaSelectionGroup *legibleMediaSelectionGroup = [avURLAsset mediaSelectionGroupForMediaCharacteristic:AVMediaCharacteristicLegible];
+    AVMediaSelectionGroup *audibleMediaSelectionGroup = [avURLAsset mediaSelectionGroupForMediaCharacteristic:AVMediaCharacteristicAudible];
+    
+    int counter = 0;
+    for (AVMediaSelection *s in mediaSelections)
+    {
+        AVMediaSelectionOption *legibleMediaSelectionOption = [s selectedMediaOptionInMediaSelectionGroup:legibleMediaSelectionGroup];
+        AVMediaSelectionOption *audibleMediaSelectionOption = [s selectedMediaOptionInMediaSelectionGroup:audibleMediaSelectionGroup];
+
+        NSLog(@"AVMediaSelection option %i | legible display name: %@", counter, legibleMediaSelectionOption.displayName ?: @"nil");
+        NSLog(@"AVMediaSelection option %i | audible display name: %@", counter, audibleMediaSelectionOption.displayName ?: @"nil");
+        
+        counter++;
+    }
+
     [self.offlineVideoManager requestVideoDownload:video
+                                   mediaSelections:mediaSelections
                                         parameters:parameters
                                         completion:^(BCOVOfflineVideoToken offlineVideoToken, NSError *error) {
                                             

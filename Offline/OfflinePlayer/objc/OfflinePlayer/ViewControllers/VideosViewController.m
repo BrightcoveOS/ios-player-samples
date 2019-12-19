@@ -256,56 +256,6 @@
      }];
 }
 
-- (void)downloadAllSecondaryTracksForOfflineVideoToken:(BCOVOfflineVideoToken)offlineVideoToken
-{
-    // This demonstrates the "iOS 11 way" of downloading all secondary tracks
-    // for your offline video.
-    if (@available(iOS 11.0, *))
-    {
-        // Get the offline video object
-        BCOVVideo *offlineVideo = [BCOVOfflineVideoManager.sharedManager videoObjectFromOfflineVideoToken:offlineVideoToken];
-        
-        // Get the path to the locally stored video and make an AVURLAsset out of it
-        NSString *offlineVideoPath = offlineVideo.properties[kBCOVOfflineVideoFilePathPropertyKey];
-        if (offlineVideoPath == nil)
-        {
-            NSLog(@"Video path for %@ not found", offlineVideoToken);
-            return;
-        }
-        
-        NSURL *offlineVideoPathURL = [NSURL fileURLWithPath:offlineVideoPath];
-        
-        AVURLAsset *URLAsset = [AVURLAsset assetWithURL:offlineVideoPathURL];
-        
-        // Get all the available media selections
-        NSArray<AVMediaSelection *> *mediaSelections = URLAsset.allMediaSelections;
-        
-        if (mediaSelections.count > 0)
-        {
-            // Log the list of media selections that will be downloaded:
-            NSLog(@"Found %d media selections in %@", (int)mediaSelections.count, offlineVideoToken);
-            for (AVMediaSelection *mediaSelection in mediaSelections)
-            {
-                NSString *mediaSelectionDescription = [DownloadManager.sharedInstance mediaSelectionDescription:mediaSelection
-                                                                                                       URLAsset:URLAsset];
-                
-                NSLog(@"\t%@", mediaSelectionDescription);
-            }
-            
-            [BCOVOfflineVideoManager.sharedManager requestMediaSelectionsDownload:mediaSelections
-                                                                offlineVideoToken:offlineVideoToken];
-        }
-        else
-        {
-            NSLog(@"There are no secondary tracks to download");
-        }
-    }
-    else
-    {
-        NSLog(@"Secondary tracks can only be downloaded with this method on iOS 11+.");
-    }
-}
-
 #pragma mark - UITabBarController Delegate Methods
 
 - (UIInterfaceOrientationMask)tabBarControllerSupportedInterfaceOrientations:(UITabBarController *)tabBarController

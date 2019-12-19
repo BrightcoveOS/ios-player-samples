@@ -26,10 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 // Synchronize our table with data from the offline video manager
 - (void)updateStatus;
 
-// This demonstrates the "iOS 11 way" of downloading secondary tracks
-// for your offline video.
-- (void)downloadAllSecondaryTracksForOfflineVideoToken:(nonnull BCOVOfflineVideoToken)offlineVideoToken;
-
 @end
 
 NS_ASSUME_NONNULL_END

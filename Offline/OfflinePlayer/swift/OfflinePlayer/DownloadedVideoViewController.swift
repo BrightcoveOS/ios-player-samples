@@ -60,7 +60,6 @@ class DownloadedVideoViewController: BaseVideoViewController {
         videoContainerView.alpha = 0.0
         tableView.dataSource = dataSource
         updateInfoForSelectedDownload()
-        setupLongPressGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,40 +80,6 @@ class DownloadedVideoViewController: BaseVideoViewController {
     }
     
     // MARK: - Misc
-    
-    private func setupLongPressGesture() {
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
-        longPress.minimumPressDuration = 1.0 //seconds
-        tableView.addGestureRecognizer(longPress)
-    }
-    
-    @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
-        // Long press on a downloaded video gives the option of downloading all tracks.
-        // On iOS 11, this is done here, after the main video has been downloaded.
-        // In iOS 10, tracks are downloaded along with the main video.
-        // Refer to OfflinePlayback.md for details.
-        if #available(iOS 11.0, *) {
-            
-            switch gesture.state {
-            case .began:
-                // Find the index of the cell that was long-tapped
-                let point = gesture.location(in: tableView)
-                guard let indexPath = tableView.indexPathForRow(at: point), let offlineTokenArray = dataSource.offlineTokenArray, indexPath.row < offlineTokenArray.count else {
-                    return
-                }
-                
-                let token = offlineTokenArray[indexPath.row]
-                if let status = BCOVOfflineVideoManager.shared()?.offlineVideoStatus(forToken: token) {
-                    if verifyDownloadStateToDownloadSecondaryTracks(status) {
-                        promptToDownloadSecondaryTracks(withToken: token)
-                    }
-                }
-            default:
-                break
-            }
-            
-        }
-    }
     
     private func verifyDownloadStateToDownloadSecondaryTracks(_ status: BCOVOfflineVideoStatus) -> Bool {
         // Secondary tracks can be downloaded if...
@@ -145,28 +110,6 @@ class DownloadedVideoViewController: BaseVideoViewController {
         }
         
         return true
-    }
-    
-    private func promptToDownloadSecondaryTracks(withToken token: String) {
-        
-        guard let video = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: token) else {
-            return
-        }
-        
-        let name = video.properties[kBCOVVideoPropertyKeyName] as? String ?? "unknown"
-        let message = "Download all additional tracks for the video \"\(name)\"?"
-        
-        print("Long press on \"\(name)\"")
-        
-        let alert = UIAlertController(title: "Download Additional Tracks", message: message, preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Download Tracks", style: .default, handler: { (action: UIAlertAction) in
-            DownloadManager.downloadAllSecondaryTracks(forOfflineVideoToken: token)
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        present(alert, animated: true, completion: nil)
     }
 
     @objc private func updateFreeSpaceLabel() {
