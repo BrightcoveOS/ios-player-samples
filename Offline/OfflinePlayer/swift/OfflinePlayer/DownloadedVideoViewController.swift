@@ -80,37 +80,6 @@ class DownloadedVideoViewController: BaseVideoViewController {
     }
     
     // MARK: - Misc
-    
-    private func verifyDownloadStateToDownloadSecondaryTracks(_ status: BCOVOfflineVideoStatus) -> Bool {
-        // Secondary tracks can be downloaded if...
-        // The video has completed downloading...
-        // or the track downloading resulted in an error...
-        // or track downloading was cancelled.
-        
-        if (status.downloadState != .stateCompleted && status.downloadState != .stateTracksError && status.downloadState != .stateTracksCancelled) {
-            // For other cases, show a warning alert and get out.
-            
-            var message: String?
-            
-            switch status.downloadState {
-            case .stateTracksCompleted:
-                message = "Additional tracks have already been downloaded"
-                case .stateTracksRequested,
-                     .stateTracksDownloading:
-                message = "Additional tracks are already downloading"
-            default:
-                message = "Additional tracks can only be downloaded after the video has been successfully downloaded."
-            }
-            
-            if let message = message {
-                UIAlertController.show(withTitle: "Download Additional Tracks", andMessage: message)
-            }
-            
-            return false
-        }
-        
-        return true
-    }
 
     @objc private func updateFreeSpaceLabel() {
         
