@@ -134,7 +134,7 @@ class VideoTableViewCell: UITableViewCell {
         
             let duration = durationNumber.intValue / 1000
             
-            if offlineStatus.downloadState == .stateCompleted {
+            if offlineStatus.downloadState == .stateTracksCompleted {
                 
                 // download complete: show the downloaded video size
                 

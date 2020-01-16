@@ -757,6 +757,7 @@ static unsigned long long int directorySize(NSString *folderPath)
         case BCOVOfflineVideoDownloadStateCancelled:
             downloadState = @"cancelled";
             break;
+        case BCOVOfflineVideoDownloadStateTracksCompleted:
         case BCOVOfflineVideoDownloadStateCompleted:
         {
             NSNumber *actualMegabytesNumber = self.downloadSizeDictionary[self.selectedOfflineVideoToken];
@@ -787,11 +788,6 @@ static unsigned long long int directorySize(NSString *folderPath)
         case BCOVOfflineVideoDownloadStateTracksCancelled:
             downloadState = @"tracks download cancelled";
             break;
-        case BCOVOfflineVideoDownloadStateTracksCompleted:
-        {
-            downloadState = [NSString stringWithFormat:@"tracks download complete"];
-            break;
-        }
         case BCOVOfflineVideoDownloadStateTracksError:
             downloadState = [NSString stringWithFormat:@"tracks download error %ld (%@)", (long)offlineVideoStatus.error.code, offlineVideoStatus.error.localizedDescription];
             break;
@@ -1024,7 +1020,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     NSNumber *megabytesValue = self.downloadSizeDictionary[offlineVideoToken];
     double megabytes = 0.0;
 
-    if (offlineVideoStatus.downloadState == BCOVOfflineVideoDownloadStateCompleted)
+    if (offlineVideoStatus.downloadState == BCOVOfflineVideoDownloadStateTracksCompleted)
     {
         // Compute size if it hasn't been done yet
         if (megabytesValue == nil)

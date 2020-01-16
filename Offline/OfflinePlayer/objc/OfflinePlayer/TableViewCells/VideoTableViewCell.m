@@ -104,7 +104,7 @@
     int duration = durationNumber.intValue / 1000;
     NSString *twoLineDetailString;
     
-    if (offlineStatus.downloadState == BCOVOfflineVideoDownloadStateCompleted)
+    if (offlineStatus.downloadState == BCOVOfflineVideoDownloadStateTracksCompleted)
     {
         // Use Kilobytes if the measurement is too small
         if (downloadSize < 0.5)
