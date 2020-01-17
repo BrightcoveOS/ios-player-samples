@@ -24,6 +24,7 @@ fileprivate struct playbackConfig {
     
     private var posters: [String:UIImage] = [:]
     private var playlist: BCOVPlaylist?
+    private let googleCastManager: BCOVGoogleCastManager = BCOVGoogleCastManager()
     
     lazy var playerView: BCOVPUIPlayerView? = {
         
@@ -59,7 +60,7 @@ fileprivate struct playbackConfig {
         _playbackController.isAutoPlay = true
         _playbackController.delegate = self
         
-        _playbackController.add(BCOVGoogleCastManager.shared())
+        _playbackController.add(googleCastManager)
         
         return _playbackController
         
@@ -83,7 +84,7 @@ fileprivate struct playbackConfig {
         
         playerView?.playbackController = playbackController
         
-        BCOVGoogleCastManager.shared().delegate = self
+        googleCastManager.delegate = self
     }
 
     // MARK: - Misc
