@@ -23,6 +23,7 @@ static NSString * const kPlaylistRefID = @"brightcove-native-sdk-plist";
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
 @property (nonatomic, strong) BCOVPUIPlayerView *playerView;
 @property (nonatomic, strong) BCOVPlaylist *playlist;
+@property (nonatomic, strong) BCOVGoogleCastManager *googleCastManager;
 
 @end
 
@@ -39,7 +40,8 @@ static NSString * const kPlaylistRefID = @"brightcove-native-sdk-plist";
     GCKUICastButton *castButton = [[GCKUICastButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:castButton];
 
-    [BCOVGoogleCastManager sharedManager].delegate = self;
+    self.googleCastManager = [BCOVGoogleCastManager new];
+    self.googleCastManager.delegate = self;
     
     [self setupPlaybackController];
     [self setupPlayerView];
@@ -98,7 +100,7 @@ static NSString * const kPlaylistRefID = @"brightcove-native-sdk-plist";
     self.playbackController.autoAdvance = YES;
     self.playbackController.delegate = self;
     
-    [self.playbackController addSessionConsumer:BCOVGoogleCastManager.sharedManager];
+    [self.playbackController addSessionConsumer:self.googleCastManager];
 }
 
 - (void)setupPlayerView
