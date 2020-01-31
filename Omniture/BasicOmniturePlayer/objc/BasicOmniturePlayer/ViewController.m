@@ -50,7 +50,7 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
     _playbackController = [manager createPlaybackControllerWithViewStrategy:nil];
     _playbackController.delegate = self;
     _playbackController.autoAdvance = YES;
-    _playbackController.autoPlay = NO;
+    _playbackController.autoPlay = YES;
 
     // Use Adobe Video Media Heartbeat v2.0 analytics
     [_playbackController addSessionConsumer: [self videoHeartbeatSessionConsumer]];
