@@ -221,6 +221,22 @@ static unsigned long long int directorySize(NSString *folderPath)
             return;
         }
         
+        BCOVOfflineVideoManager *sharedManager = BCOVOfflineVideoManager.sharedManager;
+
+        BCOVOfflineVideoStatus *offlineVideoStatus = [sharedManager offlineVideoStatusForToken:self.selectedOfflineVideoToken];
+
+        if (offlineVideoStatus.downloadState == BCOVOfflineVideoDownloadStateCancelled)
+        {
+            [UIAlertController showAlertWithTitle:nil message:@"This video is not currently playable. The download was cancelled." actionTitle:@"OK" inController:self];
+            return;
+        }
+
+        if (!video.playableOffline)
+        {
+            [UIAlertController showAlertWithTitle:nil message:@"This video is not currently playable. The download may still be in progress." actionTitle:@"OK" inController:self];
+            return;
+        }
+        
         self.videoContainer.alpha = 1.0;
         
         [self createNewPlaybackController];
@@ -231,12 +247,7 @@ static unsigned long long int directorySize(NSString *folderPath)
     }
     else
     {
-        // Hiding
-        self.playbackController = nil;
-        self.videoContainer.alpha = 0.0;
-
-        [self.playButton setTitle:@"Play" forState:UIControlStateNormal];
-        
+        [self resetVideoContainer];
         self.currentlyPlayingOfflineVideoToken = nil;
     }
 }
@@ -810,6 +821,14 @@ static unsigned long long int directorySize(NSString *folderPath)
     self.cancelButton.enabled = YES;
 }
 
+- (void)resetVideoContainer
+{
+    [self.playButton setTitle:@"Play" forState:UIControlStateNormal];
+    [self.playbackController pause];
+    self.playbackController = nil;
+    self.videoContainer.alpha = 0.0;
+}
+
 #pragma mark - BCOVPlaybackController Delegate Methods
 
 - (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didReceiveLifecycleEvent:(BCOVPlaybackSessionLifecycleEvent *)lifecycleEvent
@@ -904,6 +923,8 @@ static unsigned long long int directorySize(NSString *folderPath)
     self.posterImageView.image = posterImage ?: defaultImage;
     self.posterImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.posterImageView.clipsToBounds = YES;
+    
+    [self resetVideoContainer];
 
     [self updateInfoForSelectedDownload];
 

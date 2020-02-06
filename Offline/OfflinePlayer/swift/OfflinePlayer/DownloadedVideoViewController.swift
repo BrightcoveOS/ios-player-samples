@@ -139,6 +139,8 @@ class DownloadedVideoViewController: BaseVideoViewController {
     
     func updateInfoForSelectedDownload() {
  
+        updateTaskButtonTitles()
+        
         guard let selectedOfflineVideoToken = selectedOfflineVideoToken,
             let offlineVideoStatus = BCOVOfflineVideoManager.shared()?.offlineVideoStatus(forToken: selectedOfflineVideoToken),
             let video = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: selectedOfflineVideoToken),
@@ -307,6 +309,7 @@ class DownloadedVideoViewController: BaseVideoViewController {
     
     private func resetVideoContainer() {
         playButton.setTitle("Play", for: .normal)
+        playbackController?.pause()
         playbackController = nil
         videoContainerView.alpha = 0.0
     }
@@ -355,6 +358,7 @@ class DownloadedVideoViewController: BaseVideoViewController {
         if let _ = playbackController {
             
             resetVideoContainer()
+            currentlyPlayingOfflineVideoToken = nil
             
         } else {
             
@@ -362,8 +366,24 @@ class DownloadedVideoViewController: BaseVideoViewController {
                 return
             }
             
+            guard let offlineVideoStatus = BCOVOfflineVideoManager.shared()?.offlineVideoStatus(forToken: selectedOfflineVideoToken) else {
+                return
+            }
+            
             let video = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: selectedOfflineVideoToken)
             
+            if (offlineVideoStatus.downloadState == .stateCancelled) {
+                UIAlertController.show(withTitle: "", andMessage: "This video is not currently playable. The download was cancelled.")
+                return
+            }
+            
+            if let _video = video {
+                if (!_video.playableOffline) {
+                    UIAlertController.show(withTitle: "", andMessage: "This video is not currently playable. The download may still be in progress.")
+                    return
+                }
+            }
+
             playButton.setTitle("Hide", for: .normal)
             videoContainerView.alpha = 1.0
             createNewPlaybackController()

@@ -522,39 +522,17 @@
                  downloadParameters[kBCOVOfflineVideoManagerSubtitleLanguagesKey] = languagesArray;
              }
 
-             // iOS 10.3 allows us to preload the FairPlay license for each video
-             if (@available(iOS 10.3, *))
-             {
-                 NSDictionary *videoDownloadDictionary = @{
-                   @"video": video,
-                   @"parameters": downloadParameters
-                };
-                 
-                 // On iOS 10.3 and later we can perform video preloading.
-                 // Preloading the license makes for more reliable downloading
-                 // when the app goes to the background.
-                 [strongSelf.videoPreloadQueue addObject:videoDownloadDictionary];
-                 
-                 [strongSelf runPreloadVideoQueue];
-             }
-             else
-             {
-                 // On iOS 10.2 and earlier, just download immediately
-                 [strongSelf.offlineVideoManager requestVideoDownload:video
-                                                     parameters:downloadParameters
-                                                     completion:^(BCOVOfflineVideoToken offlineVideoToken, NSError *error) {
-                                                         
-                                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                                             
-                                                             if ([strongSelf.delegate respondsToSelector:@selector(downloadRequestDidComplete:)])
-                                                             {
-                                                                 [strongSelf.delegate downloadRequestDidComplete:error];
-                                                             }
-                                                             
-                                                         });
-                                                         
-                                                     }];
-             }
+            NSDictionary *videoDownloadDictionary = @{
+                @"video": video,
+                @"parameters": downloadParameters
+            };
+
+            // On iOS 10.3 and later we can perform video preloading.
+            // Preloading the license makes for more reliable downloading
+            // when the app goes to the background.
+            [strongSelf.videoPreloadQueue addObject:videoDownloadDictionary];
+
+            [strongSelf runPreloadVideoQueue];
          });
          
      }];
@@ -588,6 +566,12 @@
 }
 
 #pragma mark - BCOVOfflineVideoManagerDelegate Methods
+
+- (void)didCreateSharedBackgroundSesssionConfiguration:(NSURLSessionConfiguration *)backgroundSessionConfiguration
+{
+    // Helps prevent downloads from appearing to sometimes stall
+    backgroundSessionConfiguration.discretionary = NO;
+}
 
 - (void)offlineVideoToken:(BCOVOfflineVideoToken)offlineVideoToken
              downloadTask:(AVAssetDownloadTask *)downloadtask
