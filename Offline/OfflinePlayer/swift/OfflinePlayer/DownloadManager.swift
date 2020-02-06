@@ -78,34 +78,14 @@ class DownloadManager: NSObject {
                     downloadParamaters[kBCOVOfflineVideoManagerSubtitleLanguagesKey] = languagesArray
                 }
                 
-                // iOS 10.3 allows us to preload the FairPlay license for each video
-                if #available(iOS 10.3, *) {
-                 
-                    let videoDownload  = VideoDownload(video: video, paramaters: downloadParamaters)
-                    
-                    // On iOS 10.3 and later we can perform video preloading.
-                    // Preloading the license makes for more reliable downloading
-                    // when the app goes to the background.
-                    strongSelf.videoPreloadQueue.append(videoDownload)
-                    
-                    strongSelf.runPreloadVideoQueue()
-                    
-                } else {
-                 
-                    // On iOS 10.2 and earlier, just download immediately
-                    BCOVOfflineVideoManager.shared()?.requestVideoDownload(video, parameters: downloadParamaters, completion: { (offlineVideoToken: String?, error: Error?) in
-                        
-                        if let error = error {
-                            UIAlertController.show(withTitle: "Video Download Error", andMessage: error.localizedDescription)
-                            return
-                        }
-                        
-                        // Success! Update our table with the new download status
-                        NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus, object: nil)
-                        
-                    })
-                    
-                }
+                let videoDownload  = VideoDownload(video: video, paramaters: downloadParamaters)
+                
+                // On iOS 10.3 and later we can perform video preloading.
+                // Preloading the license makes for more reliable downloading
+                // when the app goes to the background.
+                strongSelf.videoPreloadQueue.append(videoDownload)
+                
+                strongSelf.runPreloadVideoQueue()
                 
             }
             
@@ -469,6 +449,11 @@ extension DownloadManager {
 // MARK: - BCOVOfflineVideoManagerDelegate
 
 extension DownloadManager: BCOVOfflineVideoManagerDelegate {
+    
+    func didCreateSharedBackgroundSesssionConfiguration(_ backgroundSessionConfiguration: URLSessionConfiguration!) {
+        // Helps prevent downloads from appearing to sometimes stall
+        backgroundSessionConfiguration.isDiscretionary = false
+    }
     
     func offlineVideoToken(_ offlineVideoToken: String?, downloadTask: AVAssetDownloadTask?, didProgressTo progressPercent: TimeInterval) {
         // This delegate method reports progress for the primary video download
