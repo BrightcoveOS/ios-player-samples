@@ -25,23 +25,23 @@ import BrightcovePlayerSDK
 
 class DownloadedVideoViewController: BaseVideoViewController {
     
-    @IBOutlet weak var noVideoSelectedLabel: UILabel!
+    @IBOutlet weak var noVideoSelectedLabel: UILabel?
     @IBOutlet weak var downloadProgressView: UIView!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var moreButton: UIButton!
-    @IBOutlet weak var pauseButton: UIButton! {
+    @IBOutlet weak var pauseButton: UIButton? {
         didSet {
-            pauseButton.setTitle("--", for: .normal)
+            pauseButton?.setTitle("--", for: .normal)
         }
     }
-    @IBOutlet weak var cancelButton: UIButton! {
+    @IBOutlet weak var cancelButton: UIButton? {
         didSet {
-            cancelButton.setTitle("--", for: .normal)
+            cancelButton?.setTitle("--", for: .normal)
         }
     }
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var posterImageView: UIImageView!
-    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var infoLabel: UILabel?
     @IBOutlet weak var freeSpaceLabel: UILabel!
     
     private var selectedOfflineVideoToken: String?
@@ -147,15 +147,15 @@ class DownloadedVideoViewController: BaseVideoViewController {
             let video = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: selectedOfflineVideoToken),
             let videoID = video.properties[kBCOVVideoPropertyKeyId] as? String,
             let estimatedMegabytes = tabBarController?.streamingViewController()?.videoManager.estimatedDownloadSizeDictionary?[videoID] else {
-                noVideoSelectedLabel.isHidden = false
-                infoLabel.isHidden = true
+                noVideoSelectedLabel?.isHidden = false
+                infoLabel?.isHidden = true
                 posterImageView?.layer.borderColor = UIColor.clear.cgColor
                 playButton?.setTitle("--", for: .normal)
                 return
         }
         
         playButton?.setTitle("Play", for: .normal)
-        noVideoSelectedLabel.isHidden = true
+        noVideoSelectedLabel?.isHidden = true
         
         let actualMegabytes = dataSource.downloadSizeDictionary[selectedOfflineVideoToken] ?? 0
         let startTimeNumber = video.properties[kBCOVOfflineVideoDownloadStartTimePropertyKey] as? NSNumber ?? 0
@@ -164,8 +164,8 @@ class DownloadedVideoViewController: BaseVideoViewController {
         let downloadState = offlineVideoStatus.downloadStateString(estimatedMegabytes: estimatedMegabytes, actualMegabytes: actualMegabytes, startTime: startTimeNumber.doubleValue, endTime: endTimeNumber.doubleValue)
         
         if let name = video.properties[kBCOVVideoPropertyKeyName] {
-            infoLabel.isHidden = false
-            infoLabel.text = "\(name)\nStatus: \(downloadState)\nLicense: \(licenseText)"
+            infoLabel?.isHidden = false
+            infoLabel?.text = "\(name)\nStatus: \(downloadState)\nLicense: \(licenseText)"
         }
         
     }
@@ -274,23 +274,23 @@ class DownloadedVideoViewController: BaseVideoViewController {
     private func updateTaskButtonTitles() {
         
         guard let token = selectedOfflineVideoToken, let status = BCOVOfflineVideoManager.shared()?.offlineVideoStatus(forToken: token) else {
-            pauseButton.setTitle("--", for: .normal)
-            cancelButton.setTitle("--", for: .normal)
+            pauseButton?.setTitle("--", for: .normal)
+            cancelButton?.setTitle("--", for: .normal)
             return
         }
         
         switch status.downloadState {
         case .stateTracksDownloading,
              .stateDownloading:
-            pauseButton.setTitle("Pause", for: .normal)
-            cancelButton.setTitle("Cancel", for: .normal)
+            pauseButton?.setTitle("Pause", for: .normal)
+            cancelButton?.setTitle("Cancel", for: .normal)
         case .stateTracksSuspended,
              .stateSuspended:
-            pauseButton.setTitle("Resume", for: .normal)
-            cancelButton.setTitle("Cancel", for: .normal)
+            pauseButton?.setTitle("Resume", for: .normal)
+            cancelButton?.setTitle("Cancel", for: .normal)
         default:
-            pauseButton.setTitle("--", for: .normal)
-            cancelButton.setTitle("--", for: .normal)
+            pauseButton?.setTitle("--", for: .normal)
+            cancelButton?.setTitle("--", for: .normal)
         }
         
     }
