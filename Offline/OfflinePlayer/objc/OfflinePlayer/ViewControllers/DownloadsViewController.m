@@ -57,6 +57,7 @@
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
 @property (nonatomic, strong) BCOVFPSBrightcoveAuthProxy *authProxy;
 @property (nonatomic, strong) NSDate *sessionStartTime;
+@property (nonatomic, strong) id<BCOVPlaybackSession> currentSession;
 
 // Keeps track of all the final download sizes using the offline video token as a key
 @property (nonatomic, strong) NSMutableDictionary *downloadSizeDictionary;
@@ -211,6 +212,12 @@ static unsigned long long int directorySize(NSString *folderPath)
 
 - (IBAction)doPlayHideButton:(id)sender
 {
+    // Some versions of iOS seem to return an incorrect value
+    // for `playableOffline` if the offline video is already
+    // loaded into an AVPlayer instance. Clearing out the
+    // current AVPlayer instance solves the issue.
+    [self.currentSession.player replaceCurrentItemWithPlayerItem:nil];
+
     if (self.playbackController == nil)
     {
         BCOVVideo *video = [BCOVOfflineVideoManager.sharedManager videoObjectFromOfflineVideoToken:self.selectedOfflineVideoToken];
@@ -852,6 +859,7 @@ static unsigned long long int directorySize(NSString *folderPath)
 {
     if (session)
     {
+        self.currentSession = session;
         self.sessionStartTime = NSDate.date;
         NSLog(@"Session source details: %@", session.source);
     }

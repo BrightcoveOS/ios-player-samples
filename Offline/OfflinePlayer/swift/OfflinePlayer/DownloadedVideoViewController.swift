@@ -48,6 +48,7 @@ class DownloadedVideoViewController: BaseVideoViewController {
     private var currentlyPlayingOfflineVideoToken: String?
     private var freeSpaceTimer: Timer?
     private var sessionStartTime: Date?
+    private var currentSession: BCOVPlaybackSession?
     
     private lazy var dataSource: DownloadsTableDataSource = {
         return DownloadsTableDataSource(tableView: tableView)
@@ -355,6 +356,14 @@ class DownloadedVideoViewController: BaseVideoViewController {
     
     @IBAction private func playButtonPressed() {
         
+        // Some versions of iOS seem to return an incorrect value
+        // for `playableOffline` if the offline video is already
+        // loaded into an AVPlayer instance. Clearing out the
+        // current AVPlayer instance solves the issue.
+        if let currentSession = currentSession {
+            currentSession.player.replaceCurrentItem(with: nil)
+        }
+        
         if let _ = playbackController {
             
             resetVideoContainer()
@@ -527,6 +536,7 @@ extension DownloadedVideoViewController {
     
     func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
         if let session = session {
+            currentSession = session
             sessionStartTime = Date()
             if let source = session.source {
                 print("Session source details: \(source)")
