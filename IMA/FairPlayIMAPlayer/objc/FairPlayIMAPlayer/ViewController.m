@@ -132,6 +132,8 @@ NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/st
 
     // Retrieve the FairPlay application certificate
     NSLog(@"Retrieving FairPlay application certificate");
+    
+    __weak typeof(self) weakSelf = self;
     [proxy retrieveApplicationCertificate:^(NSData * _Nullable applicationCertificate, NSError * _Nullable error) {
 
         if (applicationCertificate)
@@ -151,7 +153,7 @@ NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/st
             id<BCOVPlaybackSessionProvider> imaSessionProvider = [sdkManager createIMASessionProviderWithSettings:imaSettings
                                                                                              adsRenderingSettings:renderSettings
                                                                                                  adsRequestPolicy:adsRequestPolicy
-                                                                                                      adContainer:self.videoContainer
+                                                                                                      adContainer:weakSelf.playerView.contentOverlayView
                                                                                                    companionSlots:nil
                                                                                           upstreamSessionProvider:fps
                                                                                                           options:imaPlaybackSessionOptions];
@@ -166,9 +168,9 @@ NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/st
             playbackController.autoAdvance = YES;
             playbackController.autoPlay = YES;
 
-            _playbackController = playbackController;
+            weakSelf.playbackController = playbackController;
 
-            self.playerView.playbackController = _playbackController;
+            weakSelf.playerView.playbackController = playbackController;
 
             NSLog(@"Created a new playbackController");
 
