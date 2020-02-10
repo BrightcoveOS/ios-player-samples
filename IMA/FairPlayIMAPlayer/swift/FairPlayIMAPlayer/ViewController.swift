@@ -11,9 +11,7 @@ import BrightcoveIMA
 import GoogleInteractiveMediaAds
 
 struct PlaybackConfig {
-    static let AccountID = ""
-    static let PolicyKey = ""
-    static let PlaylistReferenceID = ""
+    static let FairPlayHLSVideoURL = "https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8"
     
     static let FairPlayPublisherId = ""
     static var FairPlayApplicationId = ""
@@ -67,7 +65,6 @@ class ViewController: UIViewController {
         #endif
         
         setupPlaybackController()
-        requestContent()
         resumeAdAfterForeground()
     }
 
@@ -83,87 +80,92 @@ class ViewController: UIViewController {
         renderSettings.webOpenerPresentingController = self
         renderSettings.webOpenerDelegate = self
         
-        // BCOVIMAAdsRequestPolicy provides methods to specify VAST or VMAP/Server Side Ad Rules. Select the appropriate method to select your ads policy.
+        // VMAP / Server Side Ad Rules. These settings are explained in BCOVIMAAdsRequestPolicy.h.
+        // If you want to change these settings, you can initialize the plugin like so:
+        //
+        //    let adsRequestPolicy = BCOVIMAAdsRequestPolicy.videoPropertiesVMAPAdTagUrl()
+        //
+        // or for VAST:
+        //
+        //   let cuePointPolicy = BCOVCuePointProgressPolicy(processingCuePoints: .processAllCuePoints, resumingPlaybackFrom: .fromContentPlayhead, ignoringPreviouslyProcessedCuePoints: true)
+        //   let adsRequestPolicy = BCOVIMAAdsRequestPolicy(vastAdTagsInCuePointsAndAdsCuePointProgressPolicy: cuePointPolicy)
+        
+        // Use the VMAP ads policy.
         let adsRequestPolicy = BCOVIMAAdsRequestPolicy.videoPropertiesVMAPAdTagUrl()
         
-        // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition: which allows us to modify the IMAAdsRequest object
-        // before it is used to load ads.
-        let imaPlaybackSessionOptions = [kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self]
-        
+        // Create an authorization proxy for FairPlay
+        // using the FairPlay Application ID and the FairPlay Publisher ID
         guard let proxy = BCOVFPSBrightcoveAuthProxy(publisherId: PlaybackConfig.FairPlayPublisherId, applicationId: PlaybackConfig.FairPlayApplicationId) else {
                 return
         }
         
-        let fps = BCOVPlayerSDKManager.shared()?.createFairPlaySessionProvider(with: proxy, upstreamSessionProvider: nil)
+        // Retrieve the FairPlay application certificate
+        print("Retrieving FairPlay application certificate");
         
-        // FairPlay is set as the upstream session provider when creating the IMA session provider.
-        let imaSessionProvider = BCOVPlayerSDKManager.shared()?.createIMASessionProvider(with: imaSettings, adsRenderingSettings: renderSettings, adsRequestPolicy: adsRequestPolicy, adContainer: videoContainerView, companionSlots: nil, upstreamSessionProvider: fps, options: imaPlaybackSessionOptions)
-        
-        guard let _playbackController = BCOVPlayerSDKManager.shared()?.createPlaybackController(with: imaSessionProvider, viewStrategy: nil) else {
-            return
+        proxy.retrieveApplicationCertificate { [weak self] (applicationCertificate: Data?, error: Error?) in
+            
+            if let applicationCertificate = applicationCertificate {
+                
+                guard let self = self else {
+                    return
+                }
+                
+                print("Creating session providers")
+                
+                // We can create the FairPlay (and other session providers) now that we have the certificate
+                let fps = BCOVPlayerSDKManager.shared()?.createFairPlaySessionProvider(withApplicationCertificate: applicationCertificate, authorizationProxy: proxy, upstreamSessionProvider: nil)
+                
+                // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition: which allows us to modify the IMAAdsRequest object
+                // before it is used to load ads.
+                let imaPlaybackSessionOptions: [AnyHashable : Any] = [kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self]
+                
+                // FairPlay is set as the upstream session provider when creating the IMA session provider.
+                let imaSessionProvider = BCOVPlayerSDKManager.shared()?.createIMASessionProvider(with: imaSettings, adsRenderingSettings: renderSettings, adsRequestPolicy: adsRequestPolicy, adContainer: self.playerView?.contentOverlayView, companionSlots: nil, upstreamSessionProvider: fps, options: imaPlaybackSessionOptions)
+                
+                print("Creating playback controller");
+                
+                // Create playback controller with the chain of session providers
+                guard let _playbackController = BCOVPlayerSDKManager.shared()?.createPlaybackController(with: imaSessionProvider, viewStrategy: nil) else {
+                    return
+                }
+                
+                _playbackController.delegate = self
+                _playbackController.isAutoAdvance = true
+                _playbackController.isAutoPlay = true
+                
+                self.playbackController = _playbackController
+                
+                self.playerView?.playbackController = _playbackController
+                
+                print("Created a new playbackController");
+                
+                self.requestContent()
+                
+            }
+            else
+            {
+                print("--- ERROR: FairPlay application certificate not found ---")
+            }
+            
         }
-        
-        _playbackController.delegate = self
-        _playbackController.isAutoAdvance = true
-        _playbackController.isAutoPlay = true
-        
-        self.playerView?.playbackController = _playbackController
-        
-        // Creating a playback controller based on the above code will create
-        // VMAP / Server Side Ad Rules. These settings are explained in BCOVIMAAdsRequestPolicy.h.
-        // If you want to change these settings, you can initialize the plugin like so:
-        //
-        // let adsRequestPolicy = BCOVIMAAdsRequestPolicy.init(vmapAdTagUrl: IMAConfig.VMAPResponseAdTag)
-        //
-        // or for VAST:
-        //
-        // let policy = BCOVCuePointProgressPolicy.init(processingCuePoints: .processFinalCuePoint, resumingPlaybackFrom: .fromContentPlayhead, ignoringPreviouslyProcessedCuePoints: false)
-        //
-        // let adsRequestPolicy = BCOVIMAAdsRequestPolicy.init(vastAdTagsInCuePointsAndAdsCuePointProgressPolicy: policy)
-        //
-        // _playbackController = BCOVPlayerSDKManager.shared()?.createIMAPlaybackController(with: imaSettings, adsRenderingSettings: renderSettings, adsRequestPolicy: adsRequestPolicy, adContainer: playerView?.contentOverlayView, companionSlots: nil, viewStrategy: nil, options: imaPlaybackSessionOptions)
-        //
-        
-        playbackController = _playbackController
+
+        resumeAdAfterForeground()
     }
     
     private func requestContent() {
         
         print("Request video content")
         
-        let queryParams = ["limit": 100, "offset": 0]
-        // Retrieve a playlist through the BCOVPlaybackService
-        let playbackServiceRequestFactory = BCOVPlaybackServiceRequestFactory(accountId: PlaybackConfig.AccountID, policyKey: PlaybackConfig.PolicyKey)
-        
-        let playbackService = BCOVPlaybackService(requestFactory: playbackServiceRequestFactory)
-        playbackService?.findPlaylist(withReferenceID: PlaybackConfig.PlaylistReferenceID, parameters: queryParams, completion: { [weak self] (playlist: BCOVPlaylist?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
-            
-            
-            let updatedPlaylist = playlist?.update({ (mutablePlaylist: BCOVMutablePlaylist?) in
-                
-                guard let mutablePlaylist = mutablePlaylist else {
-                    return
-                }
-                
-                var updatedVideos:[BCOVVideo] = []
-                
-                for video in mutablePlaylist.videos {
-                    if let _video = video as? BCOVVideo {
-                        updatedVideos.append(_video.updateVideo(withVMAPTag: IMAConfig.VMAPResponseAdTag))
-                    }
-                }
-                
-                mutablePlaylist.videos = updatedVideos
-                
-            })
-            
-            
-            if let _updatedPlaylist = updatedPlaylist {
-                self?.playbackController?.setVideos(_updatedPlaylist.videos as NSFastEnumeration)
+        // Here, you can retrieve BCOVVideo objects from the Playback Service. You can also
+        // create your own BCOVVideo objects directly from URLs if you have them, as shown here:
+
+        if var video = BCOVVideo(hlsSourceURL: URL(string: PlaybackConfig.FairPlayHLSVideoURL))
+        {
+            video = video.updateVideo(withVMAPTag: IMAConfig.VMAPResponseAdTag)
+            if let playlist = BCOVPlaylist(video: video) {
+                playbackController?.setVideos(playlist as NSFastEnumeration)
             }
-            
-            
-        })
+        }
 
     }
     
