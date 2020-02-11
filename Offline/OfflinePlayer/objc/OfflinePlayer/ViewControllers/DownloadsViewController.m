@@ -942,11 +942,13 @@ static unsigned long long int directorySize(NSString *folderPath)
     switch (offlineVideoStatus.downloadState)
     {
         case BCOVOfflineVideoDownloadStateDownloading:
+        case BCOVOfflineVideoDownloadStateTracksDownloading:
             [self.pauseButton setTitle:@"Pause" forState:UIControlStateNormal];
             [self.cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
             break;
 
         case BCOVOfflineVideoDownloadStateSuspended:
+        case BCOVOfflineVideoDownloadStateTracksSuspended:
             [self.pauseButton setTitle:@"Resume" forState:UIControlStateNormal];
             [self.cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
             break;
