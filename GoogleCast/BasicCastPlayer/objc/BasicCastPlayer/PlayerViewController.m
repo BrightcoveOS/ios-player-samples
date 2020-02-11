@@ -5,7 +5,10 @@
 //  Copyright © 2019 Brightcove, Inc. All rights reserved.
 //
 
+#define USE_CUSTOM_CAST_MANAGER 0
+
 #import "PlayerViewController.h"
+#import "GoogleCastManager.h"
 
 @import GoogleCast;
 @import BrightcovePlayerSDK;
@@ -15,7 +18,11 @@ static NSString * const kServicePolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4Y
 static NSString * const kAccountID = @"5434391461001";
 static NSString * const kPlaylistRefID = @"brightcove-native-sdk-plist";
 
+#if USE_CUSTOM_CAST_MANAGER
+@interface PlayerViewController ()<UITableViewDelegate, UITableViewDataSource, GoogleCastManagerDelegate, BCOVPlaybackControllerDelegate>
+#else
 @interface PlayerViewController ()<UITableViewDelegate, UITableViewDataSource, BCOVGoogleCastManagerDelegate, BCOVPlaybackControllerDelegate>
+#endif
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UIView *videoContainer;
@@ -23,7 +30,11 @@ static NSString * const kPlaylistRefID = @"brightcove-native-sdk-plist";
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
 @property (nonatomic, strong) BCOVPUIPlayerView *playerView;
 @property (nonatomic, strong) BCOVPlaylist *playlist;
-@property (nonatomic, strong) BCOVGoogleCastManager *googleCastManager;
+#if USE_CUSTOM_CAST_MANAGER
+    @property (nonatomic, strong) GoogleCastManager *googleCastManager;
+#else
+    @property (nonatomic, strong) BCOVGoogleCastManager *googleCastManager;
+#endif
 
 @end
 
@@ -40,9 +51,19 @@ static NSString * const kPlaylistRefID = @"brightcove-native-sdk-plist";
     GCKUICastButton *castButton = [[GCKUICastButton alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:castButton];
 
+#if USE_CUSTOM_CAST_MANAGER
+    // If you need to extend the behavior of BCOVGoogleCastManager
+    // you can customize the GoogleCastManager class in this project
+    // and use it instead of BCOVGoogleCastManager.
+    self.googleCastManager = [GoogleCastManager new];
+    self.googleCastManager.delegate = self;
+    NSLog(@"Using Customized GoogleCastManager");
+#else
     self.googleCastManager = [BCOVGoogleCastManager new];
     self.googleCastManager.delegate = self;
-    
+    NSLog(@"Using BCOVGoogleCastManager");
+#endif
+
     [self setupPlaybackController];
     [self setupPlayerView];
     [self requestPlaylist];
@@ -176,6 +197,46 @@ static NSString * const kPlaylistRefID = @"brightcove-native-sdk-plist";
     [self.playbackController setVideos:@[video]];
 }
 
+#if USE_CUSTOM_CAST_MANAGER
+
+#pragma mark - GoogleCastManagerDelegate
+
+- (void)switchedToRemotePlayback
+{
+    self.videoContainer.hidden = YES;
+}
+
+- (void)switchedToLocalPlayback:(NSTimeInterval)lastKnownStreamPosition withError:(NSError *)error
+{
+    if (lastKnownStreamPosition > 0)
+    {
+        [self.playbackController play];
+    }
+    self.videoContainer.hidden = NO;
+    
+    if (error)
+    {
+        NSLog(@"Switched to local playback with error: %@", error.localizedDescription);
+    }
+}
+
+- (void)castedVideoDidComplete
+{
+    self.videoContainer.hidden = YES;
+}
+
+- (void)suitableSourceNotFound
+{
+    NSLog(@"Suitable source for video not found!");
+}
+
+- (void)castedVideoFailedToPlay
+{
+    NSLog(@"Casted video failed to play!");
+}
+    
+#else
+
 #pragma mark - BCOVGoogleCastManagerDelegate
 
 - (void)switchedToRemotePlayback
@@ -206,6 +267,13 @@ static NSString * const kPlaylistRefID = @"brightcove-native-sdk-plist";
 {
     NSLog(@"Suitable source for video not found!");
 }
+
+- (void)castedVideoFailedToPlay
+{
+    NSLog(@"Casted video failed to play!");
+}
+    
+#endif
 
 #pragma mark - BCOVPlaybackControllerDelegate
 

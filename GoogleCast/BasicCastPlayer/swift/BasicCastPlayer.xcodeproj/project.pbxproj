@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E915F98F23F1FAA700F5A64A /* GoogleCastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E915F98E23F1FAA700F5A64A /* GoogleCastManager.swift */; };
 		E9FF7E6121BACA72000189E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FF7E6021BACA72000189E0 /* AppDelegate.swift */; };
 		E9FF7E6321BACA72000189E0 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FF7E6221BACA72000189E0 /* PlayerViewController.swift */; };
 		E9FF7E6621BACA72000189E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9FF7E6421BACA72000189E0 /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E915F98E23F1FAA700F5A64A /* GoogleCastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCastManager.swift; sourceTree = "<group>"; };
 		E9B758952278E3AA008D1362 /* BasicCastPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BasicCastPlayer.entitlements; sourceTree = "<group>"; };
 		E9FF7E5D21BACA72000189E0 /* BasicCastPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicCastPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9FF7E6021BACA72000189E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				E9B758952278E3AA008D1362 /* BasicCastPlayer.entitlements */,
 				E9FF7E6021BACA72000189E0 /* AppDelegate.swift */,
 				E9FF7E6221BACA72000189E0 /* PlayerViewController.swift */,
+				E915F98E23F1FAA700F5A64A /* GoogleCastManager.swift */,
 				E9FF7E6421BACA72000189E0 /* Main.storyboard */,
 				E9FF7E6721BACA73000189E0 /* Assets.xcassets */,
 				E9FF7E6921BACA73000189E0 /* LaunchScreen.storyboard */,
@@ -156,6 +159,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E915F98F23F1FAA700F5A64A /* GoogleCastManager.swift in Sources */,
 				E9FF7E6321BACA72000189E0 /* PlayerViewController.swift in Sources */,
 				E9FF7E6121BACA72000189E0 /* AppDelegate.swift in Sources */,
 			);

@@ -75,10 +75,6 @@ Omniture samples demonstrate how to use the Omniture plugin.
 
 Player samples demonstrate how to use the core SDK. These are intended to cover use cases like custom controls, analytics, and playback.
 
-##### Specific Features
-
-- Picture-in-Picture functionality can be found in the `VideoCloudBasicPlayer` sample app. 
-
 #### PlayerUI
 
 PlayerUICustomization demonstrates modification of the BCOVPlayerUI controls and customization of VoiceOver properties for accessibility. 
@@ -90,5 +86,10 @@ SidecarSubtitles samples demonstrate how to use the sidecarSubtitles plugin.
 #### SSAI
 
 BasicSSAIPlayer demonstrates use of the SSAI plugin for playback of Dynamic Delivery with or without Server-Side Ad Insertion.
+
+### Feature Highlights
+
+- An example of creating a `BCOVPlaybackSessionConsumer` can be found in the `OfflinePlayer` and `CustomControls` sample apps.
+- Picture-in-Picture functionality can be found in the `VideoCloudBasicPlayer` sample app. 
 
 [cocoapods]: http://www.cocoapods.org

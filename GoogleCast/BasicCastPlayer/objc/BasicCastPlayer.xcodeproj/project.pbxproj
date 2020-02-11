@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E915F98D23F1F96800F5A64A /* GoogleCastManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E915F98C23F1F96800F5A64A /* GoogleCastManager.m */; };
 		E9FF7E4021BACA2D000189E0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FF7E3F21BACA2D000189E0 /* AppDelegate.m */; };
 		E9FF7E4321BACA2D000189E0 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FF7E4221BACA2D000189E0 /* PlayerViewController.m */; };
 		E9FF7E4621BACA2D000189E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9FF7E4421BACA2D000189E0 /* Main.storyboard */; };
@@ -16,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E915F98B23F1F96800F5A64A /* GoogleCastManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleCastManager.h; sourceTree = "<group>"; };
+		E915F98C23F1F96800F5A64A /* GoogleCastManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleCastManager.m; sourceTree = "<group>"; };
 		E9B758962278E3C2008D1362 /* BasicCastPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BasicCastPlayer.entitlements; sourceTree = "<group>"; };
 		E9FF7E3B21BACA2D000189E0 /* BasicCastPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicCastPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9FF7E3E21BACA2D000189E0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -64,6 +67,8 @@
 				E9FF7E3F21BACA2D000189E0 /* AppDelegate.m */,
 				E9FF7E4121BACA2D000189E0 /* PlayerViewController.h */,
 				E9FF7E4221BACA2D000189E0 /* PlayerViewController.m */,
+				E915F98B23F1F96800F5A64A /* GoogleCastManager.h */,
+				E915F98C23F1F96800F5A64A /* GoogleCastManager.m */,
 				E9FF7E4421BACA2D000189E0 /* Main.storyboard */,
 				E9FF7E4721BACA2F000189E0 /* Assets.xcassets */,
 				E9FF7E4921BACA2F000189E0 /* LaunchScreen.storyboard */,
@@ -149,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9FF7E4321BACA2D000189E0 /* PlayerViewController.m in Sources */,
+				E915F98D23F1F96800F5A64A /* GoogleCastManager.m in Sources */,
 				E9FF7E4E21BACA2F000189E0 /* main.m in Sources */,
 				E9FF7E4021BACA2D000189E0 /* AppDelegate.m in Sources */,
 			);
