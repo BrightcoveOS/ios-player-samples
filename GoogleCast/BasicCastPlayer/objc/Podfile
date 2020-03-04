@@ -1,7 +1,7 @@
 source 'https://github.com/brightcove/BrightcoveSpecs.git'
 source 'https://github.com/CocoaPods/Specs'
 
-platform :ios, '10.0'
+platform :ios, '11.0'
 
 use_frameworks!
 
