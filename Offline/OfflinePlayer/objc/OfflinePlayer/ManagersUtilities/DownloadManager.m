@@ -253,10 +253,7 @@
     
     AVURLAsset *avURLAsset = [self.offlineVideoManager urlAssetForVideo:video error:nil];
     // If mediaSelections is `nil` the SDK will default to the AVURLAsset's `preferredMediaSelection`
-    NSArray<AVMediaSelection *> *mediaSelections = nil;
-    if (@available(iOS 11.0, *)) {
-        mediaSelections = avURLAsset.allMediaSelections;
-    }
+    NSArray<AVMediaSelection *> *mediaSelections = mediaSelections = avURLAsset.allMediaSelections;
     
     AVMediaSelectionGroup *legibleMediaSelectionGroup = [avURLAsset mediaSelectionGroupForMediaCharacteristic:AVMediaCharacteristicLegible];
     AVMediaSelectionGroup *audibleMediaSelectionGroup = [avURLAsset mediaSelectionGroupForMediaCharacteristic:AVMediaCharacteristicAudible];
@@ -467,75 +464,17 @@
         return;
     }
 
-    // On iOS 11+, we get the license params,
-    // and send the video off for preloading.
-    // Additional tracks (subtitles, additional audio tracks)
-    // are requested *after* the video is downloaded.
-    if (@available(iOS 11.0, *))
-    {
-        NSMutableDictionary *downloadParameters = [self generateDownloadParameters];
+    NSMutableDictionary *downloadParameters = [self generateDownloadParameters];
 
-        NSDictionary *videoDownloadDictionary = @{
-            @"video": video,
-            @"parameters": downloadParameters
-        };
-        
-        // On iOS 10.3 and later we can perform video preloading
-        [self.videoPreloadQueue addObject:videoDownloadDictionary];
-        
-        [self runPreloadVideoQueue];
-        
-        return;
-    }
-
-    // On iOS 10, we use Sideband Subtitles.
-    // Subtitle tracks to be downloaded are specified up front.
-    // To do this we find the alternative rendition attributes,
-    // and create a list of languages out of them to pass as as an array.
+    NSDictionary *videoDownloadDictionary = @{
+        @"video": video,
+        @"parameters": downloadParameters
+    };
     
-    __weak typeof(self) weakSelf = self;
-    [BCOVOfflineVideoManager.sharedManager alternativeRenditionAttributesDictionariesForVideo:video
-                                                                                   completion:^(NSArray<NSDictionary *> *alternativeRenditionAttributesDictionariesArray, NSError *error)
-     {
-         __strong typeof(weakSelf) strongSelf = weakSelf;
-         // This can call back on a background thread
-         dispatch_async(dispatch_get_main_queue(), ^{
-             
-             if (error != nil)
-             {
-                 if ([strongSelf.delegate respondsToSelector:@selector(encounteredGeneralError:)])
-                 {
-                     [strongSelf.delegate encounteredGeneralError:error];
-                 }
-                 return;
-             }
-             
-             NSMutableDictionary *downloadParameters = [self generateDownloadParameters];
-
-             // Collect array of languages here.
-             // We're going to download all languages available in the video.
-             NSArray *languagesArray = [self languagesArrayForAlternativeRenditions:alternativeRenditionAttributesDictionariesArray];
-
-             // If any additional subtitle languages were found, let's request them.
-             if (languagesArray.count > 0)
-             {
-                 downloadParameters[kBCOVOfflineVideoManagerSubtitleLanguagesKey] = languagesArray;
-             }
-
-            NSDictionary *videoDownloadDictionary = @{
-                @"video": video,
-                @"parameters": downloadParameters
-            };
-
-            // On iOS 10.3 and later we can perform video preloading.
-            // Preloading the license makes for more reliable downloading
-            // when the app goes to the background.
-            [strongSelf.videoPreloadQueue addObject:videoDownloadDictionary];
-
-            [strongSelf runPreloadVideoQueue];
-         });
-         
-     }];
+    // On iOS 10.3 and later we can perform video preloading
+    [self.videoPreloadQueue addObject:videoDownloadDictionary];
+    
+    [self runPreloadVideoQueue];
 }
 
 - (void)retrieveVideoWithAccount:(NSString *)accountID

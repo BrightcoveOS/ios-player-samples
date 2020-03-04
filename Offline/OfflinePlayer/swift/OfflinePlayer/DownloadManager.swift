@@ -32,64 +32,14 @@ class DownloadManager: NSObject {
             return
         }
         
-        // On iOS 11+, we get the license params,
-        // and send the video off for preloading.
-        // Additional tracks (subtitles, additional audio tracks)
-        // are requested *after* the video is downloaded.
-        if #available(iOS 11.0, *) {
-            let downloadParamaters = DownloadManager.generateDownloadParameters()
-            
-            let videoDownload = VideoDownload(video: video, paramaters: downloadParamaters)
-            
-            // On iOS 10.3 and later we can perform video preloading
-            videoPreloadQueue.append(videoDownload)
-            
-            runPreloadVideoQueue()
-            
-            return
-        }
+        let downloadParamaters = DownloadManager.generateDownloadParameters()
         
-        // On iOS 10, we use Sideband Subtitles.
-        // Subtitle tracks to be downloaded are specified up front.
-        // To do this we find the alternative rendition attributes,
-        // and create a list of languages out of them to pass as as an array.
+        let videoDownload = VideoDownload(video: video, paramaters: downloadParamaters)
         
-        BCOVOfflineVideoManager.shared()?.alternativeRenditionAttributesDictionaries(for: video, completion: { [weak self] (alternativeRenditionAttributesDictionariesArray: [[AnyHashable:Any]]?, error: Error?) in
-            
-            DispatchQueue.main.async {
-            
-                if let error = error {
-                    // Report any errors
-                    UIAlertController.show(withTitle: "Video Download Error", andMessage: error.localizedDescription)
-                    return
-                }
-                
-                guard let strongSelf = self else {
-                    return
-                }
-                
-                var downloadParamaters = DownloadManager.generateDownloadParameters()
-                
-                // Collect array of languages here.
-                // We're going to download all languages available in the video.
-                let languagesArray = strongSelf.languagesArrayForAlternativeRenditions(attributesDictArray: alternativeRenditionAttributesDictionariesArray)
-                
-                if languagesArray.count > 0 {
-                    downloadParamaters[kBCOVOfflineVideoManagerSubtitleLanguagesKey] = languagesArray
-                }
-                
-                let videoDownload  = VideoDownload(video: video, paramaters: downloadParamaters)
-                
-                // On iOS 10.3 and later we can perform video preloading.
-                // Preloading the license makes for more reliable downloading
-                // when the app goes to the background.
-                strongSelf.videoPreloadQueue.append(videoDownload)
-                
-                strongSelf.runPreloadVideoQueue()
-                
-            }
-            
-        })
+        // On iOS 10.3 and later we can perform video preloading
+        videoPreloadQueue.append(videoDownload)
+        
+        runPreloadVideoQueue()
         
     }
     
@@ -301,9 +251,7 @@ class DownloadManager: NSObject {
         var mediaSelections = [AVMediaSelection]()
         
         if let avURLAsset = avURLAsset {
-            if #available(iOS 11.0, *) {
-                mediaSelections = avURLAsset.allMediaSelections
-            }
+            mediaSelections = avURLAsset.allMediaSelections
             
             if let legibleMediaSelectionGroup = avURLAsset.mediaSelectionGroup(forMediaCharacteristic: .legible), let audibleMediaSelectionGroup = avURLAsset.mediaSelectionGroup(forMediaCharacteristic: .audible) {
                 
