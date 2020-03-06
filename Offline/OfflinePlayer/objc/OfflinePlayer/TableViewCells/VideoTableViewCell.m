@@ -104,7 +104,7 @@
     int duration = durationNumber.intValue / 1000;
     NSString *twoLineDetailString;
     
-    if (offlineStatus.downloadState == BCOVOfflineVideoDownloadStateTracksCompleted)
+    if (offlineStatus.downloadState == BCOVOfflineVideoDownloadStateCompleted)
     {
         // Use Kilobytes if the measurement is too small
         if (downloadSize < 0.5)
@@ -148,25 +148,19 @@
         {
             case BCOVOfflineVideoDownloadLicensePreloaded:
             case BCOVOfflineVideoDownloadStateRequested:
-            case BCOVOfflineVideoDownloadStateTracksRequested:
             case BCOVOfflineVideoDownloadStateDownloading:
-            case BCOVOfflineVideoDownloadStateTracksDownloading:
                 [self setStateImage:VideoStateDownloading];
                 break;
             case BCOVOfflineVideoDownloadStateSuspended:
-            case BCOVOfflineVideoDownloadStateTracksSuspended:
                 [self setStateImage:VideoStatePaused];
                 break;
             case BCOVOfflineVideoDownloadStateCancelled:
-            case BCOVOfflineVideoDownloadStateTracksCancelled:
                 [self setStateImage:VideoStateCancelled];
                 break;
             case BCOVOfflineVideoDownloadStateCompleted:
-            case BCOVOfflineVideoDownloadStateTracksCompleted:
                 [self setStateImage:VideoStateDownloaded];
                 break;
             case BCOVOfflineVideoDownloadStateError:
-            case BCOVOfflineVideoDownloadStateTracksError:
                 [self setStateImage:VideoStateError];
                 break;
         }

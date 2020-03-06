@@ -36,7 +36,7 @@ extension BCOVOfflineVideoStatus {
             return "paused (\(downloadPercentString()))"
         case .stateCancelled:
             return "cancelled"
-        case .stateCompleted, .stateTracksCompleted:
+        case .stateCompleted:
             let totalDownloadTime = endTime - startTime
             let mbFloat = CGFloat(actualMegabytes)
             let mbps = (mbFloat * downloadPercent / 100.0) / CGFloat(totalDownloadTime)
@@ -47,19 +47,12 @@ extension BCOVOfflineVideoStatus {
             if error == nil {
                 return "unknown error occured"
             }
-            let _error = error as NSError
-            return "error \(_error.code) (\(error.localizedDescription))"
-        case .stateTracksRequested:
-            return "tracks download requested"
-        case .stateTracksDownloading:
-            return "tracks downloading (\(downloadPercentString()))"
-        case .stateTracksSuspended:
-            return "tracks paused (\(downloadPercentString()))"
-        case .stateTracksCancelled:
-            return "tracks download cancelled"
-        case .stateTracksError:
-            let _error = error as NSError
-            return "tracks download error \(_error.code) (\(error.localizedDescription))"
+            if let _error = error as NSError? {
+                return "error \(_error.code) (\(error.localizedDescription))"
+            }
+            return "unknown error"
+        default:
+            return "unknown state"
         }
         
     }

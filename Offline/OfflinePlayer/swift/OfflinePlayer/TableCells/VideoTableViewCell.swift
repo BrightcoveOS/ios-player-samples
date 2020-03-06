@@ -73,22 +73,18 @@ class VideoTableViewCell: UITableViewCell {
         switch offlineStatus.downloadState {
             case .licensePreloaded,
                  .stateRequested,
-                 .stateTracksRequested,
-                 .stateDownloading,
-                 .stateTracksDownloading:
+                 .stateDownloading:
             updateStatusButtonImage(.Downloading)
-            case .stateSuspended,
-                 .stateTracksSuspended:
+            case .stateSuspended:
             updateStatusButtonImage(.Paused)
-            case .stateCancelled,
-                 .stateTracksCancelled:
+            case .stateCancelled:
             updateStatusButtonImage(.Cancelled)
-            case .stateCompleted,
-                 .stateTracksCompleted:
+            case .stateCompleted:
             updateStatusButtonImage(.Downloaded)
-            case .stateError,
-                 .stateTracksError:
+            case .stateError:
             updateStatusButtonImage(.Error)
+            default:
+            break
         }
         
     }
@@ -134,7 +130,7 @@ class VideoTableViewCell: UITableViewCell {
         
             let duration = durationNumber.intValue / 1000
             
-            if offlineStatus.downloadState == .stateTracksCompleted {
+            if offlineStatus.downloadState == .stateCompleted {
                 
                 // download complete: show the downloaded video size
                 

@@ -66,22 +66,18 @@ class VideoManager: NSObject {
                     switch offlineVideoStatus.downloadState {
                         case .licensePreloaded,
                              .stateRequested,
-                             .stateTracksRequested,
-                             .stateDownloading,
-                             .stateTracksDownloading:
+                             .stateDownloading:
                         videoDictionary["state"] = VideoState.Downloading
-                        case .stateSuspended,
-                             .stateTracksSuspended:
+                        case .stateSuspended:
                         videoDictionary["state"] = VideoState.Paused
-                        case .stateCancelled,
-                             .stateTracksCancelled:
+                        case .stateCancelled:
                         videoDictionary["state"] = VideoState.Cancelled
-                        case .stateCompleted,
-                             .stateTracksCompleted:
+                        case .stateCompleted:
                         videoDictionary["state"] = VideoState.Downloaded
-                        case .stateError,
-                             .stateTracksError:
+                        case .stateError:
                         videoDictionary["state"] = VideoState.Downloadable
+                        default:
+                        break
                     }
                     
                 }

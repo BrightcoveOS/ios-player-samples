@@ -419,27 +419,6 @@ static unsigned long long int directorySize(NSString *folderPath)
     }
     
     NSLog(@"Video Properties:\n%@", video.properties);
-    
-    NSNumber *sidebandCaptionsValue = video.properties[kBCOVOfflineVideoUsesSidebandSubtitleKey];
-    if (sidebandCaptionsValue.boolValue == YES)
-    {
-        NSArray<NSString *> *sidebandLanguages = video.properties[kBCOVOfflineVideoManagerSubtitleLanguagesKey];
-        
-        NSMutableString *sidebandLanguagesString = [NSMutableString stringWithString:@""];
-        for (NSString *language in sidebandLanguages)
-        {
-            [sidebandLanguagesString appendString:language];
-            [sidebandLanguagesString appendString:@", "];
-        }
-        
-        int stringLength = (int)sidebandLanguagesString.length;
-        if (stringLength >= 2)
-        {
-            [sidebandLanguagesString substringToIndex:stringLength];
-        }
-        
-        NSLog(@"Video uses sideband subtitles with languages: %@", sidebandLanguagesString);
-    }
 }
 
 - (IBAction)doPauseResumeButton:(id)sender
@@ -453,27 +432,21 @@ static unsigned long long int directorySize(NSString *folderPath)
     {
         case BCOVOfflineVideoDownloadLicensePreloaded:
         case BCOVOfflineVideoDownloadStateRequested:
-        case BCOVOfflineVideoDownloadStateTracksRequested:
             break;
 
         case BCOVOfflineVideoDownloadStateDownloading:
-        case BCOVOfflineVideoDownloadStateTracksDownloading:
             [sharedManager pauseVideoDownload:self.selectedOfflineVideoToken];
             [self.pauseButton setTitle:@"Resume" forState:UIControlStateNormal];
             break;
 
         case BCOVOfflineVideoDownloadStateSuspended:
-        case BCOVOfflineVideoDownloadStateTracksSuspended:
             [self.pauseButton setTitle:@"Pause" forState:UIControlStateNormal];
             [sharedManager resumeVideoDownload:self.selectedOfflineVideoToken];
             break;
 
         case BCOVOfflineVideoDownloadStateCancelled:
-        case BCOVOfflineVideoDownloadStateTracksCancelled:
         case BCOVOfflineVideoDownloadStateCompleted:
-        case BCOVOfflineVideoDownloadStateTracksCompleted:
         case BCOVOfflineVideoDownloadStateError:
-        case BCOVOfflineVideoDownloadStateTracksError:
             break;
     }
 }
@@ -487,16 +460,7 @@ static unsigned long long int directorySize(NSString *folderPath)
     }
     else
     {
-        if (@available(iOS 11.0, *))
-        {
-            // iOS 11.0 and 11.1: work around iOS download manager bugs
-            [self forceStopAllDownloadTasks];
-        }
-        else
-        {
-            // iOS 10.x: cancel normally
-            [self cancelVideoDownload];
-        }
+        [self forceStopAllDownloadTasks];
     }
 }
 
@@ -531,21 +495,15 @@ static unsigned long long int directorySize(NSString *folderPath)
     switch (offlineVideoStatus.downloadState)
     {
         case BCOVOfflineVideoDownloadStateRequested:
-        case BCOVOfflineVideoDownloadStateTracksRequested:
         case BCOVOfflineVideoDownloadStateDownloading:
-        case BCOVOfflineVideoDownloadStateTracksDownloading:
         case BCOVOfflineVideoDownloadStateSuspended:
-        case BCOVOfflineVideoDownloadStateTracksSuspended:
             [sharedManager cancelVideoDownload:self.selectedOfflineVideoToken];
             break;
             
         case BCOVOfflineVideoDownloadLicensePreloaded:
         case BCOVOfflineVideoDownloadStateCancelled:
-        case BCOVOfflineVideoDownloadStateTracksCancelled:
         case BCOVOfflineVideoDownloadStateCompleted:
-        case BCOVOfflineVideoDownloadStateTracksCompleted:
         case BCOVOfflineVideoDownloadStateError:
-        case BCOVOfflineVideoDownloadStateTracksError:
             break;
     }
 }
@@ -775,7 +733,6 @@ static unsigned long long int directorySize(NSString *folderPath)
         case BCOVOfflineVideoDownloadStateCancelled:
             downloadState = @"cancelled";
             break;
-        case BCOVOfflineVideoDownloadStateTracksCompleted:
         case BCOVOfflineVideoDownloadStateCompleted:
         {
             NSNumber *actualMegabytesNumber = self.downloadSizeDictionary[self.selectedOfflineVideoToken];
@@ -792,22 +749,6 @@ static unsigned long long int directorySize(NSString *folderPath)
         }
         case BCOVOfflineVideoDownloadStateError:
             downloadState = [NSString stringWithFormat:@"error %ld (%@)", (long)offlineVideoStatus.error.code, offlineVideoStatus.error.localizedDescription];
-            break;
-
-        case BCOVOfflineVideoDownloadStateTracksRequested:
-            downloadState = @"tracks download requested";
-            break;
-        case BCOVOfflineVideoDownloadStateTracksDownloading:
-            downloadState = [NSString stringWithFormat:@"tracks downloading (%0.1f%%)", offlineVideoStatus.downloadPercent];
-            break;
-        case BCOVOfflineVideoDownloadStateTracksSuspended:
-            downloadState = [NSString stringWithFormat:@"tracks paused (%0.1f%%)", offlineVideoStatus.downloadPercent];
-            break;
-        case BCOVOfflineVideoDownloadStateTracksCancelled:
-            downloadState = @"tracks download cancelled";
-            break;
-        case BCOVOfflineVideoDownloadStateTracksError:
-            downloadState = [NSString stringWithFormat:@"tracks download error %ld (%@)", (long)offlineVideoStatus.error.code, offlineVideoStatus.error.localizedDescription];
             break;
     }
     
@@ -868,32 +809,6 @@ static unsigned long long int directorySize(NSString *folderPath)
 - (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didProgressTo:(NSTimeInterval)progress
 {
     NSLog(@"didProgressTo: %f", progress);
-    
-    if (@available(iOS 11.0, *))
-    {
-        // No issues with playback on iOS 11
-    }
-    else
-    {
-        // iOS 10:
-        // This is a workaround in iOS 10.x to fix an Apple bug where the video
-        // does not play properly while downloading
-        
-        // If the seek jumps past 10 in the first 3 seconds, go back to zero.
-        // This works around an Apple 10.x bug where playing downloading vidoes
-        // seeks to the end of the video
-        if (progress > 10.0 && [NSDate.date timeIntervalSinceDate:self.sessionStartTime] < 3.0 && [NSDate.date timeIntervalSinceDate:self.sessionStartTime] > 1.0)
-        {
-            self.sessionStartTime = nil;
-            [controller pause];
-            [controller seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
-                
-                NSLog(@"seek complete");
-                [controller play];
-                
-            }];
-        }
-    }
 }
 
 
@@ -942,13 +857,11 @@ static unsigned long long int directorySize(NSString *folderPath)
     switch (offlineVideoStatus.downloadState)
     {
         case BCOVOfflineVideoDownloadStateDownloading:
-        case BCOVOfflineVideoDownloadStateTracksDownloading:
             [self.pauseButton setTitle:@"Pause" forState:UIControlStateNormal];
             [self.cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
             break;
 
         case BCOVOfflineVideoDownloadStateSuspended:
-        case BCOVOfflineVideoDownloadStateTracksSuspended:
             [self.pauseButton setTitle:@"Resume" forState:UIControlStateNormal];
             [self.cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
             break;
@@ -1051,7 +964,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     NSNumber *megabytesValue = self.downloadSizeDictionary[offlineVideoToken];
     double megabytes = 0.0;
 
-    if (offlineVideoStatus.downloadState == BCOVOfflineVideoDownloadStateTracksCompleted)
+    if (offlineVideoStatus.downloadState == BCOVOfflineVideoDownloadStateCompleted)
     {
         // Compute size if it hasn't been done yet
         if (megabytesValue == nil)

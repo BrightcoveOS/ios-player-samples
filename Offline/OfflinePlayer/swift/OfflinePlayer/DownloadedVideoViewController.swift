@@ -197,11 +197,8 @@ class DownloadedVideoViewController: BaseVideoViewController {
         
         switch offlineVideoStatus.downloadState {
             case .stateRequested,
-                 .stateTracksRequested,
                  .stateDownloading,
-                 .stateTracksDownloading,
-                 .stateSuspended,
-                 .stateTracksSuspended:
+                 .stateSuspended:
             BCOVOfflineVideoManager.shared()?.cancelVideoDownload(selectedOfflineVideoToken)
         default:
             break
@@ -218,18 +215,6 @@ class DownloadedVideoViewController: BaseVideoViewController {
         }
         
         print("Video Properties: \(properties)")
-        
-        guard let sidebandCaptionsValue = video.properties[kBCOVOfflineVideoUsesSidebandSubtitleKey] as? NSNumber, let sidebandLangauges = video.properties[kBCOVOfflineVideoManagerSubtitleLanguagesKey] as? [String], sidebandCaptionsValue.boolValue == true else {
-            return
-        }
-        
-        var sidebandLanguagesString = ""
-        
-        for language in sidebandLangauges {
-            sidebandLanguagesString = sidebandLanguagesString + language + ", "
-        }
-
-        print("Video uses sideband subtitles with languages: \(sidebandLangauges)")
     }
     
     func deleteOfflineVideo(withToken token: String) {
@@ -280,12 +265,10 @@ class DownloadedVideoViewController: BaseVideoViewController {
         }
         
         switch status.downloadState {
-        case .stateTracksDownloading,
-             .stateDownloading:
+        case .stateDownloading:
             pauseButton?.setTitle("Pause", for: .normal)
             cancelButton?.setTitle("Cancel", for: .normal)
-        case .stateTracksSuspended,
-             .stateSuspended:
+        case .stateSuspended:
             pauseButton?.setTitle("Resume", for: .normal)
             cancelButton?.setTitle("Cancel", for: .normal)
         default:
@@ -441,11 +424,9 @@ class DownloadedVideoViewController: BaseVideoViewController {
         }
         
         switch offlineVideoStatus.downloadState {
-            case .stateDownloading,
-                 .stateTracksDownloading:
+        case .stateDownloading:
             BCOVOfflineVideoManager.shared()?.pauseVideoDownload(selectedOfflineVideoToken)
-            case .stateSuspended,
-                 .stateTracksSuspended:
+        case .stateSuspended:
             BCOVOfflineVideoManager.shared()?.resumeVideoDownload(selectedOfflineVideoToken)
         default:
             break
@@ -460,12 +441,8 @@ class DownloadedVideoViewController: BaseVideoViewController {
         if #available(iOS 11.2, *) {
             // iOS 11.2+: cancel normally
             cancelVideoDownload()
-        } else if #available(iOS 11.0, *) {
-            // iOS 11.0 and 11.1: work around iOS download manager bugs
-            forceStopAllDownloadTasks()
         } else {
-            // iOS 10.x: cancel normally
-            cancelVideoDownload()
+             forceStopAllDownloadTasks()
         }
     }
 
@@ -547,35 +524,6 @@ extension DownloadedVideoViewController {
     func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didProgressTo progress: TimeInterval) {
         
         print("didProgressTo: \(progress)")
-        
-        if #available(iOS 11.0, *) {
-            // No issues with playback on iOS 11
-        } else {
-            
-            // iOS 10:
-            // This is a workaround in iOS 10.x to fix an Apple bug where the video
-            // does not play properly while downloading
-            
-            // If the seek jumps past 10 in the first 3 seconds, go back to zero.
-            // This works around an Apple 10.x bug where playing downloading vidoes
-            // seeks to the end of the video
-            guard let _sessionStartTime = sessionStartTime else {
-                return
-            }
-            
-            let sessionStartInterval = Date().timeIntervalSince(_sessionStartTime)
-            
-            if (progress > 10.0 && sessionStartInterval < 3 && sessionStartInterval > 1 ) {
-                sessionStartTime = nil
-                controller.pause()
-                controller.seek(to: .zero) { (finished: Bool) in
-                    print("Seek Complete")
-                    controller.play()
-                }
-            }
-            
-        }
-        
     }
     
 }

@@ -432,25 +432,19 @@
                 {
                     case BCOVOfflineVideoDownloadLicensePreloaded:
                     case BCOVOfflineVideoDownloadStateRequested:
-                    case BCOVOfflineVideoDownloadStateTracksRequested:
                     case BCOVOfflineVideoDownloadStateDownloading:
-                    case BCOVOfflineVideoDownloadStateTracksDownloading:
                         videoDictionary[@"state"] = @(VideoStateDownloading);
                         break;
                     case BCOVOfflineVideoDownloadStateSuspended:
-                    case BCOVOfflineVideoDownloadStateTracksSuspended:
                         videoDictionary[@"state"] = @(VideoStatePaused);
                         break;
                     case BCOVOfflineVideoDownloadStateCancelled:
-                    case BCOVOfflineVideoDownloadStateTracksCancelled:
                         videoDictionary[@"state"] = @(VideoStateCancelled);
                         break;
                     case BCOVOfflineVideoDownloadStateCompleted:
-                    case BCOVOfflineVideoDownloadStateTracksCompleted:
                         videoDictionary[@"state"] = @(VideoStateDownloaded);
                         break;
                     case BCOVOfflineVideoDownloadStateError:
-                    case BCOVOfflineVideoDownloadStateTracksError:
                         videoDictionary[@"state"] = @(VideoStateDownloadable);
                         break;
                 }
