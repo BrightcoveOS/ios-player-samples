@@ -10,10 +10,6 @@
 		223B44EF2003E7D400C6C60C /* DownloadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223B44E92003E7D400C6C60C /* DownloadsViewController.m */; };
 		223B44F02003E7D400C6C60C /* VideosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223B44EC2003E7D400C6C60C /* VideosViewController.m */; };
 		223B44F12003E7D400C6C60C /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223B44ED2003E7D400C6C60C /* SettingsViewController.m */; };
-		223B44F82003EC3C00C6C60C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223B44F72003EC3C00C6C60C /* MediaPlayer.framework */; };
-		223B44FA2003EC4400C6C60C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223B44F92003EC4400C6C60C /* CoreGraphics.framework */; };
-		223B44FC2003EC4D00C6C60C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223B44FB2003EC4D00C6C60C /* UIKit.framework */; };
-		223B44FE2003EC5700C6C60C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223B44FD2003EC5700C6C60C /* Foundation.framework */; };
 		22EF4AD62003FF0500F85A29 /* bcov.png in Resources */ = {isa = PBXBuildFile; fileRef = 22EF4ACC2003FEFF00F85A29 /* bcov.png */; };
 		22EF4AD72003FF0C00F85A29 /* cancelled.png in Resources */ = {isa = PBXBuildFile; fileRef = 22EF4ACD2003FEFF00F85A29 /* cancelled.png */; };
 		22EF4AD82003FF0C00F85A29 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = 22EF4ACE2003FEFF00F85A29 /* download.png */; };
@@ -87,10 +83,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				223B44FA2003EC4400C6C60C /* CoreGraphics.framework in Frameworks */,
-				223B44FE2003EC5700C6C60C /* Foundation.framework in Frameworks */,
-				223B44F82003EC3C00C6C60C /* MediaPlayer.framework in Frameworks */,
-				223B44FC2003EC4D00C6C60C /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
