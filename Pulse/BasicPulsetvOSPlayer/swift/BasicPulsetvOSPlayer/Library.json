@@ -1,0 +1,44 @@
+[{
+    "content-title":     "No ads."
+},{
+    "content-title":     "Preroll demo.",
+    "tags":              ["standard-prerolls"]
+},{
+    "content-title":     "Midroll demo",
+    "tags":              ["standard-midrolls"],
+    "midroll-positions": [20, 40]
+},{
+    "content-title":     "Postroll demo.",
+    "tags":              ["standard-postrolls"]
+},{
+    "content-title":     "Pause ad demo.",
+    "tags":              ["pause"]
+},{
+    "content-title":     "Pre-/mid-/postroll demo.",
+    "tags":              ["standard-linears"],
+    "midroll-positions": [20, 40]
+},{
+    "content-title":     "Pre-/mid-/postroll skippable.",
+    "category":          "skip-always",
+    "tags":              ["standard-linears"],
+    "midroll-positions": [20, 40]
+},{
+    "content-title":     "Pre-/mid-/postroll skip after first.",
+    "category":          "skip-after-first",
+    "tags":              ["standard-linears"],
+    "midroll-positions": [20, 40]
+},{
+    "content-title":     "Frequency capping demo.",
+    "category":          "frequency-capped-1min",
+    "tags":              ["standard-linears"],
+    "midroll-positions": [20, 40]
+},{
+    "content-title":    "Preroll demo - Ad media file invalid.",
+    "tags":             ["preroll-media-invalid"]
+},{
+    "content-title":    "Preroll demo - Ad media file timeout.",
+    "tags":             ["preroll-media-timeout"]
+},{
+    "content-title":    "Preroll demo - Ad media file 404.",
+    "tags":             ["preroll-media-404"]
+}]
