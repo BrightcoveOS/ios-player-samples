@@ -36,7 +36,6 @@ class DownloadManager: NSObject {
         
         let videoDownload = VideoDownload(video: video, paramaters: downloadParamaters)
         
-        // On iOS 10.3 and later we can perform video preloading
         videoPreloadQueue.append(videoDownload)
         
         runPreloadVideoQueue()
@@ -46,7 +45,6 @@ class DownloadManager: NSObject {
     private func languagesArrayForAlternativeRenditions(attributesDictArray: [[AnyHashable:Any]]?) -> [String] {
      
         // We want to download all subtitle/audio tracks
-        // The methods for dowloading them are different on iOS 10 and iOS 11+.
         guard let attributesDictArray = attributesDictArray else {
             return []
         }
@@ -233,14 +231,6 @@ class DownloadManager: NSObject {
             }
             
         })
-        
-        // Prior to iOS 13 it was possible to download secondary tracks separately from the video itself.
-        // On iOS 13+ you must now download secondary tracks along with the video.
-        // The existing method for downloading videos is: `requestVideoDownload:parameters:completion:`
-        // You may still use this method on iOS 11 and 12.
-        // If you want to support iOS 13 and do not want to have any branching logic
-        // you can use the new method that is backwards compatible:
-        // `requestVideoDownload:mediaSelections:parameters:completion:`
     
         var avURLAsset: AVURLAsset?
         do {
@@ -417,7 +407,6 @@ extension DownloadManager: BCOVOfflineVideoManagerDelegate {
     }
     
     func offlineVideoToken(_ offlineVideoToken: String!, aggregateDownloadTask: AVAggregateAssetDownloadTask!, didProgressTo progressPercent: TimeInterval, for mediaSelection: AVMediaSelection!) {
-        // iOS 11+ only
         // The specific requested media selected option related to this
         // offline video token has progressed to the specified percent
         if let offlineVideoToken = offlineVideoToken {
@@ -434,14 +423,6 @@ extension DownloadManager: BCOVOfflineVideoManagerDelegate {
     
     func offlineVideoToken(_ offlineVideoToken: String?, didFinishDownloadWithError error: Error?) {
         // The video has completed downloading
-        
-        // On iOS 10, any requested caption tracks will have been downloaded
-        // along with the primary video.
-        
-        // On iOS 11+, after the video has downloaded, you can request that
-        // additional tracks be downloaded.
-        // In this app, a long press on the downloaded video will present
-        // the option to download all extra tracks.
         
         if let error = error {
             print("Download finished with error: \(error.localizedDescription)")

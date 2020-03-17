@@ -16,8 +16,6 @@ import BrightcovePlayerSDK
 //
 // After selecting it, tap "play" to play the video.
 //
-// Long-press on a video to download its secondary audio tracks (iOS 11+)
-//
 // Slide to delete a video.
 //
 // Tap "More…" to log information about the current video, renew the FairPlay

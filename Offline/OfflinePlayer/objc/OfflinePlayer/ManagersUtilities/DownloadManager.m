@@ -240,15 +240,7 @@
          }
      
      }];
-    
-    // Prior to iOS 13 it was possible to download secondary tracks separately from the video itself.
-    // On iOS 13+ you must now download secondary tracks along with the video.
-    // The existing method for downloading videos is: `requestVideoDownload:parameters:completion:`
-    // You may still use this method on iOS 11 and 12.
-    // If you want to support iOS 13 and do not want to have any branching logic
-    // you can use the new method that is backwards compatible:
-    // `requestVideoDownload:mediaSelections:parameters:completion:`
-    
+
     __weak typeof(self) weakSelf = self;
     
     AVURLAsset *avURLAsset = [self.offlineVideoManager urlAssetForVideo:video error:nil];
@@ -315,14 +307,12 @@
 - (NSArray *)languagesArrayForAlternativeRenditions:(NSArray<NSDictionary *> *)alternativeRenditionAttributesDictionariesArray
 {
     // We want to download all subtitle/audio tracks
-    // The methods for dowloading them are different on iOS 10 and iOS 11+.
     
     if (alternativeRenditionAttributesDictionariesArray == nil)
     {
         return nil;
     }
     
-    // On iOS 10, we look at the available
     NSLog(@"Alternative Rendition Attributes Dictionaries:\n%@", alternativeRenditionAttributesDictionariesArray);
     
     // Collect all the available subtitle languages in a set to avoid duplicates
@@ -471,7 +461,6 @@
         @"parameters": downloadParameters
     };
     
-    // On iOS 10.3 and later we can perform video preloading
     [self.videoPreloadQueue addObject:videoDownloadDictionary];
     
     [self runPreloadVideoQueue];
@@ -533,14 +522,6 @@
 didFinishDownloadWithError:(NSError *)error
 {
     // The video has completed downloading
-
-    // On iOS 10, any requested caption tracks will have been downloaded
-    // along with the primary video.
-    
-    // On iOS 11+, after the video has downloaded, you can request that
-    // additional tracks be downloaded.
-    // In this app, a long press on the downloaded video will present
-    // the option to download all extra tracks.
     
     NSLog(@"Download finished with error: %@", error);
     
@@ -569,7 +550,6 @@ didFinishDownloadWithError:(NSError *)error
             didProgressTo:(NSTimeInterval)progressPercent
         forMediaSelection:(AVMediaSelection *)mediaSelection NS_AVAILABLE_IOS(11_0)
 {
-    // iOS 11+ only
     // The specific requested media selected option related to this
     // offline video token has progressed to the specified percent
     NSLog(@"aggregateDownloadTask:didProgressTo:%0.2f for token: %@", progressPercent, offlineVideoToken);
@@ -587,7 +567,6 @@ didFinishDownloadWithError:(NSError *)error
 - (void)offlineVideoToken:(BCOVOfflineVideoToken)offlineVideoToken
 didFinishMediaSelectionDownload:(AVMediaSelection *)mediaSelection NS_AVAILABLE_IOS(11_0)
 {
-    // iOS 11+ only
     // The specific requested media selected option related to this
     // offline video token has completed downloading
     BCOVOfflineVideoStatus *offlineVideoStatus = [BCOVOfflineVideoManager.sharedManager offlineVideoStatusForToken:offlineVideoToken];
@@ -600,7 +579,6 @@ didFinishMediaSelectionDownload:(AVMediaSelection *)mediaSelection NS_AVAILABLE_
 - (void)offlineVideoToken:(BCOVOfflineVideoToken)offlineVideoToken
 didFinishAggregateDownloadWithError:(NSError *)error NS_AVAILABLE_IOS(11_0)
 {
-    // iOS 11+ only
     // All requested secondary tracks related to this offline video token
     // have completed downloading
     NSLog(@"didFinishAggregateDownloadWithError:%@ withToken:%@", error, offlineVideoToken);
