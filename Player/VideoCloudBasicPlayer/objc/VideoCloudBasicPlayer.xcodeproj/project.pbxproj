@@ -13,6 +13,7 @@
 		4907B1DF19D9DACF002EA892 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4907B1DD19D9DACF002EA892 /* Main.storyboard */; };
 		4907B1E119D9DACF002EA892 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4907B1E019D9DACF002EA892 /* Images.xcassets */; };
 		4907B1E419D9DACF002EA892 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4907B1E219D9DACF002EA892 /* LaunchScreen.xib */; };
+		E984FCAF24252CBE00085367 /* NowPlayingHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = E984FCAE24252CBE00085367 /* NowPlayingHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,8 @@
 		4907B1E319D9DACF002EA892 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		4907B1EE19D9DACF002EA892 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4907B1EF19D9DACF002EA892 /* VideoCloudBasicPlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoCloudBasicPlayerTests.m; sourceTree = "<group>"; };
+		E984FCAD24252CBE00085367 /* NowPlayingHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NowPlayingHandler.h; sourceTree = "<group>"; };
+		E984FCAE24252CBE00085367 /* NowPlayingHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NowPlayingHandler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +68,8 @@
 				4907B1D819D9DACF002EA892 /* AppDelegate.m */,
 				4907B1DA19D9DACF002EA892 /* ViewController.h */,
 				4907B1DB19D9DACF002EA892 /* ViewController.m */,
+				E984FCAD24252CBE00085367 /* NowPlayingHandler.h */,
+				E984FCAE24252CBE00085367 /* NowPlayingHandler.m */,
 				4907B1DD19D9DACF002EA892 /* Main.storyboard */,
 				4907B1E019D9DACF002EA892 /* Images.xcassets */,
 				4907B1E219D9DACF002EA892 /* LaunchScreen.xib */,
@@ -174,6 +179,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E984FCAF24252CBE00085367 /* NowPlayingHandler.m in Sources */,
 				4907B1D919D9DACF002EA892 /* AppDelegate.m in Sources */,
 				4907B1DC19D9DACF002EA892 /* ViewController.m in Sources */,
 				4907B1D619D9DACF002EA892 /* main.m in Sources */,

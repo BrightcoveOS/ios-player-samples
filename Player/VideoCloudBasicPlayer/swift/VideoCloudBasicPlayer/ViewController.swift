@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     let sharedSDKManager = BCOVPlayerSDKManager.shared()
     let playbackService = BCOVPlaybackService(accountId: kViewControllerAccountID, policyKey: kViewControllerPlaybackServicePolicyKey)
     let playbackController :BCOVPlaybackController
+    var nowPlayingHandler: NowPlayingHandler?
     @IBOutlet weak var videoContainerView: UIView!
     
     required init?(coder aDecoder: NSCoder) {
@@ -26,7 +27,8 @@ class ViewController: UIViewController {
         super.init(coder: aDecoder)
         
         playbackController.delegate = self
-        playbackController.isAutoAdvance = true
+        playbackController.allowsBackgroundAudioPlayback = true
+        playbackController.allowsExternalPlayback = true
         playbackController.isAutoPlay = true
     }
     
@@ -55,6 +57,8 @@ class ViewController: UIViewController {
         
         // Associate the playerView with the playback controller.
         playerView.playbackController = playbackController
+        
+        nowPlayingHandler = NowPlayingHandler(withPlaybackController: playbackController)
         
         requestContentFromPlaybackService()
     }
