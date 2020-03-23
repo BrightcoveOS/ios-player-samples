@@ -30,8 +30,7 @@
 
     NSError *categoryError = nil;
     // see https://developer.apple.com/documentation/avfoundation/avaudiosessioncategoryplayback
-    // and https://developer.apple.com/documentation/avfoundation/avaudiosessionmodemovieplayback
-    BOOL success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback mode:AVAudioSessionModeMoviePlayback options:AVAudioSessionCategoryOptionDuckOthers error:&categoryError];
+    BOOL success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&categoryError];
 
     if (!success)
     {

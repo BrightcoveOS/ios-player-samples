@@ -6,6 +6,9 @@
 //
 
 #import "ViewController.h"
+#import "NowPlayingHandler.h"
+
+@import BrightcovePlayerSDK;
 
 // ** Customize these values with your own account information **
 static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM1W-vUOMe6RSA3pA6Vw-VWUNn5rL0lzQabvrI63-VjS93gVUugDlmBpHIxP16X8TSe5LSKM415UHeMBmxl7pqcwVY_AZ4yKFwIpZPvXE34TpXEYYcmulxJQAOvHbv2dpfq-S_cm";
@@ -19,6 +22,7 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
 @property (nonatomic) BCOVPUIPlayerView *playerView;
 @property (nonatomic, weak) IBOutlet UIView *videoContainer;
+@property (nonatomic, strong) NowPlayingHandler *nowPlayingHandler;
 
 @end
 
@@ -42,7 +46,8 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
     _playbackController = [BCOVPlayerSDKManager.sharedManager createPlaybackController];
 
     _playbackController.delegate = self;
-    _playbackController.autoAdvance = YES;
+    _playbackController.allowsExternalPlayback = YES;
+    _playbackController.allowsBackgroundAudioPlayback = YES;
     _playbackController.autoPlay = YES;
 
     _playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kViewControllerAccountID
@@ -72,6 +77,8 @@ static NSString * const kViewControllerVideoID = @"3666678807001";
 
     // Associate the playerView with the playback controller.
     _playerView.playbackController = _playbackController;
+    
+    _nowPlayingHandler = [[NowPlayingHandler alloc] initWithPlaybackController:_playbackController];
 
     [self requestContentFromPlaybackService];
 }

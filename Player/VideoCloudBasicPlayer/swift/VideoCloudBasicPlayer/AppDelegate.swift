@@ -32,8 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var success: Bool
         do {
             // see https://developer.apple.com/documentation/avfoundation/avaudiosessioncategoryplayback
-            // and https://developer.apple.com/documentation/avfoundation/avaudiosessionmodemovieplayback
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback, options: .duckOthers)
+            try AVAudioSession.sharedInstance().setCategory(.playback)
             success = true
         } catch let error as NSError {
             categoryError = error

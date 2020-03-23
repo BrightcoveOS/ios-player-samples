@@ -12,6 +12,7 @@
 		491576AA19D9F2B700B2E657 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 491576A819D9F2B700B2E657 /* Main.storyboard */; };
 		491576AC19D9F2B700B2E657 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 491576AB19D9F2B700B2E657 /* Images.xcassets */; };
 		491576AF19D9F2B700B2E657 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 491576AD19D9F2B700B2E657 /* LaunchScreen.xib */; };
+		E984FCB22425394300085367 /* NowPlayingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E984FCB12425394300085367 /* NowPlayingHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		491576AE19D9F2B700B2E657 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		491576B919D9F2B700B2E657 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		491576BA19D9F2B700B2E657 /* VideoCloudBasicPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCloudBasicPlayerTests.swift; sourceTree = "<group>"; };
+		E984FCB12425394300085367 /* NowPlayingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			children = (
 				491576A419D9F2B700B2E657 /* AppDelegate.swift */,
 				491576A619D9F2B700B2E657 /* ViewController.swift */,
+				E984FCB12425394300085367 /* NowPlayingHandler.swift */,
 				491576A819D9F2B700B2E657 /* Main.storyboard */,
 				491576AB19D9F2B700B2E657 /* Images.xcassets */,
 				491576AD19D9F2B700B2E657 /* LaunchScreen.xib */,
@@ -172,6 +175,7 @@
 			files = (
 				491576A719D9F2B700B2E657 /* ViewController.swift in Sources */,
 				491576A519D9F2B700B2E657 /* AppDelegate.swift in Sources */,
+				E984FCB22425394300085367 /* NowPlayingHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

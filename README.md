@@ -91,5 +91,6 @@ BasicSSAIPlayer demonstrates use of the SSAI plugin for playback of Dynamic Deli
 
 - An example of creating a `BCOVPlaybackSessionConsumer` can be found in the `OfflinePlayer` and `CustomControls` sample apps.
 - Picture-in-Picture functionality can be found in the `VideoCloudBasicPlayer` sample app. 
+- An example of setting up lock screen playback controls can be found in the  `VideoCloudBasicPlayer` sample app.
 
 [cocoapods]: http://www.cocoapods.org
