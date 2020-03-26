@@ -1,0 +1,9 @@
+source 'https://github.com/brightcove/BrightcoveSpecs.git'
+
+use_frameworks!
+
+platform :tvos, '11.0'
+
+target 'BasicPulsetvOSPlayer' do
+  pod 'Brightcove-Player-Pulse'
+end
