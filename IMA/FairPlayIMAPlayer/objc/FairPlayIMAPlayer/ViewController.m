@@ -102,7 +102,75 @@ NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/st
 
     // Get the shared SDK manager
     BCOVPlayerSDKManager *sdkManager = [BCOVPlayerSDKManager sharedManager];
+    
+    // This shows the two ways of using the Brightcove FairPlay session provider:
+    // Set to true for Dynamic Delivery; false for a legacy Video Cloud account
+    BOOL using_dynamic_delivery = YES;
+    
+    if (using_dynamic_delivery)
+    {
+        // If you're using Dynamic Delivery, you don't need to load
+        // an application certificate. The FairPlay session will load an
+        // application certificate for you if needed.
+        // You can just load and play your FairPlay videos.
+        
+        // Create an authorization proxy for FairPlay
+       // with dynamic delivery you do not need to pass in publisher ID or application ID
+        BCOVFPSBrightcoveAuthProxy *proxy = [[BCOVFPSBrightcoveAuthProxy alloc] initWithPublisherId:nil
+                                                                                      applicationId:nil];
+        
+        id<BCOVPlaybackSessionProvider> fps = [sdkManager createFairPlaySessionProviderWithApplicationCertificate:nil
+                                                                                               authorizationProxy:proxy
+                                                                                          upstreamSessionProvider:nil];
+        [self setupPlaybackControllerWithFPSessionProvider:fps];
+    }
+    else
+    {
+        // Legacy Video Cloud account
+        
+        // You can create your FairPlay session provider first, and give it an
+        // application certificate later, but in this application we want to play
+        // right away, so it's easier to load our player as soon as we know
+        // that we have an application certificate
+        
+        // Create an authorization proxy for FairPlay
+        // using the FairPlay Application ID and the FairPlay Publisher ID
+        BCOVFPSBrightcoveAuthProxy *proxy = [[BCOVFPSBrightcoveAuthProxy alloc] initWithPublisherId:kFairPlayPublisherId
+                                                                                      applicationId:kFairPlayApplicationId];
+        
+        // Retrieve the FairPlay application certificate
+        NSLog(@"Retrieving FairPlay application certificate");
+        
+        __weak typeof(self) weakSelf = self;
+        [proxy retrieveApplicationCertificate:^(NSData * _Nullable applicationCertificate, NSError * _Nullable error) {
 
+            if (applicationCertificate)
+            {
+                NSLog(@"Creating session providers");
+
+                // We can create the FairPlay (and other session providers) now that we have the certificate
+                id<BCOVPlaybackSessionProvider> fps = [sdkManager createFairPlaySessionProviderWithApplicationCertificate:applicationCertificate
+                                                                                                       authorizationProxy:proxy
+                                                                                                  upstreamSessionProvider:nil];
+                
+                [weakSelf setupPlaybackControllerWithFPSessionProvider:fps];
+            }
+            else
+            {
+                NSLog(@"--- ERROR: FairPlay application certificate not found ---");
+            }
+
+        }];
+    }
+
+    [self resumeAdAfterForeground];
+}
+
+- (void)setupPlaybackControllerWithFPSessionProvider:(id<BCOVPlaybackSessionProvider>)fps
+{
+    // Get the shared SDK manager
+    BCOVPlayerSDKManager *sdkManager = [BCOVPlayerSDKManager sharedManager];
+    
     // IMA Settings
     IMASettings *imaSettings = [[IMASettings alloc] init];
     imaSettings.ppid = kViewControllerIMAPublisherID;
@@ -124,66 +192,36 @@ NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/st
     // Use the VMAP ads policy.
     BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy videoPropertiesVMAPAdTagUrlAdsRequestPolicy];
 
-
-    // Create an authorization proxy for FairPlay
-    // using the FairPlay Application ID and the FairPlay Publisher ID
-    BCOVFPSBrightcoveAuthProxy *proxy = [[BCOVFPSBrightcoveAuthProxy alloc] initWithPublisherId:kFairPlayPublisherId
-                                                                                  applicationId:kFairPlayApplicationId];
-
-    // Retrieve the FairPlay application certificate
-    NSLog(@"Retrieving FairPlay application certificate");
+    // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition: which allows us
+    // to modify the IMAAdsRequest object before it is used to load ads.
+    NSDictionary *imaPlaybackSessionOptions = @{ kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self };
     
-    __weak typeof(self) weakSelf = self;
-    [proxy retrieveApplicationCertificate:^(NSData * _Nullable applicationCertificate, NSError * _Nullable error) {
+    // FairPlay is set as the upstream session provider when creating the IMA session provider.
+    id<BCOVPlaybackSessionProvider> imaSessionProvider = [sdkManager createIMASessionProviderWithSettings:imaSettings
+                                                                                     adsRenderingSettings:renderSettings
+                                                                                         adsRequestPolicy:adsRequestPolicy
+                                                                                              adContainer:self.playerView.contentOverlayView
+                                                                                           companionSlots:nil
+                                                                                  upstreamSessionProvider:fps
+                                                                                                  options:imaPlaybackSessionOptions];
 
-        if (applicationCertificate)
-        {
-            NSLog(@"Creating session providers");
+    NSLog(@"Creating playback controller");
+    
+    // Create playback controller with the chain of session providers.
+    id<BCOVPlaybackController> playbackController = [sdkManager createPlaybackControllerWithSessionProvider:imaSessionProvider
+                                                                                               viewStrategy:nil];
+    
+    playbackController.delegate = self;
+    playbackController.autoAdvance = YES;
+    playbackController.autoPlay = YES;
 
-            // We can create the FairPlay (and other session providers) now that we have the certificate
-            id<BCOVPlaybackSessionProvider> fps = [sdkManager createFairPlaySessionProviderWithApplicationCertificate:applicationCertificate
-                                                                                                   authorizationProxy:proxy
-                                                                                              upstreamSessionProvider:nil];
-            
-            // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition: which allows us
-            // to modify the IMAAdsRequest object before it is used to load ads.
-            NSDictionary *imaPlaybackSessionOptions = @{ kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self };
-            
-            // FairPlay is set as the upstream session provider when creating the IMA session provider.
-            id<BCOVPlaybackSessionProvider> imaSessionProvider = [sdkManager createIMASessionProviderWithSettings:imaSettings
-                                                                                             adsRenderingSettings:renderSettings
-                                                                                                 adsRequestPolicy:adsRequestPolicy
-                                                                                                      adContainer:weakSelf.playerView.contentOverlayView
-                                                                                                   companionSlots:nil
-                                                                                          upstreamSessionProvider:fps
-                                                                                                          options:imaPlaybackSessionOptions];
+    self.playbackController = playbackController;
 
-            NSLog(@"Creating playback controller");
-            
-            // Create playback controller with the chain of session providers.
-            id<BCOVPlaybackController> playbackController = [sdkManager createPlaybackControllerWithSessionProvider:imaSessionProvider
-                                                                                                       viewStrategy:nil];
-            
-            playbackController.delegate = self;
-            playbackController.autoAdvance = YES;
-            playbackController.autoPlay = YES;
+    self.playerView.playbackController = playbackController;
 
-            weakSelf.playbackController = playbackController;
+    NSLog(@"Created a new playbackController");
 
-            weakSelf.playerView.playbackController = playbackController;
-
-            NSLog(@"Created a new playbackController");
-
-            [self requestContent];
-        }
-        else
-        {
-            NSLog(@"--- ERROR: FairPlay application certificate not found ---");
-        }
-
-    }];
-
-    [self resumeAdAfterForeground];
+    [self requestContent];
 }
 
 - (void)dealloc
