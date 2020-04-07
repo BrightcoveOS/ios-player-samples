@@ -203,6 +203,7 @@ static unsigned long long int directorySize(NSString *folderPath)
         playbackController.autoAdvance = YES;
         playbackController.autoPlay = YES;
         playbackController.delegate = self;
+        playbackController.thumbnailScrubbingEnabled = NO;
         self.playbackController = playbackController;
         self.playerView.playbackController = playbackController;
     }
