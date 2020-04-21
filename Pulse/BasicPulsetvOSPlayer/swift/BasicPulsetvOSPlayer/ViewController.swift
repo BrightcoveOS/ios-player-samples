@@ -21,7 +21,8 @@ struct PlaybackConfig
 
 struct PulseConfig
 {
-    static let PulseHost = "insertyourpulsehosthere"
+    // Replace with your own Pulse Host info:
+    static let PulseHost = "https://bc-test.videoplaza.tv"
 }
 
 
@@ -70,14 +71,33 @@ class ViewController: UIViewController
         
         // See http://pulse-sdks.videoplaza.com/ios_2/latest/Classes/OORequestSettings.html
         let requestSettings = OORequestSettings()
-        
-        // See http://pulse-sdks.videoplaza.com/ios_2/latest/Enums/OOSeekMode.html
-        requestSettings.seekMode = OOSeekMode.PLAY_ALL_ADS
-        
+
         let pulseProperties = [
             kBCOVPulseOptionPulsePlaybackSessionDelegateKey: self,
             kBCOVPulseOptionPulsePersistentIdKey: UUID.init().uuidString
             ] as [String : Any]
+
+        /**
+         *  Initialize the Brightcove Pulse Plugin.
+         *  Host:
+         *      The host is derived from the "sub-domain” found in the Pulse UI and is formulated
+         *      like this: `https://[sub-domain].videoplaza.tv`
+         *  Device Container (kBCOVPulseOptionPulseDeviceContainerKey):
+         *      The device container in Pulse is used for targeting and reporting purposes.
+         *      This device container attribute is only used if you want to override the Pulse
+         *      device detection algorithm on the Pulse ad server. This should only be set if normal
+         *      device detection does not work and only after consulting our personnel.
+         *      An incorrect device container value can result in no ads being served
+         *      or incorrect ad delivery and reports.
+         *  Persistent Id (kBCOVPulseOptionPulsePersistentIdKey):
+         *      The persistent identifier is used to identify the end user and is the
+         *      basis for frequency capping, uniqueness, DMP targeting information and
+         *      more. Use Apple's advertising identifier (IDFA), or your own unique
+         *      user identifier here.
+         *
+         *  Refer to:
+         *  https://docs.videoplaza.com/oadtech/ad_serving/dg/pulse_sdks_parameter.html
+         */
 
         guard let _pulseSessionProvider = BCOVPlayerSDKManager.shared()?.createPulseSessionProvider(withPulseHost: PulseConfig.PulseHost, contentMetadata: contentMetadata, requestSettings: requestSettings, adContainer: self.playerView?.contentOverlayView, companionSlots: [], upstreamSessionProvider: nil, options: pulseProperties) else {
             return nil
@@ -163,7 +183,7 @@ extension ViewController: BCOVPlaybackControllerDelegate
 
 extension ViewController: BCOVPulsePlaybackSessionDelegate
 {
-    func createSession(for video: BCOVVideo!, withPulseHost pulseHost: String!, contentMetdata contentMetadata: OOContentMetadata!, requestSettings: OORequestSettings!) -> OOPulseSession!
+    func createSession(for video: BCOVVideo!, withPulseHost pulseHost: String!, contentMetadata contentMetadata: OOContentMetadata!, requestSettings: OORequestSettings!) -> OOPulseSession!
     {
         if pulseHost == nil
         {

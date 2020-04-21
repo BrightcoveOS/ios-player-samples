@@ -102,24 +102,45 @@ static NSString * const kVideoID = @"insertyourvideoidhere";
 - (void)setupPlaybackController
 {
     BCOVPlayerSDKManager *manager = BCOVPlayerSDKManager.sharedManager;
-    
-    NSString *pulseHost = @"http://pulse-demo.videoplaza.tv";
+
+    // Replace with your own Pulse Host info:
+    NSString *pulseHost = @"https://bc-test.videoplaza.tv";
 
     // See http://pulse-sdks.videoplaza.com/ios_2/latest/Classes/OOContentMetadata.html
     OOContentMetadata *contentMetadata = [OOContentMetadata new];
     
     // See http://pulse-sdks.videoplaza.com/ios_2/latest/Classes/OORequestSettings.html
     OORequestSettings *requestSettings = [OORequestSettings new];
-    
-    // See http://pulse-sdks.videoplaza.com/ios_2/latest/Enums/OOSeekMode.html
-    requestSettings.seekMode = PLAY_ALL_ADS; // PLAY_ALL_ADS;
-    
-    NSDictionary *pulseProperties =
-    @{
+
+    NSString *persistentId = [UIDevice.currentDevice.identifierForVendor UUIDString];
+
+    NSDictionary *pulseProperties = @{
         kBCOVPulseOptionPulsePlaybackSessionDelegateKey: self,
-        kBCOVPulseOptionPulsePersistentIdKey: [NSUUID.UUID UUIDString]
+        kBCOVPulseOptionPulsePersistentIdKey: persistentId
     };
-    
+
+    /**
+     *  Initialize the Brightcove Pulse Plugin.
+     *  Host:
+     *      The host is derived from the "sub-domain” found in the Pulse UI and is formulated
+     *      like this: `https://[sub-domain].videoplaza.tv`
+     *  Device Container (kBCOVPulseOptionPulseDeviceContainerKey):
+     *      The device container in Pulse is used for targeting and reporting purposes.
+     *      This device container attribute is only used if you want to override the Pulse
+     *      device detection algorithm on the Pulse ad server. This should only be set if normal
+     *      device detection does not work and only after consulting our personnel.
+     *      An incorrect device container value can result in no ads being served
+     *      or incorrect ad delivery and reports.
+     *  Persistent Id (kBCOVPulseOptionPulsePersistentIdKey):
+     *      The persistent identifier is used to identify the end user and is the
+     *      basis for frequency capping, uniqueness, DMP targeting information and
+     *      more. Use Apple's advertising identifier (IDFA), or your own unique
+     *      user identifier here.
+     *
+     *  Refer to:
+     *  https://docs.videoplaza.com/oadtech/ad_serving/dg/pulse_sdks_parameter.html
+     */
+
     self.pulseSessionProvider = [manager createPulseSessionProviderWithPulseHost:pulseHost
                                                                  contentMetadata:contentMetadata
                                                                  requestSettings:requestSettings
@@ -154,7 +175,7 @@ static NSString * const kVideoID = @"insertyourvideoidhere";
 
 #pragma mark BCOVPulsePlaybackSessionDelegate
 
-- (id<OOPulseSession>)createSessionForVideo:(BCOVVideo *)video withPulseHost:(NSString *)pulseHost contentMetdata:(OOContentMetadata *)contentMetadata requestSettings:(OORequestSettings *)requestSettings
+- (id<OOPulseSession>)createSessionForVideo:(BCOVVideo *)video withPulseHost:(NSString *)pulseHost contentMetadata:(OOContentMetadata *)contentMetadata requestSettings:(OORequestSettings *)requestSettings
 {
     if (!pulseHost) return nil;
     
