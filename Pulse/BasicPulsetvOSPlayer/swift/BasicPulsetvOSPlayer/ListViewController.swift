@@ -82,9 +82,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource
 
         cell.textLabel?.text = item.title ?? ""
 
-        let subtitle = item.category ?? ""
-
-        cell.detailTextLabel?.text = "\(subtitle) \(item.tags?.joined(separator: ", ") ?? "")"
+        cell.detailTextLabel?.text = "\(item.category ?? "") \(item.tags?.joined(separator: ", ") ?? "")"
 
         return cell
     }

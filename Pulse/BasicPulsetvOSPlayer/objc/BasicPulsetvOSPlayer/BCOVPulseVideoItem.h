@@ -29,11 +29,6 @@
 @property (nonatomic) NSArray<NSString *> *tags;
 
 /**
-* An array of string flags used to target ad campaigns.
- */
-@property (nonatomic) NSArray<NSString *> *flags;
-
-/**
 *  An array of numbers of positions (in seconds) where midroll ad breaks
 *  may occur.
 */

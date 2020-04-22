@@ -103,10 +103,12 @@ class ViewController: UIViewController
         
         // Create a companion slot.
         let companionSlot = BCOVPulseCompanionSlot(view: self.companionSlot, width: 400, height: 100)!
-        
+
+        let persistentId = UIDevice.current.identifierForVendor?.uuidString
+
         let pulseProperties = [
             kBCOVPulseOptionPulsePlaybackSessionDelegateKey: self,
-            kBCOVPulseOptionPulsePersistentIdKey: UUID.init().uuidString
+            kBCOVPulseOptionPulsePersistentIdKey: persistentId!
         ] as [String: Any]
 
         /**
@@ -214,7 +216,7 @@ extension ViewController: BCOVPlaybackControllerDelegate
 
 extension ViewController: BCOVPulsePlaybackSessionDelegate
 {
-    func createSession(for video: BCOVVideo!, withPulseHost pulseHost: String!, contentMetadata contentMetadata: OOContentMetadata!, requestSettings: OORequestSettings!) -> OOPulseSession!
+    func createSession(for video: BCOVVideo!, withPulseHost pulseHost: String!, contentMetadata: OOContentMetadata!, requestSettings: OORequestSettings!) -> OOPulseSession!
     {
         if pulseHost == nil
         {
@@ -224,7 +226,6 @@ extension ViewController: BCOVPulsePlaybackSessionDelegate
         // Override the content metadata.
         contentMetadata.category = self.videoItem?.category
         contentMetadata.tags = self.videoItem?.tags
-        contentMetadata.flags = self.videoItem?.flags
 
         // Override the request settings.
         requestSettings.linearPlaybackPositions = self.videoItem?.midrollPositions
@@ -244,6 +245,39 @@ extension ViewController: UITableViewDelegate
         self.videoItem = self.videoItems[indexPath.item]
 
         self.playbackController?.setVideos([self.video] as NSFastEnumeration)
+
+        if self.videoItem?.extendSession != nil {
+
+            // Delay execution.
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5.0) {
+
+                /**
+                 * You cannot request insertion points that have been requested already. For example,
+                 * if you have already requested post-roll ads, then you cannot request them again.
+                 * You can request additional mid-rolls, but only for cue points that have not been
+                 * requested yet. For example, if you have already requested mid-rolls to show after 10 seconds
+                 * and 30 seconds of video content playback, you can only request more mid-rolls for times that
+                 * differ from 10 and 30 seconds.
+                 */
+
+                print("Request a session extension for midroll ads at 30th second.")
+
+                let extendContentMetadata = OOContentMetadata()
+                extendContentMetadata.tags = ["standard-midrolls"]
+
+                let extendRequestSettings = OORequestSettings()
+                extendRequestSettings.linearPlaybackPositions = [30]
+                extendRequestSettings.insertionPointFilter = OOInsertionPointType.playbackPosition
+
+                (self.pulseSessionProvider as? BCOVPulseSessionProvider)?.requestSessionExtension(with: extendContentMetadata, requestSettings: extendRequestSettings, success: {
+
+                    print("Session was successfully extended. There are now midroll ads at 30th second.")
+
+                })
+
+            }
+
+        }
     }
 }
 
@@ -270,9 +304,7 @@ extension ViewController: UITableViewDataSource
 
         cell.textLabel?.text = item.title
 
-        let subtitle = item.category ?? ""
-
-        cell.detailTextLabel?.text = "\(subtitle) \(item.tags?.joined(separator: ", ") ?? "")"
+        cell.detailTextLabel?.text = "\(item.category ?? "") \(item.tags?.joined(separator: ", ") ?? "")"
 
         return cell
     }
@@ -282,21 +314,21 @@ extension ViewController: UITableViewDataSource
 // MARK: - BCOVPulseVideoItem
 class BCOVPulseVideoItem: NSObject
 {
-    var title: String? = ""
-    var category: String? = ""
-    var tags: Array<String>? = []
-    var flags: Array<String>? = []
-    var midrollPositions: Array<NSNumber>? = []
+    var title: String?
+    var category: String?
+    var tags: Array<String>?
+    var midrollPositions: Array<NSNumber>?
+    var extendSession: Bool?
     
     static func staticInit(dictionary: [String : Any]) -> BCOVPulseVideoItem
     {
         let videoItem = BCOVPulseVideoItem()
         
-        videoItem.title = dictionary["content-title"] as? String
+        videoItem.title = dictionary["content-title"] as? String ?? ""
         videoItem.category = dictionary["category"] as? String
         videoItem.tags = dictionary["tags"] as? Array<String>
-        videoItem.flags = dictionary["flags"] as? Array<String>
         videoItem.midrollPositions = dictionary["midroll-positions"] as? Array<NSNumber>
+        videoItem.extendSession = dictionary["extend-session"] as? Bool
 
         return videoItem
     }

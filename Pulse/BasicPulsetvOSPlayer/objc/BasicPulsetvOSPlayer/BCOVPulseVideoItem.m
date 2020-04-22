@@ -15,10 +15,9 @@
 {
     BCOVPulseVideoItem *videoItem = [BCOVPulseVideoItem new];
     
-    videoItem.title            = dictionary[@"content-title"] ?: @"";
+    videoItem.title            = dictionary[@"content-title"];
     videoItem.category         = dictionary[@"category"];
     videoItem.tags             = dictionary[@"tags"];
-    videoItem.flags            = dictionary[@"flags"];
     videoItem.midrollPositions = dictionary[@"midroll-positions"];
     videoItem.extendSession    = dictionary[@"extend-session"];
     

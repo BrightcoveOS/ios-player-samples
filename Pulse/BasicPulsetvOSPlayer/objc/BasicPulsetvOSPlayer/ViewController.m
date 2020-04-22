@@ -36,8 +36,6 @@ static NSString * const kVideoID = @"insertyourvideoidhere";
 
 - (void)viewDidLoad
 {
-    
-    [OOPulse logDebugMessages:YES];
     [super viewDidLoad];
     
     [self setupPlayerView];
@@ -72,12 +70,45 @@ static NSString * const kVideoID = @"insertyourvideoidhere";
         if (video)
         {
             [weakSelf.playbackController setVideos:@[ video ] ];
+
+            if (weakSelf.videoItem.extendSession)
+            {
+                __strong typeof(weakSelf) strongSelf = weakSelf;
+
+                // Delay execution.
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+
+                    /**
+                     * You cannot request insertion points that have been requested already. For example,
+                     * if you have already requested post-roll ads, then you cannot request them again.
+                     * You can request additional mid-rolls, but only for cue points that have not been
+                     * requested yet. For example, if you have already requested mid-rolls to show after 10 seconds
+                     * and 30 seconds of video content playback, you can only request more mid-rolls for times that
+                     * differ from 10 and 30 seconds.
+                     */
+
+                    NSLog(@"Request a session extension for midroll ads at 30th second.");
+
+                    OOContentMetadata *extendContentMetadata = [OOContentMetadata new];
+                    extendContentMetadata.tags = @[ @"standard-midrolls" ];
+
+                    OORequestSettings *extendRequestSettings = [OORequestSettings new];
+                    extendRequestSettings.linearPlaybackPositions = @[ @30 ];
+                    extendRequestSettings.insertionPointFilter = OOInsertionPointTypePlaybackPosition;
+
+                    [(BCOVPulseSessionProvider *)strongSelf.pulseSessionProvider requestSessionExtensionWithContentMetadata:extendContentMetadata requestSettings:extendRequestSettings success:^{
+
+                        NSLog(@"Session was successfully extended. There are now midroll ads at 30th second.");
+
+                    }];
+                });
+            }
         }
         else
         {
-             NSLog(@"PlayerViewController Debug - Error retrieving video");
+            NSLog(@"PlayerViewController Debug - Error retrieving video");
         }
-        
+
     }];
 }
 
@@ -182,7 +213,6 @@ static NSString * const kVideoID = @"insertyourvideoidhere";
      // Override the content metadata.
     contentMetadata.category = self.videoItem.category;
     contentMetadata.tags     = self.videoItem.tags;
-    contentMetadata.flags    = self.videoItem.flags;
     
     // Override the request settings.
     requestSettings.linearPlaybackPositions = self.videoItem.midrollPositions;

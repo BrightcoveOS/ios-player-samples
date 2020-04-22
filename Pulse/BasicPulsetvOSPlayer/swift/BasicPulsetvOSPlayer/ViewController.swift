@@ -72,9 +72,11 @@ class ViewController: UIViewController
         // See http://pulse-sdks.videoplaza.com/ios_2/latest/Classes/OORequestSettings.html
         let requestSettings = OORequestSettings()
 
+        let persistentId = UIDevice.current.identifierForVendor?.uuidString
+
         let pulseProperties = [
             kBCOVPulseOptionPulsePlaybackSessionDelegateKey: self,
-            kBCOVPulseOptionPulsePersistentIdKey: UUID.init().uuidString
+            kBCOVPulseOptionPulsePersistentIdKey: persistentId!
             ] as [String : Any]
 
         /**
@@ -142,6 +144,40 @@ class ViewController: UIViewController
             {
                 self?.video = video
                 self?.playbackController?.setVideos([self?.video] as NSFastEnumeration)
+
+                if self?.videoItem?.extendSession != nil {
+
+                    if let strongSelf = self {
+                        // Delay execution.
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5.0) {
+
+                            /**
+                             * You cannot request insertion points that have been requested already. For example,
+                             * if you have already requested post-roll ads, then you cannot request them again.
+                             * You can request additional mid-rolls, but only for cue points that have not been
+                             * requested yet. For example, if you have already requested mid-rolls to show after 10 seconds
+                             * and 30 seconds of video content playback, you can only request more mid-rolls for times that
+                             * differ from 10 and 30 seconds.
+                             */
+
+                            print("Request a session extension for midroll ads at 30th second.")
+
+                            let extendContentMetadata = OOContentMetadata()
+                            extendContentMetadata.tags = ["standard-midrolls"]
+
+                            let extendRequestSettings = OORequestSettings()
+                            extendRequestSettings.linearPlaybackPositions = [30]
+                            extendRequestSettings.insertionPointFilter = OOInsertionPointType.playbackPosition
+
+                            (strongSelf.pulseSessionProvider as? BCOVPulseSessionProvider)?.requestSessionExtension(with: extendContentMetadata, requestSettings: extendRequestSettings, success: {
+
+                                print("Session was successfully extended. There are now midroll ads at 30th second.")
+
+                            })
+                        }
+
+                    }
+                }
             }
             else
             {
@@ -183,7 +219,7 @@ extension ViewController: BCOVPlaybackControllerDelegate
 
 extension ViewController: BCOVPulsePlaybackSessionDelegate
 {
-    func createSession(for video: BCOVVideo!, withPulseHost pulseHost: String!, contentMetadata contentMetadata: OOContentMetadata!, requestSettings: OORequestSettings!) -> OOPulseSession!
+    func createSession(for video: BCOVVideo!, withPulseHost pulseHost: String!, contentMetadata: OOContentMetadata!, requestSettings: OORequestSettings!) -> OOPulseSession!
     {
         if pulseHost == nil
         {
@@ -193,7 +229,6 @@ extension ViewController: BCOVPulsePlaybackSessionDelegate
         // Override the content metadata.
         contentMetadata.category = self.videoItem?.category
         contentMetadata.tags = self.videoItem?.tags
-        contentMetadata.flags = self.videoItem?.flags
 
         // Override the request settings.
         requestSettings.linearPlaybackPositions = self.videoItem?.midrollPositions
