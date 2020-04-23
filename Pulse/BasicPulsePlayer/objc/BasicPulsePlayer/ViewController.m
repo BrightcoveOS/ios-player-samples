@@ -17,7 +17,7 @@ static NSString * const kAccountID = @"insertyouraccountidhere";
 static NSString * const kVideoID = @"insertyourvideoidhere";
 
 // Replace with your own Pulse Host info:
-static NSString * const kPulseHost = @"insertyourpulsehosthere";
+static NSString * const kPulseHost = @"https://bc-test.videoplaza.tv";
 
 
 @interface ViewController () <BCOVPlaybackControllerDelegate, BCOVPulsePlaybackSessionDelegate, UITableViewDelegate, UITableViewDataSource>
@@ -83,12 +83,36 @@ static NSString * const kPulseHost = @"insertyourpulsehosthere";
     
     // See http://pulse-sdks.videoplaza.com/ios_2/latest/Classes/OORequestSettings.html
     OORequestSettings *requestSettings = [OORequestSettings new];
-    
-    // See http://pulse-sdks.videoplaza.com/ios_2/latest/Enums/OOSeekMode.html
-    requestSettings.seekMode = 3; // PLAY_ALL_ADS;
-    
-    NSDictionary *pulseProperties = @{ kBCOVPulseOptionPulsePlaybackSessionDelegateKey:self };
-    
+
+    NSString *persistentId = [UIDevice.currentDevice.identifierForVendor UUIDString];
+
+    NSDictionary *pulseProperties = @{
+        kBCOVPulseOptionPulsePlaybackSessionDelegateKey: self,
+        kBCOVPulseOptionPulsePersistentIdKey: persistentId
+    };
+
+    /**
+     *  Initialize the Brightcove Pulse Plugin.
+     *  Host:
+     *      The host is derived from the "sub-domain” found in the Pulse UI and is formulated
+     *      like this: `https://[sub-domain].videoplaza.tv`
+     *  Device Container (kBCOVPulseOptionPulseDeviceContainerKey):
+     *      The device container in Pulse is used for targeting and reporting purposes.
+     *      This device container attribute is only used if you want to override the Pulse
+     *      device detection algorithm on the Pulse ad server. This should only be set if normal
+     *      device detection does not work and only after consulting our personnel.
+     *      An incorrect device container value can result in no ads being served
+     *      or incorrect ad delivery and reports.
+     *  Persistent Id (kBCOVPulseOptionPulsePersistentIdKey):
+     *      The persistent identifier is used to identify the end user and is the
+     *      basis for frequency capping, uniqueness, DMP targeting information and
+     *      more. Use Apple's advertising identifier (IDFA), or your own unique
+     *      user identifier here.
+     *
+     *  Refer to:
+     *  https://docs.videoplaza.com/oadtech/ad_serving/dg/pulse_sdks_parameter.html
+     */
+
     // Create a companion slot.
     BCOVPulseCompanionSlot *companionSlot = [[BCOVPulseCompanionSlot alloc] initWithView:self.companionSlotContainerView width:400 height:100];
         
@@ -172,7 +196,7 @@ static NSString * const kPulseHost = @"insertyourpulsehosthere";
 
 #pragma mark BCOVPulsePlaybackSessionDelegate
 
-- (id<OOPulseSession>)createSessionForVideo:(BCOVVideo *)video withPulseHost:(NSString *)pulseHost contentMetdata:(OOContentMetadata *)contentMetadata requestSettings:(OORequestSettings *)requestSettings
+- (id<OOPulseSession>)createSessionForVideo:(BCOVVideo *)video withPulseHost:(NSString *)pulseHost contentMetadata:(OOContentMetadata *)contentMetadata requestSettings:(OORequestSettings *)requestSettings
 {
     if (!pulseHost)
     {
@@ -182,7 +206,6 @@ static NSString * const kPulseHost = @"insertyourpulsehosthere";
      // Override the content metadata.
     contentMetadata.category = self.videoItem.category;
     contentMetadata.tags     = self.videoItem.tags;
-    contentMetadata.flags    = self.videoItem.flags;
     
     // Override the request settings.
     requestSettings.linearPlaybackPositions = self.videoItem.midrollPositions;
@@ -200,6 +223,37 @@ static NSString * const kPulseHost = @"insertyourpulsehosthere";
     self.videoItem = self.videoItems[indexPath.item];
         
     [self.playbackController setVideos:@[ self.video ]];
+
+    if (self.videoItem.extendSession)
+    {
+        // Delay execution.
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+
+            /**
+             * You cannot request insertion points that have been requested already. For example,
+             * if you have already requested post-roll ads, then you cannot request them again.
+             * You can request additional mid-rolls, but only for cue points that have not been
+             * requested yet. For example, if you have already requested mid-rolls to show after 10 seconds
+             * and 30 seconds of video content playback, you can only request more mid-rolls for times that
+             * differ from 10 and 30 seconds.
+             */
+
+            NSLog(@"Request a session extension for midroll ads at 30th second.");
+
+            OOContentMetadata *extendContentMetadata = [OOContentMetadata new];
+            extendContentMetadata.tags = @[ @"standard-midrolls" ];
+
+            OORequestSettings *extendRequestSettings = [OORequestSettings new];
+            extendRequestSettings.linearPlaybackPositions = @[ @30 ];
+            extendRequestSettings.insertionPointFilter = OOInsertionPointTypePlaybackPosition;
+
+            [(BCOVPulseSessionProvider *)self.pulseSessionProvider requestSessionExtensionWithContentMetadata:extendContentMetadata requestSettings:extendRequestSettings success:^{
+
+                NSLog(@"Session was successfully extended. There are now midroll ads at 30th second.");
+
+            }];
+        });
+    }
 }
 
 
@@ -249,11 +303,11 @@ static NSString * const kPulseHost = @"insertyourpulsehosthere";
 {
     BCOVPulseVideoItem *videoItem = [BCOVPulseVideoItem new];
     
-    videoItem.title            = dictionary[@"content-title"] ?: @"";
+    videoItem.title            = dictionary[@"content-title"];
     videoItem.category         = dictionary[@"category"];
     videoItem.tags             = dictionary[@"tags"];
-    videoItem.flags            = dictionary[@"flags"];
     videoItem.midrollPositions = dictionary[@"midroll-positions"];
+    videoItem.extendSession    = dictionary[@"extend-session"];
     
     return videoItem;
 }

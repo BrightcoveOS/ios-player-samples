@@ -21,7 +21,8 @@ struct PlaybackConfig
 
 struct PulseConfig
 {
-    static let PulseHost = "insertyourpulsehosthere"
+    // Replace with your own Pulse Host info:
+    static let PulseHost = "https://bc-test.videoplaza.tv"
 }
 
 
@@ -70,14 +71,35 @@ class ViewController: UIViewController
         
         // See http://pulse-sdks.videoplaza.com/ios_2/latest/Classes/OORequestSettings.html
         let requestSettings = OORequestSettings()
-        
-        // See http://pulse-sdks.videoplaza.com/ios_2/latest/Enums/OOSeekMode.html
-        requestSettings.seekMode = OOSeekMode.PLAY_ALL_ADS
-        
+
+        let persistentId = UIDevice.current.identifierForVendor?.uuidString
+
         let pulseProperties = [
             kBCOVPulseOptionPulsePlaybackSessionDelegateKey: self,
-            kBCOVPulseOptionPulsePersistentIdKey: UUID.init().uuidString
+            kBCOVPulseOptionPulsePersistentIdKey: persistentId!
             ] as [String : Any]
+
+        /**
+         *  Initialize the Brightcove Pulse Plugin.
+         *  Host:
+         *      The host is derived from the "sub-domain” found in the Pulse UI and is formulated
+         *      like this: `https://[sub-domain].videoplaza.tv`
+         *  Device Container (kBCOVPulseOptionPulseDeviceContainerKey):
+         *      The device container in Pulse is used for targeting and reporting purposes.
+         *      This device container attribute is only used if you want to override the Pulse
+         *      device detection algorithm on the Pulse ad server. This should only be set if normal
+         *      device detection does not work and only after consulting our personnel.
+         *      An incorrect device container value can result in no ads being served
+         *      or incorrect ad delivery and reports.
+         *  Persistent Id (kBCOVPulseOptionPulsePersistentIdKey):
+         *      The persistent identifier is used to identify the end user and is the
+         *      basis for frequency capping, uniqueness, DMP targeting information and
+         *      more. Use Apple's advertising identifier (IDFA), or your own unique
+         *      user identifier here.
+         *
+         *  Refer to:
+         *  https://docs.videoplaza.com/oadtech/ad_serving/dg/pulse_sdks_parameter.html
+         */
 
         guard let _pulseSessionProvider = BCOVPlayerSDKManager.shared()?.createPulseSessionProvider(withPulseHost: PulseConfig.PulseHost, contentMetadata: contentMetadata, requestSettings: requestSettings, adContainer: self.playerView?.contentOverlayView, companionSlots: [], upstreamSessionProvider: nil, options: pulseProperties) else {
             return nil
@@ -122,6 +144,40 @@ class ViewController: UIViewController
             {
                 self?.video = video
                 self?.playbackController?.setVideos([self?.video] as NSFastEnumeration)
+
+                if self?.videoItem?.extendSession != nil {
+
+                    if let strongSelf = self {
+                        // Delay execution.
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5.0) {
+
+                            /**
+                             * You cannot request insertion points that have been requested already. For example,
+                             * if you have already requested post-roll ads, then you cannot request them again.
+                             * You can request additional mid-rolls, but only for cue points that have not been
+                             * requested yet. For example, if you have already requested mid-rolls to show after 10 seconds
+                             * and 30 seconds of video content playback, you can only request more mid-rolls for times that
+                             * differ from 10 and 30 seconds.
+                             */
+
+                            print("Request a session extension for midroll ads at 30th second.")
+
+                            let extendContentMetadata = OOContentMetadata()
+                            extendContentMetadata.tags = ["standard-midrolls"]
+
+                            let extendRequestSettings = OORequestSettings()
+                            extendRequestSettings.linearPlaybackPositions = [30]
+                            extendRequestSettings.insertionPointFilter = OOInsertionPointType.playbackPosition
+
+                            (strongSelf.pulseSessionProvider as? BCOVPulseSessionProvider)?.requestSessionExtension(with: extendContentMetadata, requestSettings: extendRequestSettings, success: {
+
+                                print("Session was successfully extended. There are now midroll ads at 30th second.")
+
+                            })
+                        }
+
+                    }
+                }
             }
             else
             {
@@ -163,7 +219,7 @@ extension ViewController: BCOVPlaybackControllerDelegate
 
 extension ViewController: BCOVPulsePlaybackSessionDelegate
 {
-    func createSession(for video: BCOVVideo!, withPulseHost pulseHost: String!, contentMetdata contentMetadata: OOContentMetadata!, requestSettings: OORequestSettings!) -> OOPulseSession!
+    func createSession(for video: BCOVVideo!, withPulseHost pulseHost: String!, contentMetadata: OOContentMetadata!, requestSettings: OORequestSettings!) -> OOPulseSession!
     {
         if pulseHost == nil
         {
@@ -173,7 +229,6 @@ extension ViewController: BCOVPulsePlaybackSessionDelegate
         // Override the content metadata.
         contentMetadata.category = self.videoItem?.category
         contentMetadata.tags = self.videoItem?.tags
-        contentMetadata.flags = self.videoItem?.flags
 
         // Override the request settings.
         requestSettings.linearPlaybackPositions = self.videoItem?.midrollPositions

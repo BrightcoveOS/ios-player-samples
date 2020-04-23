@@ -10,21 +10,21 @@ import UIKit
 
 class BCOVPulseVideoItem: NSObject
 {
-    var title: String? = ""
-    var category: String? = ""
-    var tags: Array<String>? = []
-    var flags: Array<String>? = []
-    var midrollPositions: Array<NSNumber>? = []
+    var title: String?
+    var category: String?
+    var tags: Array<String>?
+    var midrollPositions: Array<NSNumber>?
+    var extendSession: Bool?
     
     static func staticInit(dictionary: [String : Any]) -> BCOVPulseVideoItem
     {
         let videoItem = BCOVPulseVideoItem()
         
-        videoItem.title = dictionary["content-title"] as? String
+        videoItem.title = dictionary["content-title"] as? String ?? ""
         videoItem.category = dictionary["category"] as? String
         videoItem.tags = dictionary["tags"] as? Array<String>
-        videoItem.flags = dictionary["flags"] as? Array<String>
         videoItem.midrollPositions = dictionary["midroll-positions"] as? Array<NSNumber>
+        videoItem.extendSession = dictionary["extend-session"] as? Bool
 
         return videoItem
     }

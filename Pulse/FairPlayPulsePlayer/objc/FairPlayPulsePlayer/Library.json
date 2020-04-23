@@ -1,6 +1,4 @@
 [{
-    "content-title":     "No ads."
-},{
     "content-title":     "Preroll demo.",
     "tags":              ["standard-prerolls"]
 },{
@@ -29,6 +27,12 @@
     "category":          "frequency-capped-1min",
     "tags":              ["standard-linears"],
     "midroll-positions": [20, 40]
+},{
+    "content-title":     "Pause ad demo.",
+    "tags":              ["pause"]
+},{
+    "content-title":     "Extend Session with midroll ads at 30th second.",
+    "extend-session":    true
 },{
     "content-title":    "Preroll demo - Ad media file invalid.",
     "tags":             ["preroll-media-invalid"]

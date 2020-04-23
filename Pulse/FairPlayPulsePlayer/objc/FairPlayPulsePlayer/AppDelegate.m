@@ -24,8 +24,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
-    [OOPulse logDebugMessages:YES];
     /*
      Set the AVAudioSession category to allow audio playback when:
      1: Silent Mode is enabled, or

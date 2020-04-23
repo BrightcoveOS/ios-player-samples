@@ -36,8 +36,6 @@ static NSString * const kVideoID = @"insertyourvideoidhere";
 
 - (void)viewDidLoad
 {
-    
-    [OOPulse logDebugMessages:YES];
     [super viewDidLoad];
     
     [self setupPlayerView];
@@ -72,12 +70,45 @@ static NSString * const kVideoID = @"insertyourvideoidhere";
         if (video)
         {
             [weakSelf.playbackController setVideos:@[ video ] ];
+
+            if (weakSelf.videoItem.extendSession)
+            {
+                __strong typeof(weakSelf) strongSelf = weakSelf;
+
+                // Delay execution.
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+
+                    /**
+                     * You cannot request insertion points that have been requested already. For example,
+                     * if you have already requested post-roll ads, then you cannot request them again.
+                     * You can request additional mid-rolls, but only for cue points that have not been
+                     * requested yet. For example, if you have already requested mid-rolls to show after 10 seconds
+                     * and 30 seconds of video content playback, you can only request more mid-rolls for times that
+                     * differ from 10 and 30 seconds.
+                     */
+
+                    NSLog(@"Request a session extension for midroll ads at 30th second.");
+
+                    OOContentMetadata *extendContentMetadata = [OOContentMetadata new];
+                    extendContentMetadata.tags = @[ @"standard-midrolls" ];
+
+                    OORequestSettings *extendRequestSettings = [OORequestSettings new];
+                    extendRequestSettings.linearPlaybackPositions = @[ @30 ];
+                    extendRequestSettings.insertionPointFilter = OOInsertionPointTypePlaybackPosition;
+
+                    [(BCOVPulseSessionProvider *)strongSelf.pulseSessionProvider requestSessionExtensionWithContentMetadata:extendContentMetadata requestSettings:extendRequestSettings success:^{
+
+                        NSLog(@"Session was successfully extended. There are now midroll ads at 30th second.");
+
+                    }];
+                });
+            }
         }
         else
         {
-             NSLog(@"PlayerViewController Debug - Error retrieving video");
+            NSLog(@"PlayerViewController Debug - Error retrieving video");
         }
-        
+
     }];
 }
 
@@ -102,24 +133,45 @@ static NSString * const kVideoID = @"insertyourvideoidhere";
 - (void)setupPlaybackController
 {
     BCOVPlayerSDKManager *manager = BCOVPlayerSDKManager.sharedManager;
-    
-    NSString *pulseHost = @"http://pulse-demo.videoplaza.tv";
+
+    // Replace with your own Pulse Host info:
+    NSString *pulseHost = @"https://bc-test.videoplaza.tv";
 
     // See http://pulse-sdks.videoplaza.com/ios_2/latest/Classes/OOContentMetadata.html
     OOContentMetadata *contentMetadata = [OOContentMetadata new];
     
     // See http://pulse-sdks.videoplaza.com/ios_2/latest/Classes/OORequestSettings.html
     OORequestSettings *requestSettings = [OORequestSettings new];
-    
-    // See http://pulse-sdks.videoplaza.com/ios_2/latest/Enums/OOSeekMode.html
-    requestSettings.seekMode = PLAY_ALL_ADS; // PLAY_ALL_ADS;
-    
-    NSDictionary *pulseProperties =
-    @{
+
+    NSString *persistentId = [UIDevice.currentDevice.identifierForVendor UUIDString];
+
+    NSDictionary *pulseProperties = @{
         kBCOVPulseOptionPulsePlaybackSessionDelegateKey: self,
-        kBCOVPulseOptionPulsePersistentIdKey: [NSUUID.UUID UUIDString]
+        kBCOVPulseOptionPulsePersistentIdKey: persistentId
     };
-    
+
+    /**
+     *  Initialize the Brightcove Pulse Plugin.
+     *  Host:
+     *      The host is derived from the "sub-domain” found in the Pulse UI and is formulated
+     *      like this: `https://[sub-domain].videoplaza.tv`
+     *  Device Container (kBCOVPulseOptionPulseDeviceContainerKey):
+     *      The device container in Pulse is used for targeting and reporting purposes.
+     *      This device container attribute is only used if you want to override the Pulse
+     *      device detection algorithm on the Pulse ad server. This should only be set if normal
+     *      device detection does not work and only after consulting our personnel.
+     *      An incorrect device container value can result in no ads being served
+     *      or incorrect ad delivery and reports.
+     *  Persistent Id (kBCOVPulseOptionPulsePersistentIdKey):
+     *      The persistent identifier is used to identify the end user and is the
+     *      basis for frequency capping, uniqueness, DMP targeting information and
+     *      more. Use Apple's advertising identifier (IDFA), or your own unique
+     *      user identifier here.
+     *
+     *  Refer to:
+     *  https://docs.videoplaza.com/oadtech/ad_serving/dg/pulse_sdks_parameter.html
+     */
+
     self.pulseSessionProvider = [manager createPulseSessionProviderWithPulseHost:pulseHost
                                                                  contentMetadata:contentMetadata
                                                                  requestSettings:requestSettings
@@ -154,14 +206,13 @@ static NSString * const kVideoID = @"insertyourvideoidhere";
 
 #pragma mark BCOVPulsePlaybackSessionDelegate
 
-- (id<OOPulseSession>)createSessionForVideo:(BCOVVideo *)video withPulseHost:(NSString *)pulseHost contentMetdata:(OOContentMetadata *)contentMetadata requestSettings:(OORequestSettings *)requestSettings
+- (id<OOPulseSession>)createSessionForVideo:(BCOVVideo *)video withPulseHost:(NSString *)pulseHost contentMetadata:(OOContentMetadata *)contentMetadata requestSettings:(OORequestSettings *)requestSettings
 {
     if (!pulseHost) return nil;
     
      // Override the content metadata.
     contentMetadata.category = self.videoItem.category;
     contentMetadata.tags     = self.videoItem.tags;
-    contentMetadata.flags    = self.videoItem.flags;
     
     // Override the request settings.
     requestSettings.linearPlaybackPositions = self.videoItem.midrollPositions;
