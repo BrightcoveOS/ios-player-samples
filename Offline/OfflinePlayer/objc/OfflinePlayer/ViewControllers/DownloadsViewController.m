@@ -648,6 +648,8 @@ static unsigned long long int directorySize(NSString *folderPath)
         NSString *text = @"unknown license";
         NSNumber *purchaseNumber = video.properties[kBCOVFairPlayLicensePurchaseKey];
         NSNumber *absoluteExpirationNumber = video.properties[kBCOVOfflineVideoLicenseAbsoluteExpirationTimePropertyKey];
+        NSNumber *playDurationNumber = video.properties[kBCOVFairPlayLicensePlayDurationKey];
+        NSNumber *initialPlayNumber = video.properties[kBCOVOfflineVideoInitialPlaybackTimeKey];
         
         do
         {
@@ -663,7 +665,20 @@ static unsigned long long int directorySize(NSString *folderPath)
                 break;
             }
             
-            if (absoluteExpirationNumber != nil)
+            if (playDurationNumber && playDurationNumber.integerValue > 0 && initialPlayNumber)
+            {
+                NSTimeInterval initialPlayTime = initialPlayNumber.doubleValue;
+                NSDate *initialPlayDate = [NSDate dateWithTimeIntervalSinceReferenceDate:initialPlayTime];
+                NSDate *expirationDate = [initialPlayDate dateByAddingTimeInterval:playDurationNumber.integerValue];
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                dateFormatter.dateStyle = kCFDateFormatterMediumStyle;
+                dateFormatter.timeStyle = NSDateFormatterShortStyle;
+                text = [NSString stringWithFormat:@"rental (expires %@)",
+                        [dateFormatter stringFromDate:expirationDate]];
+                
+                break;
+            }
+            else if (absoluteExpirationNumber != nil)
             {
                 NSTimeInterval absoluteExpirationTime = absoluteExpirationNumber.doubleValue;
                 NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:absoluteExpirationTime];

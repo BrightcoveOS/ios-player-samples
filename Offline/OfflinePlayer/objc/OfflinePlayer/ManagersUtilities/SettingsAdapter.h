@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (long long int)bitrate;
 + (BOOL)purchaseLicenseType;
 + (unsigned long long)rentalDuration;
++ (unsigned long long)playDuration;
 
 @end
 

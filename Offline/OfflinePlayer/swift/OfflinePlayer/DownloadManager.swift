@@ -332,10 +332,12 @@ extension DownloadManager {
             licenseParamaters[kBCOVFairPlayLicensePurchaseKey] = true
         } else {
             let rentalDuration = AppDelegate.current().tabBarController.settingsViewController()?.rentalDuration() ?? 0
+            let playDuration = AppDelegate.current().tabBarController.settingsViewController()?.playDuration() ?? 0
             
             print("Requesting Rental License:\nrentalDuration: \(rentalDuration)")
             
             licenseParamaters[kBCOVFairPlayLicenseRentalDurationKey] = rentalDuration
+            licenseParamaters[kBCOVFairPlayLicensePlayDurationKey] = playDuration
         }
         
         return licenseParamaters

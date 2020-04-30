@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Zp3-ec-4v8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Zp3-ec-4v8">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -299,13 +299,53 @@
                                     <constraint firstItem="Oxk-Pb-lGd" firstAttribute="leading" secondItem="Eqd-d7-LLb" secondAttribute="leading" constant="20" id="yg9-qO-q02"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D4r-zC-uTh">
+                                <rect key="frame" x="0.0" y="228" width="414" height="88"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="600" borderStyle="roundedRect" placeholder="seconds from now" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5md-Nk-VSR" userLabel="Rental Duration Text Field">
+                                        <rect key="frame" x="198" y="7" width="192" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Play Duration" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZUI-kY-XbU">
+                                        <rect key="frame" x="20" y="10" width="130" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="7xO-59-deD"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Values specified in seconds" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ei-na-upH">
+                                        <rect key="frame" x="20" y="50" width="190" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="4Ei-na-upH" firstAttribute="top" secondItem="D4r-zC-uTh" secondAttribute="top" constant="50" id="343-vc-2gM"/>
+                                    <constraint firstItem="4Ei-na-upH" firstAttribute="leading" secondItem="D4r-zC-uTh" secondAttribute="leading" constant="20" id="8fi-Ea-hed"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4Ei-na-upH" secondAttribute="trailing" constant="20" symbolic="YES" id="I8a-uI-lwz"/>
+                                    <constraint firstAttribute="trailing" secondItem="5md-Nk-VSR" secondAttribute="trailing" constant="24" id="NkC-oq-NNs"/>
+                                    <constraint firstAttribute="height" constant="88" id="Z86-ad-nin"/>
+                                    <constraint firstItem="5md-Nk-VSR" firstAttribute="top" secondItem="D4r-zC-uTh" secondAttribute="top" constant="7" id="dTW-Ty-eYl"/>
+                                    <constraint firstItem="5md-Nk-VSR" firstAttribute="leading" secondItem="D4r-zC-uTh" secondAttribute="leading" constant="198" id="fD8-sp-64R"/>
+                                    <constraint firstItem="4Ei-na-upH" firstAttribute="leading" secondItem="D4r-zC-uTh" secondAttribute="leading" constant="20" id="jLw-sQ-pIY"/>
+                                    <constraint firstItem="ZUI-kY-XbU" firstAttribute="top" secondItem="D4r-zC-uTh" secondAttribute="top" constant="10" id="rb7-Sg-HeV"/>
+                                    <constraint firstItem="ZUI-kY-XbU" firstAttribute="leading" secondItem="D4r-zC-uTh" secondAttribute="leading" constant="20" id="yBo-MW-gtB"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="D4r-zC-uTh" firstAttribute="trailing" secondItem="Eqd-d7-LLb" secondAttribute="trailing" id="0f0-AK-9fT"/>
                             <constraint firstAttribute="trailing" secondItem="Eqd-d7-LLb" secondAttribute="trailing" id="0rT-iY-sje"/>
                             <constraint firstItem="Eqd-d7-LLb" firstAttribute="top" secondItem="gdm-2O-FLd" secondAttribute="bottom" constant="12" id="4Lh-eH-IuO"/>
                             <constraint firstAttribute="trailing" secondItem="71r-sQ-DBi" secondAttribute="trailing" constant="24" id="7Mf-db-gvz"/>
                             <constraint firstItem="Eqd-d7-LLb" firstAttribute="top" secondItem="d7i-Ir-ft9" secondAttribute="bottom" constant="8" id="Bim-fb-0HW"/>
+                            <constraint firstItem="D4r-zC-uTh" firstAttribute="leading" secondItem="Eqd-d7-LLb" secondAttribute="leading" id="DZd-ye-76a"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZSc-sd-gde" secondAttribute="trailing" id="Ec7-G2-XRE"/>
                             <constraint firstItem="d7i-Ir-ft9" firstAttribute="leading" secondItem="gdm-2O-FLd" secondAttribute="trailing" constant="24" id="FjJ-ai-eog"/>
                             <constraint firstItem="ZSc-sd-gde" firstAttribute="top" secondItem="ktS-ZU-gzp" secondAttribute="bottom" constant="14" id="Jkh-Zz-iq2"/>
@@ -314,6 +354,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="d7i-Ir-ft9" secondAttribute="trailing" constant="52" id="KwL-OX-eVv"/>
                             <constraint firstItem="ktS-ZU-gzp" firstAttribute="leading" secondItem="5EP-bT-0Ie" secondAttribute="leadingMargin" id="L3D-4N-Bbg"/>
                             <constraint firstItem="y9V-6a-KEa" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5EP-bT-0Ie" secondAttribute="leading" id="Qnc-2h-FpJ"/>
+                            <constraint firstItem="D4r-zC-uTh" firstAttribute="top" secondItem="Eqd-d7-LLb" secondAttribute="bottom" id="R4u-gt-rNR"/>
                             <constraint firstItem="dLx-OY-PO0" firstAttribute="leading" secondItem="5EP-bT-0Ie" secondAttribute="leadingMargin" id="Rf0-pz-1lt"/>
                             <constraint firstItem="ktS-ZU-gzp" firstAttribute="top" secondItem="3Hi-yH-9x6" secondAttribute="bottom" constant="8" id="Usy-my-8LA"/>
                             <constraint firstItem="gdm-2O-FLd" firstAttribute="top" secondItem="3Hi-yH-9x6" secondAttribute="bottom" constant="105" id="ZGk-QG-8qO"/>
@@ -330,6 +371,7 @@
                     <connections>
                         <outlet property="bitrateTextField" destination="ZSc-sd-gde" id="uPh-ZY-Qrd"/>
                         <outlet property="licenseTypeSegmentedControl" destination="d7i-Ir-ft9" id="8f2-1z-dH7"/>
+                        <outlet property="playDurationTextField" destination="5md-Nk-VSR" id="VCK-d5-Egc"/>
                         <outlet property="rentalDurationTextField" destination="71r-sQ-DBi" id="iNd-bz-7PI"/>
                         <outlet property="rentalSettingsView" destination="Eqd-d7-LLb" id="vZj-jq-Reu"/>
                     </connections>

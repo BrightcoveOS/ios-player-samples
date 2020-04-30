@@ -29,8 +29,19 @@ extension BCOVVideo {
         if let purchaseNumber = properties[kBCOVFairPlayLicensePurchaseKey] as? NSNumber, purchaseNumber.boolValue == true {
             return "purchase"
         }
-
-        if let absoluteExpirationNumber = properties[kBCOVOfflineVideoLicenseAbsoluteExpirationTimePropertyKey] as? NSNumber {
+        
+        if let playDurationNumber = properties[kBCOVFairPlayLicensePlayDurationKey] as? NSNumber, let initialPlayNumber = properties[kBCOVOfflineVideoInitialPlaybackTimeKey] as? NSNumber {
+            if playDurationNumber.intValue > 0 {
+                let initialPlayTime = TimeInterval(initialPlayNumber.intValue)
+                let initialPlayDate = Date(timeIntervalSinceReferenceDate: initialPlayTime)
+                let expirationDate = initialPlayDate.addingTimeInterval(TimeInterval(playDurationNumber.intValue))
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateStyle = .medium
+                dateFormatter.timeStyle = .short
+                let dateString = dateFormatter.string(from: expirationDate)
+                return "rental (expires \(dateString))"
+            }
+        } else if let absoluteExpirationNumber = properties[kBCOVOfflineVideoLicenseAbsoluteExpirationTimePropertyKey] as? NSNumber {
             
             let absoluteExpirationTime = absoluteExpirationNumber.doubleValue
             let expirationDate = Date(timeIntervalSinceReferenceDate: absoluteExpirationTime)

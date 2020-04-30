@@ -11,6 +11,7 @@ import BrightcovePlayerSDK
 struct DefaultSettings {
     static let Bitrate: Int64 = 1000000
     static let RentalDuration: Int64 = 3600
+    static let PlayDuration: Int64 = 600
 }
 
 class SettingsViewController: UIViewController {
@@ -33,6 +34,13 @@ class SettingsViewController: UIViewController {
             rentalDurationTextField?.alpha = !isPurchaseLicenseType() ? 1.0 : 0.5
         }
     }
+    weak var playDurationTextField: UITextField? {
+           didSet {
+               playDurationTextField?.text = "\(DefaultSettings.PlayDuration)"
+               playDurationTextField?.isEnabled = !isPurchaseLicenseType()
+               playDurationTextField?.alpha = !isPurchaseLicenseType() ? 1.0 : 0.5
+           }
+       }
     weak var licenseTypeSegmentedControl: UISegmentedControl?
     
     override func viewDidLoad() {
@@ -53,6 +61,14 @@ class SettingsViewController: UIViewController {
     func rentalDuration() -> Int64 {
         guard let textValue = rentalDurationTextField?.text, let durationSeconds = Int64(textValue) else {
             return DefaultSettings.RentalDuration
+        }
+        
+        return durationSeconds
+    }
+    
+    func playDuration() -> Int64 {
+        guard let textValue = playDurationTextField?.text, let durationSeconds = Int64(textValue) else {
+            return DefaultSettings.PlayDuration
         }
         
         return durationSeconds
@@ -109,7 +125,7 @@ class SettingsViewController: UIViewController {
 extension SettingsViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -135,6 +151,10 @@ extension SettingsViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldTableViewCell
             rentalDurationTextField = cell.textField
             return cell
+        case 4:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldTableViewCell
+            playDurationTextField = cell.textField
+            return cell
         default:
             return tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
         }
@@ -150,13 +170,20 @@ extension SettingsViewController: UITableViewDataSource {
             return "License Type"
         case 3:
             return "Rental Duration"
+        case 4:
+            return "Play Duration"
         default:
             return nil
         }
     }
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return section == 3 ? "Values specified in seconds" : nil
+        switch section {
+        case 3, 4:
+            return "Values specified in seconds"
+        default:
+            return nil
+        }
     }
     
 }
@@ -170,7 +197,12 @@ extension SettingsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return section == 3 ? 35 : 15
+        switch section {
+        case 3, 4:
+            return 35
+        default:
+            return 15
+        }
     }
     
 }

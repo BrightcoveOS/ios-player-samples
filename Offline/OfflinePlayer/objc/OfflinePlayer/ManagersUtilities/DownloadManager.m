@@ -419,12 +419,16 @@
     else
     {
         unsigned long long rentalDuration = SettingsAdapter.rentalDuration;
+        unsigned long long playDuration = SettingsAdapter.playDuration;
         
         NSLog(@"Requesting Rental License:\n"
-              @"rentalDuration: %llu",
-              rentalDuration);
+              @"rentalDuration: %llu\n"
+              @"playDuration: %llu\n",
+              rentalDuration,
+              playDuration);
         
         licenseParameters[kBCOVFairPlayLicenseRentalDurationKey] = @(rentalDuration);
+        licenseParameters[kBCOVFairPlayLicensePlayDurationKey] = @(playDuration);
     }
 
     return licenseParameters;
