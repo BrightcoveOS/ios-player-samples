@@ -182,8 +182,8 @@
                                                                    {
                                                                        if ([strongSelf.delegate respondsToSelector:@selector(encounteredErrorPreloading:forVideo:)])
                                                                        {
-                                                                           BCOVVideo *video = [BCOVOfflineVideoManager.sharedManager videoObjectFromOfflineVideoToken:offlineVideoToken];
-                                                                           [strongSelf.delegate encounteredErrorPreloading:error forVideo:video];
+                                                                           BCOVVideo *_video = offlineVideoToken ? [BCOVOfflineVideoManager.sharedManager videoObjectFromOfflineVideoToken:offlineVideoToken] : video;
+                                                                           [strongSelf.delegate encounteredErrorPreloading:error forVideo:_video];
                                                                        }
                                                                    }
                                                                    

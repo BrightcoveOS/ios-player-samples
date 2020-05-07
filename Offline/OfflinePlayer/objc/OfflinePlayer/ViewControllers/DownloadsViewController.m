@@ -648,8 +648,18 @@ static unsigned long long int directorySize(NSString *folderPath)
         NSString *text = @"unknown license";
         NSNumber *purchaseNumber = video.properties[kBCOVFairPlayLicensePurchaseKey];
         NSNumber *absoluteExpirationNumber = video.properties[kBCOVOfflineVideoLicenseAbsoluteExpirationTimePropertyKey];
+        
         NSNumber *playDurationNumber = video.properties[kBCOVFairPlayLicensePlayDurationKey];
         NSNumber *initialPlayNumber = video.properties[kBCOVOfflineVideoInitialPlaybackTimeKey];
+        NSTimeInterval initialPlayTime = initialPlayNumber.doubleValue;
+        NSDate *initialPlayDate = [NSDate dateWithTimeIntervalSinceReferenceDate:initialPlayTime];
+        NSDate *playDurationExpirationDate = [initialPlayDate dateByAddingTimeInterval:playDurationNumber.integerValue];
+        BOOL usePlayDurationExpiration = NO;
+        
+        if (playDurationNumber && playDurationNumber.integerValue > 0 && initialPlayNumber)
+        {
+            usePlayDurationExpiration = absoluteExpirationNumber.doubleValue > playDurationExpirationDate.timeIntervalSinceReferenceDate;
+        }
         
         do
         {
@@ -665,23 +675,18 @@ static unsigned long long int directorySize(NSString *folderPath)
                 break;
             }
             
-            if (playDurationNumber && playDurationNumber.integerValue > 0 && initialPlayNumber)
+            if (absoluteExpirationNumber != nil)
             {
-                NSTimeInterval initialPlayTime = initialPlayNumber.doubleValue;
-                NSDate *initialPlayDate = [NSDate dateWithTimeIntervalSinceReferenceDate:initialPlayTime];
-                NSDate *expirationDate = [initialPlayDate dateByAddingTimeInterval:playDurationNumber.integerValue];
-                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                dateFormatter.dateStyle = kCFDateFormatterMediumStyle;
-                dateFormatter.timeStyle = NSDateFormatterShortStyle;
-                text = [NSString stringWithFormat:@"rental (expires %@)",
-                        [dateFormatter stringFromDate:expirationDate]];
-                
-                break;
-            }
-            else if (absoluteExpirationNumber != nil)
-            {
-                NSTimeInterval absoluteExpirationTime = absoluteExpirationNumber.doubleValue;
-                NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:absoluteExpirationTime];
+                NSDate *expirationDate;
+                if (usePlayDurationExpiration)
+                {
+                    expirationDate = playDurationExpirationDate;
+                }
+                else
+                {
+                    NSTimeInterval absoluteExpirationTime = absoluteExpirationNumber.doubleValue;
+                    expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:absoluteExpirationTime];
+                }
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                 dateFormatter.dateStyle = kCFDateFormatterMediumStyle;
                 dateFormatter.timeStyle = NSDateFormatterShortStyle;
