@@ -1,7 +1,7 @@
 Brightcove Player SDK for iOS Samples
 =====================================
 
-Learn more about the [Brightcove Native Player SDKs](https://support.brightcove.com/brightcove-native-player-sdks).
+Learn more about the [Brightcove Native Player SDKs](https://sdks.support.brightcove.com/getting-started/brightcove-native-player-sdks.html).
 
 ios-player-samples.git is a collection of sample applications for the Brightcove Player SDKs for iOS and tvOS, organized by subject area. An installation of [CocoaPods][cocoapods] 1.0.0 or higher is required to download the sample dependencies.
 
