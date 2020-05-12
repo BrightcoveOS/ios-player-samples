@@ -18,6 +18,7 @@
 // IBOutlets for our UI elements
 @property (nonatomic, weak) IBOutlet UITextField *bitrateTextField;
 @property (nonatomic, weak) IBOutlet UITextField *rentalDurationTextField;
+@property (nonatomic, weak) IBOutlet UITextField *playDurationTextField;
 @property (nonatomic, weak) IBOutlet UIView *rentalSettingsView;
 @property (nonatomic, weak) IBOutlet UISegmentedControl *licenseTypeSegmentedControl;
 
@@ -129,6 +130,18 @@
     }
 
     unsigned long long durationSeconds = self.rentalDurationTextField.text.longLongValue;
+    
+    return durationSeconds;
+}
+
+- (unsigned long long)playDuration
+{
+    if (self.playDurationTextField == nil)
+    {
+        return 600;
+    }
+
+    unsigned long long durationSeconds = self.playDurationTextField.text.longLongValue;
     
     return durationSeconds;
 }

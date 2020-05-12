@@ -27,4 +27,9 @@
     return [InterfaceManager.sharedInstance settingsViewController].rentalDuration;
 }
 
++ (unsigned long long)playDuration
+{
+    return [InterfaceManager.sharedInstance settingsViewController].playDuration;
+}
+
 @end

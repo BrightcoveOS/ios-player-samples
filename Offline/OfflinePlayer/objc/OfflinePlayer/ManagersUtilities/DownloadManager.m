@@ -182,8 +182,8 @@
                                                                    {
                                                                        if ([strongSelf.delegate respondsToSelector:@selector(encounteredErrorPreloading:forVideo:)])
                                                                        {
-                                                                           BCOVVideo *video = [BCOVOfflineVideoManager.sharedManager videoObjectFromOfflineVideoToken:offlineVideoToken];
-                                                                           [strongSelf.delegate encounteredErrorPreloading:error forVideo:video];
+                                                                           BCOVVideo *_video = offlineVideoToken ? [BCOVOfflineVideoManager.sharedManager videoObjectFromOfflineVideoToken:offlineVideoToken] : video;
+                                                                           [strongSelf.delegate encounteredErrorPreloading:error forVideo:_video];
                                                                        }
                                                                    }
                                                                    
@@ -419,12 +419,16 @@
     else
     {
         unsigned long long rentalDuration = SettingsAdapter.rentalDuration;
+        unsigned long long playDuration = SettingsAdapter.playDuration;
         
         NSLog(@"Requesting Rental License:\n"
-              @"rentalDuration: %llu",
-              rentalDuration);
+              @"rentalDuration: %llu\n"
+              @"playDuration: %llu\n",
+              rentalDuration,
+              playDuration);
         
         licenseParameters[kBCOVFairPlayLicenseRentalDurationKey] = @(rentalDuration);
+        licenseParameters[kBCOVFairPlayLicensePlayDurationKey] = @(playDuration);
     }
 
     return licenseParameters;

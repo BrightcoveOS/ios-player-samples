@@ -168,8 +168,10 @@ class DownloadManager: NSObject {
                     
                     if let error = error {
                         
-                        let video = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: offlineVideoToken)
-                        let name = video?.properties[kBCOVVideoPropertyKeyName] as? String ?? "unknown"
+                        var name = video.properties[kBCOVVideoPropertyKeyName] as? String ?? "unknown"
+                        if let offlineVideo = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: offlineVideoToken), let offlineName = offlineVideo.properties[kBCOVVideoPropertyKeyName] as? String {
+                            name = offlineName
+                        }
                         
                         // Report any errors
                         UIAlertController.show(withTitle: "Video Preload Error (\(name))", andMessage: error.localizedDescription)
@@ -332,10 +334,12 @@ extension DownloadManager {
             licenseParamaters[kBCOVFairPlayLicensePurchaseKey] = true
         } else {
             let rentalDuration = AppDelegate.current().tabBarController.settingsViewController()?.rentalDuration() ?? 0
+            let playDuration = AppDelegate.current().tabBarController.settingsViewController()?.playDuration() ?? 0
             
             print("Requesting Rental License:\nrentalDuration: \(rentalDuration)")
             
             licenseParamaters[kBCOVFairPlayLicenseRentalDurationKey] = rentalDuration
+            licenseParamaters[kBCOVFairPlayLicensePlayDurationKey] = playDuration
         }
         
         return licenseParamaters
