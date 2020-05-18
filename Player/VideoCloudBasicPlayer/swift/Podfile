@@ -5,5 +5,5 @@ use_frameworks!
 platform :ios, '11.0'
 
 target 'VideoCloudBasicPlayer' do
-  pod 'Brightcove-Player-Core/dynamic'
+  pod 'Brightcove-Player-Core'
 end

@@ -5,5 +5,5 @@ use_frameworks!
 platform :ios, '11.0'
 
 target 'BasicSSAIPlayer' do
-	pod 'Brightcove-Player-SSAI/dynamic'
+	pod 'Brightcove-Player-SSAI'
 end
