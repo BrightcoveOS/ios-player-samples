@@ -22,7 +22,7 @@ NSString * kViewControllerIMAPublisherID = @"insertyourpidhere";
 NSString * kViewControllerIMALanguage = @"en";
 NSString * kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=%2F15018773%2Feverything2&ciu_szs=300x250%2C468x60%2C728x90&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=dummy&correlator=[timestamp]&cmsid=133&vid=10XWSh7W4so&ad_rule=1";
 
-@interface ViewController ()<BCOVPlaybackControllerDelegate, IMAWebOpenerDelegate>
+@interface ViewController ()<BCOVPlaybackControllerDelegate>
 
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
 @property (nonatomic, strong) BCOVPlaybackService *playbackService;
@@ -55,8 +55,6 @@ NSString * kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.doubleclick.n
     imaSettings.language = kViewControllerIMALanguage;
 
     IMAAdsRenderingSettings *renderSettings = [[IMAAdsRenderingSettings alloc] init];
-    renderSettings.webOpenerPresentingController = self;
-    renderSettings.webOpenerDelegate = self;
     
     BCOVPlayerSDKManager *sdkManager = [BCOVPlayerSDKManager sharedManager];
     
@@ -67,7 +65,6 @@ NSString * kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.doubleclick.n
     // to modify the IMAAdsRequest object before it is used to load ads.
     NSDictionary *imaPlaybackSessionOptions = @{ kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self };
     
-    // FairPlay is set as the upstream session provider when creating the IMA session provider.
     id<BCOVPlaybackSessionProvider> imaSessionProvider = [sdkManager createIMASessionProviderWithSettings:imaSettings
                                                                                      adsRenderingSettings:renderSettings
                                                                                          adsRequestPolicy:adsRequestPolicy
@@ -114,7 +111,7 @@ NSString * kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.doubleclick.n
         }
         else
         {
-            NSLog(@"ViewController Debug - Error retrieving video playlist: `%@`", error);
+            NSLog(@"ViewController Debug - Error retrieving video: `%@`", error);
         }
 
     }];
@@ -247,21 +244,13 @@ NSString * kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.doubleclick.n
     self.avpvc.showsPlaybackControls = YES;
 }
 
-#pragma mark - IMAPlaybackSessionDelegate Methods
+#pragma mark - BCOVIMAPlaybackSessionDelegate Methods
 
 - (void)willCallIMAAdsLoaderRequestAdsWithRequest:(IMAAdsRequest *)adsRequest forPosition:(NSTimeInterval)position
 {
     // for demo purposes, increase the VAST ad load timeout.
     adsRequest.vastLoadTimeout = 3000.;
     NSLog(@"ViewController Debug - IMAAdsRequest.vastLoadTimeout set to %.1f milliseconds.", adsRequest.vastLoadTimeout);
-}
-
-#pragma mark - IMAWebOpenerDelegate Methods
-
-- (void)webOpenerDidCloseInAppBrowser:(NSObject *)webOpener
-{
-    // Called when the in-app browser has closed.
-    [self.playbackController resumeAd];
 }
 
 @end
