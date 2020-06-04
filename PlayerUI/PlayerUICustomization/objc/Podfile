@@ -4,5 +4,5 @@ platform :ios, '11.0'
 use_frameworks!
 
 target 'PlayerUICustomization' do
-	pod 'Brightcove-Player-Core/dynamic'
+	pod 'Brightcove-Player-Core'
 end
