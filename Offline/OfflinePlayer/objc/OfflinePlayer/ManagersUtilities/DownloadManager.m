@@ -580,23 +580,6 @@ didFinishMediaSelectionDownload:(AVMediaSelection *)mediaSelection NS_AVAILABLE_
     NSLog(@"didFinishMediaSelectionDownload:%@ withToken:%@", mediaSelectionDescription, offlineVideoToken);
 }
 
-- (void)offlineVideoToken:(BCOVOfflineVideoToken)offlineVideoToken
-didFinishAggregateDownloadWithError:(NSError *)error NS_AVAILABLE_IOS(11_0)
-{
-    // All requested secondary tracks related to this offline video token
-    // have completed downloading
-    NSLog(@"didFinishAggregateDownloadWithError:%@ withToken:%@", error, offlineVideoToken);
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        if ([self.delegate respondsToSelector:@selector(videoDidFinishDownloadingWithError:)])
-        {
-            [self.delegate videoDidFinishDownloadingWithError:error];
-        }
-        
-    });
-}
-
 - (void)didDownloadStaticImagesWithOfflineVideoToken:(BCOVOfflineVideoToken)offlineVideoToken
 {
     // Called when the thumbnail and poster frame downloads
