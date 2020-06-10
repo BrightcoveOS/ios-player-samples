@@ -67,6 +67,8 @@ fileprivate struct playbackConfig {
         _playbackController.isAutoPlay = true
         _playbackController.delegate = self
         
+        googleCastManager.delegate = self
+        
         _playbackController.add(googleCastManager)
         
         return _playbackController
