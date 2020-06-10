@@ -179,12 +179,16 @@ class GoogleCastManager: NSObject {
             return
         }
         
-        guard let currentProgress = currentProgress, let playbackController = delegate?.playbackController else {
+        guard let playbackController = delegate?.playbackController else {
             return
         }
         
         let options = GCKMediaLoadOptions()
-        options.playPosition = currentProgress
+        if let currentProgress = currentProgress {
+            options.playPosition = currentProgress > 0 ? currentProgress : 0
+        } else {
+            options.playPosition = 0
+        }
         options.autoplay = playbackController.isAutoPlay
         
         if let castSession = GCKCastContext.sharedInstance().sessionManager.currentSession, let remoteMediaClient = castSession.remoteMediaClient, let castMediaInfo = castMediaInfo {
