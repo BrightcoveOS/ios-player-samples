@@ -1,0 +1,8 @@
+source 'https://github.com/brightcove/BrightcoveSpecs.git'
+
+platform :ios, '11.0'
+use_frameworks!
+
+target 'ViewStrategy' do
+	 pod 'Brightcove-Player-Core'
+end
