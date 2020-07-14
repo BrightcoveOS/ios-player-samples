@@ -1,0 +1,340 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D6AC7C6024BCD2F0005EE3C6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AC7C5F24BCD2F0005EE3C6 /* AppDelegate.m */; };
+		D6AC7C6624BCD2F0005EE3C6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AC7C6524BCD2F0005EE3C6 /* ViewController.m */; };
+		D6AC7C6924BCD2F0005EE3C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6AC7C6724BCD2F0005EE3C6 /* Main.storyboard */; };
+		D6AC7C6B24BCD2F2005EE3C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6AC7C6A24BCD2F2005EE3C6 /* Assets.xcassets */; };
+		D6AC7C6E24BCD2F2005EE3C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6AC7C6C24BCD2F2005EE3C6 /* LaunchScreen.storyboard */; };
+		D6AC7C7124BCD2F2005EE3C6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AC7C7024BCD2F2005EE3C6 /* main.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D6AC7C5B24BCD2F0005EE3C6 /* SLS_IMA-Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SLS_IMA-Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6AC7C5E24BCD2F0005EE3C6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D6AC7C5F24BCD2F0005EE3C6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D6AC7C6424BCD2F0005EE3C6 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		D6AC7C6524BCD2F0005EE3C6 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		D6AC7C6824BCD2F0005EE3C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D6AC7C6A24BCD2F2005EE3C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D6AC7C6D24BCD2F2005EE3C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D6AC7C6F24BCD2F2005EE3C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6AC7C7024BCD2F2005EE3C6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D6AC7C5824BCD2F0005EE3C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D6AC7C5224BCD2EF005EE3C6 = {
+			isa = PBXGroup;
+			children = (
+				D6AC7C5D24BCD2F0005EE3C6 /* SLS_IMA-Player */,
+				D6AC7C5C24BCD2F0005EE3C6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D6AC7C5C24BCD2F0005EE3C6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D6AC7C5B24BCD2F0005EE3C6 /* SLS_IMA-Player.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D6AC7C5D24BCD2F0005EE3C6 /* SLS_IMA-Player */ = {
+			isa = PBXGroup;
+			children = (
+				D6AC7C5E24BCD2F0005EE3C6 /* AppDelegate.h */,
+				D6AC7C5F24BCD2F0005EE3C6 /* AppDelegate.m */,
+				D6AC7C6424BCD2F0005EE3C6 /* ViewController.h */,
+				D6AC7C6524BCD2F0005EE3C6 /* ViewController.m */,
+				D6AC7C6724BCD2F0005EE3C6 /* Main.storyboard */,
+				D6AC7C6A24BCD2F2005EE3C6 /* Assets.xcassets */,
+				D6AC7C6C24BCD2F2005EE3C6 /* LaunchScreen.storyboard */,
+				D6AC7C6F24BCD2F2005EE3C6 /* Info.plist */,
+				D6AC7C7024BCD2F2005EE3C6 /* main.m */,
+			);
+			path = "SLS_IMA-Player";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D6AC7C5A24BCD2F0005EE3C6 /* SLS_IMA-Player */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D6AC7C7424BCD2F2005EE3C6 /* Build configuration list for PBXNativeTarget "SLS_IMA-Player" */;
+			buildPhases = (
+				D6AC7C5724BCD2F0005EE3C6 /* Sources */,
+				D6AC7C5824BCD2F0005EE3C6 /* Frameworks */,
+				D6AC7C5924BCD2F0005EE3C6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SLS_IMA-Player";
+			productName = "SLS_IMA-Player";
+			productReference = D6AC7C5B24BCD2F0005EE3C6 /* SLS_IMA-Player.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D6AC7C5324BCD2F0005EE3C6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1150;
+				ORGANIZATIONNAME = Brightcove;
+				TargetAttributes = {
+					D6AC7C5A24BCD2F0005EE3C6 = {
+						CreatedOnToolsVersion = 11.5;
+					};
+				};
+			};
+			buildConfigurationList = D6AC7C5624BCD2F0005EE3C6 /* Build configuration list for PBXProject "SLS_IMA-Player" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D6AC7C5224BCD2EF005EE3C6;
+			productRefGroup = D6AC7C5C24BCD2F0005EE3C6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D6AC7C5A24BCD2F0005EE3C6 /* SLS_IMA-Player */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D6AC7C5924BCD2F0005EE3C6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6AC7C6E24BCD2F2005EE3C6 /* LaunchScreen.storyboard in Resources */,
+				D6AC7C6B24BCD2F2005EE3C6 /* Assets.xcassets in Resources */,
+				D6AC7C6924BCD2F0005EE3C6 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D6AC7C5724BCD2F0005EE3C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6AC7C6624BCD2F0005EE3C6 /* ViewController.m in Sources */,
+				D6AC7C6024BCD2F0005EE3C6 /* AppDelegate.m in Sources */,
+				D6AC7C7124BCD2F2005EE3C6 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D6AC7C6724BCD2F0005EE3C6 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D6AC7C6824BCD2F0005EE3C6 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D6AC7C6C24BCD2F2005EE3C6 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D6AC7C6D24BCD2F2005EE3C6 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D6AC7C7224BCD2F2005EE3C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		D6AC7C7324BCD2F2005EE3C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D6AC7C7524BCD2F2005EE3C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "SLS_IMA-Player/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.brightcove.SLS-IMA-Player";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D6AC7C7624BCD2F2005EE3C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "SLS_IMA-Player/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.brightcove.SLS-IMA-Player";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D6AC7C5624BCD2F0005EE3C6 /* Build configuration list for PBXProject "SLS_IMA-Player" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D6AC7C7224BCD2F2005EE3C6 /* Debug */,
+				D6AC7C7324BCD2F2005EE3C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D6AC7C7424BCD2F2005EE3C6 /* Build configuration list for PBXNativeTarget "SLS_IMA-Player" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D6AC7C7524BCD2F2005EE3C6 /* Debug */,
+				D6AC7C7624BCD2F2005EE3C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D6AC7C5324BCD2F0005EE3C6 /* Project object */;
+}
