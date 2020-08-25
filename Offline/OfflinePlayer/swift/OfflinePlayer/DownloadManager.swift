@@ -123,10 +123,30 @@ class DownloadManager: NSObject {
             }
             
             if testVideo.matches(offlineVideo: video) {
-                if let videoName = video.properties[kBCOVVideoPropertyKeyName] as? String {
-                    UIAlertController.show(withTitle: "Video Already Downloaded", andMessage: "The video \(videoName) is already downloaded (or downloading)")
-                    return true
+                
+                let videoName = video.properties[kBCOVVideoPropertyKeyName] as? String ?? ""
+                
+                // If the status is error, alert the user and allow them to retry the download
+                if let downloadStatus = BCOVOfflineVideoManager.shared()?.offlineVideoStatus(forToken: offlineVideoToken) {
+                    if downloadStatus.downloadState == .stateError {
+                        
+                        UIAlertController.show(withTitle: "Video Failed to Download", message: "The video \(videoName) previously failed to download, would you like to try again?", actionTitle: "Retry", cancelTitle: "Cancel") {
+                            
+                            print("Deleting previous download for video and attempting again.")
+                            
+                            BCOVOfflineVideoManager.shared()?.deleteOfflineVideo(offlineVideoToken)
+                            
+                            DownloadManager.shared.doDownload(forVideo: video)
+                            
+                        }
+
+                        return true
+                    }
                 }
+                
+                UIAlertController.show(withTitle: "Video Already Downloaded", andMessage: "The video \(videoName) is already downloaded (or downloading)")
+                return true
+                
             }
             
         }

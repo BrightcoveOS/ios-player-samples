@@ -586,6 +586,19 @@
     [UIAlertController showAlertWithTitle:@"Video Already Downloaded" message:alertMessage actionTitle:@"OK" inController:self];
 }
 
+- (void)videoPreviouslyFailedDownload:(BCOVVideo *)video offlineVideoToken:(BCOVOfflineVideoToken)offlineVideoToken
+{
+    NSString *alertMessage = [NSString stringWithFormat:@"The video \"%@\" previously failed to download, would you like to try again?", video.properties[kBCOVVideoPropertyKeyName]];
+    [UIAlertController showAlertWithTitle:@"Video Failed to Download" message:alertMessage actionTitle:@"Retry" cancelTitle:@"Cancel" inController:self completion:^{
+        NSLog(@"Deleting previous download for video and attempting again.");
+        
+        BCOVOfflineVideoManager *ovm = BCOVOfflineVideoManager.sharedManager;
+        [ovm deleteOfflineVideo:offlineVideoToken];
+        
+        [DownloadManager.sharedInstance downloadVideo:video];
+    }];
+}
+
 - (void)videoDidFinishDownloadingWithError:(NSError *)error
 {
     [self updateStatus];

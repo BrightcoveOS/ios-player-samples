@@ -15,14 +15,39 @@
                actionTitle:(NSString *)actionTitle
               inController:(UIViewController *)controller
 {
+    [UIAlertController showAlertWithTitle:title message:message actionTitle:actionTitle cancelTitle:nil inController:controller completion:nil];
+}
+
++ (void)showAlertWithTitle:(NSString *)title
+                   message:(NSString *)message
+               actionTitle:(NSString *)actionTitle
+               cancelTitle:(NSString *)cancelTitle
+              inController:(UIViewController *)controller
+                completion:(nullable void (^)(void))completionBlock
+{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
                                                                    message:message
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:actionTitle
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:nil];
-    [alert addAction:cancelAction];
+    UIAlertAction *primaryAction = [UIAlertAction actionWithTitle:actionTitle
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action) {
+        if (completionBlock)
+        {
+            completionBlock();
+        }
+    }];
+    
+    [alert addAction:primaryAction];
+    
+    if (cancelTitle)
+    {
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelTitle
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:nil];
+        
+        [alert addAction:cancelAction];
+    }
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [controller presentViewController:alert animated:YES completion:nil];

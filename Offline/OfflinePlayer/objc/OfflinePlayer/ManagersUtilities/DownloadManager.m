@@ -119,11 +119,26 @@
         
         if ([video videoMatchesVideo:testVideo])
         {
-            if ([self.delegate respondsToSelector:@selector(videoAlreadyDownloaded:)])
+            BCOVOfflineVideoStatus *status = [ovm offlineVideoStatusForToken:offlineVideoToken];
+            
+            // If the status is error, alert the user and allow them to retry the download
+            if (status.downloadState == BCOVOfflineVideoDownloadStateError)
             {
-                [self.delegate videoAlreadyDownloaded:video];
+                if ([self.delegate respondsToSelector:@selector(videoPreviouslyFailedDownload:offlineVideoToken:)])
+                {
+                    [self.delegate videoPreviouslyFailedDownload:video offlineVideoToken:offlineVideoToken];
+                }
             }
+            else
+            {
+                if ([self.delegate respondsToSelector:@selector(videoAlreadyDownloaded:)])
+                {
+                    [self.delegate videoAlreadyDownloaded:video];
+                }
+            }
+            
             return YES;
+            
         }
     }
     

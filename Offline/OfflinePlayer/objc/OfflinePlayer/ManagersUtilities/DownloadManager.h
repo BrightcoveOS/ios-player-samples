@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)videoAlreadyPreloadQueued:(BCOVVideo *)video;
 - (void)videoAlreadyDownloadQueued:(BCOVVideo *)video;
 - (void)videoAlreadyDownloaded:(BCOVVideo *)video;
+- (void)videoPreviouslyFailedDownload:(BCOVVideo *)video offlineVideoToken:(BCOVOfflineVideoToken)offlineVideoToken;
 
 @end
 
