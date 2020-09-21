@@ -48,5 +48,13 @@
 	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>${PRODUCT_NAME} uses Bluetooth to discover nearby Cast devices.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_googlecast._tcp</string>
+		<string>4F8B3483._googlecast._tcp</string>
+	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>${PRODUCT_NAME} uses the local network to discover Cast-enabled devices on your WiFi
+network.</string>
 </dict>
 </plist>
