@@ -10,7 +10,7 @@
 
 @import BrightcovePlayerSDK;
 @import BrightcoveIMA;
-
+@import AppTrackingTransparency;
 
 #import "ViewController.h"
 
@@ -51,10 +51,24 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
 
-    [self setup];
-    [self requestContentFromPlaybackService];
+    if (@available(iOS 14, *))
+    {
+        __weak typeof(self) weakSelf = self;
+        [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                __strong typeof(weakSelf) strongSelf = weakSelf;
+                // Tracking authorization completed. Start loading ads here.
+                [strongSelf setup];
+                [strongSelf requestContentFromPlaybackService];
+            });
+        }];
+    }
+    else
+    {
+        [self setup];
+        [self requestContentFromPlaybackService];
+    }
 }
 
 - (void)createPlayerView
@@ -107,6 +121,7 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
                                                           adsRenderingSettings:renderSettings
                                                               adsRequestPolicy:adsRequestPolicy
                                                                    adContainer:self.playerView.contentOverlayView
+                                                                viewController:self
                                                                 companionSlots:nil
                                                                   viewStrategy:nil
                                                                        options:imaPlaybackSessionOptions];

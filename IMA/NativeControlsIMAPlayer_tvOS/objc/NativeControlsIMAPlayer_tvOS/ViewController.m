@@ -12,6 +12,7 @@
 @import BrightcoveIMA;
 @import AVKit;
 @import GoogleInteractiveMediaAds;
+@import AppTrackingTransparency;
 
 // ** Customize these values with your own account information **
 static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM1W-vUOMe6RSA3pA6Vw-VWUNn5rL0lzQabvrI63-VjS93gVUugDlmBpHIxP16X8TSe5LSKM415UHeMBmxl7pqcwVY_AZ4yKFwIpZPvXE34TpXEYYcmulxJQAOvHbv2dpfq-S_cm";
@@ -42,7 +43,21 @@ NSString * kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.doubleclick.n
     [self setupPlaybackService];
     [self setupPlaybackController];
     
-    [self requestContentFromPlaybackService];
+    if (@available(tvOS 14, *))
+    {
+        __weak typeof(self) weakSelf = self;
+        [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // Tracking authorization completed. Start loading ads here.
+                [strongSelf requestContentFromPlaybackService];
+            });
+        }];
+    }
+    else
+    {
+        [self requestContentFromPlaybackService];
+    }
 }
 
 #pragma mark - Setup
@@ -69,6 +84,7 @@ NSString * kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.doubleclick.n
                                                                                      adsRenderingSettings:renderSettings
                                                                                          adsRequestPolicy:adsRequestPolicy
                                                                                               adContainer:self.avpvc.contentOverlayView
+                                                                                           viewController:self.avpvc
                                                                                            companionSlots:nil
                                                                                   upstreamSessionProvider:nil
                                                                                                   options:imaPlaybackSessionOptions];

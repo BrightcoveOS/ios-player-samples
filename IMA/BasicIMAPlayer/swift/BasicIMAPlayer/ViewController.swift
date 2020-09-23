@@ -9,6 +9,7 @@ import UIKit
 import BrightcovePlayerSDK
 import BrightcoveIMA
 import GoogleInteractiveMediaAds
+import AppTrackingTransparency
 
 struct PlaybackConfig {
     static let PolicyKey = "BCpkADawqM1W-vUOMe6RSA3pA6Vw-VWUNn5rL0lzQabvrI63-VjS93gVUugDlmBpHIxP16X8TSe5LSKM415UHeMBmxl7pqcwVY_AZ4yKFwIpZPvXE34TpXEYYcmulxJQAOvHbv2dpfq-S_cm"
@@ -65,7 +66,7 @@ class ViewController: UIViewController {
         // before it is used to load ads.
         let imaPlaybackSessionOptions = [kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self]
         
-        guard let _playbackController = BCOVPlayerSDKManager.shared()?.createIMAPlaybackController(with: imaSettings, adsRenderingSettings: renderSettings, adsRequestPolicy: adsRequestPolicy, adContainer: playerView?.contentOverlayView, companionSlots: nil, viewStrategy: nil, options: imaPlaybackSessionOptions) else {
+        guard let _playbackController = BCOVPlayerSDKManager.shared()?.createIMAPlaybackController(with: imaSettings, adsRenderingSettings: renderSettings, adsRequestPolicy: adsRequestPolicy, adContainer: playerView?.contentOverlayView, viewController: self, companionSlots: nil, viewStrategy: nil, options: imaPlaybackSessionOptions) else {
             return nil
         }
         
@@ -107,8 +108,19 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         let _ = playerView
         let _ = playbackController
+        
         resumeAdAfterForeground()
-        requestContentFromPlaybackService()
+        
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization { [weak self] (status: ATTrackingManager.AuthorizationStatus) in
+                DispatchQueue.main.async {
+                    self?.requestContentFromPlaybackService()
+                }
+            }
+        } else {
+            requestContentFromPlaybackService()
+        }
+        
     }
 
     // MARK: - Misc
