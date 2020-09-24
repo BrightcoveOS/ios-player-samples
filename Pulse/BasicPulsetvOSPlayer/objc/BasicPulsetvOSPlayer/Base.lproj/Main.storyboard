@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="15705" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="17156" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="appleTV" appearance="light"/>
     <dependencies>
         <deployment identifier="tvOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,18 +21,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="66" sectionFooterHeight="66" translatesAutoresizingMaskIntoConstraints="NO" id="pq3-Tl-8Ka">
-                                <rect key="frame" x="90" y="60" width="1740" height="960"/>
+                                <rect key="frame" x="80" y="60" width="1760" height="960"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BasicCell" textLabel="cB1-EH-Uvg" detailTextLabel="Ex0-wy-cFK" rowHeight="100" style="IBUITableViewCellStyleSubtitle" id="1yY-1J-LIm">
-                                        <rect key="frame" x="0.0" y="66" width="1740" height="100"/>
+                                        <rect key="frame" x="0.0" y="66" width="1760" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1yY-1J-LIm" id="VWP-z8-unh">
-                                            <rect key="frame" x="0.0" y="0.0" width="1740" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1760" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cB1-EH-Uvg">
-                                                    <rect key="frame" x="20" y="4" width="71" height="46"/>
+                                                    <rect key="frame" x="20" y="4" width="70" height="46"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="38"/>
                                                     <nil key="textColor"/>
@@ -58,14 +58,14 @@
                                 </connections>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="wu6-TO-1qx"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="pq3-Tl-8Ka" secondAttribute="bottom" id="6DM-oB-ZPc"/>
+                            <constraint firstItem="wu6-TO-1qx" firstAttribute="bottom" secondItem="pq3-Tl-8Ka" secondAttribute="bottom" id="6DM-oB-ZPc"/>
                             <constraint firstItem="wu6-TO-1qx" firstAttribute="trailing" secondItem="pq3-Tl-8Ka" secondAttribute="trailing" id="HUf-du-rtR"/>
                             <constraint firstItem="pq3-Tl-8Ka" firstAttribute="leading" secondItem="wu6-TO-1qx" secondAttribute="leading" id="MFM-Rk-BAB"/>
-                            <constraint firstItem="pq3-Tl-8Ka" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="wXI-rm-L9e"/>
+                            <constraint firstItem="pq3-Tl-8Ka" firstAttribute="top" secondItem="wu6-TO-1qx" secondAttribute="top" id="wXI-rm-L9e"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="wu6-TO-1qx"/>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="pq3-Tl-8Ka" id="Neg-EE-hgS"/>

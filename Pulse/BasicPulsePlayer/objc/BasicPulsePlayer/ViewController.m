@@ -276,10 +276,12 @@ static NSString * const kPulseHost = @"https://bc-test.videoplaza.tv";
     BCOVPulseVideoItem *item = self.videoItems[indexPath.item];
     
     cell.textLabel.text = item.title ?: @"";
+    cell.textLabel.textColor = UIColor.blackColor;
     
     NSString *subtitle = item.category ?: @"";
     
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", subtitle, [item.tags componentsJoinedByString:@", "] ?: @""];
+    cell.detailTextLabel.textColor = UIColor.grayColor;
     
     return cell;
 }

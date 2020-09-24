@@ -70,6 +70,12 @@
     return @"Basic Pulse tvOS Player";
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    ((UITableViewHeaderFooterView *) view).contentView.backgroundColor = UIColor.darkGrayColor;
+    ((UITableViewHeaderFooterView *) view).textLabel.textColor = UIColor.whiteColor;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BasicCell" forIndexPath:indexPath];
@@ -77,10 +83,12 @@
     BCOVPulseVideoItem *item = self.videoItems[indexPath.item];
     
     cell.textLabel.text = item.title ?: @"";
+    cell.textLabel.textColor = UIColor.blackColor;
     
     NSString *subtitle = item.category ?: @"";
     
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", subtitle, [item.tags componentsJoinedByString:@", "] ?: @""];
+    cell.detailTextLabel.textColor = UIColor.grayColor;
     
     return cell;
 }
