@@ -13,6 +13,7 @@
 
 @import BrightcoveIMA;
 @import BrightcovePlayerSDK;
+@import AppTrackingTransparency;
 
 #import "ViewController.h"
 
@@ -50,9 +51,22 @@ NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/st
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Do any additional setup after loading the view, typically from a nib.
-    [self setup];
+    
+    if (@available(iOS 14, *))
+    {
+        __weak typeof(self) weakSelf = self;
+        [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // Tracking authorization completed. Start loading ads here.
+                [strongSelf setup];
+            });
+        }];
+    }
+    else
+    {
+        [self setup];
+    }
     
     // FairPlay doesn't work when we're running in a simulator, so put up an alert.
 #if (TARGET_OS_SIMULATOR)
@@ -201,6 +215,7 @@ NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/st
                                                                                      adsRenderingSettings:renderSettings
                                                                                          adsRequestPolicy:adsRequestPolicy
                                                                                               adContainer:self.playerView.contentOverlayView
+                                                                                           viewController:self
                                                                                            companionSlots:nil
                                                                                   upstreamSessionProvider:fps
                                                                                                   options:imaPlaybackSessionOptions];

@@ -9,6 +9,7 @@ import UIKit
 import BrightcovePlayerSDK
 import BrightcoveIMA
 import GoogleInteractiveMediaAds
+import AppTrackingTransparency
 
 struct PlaybackConfig {
     static let FairPlayHLSVideoURL = "https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8"
@@ -64,7 +65,16 @@ class ViewController: UIViewController {
         showSimulatorWarning()
         #endif
         
-        setupPlaybackController()
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization { [weak self] (status: ATTrackingManager.AuthorizationStatus) in
+                DispatchQueue.main.async {
+                    self?.setupPlaybackController()
+                }
+            }
+        } else {
+            setupPlaybackController()
+        }
+        
         resumeAdAfterForeground()
     }
 
@@ -170,7 +180,7 @@ class ViewController: UIViewController {
         let imaPlaybackSessionOptions: [AnyHashable : Any] = [kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self]
         
         // FairPlay is set as the upstream session provider when creating the IMA session provider.
-        let imaSessionProvider = BCOVPlayerSDKManager.shared()?.createIMASessionProvider(with: imaSettings, adsRenderingSettings: renderSettings, adsRequestPolicy: adsRequestPolicy, adContainer: self.playerView?.contentOverlayView, companionSlots: nil, upstreamSessionProvider: fps, options: imaPlaybackSessionOptions)
+        let imaSessionProvider = BCOVPlayerSDKManager.shared()?.createIMASessionProvider(with: imaSettings, adsRenderingSettings: renderSettings, adsRequestPolicy: adsRequestPolicy, adContainer: self.playerView?.contentOverlayView, viewController: self, companionSlots: nil, upstreamSessionProvider: fps, options: imaPlaybackSessionOptions)
         
         print("Creating playback controller");
         
