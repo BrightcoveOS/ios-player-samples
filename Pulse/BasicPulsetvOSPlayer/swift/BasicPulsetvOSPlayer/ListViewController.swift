@@ -69,6 +69,12 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource
         return "Basic Pulse tvOS Player"
     }
     
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    {
+        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = UIColor.darkGray
+        (view as! UITableViewHeaderFooterView).textLabel?.textColor = UIColor.white
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return videoItems.count
@@ -76,14 +82,15 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BasicCell", for: indexPath)
-
         let item = videoItems[indexPath.item]
 
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BasicCell", for: indexPath)
+
         cell.textLabel?.text = item.title ?? ""
-
+        cell.textLabel?.textColor = UIColor.black
         cell.detailTextLabel?.text = "\(item.category ?? "") \(item.tags?.joined(separator: ", ") ?? "")"
-
+        cell.detailTextLabel?.textColor = UIColor.gray
+        
         return cell
     }
 

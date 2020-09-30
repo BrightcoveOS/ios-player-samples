@@ -303,8 +303,10 @@ extension ViewController: UITableViewDataSource
         let item = videoItems[indexPath.item]
 
         cell.textLabel?.text = item.title
+        cell.textLabel?.textColor = UIColor.black
 
         cell.detailTextLabel?.text = "\(item.category ?? "") \(item.tags?.joined(separator: ", ") ?? "")"
+        cell.detailTextLabel?.textColor = UIColor.gray
 
         return cell
     }
