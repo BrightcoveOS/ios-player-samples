@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -69,13 +69,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BFECBFFC0B04DD391DA75A95 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		D2633176D4DE885BEA2800C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -88,7 +81,6 @@
 			children = (
 				D688F07723F759700069047B /* BasicPulsetvOSPlayer */,
 				D688F07623F759700069047B /* Products */,
-				BFECBFFC0B04DD391DA75A95 /* Pods */,
 				D2633176D4DE885BEA2800C4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -150,7 +142,7 @@
 		D688F06D23F759700069047B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Carlos Ceja";
 				TargetAttributes = {
 					D688F07423F759700069047B = {
@@ -251,6 +243,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -310,6 +303,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -343,11 +337,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/BCOVPlayerSDK\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/BCOVPulse\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = BasicPulsetvOSPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -367,11 +357,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/BCOVPlayerSDK\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/BCOVPulse\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = BasicPulsetvOSPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

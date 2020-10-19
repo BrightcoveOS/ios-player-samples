@@ -105,12 +105,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = Brightcove;
 				TargetAttributes = {
 					4910CD961C91DB4A00016798 = {
 						CreatedOnToolsVersion = 7.2.1;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1200;
 					};
 				};
 			};
@@ -191,6 +191,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -245,6 +246,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -277,6 +279,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = AppleTV/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -285,7 +288,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.AppleTV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Debug;
@@ -295,6 +298,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = AppleTV/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -303,7 +307,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.AppleTV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Release;

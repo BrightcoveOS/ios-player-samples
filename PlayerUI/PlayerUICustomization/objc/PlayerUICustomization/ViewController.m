@@ -3,7 +3,7 @@
 //  PlayerUICustomization
 //
 //  Created by Steve Bushell on 6/26/16.
-//  Copyright © 2019 Brightcove, Inc. All rights reserved.
+//  Copyright © 2020 Brightcove, Inc. All rights reserved.
 //
 // This sample app shows you how to use the PlayerUI control customization.
 // The PlayerUI code is now integrated in the BrightcovePlayerSDK module, so you

@@ -3,7 +3,7 @@
 //  VideoCloudBasicPlayer
 //
 //  Created by Jeremy Blaker on 3/21/19.
-//  Copyright © 2019 Brightcove. All rights reserved.
+//  Copyright © 2020 Brightcove. All rights reserved.
 //
 
 #import "VideoPreloadManager.h"

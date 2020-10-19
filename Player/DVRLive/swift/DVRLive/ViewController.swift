@@ -2,13 +2,13 @@
 //  ViewController.swift
 //  DVRLive
 //
-//  Copyright © 2019 Brightcove, Inc. All rights reserved.
+//  Copyright © 2020 Brightcove, Inc. All rights reserved.
 //
 
 import UIKit
 import BrightcovePlayerSDK
 
-private let kVideoURLString = ""
+private let kVideoURLString = "<URL of Live HLS>"
 
 class ViewController: UIViewController {
     

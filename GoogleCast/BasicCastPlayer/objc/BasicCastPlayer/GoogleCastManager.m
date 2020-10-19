@@ -2,7 +2,7 @@
 //  GoogleCastManager.m
 //  BasicCastPlayer
 //
-//  Copyright © 2019 Brightcove, Inc. All rights reserved.
+//  Copyright © 2020 Brightcove, Inc. All rights reserved.
 //
 
 #import "GoogleCastManager.h"

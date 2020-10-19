@@ -70,7 +70,7 @@ class ViewController: UIViewController {
         let imaPlaybackSessionOptions = [kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self]
         
         let basicSessionProvider = manager.createBasicSessionProvider(with: nil)
-        let imaSessionProvider = manager.createIMASessionProvider(with: imaSettings, adsRenderingSettings: nil, adsRequestPolicy: adsRequestPolicy, adContainer: playerView.contentOverlayView, companionSlots: nil, upstreamSessionProvider: basicSessionProvider)
+        let imaSessionProvider = manager.createIMASessionProvider(with: imaSettings, adsRenderingSettings: nil, adsRequestPolicy: adsRequestPolicy, adContainer: playerView.contentOverlayView, viewController: self, companionSlots: nil, upstreamSessionProvider: basicSessionProvider)
         let ssaiSessionProvider = manager.createSSAISessionProvider(withUpstreamSessionProvider: imaSessionProvider)
         
         guard let _playbackController = manager.createPlaybackController(with: ssaiSessionProvider, viewStrategy: nil) else {

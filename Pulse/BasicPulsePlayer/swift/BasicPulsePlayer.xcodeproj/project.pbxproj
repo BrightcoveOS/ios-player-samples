@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -45,19 +45,11 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		82C324546BC05F8E655000FD /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		D6D2CFBC24005B4300F32675 = {
 			isa = PBXGroup;
 			children = (
 				D6D2CFC724005B4300F32675 /* BasicPulsePlayer */,
 				D6D2CFC624005B4300F32675 /* Products */,
-				82C324546BC05F8E655000FD /* Pods */,
 				78497BEE8B255210BAB7EDD1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -112,7 +104,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Carlos Ceja";
 				TargetAttributes = {
 					D6D2CFC424005B4300F32675 = {
@@ -210,6 +202,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -271,6 +264,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
