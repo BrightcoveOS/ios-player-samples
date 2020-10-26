@@ -2,7 +2,7 @@
 //  SampleTabBarItemView.swift
 //  AppleTV
 //
-//  Copyright © 2019 Brightcove. All rights reserved.
+//  Copyright © 2020 Brightcove. All rights reserved.
 //
 
 import BrightcovePlayerSDK

@@ -3,7 +3,7 @@
 //  OfflinePlayer
 //
 //  Created by Jeremy Blaker on 10/28/19.
-//  Copyright © 2019 Brightcove. All rights reserved.
+//  Copyright © 2020 Brightcove. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

@@ -2,7 +2,7 @@
 //  PlayerViewController.m
 //  BasicCastPlayer
 //
-//  Copyright © 2019 Brightcove, Inc. All rights reserved.
+//  Copyright © 2020 Brightcove, Inc. All rights reserved.
 //
 
 #define USE_CUSTOM_CAST_MANAGER 0

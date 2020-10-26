@@ -2,7 +2,7 @@
 //  ViewController.m
 //  VideoCloudBasicPlayer
 //
-//  Copyright © 2019 Brightcove, Inc. All rights reserved.
+//  Copyright © 2020 Brightcove, Inc. All rights reserved.
 //  License: https://accounts.brightcove.com/en/terms-and-conditions
 //
 
@@ -11,7 +11,7 @@
 @import BrightcovePlayerSDK;
 
 
-static NSString * const kVideoURLString = <URL of Live HLS>;
+static NSString * const kVideoURLString = @"<URL of Live HLS>";
 
 @interface ViewController () <BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate>
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;

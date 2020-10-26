@@ -2,7 +2,7 @@
 //  main.m
 //  BasicCastPlayer
 //
-//  Copyright © 2018 Brightcove, Inc. All rights reserved.
+//  Copyright © 2020 Brightcove, Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

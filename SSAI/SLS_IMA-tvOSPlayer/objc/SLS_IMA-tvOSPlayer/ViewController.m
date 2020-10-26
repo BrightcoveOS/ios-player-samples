@@ -79,7 +79,7 @@ static NSString * const kViewControllerAdConfigID = @"insertyouradconfigidhere";
     NSDictionary *imaPlaybackSessionOptions = @{ kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self };
     
     id basicSessionProvider = [manager createBasicSessionProviderWithOptions:nil];
-    id imaSessionProvider = [manager createIMASessionProviderWithSettings:imaSettings adsRenderingSettings:nil adsRequestPolicy:adsRequestPolicy adContainer:self.playerView.contentOverlayView companionSlots:nil upstreamSessionProvider:basicSessionProvider options:imaPlaybackSessionOptions];
+    id imaSessionProvider = [manager createIMASessionProviderWithSettings:imaSettings adsRenderingSettings:nil adsRequestPolicy:adsRequestPolicy adContainer:self.playerView.contentOverlayView viewController: self companionSlots:nil upstreamSessionProvider:basicSessionProvider options:imaPlaybackSessionOptions];
     id ssaiSessionProvider = [manager createSSAISessionProviderWithUpstreamSessionProvider:imaSessionProvider];
     
     self.playbackController = [manager createPlaybackControllerWithSessionProvider:ssaiSessionProvider viewStrategy:nil];

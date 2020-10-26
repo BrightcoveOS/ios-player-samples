@@ -3,7 +3,7 @@
 //  OfflinePlayer
 //
 //  Created by Jeremy Blaker on 10/30/19.
-//  Copyright © 2019 Brightcove. All rights reserved.
+//  Copyright © 2020 Brightcove. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
