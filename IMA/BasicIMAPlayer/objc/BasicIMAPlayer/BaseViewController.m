@@ -1,5 +1,5 @@
 //
-//  ViewController.m
+//  BaseViewController.m
 //  BasicIMAPlayer
 //
 //  Copyright © 2020 Brightcove, Inc. All rights reserved.
@@ -7,12 +7,11 @@
 //
 
 @import GoogleInteractiveMediaAds;
-
 @import BrightcovePlayerSDK;
 @import BrightcoveIMA;
 @import AppTrackingTransparency;
 
-#import "ViewController.h"
+#import "BaseViewController.h"
 
 
 // ** Customize these values with your own account information **
@@ -20,16 +19,13 @@ static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM1W
 static NSString * const kViewControllerAccountID = @"3636334163001";
 static NSString * const kViewControllerVideoID = @"3666678807001";
 
-static NSString * const kViewControllerIMAPublisherID = @"insertyourpidhere";
-static NSString * const kViewControllerIMALanguage = @"en";
-static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=%2F15018773%2Feverything2&ciu_szs=300x250%2C468x60%2C728x90&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=dummy&correlator=[timestamp]&cmsid=133&vid=10XWSh7W4so&ad_rule=1";
+NSString * const kViewControllerIMAPublisherID = @"insertyourpidhere";
+NSString * const kViewControllerIMALanguage = @"en";
 
-
-@interface ViewController () <BCOVPlaybackControllerDelegate, IMAWebOpenerDelegate>
+@interface BaseViewController ()
 
 @property (nonatomic, strong) BCOVPlaybackService *playbackService;
-@property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
-@property (nonatomic) BCOVPUIPlayerView *playerView;
+
 @property (nonatomic, weak) IBOutlet UIView *videoContainer;
 
 @property (nonatomic, assign) BOOL adIsPlaying;
@@ -39,7 +35,7 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
 @end
 
 
-@implementation ViewController
+@implementation BaseViewController
 
 #pragma mark Setup Methods
 
@@ -96,63 +92,24 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     }
 }
 
+- (void)setupPlaybackController
+{
+    // NO-OP
+    // Override this method in subclasses
+}
+
+- (BCOVVideo *)updateVideo:(BCOVVideo *)video
+{
+    // NO-OP
+    // Override this method in subclasses
+    return nil;
+}
+
 - (void)setup
 {
     [self createPlayerView];
-
-    BCOVPlayerSDKManager *manager = [BCOVPlayerSDKManager sharedManager];
-
-    IMASettings *imaSettings = [[IMASettings alloc] init];
-    imaSettings.ppid = kViewControllerIMAPublisherID;
-    imaSettings.language = kViewControllerIMALanguage;
-
-    IMAAdsRenderingSettings *renderSettings = [[IMAAdsRenderingSettings alloc] init];
-    renderSettings.webOpenerPresentingController = self;
-    renderSettings.webOpenerDelegate = self;
     
-    // BCOVIMAAdsRequestPolicy provides methods to specify VAST or VMAP/Server Side Ad Rules. Select the appropriate method to select your ads policy.
-    BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy videoPropertiesVMAPAdTagUrlAdsRequestPolicy];
-    
-    // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition: which allows us to modify the IMAAdsRequest object
-    // before it is used to load ads.
-    NSDictionary *imaPlaybackSessionOptions = @{ kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self };
-
-    self.playbackController = [manager createIMAPlaybackControllerWithSettings:imaSettings
-                                                          adsRenderingSettings:renderSettings
-                                                              adsRequestPolicy:adsRequestPolicy
-                                                                   adContainer:self.playerView.contentOverlayView
-                                                                viewController:self
-                                                                companionSlots:nil
-                                                                  viewStrategy:nil
-                                                                       options:imaPlaybackSessionOptions];
-    self.playbackController.delegate = self;
-    self.playbackController.autoAdvance = YES;
-    self.playbackController.autoPlay = YES;
-
-    self.playerView.playbackController = self.playbackController;
-
-    // Creating a playback controller based on the above code will create
-    // VMAP / Server Side Ad Rules. These settings are explained in BCOVIMAAdsRequestPolicy.h.
-    // If you want to change these settings, you can initialize the plugin like so:
-    //
-    // BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy adsRequestPolicyWithVMAPAdTagUrl:kViewControllerIMAVMAPResponseAdTag];
-    //
-    // or for VAST:
-    //
-    // BCOVCuePointProgressPolicy *policy = [BCOVCuePointProgressPolicy progressPolicyProcessingCuePoints:BCOVProgressPolicyProcessFinalCuePoint
-    //                                                                               resumingPlaybackFrom:BCOVProgressPolicyResumeFromContentPlayhead
-    //                                                               ignoringPreviouslyProcessedCuePoints:NO];
-    //
-    // BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy adsRequestPolicyWithVASTAdTagsInCuePointsAndAdsCuePointProgressPolicy:policy];
-    //
-    // _playbackController = [manager createIMAPlaybackControllerWithSettings:imaSettings
-    //                                                   adsRenderingSettings:renderSettings
-    //                                                       adsRequestPolicy:adsRequestPolicy
-    //                                                            adContainer:self.playerView.contentOverlayView
-    //                                                         companionSlots:nil
-    //                                                           viewStrategy:nil];
-    //
-    
+    [self setupPlaybackController];
     
     self.playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kViewControllerAccountID
                                                                 policyKey:kViewControllerPlaybackServicePolicyKey];
@@ -166,11 +123,11 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
     // the ad. This code demonstrates how you would resume the ad when entering
     // the foreground.
 
-    ViewController * __weak weakSelf = self;
+    BaseViewController * __weak weakSelf = self;
 
     self.notificationReceipt = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
 
-        ViewController *strongSelf = weakSelf;
+        BaseViewController *strongSelf = weakSelf;
 
         if (strongSelf.adIsPlaying && !strongSelf.isBrowserOpen)
         {
@@ -202,7 +159,7 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
 
                 for (BCOVVideo *video in mutablePlaylist.videos)
                 {
-                    [updatedVideos addObject:[ViewController updateVideoWithVMAPTag:video]];
+                    [updatedVideos addObject:[self updateVideo:video]];
                 }
 
                 mutablePlaylist.videos = updatedVideos;
@@ -216,23 +173,6 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.
             NSLog(@"ViewController Debug - Error retrieving video playlist: %@", error);
         }
         
-    }];
-}
-
-+ (BCOVVideo *)updateVideoWithVMAPTag:(BCOVVideo *)video
-{
-    // Update each video to add the tag.
-    return [video update:^(id<BCOVMutableVideo> mutableVideo) {
-
-        // The BCOVIMA plugin will look for the presence of kBCOVIMAAdTag in
-        // the video's properties when using server side ad rules. This URL returns
-        // a VMAP response that is handled by the Google IMA library.
-        NSDictionary *adProperties = @{ kBCOVIMAAdTag : kViewControllerIMAVMAPResponseAdTag };
-
-        NSMutableDictionary *propertiesToUpdate = [mutableVideo.properties mutableCopy];
-        [propertiesToUpdate addEntriesFromDictionary:adProperties];
-        mutableVideo.properties = propertiesToUpdate;
-
     }];
 }
 

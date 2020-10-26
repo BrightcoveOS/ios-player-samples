@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  BaseViewController.swift
 //  BasicIMAPlayer
 //
 //  Copyright © 2020 Brightcove, Inc. All rights reserved.
@@ -17,17 +17,19 @@ struct PlaybackConfig {
     static let VideoID = "3666678807001"
 }
 
+// See https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/tags for other sample VMAP and VAST ad tag URLs
 struct IMAConfig {
     static let PublisherID = "insertyourpidhere"
     static let Language = "en"
-    static let VMAPResponseAdTag = "http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=%2F15018773%2Feverything2&ciu_szs=300x250%2C468x60%2C728x90&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=dummy&correlator=[timestamp]&cmsid=133&vid=10XWSh7W4so&ad_rule=1"
+    static let VMAPAdTagURL = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpost&cmsid=496&vid=short_onecue&correlator="
+    static let VASTAdTagURL = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator="
 }
 
-class ViewController: UIViewController {
+class BaseViewController: UIViewController {
 
     @IBOutlet weak var videoContainerView: UIView!
     
-    private lazy var playerView: BCOVPUIPlayerView? = {
+    lazy var playerView: BCOVPUIPlayerView? = {
         let options = BCOVPUIPlayerViewOptions()
         options.presentingViewController = self
         
@@ -50,49 +52,7 @@ class ViewController: UIViewController {
         return _playerView
     }()
     
-    private lazy var playbackController: BCOVPlaybackController? = {
-        let imaSettings = IMASettings()
-        imaSettings.ppid = IMAConfig.PublisherID
-        imaSettings.language = IMAConfig.Language
-        
-        let renderSettings = IMAAdsRenderingSettings()
-        renderSettings.webOpenerPresentingController = self
-        renderSettings.webOpenerDelegate = self
-        
-        // BCOVIMAAdsRequestPolicy provides methods to specify VAST or VMAP/Server Side Ad Rules. Select the appropriate method to select your ads policy.
-        let adsRequestPolicy = BCOVIMAAdsRequestPolicy.videoPropertiesVMAPAdTagUrl()
-        
-        // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition: which allows us to modify the IMAAdsRequest object
-        // before it is used to load ads.
-        let imaPlaybackSessionOptions = [kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self]
-        
-        guard let _playbackController = BCOVPlayerSDKManager.shared()?.createIMAPlaybackController(with: imaSettings, adsRenderingSettings: renderSettings, adsRequestPolicy: adsRequestPolicy, adContainer: playerView?.contentOverlayView, viewController: self, companionSlots: nil, viewStrategy: nil, options: imaPlaybackSessionOptions) else {
-            return nil
-        }
-        
-        _playbackController.delegate = self
-        _playbackController.isAutoAdvance = true
-        _playbackController.isAutoPlay = true
-        
-        self.playerView?.playbackController = _playbackController
-        
-        // Creating a playback controller based on the above code will create
-        // VMAP / Server Side Ad Rules. These settings are explained in BCOVIMAAdsRequestPolicy.h.
-        // If you want to change these settings, you can initialize the plugin like so:
-        //
-        // let adsRequestPolicy = BCOVIMAAdsRequestPolicy.init(vmapAdTagUrl: IMAConfig.VMAPResponseAdTag)
-        //
-        // or for VAST:
-        //
-        // let policy = BCOVCuePointProgressPolicy.init(processingCuePoints: .processFinalCuePoint, resumingPlaybackFrom: .fromContentPlayhead, ignoringPreviouslyProcessedCuePoints: false)
-        //
-        // let adsRequestPolicy = BCOVIMAAdsRequestPolicy.init(vastAdTagsInCuePointsAndAdsCuePointProgressPolicy: policy)
-        //
-        // _playbackController = BCOVPlayerSDKManager.shared()?.createIMAPlaybackController(with: imaSettings, adsRenderingSettings: renderSettings, adsRequestPolicy: adsRequestPolicy, adContainer: playerView?.contentOverlayView, companionSlots: nil, viewStrategy: nil, options: imaPlaybackSessionOptions)
-        //
-        
-        return _playbackController
-    }()
+    var playbackController: BCOVPlaybackController?
     
     private lazy var playbackService: BCOVPlaybackService = {
         return BCOVPlaybackService(accountId: PlaybackConfig.AccountID, policyKey: PlaybackConfig.PolicyKey)
@@ -106,8 +66,10 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let _ = playerView
-        let _ = playbackController
+        
+        setupPlaybackController()
         
         resumeAdAfterForeground()
         
@@ -124,6 +86,14 @@ class ViewController: UIViewController {
     }
 
     // MARK: - Misc
+    
+    func setupPlaybackController() {
+        // NO-OP
+    }
+    
+    func updateVideo(_ video: BCOVVideo) -> BCOVVideo {
+        return video
+    }
     
     private func resumeAdAfterForeground() {
         // When the app goes to the background, the Google IMA library will pause
@@ -165,8 +135,8 @@ class ViewController: UIViewController {
                     var updatedVideos:[BCOVVideo] = []
                     
                     for video in mutablePlaylist.videos {
-                        if let _video = video as? BCOVVideo {
-                            updatedVideos.append(_video.updateVideo(withVMAPTag: IMAConfig.VMAPResponseAdTag))
+                        if let strongSelf = self, let _video = video as? BCOVVideo {
+                            updatedVideos.append(strongSelf.updateVideo(_video))
                         }
                     }
                     
@@ -191,7 +161,7 @@ class ViewController: UIViewController {
 
 // MARK: - BCOVPlaybackControllerDelegate
 
-extension ViewController: BCOVPlaybackControllerDelegate {
+extension BaseViewController: BCOVPlaybackControllerDelegate {
     
     func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
         print("ViewController Debug - Advanced to new session.")
@@ -252,7 +222,7 @@ extension ViewController: BCOVPlaybackControllerDelegate {
 
 // MARK: - BCOVIMAPlaybackSessionDelegate
 
-extension ViewController: BCOVIMAPlaybackSessionDelegate {
+extension BaseViewController: BCOVIMAPlaybackSessionDelegate {
 
     func willCallIMAAdsLoaderRequestAds(with adsRequest: IMAAdsRequest!, forPosition position: TimeInterval) {
         // for demo purposes, increase the VAST ad load timeout.
@@ -265,7 +235,7 @@ extension ViewController: BCOVIMAPlaybackSessionDelegate {
 
 // MARK: - IMAWebOpenerDelegate
 
-extension ViewController: IMAWebOpenerDelegate {
+extension BaseViewController: IMAWebOpenerDelegate {
     
     func webOpenerDidClose(inAppBrowser webOpener: NSObject!) {
         // Called when the in-app browser has closed.

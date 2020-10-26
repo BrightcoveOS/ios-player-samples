@@ -28,4 +28,30 @@ extension BCOVVideo {
         
     }
     
+    func updateVideo(withVASTTag vastTag: String) -> BCOVVideo? {
+        
+        guard let durationNum = self.properties["duration"] as? NSNumber else {
+            return nil
+        }
+        
+        let durationMiliSeconds = durationNum.doubleValue
+        let midpointSeconds = (durationMiliSeconds / 2) / 1000
+        let midpointTime = CMTimeMakeWithSeconds(midpointSeconds, preferredTimescale: 1)
+        
+        let cuePointPositionTypeAfter = CMTime.positiveInfinity
+        
+        return update { (mutableVideo: BCOVMutableVideo?) in
+            guard let mutableVideo = mutableVideo else {
+                return
+            }
+            
+            mutableVideo.cuePoints = BCOVCuePointCollection(array: [
+                BCOVCuePoint(type: kBCOVIMACuePointTypeAd, position: CMTime.zero, properties: [kBCOVIMAAdTag:vastTag])!,
+                BCOVCuePoint(type: kBCOVIMACuePointTypeAd, position: midpointTime, properties: [kBCOVIMAAdTag:vastTag])!,
+                BCOVCuePoint(type: kBCOVIMACuePointTypeAd, position: cuePointPositionTypeAfter, properties: [kBCOVIMAAdTag:vastTag])!,
+            ])
+        }
+        
+    }
+    
 }
