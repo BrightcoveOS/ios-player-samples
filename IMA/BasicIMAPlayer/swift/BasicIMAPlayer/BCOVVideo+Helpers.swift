@@ -18,7 +18,7 @@ extension BCOVVideo {
             }
             
             // The BCOVIMA plugin will look for the presence of kBCOVIMAAdTag in
-            // the video's properties when using server side ad rules. This URL returns
+            // the video's properties when using ad rules. This URL returns
             // a VMAP response that is handled by the Google IMA library.
             if var updatedProperties = mutableVideo.properties {
                 updatedProperties[kBCOVIMAAdTag] = vmapTag
@@ -28,7 +28,7 @@ extension BCOVVideo {
         
     }
     
-    func updateVideo(withVASTTag vastTag: String) -> BCOVVideo? {
+    func updateVideo(useAdTagsInCuePoints: Bool) -> BCOVVideo? {
         
         guard let durationNum = self.properties["duration"] as? NSNumber else {
             return nil
@@ -40,15 +40,25 @@ extension BCOVVideo {
         
         let cuePointPositionTypeAfter = CMTime.positiveInfinity
         
+        var preRollProperties = [String:AnyHashable]()
+        var midRollProperties = [String:AnyHashable]()
+        var postRollProperties = [String:AnyHashable]()
+        
+        if useAdTagsInCuePoints {
+            preRollProperties = [kBCOVIMAAdTag:IMAConfig.VASTAdTagURL_preroll]
+            midRollProperties = [kBCOVIMAAdTag:IMAConfig.VASTAdTagURL_midroll]
+            postRollProperties = [kBCOVIMAAdTag:IMAConfig.VASTAdTagURL_postroll]
+        }
+        
         return update { (mutableVideo: BCOVMutableVideo?) in
             guard let mutableVideo = mutableVideo else {
                 return
             }
             
             mutableVideo.cuePoints = BCOVCuePointCollection(array: [
-                BCOVCuePoint(type: kBCOVIMACuePointTypeAd, position: CMTime.zero, properties: [kBCOVIMAAdTag:vastTag])!,
-                BCOVCuePoint(type: kBCOVIMACuePointTypeAd, position: midpointTime, properties: [kBCOVIMAAdTag:vastTag])!,
-                BCOVCuePoint(type: kBCOVIMACuePointTypeAd, position: cuePointPositionTypeAfter, properties: [kBCOVIMAAdTag:vastTag])!,
+                BCOVCuePoint(type: kBCOVIMACuePointTypeAd, position: CMTime.zero, properties: preRollProperties)!,
+                BCOVCuePoint(type: kBCOVIMACuePointTypeAd, position: midpointTime, properties: midRollProperties)!,
+                BCOVCuePoint(type: kBCOVIMACuePointTypeAd, position: cuePointPositionTypeAfter, properties: postRollProperties)!,
             ])
         }
         
