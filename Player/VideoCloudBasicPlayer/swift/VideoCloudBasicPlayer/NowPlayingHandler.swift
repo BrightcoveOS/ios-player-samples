@@ -22,6 +22,12 @@ class NowPlayingHandler: NSObject {
         playbackController.add(self)
         setup()
     }
+    
+    deinit {
+        if let session = session as? NSObject {
+            session.removeObserver(self, forKeyPath: "player.rate")
+        }
+    }
 
     private func setup() {
         let center = MPRemoteCommandCenter.shared()
