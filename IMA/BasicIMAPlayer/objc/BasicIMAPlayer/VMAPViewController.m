@@ -13,6 +13,8 @@ static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampa
 
 @interface VMAPViewController ()<BCOVPlaybackControllerDelegate, IMAWebOpenerDelegate>
 
+@property (nonatomic, assign) BOOL useVideoProperties;
+
 @end
 
 @implementation VMAPViewController
@@ -29,11 +31,30 @@ static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampa
     renderSettings.webOpenerPresentingController = self;
     renderSettings.webOpenerDelegate = self;
     
-    // BCOVIMAAdsRequestPolicy provides methods to specify VAST or VMAP/Server Side Ad Rules. Select the appropriate method to select your ads policy.
-    BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy videoPropertiesVMAPAdTagUrlAdsRequestPolicy];
+    // BCOVIMAAdsRequestPolicy provides two VMAP configurations:
+    // `videoPropertiesVMAPAdTagUrlAdsRequestPolicy` and
+    // `adsRequestPolicyWithVMAPAdTagUrl:`
+    //
+    // Using `videoPropertiesVMAPAdTagUrlAdsRequestPolicy` allows you to
+    // set a different VMAP ad tag URL for each video, while using
+    // `adsRequestPolicyWithVMAPAdTagUrl:` will use the same VMAP ad tag URL
+    // for each video.
     
-    // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition: which allows us to modify the IMAAdsRequest object
-    // before it is used to load ads.
+    self.useVideoProperties = YES;
+    
+    BCOVIMAAdsRequestPolicy *adsRequestPolicy;
+    
+    if (self.useVideoProperties)
+    {
+        adsRequestPolicy = [BCOVIMAAdsRequestPolicy videoPropertiesVMAPAdTagUrlAdsRequestPolicy];
+    }
+    else
+    {
+        adsRequestPolicy = [BCOVIMAAdsRequestPolicy adsRequestPolicyWithVMAPAdTagUrl:kVMAPAdTagURL];
+    }
+    
+    // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition:
+    // which allows us to modify the IMAAdsRequest object before it is used to load ads.
     NSDictionary *imaPlaybackSessionOptions = @{ kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self };
 
     self.playbackController = [manager createIMAPlaybackControllerWithSettings:imaSettings
@@ -49,29 +70,28 @@ static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampa
     self.playbackController.autoPlay = YES;
 
     self.playerView.playbackController = self.playbackController;
-
-    // Creating a playback controller based on the above code will create
-    // VMAP / Server Side Ad Rules. These settings are explained in BCOVIMAAdsRequestPolicy.h.
-    // If you want to change these settings, you can initialize the plugin like so:
-    //
-    // BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy adsRequestPolicyWithVMAPAdTagUrl:kViewControllerIMAVMAPResponseAdTag];
 }
 
 - (BCOVVideo *)updateVideo:(BCOVVideo *)video
 {
-    // Update each video to add the tag.
-    return [video update:^(id<BCOVMutableVideo> mutableVideo) {
+    if (self.useVideoProperties)
+    {
+        // Update each video to add the tag.
+        return [video update:^(id<BCOVMutableVideo> mutableVideo) {
 
-        // The BCOVIMA plugin will look for the presence of kBCOVIMAAdTag in
-        // the video's properties when using server side ad rules. This URL returns
-        // a VMAP response that is handled by the Google IMA library.
-        NSDictionary *adProperties = @{ kBCOVIMAAdTag : kVMAPAdTagURL };
+            // The BCOVIMA plugin will look for the presence of kBCOVIMAAdTag in
+            // the video's properties when using ad rules. This URL returns
+            // a VMAP response that is handled by the Google IMA library.
+            NSDictionary *adProperties = @{ kBCOVIMAAdTag : kVMAPAdTagURL };
 
-        NSMutableDictionary *propertiesToUpdate = [mutableVideo.properties mutableCopy];
-        [propertiesToUpdate addEntriesFromDictionary:adProperties];
-        mutableVideo.properties = propertiesToUpdate;
+            NSMutableDictionary *propertiesToUpdate = [mutableVideo.properties mutableCopy];
+            [propertiesToUpdate addEntriesFromDictionary:adProperties];
+            mutableVideo.properties = propertiesToUpdate;
 
-    }];
+        }];
+    }
+    
+    return video;
 }
 
 @end

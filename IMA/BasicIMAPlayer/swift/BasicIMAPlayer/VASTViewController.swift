@@ -14,6 +14,8 @@ import GoogleInteractiveMediaAds
 
 class VASTViewController: BaseViewController {
 
+    private var useAdTagsInCuePoints = true
+    
     override func setupPlaybackController() {
         let imaSettings = IMASettings()
         imaSettings.ppid = IMAConfig.PublisherID
@@ -24,11 +26,26 @@ class VASTViewController: BaseViewController {
         renderSettings.webOpenerDelegate = self
         
         let policy = BCOVCuePointProgressPolicy.init(processingCuePoints: .processFinalCuePoint, resumingPlaybackFrom: .fromContentPlayhead, ignoringPreviouslyProcessedCuePoints: false)
-       
-        let adsRequestPolicy = BCOVIMAAdsRequestPolicy.init(vastAdTagsInCuePointsAndAdsCuePointProgressPolicy: policy)
         
-        // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition: which allows us to modify the IMAAdsRequest object
-        // before it is used to load ads.
+        // BCOVIMAAdsRequestPolicy provides two VAST configurations:
+        // `adsRequestPolicyWithVASTAdTagsInCuePointsAndAdsCuePointProgressPolicy` and
+        // `adsRequestPolicyFromCuePointPropertiesWithAdTag:adsCuePointProgressPolicy:`
+        //
+        // Using `adsRequestPolicyWithVASTAdTagsInCuePointsAndAdsCuePointProgressPolicy`
+        // allows you to set a different VAST ad tag URL for each cue point, while using
+        // `adsRequestPolicyFromCuePointPropertiesWithAdTag:adsCuePointProgressPolicy:`
+        // will use the same VAST ad tag URL for each cue point.
+        
+        var adsRequestPolicy: BCOVIMAAdsRequestPolicy?
+        
+        if (useAdTagsInCuePoints) {
+            adsRequestPolicy = BCOVIMAAdsRequestPolicy.init(vastAdTagsInCuePointsAndAdsCuePointProgressPolicy: policy)
+        } else {
+            adsRequestPolicy = BCOVIMAAdsRequestPolicy.init(fromCuePointPropertiesWithAdTag: IMAConfig.VASTAdTagURL, adsCuePointProgressPolicy: policy)
+        }
+
+        // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition:
+        // which allows us to modify the IMAAdsRequest object before it is used to load ads.
         let imaPlaybackSessionOptions = [kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self]
        
         guard let _playbackController = BCOVPlayerSDKManager.shared()?.createIMAPlaybackController(with: imaSettings, adsRenderingSettings: renderSettings, adsRequestPolicy: adsRequestPolicy, adContainer: playerView?.contentOverlayView, viewController: self, companionSlots: nil, viewStrategy: nil, options: imaPlaybackSessionOptions) else {
@@ -45,7 +62,7 @@ class VASTViewController: BaseViewController {
     }
 
     override func updateVideo(_ video: BCOVVideo) -> BCOVVideo {
-        guard let updatedVideo = video.updateVideo(withVASTTag: IMAConfig.VASTAdTagURL) else {
+        guard let updatedVideo = video.updateVideo(useAdTagsInCuePoints: useAdTagsInCuePoints) else {
             return video
         }
         return updatedVideo
