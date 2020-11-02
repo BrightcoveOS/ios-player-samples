@@ -16,9 +16,16 @@ struct Constants {
     static let PlaybackServicePolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
     static let VideoId = "5702141808001"
     static let AdConfigId = "0e0bbcd1-bba0-45bf-a986-1288e5f9fc85"
+    static let VMAPURL = "https://sdks.support.brightcove.com/assets/ads/ssai/sample-vmap.xml"
 }
 
 class ViewController: UIViewController {
+    
+    // When this value is set to YES the playback service
+    // will be bypassed and a hard-coded VMAP URL will be used
+    // to create a BCOVVideo instead
+    let useVMAPURL = false
+
     @IBOutlet weak var videoContainerView: UIView!
     @IBOutlet weak var companionSlotContainerView: UIView!
     
@@ -85,7 +92,15 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        requestContentFromPlaybackService()
+        
+        if useVMAPURL {
+            let video = BCOVVideo(url: URL(string: Constants.VMAPURL)!)
+            playbackController?.setVideos([video] as NSFastEnumeration)
+        }
+        else
+        {
+            requestContentFromPlaybackService()
+        }
     }
     
     private func requestContentFromPlaybackService() {
