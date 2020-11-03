@@ -15,6 +15,7 @@ static NSString * const kViewControllerAccountID = @"5434391461001";
 static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
 static NSString * const kViewControllerVideoID = @"5702141808001";
 static NSString * const kViewControllerAdConfigID = @"0e0bbcd1-bba0-45bf-a986-1288e5f9fc85";
+static NSString * const kViewControllerVMAPURL = @"https://sdks.support.brightcove.com/assets/ads/ssai/sample-vmap.xml";
 
 @interface ViewController ()<BCOVPlaybackControllerDelegate, BCOVPlaybackControllerAdsDelegate>
 
@@ -25,18 +26,34 @@ static NSString * const kViewControllerAdConfigID = @"0e0bbcd1-bba0-45bf-a986-12
 @property (nonatomic, strong) BCOVPUIPlayerView *playerView;
 @property (nonatomic, strong) BCOVPlaybackService *playbackService;
 @property (nonatomic, strong) BCOVFPSBrightcoveAuthProxy *fairplayAuthProxy;
+@property (nonatomic, assign) BOOL useVMAPURL;
 
 @end
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+    
+    // When this value is set to YES the playback service
+    // will be bypassed and a hard-coded VMAP URL will be used
+    // to create a BCOVVideo instead
+    self.useVMAPURL = NO;
     
     [self setupPlaybackController];
     [self setupPlayerView];
-    [self setupPlaybackService];
-    [self requestContentFromPlaybackService];
+    
+    if (self.useVMAPURL)
+    {
+        BCOVVideo *video = [BCOVVideo videoWithURL:[NSURL URLWithString:kViewControllerVMAPURL]];
+        [self.playbackController setVideos:@[video]];
+    }
+    else
+    {
+        [self setupPlaybackService];
+        [self requestContentFromPlaybackService];
+    }
 }
 
 - (void)setupPlaybackController
@@ -88,10 +105,10 @@ static NSString * const kViewControllerAdConfigID = @"0e0bbcd1-bba0-45bf-a986-12
 - (void)requestContentFromPlaybackService
 {
     __weak typeof(self) weakSelf = self;
-    
+
     NSDictionary *queryParmaters = @{kBCOVPlaybackServiceParamaterKeyAdConfigId:kViewControllerAdConfigID};
     [self.playbackService findVideoWithVideoID:kViewControllerVideoID parameters:queryParmaters completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
-        
+
         if (video)
         {
             [weakSelf.playbackController setVideos:@[video]];
@@ -100,7 +117,7 @@ static NSString * const kViewControllerAdConfigID = @"0e0bbcd1-bba0-45bf-a986-12
         {
             NSLog(@"ViewController Debug - Error retrieving video: %@", error.localizedDescription ?: @"unknown error");
         }
-        
+
     }];
 }
 
