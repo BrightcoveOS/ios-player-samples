@@ -23,8 +23,6 @@
 		491576A919D9F2B700B2E657 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		491576AB19D9F2B700B2E657 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		491576AE19D9F2B700B2E657 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		491576B919D9F2B700B2E657 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		491576BA19D9F2B700B2E657 /* VideoCloudBasicPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCloudBasicPlayerTests.swift; sourceTree = "<group>"; };
 		E984FCB12425394300085367 /* NowPlayingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -43,7 +41,6 @@
 			isa = PBXGroup;
 			children = (
 				491576A119D9F2B700B2E657 /* VideoCloudBasicPlayer */,
-				491576B719D9F2B700B2E657 /* VideoCloudBasicPlayerTests */,
 				491576A019D9F2B700B2E657 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -74,23 +71,6 @@
 			isa = PBXGroup;
 			children = (
 				491576A319D9F2B700B2E657 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		491576B719D9F2B700B2E657 /* VideoCloudBasicPlayerTests */ = {
-			isa = PBXGroup;
-			children = (
-				491576BA19D9F2B700B2E657 /* VideoCloudBasicPlayerTests.swift */,
-				491576B819D9F2B700B2E657 /* Supporting Files */,
-			);
-			path = VideoCloudBasicPlayerTests;
-			sourceTree = "<group>";
-		};
-		491576B819D9F2B700B2E657 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				491576B919D9F2B700B2E657 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
