@@ -335,7 +335,7 @@
 					"$(PROJECT_DIR)/mobile-services/sdks/iOS/AdobeMobileLibrary",
 					"$(PROJECT_DIR)/video-heartbeat-v2/sdks/iOS/libs",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.BasicOmniturePlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.BasicOmniturePlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "BasicOmniturePlayer/BasicOmniturePlayer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -366,7 +366,7 @@
 					"$(PROJECT_DIR)/mobile-services/sdks/iOS/AdobeMobileLibrary",
 					"$(PROJECT_DIR)/video-heartbeat-v2/sdks/iOS/libs",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.BasicOmniturePlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.BasicOmniturePlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "BasicOmniturePlayer/BasicOmniturePlayer-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

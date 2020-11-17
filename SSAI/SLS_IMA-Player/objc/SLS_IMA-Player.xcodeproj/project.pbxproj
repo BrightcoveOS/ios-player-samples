@@ -293,7 +293,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.brightcove.SLS-IMA-Player";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.SLS-IMA-Player";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -311,7 +311,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.brightcove.SLS-IMA-Player";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.SLS-IMA-Player";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -297,7 +297,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.ViewStrategy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.ViewStrategy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ViewStrategy/ViewStrategy-Bridging-Header.h";
@@ -319,7 +319,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.ViewStrategy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.ViewStrategy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ViewStrategy/ViewStrategy-Bridging-Header.h";

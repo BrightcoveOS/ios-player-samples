@@ -28,8 +28,6 @@
 		49E642201A0280DD00D284AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		49E642221A0280DD00D284AC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		49E642251A0280DD00D284AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		49E642301A0280DD00D284AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		49E642311A0280DD00D284AC /* CustomControlsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomControlsTests.m; sourceTree = "<group>"; };
 		49E6423B1A02932F00D284AC /* ControlsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlsViewController.h; sourceTree = "<group>"; };
 		49E6423C1A02932F00D284AC /* ControlsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlsViewController.m; sourceTree = "<group>"; };
 		49E6423D1A02932F00D284AC /* ControlsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlsViewController.xib; sourceTree = "<group>"; };
@@ -50,7 +48,6 @@
 			isa = PBXGroup;
 			children = (
 				49E642141A0280DD00D284AC /* CustomControls */,
-				49E6422E1A0280DD00D284AC /* CustomControlsTests */,
 				49E642131A0280DD00D284AC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -86,23 +83,6 @@
 			children = (
 				49E642161A0280DD00D284AC /* Info.plist */,
 				49E642171A0280DD00D284AC /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		49E6422E1A0280DD00D284AC /* CustomControlsTests */ = {
-			isa = PBXGroup;
-			children = (
-				49E642311A0280DD00D284AC /* CustomControlsTests.m */,
-				49E6422F1A0280DD00D284AC /* Supporting Files */,
-			);
-			path = CustomControlsTests;
-			sourceTree = "<group>";
-		};
-		49E6422F1A0280DD00D284AC /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				49E642301A0280DD00D284AC /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -330,7 +310,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.brightcove.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -345,7 +325,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.brightcove.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
