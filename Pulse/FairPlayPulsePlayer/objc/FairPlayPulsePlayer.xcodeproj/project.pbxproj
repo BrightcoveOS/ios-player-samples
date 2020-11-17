@@ -313,7 +313,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.FairPlayPulsePlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.FairPlayPulsePlayer;
 				PRODUCT_NAME = FairPlayPulsePlayer;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -333,7 +333,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.FairPlayPulsePlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.FairPlayPulsePlayer;
 				PRODUCT_NAME = FairPlayPulsePlayer;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

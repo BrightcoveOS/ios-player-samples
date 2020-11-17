@@ -296,7 +296,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.Video360Player;
+				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.Video360Player;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -311,7 +311,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.brightcove.Video360Player;
+				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.Video360Player;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
