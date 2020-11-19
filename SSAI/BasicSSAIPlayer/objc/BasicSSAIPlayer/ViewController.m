@@ -53,6 +53,15 @@ static NSString * const kViewControllerAdConfigID = @"0e0bbcd1-bba0-45bf-a986-12
     self.fairplayAuthProxy = [[BCOVFPSBrightcoveAuthProxy alloc] initWithPublisherId:nil applicationId:nil];
     
     id<BCOVPlaybackSessionProvider> fairplaySessionProvider = [manager createFairPlaySessionProviderWithAuthorizationProxy:self.fairplayAuthProxy upstreamSessionProvider:nil];
+    
+    // To take the advantage of using IAB Open Measurement, the SSAI Plugin for iOS provides a new signature:
+    // [BCOVPlayerSDKManager createSSAISessionProviderWithUpstreamSessionProvider:omidPartner:].
+    //
+    // id<BCOVPlaybackSessionProvider> ssaiSessionProvider = [manager createSSAISessionProviderWithUpstreamSessionProvider:fairplaySessionProvider omidPartner:@"yourOmidPartner"];
+    //
+    // The `omidPartner` string identifies the integration. The value can not be empty or nil, if partner is not available, use "unknown".
+    // The IAB Tech Lab will assign a unique partner name to you at the time of integration, so this is the value you should use here.
+    
     id<BCOVPlaybackSessionProvider> ssaiSessionProvider = [manager createSSAISessionProviderWithUpstreamSessionProvider:fairplaySessionProvider];
     
     self.playbackController = [manager createPlaybackControllerWithSessionProvider:ssaiSessionProvider viewStrategy:nil];

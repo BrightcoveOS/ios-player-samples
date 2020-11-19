@@ -46,6 +46,15 @@ class ViewController: UIViewController {
         let adComponentDisplayContainer = BCOVSSAIAdComponentDisplayContainer(companionSlots: [companionSlot])
         
         let fairplaySessionProvider = manager.createFairPlaySessionProvider(with: fairplayAuthProxy, upstreamSessionProvider: nil)
+
+        // To take the advantage of using IAB Open Measurement, the SSAI Plugin for iOS provides a new signature:
+        // BCOVPlayerSDKManager.sharedManager.createSSAISessionProvider(withUpstreamSessionProvider:, omidPartner:).
+        //
+        // let ssaiSessionProvider = manager.createSSAISessionProvider(withUpstreamSessionProvider: fairplaySessionProvider, omidPartner: "yourOmidPartner")
+        //
+        // The `omidPartner` string identifies the integration. The value can not be empty or nil, if partner is not available, use "unknown".
+        // The IAB Tech Lab will assign a unique partner name to you at the time of integration, so this is the value you should use here.
+
         let ssaiSessionProvider = manager.createSSAISessionProvider(withUpstreamSessionProvider: fairplaySessionProvider)
         
         guard let _playbackController = manager.createPlaybackController(with: ssaiSessionProvider, viewStrategy: nil) else {
