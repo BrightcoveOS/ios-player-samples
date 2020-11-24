@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3422EEED256D88560039BEB6 /* AdobeMobileLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3422EEEC256D88560039BEB6 /* AdobeMobileLibrary.a */; };
+		3422EEEF256D88640039BEB6 /* VideoHeartbeat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3422EEEE256D88640039BEB6 /* VideoHeartbeat.a */; };
 		E9DEE59E216F97B40033C285 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE59D216F97B40033C285 /* AppDelegate.swift */; };
 		E9DEE5A0216F97B40033C285 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE59F216F97B40033C285 /* ViewController.swift */; };
 		E9DEE5A3216F97B40033C285 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE5A1216F97B40033C285 /* Main.storyboard */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3422EEEC256D88560039BEB6 /* AdobeMobileLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = AdobeMobileLibrary.a; path = "mobile-services/sdks/iOS/AdobeMobileLibrary/AdobeMobileLibrary.a"; sourceTree = SOURCE_ROOT; };
+		3422EEEE256D88640039BEB6 /* VideoHeartbeat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = VideoHeartbeat.a; path = "video-heartbeat-v2/sdks/iOS/libs/VideoHeartbeat.a"; sourceTree = SOURCE_ROOT; };
 		E9DEE59A216F97B40033C285 /* BasicOmniturePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicOmniturePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9DEE59D216F97B40033C285 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9DEE59F216F97B40033C285 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,11 +28,6 @@
 		E9DEE5A7216F97B50033C285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E9DEE5A9216F97B50033C285 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9DEE5B2216F99EC0033C285 /* ADBMobileConfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ADBMobileConfig.json; sourceTree = "<group>"; };
-		E9DEE5BD216F9E700033C285 /* AdobeMobileLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = AdobeMobileLibrary.a; sourceTree = "<group>"; };
-		E9DEE5BE216F9E700033C285 /* VideoHeartbeat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = VideoHeartbeat.a; sourceTree = "<group>"; };
-		E9DEE5C5216FA0090033C285 /* ADBMobile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ADBMobile.h; path = "mobile-services/sdks/iOS/AdobeMobileLibrary/ADBMobile.h"; sourceTree = "<group>"; };
-		E9DEE5C6216FA0290033C285 /* ADBMediaHeartbeat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ADBMediaHeartbeat.h; path = "video-heartbeat-v2/sdks/iOS/libs/Headers/ADBMediaHeartbeat.h"; sourceTree = "<group>"; };
-		E9DEE5C7216FA0290033C285 /* ADBMediaHeartbeatConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ADBMediaHeartbeatConfig.h; path = "video-heartbeat-v2/sdks/iOS/libs/Headers/ADBMediaHeartbeatConfig.h"; sourceTree = "<group>"; };
 		E9DEE5C9216FA0940033C285 /* BasicOmniturePlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BasicOmniturePlayer-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -37,6 +36,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3422EEEF256D88640039BEB6 /* VideoHeartbeat.a in Frameworks */,
+				3422EEED256D88560039BEB6 /* AdobeMobileLibrary.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,7 +49,6 @@
 			children = (
 				E9DEE5B1216F99EC0033C285 /* AdobeMobile */,
 				E9DEE59C216F97B40033C285 /* BasicOmniturePlayer */,
-				E9DEE5BC216F9E6A0033C285 /* Libraries */,
 				E9DEE59B216F97B40033C285 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -79,20 +79,10 @@
 			isa = PBXGroup;
 			children = (
 				E9DEE5B2216F99EC0033C285 /* ADBMobileConfig.json */,
+				3422EEEC256D88560039BEB6 /* AdobeMobileLibrary.a */,
+				3422EEEE256D88640039BEB6 /* VideoHeartbeat.a */,
 			);
 			path = AdobeMobile;
-			sourceTree = "<group>";
-		};
-		E9DEE5BC216F9E6A0033C285 /* Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				E9DEE5C6216FA0290033C285 /* ADBMediaHeartbeat.h */,
-				E9DEE5C7216FA0290033C285 /* ADBMediaHeartbeatConfig.h */,
-				E9DEE5C5216FA0090033C285 /* ADBMobile.h */,
-				E9DEE5BD216F9E700033C285 /* AdobeMobileLibrary.a */,
-				E9DEE5BE216F9E700033C285 /* VideoHeartbeat.a */,
-			);
-			name = Libraries;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
