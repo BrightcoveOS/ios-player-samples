@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		49A7B6751BBDA6AA003535C6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49A7B6741BBDA6AA003535C6 /* Default-568h@2x.png */; };
+		3422EEE4256D868D0039BEB6 /* AdobeMobileLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3422EEE3256D868D0039BEB6 /* AdobeMobileLibrary.a */; };
+		3422EEE6256D869D0039BEB6 /* VideoHeartbeat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3422EEE5256D869D0039BEB6 /* VideoHeartbeat.a */; };
 		9840591F1A3F8A9000732E8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9840591E1A3F8A9000732E8C /* main.m */; };
 		984059221A3F8A9000732E8C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 984059211A3F8A9000732E8C /* AppDelegate.m */; };
 		984059251A3F8A9000732E8C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 984059241A3F8A9000732E8C /* ViewController.m */; };
@@ -18,7 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		49A7B6741BBDA6AA003535C6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		3422EEE3256D868D0039BEB6 /* AdobeMobileLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = AdobeMobileLibrary.a; path = "mobile-services/sdks/iOS/AdobeMobileLibrary/AdobeMobileLibrary.a"; sourceTree = SOURCE_ROOT; };
+		3422EEE5256D869D0039BEB6 /* VideoHeartbeat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = VideoHeartbeat.a; path = "video-heartbeat-v2/sdks/iOS/libs/VideoHeartbeat.a"; sourceTree = SOURCE_ROOT; };
 		984059191A3F8A9000732E8C /* BasicOmniturePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicOmniturePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9840591D1A3F8A9000732E8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9840591E1A3F8A9000732E8C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -39,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3422EEE6256D869D0039BEB6 /* VideoHeartbeat.a in Frameworks */,
+				3422EEE4256D868D0039BEB6 /* AdobeMobileLibrary.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,7 +52,6 @@
 		984059101A3F8A9000732E8C = {
 			isa = PBXGroup;
 			children = (
-				49A7B6741BBDA6AA003535C6 /* Default-568h@2x.png */,
 				984059421A3F8B3D00732E8C /* AdobeMobile */,
 				9840591B1A3F8A9000732E8C /* BasicOmniturePlayer */,
 				984059351A3F8A9000732E8C /* BasicOmniturePlayerTests */,
@@ -109,6 +112,8 @@
 			isa = PBXGroup;
 			children = (
 				984059431A3F8B3D00732E8C /* ADBMobileConfig.json */,
+				3422EEE3256D868D0039BEB6 /* AdobeMobileLibrary.a */,
+				3422EEE5256D869D0039BEB6 /* VideoHeartbeat.a */,
 			);
 			path = AdobeMobile;
 			sourceTree = "<group>";
@@ -173,7 +178,6 @@
 				984059281A3F8A9000732E8C /* Main.storyboard in Resources */,
 				9840599D1A3F8B3D00732E8C /* ADBMobileConfig.json in Resources */,
 				9840592D1A3F8A9000732E8C /* LaunchScreen.xib in Resources */,
-				49A7B6751BBDA6AA003535C6 /* Default-568h@2x.png in Resources */,
 				9840592A1A3F8A9000732E8C /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,6 +340,8 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/mobile-services/sdks/iOS/AdobeMobileLibrary\"",
 					"\"$(SRCROOT)/video-heartbeat-v2/sdks/iOS/libs\"",
+					"$(PROJECT_DIR)/mobile-services/sdks/iOS/AdobeMobileLibrary",
+					"$(PROJECT_DIR)/video-heartbeat-v2/sdks/iOS/libs",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Brightcove.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -362,6 +368,8 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/mobile-services/sdks/iOS/AdobeMobileLibrary\"",
 					"\"$(SRCROOT)/video-heartbeat-v2/sdks/iOS/libs\"",
+					"$(PROJECT_DIR)/mobile-services/sdks/iOS/AdobeMobileLibrary",
+					"$(PROJECT_DIR)/video-heartbeat-v2/sdks/iOS/libs",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Brightcove.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

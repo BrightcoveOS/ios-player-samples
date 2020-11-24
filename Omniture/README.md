@@ -6,12 +6,14 @@ Use of this player sample requires an Adobe analytics account and the custom ADB
 
 ### Adobe SDKs
 
-The Adobe analytics SDKs **are not** included in this sample project. To add them, open a Terminal window, cd to the `objc` folder if using the Objective-C project, or the `swift` folder if using Swift, inside the `BasicOmniturePlayer` folder, and run the following `git` commands:
+The Adobe analytics SDKs are **not** included in this sample project. To add them, open a Terminal window, cd to the `BasicOmniturePlayer/objc` folder if using the Objective-C project, or the `BasicOmniturePlayer/swift` folder if using Swift, and run these `git` commands:
 
 ```
 git clone -b v4.14.1-iOS --single-branch https://github.com/Adobe-Marketing-Cloud/mobile-services.git
 git clone -b ios-v2.0.1 --single-branch https://github.com/Adobe-Marketing-Cloud/video-heartbeat-v2.git
 ```
+
+### Brightcove SDKs
 
 Next, install the CocoaPods.
 
@@ -19,4 +21,4 @@ Next, install the CocoaPods.
 pod install
 ```
 
-After installing the CocoaPods, add the Adobe SDK libraries to the `.xcworkspace` project file. Navigate into the mobile-services directory to find `AdobeMobileLibrary.a` for iOS and add it to the BasicOmniturePlayer project of BasicOmniturePlayer.xcworkspace. Navigate into the video-heartbeat-v2 directory to find `VideoHeartbeat.a` for iOS and add it to the BasicOmniturePlayer project of BasicOmniturePlayer.xcworkspace.
+Open, build and run `BasicOmniturePlayer.xcworkspace`.
