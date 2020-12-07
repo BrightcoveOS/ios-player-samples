@@ -161,7 +161,7 @@ class DownloadedVideoViewController: BaseVideoViewController {
         let licenseText = video.licenseString()
         let downloadState = offlineVideoStatus.downloadStateString(estimatedMegabytes: estimatedMegabytes, actualMegabytes: actualMegabytes, startTime: startTimeNumber.doubleValue, endTime: endTimeNumber.doubleValue)
         
-        if let name = video.properties[kBCOVVideoPropertyKeyName] {
+        if let name = localizedNameForLocale(video, nil) {
             infoLabel?.isHidden = false
             infoLabel?.text = "\(name)\nStatus: \(downloadState)\nLicense: \(licenseText)"
         }
@@ -392,7 +392,7 @@ class DownloadedVideoViewController: BaseVideoViewController {
             return
         }
         
-        let name = video.properties[kBCOVVideoPropertyKeyName] as? String ?? "unknown"
+        let name = localizedNameForLocale(video, nil) ?? "unknown"
         let message = "Additional options for offline video \"\(name)\""
         let alert = UIAlertController(title: "More Options", message: message, preferredStyle: .alert)
         
@@ -504,7 +504,7 @@ extension DownloadedVideoViewController {
         print("Error: \(error.localizedDescription)")
         
         if error.code == kBCOVOfflineVideoManagerErrorCodeExpiredLicense {
-            let videoName = session.video.properties[kBCOVVideoPropertyKeyName] as? String ?? "unknown"
+            let videoName = localizedNameForLocale(session.video, nil) ?? "unknown"
             UIAlertController.show(withTitle: "License Expired", andMessage: "The FairPlay license for the video \"\(videoName)\" has expired")
             resetVideoContainer()
         }

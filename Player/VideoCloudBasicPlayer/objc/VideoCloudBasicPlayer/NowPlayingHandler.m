@@ -96,7 +96,7 @@ static void * const KVOContext = (void*)&KVOContext;
     MPNowPlayingInfoCenter *infoCenter = MPNowPlayingInfoCenter.defaultCenter;
     
     self.nowPlayingInfo = @{}.mutableCopy;
-    self.nowPlayingInfo[MPMediaItemPropertyTitle] = session.video.properties[kBCOVVideoPropertyKeyName];
+    self.nowPlayingInfo[MPMediaItemPropertyTitle] = localizedNameForLocale(session.video, nil);
     NSNumber *duration = session.video.properties[kBCOVVideoPropertyKeyDuration];
     self.nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = @(duration.doubleValue / 1000);
     

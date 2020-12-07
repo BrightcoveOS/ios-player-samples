@@ -89,7 +89,7 @@ class DownloadManager: NSObject {
         for videoDict in videoPreloadQueue {
             
             if videoDict.video.matches(offlineVideo: video) {
-                if let videoName = video.properties[kBCOVVideoPropertyKeyName] as? String {
+                if let videoName = localizedNameForLocale(video, nil) {
                     UIAlertController.show(withTitle: "Video Already in Preload Queue", andMessage: "The video \(videoName) is already queued to be preloaded")
                 }
                 return true
@@ -102,7 +102,7 @@ class DownloadManager: NSObject {
         for videoDict in videoDownloadQueue {
          
             if videoDict.video.matches(offlineVideo: video) {
-                if let videoName = video.properties[kBCOVVideoPropertyKeyName] as? String {
+                if let videoName = localizedNameForLocale(video, nil) {
                     UIAlertController.show(withTitle: "Video Already in Download Queue", andMessage: "The video \(videoName) is already queued to be downloaded")
                 }
                 return true
@@ -124,7 +124,7 @@ class DownloadManager: NSObject {
             
             if testVideo.matches(offlineVideo: video) {
                 
-                let videoName = video.properties[kBCOVVideoPropertyKeyName] as? String ?? ""
+                let videoName = localizedNameForLocale(video, nil) ?? ""
                 
                 // If the status is error, alert the user and allow them to retry the download
                 if let downloadStatus = BCOVOfflineVideoManager.shared()?.offlineVideoStatus(forToken: offlineVideoToken) {
@@ -172,7 +172,7 @@ class DownloadManager: NSObject {
         // to the video download queue.
         
         if !video.usesFairPlay {
-            if let videoName = video.properties[kBCOVVideoPropertyKeyName] as? String {
+            if let videoName = localizedNameForLocale(video, nil) as? String {
                 print("Video \"\(videoName)\" does not use FairPlay; preloading not necessary")
             }
             
@@ -188,8 +188,8 @@ class DownloadManager: NSObject {
                     
                     if let error = error {
                         
-                        var name = video.properties[kBCOVVideoPropertyKeyName] as? String ?? "unknown"
-                        if let offlineVideo = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: offlineVideoToken), let offlineName = offlineVideo.properties[kBCOVVideoPropertyKeyName] as? String {
+                        var name = localizedNameForLocale(video, nil) ?? "unknown"
+                        if let offlineVideo = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: offlineVideoToken), let offlineName = localizedNameForLocale(offlineVideo, nil) {
                             name = offlineName
                         }
                         
@@ -242,7 +242,7 @@ class DownloadManager: NSObject {
         // Display all available bitrates
         BCOVOfflineVideoManager.shared()?.variantBitrates(for: video, completion: { (bitrates: [NSNumber]?, error: Error?) in
             
-            if let name = video.properties[kBCOVVideoPropertyKeyName] as? String {
+            if let name = localizedNameForLocale(video, nil) as? String {
                 print("Variant Bitrates for video: \(name)")
             }
             
@@ -300,7 +300,7 @@ class DownloadManager: NSObject {
                     }
                     
                     // Report any errors
-                    if let offlineVideoToken = offlineVideoToken, let offlineVideo = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: offlineVideoToken), let name = offlineVideo.properties[kBCOVVideoPropertyKeyName] {
+                    if let offlineVideoToken = offlineVideoToken, let offlineVideo = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: offlineVideoToken), let name = localizedNameForLocale(offlineVideo, nil) {
                         UIAlertController.show(withTitle: "Video Download Error (\(name))", andMessage: error.localizedDescription)
                     } else {
                         UIAlertController.show(withTitle: "Video Download Error", andMessage: error.localizedDescription)

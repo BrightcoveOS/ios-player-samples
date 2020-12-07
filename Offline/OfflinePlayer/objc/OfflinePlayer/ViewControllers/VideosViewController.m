@@ -550,14 +550,14 @@
 {
     // Report any errors
     NSString *alertMessage = error.localizedDescription;
-    NSString *alertTitle = [NSString stringWithFormat:@"Video Preload Error (\"%@\")", video.properties[kBCOVVideoPropertyKeyName]];
+    NSString *alertTitle = [NSString stringWithFormat:@"Video Preload Error (\"%@\")", localizedNameForLocale(video, nil)];
 
     [UIAlertController showAlertWithTitle:alertTitle message:alertMessage actionTitle:@"OK" inController:self];
 }
 
 - (void)encounteredErrorDownloading:(NSError *)error forVideo:(BCOVVideo *)video
 {
-    BCOVVideo *videoName = video.properties[kBCOVVideoPropertyKeyName];
+    NSString *videoName = localizedNameForLocale(video, nil);
     NSString *alertMessage = error.localizedDescription;
     NSString *alertTitle = (videoName != nil ? [NSString stringWithFormat:@"Video Download Error (\"%@\")", videoName] : @"Video Download Error");
     [UIAlertController showAlertWithTitle:alertTitle message:alertMessage actionTitle:@"OK" inController:self];
@@ -570,25 +570,25 @@
 
 - (void)videoAlreadyPreloadQueued:(BCOVVideo *)video
 {
-    NSString *alertMessage = [NSString stringWithFormat:@"The video \"%@\" is already queued to be preloaded", video.properties[kBCOVVideoPropertyKeyName]];
+    NSString *alertMessage = [NSString stringWithFormat:@"The video \"%@\" is already queued to be preloaded", localizedNameForLocale(video, nil)];
     [UIAlertController showAlertWithTitle:@"Video Already in Preload Queue" message:alertMessage actionTitle:@"OK" inController:self];
 }
 
 - (void)videoAlreadyDownloadQueued:(BCOVVideo *)video
 {
-    NSString *alertMessage = [NSString stringWithFormat:@"The video \"%@\" is already queued to be downloaded", video.properties[kBCOVVideoPropertyKeyName]];
+    NSString *alertMessage = [NSString stringWithFormat:@"The video \"%@\" is already queued to be downloaded", localizedNameForLocale(video, nil)];
     [UIAlertController showAlertWithTitle:@"Video Already in Download Queue" message:alertMessage actionTitle:@"OK" inController:self];
 }
 
 - (void)videoAlreadyDownloaded:(BCOVVideo *)video
 {
-    NSString *alertMessage = [NSString stringWithFormat:@"The video \"%@\" is already downloaded (or downloading)", video.properties[kBCOVVideoPropertyKeyName]];
+    NSString *alertMessage = [NSString stringWithFormat:@"The video \"%@\" is already downloaded (or downloading)", localizedNameForLocale(video, nil)];
     [UIAlertController showAlertWithTitle:@"Video Already Downloaded" message:alertMessage actionTitle:@"OK" inController:self];
 }
 
 - (void)videoPreviouslyFailedDownload:(BCOVVideo *)video offlineVideoToken:(BCOVOfflineVideoToken)offlineVideoToken
 {
-    NSString *alertMessage = [NSString stringWithFormat:@"The video \"%@\" previously failed to download, would you like to try again?", video.properties[kBCOVVideoPropertyKeyName]];
+    NSString *alertMessage = [NSString stringWithFormat:@"The video \"%@\" previously failed to download, would you like to try again?", localizedNameForLocale(video, nil)];
     [UIAlertController showAlertWithTitle:@"Video Failed to Download" message:alertMessage actionTitle:@"Retry" cancelTitle:@"Cancel" inController:self completion:^{
         NSLog(@"Deleting previous download for video and attempting again.");
         

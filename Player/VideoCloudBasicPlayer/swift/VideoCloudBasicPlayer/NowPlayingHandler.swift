@@ -80,7 +80,7 @@ extension NowPlayingHandler: BCOVPlaybackSessionConsumer {
         }
         
         var _nowPlayingInfo = [String:AnyHashable]()
-        guard let videoName =  session.video.properties[kBCOVVideoPropertyKeyName] as? String, let durationNum = session.video.properties[kBCOVVideoPropertyKeyDuration] as? NSNumber else {
+        guard let videoName = localizedNameForLocale(session.video, nil), let durationNum = session.video.properties[kBCOVVideoPropertyKeyDuration] as? NSNumber else {
             return
         }
         
