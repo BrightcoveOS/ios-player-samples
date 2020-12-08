@@ -64,8 +64,7 @@
     self.progressView.hidden = YES;
     
     [self setupTitleLabel];
-    
-    NSString *detailString = self.video.properties[kBCOVVideoPropertyKeyDescription];
+    NSString *detailString = localizedShortDescriptionForLocale(self.video, nil);
     if ((detailString == nil) || (detailString.length == 0))
     {
         detailString = self.video.properties[kBCOVVideoPropertyKeyReferenceId] ?: @"nil";
@@ -90,7 +89,7 @@
     
     [self setupTitleLabel];
     
-    NSString *detailString = video.properties[kBCOVVideoPropertyKeyDescription];
+    NSString *detailString = localizedShortDescriptionForLocale(self.video, nil);
     if ((detailString == nil) || (detailString.length == 0))
     {
         detailString = video.properties[kBCOVVideoPropertyKeyReferenceId] ?: @"";
@@ -171,7 +170,7 @@
 
 - (void)setupTitleLabel
 {
-    self.titleLabel.text = self.video.properties[kBCOVVideoPropertyKeyName];
+    self.titleLabel.text = localizedNameForLocale(self.video, nil);
     self.titleLabel.textColor = (self.video.usesFairPlay ? [UIColor colorWithRed:0.75 green:0.0 blue:0.0 alpha:1.0] : UIColor.blackColor);
 }
 

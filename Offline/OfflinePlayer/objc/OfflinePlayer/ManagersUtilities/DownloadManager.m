@@ -165,7 +165,7 @@
     // to the video download queue.
     if (!video.usesFairPlay)
     {
-        NSLog(@"Video \"%@\" does not use FairPlay; preloading not necessary", video.properties[kBCOVVideoPropertyKeyName]);
+        NSLog(@"Video \"%@\" does not use FairPlay; preloading not necessary", localizedNameForLocale(video, nil));
         [self.videoDownloadQueue addObject:videoDownloadDictionary];
         
         NSAssert(NSThread.isMainThread, @"Must update UI on main thread");
@@ -242,7 +242,7 @@
                                                         completion:^(NSArray<NSNumber *> *bitrates, NSError *error)
      {
 
-         NSLog(@"Variant Bitrates for video: %@", video.properties[kBCOVVideoPropertyKeyName]);
+         NSLog(@"Variant Bitrates for video: %@", localizedNameForLocale(video, nil));
          for (NSNumber *bitrateNumber in bitrates)
          {
              // Make sure the array contains the correct objects

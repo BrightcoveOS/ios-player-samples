@@ -217,7 +217,7 @@ extension StreamingVideoViewController: ReloadDelegate {
         for videoDictionary in videosTableViewData {
             if let _video = videoDictionary["video"] as? BCOVVideo {
                 if (_video.matches(offlineVideo: video)) {
-                    if let name = video.properties[kBCOVVideoPropertyKeyName] as? String {
+                    if let name = localizedNameForLocale(video, nil) {
                         print("Reloading row for video \"\(name)\"")
                     }
                     tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)

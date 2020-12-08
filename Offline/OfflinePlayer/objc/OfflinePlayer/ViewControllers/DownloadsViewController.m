@@ -270,7 +270,7 @@ static unsigned long long int directorySize(NSString *folderPath)
     }
     
     BCOVVideo *video = [BCOVOfflineVideoManager.sharedManager videoObjectFromOfflineVideoToken:offlineVideoToken];
-    NSString *videoName = video.properties[kBCOVVideoPropertyKeyName] ?: @"unknown";
+    NSString *videoName = localizedNameForLocale(video, nil) ?: @"unknown";
     NSString *message = [NSString stringWithFormat:@"Additional Options for offline video \"%@\"", videoName];
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"More Options"
                                                                    message:message
@@ -335,7 +335,7 @@ static unsigned long long int directorySize(NSString *folderPath)
                            handler:^(UIAlertAction *action) {
                                
                                // Confirm that the user meant to delete this video
-                               NSString *videoName = video.properties[kBCOVVideoPropertyKeyName] ?: @"unknown";
+                               NSString *videoName = localizedNameForLocale(video, nil) ?: @"unknown";
                                NSString *message = [NSString stringWithFormat:@"Are you sure you want to delete the offline video \"%@\"", videoName];
                                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete Offline Video"
                                                                                               message:message
@@ -774,7 +774,7 @@ static unsigned long long int directorySize(NSString *folderPath)
     NSString *infoText = [NSString stringWithFormat:@"%@\n"
                           @"Status: %@\n"
                           @"License: %@\n",
-                          video.properties[kBCOVVideoPropertyKeyName],
+                          localizedNameForLocale(video, nil),
                           downloadState,
                           licenseText];
     
@@ -807,7 +807,7 @@ static unsigned long long int directorySize(NSString *folderPath)
         
         if (error.code == kBCOVOfflineVideoManagerErrorCodeExpiredLicense)
         {
-            NSString *videoName = session.video.properties[kBCOVVideoPropertyKeyName] ?: @"unknown";
+            NSString *videoName = localizedNameForLocale(session.video, nil) ?: @"unknown";
             NSLog(@"License has expired for the video \"%@\"", videoName);
 
             [UIAlertController showAlertWithTitle:@"License Expired" message:[NSString stringWithFormat:@"The FairPlay license for the video \"%@\" has expired.", videoName] actionTitle:@"OK" inController:self];

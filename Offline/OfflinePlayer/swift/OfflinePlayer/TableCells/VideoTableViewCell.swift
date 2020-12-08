@@ -176,7 +176,7 @@ class VideoTableViewCell: UITableViewCell {
     }
     
     private func getDetailString(forVideo video: BCOVVideo) -> String {
-        guard let detailString = video.properties[kBCOVVideoPropertyKeyDescription] as? String else {
+        guard let detailString = localizedShortDescriptionForLocale(video, nil) else {
             return video.properties[kBCOVVideoPropertyKeyReferenceId] as? String ?? ""
         }
         
@@ -184,8 +184,7 @@ class VideoTableViewCell: UITableViewCell {
     }
     
     private func setupTitleLabel(withVideo video: BCOVVideo) {
-        titleLabel.text = video.properties[kBCOVVideoPropertyKeyName] as? String
-        
+        titleLabel.text = localizedNameForLocale(video, nil)
         // Use red label to indicate that the video is protected with FairPlay
         titleLabel.textColor = video.usesFairPlay ? UIColor(red: 0.75, green: 0.0, blue: 0.0, alpha: 1.0) : UIColor.black
     }
