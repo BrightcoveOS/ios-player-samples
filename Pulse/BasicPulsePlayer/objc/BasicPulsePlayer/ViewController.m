@@ -12,9 +12,9 @@
 
 #import "ViewController.h"
 
-static NSString * const kServicePolicyKey = @"insertyourservicepolicykeyhere";
-static NSString * const kAccountID = @"insertyouraccountidhere";
-static NSString * const kVideoID = @"insertyourvideoidhere";
+static NSString * const kServicePolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
+static NSString * const kAccountID = @"5434391461001";
+static NSString * const kVideoID = @"6140448705001";
 
 // Replace with your own Pulse Host info:
 static NSString * const kPulseHost = @"https://bc-test.videoplaza.tv";
