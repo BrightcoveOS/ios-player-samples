@@ -25,9 +25,9 @@ import UIKit
 import BrightcovePlayerSDK
 
 struct ConfigConstants {
-    static let PlaybackServicePolicyKey = "BCpkADawqM1W-vUOMe6RSA3pA6Vw-VWUNn5rL0lzQabvrI63-VjS93gVUugDlmBpHIxP16X8TSe5LSKM415UHeMBmxl7pqcwVY_AZ4yKFwIpZPvXE34TpXEYYcmulxJQAOvHbv2dpfq-S_cm"
-    static let AccountID = "3636334163001"
-    static let VideoID = "5240309173001"
+    static let PlaybackServicePolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
+    static let AccountID = "5434391461001"
+    static let VideoID = "1685628526640737870"
 }
 
 class ViewController: UIViewController {
@@ -135,6 +135,18 @@ class ViewController: UIViewController {
         
     }
     
+    private func handleOrientationForStandard() {
+        
+        // Switch orientation
+        let value = NSNumber(value: UIInterfaceOrientation.portrait.rawValue)
+        UIDevice.current.setValue(value, forKey: "orientation")
+        
+        UIViewController.attemptRotationToDeviceOrientation()
+        
+        playerView?.performScreenTransition(with: BCOVPUIScreenMode.normal)
+        
+    }
+    
 }
 
 // MARK: - BCOVPUIPlayerViewDelegate
@@ -152,6 +164,10 @@ extension ViewController: BCOVPUIPlayerViewDelegate {
                 
                 // No landscape restriction
                 self.landscapeOnly = false
+                
+                // If the goggles are off, change the device orientation
+                // and exit full-screen
+                self.handleOrientationForStandard()
             case .vrGoggles:
                 print("projectionStyle == BCOVVideo360ProjectionStyleVRGoggles")
             

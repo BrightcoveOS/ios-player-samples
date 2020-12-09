@@ -14,9 +14,9 @@
 
 
 // ** Customize these values with your own account information **
-static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM1W-vUOMe6RSA3pA6Vw-VWUNn5rL0lzQabvrI63-VjS93gVUugDlmBpHIxP16X8TSe5LSKM415UHeMBmxl7pqcwVY_AZ4yKFwIpZPvXE34TpXEYYcmulxJQAOvHbv2dpfq-S_cm";
-static NSString * const kViewControllerAccountID = @"3636334163001";
-static NSString * const kViewControllerVideoID = @"3666678807001";
+static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
+static NSString * const kViewControllerAccountID = @"5434391461001";
+static NSString * const kViewControllerVideoID = @"6140448705001";
 
 static NSString * const kViewControllerSlotId= @"300x250";
 

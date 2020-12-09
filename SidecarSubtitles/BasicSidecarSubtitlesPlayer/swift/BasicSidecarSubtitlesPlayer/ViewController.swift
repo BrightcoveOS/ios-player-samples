@@ -30,9 +30,9 @@ import UIKit
 import BrightcovePlayerSDK
 
 struct ConfigConstants {
-    static let PlaybackServicePolicyKey = "BCpkADawqM1W-vUOMe6RSA3pA6Vw-VWUNn5rL0lzQabvrI63-VjS93gVUugDlmBpHIxP16X8TSe5LSKM415UHeMBmxl7pqcwVY_AZ4yKFwIpZPvXE34TpXEYYcmulxJQAOvHbv2dpfq-S_cm"
-    static let AccountID = "3636334163001"
-    static let VideoID = "3666678807001"
+    static let PlaybackServicePolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
+    static let AccountID = "5434391461001"
+    static let VideoID = "6140448705001"
 }
 
 class ViewController: UIViewController {

@@ -9,9 +9,9 @@ import AVKit
 import UIKit
 import BrightcovePlayerSDK
 
-let kViewControllerPlaybackServicePolicyKey = "BCpkADawqM3n0ImwKortQqSZCgJMcyVbb8lJVwt0z16UD0a_h8MpEYcHyKbM8CGOPxBRp0nfSVdfokXBrUu3Sso7Nujv3dnLo0JxC_lNXCl88O7NJ0PR0z2AprnJ_Lwnq7nTcy1GBUrQPr5e"
-let kViewControllerAccountID = "4800266849001"
-let kViewControllerVideoID = "5255514387001"
+let kViewControllerPlaybackServicePolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
+let kViewControllerAccountID = "5434391461001"
+let kViewControllerVideoID = "6140448705001"
 
 class ViewController: UIViewController {
     

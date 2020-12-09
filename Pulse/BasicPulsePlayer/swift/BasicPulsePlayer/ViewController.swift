@@ -15,9 +15,9 @@ import BrightcovePulse
 
 struct PlaybackConfig
 {
-    static let PolicyKey = "insertyourservicepolicykeyhere"
-    static let AccountID = "insertyouraccountidhere"
-    static let VideoID = "insertyourvideoidhere"
+    static let PolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
+    static let AccountID = "5434391461001"
+    static let VideoID = "6140448705001"
 }
 
 struct PulseConfig
