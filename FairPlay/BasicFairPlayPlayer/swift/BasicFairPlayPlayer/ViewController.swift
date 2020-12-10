@@ -9,9 +9,9 @@ import UIKit
 
 // Add your Brightcove account and video information here.
 // The video should be encrypted with FairPlay
-let kViewControllerVideoCloudAccountId = ""
-let kViewControllerVideoCloudPolicyKey = ""
-let kViewControllerVideoReferenceId = ""
+let kViewControllerVideoCloudAccountId = "5434391461001"
+let kViewControllerVideoCloudPolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
+let kViewControllerVideoId = "6140448705001"
 
 // If you are using Dynamic Delivery you don't need to set these
 let kViewControllerFairPlayApplicationId = ""
@@ -139,7 +139,7 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
     }
     
     func requestContentFromPlaybackService() {
-        playbackService?.findVideo(withReferenceID:kViewControllerVideoReferenceId, parameters: nil) { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
+        playbackService?.findVideo(withVideoID:kViewControllerVideoId, parameters: nil) { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
             if video == nil
             {
                 print("ViewController Debug - Error retrieving video: \(error?.localizedDescription ?? "unknown error")")
