@@ -28,6 +28,7 @@ fileprivate struct PlaybackConfig {
             let receiverAppConfig = BCOVReceiverAppConfig()
             receiverAppConfig.accountId = PlaybackConfig.AccountID
             receiverAppConfig.policyKey = PlaybackConfig.PlaybackServicePolicyKey
+            receiverAppConfig.splashScreen = "https://solutions.brightcove.com/jblaker/cast-splash.jpg"
             
             // You can use the authToken property for PAS/EPA
             //receiverAppConfig.authToken = ""
