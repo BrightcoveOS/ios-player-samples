@@ -44,6 +44,7 @@ static NSString * const kPlaylistRefID = @"brightcove-native-sdk-plist";
     BCOVReceiverAppConfig *receiverAppConfig = [BCOVReceiverAppConfig new];
     receiverAppConfig.accountId = kAccountID;
     receiverAppConfig.policyKey = kServicePolicyKey;
+    receiverAppConfig.splashScreen = @"https://solutions.brightcove.com/jblaker/cast-splash.jpg";
     
     // You can use the authToken property for PAS/EPA
     //receiverAppConfig.authToken = @"";
