@@ -9,6 +9,7 @@ ios-player-samples.git is a collection of sample applications for the Brightcove
 
 1. CocoaPods 1.0+
 1. Xcode 11.0+
+1. iOS 11.0+ or tvOS 11.0+
 
 An Apple Developer Program account is required to run any sample app on a physical device. In order to provision your device, edit the sample app bundle identifier to make it unique to your organization.
 
@@ -43,33 +44,39 @@ Note: If you intend to use these samples offline, be sure to run Cocoapods befor
 
 #### FairPlay
 
-FairPlay samples demonstrate how to use the FairPlay plugin in Swift.
+FairPlay samples demonstrate how to play protected videos using FairPlay plugin that is integrated into the core BrightcovePlayerSDK framework. 
 
 #### FairPlayIMAPlayer
-To see an example of using FairPlay with IMA, refer to the FairPlayIMAPlayer sample app in the IMA folder.
+
+To see an example of using FairPlay with Google Interactive Media Ads (IMA), refer to the FairPlayIMAPlayer sample app in the IMA folder.
 
 #### A note about the FairPlay sample apps
+
 In both of the FairPlay sample apps, there are references to `FairPlayPublisherId` and `FairPlayApplicationId`. These terms refer to FairPlay credentials that Brightcove does not provide, which are instead acquired through Apple directly.
+
+iOS does **not** allow FairPlay-protected video to display in a simulator so it's important to develop on an actual device.
 
 #### FreeWheel
 
-FreeWheel samples demonstrate how to use the FreeWheel plugin.
+FreeWheel samples demonstrate how to play ads managed by FreeWheel. These are intended to cover the basic configuration to retrieve linear and companion ads.
 
 #### GoogleCast
 
-BasicCastPlayer demonstrates how to use the Google Cast plugin.
+GoogleCast samples demonstrate how to extend your app to direct its streaming video to a Chromecast device using the Google Cast plugin. The `BasicCastPlayer` app is intended to cover use of a custom cast manager and BCOVGoogleCastManager. The `BrightcoveCastReceiver` app supports more features such DRM protected videos, SSAI and HLSv3 or superior.
 
 #### IMA
 
-IMA samples demonstrate how to use the IMA plugin. These are intended to cover use cases like VMAP, VAST, Server Side Ad rules, and advanced ad topics.
+IMA samples demonstrate how to play ads managed by Google Interactive Media Ads (IMA). These are intended to cover use cases like VMAP, VAST, Server Side Ad rules, and advanced ad topics.
 
 #### Offline
 
-OfflinePlayer demonstrates downloading offline-enabled HLS videos and playing them back with or without a network connection.
+Offline samples demonstrate downloading offline-enabled HLS videos and playing them back with or without a network connection.
+
+iOS does **not** allow video downloads to a simulator so it's important to develop on an actual device.
 
 #### Omniture
 
-Omniture samples demonstrate how to use the Omniture plugin.
+Omniture sample demonstrates how to track analytics using the Omniture plugin.
 
 #### Player
 
@@ -77,15 +84,19 @@ Player samples demonstrate how to use the core SDK. These are intended to cover 
 
 #### PlayerUI
 
-PlayerUICustomization demonstrates modification of the BCOVPlayerUI controls and customization of VoiceOver properties for accessibility. 
+PlayerUI samples demonstrate how to customize the player look and feel. These are intended to cover the modification of the BCOVPlayerUI, the customization of VoiceOver properties for accessibility and the use of the view strategy.
+
+### Pulse
+
+Pulse samples demonstrate how to play ads managed by INVIDI Technologies Pulse. These are intended to cover different configurations for the content.
 
 #### SidecarSubtitles
 
-SidecarSubtitles samples demonstrate how to use the sidecarSubtitles plugin.
+SidecarSubtitles sample demonstrates how to add WebVTT subtitles to an HLS manifest from within an iOS/tvOS app using SidecarSubtitles plugin that is integrated into the core BrightcovePlayerSDK framework.
 
 #### SSAI
 
-BasicSSAIPlayer demonstrates use of the SSAI plugin for playback of Dynamic Delivery with or without Server-Side Ad Insertion.
+SSAI samples demonstrate how to use the SSAI plugin. These are intended to cover playback of Dynamic Delivery with or without Server-Side Ad Insertion, and play pre-rolls using Google IMA for SSAI Live Streams.
 
 ### Feature Highlights
 

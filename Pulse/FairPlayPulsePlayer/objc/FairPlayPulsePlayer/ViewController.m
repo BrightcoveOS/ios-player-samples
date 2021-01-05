@@ -138,7 +138,7 @@ static NSString * const kPulseHost = @"https://bc-test.videoplaza.tv";
      *      user identifier here.
      *
      *  Refer to:
-     *  https://docs.videoplaza.com/oadtech/ad_serving/dg/pulse_sdks_parameter.html
+     *  https://docs.invidi.com/r/INVIDI-Pulse-Documentation/Pulse-SDKs-parameter-reference
      */
     
     // Create a companion slot.
