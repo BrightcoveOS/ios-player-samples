@@ -10,7 +10,7 @@ To add the AdManager framework to the BasicFreewheelPlayer sample project:
 pod install
 ```
 
-1. Open the BasicFreeqwheelPlayer.xcworkspace document.
+1. Open the BasicFreewheelPlayer.xcworkspace document.
 
 1. In the Project Navigator, expand the BasicFreewheelPlayer project.
 

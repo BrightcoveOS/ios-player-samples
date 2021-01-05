@@ -169,7 +169,7 @@ static NSString * const kVideoID = @"insertyourvideoidhere";
      *      user identifier here.
      *
      *  Refer to:
-     *  https://docs.videoplaza.com/oadtech/ad_serving/dg/pulse_sdks_parameter.html
+     *  https://docs.invidi.com/r/INVIDI-Pulse-Documentation/Pulse-SDKs-parameter-reference
      */
 
     self.pulseSessionProvider = [manager createPulseSessionProviderWithPulseHost:pulseHost

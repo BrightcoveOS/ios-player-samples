@@ -98,7 +98,7 @@ class ViewController: UIViewController
          *      user identifier here.
          *
          *  Refer to:
-         *  https://docs.videoplaza.com/oadtech/ad_serving/dg/pulse_sdks_parameter.html
+         *  https://docs.invidi.com/r/INVIDI-Pulse-Documentation/Pulse-SDKs-parameter-reference
          */
 
         guard let _pulseSessionProvider = BCOVPlayerSDKManager.shared()?.createPulseSessionProvider(withPulseHost: PulseConfig.PulseHost, contentMetadata: contentMetadata, requestSettings: requestSettings, adContainer: self.playerView?.contentOverlayView, companionSlots: [], upstreamSessionProvider: nil, options: pulseProperties) else {
