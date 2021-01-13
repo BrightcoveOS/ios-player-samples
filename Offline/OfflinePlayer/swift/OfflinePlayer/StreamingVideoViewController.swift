@@ -173,7 +173,6 @@ extension StreamingVideoViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if let videoDictionary = videoManager.videosTableViewData?[indexPath.row], let video = videoDictionary["video"] as? BCOVVideo {
-            playbackController?.thumbnailScrubbingEnabled = true
             playbackController?.setVideos([video] as NSFastEnumeration)
         }
     }

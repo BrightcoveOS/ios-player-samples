@@ -166,6 +166,7 @@ static unsigned long long int directorySize(NSString *folderPath)
     {
         BCOVPUIPlayerViewOptions *options = [[BCOVPUIPlayerViewOptions alloc] init];
         options.presentingViewController = self;
+        options.showPictureInPictureButton = YES;
         
         BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
         self.playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:nil
@@ -203,7 +204,7 @@ static unsigned long long int directorySize(NSString *folderPath)
         playbackController.autoAdvance = YES;
         playbackController.autoPlay = YES;
         playbackController.delegate = self;
-        playbackController.thumbnailScrubbingEnabled = NO;
+        playbackController.allowsBackgroundAudioPlayback = YES;
         self.playbackController = playbackController;
         self.playerView.playbackController = playbackController;
     }
