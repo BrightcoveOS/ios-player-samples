@@ -6,13 +6,15 @@
 //  Copyright © 2020 Brightcove. All rights reserved.
 //
 
-#import "ViewController.h"
+@import AppTrackingTransparency;
 
 @import GoogleInteractiveMediaAds;
 
 @import BrightcovePlayerSDK;
 @import BrightcoveSSAI;
 @import BrightcoveIMA;
+
+#import "ViewController.h"
 
 
 static NSString * const kViewControllerAccountID = @"insertyouraccountidhere";
@@ -42,10 +44,27 @@ static NSString * const kViewControllerAdConfigID = @"insertyouradconfigidhere";
 {
     [super viewDidLoad];
     
-    [self setupPlayerView];
-    [self setupPlaybackController];
-    [self setupPlaybackService];
-    [self requestContentFromPlaybackService];
+    if (@available(tvOS 14, *))
+    {
+        __weak typeof(self) weakSelf = self;
+        [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                __strong typeof(weakSelf) strongSelf = weakSelf;
+                // Tracking authorization completed. Start loading ads here.
+                [strongSelf setupPlayerView];
+                [strongSelf setupPlaybackController];
+                [strongSelf setupPlaybackService];
+                [strongSelf requestContentFromPlaybackService];
+            });
+        }];
+    }
+    else
+    {
+        [self setupPlayerView];
+        [self setupPlaybackController];
+        [self setupPlaybackService];
+        [self requestContentFromPlaybackService];
+    }
 }
 
 - (void)setupPlayerView

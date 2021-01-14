@@ -6,9 +6,11 @@
 //  Copyright © 2020 Carlos Ceja. All rights reserved.
 //
 
+import AppTrackingTransparency
 import UIKit
 
 import Pulse
+
 import BrightcovePlayerSDK
 import BrightcovePulse
 
@@ -167,7 +169,15 @@ class ViewController: UIViewController
         let _ = playerView
         let _ = playbackController
         
-        requestVideo()
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization { [weak self] (status: ATTrackingManager.AuthorizationStatus) in
+                DispatchQueue.main.async {
+                    self?.requestVideo()
+                }
+            }
+        } else {
+            requestVideo()
+        }
     }
     
     func requestVideo()
