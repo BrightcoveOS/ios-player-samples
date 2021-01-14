@@ -298,6 +298,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Brightcove.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Debug;
 		};
@@ -319,6 +320,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Brightcove.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Release;
 		};

@@ -435,6 +435,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.OfflinePlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Debug;
 		};
@@ -453,6 +454,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.OfflinePlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Release;
 		};
