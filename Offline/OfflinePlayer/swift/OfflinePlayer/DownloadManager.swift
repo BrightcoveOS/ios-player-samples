@@ -172,7 +172,7 @@ class DownloadManager: NSObject {
         // to the video download queue.
         
         if !video.usesFairPlay {
-            if let videoName = localizedNameForLocale(video, nil) as? String {
+            if let videoName = localizedNameForLocale(video, nil) {
                 print("Video \"\(videoName)\" does not use FairPlay; preloading not necessary")
             }
             
@@ -242,7 +242,7 @@ class DownloadManager: NSObject {
         // Display all available bitrates
         BCOVOfflineVideoManager.shared()?.variantBitrates(for: video, completion: { (bitrates: [NSNumber]?, error: Error?) in
             
-            if let name = localizedNameForLocale(video, nil) as? String {
+            if let name = localizedNameForLocale(video, nil) {
                 print("Variant Bitrates for video: \(name)")
             }
             

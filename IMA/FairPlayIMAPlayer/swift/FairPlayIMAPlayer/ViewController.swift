@@ -208,10 +208,11 @@ class ViewController: UIViewController {
         
         // Here, you can retrieve BCOVVideo objects from the Playback Service. You can also
         // create your own BCOVVideo objects directly from URLs if you have them, as shown here:
+        if let url = URL(string: PlaybackConfig.FairPlayHLSVideoURL) {
 
-        if var video = BCOVVideo(hlsSourceURL: URL(string: PlaybackConfig.FairPlayHLSVideoURL))
-        {
+            var video = BCOVVideo(hlsSourceURL: url)
             video = video.updateVideo(withVMAPTag: IMAConfig.VMAPResponseAdTag)
+
             if let playlist = BCOVPlaylist(video: video) {
                 playbackController?.setVideos(playlist as NSFastEnumeration)
             }
