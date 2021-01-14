@@ -6,6 +6,7 @@
 //  Copyright © 2020 Brightcove. All rights reserved.
 //
 
+import AppTrackingTransparency
 import UIKit
 
 import GoogleInteractiveMediaAds
@@ -13,6 +14,7 @@ import GoogleInteractiveMediaAds
 import BrightcovePlayerSDK
 import BrightcoveIMA
 import BrightcoveSSAI
+
 
 struct Constants {
     static let AccountID = "insertyouraccountidhere"
@@ -97,7 +99,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        requestContentFromPlaybackService()
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization { [weak self] (status: ATTrackingManager.AuthorizationStatus) in
+                DispatchQueue.main.async {
+                    self?.requestContentFromPlaybackService()
+                }
+            }
+        } else {
+            requestContentFromPlaybackService()
+        }
     }
     
     private func requestContentFromPlaybackService() {

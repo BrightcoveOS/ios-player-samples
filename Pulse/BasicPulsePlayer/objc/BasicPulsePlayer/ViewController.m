@@ -6,11 +6,15 @@
 //  Copyright © 2020 Carlos Ceja. All rights reserved.
 //
 
+@import AppTrackingTransparency;
+
 @import Pulse;
+
 @import BrightcovePlayerSDK;
 @import BrightcovePulse;
 
 #import "ViewController.h"
+
 
 static NSString * const kServicePolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
 static NSString * const kAccountID = @"5434391461001";
@@ -43,11 +47,29 @@ static NSString * const kPulseHost = @"https://bc-test.videoplaza.tv";
     
     [super viewDidLoad];
     
-    [self videoLibrary];
-    
-    [self setupPlayerView];
-    [self setupPlaybackController];
-    [self requestVideo];
+    if (@available(iOS 14, *))
+    {
+        __weak typeof(self) weakSelf = self;
+        [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // Tracking authorization completed. Start loading ads here.
+                [strongSelf videoLibrary];
+                
+                [strongSelf setupPlayerView];
+                [strongSelf setupPlaybackController];
+                [strongSelf requestVideo];
+            });
+        }];
+    }
+    else
+    {
+        [self videoLibrary];
+        
+        [self setupPlayerView];
+        [self setupPlaybackController];
+        [self requestVideo];
+    }
 }
 
 #pragma mark Misc
