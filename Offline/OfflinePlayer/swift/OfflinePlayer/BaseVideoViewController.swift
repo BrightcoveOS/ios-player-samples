@@ -16,6 +16,7 @@ class BaseVideoViewController: UIViewController, BCOVPlaybackControllerDelegate 
         
         let options = BCOVPUIPlayerViewOptions()
         options.presentingViewController = self
+        options.showPictureInPictureButton = true
         
         // Create PlayerUI views with normal VOD controls.
         let controlView = BCOVPUIBasicControlView.withVODLayout()
@@ -77,6 +78,7 @@ class BaseVideoViewController: UIViewController, BCOVPlaybackControllerDelegate 
         // Start playing right away (the default value for autoAdvance is false)
         _playbackController?.isAutoAdvance = true
         _playbackController?.isAutoPlay = true
+        _playbackController?.allowsBackgroundAudioPlayback = true
         
         // Register the delegate method callbacks
         _playbackController?.delegate = self

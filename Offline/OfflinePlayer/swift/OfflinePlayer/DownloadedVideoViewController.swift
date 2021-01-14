@@ -377,7 +377,6 @@ class DownloadedVideoViewController: BaseVideoViewController {
             playButton.setTitle("Hide", for: .normal)
             videoContainerView.alpha = 1.0
             createNewPlaybackController()
-            playbackController?.thumbnailScrubbingEnabled = false
             playbackController?.setVideos([video] as NSFastEnumeration)
             currentlyPlayingOfflineVideoToken = selectedOfflineVideoToken
             
