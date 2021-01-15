@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import <Pulse_tvOS/Pulse.h>
+
 #import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
 #import <BrightcovePulse/BrightcovePulse.h>
 

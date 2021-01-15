@@ -6,6 +6,8 @@
 //  Copyright © 2020 Carlos Ceja. All rights reserved.
 //
 
+#import <AppTrackingTransparency/AppTrackingTransparency.h>
+
 #import "ListViewController.h"
 
 #import "BCOVPulseVideoItem.h"
@@ -26,8 +28,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self videoLibrary];
+
+    if (@available(tvOS 14, *))
+    {
+        __weak typeof(self) weakSelf = self;
+        [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // Tracking authorization completed. Start loading ads here.
+                [strongSelf videoLibrary];
+            });
+        }];
+    }
+    else
+    {
+        [self videoLibrary];
+    }
 }
 
 #pragma mark Misc
@@ -56,6 +72,8 @@
         
         self.videoItems = [NSArray arrayWithArray:videos];
     }
+
+    [self.tableView reloadData];
 }
 
 #pragma mark UITableViewDataSource

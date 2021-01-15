@@ -6,6 +6,7 @@
 //  Copyright © 2020 Brightcove. All rights reserved.
 //
 
+import AppTrackingTransparency
 import UIKit
 
 class ListViewController: UIViewController
@@ -42,6 +43,12 @@ class ListViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+
+        if #available(tvOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization { (status: ATTrackingManager.AuthorizationStatus) in
+                print("Tracking authorization completed.")
+            }
+        }
     }
 
     
