@@ -183,7 +183,7 @@ NSString * const kViewControllerIMALanguage = @"en";
     NSLog(@"ViewController Debug - Advanced to new session.");
 }
 
--(void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didReceiveLifecycleEvent:(BCOVPlaybackSessionLifecycleEvent *)lifecycleEvent
+- (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didReceiveLifecycleEvent:(BCOVPlaybackSessionLifecycleEvent *)lifecycleEvent
 {
     // Ad events are emitted by the BCOVIMA plugin through lifecycle events.
     // The events are defined BCOVIMAComponent.h.
@@ -193,7 +193,7 @@ NSString * const kViewControllerIMALanguage = @"en";
     if ([type isEqualToString:kBCOVIMALifecycleEventAdsLoaderLoaded])
     {
         NSLog(@"ViewController Debug - Ads loaded.");
-        
+
         // When ads load successfully, the kBCOVIMALifecycleEventAdsLoaderLoaded lifecycle event
         // returns an NSDictionary containing a reference to the IMAAdsManager.
         IMAAdsManager *adsManager = lifecycleEvent.properties[kBCOVIMALifecycleEventPropertyKeyAdsManager];
@@ -225,18 +225,6 @@ NSString * const kViewControllerIMALanguage = @"en";
                 break;
         }
     }
-}
-
-- (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didEnterAdSequence:(BCOVAdSequence *)adSequence
-{
-    // Hide all controls for ads (so they're not visible when full-screen)
-    self.playerView.controlsContainerView.alpha = 0.0;
-}
-
-- (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didExitAdSequence:(BCOVAdSequence *)adSequence
-{
-    // Show all controls when ads are finished.
-    self.playerView.controlsContainerView.alpha = 1.0;
 }
 
 #pragma mark - IMAPlaybackSessionDelegate Methods

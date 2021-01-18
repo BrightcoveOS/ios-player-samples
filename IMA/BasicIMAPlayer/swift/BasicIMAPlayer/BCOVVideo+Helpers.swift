@@ -11,7 +11,6 @@ import BrightcoveIMA
 extension BCOVVideo {
     
     func updateVideo(withVMAPTag vmapTag: String) -> BCOVVideo {
-        
         return update { (mutableVideo: BCOVMutableVideo?) in
             guard let mutableVideo = mutableVideo else {
                 return
@@ -25,31 +24,29 @@ extension BCOVVideo {
                 mutableVideo.properties = updatedProperties
             }
         }
-        
     }
-    
+
     func updateVideo(useAdTagsInCuePoints: Bool) -> BCOVVideo? {
-        
         guard let durationNum = self.properties["duration"] as? NSNumber else {
             return nil
         }
-        
+
         let durationMiliSeconds = durationNum.doubleValue
         let midpointSeconds = (durationMiliSeconds / 2) / 1000
         let midpointTime = CMTimeMakeWithSeconds(midpointSeconds, preferredTimescale: 1)
-        
+
         let cuePointPositionTypeAfter = CMTime.positiveInfinity
-        
+
         var preRollProperties = [String:AnyHashable]()
         var midRollProperties = [String:AnyHashable]()
         var postRollProperties = [String:AnyHashable]()
-        
+
         if useAdTagsInCuePoints {
             preRollProperties = [kBCOVIMAAdTag:IMAConfig.VASTAdTagURL_preroll]
             midRollProperties = [kBCOVIMAAdTag:IMAConfig.VASTAdTagURL_midroll]
             postRollProperties = [kBCOVIMAAdTag:IMAConfig.VASTAdTagURL_postroll]
         }
-        
+
         return update { (mutableVideo: BCOVMutableVideo?) in
             guard let mutableVideo = mutableVideo else {
                 return
@@ -61,7 +58,19 @@ extension BCOVVideo {
                 BCOVCuePoint(type: kBCOVIMACuePointTypeAd, position: cuePointPositionTypeAfter, properties: postRollProperties)!,
             ])
         }
-        
     }
     
+    func updateVideo(withVASTTag vastTag: String) -> BCOVVideo {
+        return update { (mutableVideo: BCOVMutableVideo?) in
+            guard let mutableVideo = mutableVideo else {
+                return
+            }
+
+            let preRollProperties = [kBCOVIMAAdTag: vastTag]
+
+            mutableVideo.cuePoints = BCOVCuePointCollection(array: [
+                BCOVCuePoint(type: kBCOVIMACuePointTypeAd, position: CMTime.zero, properties: preRollProperties)!,
+            ])
+        }
+    }
 }
