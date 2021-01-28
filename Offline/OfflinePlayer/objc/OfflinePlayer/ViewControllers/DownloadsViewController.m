@@ -212,10 +212,10 @@ static unsigned long long int directorySize(NSString *folderPath)
 
 - (IBAction)doPlayHideButton:(id)sender
 {
-    // Some versions of iOS seem to return an incorrect value
-    // for `playableOffline` if the offline video is already
-    // loaded into an AVPlayer instance. Clearing out the
-    // current AVPlayer instance solves the issue.
+    // iOS 13 returns an incorrect value for `playableOffline`
+    // if the offline video is already loaded into an
+    // AVPlayer instance. Clearing out the current AVPlayer
+    // instance solves the issue.
     [self.currentSession.player replaceCurrentItemWithPlayerItem:nil];
 
     if (self.playbackController == nil)

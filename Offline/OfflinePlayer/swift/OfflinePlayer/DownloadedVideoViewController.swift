@@ -337,10 +337,10 @@ class DownloadedVideoViewController: BaseVideoViewController {
     
     @IBAction private func playButtonPressed() {
         
-        // Some versions of iOS seem to return an incorrect value
-        // for `playableOffline` if the offline video is already
-        // loaded into an AVPlayer instance. Clearing out the
-        // current AVPlayer instance solves the issue.
+        // iOS 13 returns an incorrect value for `playableOffline`
+        // if the offline video is already loaded into an
+        // AVPlayer instance. Clearing out the current AVPlayer
+        // instance solves the issue.
         if let currentSession = currentSession {
             currentSession.player.replaceCurrentItem(with: nil)
         }
