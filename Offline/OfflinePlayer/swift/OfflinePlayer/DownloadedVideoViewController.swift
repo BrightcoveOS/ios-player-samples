@@ -207,11 +207,13 @@ class DownloadedVideoViewController: BaseVideoViewController {
         // Log a variety of information to the debug console
         // about the currently selected offline video token.
         
-        guard let selectedOfflineVideoToken = selectedOfflineVideoToken, let video = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: selectedOfflineVideoToken), let properties = video.properties else {
+        guard let selectedOfflineVideoToken = selectedOfflineVideoToken, let video = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: selectedOfflineVideoToken) else {
             print("Token unavailable or video not found")
             return
         }
-        
+
+        let properties = video.properties
+
         print("Video Properties: \(properties)")
     }
     
