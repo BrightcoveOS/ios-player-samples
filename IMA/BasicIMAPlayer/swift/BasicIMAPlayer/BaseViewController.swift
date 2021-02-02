@@ -26,6 +26,7 @@ struct IMAConfig {
     static let VASTAdTagURL_preroll = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator="
     static let VASTAdTagURL_midroll = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator="
     static let VASTAdTagURL_postroll = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator="
+    static let VASTAdTagURL_openMeasurement = "https://pubads.g.doubleclick.net/gampad/ads?iu=/124319096/external/omid_google_samples&env=vp&gdfp_req=1&output=vast&sz=640x480&description_url=http%3A%2F%2Ftest_site.com%2Fhomepage&tfcd=0&npa=0&vpmute=0&vpa=0&vad_format=linear&url=http%3A%2F%2Ftest_site.com&vpos=preroll&unviewed_position_start=1&correlator="
 }
 
 class BaseViewController: UIViewController {
@@ -85,7 +86,6 @@ class BaseViewController: UIViewController {
         } else {
             requestContentFromPlaybackService()
         }
-        
     }
 
     // MARK: - Misc
@@ -155,11 +155,8 @@ class BaseViewController: UIViewController {
             if let error = error {
                 print("Error retrieving video: \(error.localizedDescription)")
             }
-            
         }
-        
     }
-
 }
 
 // MARK: - BCOVPlaybackControllerDelegate
@@ -210,17 +207,6 @@ extension BaseViewController: BCOVPlaybackControllerDelegate {
             }
         }
     }
-    
-    func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didEnter adSequence: BCOVAdSequence!) {
-        // Hide all controls for ads (so they're not visible when full-screen)
-        playerView?.controlsContainerView.alpha = 0.0
-    }
-    
-    func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didExitAdSequence adSequence: BCOVAdSequence!) {
-        // Show all controls when ads are finished.
-        playerView?.controlsContainerView.alpha = 1.0
-    }
-    
 }
 
 // MARK: - BCOVIMAPlaybackSessionDelegate

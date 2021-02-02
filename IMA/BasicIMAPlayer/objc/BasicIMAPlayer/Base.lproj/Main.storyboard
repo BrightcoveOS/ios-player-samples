@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="e2E-L9-vT5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="e2E-L9-vT5">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="uoY-4A-dUu">
-                                <rect key="frame" x="20" y="418" width="374" height="60"/>
+                                <rect key="frame" x="20" y="403" width="374" height="90"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zah-Yw-awR">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
@@ -30,8 +30,15 @@
                                             <segue destination="RAc-cs-vMS" kind="show" id="ff9-Ua-J3A"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ac-vn-5Hr">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HJg-aZ-h5F">
                                         <rect key="frame" x="0.0" y="30" width="374" height="30"/>
+                                        <state key="normal" title="VAST Configuration with Open Measurement"/>
+                                        <connections>
+                                            <segue destination="UYD-Zp-g3g" kind="show" id="pwN-u3-vq9"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ac-vn-5Hr">
+                                        <rect key="frame" x="0.0" y="60" width="374" height="30"/>
                                         <state key="normal" title="VMAP (Ad Rules) Configuration"/>
                                         <connections>
                                             <segue destination="BYZ-38-t0r" kind="show" id="qiw-Ic-2Zw"/>
@@ -75,9 +82,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="U45-8H-pUj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="GlN-xV-Ddg"/>
-                            <constraint firstItem="U45-8H-pUj" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="HHm-0s-Zjg"/>
-                            <constraint firstAttribute="trailing" secondItem="U45-8H-pUj" secondAttribute="trailing" id="Jd7-T9-Yfs"/>
+                            <constraint firstItem="U45-8H-pUj" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="8FE-bp-dfi"/>
+                            <constraint firstItem="U45-8H-pUj" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="G2B-6f-ecl"/>
+                            <constraint firstItem="U45-8H-pUj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="N2K-c8-FC8"/>
+                            <constraint firstAttribute="trailing" secondItem="U45-8H-pUj" secondAttribute="trailing" id="wer-Ys-F5F"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="czy-3e-uC3"/>
@@ -141,7 +149,43 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yxz-MU-tPE" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="890" y="303"/>
+            <point key="canvasLocation" x="-367" y="706"/>
+        </scene>
+        <!--VAST Config-->
+        <scene sceneID="OSF-GM-8gU">
+            <objects>
+                <viewController id="UYD-Zp-g3g" userLabel="VAST Config" customClass="VASTOMViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jWQ-fJ-Ywg"/>
+                        <viewControllerLayoutGuide type="bottom" id="5lR-qh-2ed"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0xs-2h-Nr9">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S4j-SM-3vG" userLabel="videoContainer">
+                                <rect key="frame" x="0.0" y="89" width="414" height="233"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="S4j-SM-3vG" secondAttribute="height" multiplier="16:9" id="B9J-05-1Ny"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="S4j-SM-3vG" firstAttribute="top" secondItem="jWQ-fJ-Ywg" secondAttribute="bottom" constant="1" id="RwI-an-4A1"/>
+                            <constraint firstAttribute="trailing" secondItem="S4j-SM-3vG" secondAttribute="trailing" id="YWM-fq-n1j"/>
+                            <constraint firstItem="S4j-SM-3vG" firstAttribute="leading" secondItem="0xs-2h-Nr9" secondAttribute="leading" id="cax-sg-BTR"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="JDX-cS-jVQ"/>
+                    <connections>
+                        <outlet property="videoContainer" destination="S4j-SM-3vG" id="hKC-nq-VU8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tD8-fN-4Yb" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="403" y="706"/>
         </scene>
     </scenes>
     <resources>

@@ -15,6 +15,7 @@
 		493733D619FEBAE8009F1E08 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 493733D519FEBAE8009F1E08 /* AppDelegate.m */; };
 		E968A2A425433DDD00E5E022 /* VMAPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E968A2A325433DDD00E5E022 /* VMAPViewController.m */; };
 		E968A2A825433DE800E5E022 /* VASTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E968A2A725433DE800E5E022 /* VASTViewController.m */; };
+		D6B50A5C25B0C4270019BE84 /* VASTOMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B50A5B25B0C4270019BE84 /* VASTOMViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,8 @@
 		E968A2A325433DDD00E5E022 /* VMAPViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMAPViewController.m; sourceTree = "<group>"; };
 		E968A2A625433DE800E5E022 /* VASTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VASTViewController.h; sourceTree = "<group>"; };
 		E968A2A725433DE800E5E022 /* VASTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VASTViewController.m; sourceTree = "<group>"; };
+		D6B50A5A25B0C4270019BE84 /* VASTOMViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VASTOMViewController.h; sourceTree = "<group>"; };
+		D6B50A5B25B0C4270019BE84 /* VASTOMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VASTOMViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +75,8 @@
 				E968A2A325433DDD00E5E022 /* VMAPViewController.m */,
 				E968A2A625433DE800E5E022 /* VASTViewController.h */,
 				E968A2A725433DE800E5E022 /* VASTViewController.m */,
+				D6B50A5A25B0C4270019BE84 /* VASTOMViewController.h */,
+				D6B50A5B25B0C4270019BE84 /* VASTOMViewController.m */,
 				493733B919FEB9EE009F1E08 /* Main.storyboard */,
 				493733BC19FEB9EE009F1E08 /* Images.xcassets */,
 				493733BE19FEB9EE009F1E08 /* LaunchScreen.xib */,
@@ -168,6 +173,7 @@
 				493733B819FEB9EE009F1E08 /* BaseViewController.m in Sources */,
 				E968A2A425433DDD00E5E022 /* VMAPViewController.m in Sources */,
 				E968A2A825433DE800E5E022 /* VASTViewController.m in Sources */,
+				D6B50A5C25B0C4270019BE84 /* VASTOMViewController.m in Sources */,
 				493733B219FEB9EE009F1E08 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

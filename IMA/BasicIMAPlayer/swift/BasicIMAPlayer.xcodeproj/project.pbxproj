@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D6B50AA725B0F2B10019BE84 /* VASTOMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B50AA625B0F2B10019BE84 /* VASTOMViewController.swift */; };
 		E9337C812547297F00BD8A2A /* VMAPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9337C802547297F00BD8A2A /* VMAPViewController.swift */; };
 		E9337C842547298800BD8A2A /* VASTViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9337C832547298800BD8A2A /* VASTViewController.swift */; };
 		E93A3D0E217A1D5900F971F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93A3D0D217A1D5900F971F8 /* AppDelegate.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D6B50AA625B0F2B10019BE84 /* VASTOMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASTOMViewController.swift; sourceTree = "<group>"; };
 		E9337C802547297F00BD8A2A /* VMAPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMAPViewController.swift; sourceTree = "<group>"; };
 		E9337C832547298800BD8A2A /* VASTViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASTViewController.swift; sourceTree = "<group>"; };
 		E93A3D0A217A1D5900F971F8 /* BasicIMAPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicIMAPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,6 +66,7 @@
 				E93A3D0F217A1D5900F971F8 /* BaseViewController.swift */,
 				E9337C802547297F00BD8A2A /* VMAPViewController.swift */,
 				E9337C832547298800BD8A2A /* VASTViewController.swift */,
+				D6B50AA625B0F2B10019BE84 /* VASTOMViewController.swift */,
 				E93A3D1F217A285F00F971F8 /* BCOVVideo+Helpers.swift */,
 				E93A3D11217A1D5900F971F8 /* Main.storyboard */,
 				E93A3D14217A1D5A00F971F8 /* Assets.xcassets */,
@@ -147,8 +150,9 @@
 			files = (
 				E93A3D10217A1D5900F971F8 /* BaseViewController.swift in Sources */,
 				E9337C842547298800BD8A2A /* VASTViewController.swift in Sources */,
-				E93A3D20217A285F00F971F8 /* BCOVVideo+Helpers.swift in Sources */,
+				D6B50AA725B0F2B10019BE84 /* VASTOMViewController.swift in Sources */,
 				E9337C812547297F00BD8A2A /* VMAPViewController.swift in Sources */,
+				E93A3D20217A285F00F971F8 /* BCOVVideo+Helpers.swift in Sources */,
 				E93A3D0E217A1D5900F971F8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
