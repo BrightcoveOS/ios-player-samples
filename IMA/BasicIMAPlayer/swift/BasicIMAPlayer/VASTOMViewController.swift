@@ -18,7 +18,7 @@ class VASTOMViewController: BaseViewController {
     override func setupPlaybackController() {
         let imaSettings = IMASettings()
         imaSettings.ppid = IMAConfig.PublisherID
-        imaSettings.language = IMAConfig.Language
+        imaSettings.language = NSLocale.current.languageCode
 
         let renderSettings = IMAAdsRenderingSettings()
         renderSettings.webOpenerPresentingController = self
