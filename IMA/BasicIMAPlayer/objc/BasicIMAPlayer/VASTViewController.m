@@ -29,7 +29,7 @@ static NSString * const kVASTAdTagURL_postroll = @"https://pubads.g.doubleclick.
 
     IMASettings *imaSettings = [[IMASettings alloc] init];
     imaSettings.ppid = kViewControllerIMAPublisherID;
-    imaSettings.language = kViewControllerIMALanguage;
+    imaSettings.language = NSLocale.currentLocale.languageCode;
 
     IMAAdsRenderingSettings *renderSettings = [[IMAAdsRenderingSettings alloc] init];
     renderSettings.webOpenerPresentingController = self;

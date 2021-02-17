@@ -20,7 +20,6 @@ static NSString * const kViewControllerAccountID = @"5434391461001";
 static NSString * const kViewControllerVideoID = @"6140448705001";
 
 NSString * const kViewControllerIMAPublisherID = @"insertyourpidhere";
-NSString * const kViewControllerIMALanguage = @"en";
 
 @interface BaseViewController ()
 

@@ -13,7 +13,6 @@
 #import <GoogleInteractiveMediaAds/GoogleInteractiveMediaAds.h>
 
 extern NSString * const kViewControllerIMAPublisherID;
-extern NSString * const kViewControllerIMALanguage;
 
 @interface BaseViewController : UIViewController <BCOVIMAPlaybackSessionDelegate>
 
