@@ -105,4 +105,25 @@ SSAI samples demonstrate how to use the SSAI plugin. These are intended to cover
 - An example of setting up lock screen playback controls can be found in the  `VideoCloudBasicPlayer` sample app.
 - An example of creation a `BCOVPlaybackController` using a view strategy can be found in the `PlayerUI` section.
 
+### Localization 
+
+The Brightcove iOS SDK is localized for the following languages:
+
+* English - en
+* Arabic - ar
+* German - de
+* Spanish - es
+* French - fr
+* Japanese - ja
+* Korean - ko
+* Chinese traditional - zh-hant
+* Chinese simplified - zh-hans
+
+The following sample projects take advantage of this localization:
+
+* Player/VideoCloudBasicPlayer
+* Player/AppleTV
+* IMA/BasicIMAPlayer
+* SSAI/BasicSSAIPlayer
+
 [cocoapods]: http://www.cocoapods.org

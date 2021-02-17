@@ -25,7 +25,7 @@ static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampa
 
     IMASettings *imaSettings = [[IMASettings alloc] init];
     imaSettings.ppid = kViewControllerIMAPublisherID;
-    imaSettings.language = kViewControllerIMALanguage;
+    imaSettings.language = NSLocale.currentLocale.languageCode;
 
     IMAAdsRenderingSettings *renderSettings = [[IMAAdsRenderingSettings alloc] init];
     renderSettings.webOpenerPresentingController = self;
