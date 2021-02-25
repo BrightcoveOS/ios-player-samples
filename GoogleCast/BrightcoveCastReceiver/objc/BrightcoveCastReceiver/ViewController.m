@@ -46,6 +46,9 @@ static NSString * const kPlaylistRefID = @"brightcove-native-sdk-plist";
     receiverAppConfig.policyKey = kServicePolicyKey;
     receiverAppConfig.splashScreen = @"https://solutions.brightcove.com/jblaker/cast-splash.jpg";
     
+    // You can specify a customized player
+    //receiverAppConfig.playerUrl = @"https://players.brightcove.net/5434391461001/nVM2434Z1_default/index.min.js";
+    
     // You can use the authToken property for PAS/EPA
     //receiverAppConfig.authToken = @"";
     
