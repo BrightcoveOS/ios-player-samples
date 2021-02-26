@@ -20,5 +20,6 @@
 @interface ControlsViewController : UIViewController <BCOVPlaybackSessionConsumer, UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) id<ControlsViewControllerFullScreenDelegate> delegate;
+@property (nonatomic, assign) BOOL closedCaptionEnabled;
 
 @end
