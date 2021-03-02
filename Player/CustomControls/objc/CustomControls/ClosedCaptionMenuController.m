@@ -45,14 +45,16 @@ static NSString * const kClosedCaptionMenuAutoItemTitle = @"Auto";
 {
     [super viewDidLoad];
     
+    self.title = @"Audio & Subtitles";
+    
     [self.tableView registerClass:UITableViewCell.class forCellReuseIdentifier:kCellReuseId];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(cancelButtonPressed:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonPressed:)];
 }
 
 #pragma mark - UI Actions
 
-- (void)cancelButtonPressed:(id)sender
+- (void)doneButtonPressed:(id)sender
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
         [self.currentSession.player play];
@@ -259,11 +261,11 @@ static NSString * const kClosedCaptionMenuAutoItemTitle = @"Auto";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.mediaOptionsTableViewSectionList[indexPath.section] isEqualToString:AVMediaCharacteristicAudible])
+    if ([self tableViewSectionIsAudibleSection:indexPath.section])
     {
         return [self tableView:tableView audibleCellForRowAtIndexPath:indexPath];
     }
-    else if ([self.mediaOptionsTableViewSectionList[indexPath.section] isEqualToString:AVMediaCharacteristicLegible])
+    else if ([self tableViewSectionIsLegibleSection:indexPath.section])
     {
         return [self tableView:tableView legibleCellForRowAtIndexPath:indexPath];
     }
@@ -348,7 +350,7 @@ static NSString * const kClosedCaptionMenuAutoItemTitle = @"Auto";
         // the current selection index.
         NSNumber *selectionIndex;
         
-        // fetch the current selection option;
+        // fetch the current selection option
         AVMediaSelectionOption *selectedOption = self.currentSession.selectedLegibleMediaOption;
         
         if (selectedOption == nil)
@@ -427,11 +429,11 @@ static NSString * const kClosedCaptionMenuAutoItemTitle = @"Auto";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if ([self.mediaOptionsTableViewSectionList[indexPath.section] isEqualToString:AVMediaCharacteristicAudible])
+    if ([self tableViewSectionIsAudibleSection:indexPath.section])
     {
         [self tableView:tableView didSelectAudibleRowAtIndexPath:indexPath];
     }
-    else if ([self.mediaOptionsTableViewSectionList[indexPath.section] isEqualToString:AVMediaCharacteristicLegible])
+    else if ([self tableViewSectionIsLegibleSection:indexPath.section])
     {
         [self tableView:tableView didSelectLegibleRowAtIndexPath:indexPath];
     }

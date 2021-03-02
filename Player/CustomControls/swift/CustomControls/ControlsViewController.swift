@@ -24,11 +24,24 @@ class ControlsViewController: UIViewController {
     @IBOutlet weak private var playheadLabel: UILabel!
     @IBOutlet weak private var playheadSlider: UISlider!
     @IBOutlet weak private var durationLabel: UILabel!
-    @IBOutlet weak private var fullscreenButton: UIView!
+    @IBOutlet weak private var fullscreenButton: UIButton!
     @IBOutlet weak private var externalScreenButton: MPVolumeView!
+    @IBOutlet weak private var closedCaptionButton: UIButton!
     
     private var controlTimer: Timer?
     private var playingOnSeek: Bool = false
+    
+    var closedCaptionEnabled: Bool = false {
+        didSet {
+            closedCaptionButton.isEnabled = closedCaptionEnabled
+        }
+    }
+    
+    private lazy var ccMenuController: ClosedCaptionMenuController = {
+        let _ccMenuController = ClosedCaptionMenuController(style: .grouped)
+        _ccMenuController.controlsView = self
+        return _ccMenuController
+    }()
     
     private lazy var numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -160,6 +173,11 @@ class ControlsViewController: UIViewController {
             currentPlayer?.play()
         }
     }
+    
+    @IBAction func handleClosedCaptionButtonPressed(_ button: UIButton) {
+        let navController = UINavigationController(rootViewController: ccMenuController)
+        present(navController, animated: true, completion: nil)
+    }
 
 }
 
@@ -190,6 +208,8 @@ extension ControlsViewController: BCOVPlaybackSessionConsumer {
     
     func didAdvance(to session: BCOVPlaybackSession!) {
         currentPlayer = session.player
+        
+        ccMenuController.currentSession = session;
         
         // Reset State
         playingOnSeek = false

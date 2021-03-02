@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E9286A6225EE933A0022AC9F /* ClosedCaptionMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9286A6125EE933A0022AC9F /* ClosedCaptionMenuController.swift */; };
 		E9DEE501216CEC440033C285 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE500216CEC440033C285 /* AppDelegate.swift */; };
 		E9DEE503216CEC440033C285 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE502216CEC440033C285 /* ViewController.swift */; };
 		E9DEE506216CEC440033C285 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE504216CEC440033C285 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E9286A6125EE933A0022AC9F /* ClosedCaptionMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosedCaptionMenuController.swift; sourceTree = "<group>"; };
 		E9DEE4FD216CEC430033C285 /* CustomControls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomControls.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9DEE500216CEC440033C285 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9DEE502216CEC440033C285 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				E9DEE500216CEC440033C285 /* AppDelegate.swift */,
 				E9DEE502216CEC440033C285 /* ViewController.swift */,
 				E9DEE512216CEDDE0033C285 /* ControlsViewController.swift */,
+				E9286A6125EE933A0022AC9F /* ClosedCaptionMenuController.swift */,
 				E9DEE513216CEDDE0033C285 /* ControlsViewController.xib */,
 				E9DEE504216CEC440033C285 /* Main.storyboard */,
 				E9DEE507216CEC450033C285 /* Assets.xcassets */,
@@ -146,6 +149,7 @@
 				E9DEE503216CEC440033C285 /* ViewController.swift in Sources */,
 				E9DEE501216CEC440033C285 /* AppDelegate.swift in Sources */,
 				E9DEE514216CEDDE0033C285 /* ControlsViewController.swift in Sources */,
+				E9286A6225EE933A0022AC9F /* ClosedCaptionMenuController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,6 +15,7 @@
 		49E642261A0280DD00D284AC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49E642241A0280DD00D284AC /* LaunchScreen.xib */; };
 		49E6423E1A02932F00D284AC /* ControlsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E6423C1A02932F00D284AC /* ControlsViewController.m */; };
 		49E6423F1A02932F00D284AC /* ControlsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49E6423D1A02932F00D284AC /* ControlsViewController.xib */; };
+		E9286A6D25EE94BD0022AC9F /* ClosedCaptionMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9286A6C25EE94BD0022AC9F /* ClosedCaptionMenuController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,8 @@
 		49E6423B1A02932F00D284AC /* ControlsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlsViewController.h; sourceTree = "<group>"; };
 		49E6423C1A02932F00D284AC /* ControlsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlsViewController.m; sourceTree = "<group>"; };
 		49E6423D1A02932F00D284AC /* ControlsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlsViewController.xib; sourceTree = "<group>"; };
+		E9286A6B25EE94BD0022AC9F /* ClosedCaptionMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClosedCaptionMenuController.h; sourceTree = "<group>"; };
+		E9286A6C25EE94BD0022AC9F /* ClosedCaptionMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClosedCaptionMenuController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +73,8 @@
 				49E6423D1A02932F00D284AC /* ControlsViewController.xib */,
 				49E6421C1A0280DD00D284AC /* ViewController.h */,
 				49E6421D1A0280DD00D284AC /* ViewController.m */,
+				E9286A6B25EE94BD0022AC9F /* ClosedCaptionMenuController.h */,
+				E9286A6C25EE94BD0022AC9F /* ClosedCaptionMenuController.m */,
 				49E6421F1A0280DD00D284AC /* Main.storyboard */,
 				49E642221A0280DD00D284AC /* Images.xcassets */,
 				49E642241A0280DD00D284AC /* LaunchScreen.xib */,
@@ -163,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9286A6D25EE94BD0022AC9F /* ClosedCaptionMenuController.m in Sources */,
 				49E6421E1A0280DD00D284AC /* ViewController.m in Sources */,
 				49E6421B1A0280DD00D284AC /* AppDelegate.m in Sources */,
 				49E6423E1A02932F00D284AC /* ControlsViewController.m in Sources */,
