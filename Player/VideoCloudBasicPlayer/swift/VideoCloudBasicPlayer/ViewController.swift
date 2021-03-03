@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     let playbackService = BCOVPlaybackService(accountId: kViewControllerAccountID, policyKey: kViewControllerPlaybackServicePolicyKey)
     let playbackController :BCOVPlaybackController
     var nowPlayingHandler: NowPlayingHandler?
+    var playerView: BCOVPUIPlayerView?
     @IBOutlet weak var videoContainerView: UIView!
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,6 +43,8 @@ class ViewController: UIViewController {
         guard let playerView = BCOVPUIPlayerView(playbackController: self.playbackController, options: options, controlsView: BCOVPUIBasicControlView.withVODLayout()) else {
             return
         }
+        
+        self.playerView = playerView
         
         playerView.delegate = self
         
@@ -80,10 +83,22 @@ extension ViewController: BCOVPlaybackControllerDelegate {
     
     func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
         print("Advanced to new session")
+        
+        // Enable route detection for AirPlay
+        // https://developer.apple.com/documentation/avfoundation/avroutedetector/2915762-routedetectionenabled
+        playerView?.controlsView.routeDetector.isRouteDetectionEnabled = true
     }
     
     func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didProgressTo progress: TimeInterval) {
         print("Progress: \(progress) seconds")
+    }
+    
+    func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
+        if lifecycleEvent.eventType == kBCOVPlaybackSessionLifecycleEventEnd {
+            // Disable route detection for AirPlay
+            // https://developer.apple.com/documentation/avfoundation/avroutedetector/2915762-routedetectionenabled
+            playerView?.controlsView.routeDetector.isRouteDetectionEnabled = false
+        }
     }
     
 }
