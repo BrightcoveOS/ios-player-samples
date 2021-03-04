@@ -104,11 +104,25 @@ static NSString * const kViewControllerVideoID = @"6140448705001";
 - (void)playbackController:(id<BCOVPlaybackController>)controller didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 {
     NSLog(@"Advanced to new session.");
+    
+    // Enable route detection for AirPlay
+    // https://developer.apple.com/documentation/avfoundation/avroutedetector/2915762-routedetectionenabled
+    self.playerView.controlsView.routeDetector.routeDetectionEnabled = YES;
 }
 
 - (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didProgressTo:(NSTimeInterval)progress
 {
     NSLog(@"Progress: %0.2f seconds", progress);
+}
+
+- (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session didReceiveLifecycleEvent:(BCOVPlaybackSessionLifecycleEvent *)lifecycleEvent
+{
+    if ([lifecycleEvent.eventType isEqualToString:kBCOVPlaybackSessionLifecycleEventEnd])
+    {
+        // Disable route detection for AirPlay
+        // https://developer.apple.com/documentation/avfoundation/avroutedetector/2915762-routedetectionenabled
+        self.playerView.controlsView.routeDetector.routeDetectionEnabled = NO;
+    }
 }
 
 #pragma mark - BCOVPUIPlayerViewDelegate
