@@ -7,7 +7,7 @@
 
 #import "ControlsViewController.h"
 
-#import <MediaPlayer/MediaPlayer.h>
+#import "ClosedCaptionMenuController.h"
 
 // ** Customize these values **
 static NSTimeInterval const kViewControllerControlsVisibleDuration = 5.;
@@ -24,11 +24,13 @@ static NSTimeInterval const kViewControllerFadeControlsOutAnimationDuration = .2
 @property (nonatomic, weak) IBOutlet UILabel *playheadLabel;
 @property (nonatomic, weak) IBOutlet UISlider *playheadSlider;
 @property (nonatomic, weak) IBOutlet UILabel *durationLabel;
-@property (nonatomic, weak) IBOutlet UIView *fullscreenButton;
+@property (nonatomic, weak) IBOutlet UIButton *fullscreenButton;
 @property (nonatomic, weak) IBOutlet MPVolumeView *externalScreenButton;
+@property (nonatomic, weak) IBOutlet UIButton *closedCaptionButton;
 
 @property (nonatomic, strong) NSTimer *controlTimer;
 @property (nonatomic, assign, getter=wasPlayingOnSeek) BOOL playingOnSeek;
+@property (nonatomic, strong) ClosedCaptionMenuController *ccMenuController;
 
 @end
 
@@ -50,6 +52,11 @@ static NSTimeInterval const kViewControllerFadeControlsOutAnimationDuration = .2
 
     self.externalScreenButton.showsRouteButton = YES;
     self.externalScreenButton.showsVolumeSlider = NO;
+    
+    self.closedCaptionButton.enabled = NO;
+    
+    self.ccMenuController = [[ClosedCaptionMenuController alloc] initWithStyle:UITableViewStyleGrouped];
+    self.ccMenuController.controlsView = self;
 }
 
 - (void)didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
@@ -91,6 +98,9 @@ static NSTimeInterval const kViewControllerFadeControlsOutAnimationDuration = .2
         self.playPauseButton.selected = NO;
 
         [self invalidateTimerAndShowControls];
+    } else if ([kBCOVPlaybackSessionLifecycleEventReady isEqualToString:lifecycleEvent.eventType])
+    {
+        self.ccMenuController.currentSession = session;
     }
 }
 
@@ -152,6 +162,12 @@ static NSTimeInterval const kViewControllerFadeControlsOutAnimationDuration = .2
         sender.selected = YES;
         [self.delegate handleEnterFullScreenButtonPressed];
     }
+}
+
+- (IBAction)handleClosedCaptionButtonPressed:(UIButton *)sender
+{    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.ccMenuController];
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 #pragma mark Hide/Show Controls
@@ -228,6 +244,15 @@ static NSTimeInterval const kViewControllerFadeControlsOutAnimationDuration = .2
 {
     [self.controlTimer invalidate];
     [self showControls];
+}
+
+#pragma mark - Setters
+
+- (void)setClosedCaptionEnabled:(BOOL)closedCaptionEnabled
+{
+    _closedCaptionEnabled = closedCaptionEnabled;
+    
+    self.closedCaptionButton.enabled = closedCaptionEnabled;
 }
 
 #pragma mark Class Methods
