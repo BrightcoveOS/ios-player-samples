@@ -62,8 +62,6 @@ static NSTimeInterval const kViewControllerFadeControlsOutAnimationDuration = .2
 - (void)didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 {
     self.currentPlayer = session.player;
-    
-    self.ccMenuController.currentSession = session;
 
     // Reset State
     self.playingOnSeek = NO;
@@ -100,6 +98,9 @@ static NSTimeInterval const kViewControllerFadeControlsOutAnimationDuration = .2
         self.playPauseButton.selected = NO;
 
         [self invalidateTimerAndShowControls];
+    } else if ([kBCOVPlaybackSessionLifecycleEventReady isEqualToString:lifecycleEvent.eventType])
+    {
+        self.ccMenuController.currentSession = session;
     }
 }
 

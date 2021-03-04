@@ -64,6 +64,8 @@ class ControlsViewController: UIViewController {
         
         externalScreenButton.showsRouteButton = true
         externalScreenButton.showsVolumeSlider = false
+        
+        closedCaptionButton.isEnabled = false
     }
     
     // MARK: - Misc
@@ -209,8 +211,6 @@ extension ControlsViewController: BCOVPlaybackSessionConsumer {
     func didAdvance(to session: BCOVPlaybackSession!) {
         currentPlayer = session.player
         
-        ccMenuController.currentSession = session;
-        
         // Reset State
         playingOnSeek = false
         playheadLabel.text = formatTime(timeInterval: 0)
@@ -244,6 +244,8 @@ extension ControlsViewController: BCOVPlaybackSessionConsumer {
         case kBCOVPlaybackSessionLifecycleEventPause:
             playPauseButton.isSelected = false
             invalidateTimerAndShowControls()
+        case kBCOVPlaybackSessionLifecycleEventReady:
+            ccMenuController.currentSession = session
         default:
             break
         }
