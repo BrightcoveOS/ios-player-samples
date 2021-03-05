@@ -86,7 +86,7 @@ extension ViewController: BCOVPlaybackControllerDelegate {
         
         // Enable route detection for AirPlay
         // https://developer.apple.com/documentation/avfoundation/avroutedetector/2915762-routedetectionenabled
-        playerView?.controlsView.routeDetector.isRouteDetectionEnabled = true
+        playerView?.controlsView.routeDetector?.isRouteDetectionEnabled = true
     }
     
     func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didProgressTo progress: TimeInterval) {
@@ -97,7 +97,7 @@ extension ViewController: BCOVPlaybackControllerDelegate {
         if lifecycleEvent.eventType == kBCOVPlaybackSessionLifecycleEventEnd {
             // Disable route detection for AirPlay
             // https://developer.apple.com/documentation/avfoundation/avroutedetector/2915762-routedetectionenabled
-            playerView?.controlsView.routeDetector.isRouteDetectionEnabled = false
+            playerView?.controlsView.routeDetector?.isRouteDetectionEnabled = false
         }
     }
     
