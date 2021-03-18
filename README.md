@@ -105,6 +105,7 @@ SSAI samples demonstrate how to use the SSAI plugin. These are intended to cover
 - An example of setting up lock screen playback controls can be found in the  `VideoCloudBasicPlayer` sample app.
 - An example of creation a `BCOVPlaybackController` using a view strategy can be found in the `PlayerUI` section.
 - An example of creating a custom Audio & Subtitles menu can be found in `CustomControls`
+- An example of creating a `BCOVVideo` directly from a URL can be found in `FairPlayIMAPlayer`
 
 ### Localization 
 

@@ -12,6 +12,12 @@ extension BCOVVideo {
     
     func updateVideo(withVMAPTag vmapTag: String) -> BCOVVideo {
         
+        // The video does not have the required VMAP tag on the video, so this code demonstrates
+        // how to update a video to set the ad tags on the video.
+        // You are responsible for determining where the ad tag should originate from.
+        // We advise that if you choose to hard code it into your app, that you provide
+        // a mechanism to update it without having to submit an update to your app.
+        
         return update { (mutableVideo: BCOVMutableVideo?) in
             guard let mutableVideo = mutableVideo else {
                 return

@@ -16,6 +16,11 @@ struct PlaybackConfig {
     
     static let FairPlayPublisherId = ""
     static var FairPlayApplicationId = ""
+    
+    // ** Customize these values with your own account information **
+    static let PolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
+    static let AccountID = "5434391461001"
+    static let VideoID = "6140448705001"
 }
 
 struct IMAConfig {
@@ -52,6 +57,10 @@ class ViewController: UIViewController {
         ])
         
         return _playerView
+    }()
+    
+    private lazy var playbackService: BCOVPlaybackService = {
+        return BCOVPlaybackService(accountId: PlaybackConfig.AccountID, policyKey: PlaybackConfig.PolicyKey)
     }()
     
     private var playbackController: BCOVPlaybackController?
@@ -206,16 +215,42 @@ class ViewController: UIViewController {
         
         print("Request video content")
         
-        // Here, you can retrieve BCOVVideo objects from the Playback Service. You can also
-        // create your own BCOVVideo objects directly from URLs if you have them, as shown here:
-        if let url = URL(string: PlaybackConfig.FairPlayHLSVideoURL) {
+        // Here, you can retrieve BCOVVideo objects from the Playback Service, alternatively you may
+        // create your own BCOVVideo objects directly from URLs if you have them.
+        // You can see an example of both methods below. Simply change `usePlaybackService` to
+        // true or false depending on which method you want to use.
+        let usePlaybackService = false
+        
+        if (usePlaybackService) {
 
-            var video = BCOVVideo(hlsSourceURL: url)
-            video = video.updateVideo(withVMAPTag: IMAConfig.VMAPResponseAdTag)
+            playbackService.findVideo(withVideoID: PlaybackConfig.VideoID, parameters: nil) { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
+             
+                if let error = error {
+                    print("Error retrieving video: \(error.localizedDescription)")
+                }
+                
+                if let video = video {
+                    let _video = video.updateVideo(withVMAPTag: IMAConfig.VMAPResponseAdTag)
+                    
+                    if let playlist = BCOVPlaylist(video: _video) {
+                        self?.playbackController?.setVideos(playlist as NSFastEnumeration)
+                    }
+                }
 
-            if let playlist = BCOVPlaylist(video: video) {
-                playbackController?.setVideos(playlist as NSFastEnumeration)
             }
+    
+        } else {
+
+            if let url = URL(string: PlaybackConfig.FairPlayHLSVideoURL) {
+
+                var video = BCOVVideo(hlsSourceURL: url)
+                video = video.updateVideo(withVMAPTag: IMAConfig.VMAPResponseAdTag)
+
+                if let playlist = BCOVPlaylist(video: video) {
+                    playbackController?.setVideos(playlist as NSFastEnumeration)
+                }
+            }
+
         }
 
     }
