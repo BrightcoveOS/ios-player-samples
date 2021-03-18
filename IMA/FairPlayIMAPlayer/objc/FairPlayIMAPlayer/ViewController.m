@@ -23,6 +23,11 @@ NSString * kViewControllerIMAPublisherID = @"insertyourpidhere";
 NSString * kViewControllerIMALanguage = @"en";
 NSString * kViewControllerIMAVMAPResponseAdTag = @"http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=%2F15018773%2Feverything2&ciu_szs=300x250%2C468x60%2C728x90&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=dummy&correlator=[timestamp]&cmsid=133&vid=10XWSh7W4so&ad_rule=1";
 
+// ** Customize these values with your own account information **
+static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
+static NSString * const kViewControllerAccountID = @"5434391461001";
+static NSString * const kViewControllerVideoID = @"6140448705001";
+
 
 // Replace with your own FairPlay account info:
 NSString * kFairPlayPublisherId = @"00000000-0000-0000-0000-000000000000";
@@ -35,6 +40,7 @@ NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/st
 @interface ViewController () <BCOVPlaybackControllerDelegate, IMAWebOpenerDelegate>
 
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
+@property (nonatomic, strong) BCOVPlaybackService *playbackService;
 @property (nonatomic) BCOVPUIPlayerView *playerView;
 @property (nonatomic, weak) IBOutlet UIView *videoContainer;
 
@@ -272,38 +278,50 @@ NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/st
 {
     NSLog(@"Request video content");
 
-    // Here, you can retrieve BCOVVideo objects from the Playback Service. You can also
-    // create your own BCOVVideo objects directly from URLs if you have them, as shown here:
+    // Here, you can retrieve BCOVVideo objects from the Playback Service, alternatively you may
+    // create your own BCOVVideo objects directly from URLs if you have them.
+    // You can see an example of both methods below. Simply change `usePlaybackService` to
+    // YES or NOR depending on which method you want to use.
+    
+    BOOL usePlaybackService = YES;
+    
+    if (usePlaybackService)
+    {
+        self.playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kViewControllerAccountID
+                                                                    policyKey:kViewControllerPlaybackServicePolicyKey];
+        
+        [self.playbackService findVideoWithVideoID:kViewControllerVideoID parameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
+           
+            if (error)
+            {
+                NSLog(@"ViewController Debug - Error retrieving video: %@", error);
+            }
+            else
+            {
+                video = [self updateVideoWithVMAPTag:video];
+                [self.playbackController setVideos:@[video]];
+            }
+            
+        }];
+    }
+    else
+    {
+        BCOVVideo *video = [BCOVVideo videoWithHLSSourceURL:[NSURL URLWithString:kFairPlayHLSVideoURL]];
+        video = [self updateVideoWithVMAPTag:video];
 
-    BCOVVideo *video = [BCOVVideo videoWithHLSSourceURL:[NSURL URLWithString:kFairPlayHLSVideoURL]];
-    BCOVPlaylist *playlist = [[BCOVPlaylist alloc] initWithVideo:video];
+        [self.playbackController setVideos:@[video]];
+    }
 
-    video = [self updateVideoWithVMAPTag:video];
-
-    // The video does not have the required VMAP tag on the video, so this code demonstrates
-    // how to update a playlist to set the ad tags on the video.
-    // You are responsible for determining where the ad tag should originate from.
-    // We advise that if you choose to hard code it into your app, that you provide
-    // a mechanism to update it without having to submit an update to your app.
-    BCOVPlaylist *updatedPlaylist = [playlist update:^(id<BCOVMutablePlaylist> mutablePlaylist) {
-
-        NSMutableArray *updatedVideos = [NSMutableArray arrayWithCapacity:mutablePlaylist.videos.count];
-
-        for (BCOVVideo *video in mutablePlaylist.videos)
-        {
-            // Add VMAP tag to video; see method below
-            [updatedVideos addObject:[self updateVideoWithVMAPTag:video]];
-        }
-
-        mutablePlaylist.videos = updatedVideos;
-
-    }];
-
-    [self.playbackController setVideos:updatedPlaylist];
 }
 
 - (BCOVVideo *)updateVideoWithVMAPTag:(BCOVVideo *)video
 {
+    // The video does not have the required VMAP tag on the video, so this code demonstrates
+    // how to update a video to set the ad tags on the video.
+    // You are responsible for determining where the ad tag should originate from.
+    // We advise that if you choose to hard code it into your app, that you provide
+    // a mechanism to update it without having to submit an update to your app.
+
     return [video update:^(id<BCOVMutableVideo> mutableVideo) {
 
         // The BCOVIMA plugin will look for the presence of kBCOVIMAAdTag in
