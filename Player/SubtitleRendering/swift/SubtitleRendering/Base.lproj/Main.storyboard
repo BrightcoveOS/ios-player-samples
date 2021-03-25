@@ -12,7 +12,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SubtitleRendering" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -65,8 +65,8 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="C1F-ws-O4z"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="2u9-ir-pUW"/>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="WdT-3Y-71R"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="ueZ-U7-Nv7"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -86,9 +86,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="subtitlesLabel" destination="HAP-Wn-TSB" id="knN-4Y-rbR"/>
-                        <outlet property="tableView" destination="dcz-zp-FTZ" id="fls-K3-XfL"/>
-                        <outlet property="videoContainer" destination="S3g-mk-SJz" id="8dX-fu-k5Z"/>
+                        <outlet property="subtitlesLabel" destination="HAP-Wn-TSB" id="kai-1i-YzS"/>
+                        <outlet property="tableView" destination="dcz-zp-FTZ" id="o0H-4b-Pld"/>
+                        <outlet property="videoContainer" destination="S3g-mk-SJz" id="f8K-1l-i8S"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

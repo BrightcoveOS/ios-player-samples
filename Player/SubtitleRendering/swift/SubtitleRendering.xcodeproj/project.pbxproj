@@ -12,6 +12,7 @@
 		E97EFB52260CFE270052C061 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E97EFB50260CFE270052C061 /* Main.storyboard */; };
 		E97EFB54260CFE2E0052C061 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E97EFB53260CFE2E0052C061 /* Assets.xcassets */; };
 		E97EFB57260CFE2E0052C061 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E97EFB55260CFE2E0052C061 /* LaunchScreen.storyboard */; };
+		E97EFB6C260D04520052C061 /* SubtitleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EFB6B260D04520052C061 /* SubtitleManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		E97EFB53260CFE2E0052C061 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E97EFB56260CFE2E0052C061 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E97EFB58260CFE2E0052C061 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E97EFB6B260D04520052C061 /* SubtitleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				E97EFB4A260CFE270052C061 /* AppDelegate.swift */,
 				E97EFB4E260CFE270052C061 /* ViewController.swift */,
+				E97EFB6B260D04520052C061 /* SubtitleManager.swift */,
 				E97EFB50260CFE270052C061 /* Main.storyboard */,
 				E97EFB53260CFE2E0052C061 /* Assets.xcassets */,
 				E97EFB55260CFE2E0052C061 /* LaunchScreen.storyboard */,
@@ -136,6 +139,7 @@
 			files = (
 				E97EFB4F260CFE270052C061 /* ViewController.swift in Sources */,
 				E97EFB4B260CFE270052C061 /* AppDelegate.swift in Sources */,
+				E97EFB6C260D04520052C061 /* SubtitleManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,7 +292,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.compannyname.subtitlerendering.SubtitleRendering;
+				PRODUCT_BUNDLE_IDENTIFIER = com.compannyname.SubtitleRendering;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -306,7 +310,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.compannyname.subtitlerendering.SubtitleRendering;
+				PRODUCT_BUNDLE_IDENTIFIER = com.compannyname.SubtitleRendering;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

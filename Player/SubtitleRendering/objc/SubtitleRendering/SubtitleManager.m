@@ -70,8 +70,6 @@ static NSString * const kSubtitlePayloadKey = @"PayloadKey";
 - (void)parseSubtitleString:(NSString *)subtitleString
 {
     NSArray *lines = [subtitleString componentsSeparatedByString:@"\n"];
-
-    BOOL didPassFirstTimestamp = NO;
     
     NSMutableArray *subtitles = @[].mutableCopy;
     
@@ -89,7 +87,7 @@ static NSString * const kSubtitlePayloadKey = @"PayloadKey";
         if (regexError)
         {
             NSLog(@"Error: %@", regexError.localizedDescription);
-            return;
+            break;
         }
 
         if (matches.count == 1)
@@ -113,14 +111,9 @@ static NSString * const kSubtitlePayloadKey = @"PayloadKey";
             currentSubtitle = [Subtitle new];
             currentSubtitle.startTime = CMTimeMake(startTime, 60);
             currentSubtitle.endTime = CMTimeMake(endTime, 60);
-            
-            if (!didPassFirstTimestamp)
-            {
-                didPassFirstTimestamp = YES;
-            }
         }
 
-        if (matches.count == 0 && didPassFirstTimestamp && line.length > 0)
+        if (matches.count == 0 && currentSubtitle != nil && line.length > 0)
         {
             if (currentSubtitle.text)
             {

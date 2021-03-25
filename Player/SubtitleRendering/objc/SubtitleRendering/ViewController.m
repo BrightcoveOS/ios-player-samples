@@ -15,7 +15,7 @@ static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM0T
 static NSString * const kViewControllerAccountID = @"5434391461001";
 static NSString * const kViewControllerVideoID = @"5702141808001";
 
-@interface ViewController ()<BCOVPUIPlayerViewDelegate, BCOVPlaybackControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface ViewController ()<BCOVPlaybackControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) BCOVPlaybackService *playbackService;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
@@ -65,12 +65,7 @@ static NSString * const kViewControllerVideoID = @"5702141808001";
 
 - (void)setupPlayerView
 {
-    // Set up our player view. Create with a standard VOD layout.
-    BCOVPUIPlayerViewOptions *options = [BCOVPUIPlayerViewOptions new];
-    options.showPictureInPictureButton = YES;
-    
-    BCOVPUIPlayerView *playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:options controlsView:[BCOVPUIBasicControlView basicControlViewWithVODLayout] ];
-    playerView.delegate = self;
+    BCOVPUIPlayerView *playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:nil controlsView:[BCOVPUIBasicControlView basicControlViewWithVODLayout] ];
 
     [_videoContainer addSubview:playerView];
     playerView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -105,7 +100,7 @@ static NSString * const kViewControllerVideoID = @"5702141808001";
         }
         else
         {
-            NSLog(@"ViewController Debug - Error retrieving video playlist: `%@`", error);
+            NSLog(@"ViewController Debug - Error retrieving video: `%@`", error);
         }
 
     }];
@@ -189,12 +184,7 @@ static NSString * const kViewControllerVideoID = @"5702141808001";
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (section == 0)
-    {
-        return @"Text Tracks";
-    }
-    
-    return nil;
+    return section == 0 ? @"Text Tracks" : nil;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -246,8 +236,6 @@ static NSString * const kViewControllerVideoID = @"5702141808001";
 
 - (void)playbackController:(id<BCOVPlaybackController>)controller didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 {
-    [self.videoContainer bringSubviewToFront:self.subtitlesLabel];
-
     __weak typeof(self) weakSelf = self;
     [session.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 60) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
         
