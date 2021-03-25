@@ -26,7 +26,6 @@ static NSString * const kViewControllerVideoID = @"5702141808001";
 @property (nonatomic, weak) IBOutlet UIView *videoContainer;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UILabel *subtitlesLabel;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *subtitlesBottomConstraint;
 
 @end
 
@@ -248,14 +247,7 @@ static NSString * const kViewControllerVideoID = @"5702141808001";
 - (void)playbackController:(id<BCOVPlaybackController>)controller didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 {
     [self.videoContainer bringSubviewToFront:self.subtitlesLabel];
-    
-    // Position the subtitles container if the controls
-    // are already visible
-    if (self.playerView.controlsFadingViewVisible)
-    {
-        self.subtitlesBottomConstraint.constant = 100;
-    }
-    
+
     __weak typeof(self) weakSelf = self;
     [session.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 60) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
         
@@ -268,29 +260,6 @@ static NSString * const kViewControllerVideoID = @"5702141808001";
         }
         
     }];
-}
-
-#pragma mark - BCOVPUIPlayerViewDelegate
-
-- (void)playerView:(BCOVPUIPlayerView *)playerView controlsFadingViewDidFadeIn:(UIView *)controlsFadingView
-{
-    // Move the subtitle container up so it isn't
-    // hidden by the controls
-    [UIView animateWithDuration:0.15 animations:^{
-        self.subtitlesBottomConstraint.constant = 100;
-        [self.view layoutIfNeeded];
-    }];
-}
-
-- (void)playerView:(BCOVPUIPlayerView *)playerView controlsFadingViewDidFadeOut:(UIView *)controlsFadingView
-{
-    // Move the subtitle container back to the bottom
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [UIView animateWithDuration:0.15 animations:^{
-            self.subtitlesBottomConstraint.constant = 20;
-            [self.view layoutIfNeeded];
-        }];
-    });
 }
 
 @end

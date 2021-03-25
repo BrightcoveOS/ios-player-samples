@@ -12,7 +12,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var videoContainer: UIView!
     @IBOutlet weak var subtitlesLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var subtitlesBottomConstraint: UIView!
 
 }
 
