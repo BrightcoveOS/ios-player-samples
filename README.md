@@ -98,6 +98,10 @@ SidecarSubtitles sample demonstrates how to add WebVTT subtitles to an HLS manif
 
 SSAI samples demonstrate how to use the SSAI plugin. These are intended to cover playback of Dynamic Delivery with or without Server-Side Ad Insertion, and play pre-rolls using Google IMA for SSAI Live Streams.
 
+#### SubtitleRendering
+
+SubtitleRendering samples demonstrate how to parse and display WEBVTT files so that you can customize the positioning and look of your subtitles.
+
 ### Feature Highlights
 
 - An example of creating a `BCOVPlaybackSessionConsumer` can be found in the `OfflinePlayer` and `CustomControls` sample apps.
