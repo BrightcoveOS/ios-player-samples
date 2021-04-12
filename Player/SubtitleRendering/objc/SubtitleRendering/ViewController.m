@@ -236,6 +236,15 @@ static NSString * const kViewControllerVideoID = @"5702141808001";
 
 - (void)playbackController:(id<BCOVPlaybackController>)controller didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 {
+    // When Closed Captions + SDK is anabled in the device settings, Subtitles and
+    // Closed-Captions tracks might be forcibly rendered over the video. Rendering them
+    // also in a separate UIView may be undesirable.
+    if (UIAccessibilityIsClosedCaptioningEnabled())
+    {
+        NSLog(@"WARNING: Closed Captions + SDH is enabled in the device Accessibility settings.");
+        NSLog(@"         A text track might be forcibly rendered in the video view.");
+    }
+    
     __weak typeof(self) weakSelf = self;
     [session.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 60) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
         
