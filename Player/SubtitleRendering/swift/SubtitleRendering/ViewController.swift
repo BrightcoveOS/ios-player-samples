@@ -221,6 +221,12 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: BCOVPlaybackControllerDelegate {
     
     func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
+        
+        if (UIAccessibility.isClosedCaptioningEnabled) {
+            NSLog("WARNING: Closed Captions + SDH is enabled in the device Accessibility settings.")
+            NSLog("         A text track might be forcibly rendered in the video view.")
+        }
+        
         session.player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 60), queue: DispatchQueue.main) { [weak self] (time: CMTime) in
             if let strongSelf = self, let subtitle = strongSelf.subtitleManager?.subtitleForTime(time) {
                 strongSelf.subtitlesLabel.text = subtitle
