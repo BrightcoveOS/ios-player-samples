@@ -22,7 +22,9 @@ static NSString * const kViewControllerVideoID = @"6140448705001";
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
 @property (nonatomic) BCOVPUIPlayerView *playerView;
 @property (nonatomic, weak) IBOutlet UIView *videoContainer;
+@property (nonatomic, weak) IBOutlet UIButton *muteButton;
 @property (nonatomic, strong) NowPlayingHandler *nowPlayingHandler;
+@property (nonatomic, weak) AVPlayer *currentPlayer;
 
 @end
 
@@ -57,6 +59,8 @@ static NSString * const kViewControllerVideoID = @"6140448705001";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self setUpAudioSession];
 
     // Set up our player view. Create with a standard VOD layout.
     BCOVPUIPlayerViewOptions *options = [BCOVPUIPlayerViewOptions new];
@@ -83,6 +87,50 @@ static NSString * const kViewControllerVideoID = @"6140448705001";
     [self requestContentFromPlaybackService];
 }
 
+- (void)setUpAudioSession
+{
+    NSError *categoryError = nil;
+    BOOL success;
+    
+    // If the player is muted, then allow mixing.
+    // Ensure other apps can have their background audio
+    // active when this app is in foreground
+    if (self.currentPlayer.isMuted)
+    {
+        success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&categoryError];
+    }
+    else
+    {
+        success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:0 error:&categoryError];
+    }
+    
+    if (!success)
+    {
+        NSLog(@"AppDelegate Debug - Error setting AVAudioSession category.  Because of this, there may be no sound. `%@`", categoryError);
+    }
+}
+
+- (IBAction)muteButtonPressed:(id)sender
+{
+    if (!self.currentPlayer)
+    {
+        return;
+    }
+    
+    if (self.currentPlayer.isMuted)
+    {
+        [self.muteButton setTitle:@"Mute AVPlayer" forState:UIControlStateNormal];
+    }
+    else
+    {
+        [self.muteButton setTitle:@"Unmute AVPlayer" forState:UIControlStateNormal];
+    }
+    
+    self.currentPlayer.muted = !self.currentPlayer.isMuted;
+    
+    [self setUpAudioSession];
+}
+
 - (void)requestContentFromPlaybackService
 {
     [self.playbackService findVideoWithVideoID:kViewControllerVideoID parameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
@@ -104,6 +152,8 @@ static NSString * const kViewControllerVideoID = @"6140448705001";
 - (void)playbackController:(id<BCOVPlaybackController>)controller didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 {
     NSLog(@"Advanced to new session.");
+    
+    self.currentPlayer = session.player;
     
     // Enable route detection for AirPlay
     // https://developer.apple.com/documentation/avfoundation/avroutedetector/2915762-routedetectionenabled
