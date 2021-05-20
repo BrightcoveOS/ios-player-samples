@@ -859,7 +859,7 @@ static unsigned long long int directorySize(NSString *folderPath)
     // Load poster image into the detail view
     BCOVVideo *video = [DownloadManager.sharedInstance.offlineVideoManager videoObjectFromOfflineVideoToken:self.selectedOfflineVideoToken];
 
-    UIImage *defaultImage = [UIImage imageNamed:@"bcov"];
+    UIImage *defaultImage = [UIImage imageNamed:@"BrightcoveLogo_96_x_96"];
     NSString *posterPathString = video.properties[kBCOVOfflineVideoPosterFilePathPropertyKey];
     UIImage *posterImage = [UIImage imageWithContentsOfFile:posterPathString];
     

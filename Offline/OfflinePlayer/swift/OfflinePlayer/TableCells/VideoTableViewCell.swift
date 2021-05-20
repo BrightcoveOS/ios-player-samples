@@ -109,7 +109,7 @@ class VideoTableViewCell: UITableViewCell {
         }
         
         // Use cached thumbnail image for dipslay
-        thumbnailImageView.image = thumbnailImage ?? UIImage(named: "bcov")
+        thumbnailImageView.image = thumbnailImage ?? UIImage(named: "BrightcoveLogo_96_x_96")
         
         updateStatusButtonImage(videoState)
         
@@ -155,7 +155,7 @@ class VideoTableViewCell: UITableViewCell {
         // Set the thumbnail image
         if let thumbnailPathString = video.properties[kBCOVOfflineVideoThumbnailFilePathPropertyKey] as? String {
             let thumbnailImage = UIImage(contentsOfFile: thumbnailPathString)
-            thumbnailImageView?.image = thumbnailImage ?? UIImage(named: "bcov")
+            thumbnailImageView?.image = thumbnailImage ?? UIImage(named: "BrightcoveLogo_96_x_96")
         }
         
         handleDownloadState(offlineStatus: offlineStatus)

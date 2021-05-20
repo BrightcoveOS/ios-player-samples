@@ -10,16 +10,6 @@
 		223B44EF2003E7D400C6C60C /* DownloadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223B44E92003E7D400C6C60C /* DownloadsViewController.m */; };
 		223B44F02003E7D400C6C60C /* VideosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223B44EC2003E7D400C6C60C /* VideosViewController.m */; };
 		223B44F12003E7D400C6C60C /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223B44ED2003E7D400C6C60C /* SettingsViewController.m */; };
-		22EF4AD62003FF0500F85A29 /* bcov.png in Resources */ = {isa = PBXBuildFile; fileRef = 22EF4ACC2003FEFF00F85A29 /* bcov.png */; };
-		22EF4AD72003FF0C00F85A29 /* cancelled.png in Resources */ = {isa = PBXBuildFile; fileRef = 22EF4ACD2003FEFF00F85A29 /* cancelled.png */; };
-		22EF4AD82003FF0C00F85A29 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = 22EF4ACE2003FEFF00F85A29 /* download.png */; };
-		22EF4AD92003FF0C00F85A29 /* downloaded.png in Resources */ = {isa = PBXBuildFile; fileRef = 22EF4ACF2003FEFF00F85A29 /* downloaded.png */; };
-		22EF4ADA2003FF0C00F85A29 /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 22EF4AD02003FEFF00F85A29 /* error.png */; };
-		22EF4ADB2003FF0C00F85A29 /* error2.png in Resources */ = {isa = PBXBuildFile; fileRef = 22EF4AD12003FEFF00F85A29 /* error2.png */; };
-		22EF4ADC2003FF0C00F85A29 /* inprogress.png in Resources */ = {isa = PBXBuildFile; fileRef = 22EF4AD22003FEFF00F85A29 /* inprogress.png */; };
-		22EF4ADD2003FF0C00F85A29 /* paused.png in Resources */ = {isa = PBXBuildFile; fileRef = 22EF4AD32003FEFF00F85A29 /* paused.png */; };
-		22EF4ADE2003FF0C00F85A29 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22EF4AD42003FEFF00F85A29 /* settings@2x.png */; };
-		22EF4ADF2003FF0C00F85A29 /* videoplaylist@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22EF4AD52003FEFF00F85A29 /* videoplaylist@2x.png */; };
 		342B10D21FFED58C00A2D343 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B10D11FFED58C00A2D343 /* AppDelegate.m */; };
 		342B10D81FFED58C00A2D343 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 342B10D61FFED58C00A2D343 /* Main.storyboard */; };
 		342B10DA1FFED58C00A2D343 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 342B10D91FFED58C00A2D343 /* Assets.xcassets */; };
@@ -250,20 +240,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22EF4AD72003FF0C00F85A29 /* cancelled.png in Resources */,
-				22EF4ADE2003FF0C00F85A29 /* settings@2x.png in Resources */,
-				22EF4ADF2003FF0C00F85A29 /* videoplaylist@2x.png in Resources */,
 				342B10DD1FFED58C00A2D343 /* LaunchScreen.storyboard in Resources */,
-				22EF4ADB2003FF0C00F85A29 /* error2.png in Resources */,
-				22EF4ADC2003FF0C00F85A29 /* inprogress.png in Resources */,
-				22EF4AD62003FF0500F85A29 /* bcov.png in Resources */,
 				E91C9E7823677A7600500348 /* VideoTableViewCell.xib in Resources */,
 				342B10DA1FFED58C00A2D343 /* Assets.xcassets in Resources */,
-				22EF4ADD2003FF0C00F85A29 /* paused.png in Resources */,
 				342B10D81FFED58C00A2D343 /* Main.storyboard in Resources */,
-				22EF4AD92003FF0C00F85A29 /* downloaded.png in Resources */,
-				22EF4ADA2003FF0C00F85A29 /* error.png in Resources */,
-				22EF4AD82003FF0C00F85A29 /* download.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
