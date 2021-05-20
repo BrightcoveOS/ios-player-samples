@@ -106,6 +106,7 @@ SubtitleRendering samples demonstrate how to parse and display WEBVTT files so t
 
 - An example of creating a `BCOVPlaybackSessionConsumer` can be found in the `OfflinePlayer` and `CustomControls` sample apps.
 - Picture-in-Picture functionality can be found in the `VideoCloudBasicPlayer` sample app. 
+- An example of configuring AVAudioSession based on the `mute` state of AVPlayer can be found in the `VideoCloudBasicPlayer` sample app. 
 - An example of setting up lock screen playback controls can be found in the  `VideoCloudBasicPlayer` sample app.
 - An example of creation a `BCOVPlaybackController` using a view strategy can be found in the `PlayerUI` section.
 - An example of creating a custom Audio & Subtitles menu can be found in `CustomControls`

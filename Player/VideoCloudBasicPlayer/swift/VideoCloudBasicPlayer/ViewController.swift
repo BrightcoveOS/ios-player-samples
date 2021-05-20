@@ -20,7 +20,9 @@ class ViewController: UIViewController {
     let playbackController :BCOVPlaybackController
     var nowPlayingHandler: NowPlayingHandler?
     var playerView: BCOVPUIPlayerView?
+    weak var currentPlayer: AVPlayer?
     @IBOutlet weak var videoContainerView: UIView!
+    @IBOutlet weak var muteButton: UIButton!
     
     required init?(coder aDecoder: NSCoder) {
         playbackController = (sharedSDKManager?.createPlaybackController())!
@@ -35,6 +37,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setUpAudioSession()
         
         // Set up our player view. Create with a standard VOD layout.
         let options = BCOVPUIPlayerViewOptions()
@@ -76,6 +80,52 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    func setUpAudioSession() {
+        var categoryError :NSError?
+        var success: Bool
+        do {
+            // see https://developer.apple.com/documentation/avfoundation/avaudiosessioncategoryplayback
+            if let currentPlayer = currentPlayer {
+                
+                // If the player is muted, then allow mixing.
+                // Ensure other apps can have their background audio
+                // active when this app is in foreground
+                if currentPlayer.isMuted {
+                    try AVAudioSession.sharedInstance().setCategory(.playback, options: .mixWithOthers)
+                } else {
+                    try AVAudioSession.sharedInstance().setCategory(.playback, options: AVAudioSession.CategoryOptions(rawValue: 0))
+                }
+            } else {
+                try AVAudioSession.sharedInstance().setCategory(.playback, options: AVAudioSession.CategoryOptions(rawValue: 0))
+            }
+            
+            success = true
+        } catch let error as NSError {
+            categoryError = error
+            success = false
+        }
+
+        if !success {
+            print("AppDelegate Debug - Error setting AVAudioSession category.  Because of this, there may be no sound. \(categoryError!)")
+        }
+    }
+    
+    @IBAction func muteButtonPressed(_ button: UIButton) {
+        guard let currentPlayer = currentPlayer else {
+            return
+        }
+        
+        if currentPlayer.isMuted {
+            muteButton?.setTitle("Mute AVPlayer", for: .normal)
+        } else {
+            muteButton?.setTitle("Unmute AVPlayer", for: .normal)
+        }
+        
+        currentPlayer.isMuted = !currentPlayer.isMuted
+        
+        setUpAudioSession()
+    }
 
 }
 
@@ -83,6 +133,8 @@ extension ViewController: BCOVPlaybackControllerDelegate {
     
     func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
         print("Advanced to new session")
+        
+        currentPlayer = session.player
         
         // Enable route detection for AirPlay
         // https://developer.apple.com/documentation/avfoundation/avroutedetector/2915762-routedetectionenabled
