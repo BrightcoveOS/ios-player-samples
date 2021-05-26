@@ -14,16 +14,6 @@
 		E99B604F2170E1B300B65C75 /* DownloadedVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99B604E2170E1B300B65C75 /* DownloadedVideoViewController.swift */; };
 		E99B60512170E1BB00B65C75 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99B60502170E1BB00B65C75 /* SettingsViewController.swift */; };
 		E99B60532170E1C500B65C75 /* StreamingVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99B60522170E1C500B65C75 /* StreamingVideoViewController.swift */; };
-		E99B605F2170E35A00B65C75 /* videoplaylist@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E99B60552170E35A00B65C75 /* videoplaylist@2x.png */; };
-		E99B60602170E35A00B65C75 /* error2.png in Resources */ = {isa = PBXBuildFile; fileRef = E99B60562170E35A00B65C75 /* error2.png */; };
-		E99B60612170E35A00B65C75 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = E99B60572170E35A00B65C75 /* download.png */; };
-		E99B60622170E35A00B65C75 /* bcov.png in Resources */ = {isa = PBXBuildFile; fileRef = E99B60582170E35A00B65C75 /* bcov.png */; };
-		E99B60632170E35A00B65C75 /* cancelled.png in Resources */ = {isa = PBXBuildFile; fileRef = E99B60592170E35A00B65C75 /* cancelled.png */; };
-		E99B60642170E35A00B65C75 /* inprogress.png in Resources */ = {isa = PBXBuildFile; fileRef = E99B605A2170E35A00B65C75 /* inprogress.png */; };
-		E99B60652170E35A00B65C75 /* downloaded.png in Resources */ = {isa = PBXBuildFile; fileRef = E99B605B2170E35A00B65C75 /* downloaded.png */; };
-		E99B60662170E35A00B65C75 /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = E99B605C2170E35A00B65C75 /* error.png */; };
-		E99B60672170E35A00B65C75 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E99B605D2170E35A00B65C75 /* settings@2x.png */; };
-		E99B60682170E35A00B65C75 /* paused.png in Resources */ = {isa = PBXBuildFile; fileRef = E99B605E2170E35A00B65C75 /* paused.png */; };
 		E99B606A2170EAB000B65C75 /* VideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99B60692170EAB000B65C75 /* VideoTableViewCell.swift */; };
 		E99B606C2170EC9B00B65C75 /* VideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99B606B2170EC9B00B65C75 /* VideoManager.swift */; };
 		E99B60702170F39A00B65C75 /* StreamingTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99B606F2170F39A00B65C75 /* StreamingTableDataSource.swift */; };
@@ -241,20 +231,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E99B60602170E35A00B65C75 /* error2.png in Resources */,
-				E99B60682170E35A00B65C75 /* paused.png in Resources */,
-				E99B60672170E35A00B65C75 /* settings@2x.png in Resources */,
 				E99B60472170DDD500B65C75 /* LaunchScreen.storyboard in Resources */,
 				E99B60442170DDD500B65C75 /* Assets.xcassets in Resources */,
-				E99B60632170E35A00B65C75 /* cancelled.png in Resources */,
-				E99B60652170E35A00B65C75 /* downloaded.png in Resources */,
 				E99B60762174ED0B00B65C75 /* VideoTableViewCell.xib in Resources */,
-				E99B60662170E35A00B65C75 /* error.png in Resources */,
-				E99B605F2170E35A00B65C75 /* videoplaylist@2x.png in Resources */,
 				E99B60422170DDD400B65C75 /* Main.storyboard in Resources */,
-				E99B60642170E35A00B65C75 /* inprogress.png in Resources */,
-				E99B60622170E35A00B65C75 /* bcov.png in Resources */,
-				E99B60612170E35A00B65C75 /* download.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

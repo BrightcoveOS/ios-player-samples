@@ -76,7 +76,7 @@
 
     self.detailLabel.text = [NSString stringWithFormat:@"%d sec / %0.2f MB\n%@", duration, downloadSize, detailString];
 
-    self.thumbnailImageView.image = thumbnailImage = thumbnailImage ?: [UIImage imageNamed:@"bcov"];
+    self.thumbnailImageView.image = thumbnailImage = thumbnailImage ?: [UIImage imageNamed:@"BrightcoveLogo_96_x_96"];
     
     [self setStateImage:videoState];
 }
@@ -135,7 +135,7 @@
 
     // Set up the image view
     // Use a default image if the cached image is not available
-    self.thumbnailImageView.image = thumbnailImage ?: [UIImage imageNamed:@"bcov"];
+    self.thumbnailImageView.image = thumbnailImage ?: [UIImage imageNamed:@"BrightcoveLogo_96_x_96"];
     
     if (offlineStatus == nil)
     {

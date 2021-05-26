@@ -13,8 +13,6 @@
 		AAB8B79C1D205530005076DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAB8B79A1D205530005076DF /* Main.storyboard */; };
 		AAB8B79E1D205530005076DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAB8B79D1D205530005076DF /* Assets.xcassets */; };
 		AAB8B7A11D205530005076DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAB8B79F1D205530005076DF /* LaunchScreen.storyboard */; };
-		AAB8B7B01D20AF82005076DF /* bcov_logo_horizontal_white.png in Resources */ = {isa = PBXBuildFile; fileRef = AAB8B7AE1D20AF82005076DF /* bcov_logo_horizontal_white.png */; };
-		AAB8B7B11D20AF82005076DF /* bcov.png in Resources */ = {isa = PBXBuildFile; fileRef = AAB8B7AF1D20AF82005076DF /* bcov.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -156,8 +154,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAB8B7B01D20AF82005076DF /* bcov_logo_horizontal_white.png in Resources */,
-				AAB8B7B11D20AF82005076DF /* bcov.png in Resources */,
 				AAB8B7A11D205530005076DF /* LaunchScreen.storyboard in Resources */,
 				AAB8B79E1D205530005076DF /* Assets.xcassets in Resources */,
 				AAB8B79C1D205530005076DF /* Main.storyboard in Resources */,
