@@ -366,7 +366,7 @@ static NSString * const kViewControllerVideoID = @"6140448705001";
     // Put UIImages inside our logo layout views.
     {
         // Create logo image inside an image view for display in control bar.
-        UIImageView *standardLogoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bcov_logo_horizontal_white.png"]];
+        UIImageView *standardLogoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BrightcoveHorizontal_1115_x_269"]];
         standardLogoImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         standardLogoImageView.contentMode = UIViewContentModeScaleAspectFill;
         standardLogoImageView.frame = standardLogoLayoutView.frame;
@@ -377,7 +377,7 @@ static NSString * const kViewControllerVideoID = @"6140448705001";
 
     {
         // Create logo image inside an image view for display in control bar.
-        UIImageView *compactLogoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bcov.png"]];
+        UIImageView *compactLogoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BrightcoveLogo_96_x_96"]];
         compactLogoImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         compactLogoImageView.contentMode = UIViewContentModeScaleAspectFit;
         compactLogoImageView.frame = compactLogoLayoutView.frame;
