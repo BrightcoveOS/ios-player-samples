@@ -470,7 +470,7 @@ extension DownloadedVideoViewController: UITableViewDelegate {
         if let posterPathString = video?.properties[kBCOVOfflineVideoPosterFilePathPropertyKey] as? String, let posterImage = UIImage(contentsOfFile: posterPathString) {
             posterImageView.image = posterImage
         } else {
-            posterImageView.image = UIImage(named: "bcov")
+            posterImageView.image = UIImage(named: "BrightcoveLogo_96_x_96")
         }
         
         posterImageView.layer.borderColor = UIColor.lightGray.cgColor
