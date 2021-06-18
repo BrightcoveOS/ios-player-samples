@@ -39,8 +39,6 @@
 		AAB8B79D1D205530005076DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AAB8B7A01D205530005076DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AAB8B7A21D205530005076DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AAB8B7AE1D20AF82005076DF /* bcov_logo_horizontal_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bcov_logo_horizontal_white.png; sourceTree = "<group>"; };
-		AAB8B7AF1D20AF82005076DF /* bcov.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bcov.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,8 +87,6 @@
 		AAB8B7911D205530005076DF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				AAB8B7AE1D20AF82005076DF /* bcov_logo_horizontal_white.png */,
-				AAB8B7AF1D20AF82005076DF /* bcov.png */,
 				AAB8B7921D205530005076DF /* main.m */,
 			);
 			name = "Supporting Files";

@@ -43,16 +43,6 @@
 		E99B604E2170E1B300B65C75 /* DownloadedVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedVideoViewController.swift; sourceTree = "<group>"; };
 		E99B60502170E1BB00B65C75 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E99B60522170E1C500B65C75 /* StreamingVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamingVideoViewController.swift; sourceTree = "<group>"; };
-		E99B60552170E35A00B65C75 /* videoplaylist@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "videoplaylist@2x.png"; sourceTree = "<group>"; };
-		E99B60562170E35A00B65C75 /* error2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error2.png; sourceTree = "<group>"; };
-		E99B60572170E35A00B65C75 /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = download.png; sourceTree = "<group>"; };
-		E99B60582170E35A00B65C75 /* bcov.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bcov.png; sourceTree = "<group>"; };
-		E99B60592170E35A00B65C75 /* cancelled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancelled.png; sourceTree = "<group>"; };
-		E99B605A2170E35A00B65C75 /* inprogress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inprogress.png; sourceTree = "<group>"; };
-		E99B605B2170E35A00B65C75 /* downloaded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downloaded.png; sourceTree = "<group>"; };
-		E99B605C2170E35A00B65C75 /* error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error.png; sourceTree = "<group>"; };
-		E99B605D2170E35A00B65C75 /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
-		E99B605E2170E35A00B65C75 /* paused.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paused.png; sourceTree = "<group>"; };
 		E99B60692170EAB000B65C75 /* VideoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTableViewCell.swift; sourceTree = "<group>"; };
 		E99B606B2170EC9B00B65C75 /* VideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoManager.swift; sourceTree = "<group>"; };
 		E99B606F2170F39A00B65C75 /* StreamingTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamingTableDataSource.swift; sourceTree = "<group>"; };
@@ -118,27 +108,9 @@
 				E99B60432170DDD500B65C75 /* Assets.xcassets */,
 				E99B60452170DDD500B65C75 /* LaunchScreen.storyboard */,
 				E99B60482170DDD500B65C75 /* Info.plist */,
-				E99B60542170E35A00B65C75 /* Images */,
 			);
 			path = OfflinePlayer;
 			sourceTree = "<group>";
-		};
-		E99B60542170E35A00B65C75 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				E99B60552170E35A00B65C75 /* videoplaylist@2x.png */,
-				E99B60562170E35A00B65C75 /* error2.png */,
-				E99B60572170E35A00B65C75 /* download.png */,
-				E99B60582170E35A00B65C75 /* bcov.png */,
-				E99B60592170E35A00B65C75 /* cancelled.png */,
-				E99B605A2170E35A00B65C75 /* inprogress.png */,
-				E99B605B2170E35A00B65C75 /* downloaded.png */,
-				E99B605C2170E35A00B65C75 /* error.png */,
-				E99B605D2170E35A00B65C75 /* settings@2x.png */,
-				E99B605E2170E35A00B65C75 /* paused.png */,
-			);
-			path = Images;
-			sourceTree = SOURCE_ROOT;
 		};
 		E99B60862176670000B65C75 /* Helpers */ = {
 			isa = PBXGroup;
