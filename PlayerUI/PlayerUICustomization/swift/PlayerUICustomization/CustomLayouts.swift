@@ -36,7 +36,7 @@ class CustomLayouts: NSObject {
         
         // Create logo image inside an image view for display in control bar.
         if let standardLogoLayoutView = standardLogoLayoutView {
-            let standardLogoImageView = UIImageView(image: UIImage(named: "bcov_logo_horizontal_white"))
+            let standardLogoImageView = UIImageView(image: UIImage(named: "BrightcoveHorizontal_1115_x_269"))
             standardLogoImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             standardLogoImageView.contentMode = .scaleAspectFill
             standardLogoImageView.frame = standardLogoLayoutView.frame
