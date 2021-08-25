@@ -24,14 +24,13 @@ fileprivate struct playbackConfig {
     
     private var posters: [String:UIImage] = [:]
     private var playlist: BCOVPlaylist?
-#if USE_CUSTOM_CAST_MANAGER
+
     // If you need to extend the behavior of BCOVGoogleCastManager
     // you can customize the GoogleCastManager class in this project
     // and use it instead of BCOVGoogleCastManager.
-    private let googleCastManager: GoogleCastManager = GoogleCastManager()
-#else
+    // private let googleCastManager: GoogleCastManager = GoogleCastManager()
+
     private let googleCastManager: BCOVGoogleCastManager = BCOVGoogleCastManager()
-#endif
 
     lazy var playerView: BCOVPUIPlayerView? = {
         
@@ -127,6 +126,8 @@ fileprivate struct playbackConfig {
             print("Cast device connecting")
         case .notConnected:
             print("Cast device not connected")
+        default:
+            print("Unknown Cast State Change")
         }
     }
 
@@ -212,40 +213,42 @@ extension PlayerViewController: BCOVPlaybackControllerDelegate {
     
 }
 
-#if USE_CUSTOM_CAST_MANAGER
 // MARK: - GoogleCastManagerDelegate
 
-extension PlayerViewController: GoogleCastManagerDelegate {
+// Uncomment this extension if you are using GoogleCastManager
+// instead of BCOVGoogleCastManager
 
-    func switchedToLocalPlayback(withLastKnownStreamPosition streamPosition: TimeInterval, withError error: Error?) {
-        if streamPosition > 0 {
-            playbackController?.play()
-        }
-        videoContainer.isHidden = false
+//extension PlayerViewController: GoogleCastManagerDelegate {
+//
+//    func switchedToLocalPlayback(withLastKnownStreamPosition streamPosition: TimeInterval, withError error: Error?) {
+//        if streamPosition > 0 {
+//            playbackController?.play()
+//        }
+//        videoContainer.isHidden = false
+//
+//        if let _error = error {
+//            print("Switched to local playback with error: \(_error.localizedDescription)")
+//        }
+//    }
+//
+//    func switchedToRemotePlayback() {
+//        videoContainer.isHidden = true
+//    }
+//
+//    func castedVideoDidComplete() {
+//        videoContainer.isHidden = true
+//    }
+//
+//    func castedVideoFailedToPlay() {
+//        print("Failed to play casted video")
+//    }
+//
+//    func suitableSourceNotFound() {
+//        print("Suitable source for video not found!")
+//    }
+//
+//}
 
-        if let _error = error {
-            print("Switched to local playback with error: \(_error.localizedDescription)")
-        }
-    }
-
-    func switchedToRemotePlayback() {
-        videoContainer.isHidden = true
-    }
-
-    func castedVideoDidComplete() {
-        videoContainer.isHidden = true
-    }
-
-    func castedVideoFailedToPlay() {
-        print("Failed to play casted video")
-    }
-
-    func suitableSourceNotFound() {
-        print("Suitable source for video not found!")
-    }
-
-}
-#else
 // MARK: - BCOVGoogleCastManagerDelegate
 
 extension PlayerViewController: BCOVGoogleCastManagerDelegate {
@@ -278,5 +281,4 @@ extension PlayerViewController: BCOVGoogleCastManagerDelegate {
     }
 
 }
-#endif
 

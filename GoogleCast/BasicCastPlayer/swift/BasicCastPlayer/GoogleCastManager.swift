@@ -46,7 +46,7 @@ class GoogleCastManager: NSObject {
     
     private func findPreferredSource(fromSources sources: [BCOVSource], withHTTPS: Bool) -> BCOVSource? {
     
-        // We prioritize HLS v3 > DASH > MP4
+        // We prioritize HLS v3 > DASH v1 > MP4
     
         let filteredSources = sources.filter { (source: BCOVSource) -> Bool in
             if withHTTPS {
@@ -67,7 +67,7 @@ class GoogleCastManager: NSObject {
                 // This is our top priority so we can go ahead and break out of the loop
                 break
             }
-            if deliveryMethod == "application/dash+xml" {
+            if urlString.contains("v1/dash") && deliveryMethod == "application/dash+xml" {
                 dashSource = source
             }
             if deliveryMethod == "video/mp4" {
@@ -142,16 +142,18 @@ class GoogleCastManager: NSObject {
         
         for track in textTracks {
             trackIdentifier += 1
-            let src = track["src"] as! String
-            let lang = track["srclang"] as! String
-            let name = track["label"] as! String
-            var contentType = track["mime_type"] as! String
+            guard let src = track["src"] as? String,
+                  let lang = track["srclang"] as? String,
+                  let name = track["label"] as? String,
+                  let kind = track["kind"] as? String,
+                  var contentType = track["mime_type"] as? String else {
+                continue
+            }
             if contentType == "text/webvtt" {
                 // The Google Cast SDK doesn't seem to understand text/webvtt
                 // Simply setting the content type as text/vtt seems to work
                 contentType = "text/vtt"
             }
-            let kind = track["kind"] as! String
             var trackType: GCKMediaTextTrackSubtype = .unknown
             if kind == "captions" || kind == "subtitles" {
                 trackType = kind == "captions" ? .captions : .subtitles
