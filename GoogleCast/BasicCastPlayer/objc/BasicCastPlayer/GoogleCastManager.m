@@ -49,7 +49,7 @@
 
 - (BCOVSource *)findPreferredSourceFromSources:(NSArray<BCOVSource *> *)sources withHTTPS:(BOOL)withHTTPS
 {
-    // We prioritize HLS v3 > DASH > MP4
+    // We prioritize HLS v3 > DASH v1 > MP4
     
     NSPredicate *protocolPredicate = [NSPredicate predicateWithFormat:@"url.absoluteString beginswith [cd] %@", withHTTPS ? @"https://" : @"http://"];
     NSArray *filteredSources = [sources filteredArrayUsingPredicate:protocolPredicate];
@@ -66,7 +66,7 @@
             // This is our top priority so we can go ahead and break out of the loop
             break;
         }
-        if ([deliveryMethod isEqualToString:@"application/dash+xml"]) {
+        if ([urlString containsString:@"v1/dash"] && [deliveryMethod isEqualToString:@"application/dash+xml"]) {
             dashSource = source;
         }
         if ([deliveryMethod isEqualToString:@"video/mp4"]) {

@@ -232,7 +232,7 @@ static NSString * const kPlaylistRefID = @"brightcove-native-sdk-plist";
 
 - (void)castedVideoFailedToPlay
 {
-    NSLog(@"Casted video failed to play!");
+    NSLog(@"Cast video failed to play!");
 }
     
 #else
@@ -270,7 +270,7 @@ static NSString * const kPlaylistRefID = @"brightcove-native-sdk-plist";
 
 - (void)castedVideoFailedToPlay
 {
-    NSLog(@"Casted video failed to play!");
+    NSLog(@"Cast video failed to play!");
 }
     
 #endif

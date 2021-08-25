@@ -42,7 +42,7 @@
     }
     
     // More Info @ https://developers.google.com/cast/docs/ios_sender/integrate#initialize_the_cast_context
-    GCKDiscoveryCriteria *discoveryCriteria = [[GCKDiscoveryCriteria alloc] initWithApplicationID:@"4F8B3483"];
+    GCKDiscoveryCriteria *discoveryCriteria = [[GCKDiscoveryCriteria alloc] initWithApplicationID:kGCKDefaultMediaReceiverApplicationID];
     GCKCastOptions *options = [[GCKCastOptions alloc] initWithDiscoveryCriteria:discoveryCriteria];
     [GCKCastContext setSharedInstanceWithOptions:options];
     

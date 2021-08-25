@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // More Info @ https://developers.google.com/cast/docs/ios_sender/integrate#initialize_the_cast_context
-        let discoveryCriteria = GCKDiscoveryCriteria(applicationID: "4F8B3483")
+        let discoveryCriteria = GCKDiscoveryCriteria(applicationID: kGCKDefaultMediaReceiverApplicationID)
         let options = GCKCastOptions(discoveryCriteria: discoveryCriteria)
         GCKCastContext.setSharedInstanceWith(options)
         
