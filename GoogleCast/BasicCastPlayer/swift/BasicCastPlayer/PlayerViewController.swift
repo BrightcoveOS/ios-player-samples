@@ -240,7 +240,7 @@ extension PlayerViewController: BCOVPlaybackControllerDelegate {
 //    }
 //
 //    func castedVideoFailedToPlay() {
-//        print("Failed to play casted video")
+//        print("Failed to play Cast video")
 //    }
 //
 //    func suitableSourceNotFound() {
@@ -273,7 +273,7 @@ extension PlayerViewController: BCOVGoogleCastManagerDelegate {
     }
 
     func castedVideoFailedToPlay() {
-        print("Failed to play casted video")
+        print("Failed to play Cast video")
     }
 
     func suitableSourceNotFound() {
