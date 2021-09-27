@@ -37,7 +37,7 @@ NSString * kFairPlayApplicationId = @"00000000-0000-0000-0000-000000000000";
 NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8";
 
 
-@interface ViewController () <BCOVPlaybackControllerDelegate, IMAWebOpenerDelegate>
+@interface ViewController () <BCOVPlaybackControllerDelegate, IMALinkOpenerDelegate>
 
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
 @property (nonatomic, strong) BCOVPlaybackService *playbackService;
@@ -197,8 +197,8 @@ NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/st
     imaSettings.language = kViewControllerIMALanguage;
 
     IMAAdsRenderingSettings *renderSettings = [[IMAAdsRenderingSettings alloc] init];
-    renderSettings.webOpenerPresentingController = self;
-    renderSettings.webOpenerDelegate = self;
+    renderSettings.linkOpenerPresentingController = self;
+    renderSettings.linkOpenerDelegate = self;
 
     // VMAP / Server Side Ad Rules. These settings are explained in BCOVIMAAdsRequestPolicy.h.
     // If you want to change these settings, you can initialize the plugin like so:
@@ -411,9 +411,9 @@ NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/st
     NSLog(@"ViewController Debug - IMAAdsRequest.vastLoadTimeout set to %.1f milliseconds.", adsRequest.vastLoadTimeout);
 }
 
-#pragma mark - IMAWebOpenerDelegate Methods
+#pragma mark - IMALinkOpenerDelegate Methods
 
-- (void)webOpenerDidCloseInAppBrowser:(NSObject *)webOpener
+- (void)linkOpenerDidCloseInAppLink:(NSObject *)linkOpener
 {
     // Called when the in-app browser has closed.
     [self.playbackController resumeAd];

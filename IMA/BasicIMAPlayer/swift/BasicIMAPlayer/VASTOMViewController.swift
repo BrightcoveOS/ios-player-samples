@@ -21,8 +21,8 @@ class VASTOMViewController: BaseViewController {
         imaSettings.language = NSLocale.current.languageCode
 
         let renderSettings = IMAAdsRenderingSettings()
-        renderSettings.webOpenerPresentingController = self
-        renderSettings.webOpenerDelegate = self
+        renderSettings.linkOpenerPresentingController = self
+        renderSettings.linkOpenerDelegate = self
 
         let policy = BCOVCuePointProgressPolicy.init(processingCuePoints: .processFinalCuePoint, resumingPlaybackFrom: .fromContentPlayhead, ignoringPreviouslyProcessedCuePoints: false)
 

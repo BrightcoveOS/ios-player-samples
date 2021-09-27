@@ -11,7 +11,7 @@
 // See https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/tags for other sample VMAP ad tag URLs
 static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpost&cmsid=496&vid=short_onecue&correlator=";
 
-@interface VMAPViewController ()<BCOVPlaybackControllerDelegate, IMAWebOpenerDelegate>
+@interface VMAPViewController ()<BCOVPlaybackControllerDelegate, IMALinkOpenerDelegate>
 
 @property (nonatomic, assign) BOOL useVideoProperties;
 
@@ -28,8 +28,8 @@ static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampa
     imaSettings.language = NSLocale.currentLocale.languageCode;
 
     IMAAdsRenderingSettings *renderSettings = [[IMAAdsRenderingSettings alloc] init];
-    renderSettings.webOpenerPresentingController = self;
-    renderSettings.webOpenerDelegate = self;
+    renderSettings.linkOpenerPresentingController = self;
+    renderSettings.linkOpenerDelegate = self;
     
     // BCOVIMAAdsRequestPolicy provides two VMAP configurations:
     // `videoPropertiesVMAPAdTagUrlAdsRequestPolicy` and
