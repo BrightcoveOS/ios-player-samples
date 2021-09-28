@@ -235,9 +235,9 @@ NSString * const kViewControllerIMAPublisherID = @"insertyourpidhere";
     NSLog(@"ViewController Debug - IMAAdsRequest.vastLoadTimeout set to %.1f milliseconds.", adsRequest.vastLoadTimeout);
 }
 
-#pragma mark - IMAWebOpenerDelegate Methods
+#pragma mark - IMALinkOpenerDelegate Methods
 
-- (void)webOpenerDidCloseInAppBrowser:(NSObject *)webOpener
+- (void)linkOpenerDidCloseInAppLink:(NSObject *)linkOpener
 {
     // Called when the in-app browser has closed.
     [self.playbackController resumeAd];

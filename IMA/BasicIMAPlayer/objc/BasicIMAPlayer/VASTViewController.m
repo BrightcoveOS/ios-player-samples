@@ -15,7 +15,7 @@ static NSString * const kVASTAdTagURL_preroll = @"https://pubads.g.doubleclick.n
 static NSString * const kVASTAdTagURL_midroll = @"https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=";
 static NSString * const kVASTAdTagURL_postroll = @"https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=";
 
-@interface VASTViewController ()<BCOVPlaybackControllerDelegate, IMAWebOpenerDelegate>
+@interface VASTViewController ()<BCOVPlaybackControllerDelegate, IMALinkOpenerDelegate>
 
 @property (nonatomic, assign) BOOL useAdTagsInCuePoints;
 
@@ -32,8 +32,8 @@ static NSString * const kVASTAdTagURL_postroll = @"https://pubads.g.doubleclick.
     imaSettings.language = NSLocale.currentLocale.languageCode;
 
     IMAAdsRenderingSettings *renderSettings = [[IMAAdsRenderingSettings alloc] init];
-    renderSettings.webOpenerPresentingController = self;
-    renderSettings.webOpenerDelegate = self;
+    renderSettings.linkOpenerPresentingController = self;
+    renderSettings.linkOpenerDelegate = self;
     
     BCOVCuePointProgressPolicy *policy = [BCOVCuePointProgressPolicy progressPolicyProcessingCuePoints:BCOVProgressPolicyProcessFinalCuePoint resumingPlaybackFrom:BCOVProgressPolicyResumeFromContentPlayhead ignoringPreviouslyProcessedCuePoints:NO];
    

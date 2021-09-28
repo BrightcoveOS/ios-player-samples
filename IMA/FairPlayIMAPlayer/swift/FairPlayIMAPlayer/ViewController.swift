@@ -168,8 +168,8 @@ class ViewController: UIViewController {
         imaSettings.language = IMAConfig.Language
         
         let renderSettings = IMAAdsRenderingSettings()
-        renderSettings.webOpenerPresentingController = self
-        renderSettings.webOpenerDelegate = self
+        renderSettings.linkOpenerPresentingController = self
+        renderSettings.linkOpenerDelegate = self
         
         // VMAP / Server Side Ad Rules. These settings are explained in BCOVIMAAdsRequestPolicy.h.
         // If you want to change these settings, you can initialize the plugin like so:
@@ -356,11 +356,11 @@ extension ViewController: BCOVIMAPlaybackSessionDelegate {
     
 }
 
-// MARK: - IMAWebOpenerDelegate
+// MARK: - IMALinkOpenerDelegate
 
-extension ViewController: IMAWebOpenerDelegate {
+extension ViewController: IMALinkOpenerDelegate {
     
-    func webOpenerDidClose(inAppBrowser webOpener: NSObject!) {
+    func linkOpenerDidClose(inAppLink linkOpener: NSObject!) {
         // Called when the in-app browser has closed.
         playbackController?.resumeAd()
     }

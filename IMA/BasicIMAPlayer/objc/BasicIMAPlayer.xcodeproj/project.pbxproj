@@ -13,9 +13,9 @@
 		493733BD19FEB9EE009F1E08 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 493733BC19FEB9EE009F1E08 /* Images.xcassets */; };
 		493733C019FEB9EE009F1E08 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493733BE19FEB9EE009F1E08 /* LaunchScreen.xib */; };
 		493733D619FEBAE8009F1E08 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 493733D519FEBAE8009F1E08 /* AppDelegate.m */; };
+		D6B50A5C25B0C4270019BE84 /* VASTOMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B50A5B25B0C4270019BE84 /* VASTOMViewController.m */; };
 		E968A2A425433DDD00E5E022 /* VMAPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E968A2A325433DDD00E5E022 /* VMAPViewController.m */; };
 		E968A2A825433DE800E5E022 /* VASTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E968A2A725433DE800E5E022 /* VASTViewController.m */; };
-		D6B50A5C25B0C4270019BE84 /* VASTOMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B50A5B25B0C4270019BE84 /* VASTOMViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +29,8 @@
 		493733BC19FEB9EE009F1E08 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		493733BF19FEB9EE009F1E08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		493733D519FEBAE8009F1E08 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D6B50A5A25B0C4270019BE84 /* VASTOMViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VASTOMViewController.h; sourceTree = "<group>"; };
+		D6B50A5B25B0C4270019BE84 /* VASTOMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VASTOMViewController.m; sourceTree = "<group>"; };
 		E962EEF925DC5B65007ABEFF /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
 		E962EEFA25DC5B65007ABEFF /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E962EEFB25DC5BB4007ABEFF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
@@ -49,8 +51,6 @@
 		E968A2A325433DDD00E5E022 /* VMAPViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMAPViewController.m; sourceTree = "<group>"; };
 		E968A2A625433DE800E5E022 /* VASTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VASTViewController.h; sourceTree = "<group>"; };
 		E968A2A725433DE800E5E022 /* VASTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VASTViewController.m; sourceTree = "<group>"; };
-		D6B50A5A25B0C4270019BE84 /* VASTOMViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VASTOMViewController.h; sourceTree = "<group>"; };
-		D6B50A5B25B0C4270019BE84 /* VASTOMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VASTOMViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

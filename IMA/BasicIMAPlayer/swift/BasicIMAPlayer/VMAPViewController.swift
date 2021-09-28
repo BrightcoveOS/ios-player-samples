@@ -21,8 +21,8 @@ class VMAPViewController: BaseViewController {
         imaSettings.language = NSLocale.current.languageCode
         
         let renderSettings = IMAAdsRenderingSettings()
-        renderSettings.webOpenerPresentingController = self
-        renderSettings.webOpenerDelegate = self
+        renderSettings.linkOpenerPresentingController = self
+        renderSettings.linkOpenerDelegate = self
         
         // BCOVIMAAdsRequestPolicy provides two VMAP configurations:
         // `videoPropertiesVMAPAdTagUrlAdsRequestPolicy` and

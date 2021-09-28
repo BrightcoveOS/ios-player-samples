@@ -10,7 +10,7 @@
 
 static NSString * const kVASTAdTagURL_openMeasurement = @"https://pubads.g.doubleclick.net/gampad/ads?iu=/124319096/external/omid_google_samples&env=vp&gdfp_req=1&output=vast&sz=640x480&description_url=http%3A%2F%2Ftest_site.com%2Fhomepage&tfcd=0&npa=0&vpmute=0&vpa=0&vad_format=linear&url=http%3A%2F%2Ftest_site.com&vpos=preroll&unviewed_position_start=1&correlator=";
 
-@interface VASTOMViewController ()<BCOVPlaybackControllerDelegate, IMAWebOpenerDelegate>
+@interface VASTOMViewController ()<BCOVPlaybackControllerDelegate, IMALinkOpenerDelegate>
 
 @end
 
@@ -25,8 +25,8 @@ static NSString * const kVASTAdTagURL_openMeasurement = @"https://pubads.g.doubl
     imaSettings.language = NSLocale.currentLocale.languageCode;
 
     IMAAdsRenderingSettings *renderSettings = [[IMAAdsRenderingSettings alloc] init];
-    renderSettings.webOpenerPresentingController = self;
-    renderSettings.webOpenerDelegate = self;
+    renderSettings.linkOpenerPresentingController = self;
+    renderSettings.linkOpenerDelegate = self;
     
     BCOVCuePointProgressPolicy *policy = [BCOVCuePointProgressPolicy progressPolicyProcessingCuePoints:BCOVProgressPolicyProcessFinalCuePoint resumingPlaybackFrom:BCOVProgressPolicyResumeFromContentPlayhead ignoringPreviouslyProcessedCuePoints:NO];
    
