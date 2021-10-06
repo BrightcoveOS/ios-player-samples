@@ -7,6 +7,6 @@ use_frameworks!
 target 'SwiftUIPlayer' do
 
   # Pods for SwiftUIPlayer
-  pod 'Brightcove-Player-Core'
+  pod 'Brightcove-Player-Core/XCFramework'
 
 end

@@ -6,5 +6,5 @@ platform :ios, '11.0'
 use_frameworks!
 
 target 'FairPlayIMAPlayer' do
-	pod 'Brightcove-Player-IMA'
+	pod 'Brightcove-Player-IMA/XCFramework'
 end

@@ -5,5 +5,5 @@ use_frameworks!
 platform :tvos, '11.0'
 
 target 'BasicSSAIPlayer' do
-	pod 'Brightcove-Player-SSAI'
+	pod 'Brightcove-Player-SSAI/XCFramework'
 end

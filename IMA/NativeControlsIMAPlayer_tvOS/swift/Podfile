@@ -6,5 +6,5 @@ use_frameworks!
 platform :tvos, '11.0'
 
 target 'NativeControlsIMAPlayer_tvOS' do
-	pod 'Brightcove-Player-IMA'
+	pod 'Brightcove-Player-IMA/XCFramework'
 end

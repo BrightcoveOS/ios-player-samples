@@ -5,5 +5,5 @@ use_frameworks!
 platform :ios, '11.0'
 
 target 'FairPlayPulsePlayer' do
-  pod 'Brightcove-Player-Pulse'
+  pod 'Brightcove-Player-Pulse/XCFramework'
 end
