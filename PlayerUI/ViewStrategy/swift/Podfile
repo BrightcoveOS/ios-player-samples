@@ -4,6 +4,6 @@ platform :ios, '11.0'
 use_frameworks!
 
 target 'ViewStrategy' do
-	pod 'Brightcove-Player-Core', '>= 6.7.8'
+	pod 'Brightcove-Player-Core/XCFramework'
 end
 

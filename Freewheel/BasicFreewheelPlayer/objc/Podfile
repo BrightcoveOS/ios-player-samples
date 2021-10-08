@@ -5,5 +5,5 @@ use_frameworks!
 platform :ios, '11.0'
 
 target 'BasicFreewheelPlayer' do
-  pod 'Brightcove-Player-FreeWheel'
+  pod 'Brightcove-Player-FreeWheel/XCFramework'
 end
