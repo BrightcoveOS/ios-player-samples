@@ -17,7 +17,8 @@ fileprivate struct ControlConstants {
 class ControlsViewController: UIViewController {
 
     weak var delegate: ControlsViewControllerFullScreenDelegate?
-    private weak var currentPlayer: AVPlayer?
+    weak var currentPlayer: AVPlayer?
+    weak var playbackController: BCOVPlaybackController?
     
     @IBOutlet weak private var controlsContainer: UIView!
     @IBOutlet weak private var playPauseButton: UIButton!
@@ -148,16 +149,16 @@ class ControlsViewController: UIViewController {
             let newCurrentTime = Float64(slider.value) * CMTimeGetSeconds(currentTime.duration)
             let seekToTime = CMTimeMakeWithSeconds(newCurrentTime, preferredTimescale: 600)
             
-            currentPlayer?.seek(to: seekToTime, completionHandler: { [weak self] (finished: Bool) in
+            playbackController?.seek(to: seekToTime, completionHandler: { [weak self] (finished: Bool) in
                 self?.playingOnSeek = false
-                self?.currentPlayer?.play()
+                self?.playbackController?.play()
             })
         }
     }
     
     @IBAction func handlePlayheadSliderTouchBegin(_ slider: UISlider) {
         playingOnSeek = playPauseButton.isSelected
-        currentPlayer?.pause()
+        playbackController?.pause()
     }
     
     @IBAction func handlePlayheadSliderValueChanged(_ slider: UISlider) {
@@ -170,9 +171,9 @@ class ControlsViewController: UIViewController {
     
     @IBAction func handlePlayPauseButtonPressed(_ button: UIButton) {
         if button.isSelected {
-            currentPlayer?.pause()
+            playbackController?.pause()
         } else {
-            currentPlayer?.play()
+            playbackController?.play()
         }
     }
     

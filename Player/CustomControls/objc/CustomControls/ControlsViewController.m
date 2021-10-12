@@ -110,11 +110,11 @@ static NSTimeInterval const kViewControllerFadeControlsOutAnimationDuration = .2
 {
     if (sender.selected)
     {
-        [self.currentPlayer pause];
+        [self.playbackController pause];
     }
     else
     {
-        [self.currentPlayer play];
+        [self.playbackController play];
     }
 }
 
@@ -127,7 +127,7 @@ static NSTimeInterval const kViewControllerFadeControlsOutAnimationDuration = .2
 - (IBAction)handlePlayheadSliderTouchBegin:(UISlider *)sender
 {
     self.playingOnSeek = self.playPauseButton.selected;
-    [self.currentPlayer pause];
+    [self.playbackController pause];
 }
 
 - (IBAction)handlePlayheadSliderTouchEnd:(UISlider *)sender
@@ -137,14 +137,14 @@ static NSTimeInterval const kViewControllerFadeControlsOutAnimationDuration = .2
 
     typeof(self) __weak weakSelf = self;
 
-    [self.currentPlayer seekToTime:seekToTime completionHandler:^(BOOL finished) {
+    [self.playbackController seekToTime:seekToTime completionHandler:^(BOOL finished) {
 
         typeof(self) strongSelf = weakSelf;
 
         if (finished && strongSelf.wasPlayingOnSeek)
         {
             strongSelf.playingOnSeek = NO;
-            [strongSelf.currentPlayer play];
+            [strongSelf.playbackController play];
         }
 
     }];

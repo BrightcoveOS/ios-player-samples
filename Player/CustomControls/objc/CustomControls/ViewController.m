@@ -59,6 +59,8 @@ static NSString * const kViewControllerVideoID = @"5702141808001";
     [_playbackController setAllowsExternalPlayback:YES];
     [_playbackController addSessionConsumer:_controlsViewController];
     
+    _controlsViewController.playbackController = _playbackController;
+    
     _playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kViewControllerAccountID
                                                             policyKey:kViewControllerPlaybackServicePolicyKey];
 }
