@@ -9,7 +9,7 @@ To take advantage of IAB Open Measurement, keep the following points in mind:
 
 * Provide a valid OMID Partner name using the new signature, `[BCOVPlayerSDKManager createSSAISessionProviderWithUpstreamSessionProvider:omidPartner]`.
 
-* Ads must be configured under <AdVerifications> node in their VAST as per the VAST 4.1 spec if using VAST 4.1+; otherwise, <Extension type="AdVerifications"> should be used.
+* If using VAST 4.1+, ads must be configured under `<AdVerifications>` nodes in their VAST documents per the VAST 4.1 specification; otherwise, `<Extension type="AdVerifications">` should be used.
 
 	```
 	<AdVerifications>
