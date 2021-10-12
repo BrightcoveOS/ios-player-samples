@@ -36,6 +36,7 @@ class ViewController: UIViewController {
         vc.isAutoPlay = true
         vc.allowsExternalPlayback = true
         vc.add(self.controlsViewController)
+        controlsViewController.playbackController = vc
         return vc
     }()
     

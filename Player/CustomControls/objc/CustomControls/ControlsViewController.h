@@ -21,5 +21,6 @@
 
 @property (nonatomic, weak) id<ControlsViewControllerFullScreenDelegate> delegate;
 @property (nonatomic, assign) BOOL closedCaptionEnabled;
+@property (nonatomic, weak) id<BCOVPlaybackController> playbackController;
 
 @end
