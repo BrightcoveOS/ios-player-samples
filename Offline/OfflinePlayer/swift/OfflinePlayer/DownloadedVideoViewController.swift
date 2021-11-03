@@ -435,6 +435,12 @@ class DownloadedVideoViewController: BaseVideoViewController {
         updateInfoForSelectedDownload()
         updateTaskButtonTitles()
         tableView.reloadData()
+        
+        // Disable pause button for a moment to prevent button spamming
+        pauseButton?.isEnabled = false
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
+            self.pauseButton?.isEnabled = true
+        }
     }
     
     @IBAction private func cancelButtonPressed() {
