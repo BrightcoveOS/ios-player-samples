@@ -449,6 +449,12 @@ static unsigned long long int directorySize(NSString *folderPath)
         case BCOVOfflineVideoDownloadStateError:
             break;
     }
+        
+    // Disable pause button for a moment to prevent button spamming
+    self.pauseButton.enabled = NO;
+    [NSTimer scheduledTimerWithTimeInterval:1 repeats:NO block:^(NSTimer * _Nonnull timer) {
+        self.pauseButton.enabled = YES;
+    }];
 }
 
 - (IBAction)doCancelButton:(id)sender
