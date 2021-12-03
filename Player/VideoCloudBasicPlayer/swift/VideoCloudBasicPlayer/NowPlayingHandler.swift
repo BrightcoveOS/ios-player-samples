@@ -13,7 +13,7 @@ class NowPlayingHandler: NSObject {
     
     private weak var playbackController: BCOVPlaybackController?
     private var nowPlayingInfo: [String:AnyHashable]?
-    private var session: BCOVPlaybackSession?
+    private weak var session: BCOVPlaybackSession?
     private var observerContext = 0
     
     init(withPlaybackController playbackController: BCOVPlaybackController) {
@@ -34,6 +34,7 @@ class NowPlayingHandler: NSObject {
         
         center.pauseCommand.addTarget(self, action: #selector(pauseCommand))
         center.playCommand.addTarget(self, action: #selector(playCommand))
+        center.playPauseCommand.addTarget(self, action: #selector(playPauseCommand))
     }
 
     @objc func pauseCommand(_ event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
@@ -44,6 +45,38 @@ class NowPlayingHandler: NSObject {
     @objc func playCommand(_ event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
         playbackController?.play()
         return .success
+    }
+    
+    @objc func playPauseCommand(_ event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
+        if session?.player.rate == 0 {
+            playbackController?.play()
+        } else {
+            playbackController?.pause()
+        }
+        
+        return .success
+    }
+    
+    func updateNowPlayingInfoForAudioOnly() {
+        guard let customFields = self.session?.video.properties["custom_fields"] as? [String:Any] else {
+            return
+        }
+        
+        nowPlayingInfo?[MPMediaItemPropertyMediaType] = MPMediaType.music.rawValue
+        
+        // These custom_fields values can be configured in VideoCloud
+        // https://beacon.support.brightcove.com/syncing-with-video-cloud/vc-custom-fields.html
+        
+        if let albumName = customFields["album_name"] as? String {
+            nowPlayingInfo?[MPMediaItemPropertyAlbumTitle] = albumName
+        }
+        
+        if let albumArtist = customFields["album_artist"] as? String {
+            nowPlayingInfo?[MPMediaItemPropertyArtist] = albumArtist
+        }
+        
+        let infoCenter = MPNowPlayingInfoCenter.default()
+        infoCenter.nowPlayingInfo = nowPlayingInfo
     }
 }
 
@@ -58,7 +91,7 @@ extension NowPlayingHandler {
                 let infoCenter = MPNowPlayingInfoCenter.default()
                 _nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = rate
                 infoCenter.nowPlayingInfo = _nowPlayingInfo
-                nowPlayingInfo = _nowPlayingInfo
+                self.nowPlayingInfo = _nowPlayingInfo
             }
         }
 
@@ -79,35 +112,29 @@ extension NowPlayingHandler: BCOVPlaybackSessionConsumer {
             newSession.addObserver(self, forKeyPath: "player.rate", options: NSKeyValueObservingOptions([.new, .initial]), context: &observerContext)
         }
         
-        var _nowPlayingInfo = [String:AnyHashable]()
+        nowPlayingInfo = [String:AnyHashable]()
         guard let videoName = localizedNameForLocale(session.video, nil), let durationNum = session.video.properties[kBCOVVideoPropertyKeyDuration] as? NSNumber else {
             return
         }
         
         let duration = Double(durationNum.doubleValue / 1000)
         
-        _nowPlayingInfo[MPMediaItemPropertyTitle] = videoName
-        _nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = NSNumber(floatLiteral: duration)
+        nowPlayingInfo?[MPMediaItemPropertyTitle] = videoName
+        nowPlayingInfo?[MPMediaItemPropertyPlaybackDuration] = NSNumber(floatLiteral: duration)
         
         let infoCenter = MPNowPlayingInfoCenter.default()
-        infoCenter.nowPlayingInfo = _nowPlayingInfo
-        
-        nowPlayingInfo = _nowPlayingInfo
-        
+        infoCenter.nowPlayingInfo = nowPlayingInfo
+
         if let posterURLString = session.video.properties[kBCOVVideoPropertyKeyPoster] as? String, let posterURL = URL(string: posterURLString) {
             DispatchQueue.global(qos: .background).async {
-                guard var _nowPlayingInfo = self.nowPlayingInfo else {
-                    return
-                }
                 do {
                     let imageData = try Data(contentsOf: posterURL)
                     if let image = UIImage(data: imageData) {
-                        _nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: image.size) { (size: CGSize) -> UIImage in
+                        self.nowPlayingInfo?[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: image.size) { (size: CGSize) -> UIImage in
                             return image
                         }
                         let infoCenter = MPNowPlayingInfoCenter.default()
-                        infoCenter.nowPlayingInfo = _nowPlayingInfo
-                        self.nowPlayingInfo = _nowPlayingInfo
+                        infoCenter.nowPlayingInfo = self.nowPlayingInfo
                     }
                 } catch {}
 
@@ -119,11 +146,8 @@ extension NowPlayingHandler: BCOVPlaybackSessionConsumer {
         if progress.isInfinite {
             return
         }
-        guard var nowPlayingInfo = nowPlayingInfo else {
-            return
-        }
         let infoCenter = MPNowPlayingInfoCenter.default()
-        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = NSNumber(integerLiteral: Int(progress))
+        nowPlayingInfo?[MPNowPlayingInfoPropertyElapsedPlaybackTime] = NSNumber(integerLiteral: Int(progress))
         infoCenter.nowPlayingInfo = nowPlayingInfo
     }
 }

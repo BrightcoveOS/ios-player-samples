@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithPlaybackController:(id<BCOVPlaybackController>)playbackController;
 
+- (void)updateNowPlayingInfoForAudioOnly;
+
 @end
 
 NS_ASSUME_NONNULL_END
