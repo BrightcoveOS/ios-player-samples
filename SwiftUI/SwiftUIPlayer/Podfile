@@ -1,4 +1,4 @@
-source 'https://github.com/CocoaPods/Specs'
+source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/brightcove/BrightcoveSpecs.git'
 
 platform :ios, '13.0'
