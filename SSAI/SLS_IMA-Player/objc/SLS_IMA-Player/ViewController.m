@@ -28,7 +28,7 @@ static NSString * const kViewControllerIMAVMAPResponseAdTag = @"insertyouradtagh
 static NSString * const kViewControllerAdConfigID = @"insertyouradconfigidhere";
 
 
-@interface ViewController ()<BCOVPlaybackControllerDelegate, BCOVPlaybackControllerAdsDelegate, IMAWebOpenerDelegate>
+@interface ViewController ()<BCOVPlaybackControllerDelegate, BCOVPlaybackControllerAdsDelegate, IMALinkOpenerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *videoContainerView;
 
@@ -92,8 +92,8 @@ static NSString * const kViewControllerAdConfigID = @"insertyouradconfigidhere";
     imaSettings.language = kViewControllerIMALanguage;
     
     IMAAdsRenderingSettings *renderSettings = [[IMAAdsRenderingSettings alloc] init];
-    renderSettings.webOpenerPresentingController = self;
-    renderSettings.webOpenerDelegate = self;
+    renderSettings.linkOpenerPresentingController = self;
+    renderSettings.linkOpenerDelegate = self;
     
     // BCOVIMAAdsRequestPolicy provides methods to specify VAST or VMAP/Server Side Ad Rules. Select the appropriate method to select your ads policy.
     BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy videoPropertiesVMAPAdTagUrlAdsRequestPolicy];
@@ -184,14 +184,16 @@ static NSString * const kViewControllerAdConfigID = @"insertyouradconfigidhere";
 }
 
 
-#pragma mark - IMAWebOpenerDelegate
+#pragma mark - IMALinkOpenerDelegate
 
-- (void)webOpenerDidOpenInAppBrowser:(NSObject *)webOpener {
-    NSLog(@"ViewController Debug - webOpenerDidOpenInAppBrowser");
+- (void)linkOpenerDidOpenInAppLink:(NSObject *)linkOpener
+{
+    NSLog(@"ViewController Debug - linkOpenerDidOpenInAppLink");
 }
 
-- (void)webOpenerDidCloseInAppBrowser:(NSObject *)webOpener {
-    NSLog(@"ViewController Debug - webOpenerDidCloseInAppBrowser");
+- (void)linkOpenerDidCloseInAppLink:(NSObject *)linkOpener
+{
+    NSLog(@"ViewController Debug - linkOpenerDidCloseInAppLink");
 }
 
 @end
