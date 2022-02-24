@@ -10,6 +10,8 @@
 
 #import "BCOVVIdeo+Convenience.h"
 #import "SettingsAdapter.h"
+#import "UIAlertController+Convenience.h"
+#import "InterfaceManager.h"
 
 @interface DownloadManager ()
 
@@ -259,6 +261,13 @@
     __weak typeof(self) weakSelf = self;
     
     AVURLAsset *avURLAsset = [self.offlineVideoManager urlAssetForVideo:video error:nil];
+    
+    if ([avURLAsset.URL.absoluteString containsString:@"aes128"])
+    {
+        [UIAlertController showAlertWithTitle:@"Content Not Supported" message:@"Offline playback is not supported for HLSe content." actionTitle:@"OK" inController:InterfaceManager.sharedInstance.tabBarController];
+        return;
+    }
+        
     // If mediaSelections is `nil` the SDK will default to the AVURLAsset's `preferredMediaSelection`
     NSArray<AVMediaSelection *> *mediaSelections = mediaSelections = avURLAsset.allMediaSelections;
     
