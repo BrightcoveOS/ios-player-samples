@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)sharedInstance;
 
+@property (nonatomic, weak) UITabBarController *tabBarController;
+
 - (DownloadsViewController * _Nullable)downloadsViewController;
 - (SettingsViewController * _Nullable)settingsViewController;
 - (VideosViewController * _Nullable)videosViewController;
