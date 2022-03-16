@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_7" orientation="landscape" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="926" height="428"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SrH-2D-jO1">
+                                <rect key="frame" x="44" y="0.0" width="838" height="302"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="SrH-2D-jO1" secondAttribute="height" multiplier="16:9" priority="750" id="tbx-wV-hCq"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vdu-kx-aZ3">
+                                <rect key="frame" x="64" y="362" width="798" height="45"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kgR-Dr-tQF">
+                                        <rect key="frame" x="0.0" y="0.0" width="266" height="45"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Play Locally"/>
+                                        <connections>
+                                            <action selector="playLocallyButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QE3-t1-xJv"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mcq-ai-Mb1">
+                                        <rect key="frame" x="266" y="0.0" width="266" height="45"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Play with SharePlay"/>
+                                        <connections>
+                                            <action selector="playWithSharePlayButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PfK-vT-JEt"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L0h-pH-rgl">
+                                        <rect key="frame" x="532" y="0.0" width="266" height="45"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="End SharePlay"/>
+                                        <connections>
+                                            <action selector="endSharePlayButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x93-b5-KlW"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="6vs-PE-ogn"/>
+                                </constraints>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Session: Inactive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E99-cP-psF">
+                                <rect key="frame" x="64" y="322" width="798" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="nSu-Dq-QgD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="E99-cP-psF" secondAttribute="trailing" constant="20" id="CKe-qP-zMV"/>
+                            <constraint firstItem="E99-cP-psF" firstAttribute="top" secondItem="SrH-2D-jO1" secondAttribute="bottom" constant="20" id="RQ4-6P-Jcb"/>
+                            <constraint firstItem="vdu-kx-aZ3" firstAttribute="top" secondItem="E99-cP-psF" secondAttribute="bottom" constant="20" id="XVX-hA-1eO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vdu-kx-aZ3" secondAttribute="trailing" constant="20" id="YiB-k7-tEW"/>
+                            <constraint firstItem="SrH-2D-jO1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="aGp-j2-Uiu"/>
+                            <constraint firstItem="SrH-2D-jO1" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="gac-Ze-bYt"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="vdu-kx-aZ3" secondAttribute="bottom" id="mTy-0S-fsY"/>
+                            <constraint firstItem="SrH-2D-jO1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="oPG-G5-qWm"/>
+                            <constraint firstItem="vdu-kx-aZ3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="oRk-1A-RAa"/>
+                            <constraint firstItem="E99-cP-psF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="zL2-fT-Ym8"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="endSharePlayButton" destination="L0h-pH-rgl" id="sKf-fL-lFU"/>
+                        <outlet property="groupSessionLabel" destination="E99-cP-psF" id="NTm-Fb-xWy"/>
+                        <outlet property="playLocallyButton" destination="kgR-Dr-tQF" id="ouU-vp-mco"/>
+                        <outlet property="playWithSharePlayButton" destination="mcq-ai-Mb1" id="Fnm-2X-Erw"/>
+                        <outlet property="videoContainerView" destination="SrH-2D-jO1" id="l7n-8a-u3c"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="18.840579710144929" y="97.767857142857139"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
