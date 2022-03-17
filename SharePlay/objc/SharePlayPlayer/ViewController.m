@@ -15,7 +15,7 @@ static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM0T
 static NSString * const kViewControllerAccountID = @"5434391461001";
 static NSString * const kViewControllerVideoID = @"6140448705001";
 
-@interface ViewController ()<BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate, WatchTogetherWrapperDelegate>
+@interface ViewController ()<WatchTogetherWrapperDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView *videoContainerView;
 @property (nonatomic, weak) IBOutlet UIButton *playWithSharePlayButton;
@@ -56,19 +56,13 @@ static NSString * const kViewControllerVideoID = @"6140448705001";
 
 - (void)playbackControllerSetup
 {
-    BCOVFPSBrightcoveAuthProxy *authProxy = [[BCOVFPSBrightcoveAuthProxy alloc] initWithPublisherId:nil applicationId:  nil];
-    self.playbackController = [BCOVPlayerSDKManager.sharedManager createFairPlayPlaybackControllerWithAuthorizationProxy:authProxy];
-
-    self.playbackController.delegate = self;
-    self.playbackController.allowsBackgroundAudioPlayback = YES;
-    self.playbackController.autoPlay = NO;
+    self.playbackController = [BCOVPlayerSDKManager.sharedManager createPlaybackController];
 }
 
 - (void)playerViewSetup
 {
     BCOVPUIPlayerView *playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:nil controlsView:[BCOVPUIBasicControlView basicControlViewWithVODLayout]];
     playerView.playbackController = self.playbackController;
-    playerView.delegate = self;
 
     [self.videoContainerView addSubview:playerView];
     playerView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -139,6 +133,7 @@ static NSString * const kViewControllerVideoID = @"6140448705001";
 
 - (void)groupSessionWasJoined
 {
+    NSLog(@"ViewController Debug - Activity was Joined");
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateSessionLabelWithStatus:@"Joined"];
         self.endSharePlayButton.enabled = YES;
