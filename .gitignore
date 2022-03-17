@@ -29,3 +29,8 @@ DerivedData
 Pods/
 Podfile.lock
 *.xcworkspace
+
+# React Native
+node_modules/
+yarn.lock
+package-lock.json
