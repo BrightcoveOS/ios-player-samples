@@ -48,3 +48,8 @@ app.*.symbols
 app.*.map.json
 pubspec.lock
 .gitignore
+
+# React Native
+node_modules/
+yarn.lock
+package-lock.json
