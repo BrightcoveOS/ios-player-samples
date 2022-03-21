@@ -34,7 +34,7 @@ class NowPlayingHandler: NSObject {
         
         center.pauseCommand.addTarget(self, action: #selector(pauseCommand))
         center.playCommand.addTarget(self, action: #selector(playCommand))
-        center.playPauseCommand.addTarget(self, action: #selector(playPauseCommand))
+        center.togglePlayPauseCommand.addTarget(self, action: #selector(playPauseCommand))
     }
 
     @objc func pauseCommand(_ event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
