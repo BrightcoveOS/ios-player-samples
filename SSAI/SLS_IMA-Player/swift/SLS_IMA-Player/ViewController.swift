@@ -64,8 +64,8 @@ class ViewController: UIViewController {
         imaSettings.language = IMAConfig.Language
         
         let renderSettings = IMAAdsRenderingSettings()
-        renderSettings.webOpenerPresentingController = self
-        renderSettings.webOpenerDelegate = self
+        renderSettings.linkOpenerPresentingController = self
+        renderSettings.linkOpenerDelegate = self
         
         // BCOVIMAAdsRequestPolicy provides methods to specify VAST or VMAP/Server Side Ad Rules. Select the appropriate method to select your ads policy.
         let adsRequestPolicy = BCOVIMAAdsRequestPolicy.videoPropertiesVMAPAdTagUrl()
@@ -180,15 +180,15 @@ extension ViewController: BCOVPlaybackControllerAdsDelegate {
 }
 
 
-// MARK: - IMAWebOpenerDelegate
-extension ViewController: IMAWebOpenerDelegate {
+// MARK: - IMALinkOpenerDelegate
+extension ViewController: IMALinkOpenerDelegate {
     
-    func webOpenerDidOpen(inAppBrowser webOpener: NSObject!) {
-        print("ViewController Debug - webOpenerDidOpen")
+    func linkOpenerDidOpen(inAppLink linkOpener: NSObject!) {
+        print("ViewController Debug - linkOpenerDidOpen")
     }
     
-    func webOpenerDidClose(inAppBrowser webOpener: NSObject!) {
-        print("ViewController Debug - webOpenerDidClose")
+    func linkOpenerDidClose(inAppLink linkOpener: NSObject!) {
+        print("ViewController Debug - linkOpenerDidClose")
     }
     
 }

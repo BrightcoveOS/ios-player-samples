@@ -62,11 +62,12 @@ static NSString * const kViewControllerVideoID = @"6140448705001";
     
     [self setUpAudioSession];
 
-    // Set up our player view. Create with a standard VOD layout.
+    // Set up our player view.
     BCOVPUIPlayerViewOptions *options = [BCOVPUIPlayerViewOptions new];
     options.showPictureInPictureButton = YES;
+    options.automaticControlTypeSelection = YES;
     
-    BCOVPUIPlayerView *playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:options controlsView:[BCOVPUIBasicControlView basicControlViewWithVODLayout] ];
+    BCOVPUIPlayerView *playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:options controlsView:nil];
     playerView.delegate = self;
 
     [_videoContainer addSubview:playerView];
@@ -172,6 +173,18 @@ static NSString * const kViewControllerVideoID = @"6140448705001";
         // Disable route detection for AirPlay
         // https://developer.apple.com/documentation/avfoundation/avroutedetector/2915762-routedetectionenabled
         self.playerView.controlsView.routeDetector.routeDetectionEnabled = NO;
+    }
+}
+
+- (void)playbackController:(id<BCOVPlaybackController>)controller playbackSession:(id<BCOVPlaybackSession>)session determinedMediaType:(BCOVSourceMediaType)mediaType
+{
+    switch (mediaType)
+    {
+        case BCOVSourceMediaTypeAudio:
+            [self.nowPlayingHandler updateNowPlayingInfoForAudioOnly];
+            break;
+        default:
+            break;
     }
 }
 

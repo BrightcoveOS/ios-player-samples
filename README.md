@@ -86,7 +86,7 @@ Player samples demonstrate how to use the core SDK. These are intended to cover 
 
 PlayerUI samples demonstrate how to customize the player look and feel. These are intended to cover the modification of the BCOVPlayerUI, the customization of VoiceOver properties for accessibility and the use of the view strategy.
 
-### Pulse
+#### Pulse
 
 Pulse samples demonstrate how to play ads managed by INVIDI Technologies Pulse. These are intended to cover different configurations for the content.
 

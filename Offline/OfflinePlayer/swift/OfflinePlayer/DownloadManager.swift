@@ -259,6 +259,14 @@ class DownloadManager: NSObject {
             avURLAsset = try BCOVOfflineVideoManager.shared()?.urlAsset(for: video)
         } catch {}
         
+        if let avURLAsset = avURLAsset {
+            // HLSe (AES-128) streams are not supported for offline playback
+            if avURLAsset.url.absoluteString.contains("aes128") {
+                UIAlertController.show(withTitle: "Content Not Supported", andMessage: "Offline playback is not supported for HLSe content.")
+                return
+            }
+        }
+        
         // If mediaSelections is `nil` the SDK will default to the AVURLAsset's `preferredMediaSelection`
         var mediaSelections = [AVMediaSelection]()
         

@@ -40,11 +40,12 @@ class ViewController: UIViewController {
         
         setUpAudioSession()
         
-        // Set up our player view. Create with a standard VOD layout.
+        // Set up our player view.
         let options = BCOVPUIPlayerViewOptions()
         options.showPictureInPictureButton = true
+        options.automaticControlTypeSelection = true
         
-        guard let playerView = BCOVPUIPlayerView(playbackController: self.playbackController, options: options, controlsView: BCOVPUIBasicControlView.withVODLayout()) else {
+        guard let playerView = BCOVPUIPlayerView(playbackController: self.playbackController, options: options, controlsView: nil) else {
             return
         }
         
@@ -129,6 +130,8 @@ class ViewController: UIViewController {
 
 }
 
+// MARK: - BCOVPlaybackControllerDelegate
+
 extension ViewController: BCOVPlaybackControllerDelegate {
     
     func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
@@ -138,7 +141,7 @@ extension ViewController: BCOVPlaybackControllerDelegate {
         
         // Enable route detection for AirPlay
         // https://developer.apple.com/documentation/avfoundation/avroutedetector/2915762-routedetectionenabled
-        playerView?.controlsView.routeDetector?.isRouteDetectionEnabled = true
+        playerView?.controlsView?.routeDetector?.isRouteDetectionEnabled = true
     }
     
     func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didProgressTo progress: TimeInterval) {
@@ -149,11 +152,22 @@ extension ViewController: BCOVPlaybackControllerDelegate {
         if lifecycleEvent.eventType == kBCOVPlaybackSessionLifecycleEventEnd {
             // Disable route detection for AirPlay
             // https://developer.apple.com/documentation/avfoundation/avroutedetector/2915762-routedetectionenabled
-            playerView?.controlsView.routeDetector?.isRouteDetectionEnabled = false
+            playerView?.controlsView?.routeDetector?.isRouteDetectionEnabled = false
+        }
+    }
+    
+    func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, determinedMediaType mediaType: BCOVSourceMediaType) {
+        switch mediaType {
+        case .audio:
+            nowPlayingHandler?.updateNowPlayingInfoForAudioOnly()
+        default:
+            break
         }
     }
     
 }
+
+// MARK: - BCOVPUIPlayerViewDelegate
 
 extension ViewController: BCOVPUIPlayerViewDelegate {
     

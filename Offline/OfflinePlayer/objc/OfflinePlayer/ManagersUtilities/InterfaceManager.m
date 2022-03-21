@@ -16,12 +16,6 @@ typedef NS_ENUM(NSInteger, TabIndex)
     TabIndexSettings
 };
 
-@interface InterfaceManager ()
-
-@property (nonatomic, weak) UITabBarController *tabBarController;
-
-@end
-
 @implementation InterfaceManager
 
 + (instancetype)sharedInstance

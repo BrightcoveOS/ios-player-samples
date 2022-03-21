@@ -14,7 +14,7 @@ static void * const KVOContext = (void*)&KVOContext;
 
 @property (nonatomic, weak) id<BCOVPlaybackController> playbackController;
 @property (nonatomic, strong) NSMutableDictionary *nowPlayingInfo;
-@property (nonatomic, strong) id<BCOVPlaybackSession> session;
+@property (nonatomic, weak) id<BCOVPlaybackSession> session;
 
 @end
 
@@ -36,12 +36,35 @@ static void * const KVOContext = (void*)&KVOContext;
     [(NSObject *)self.session removeObserver:self forKeyPath:@"player.rate"];
 }
 
+- (void)updateNowPlayingInfoForAudioOnly
+{
+    NSDictionary *props = self.session.video.properties;
+    
+    self.nowPlayingInfo[MPMediaItemPropertyMediaType] = @(MPMediaTypeMusic);
+
+    // These custom_fields values can be configured in VideoCloud
+    // https://beacon.support.brightcove.com/syncing-with-video-cloud/vc-custom-fields.html
+    NSDictionary *customFields = props[@"custom_fields"];
+    if (customFields[@"album_artist"])
+    {
+        self.nowPlayingInfo[MPMediaItemPropertyArtist] = customFields[@"album_artist"];
+    }
+    if (customFields[@"album_name"])
+    {
+        self.nowPlayingInfo[MPMediaItemPropertyAlbumTitle] = customFields[@"album_name"];
+    }
+    
+    MPNowPlayingInfoCenter *infoCenter = MPNowPlayingInfoCenter.defaultCenter;
+    infoCenter.nowPlayingInfo = self.nowPlayingInfo;
+}
+
 - (void)setup
 {
     MPRemoteCommandCenter *center = MPRemoteCommandCenter.sharedCommandCenter;
 
     [center.pauseCommand addTarget:self action:@selector(pauseCommand:)];
     [center.playCommand addTarget:self action:@selector(playCommand:)];
+    [center.togglePlayPauseCommand addTarget:self action:@selector(playPauseCommand:)];
 }
 
 - (MPRemoteCommandHandlerStatus)pauseCommand:(MPRemoteCommandEvent *)event
@@ -53,6 +76,20 @@ static void * const KVOContext = (void*)&KVOContext;
 - (MPRemoteCommandHandlerStatus)playCommand:(MPRemoteCommandEvent *)event
 {
     [self.playbackController play];
+    return MPRemoteCommandHandlerStatusSuccess;
+}
+
+- (MPRemoteCommandHandlerStatus)playPauseCommand:(MPRemoteCommandEvent *)event
+{
+    if (self.session.player.rate == 0)
+    {
+        [self.playbackController play];
+    }
+    else
+    {
+        [self.playbackController pause];
+    }
+    
     return MPRemoteCommandHandlerStatusSuccess;
 }
 

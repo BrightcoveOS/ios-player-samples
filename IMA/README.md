@@ -7,7 +7,7 @@ The Brightcove IMA plugin supports Google Ads IMA SDK 3.14.4 for iOS and 4.3.2 f
 
 ### Requirements:
 
-- Xcode 12+
+- Xcode 13+
 
 
 
