@@ -29,3 +29,22 @@ DerivedData
 Pods/
 Podfile.lock
 *.xcworkspace
+
+# Flutter
+.dart_tool/
+.packages
+.metadata
+.pub/
+.idea/
+.vagrant/
+.sconsign.dblite
+.svn/
+build/
+.android/
+.ios/
+.flutter-plugins
+.flutter-plugins-dependencies
+app.*.symbols
+app.*.map.json
+pubspec.lock
+.gitignore
