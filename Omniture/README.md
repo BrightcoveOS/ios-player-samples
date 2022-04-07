@@ -6,11 +6,11 @@ Use of this player sample requires an Adobe analytics account and the custom ADB
 
 ### Adobe SDKs
 
-The Adobe analytics SDKs are **not** included in this sample project. To add them, open a Terminal window, cd to the `BasicOmniturePlayer/objc` folder if using the Objective-C project, or the `BasicOmniturePlayer/swift` folder if using Swift, and run these `git` commands:
+The Adobe analytics SDKs are **not** included in this sample project. To fetch the Adobe Marketing Cloud libraries, download the following archives, unzip them and add them to your project directory:
 
 ```
-git clone -b v4.14.1-iOS --single-branch https://github.com/Adobe-Marketing-Cloud/mobile-services.git
-git clone -b ios-v2.0.1 --single-branch https://github.com/Adobe-Marketing-Cloud/video-heartbeat-v2.git
+https://github.com/Adobe-Marketing-Cloud/media-sdks/archive/refs/tags/ios-v2.3.0.zip
+https://github.com/Adobe-Marketing-Cloud/mobile-services/archive/refs/tags/v4.21.2-iOS.zip
 ```
 
 ### Brightcove SDKs
