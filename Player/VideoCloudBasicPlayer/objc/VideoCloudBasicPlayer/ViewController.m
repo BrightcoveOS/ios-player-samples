@@ -64,7 +64,6 @@ static NSString * const kViewControllerVideoID = @"6140448705001";
 
     // Set up our player view.
     BCOVPUIPlayerViewOptions *options = [BCOVPUIPlayerViewOptions new];
-    options.showPictureInPictureButton = YES;
     options.automaticControlTypeSelection = YES;
     
     BCOVPUIPlayerView *playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:options controlsView:nil];

@@ -42,7 +42,6 @@ class ViewController: UIViewController {
         
         // Set up our player view.
         let options = BCOVPUIPlayerViewOptions()
-        options.showPictureInPictureButton = true
         options.automaticControlTypeSelection = true
         
         guard let playerView = BCOVPUIPlayerView(playbackController: self.playbackController, options: options, controlsView: nil) else {
