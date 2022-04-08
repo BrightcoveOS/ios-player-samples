@@ -3,12 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3422EEE4256D868D0039BEB6 /* AdobeMobileLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3422EEE3256D868D0039BEB6 /* AdobeMobileLibrary.a */; };
-		3422EEE6256D869D0039BEB6 /* VideoHeartbeat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3422EEE5256D869D0039BEB6 /* VideoHeartbeat.a */; };
 		9840591F1A3F8A9000732E8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9840591E1A3F8A9000732E8C /* main.m */; };
 		984059221A3F8A9000732E8C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 984059211A3F8A9000732E8C /* AppDelegate.m */; };
 		984059251A3F8A9000732E8C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 984059241A3F8A9000732E8C /* ViewController.m */; };
@@ -16,11 +14,12 @@
 		9840592A1A3F8A9000732E8C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 984059291A3F8A9000732E8C /* Images.xcassets */; };
 		9840592D1A3F8A9000732E8C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9840592B1A3F8A9000732E8C /* LaunchScreen.xib */; };
 		9840599D1A3F8B3D00732E8C /* ADBMobileConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = 984059431A3F8B3D00732E8C /* ADBMobileConfig.json */; };
+		E92862E827FF70BF00C66F99 /* AdobeMobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92862E727FF70BF00C66F99 /* AdobeMobile.xcframework */; };
+		E92862EA27FF70CD00C66F99 /* MediaSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92862E927FF70CD00C66F99 /* MediaSDK.xcframework */; };
+		E92862EF27FF71F100C66F99 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92862EE27FF71F100C66F99 /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3422EEE3256D868D0039BEB6 /* AdobeMobileLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = AdobeMobileLibrary.a; path = "mobile-services/sdks/iOS/AdobeMobileLibrary/AdobeMobileLibrary.a"; sourceTree = SOURCE_ROOT; };
-		3422EEE5256D869D0039BEB6 /* VideoHeartbeat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = VideoHeartbeat.a; path = "video-heartbeat-v2/sdks/iOS/libs/VideoHeartbeat.a"; sourceTree = SOURCE_ROOT; };
 		984059191A3F8A9000732E8C /* BasicOmniturePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicOmniturePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9840591D1A3F8A9000732E8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9840591E1A3F8A9000732E8C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -31,9 +30,10 @@
 		984059271A3F8A9000732E8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		984059291A3F8A9000732E8C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9840592C1A3F8A9000732E8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		984059371A3F8A9000732E8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		984059381A3F8A9000732E8C /* BasicOmniturePlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BasicOmniturePlayerTests.m; sourceTree = "<group>"; };
-		984059431A3F8B3D00732E8C /* ADBMobileConfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ADBMobileConfig.json; sourceTree = "<group>"; };
+		984059431A3F8B3D00732E8C /* ADBMobileConfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ADBMobileConfig.json; path = AdobeMobile/ADBMobileConfig.json; sourceTree = "<group>"; };
+		E92862E727FF70BF00C66F99 /* AdobeMobile.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AdobeMobile.xcframework; path = "mobile-services-4.21.2-iOS/sdks/iOS/AdobeMobileLibrary/AdobeMobile.xcframework"; sourceTree = "<group>"; };
+		E92862E927FF70CD00C66F99 /* MediaSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MediaSDK.xcframework; path = "media-sdks-ios-v2.3.0/sdks/iOS/libs/MediaSDK.xcframework"; sourceTree = "<group>"; };
+		E92862EE27FF71F100C66F99 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,8 +41,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3422EEE6256D869D0039BEB6 /* VideoHeartbeat.a in Frameworks */,
-				3422EEE4256D868D0039BEB6 /* AdobeMobileLibrary.a in Frameworks */,
+				E92862EF27FF71F100C66F99 /* WebKit.framework in Frameworks */,
+				E92862E827FF70BF00C66F99 /* AdobeMobile.xcframework in Frameworks */,
+				E92862EA27FF70CD00C66F99 /* MediaSDK.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,10 +53,10 @@
 		984059101A3F8A9000732E8C = {
 			isa = PBXGroup;
 			children = (
-				984059421A3F8B3D00732E8C /* AdobeMobile */,
+				E92862E427FF6ECA00C66F99 /* Adobe */,
 				9840591B1A3F8A9000732E8C /* BasicOmniturePlayer */,
-				984059351A3F8A9000732E8C /* BasicOmniturePlayerTests */,
 				9840591A1A3F8A9000732E8C /* Products */,
+				E92862ED27FF71F100C66F99 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -91,31 +92,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		984059351A3F8A9000732E8C /* BasicOmniturePlayerTests */ = {
-			isa = PBXGroup;
-			children = (
-				984059381A3F8A9000732E8C /* BasicOmniturePlayerTests.m */,
-				984059361A3F8A9000732E8C /* Supporting Files */,
-			);
-			path = BasicOmniturePlayerTests;
-			sourceTree = "<group>";
-		};
-		984059361A3F8A9000732E8C /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				984059371A3F8A9000732E8C /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		984059421A3F8B3D00732E8C /* AdobeMobile */ = {
+		E92862E427FF6ECA00C66F99 /* Adobe */ = {
 			isa = PBXGroup;
 			children = (
 				984059431A3F8B3D00732E8C /* ADBMobileConfig.json */,
-				3422EEE3256D868D0039BEB6 /* AdobeMobileLibrary.a */,
-				3422EEE5256D869D0039BEB6 /* VideoHeartbeat.a */,
+				E92862E727FF70BF00C66F99 /* AdobeMobile.xcframework */,
+				E92862E927FF70CD00C66F99 /* MediaSDK.xcframework */,
 			);
-			path = AdobeMobile;
+			name = Adobe;
+			sourceTree = "<group>";
+		};
+		E92862ED27FF71F100C66F99 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E92862EE27FF71F100C66F99 /* WebKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,22 +320,15 @@
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(PROJECT_DIR)/mobile-services/sdks/iOS/AdobeMobileLibrary\"",
-					"\"$(PROJECT_DIR)/video-heartbeat-v2/sdks/iOS/libs/Headers\"",
+					"\"$(PROJECT_DIR)/mobile-services-4.21.2-iOS/sdks/iOS/AdobeMobileLibrary\"",
 				);
 				INFOPLIST_FILE = BasicOmniturePlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/mobile-services/sdks/iOS/AdobeMobileLibrary\"",
-					"\"$(SRCROOT)/video-heartbeat-v2/sdks/iOS/libs\"",
-					"$(PROJECT_DIR)/mobile-services/sdks/iOS/AdobeMobileLibrary",
-					"$(PROJECT_DIR)/video-heartbeat-v2/sdks/iOS/libs",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Brightcove.$(PRODUCT_NAME:rfc1034identifier)";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.BasicOmniturePlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_WORKSPACE = YES;
 			};
@@ -357,22 +342,15 @@
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(PROJECT_DIR)/mobile-services/sdks/iOS/AdobeMobileLibrary\"",
-					"\"$(PROJECT_DIR)/video-heartbeat-v2/sdks/iOS/libs/Headers\"",
+					"\"$(PROJECT_DIR)/mobile-services-4.21.2-iOS/sdks/iOS/AdobeMobileLibrary\"",
 				);
 				INFOPLIST_FILE = BasicOmniturePlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/mobile-services/sdks/iOS/AdobeMobileLibrary\"",
-					"\"$(SRCROOT)/video-heartbeat-v2/sdks/iOS/libs\"",
-					"$(PROJECT_DIR)/mobile-services/sdks/iOS/AdobeMobileLibrary",
-					"$(PROJECT_DIR)/video-heartbeat-v2/sdks/iOS/libs",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Brightcove.$(PRODUCT_NAME:rfc1034identifier)";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.BasicOmniturePlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_WORKSPACE = YES;
 			};
