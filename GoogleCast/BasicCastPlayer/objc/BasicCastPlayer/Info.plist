@@ -56,5 +56,8 @@
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>${PRODUCT_NAME} uses the local network to discover Cast-enabled devices on your WiFi
 network.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>${PRODUCT_NAME} uses microphone access to listen for ultrasonic tokens
+when pairing with nearby Cast devices.</string>
 </dict>
 </plist>
