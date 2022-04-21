@@ -28,13 +28,8 @@ static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM0T
 static NSString * const kViewControllerAccountID = @"5434391461001";
 static NSString * const kViewControllerVideoID = @"6140448705001";
 
-
-// Replace with your own FairPlay account info:
-NSString * kFairPlayPublisherId = @"00000000-0000-0000-0000-000000000000";
-NSString * kFairPlayApplicationId = @"00000000-0000-0000-0000-000000000000";
-
-// FairPlay-protected content URL
-NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8";
+// Example HLS video URL
+NSString * kExampleHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8";
 
 
 @interface ViewController () <BCOVPlaybackControllerDelegate, IMALinkOpenerDelegate>
@@ -123,65 +118,13 @@ NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/st
     // Get the shared SDK manager
     BCOVPlayerSDKManager *sdkManager = [BCOVPlayerSDKManager sharedManager];
     
-    // This shows the two ways of using the Brightcove FairPlay session provider:
-    // Set to true for Dynamic Delivery; false for a legacy Video Cloud account
-    BOOL using_dynamic_delivery = YES;
-    
-    if (using_dynamic_delivery)
-    {
-        // If you're using Dynamic Delivery, you don't need to load
-        // an application certificate. The FairPlay session will load an
-        // application certificate for you if needed.
-        // You can just load and play your FairPlay videos.
-        
-        // Create an authorization proxy for FairPlay
-       // with dynamic delivery you do not need to pass in publisher ID or application ID
-        BCOVFPSBrightcoveAuthProxy *proxy = [[BCOVFPSBrightcoveAuthProxy alloc] initWithPublisherId:nil
+    BCOVFPSBrightcoveAuthProxy *proxy = [[BCOVFPSBrightcoveAuthProxy alloc] initWithPublisherId:nil
                                                                                       applicationId:nil];
-        
-        id<BCOVPlaybackSessionProvider> fps = [sdkManager createFairPlaySessionProviderWithApplicationCertificate:nil
+
+    id<BCOVPlaybackSessionProvider> fps = [sdkManager createFairPlaySessionProviderWithApplicationCertificate:nil
                                                                                                authorizationProxy:proxy
                                                                                           upstreamSessionProvider:nil];
-        [self setupPlaybackControllerWithFPSessionProvider:fps];
-    }
-    else
-    {
-        // Legacy Video Cloud account
-        
-        // You can create your FairPlay session provider first, and give it an
-        // application certificate later, but in this application we want to play
-        // right away, so it's easier to load our player as soon as we know
-        // that we have an application certificate
-        
-        // Create an authorization proxy for FairPlay
-        // using the FairPlay Application ID and the FairPlay Publisher ID
-        BCOVFPSBrightcoveAuthProxy *proxy = [[BCOVFPSBrightcoveAuthProxy alloc] initWithPublisherId:kFairPlayPublisherId
-                                                                                      applicationId:kFairPlayApplicationId];
-        
-        // Retrieve the FairPlay application certificate
-        NSLog(@"Retrieving FairPlay application certificate");
-        
-        __weak typeof(self) weakSelf = self;
-        [proxy retrieveApplicationCertificate:^(NSData * _Nullable applicationCertificate, NSError * _Nullable error) {
-
-            if (applicationCertificate)
-            {
-                NSLog(@"Creating session providers");
-
-                // We can create the FairPlay (and other session providers) now that we have the certificate
-                id<BCOVPlaybackSessionProvider> fps = [sdkManager createFairPlaySessionProviderWithApplicationCertificate:applicationCertificate
-                                                                                                       authorizationProxy:proxy
-                                                                                                  upstreamSessionProvider:nil];
-                
-                [weakSelf setupPlaybackControllerWithFPSessionProvider:fps];
-            }
-            else
-            {
-                NSLog(@"--- ERROR: FairPlay application certificate not found ---");
-            }
-
-        }];
-    }
+    [self setupPlaybackControllerWithFPSessionProvider:fps];
 
     [self resumeAdAfterForeground];
 }
@@ -306,7 +249,7 @@ NSString * kFairPlayHLSVideoURL = @"https://devstreaming-cdn.apple.com/videos/st
     }
     else
     {
-        BCOVVideo *video = [BCOVVideo videoWithHLSSourceURL:[NSURL URLWithString:kFairPlayHLSVideoURL]];
+        BCOVVideo *video = [BCOVVideo videoWithHLSSourceURL:[NSURL URLWithString:kExampleHLSVideoURL]];
         video = [self updateVideoWithVMAPTag:video];
 
         [self.playbackController setVideos:@[video]];

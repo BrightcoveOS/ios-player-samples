@@ -12,10 +12,7 @@ import GoogleInteractiveMediaAds
 import AppTrackingTransparency
 
 struct PlaybackConfig {
-    static let FairPlayHLSVideoURL = "https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8"
-    
-    static let FairPlayPublisherId = ""
-    static var FairPlayApplicationId = ""
+    static let ExampleHLSVideoURL = "https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8"
     
     // ** Customize these values with your own account information **
     static let PolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
@@ -91,72 +88,11 @@ class ViewController: UIViewController {
     
     private func setupPlaybackController() {
         
-        // This shows the two ways of using the Brightcove FairPlay session provider:
-        // Set to true for Dynamic Delivery; false for a legacy Video Cloud account
-        let using_dynamic_delivery = true
-        
-        if (( using_dynamic_delivery ))
-        {
-            // If you're using Dynamic Delivery, you don't need to load
-            // an application certificate. The FairPlay session will load an
-            // application certificate for you if needed.
-            // You can just load and play your FairPlay videos.
-            
-            // Create an authorization proxy for FairPlay
-            // with dynamic delivery you do not need to pass in publisher ID or application ID
-            guard let proxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil, applicationId: nil) else {
-                    return
-            }
-            
-            guard let fps = BCOVPlayerSDKManager.shared()?.createFairPlaySessionProvider(withApplicationCertificate: nil, authorizationProxy: proxy, upstreamSessionProvider: nil) else {
-                return
-            }
-            
-            self.setupPlaybackController(withFPSessionProvider: fps)
+        guard let proxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil, applicationId: nil), let fps = BCOVPlayerSDKManager.shared()?.createFairPlaySessionProvider(withApplicationCertificate: nil, authorizationProxy: proxy, upstreamSessionProvider: nil) else {
+            return
         }
-        else
-        
-        {
-            // Legacy Video Cloud account
-            
-            // You can create your FairPlay session provider first, and give it an
-            // application certificate later, but in this application we want to play
-            // right away, so it's easier to load our player as soon as we know
-            // that we have an application certificate.
-            
-            // Create an authorization proxy for FairPlay
-            // using the FairPlay Application ID and the FairPlay Publisher ID
-            guard let proxy = BCOVFPSBrightcoveAuthProxy(publisherId: PlaybackConfig.FairPlayPublisherId, applicationId: PlaybackConfig.FairPlayApplicationId) else {
-                    return
-            }
-            
-            // Retrieve the FairPlay application certificate
-            print("Retrieving FairPlay application certificate");
-            
-            proxy.retrieveApplicationCertificate { [weak self] (applicationCertificate: Data?, error: Error?) in
-                
-                if let applicationCertificate = applicationCertificate {
-                    
-                    guard let self = self else {
-                        return
-                    }
-                    
-                    print("Creating session providers")
-                    
-                    // We can create the FairPlay (and other session providers) now that we have the certificate
-                    guard let fps = BCOVPlayerSDKManager.shared()?.createFairPlaySessionProvider(withApplicationCertificate: applicationCertificate, authorizationProxy: proxy, upstreamSessionProvider: nil) else {
-                        return
-                    }
-                    
-                    self.setupPlaybackController(withFPSessionProvider: fps)
-                }
-                else
-                {
-                    print("--- ERROR: FairPlay application certificate not found ---")
-                }
-                
-            }
-        }
+
+        self.setupPlaybackController(withFPSessionProvider: fps)
 
         resumeAdAfterForeground()
     }
@@ -219,7 +155,7 @@ class ViewController: UIViewController {
         // create your own BCOVVideo objects directly from URLs if you have them.
         // You can see an example of both methods below. Simply change `usePlaybackService` to
         // true or false depending on which method you want to use.
-        let usePlaybackService = false
+        let usePlaybackService = true
         
         if (usePlaybackService) {
 
@@ -241,7 +177,7 @@ class ViewController: UIViewController {
     
         } else {
 
-            if let url = URL(string: PlaybackConfig.FairPlayHLSVideoURL) {
+            if let url = URL(string: PlaybackConfig.ExampleHLSVideoURL) {
 
                 var video = BCOVVideo(hlsSourceURL: url)
                 video = video.updateVideo(withVMAPTag: IMAConfig.VMAPResponseAdTag)
