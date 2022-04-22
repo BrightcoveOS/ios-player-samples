@@ -72,7 +72,7 @@ import BrightcovePlayerSDK
 struct PlayerUIConstants {
     static let PlaybackServicePolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
     static let AccountID = "5434391461001"
-    static let VideoID = "6140448705001"
+    static let VideoID = "5702141808001"
 }
 
 class ViewController: UIViewController {
@@ -239,6 +239,25 @@ class ViewController: UIViewController {
             switch layout {
             case .ComplexCustom:
                 ControlViewStyles.Complex(forControlsView: playerView.controlsView)
+            case .Simple:
+                // Customize the font for the play/pause button
+                // This font is registered in Info.plist
+                let fontello = UIFont(name: "fontello", size: 22)
+                let playbackButton = playerView.controlsView.playbackButton
+                playbackButton?.titleLabel?.font = fontello
+                playbackButton?.primaryTitle = "\u{e801}"
+                playbackButton?.secondaryTitle = "\u{e802}"
+                playbackButton?.showPrimaryTitle(true)
+
+                // Alternatively you can customize a single-state button
+                // with an image instead
+                let iconImage = UIImage(named: "ClosedCaptionIcon")
+                let ccButton = playerView.controlsView.closedCaptionButton
+                ccButton?.primaryTitle = ""
+                ccButton?.secondaryTitle = ""
+                ccButton?.showPrimaryTitle(true)
+                ccButton?.setBackgroundImage(iconImage, for: .normal)
+                ccButton?.tintColor = .white
             default:
                 break
             }

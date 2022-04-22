@@ -94,19 +94,20 @@ class CustomLayouts: NSObject {
         // Create a new control for each tag.
         // Controls are packaged inside a layout view.
         let playbackLayoutView = BCOVPUIBasicControlView.layoutViewWithControl(from: .buttonPlayback, width: kBCOVPUILayoutUseDefaultValue, elasticity: 0.0)
+        let closedCaptionView = BCOVPUIBasicControlView.layoutViewWithControl(from: .buttonClosedCaption, width: kBCOVPUILayoutUseDefaultValue, elasticity: 0.0)
         let currentTimeLayoutView = BCOVPUIBasicControlView.layoutViewWithControl(from: .labelCurrentTime, width: kBCOVPUILayoutUseDefaultValue, elasticity: 0.0)
         let durationLayoutView = BCOVPUIBasicControlView.layoutViewWithControl(from: .labelDuration, width: kBCOVPUILayoutUseDefaultValue, elasticity: 0.0)
         let progressLayoutView = BCOVPUIBasicControlView.layoutViewWithControl(from: .sliderProgress, width: kBCOVPUILayoutUseDefaultValue, elasticity: 1.0)
         let spacerLayoutView = BCOVPUIBasicControlView.layoutViewWithControl(from: .viewEmpty, width: 8, elasticity: 1.0)
         
         // Configure the standard layout lines.
-        let standardLayoutLine1 = [spacerLayoutView, playbackLayoutView, currentTimeLayoutView, progressLayoutView, durationLayoutView, spacerLayoutView]
+        let standardLayoutLine1 = [spacerLayoutView, playbackLayoutView, closedCaptionView, currentTimeLayoutView, progressLayoutView, durationLayoutView, spacerLayoutView]
         
         let standardLayoutLines = [standardLayoutLine1]
         
         // Configure the compact layout lines.
         let compactLayoutLine1 = [progressLayoutView]
-        let compactLayoutLine2 = [spacerLayoutView, currentTimeLayoutView, spacerLayoutView, playbackLayoutView, spacerLayoutView, durationLayoutView, spacerLayoutView]
+        let compactLayoutLine2 = [spacerLayoutView, currentTimeLayoutView, spacerLayoutView, playbackLayoutView, spacerLayoutView, closedCaptionView, spacerLayoutView, durationLayoutView, spacerLayoutView]
         
         let compactLayoutLines = [compactLayoutLine1, compactLayoutLine2]
         

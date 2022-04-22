@@ -75,7 +75,7 @@
 // ** Customize these values with your own account information **
 static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
 static NSString * const kViewControllerAccountID = @"5434391461001";
-static NSString * const kViewControllerVideoID = @"6140448705001";
+static NSString * const kViewControllerVideoID = @"5702141808001";
 
 
 @interface ViewController () <BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate, BCOVPUIButtonAccessibilityDelegate>
@@ -207,6 +207,26 @@ static NSString * const kViewControllerVideoID = @"6140448705001";
             newControlLayout = [self simpleCustomLayout];
             self.layoutLabel.text = @"Simple Custom Controls";
             self.playerView.controlsView.layout = newControlLayout;
+            
+            // Customize the font for the play/pause button
+            // This font is registered in Info.plist
+            UIFont *fontello = [UIFont fontWithName:@"fontello" size:22];
+            BCOVPUIButton *playbackButton = self.playerView.controlsView.playbackButton;
+            playbackButton.titleLabel.font = fontello;
+            playbackButton.primaryTitle = @"\ue801";
+            playbackButton.secondaryTitle = @"\ue802";
+            [playbackButton showPrimaryTitle:YES];
+            
+            // Alternatively you can customize a single-state button
+            // with an image instead
+            UIImage *iconImage = [UIImage imageNamed:@"ClosedCaptionIcon"];
+            BCOVPUIButton *ccButton = self.playerView.controlsView.closedCaptionButton;
+            ccButton.primaryTitle = @"";
+            ccButton.secondaryTitle = @"";
+            [ccButton showPrimaryTitle:YES];
+            [ccButton setBackgroundImage:iconImage forState:UIControlStateNormal];
+            ccButton.tintColor = UIColor.whiteColor;
+
             break;
         }
 
@@ -300,6 +320,7 @@ static NSString * const kViewControllerVideoID = @"6140448705001";
     // Create a new control for each tag.
     // Controls are packaged inside a layout view.
     BCOVPUILayoutView *playbackLayoutView = [BCOVPUIBasicControlView layoutViewWithControlFromTag:BCOVPUIViewTagButtonPlayback width:kBCOVPUILayoutUseDefaultValue elasticity:0.0];
+    BCOVPUILayoutView *closedCaptionView = [BCOVPUIBasicControlView layoutViewWithControlFromTag:BCOVPUIViewTagButtonClosedCaption width:kBCOVPUILayoutUseDefaultValue elasticity:0.0];
     BCOVPUILayoutView *currentTimeLayoutView = [BCOVPUIBasicControlView layoutViewWithControlFromTag:BCOVPUIViewTagLabelCurrentTime width:kBCOVPUILayoutUseDefaultValue elasticity:0.0];
     BCOVPUILayoutView *durationLayoutView = [BCOVPUIBasicControlView layoutViewWithControlFromTag:BCOVPUIViewTagLabelDuration width:kBCOVPUILayoutUseDefaultValue elasticity:0.0];
     BCOVPUILayoutView *progressLayoutView = [BCOVPUIBasicControlView layoutViewWithControlFromTag:BCOVPUIViewTagSliderProgress width:kBCOVPUILayoutUseDefaultValue elasticity:1.0];
@@ -308,6 +329,7 @@ static NSString * const kViewControllerVideoID = @"6140448705001";
     // Configure the standard layout lines.
     NSArray *standardLayoutLine1 = @[ spacerLayoutView,
                                       playbackLayoutView,
+                                      closedCaptionView,
                                       currentTimeLayoutView,
                                       progressLayoutView,
                                       durationLayoutView,
@@ -321,6 +343,8 @@ static NSString * const kViewControllerVideoID = @"6140448705001";
                                      currentTimeLayoutView,
                                      spacerLayoutView,
                                      playbackLayoutView,
+                                     spacerLayoutView,
+                                     closedCaptionView,
                                      spacerLayoutView,
                                      durationLayoutView,
                                      spacerLayoutView ];
