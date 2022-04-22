@@ -207,6 +207,27 @@ static NSString * const kViewControllerVideoID = @"6140448705001";
             newControlLayout = [self simpleCustomLayout];
             self.layoutLabel.text = @"Simple Custom Controls";
             self.playerView.controlsView.layout = newControlLayout;
+            
+            // Customize the font for the play/pause button
+            // This font is registered in Info.plist
+            UIFont *fontello = [UIFont fontWithName:@"fontello" size:22];
+            BCOVPUIButton *playbackButton = self.playerView.controlsView.playbackButton;
+            playbackButton.titleLabel.font = fontello;
+            playbackButton.primaryTitle = @"\ue801";
+            playbackButton.secondaryTitle = @"\ue802";
+            [playbackButton showPrimaryTitle:YES];
+            
+            // Alternatively you can customize a single-state button
+            // with an image instead
+            /*
+            UIImage *iconImage = [UIImage imageNamed:@"ClosedCaptionIcon"];
+            BCOVPUIButton *ccButton = self.playerView.controlsView.closedCaptionButton;
+            ccButton.primaryTitle = @"";
+            ccButton.secondaryTitle = @"";
+            [ccButton setBackgroundImage:iconImage forState:UIControlStateNormal];
+            ccButton.tintColor = UIColor.whiteColor;
+            */
+
             break;
         }
 

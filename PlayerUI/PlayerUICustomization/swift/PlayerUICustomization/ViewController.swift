@@ -239,6 +239,26 @@ class ViewController: UIViewController {
             switch layout {
             case .ComplexCustom:
                 ControlViewStyles.Complex(forControlsView: playerView.controlsView)
+            case .Simple:
+                // Customize the font for the play/pause button
+                // This font is registered in Info.plist
+                let fontello = UIFont(name: "fontello", size: 22)
+                let playbackButton = playerView.controlsView.playbackButton
+                playbackButton?.titleLabel?.font = fontello
+                playbackButton?.primaryTitle = "\u{e801}"
+                playbackButton?.secondaryTitle = "\u{e802}"
+                playbackButton?.showPrimaryTitle(true)
+
+                // Alternatively you can customize a single-state button
+                // with an image instead
+                /*
+                let iconImage = UIImage(named: "ClosedCaptionIcon")
+                let ccButton = playerView.controlsView.closedCaptionButton
+                ccButton?.primaryTitle = ""
+                ccButton?.secondaryTitle = ""
+                ccButton?.setBackgroundImage(iconImage, for: .normal)
+                ccButton?.tintColor = .white
+                */
             default:
                 break
             }
