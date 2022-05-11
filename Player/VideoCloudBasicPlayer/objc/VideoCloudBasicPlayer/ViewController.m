@@ -13,7 +13,10 @@
 // ** Customize these values with your own account information **
 static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
 static NSString * const kViewControllerAccountID = @"5434391461001";
+// Video Asset
 static NSString * const kViewControllerVideoID = @"6140448705001";
+// Audio-Only Asset
+// static NSString * const kViewControllerVideoID = @"1732548841120406830";
 
 
 @interface ViewController () <BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate>

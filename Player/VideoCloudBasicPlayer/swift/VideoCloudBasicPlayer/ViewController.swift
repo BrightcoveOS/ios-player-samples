@@ -11,7 +11,10 @@ import BrightcovePlayerSDK
 
 let kViewControllerPlaybackServicePolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
 let kViewControllerAccountID = "5434391461001"
+// Video Asset
 let kViewControllerVideoID = "6140448705001"
+// Audio-Only Asset
+// let kViewControllerVideoID = "1732548841120406830"
 
 class ViewController: UIViewController {
     
