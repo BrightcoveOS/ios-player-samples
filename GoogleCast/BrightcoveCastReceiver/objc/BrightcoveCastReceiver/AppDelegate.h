@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class GCKUICastContainerViewController;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (nonatomic, strong) UIWindow *window;
+@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) GCKUICastContainerViewController *castContainerViewController;
 
 @end
 

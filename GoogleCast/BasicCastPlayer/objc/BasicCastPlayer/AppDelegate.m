@@ -52,11 +52,11 @@
     // More Info @ https://developers.google.com/cast/docs/ios_sender/integrate#add_mini_controllers
     UIStoryboard *appStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UINavigationController *navigationController = [appStoryboard instantiateViewControllerWithIdentifier:@"NavController"];
-    GCKUICastContainerViewController *castContainerVC = [[GCKCastContext sharedInstance] createCastContainerControllerForViewController:navigationController];
-    castContainerVC.miniMediaControlsItemEnabled = YES;
+    self.castContainerViewController = [[GCKCastContext sharedInstance] createCastContainerControllerForViewController:navigationController];
+    self.castContainerViewController.miniMediaControlsItemEnabled = YES;
 
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    self.window.rootViewController = castContainerVC;
+    self.window.rootViewController = self.castContainerViewController;
     [self.window makeKeyAndVisible];
     
     return YES;

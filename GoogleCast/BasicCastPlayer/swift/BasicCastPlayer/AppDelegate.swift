@@ -13,7 +13,7 @@ import GoogleCast
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var castContainerViewController: GCKUICastContainerViewController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -57,11 +57,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // More Info @ https://developers.google.com/cast/docs/ios_sender/integrate#add_mini_controllers
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let navigationController = storyboard.instantiateViewController(withIdentifier: "NavController")
-        let castContainerVC = GCKCastContext.sharedInstance().createCastContainerController(for: navigationController)
-        castContainerVC.miniMediaControlsItemEnabled = true
+        castContainerViewController = GCKCastContext.sharedInstance().createCastContainerController(for: navigationController)
+        castContainerViewController?.miniMediaControlsItemEnabled = true
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = castContainerVC
+        window?.rootViewController = castContainerViewController
         window?.makeKeyAndVisible()
         
         return true
