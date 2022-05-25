@@ -9,6 +9,7 @@
 
 #import "PlayerViewController.h"
 #import "GoogleCastManager.h"
+#import "AppDelegate.h"
 
 @import GoogleCast;
 @import BrightcovePlayerSDK;
@@ -127,7 +128,7 @@ static NSString * const kPlaylistRefID = @"brightcove-native-sdk-plist";
 - (void)setupPlayerView
 {
     BCOVPUIPlayerViewOptions *options = [BCOVPUIPlayerViewOptions new];
-    options.presentingViewController = self;
+    options.presentingViewController = ((AppDelegate *)UIApplication.sharedApplication.delegate).castContainerViewController;
     
     BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
     self.playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:options controlsView:controlView];

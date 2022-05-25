@@ -35,7 +35,9 @@ fileprivate struct playbackConfig {
     lazy var playerView: BCOVPUIPlayerView? = {
         
         let options = BCOVPUIPlayerViewOptions()
-        options.presentingViewController = self
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            options.presentingViewController = appDelegate.castContainerViewController
+        }
         
         // Create PlayerUI views with normal VOD controls.
         let controlView = BCOVPUIBasicControlView.withVODLayout()
