@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Kyb-vL-8zb">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ItP-Wz-jce">
+            <objects>
+                <tableViewController id="Kyb-vL-8zb" customClass="ViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="yw2-RH-zek">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="VideoCell" rowHeight="289" id="uZw-BL-7X3" customClass="VideoTableViewCell">
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="289"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uZw-BL-7X3" id="FW5-g4-Nw0">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="289"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nq8-EF-Gx5">
+                                            <rect key="frame" x="15" y="40.5" width="384" height="216"/>
+                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="nq8-EF-Gx5" secondAttribute="height" multiplier="16:9" id="vxX-VT-0wf"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="epQ-h9-UcR">
+                                            <rect key="frame" x="304" y="50.5" width="85" height="31"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mja-b7-lZi">
+                                                    <rect key="frame" x="5" y="0.0" width="75" height="31"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="Unmute"/>
+                                                    <connections>
+                                                        <action selector="toggleVideoMute:" destination="uZw-BL-7X3" eventType="touchUpInside" id="Xw7-oi-ssN"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="0.74964832120000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="Mja-b7-lZi" firstAttribute="top" secondItem="epQ-h9-UcR" secondAttribute="top" id="Tel-Ab-Mfq"/>
+                                                <constraint firstItem="Mja-b7-lZi" firstAttribute="leading" secondItem="epQ-h9-UcR" secondAttribute="leading" constant="5" id="aeG-Xu-gfe"/>
+                                                <constraint firstAttribute="trailing" secondItem="Mja-b7-lZi" secondAttribute="trailing" constant="5" id="ddo-bB-5CO"/>
+                                                <constraint firstAttribute="bottom" secondItem="Mja-b7-lZi" secondAttribute="bottom" id="qgw-Zi-klD"/>
+                                            </constraints>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aik-PB-JnQ">
+                                            <rect key="frame" x="15" y="5" width="384" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="nq8-EF-Gx5" firstAttribute="top" secondItem="aik-PB-JnQ" secondAttribute="bottom" constant="15" id="8ch-ea-IKn"/>
+                                        <constraint firstItem="epQ-h9-UcR" firstAttribute="top" secondItem="nq8-EF-Gx5" secondAttribute="top" constant="10" id="Did-Fg-58L"/>
+                                        <constraint firstAttribute="trailing" secondItem="nq8-EF-Gx5" secondAttribute="trailing" constant="15" id="OpC-1e-Qdh"/>
+                                        <constraint firstItem="aik-PB-JnQ" firstAttribute="top" secondItem="FW5-g4-Nw0" secondAttribute="top" constant="5" id="b4n-DA-ysj"/>
+                                        <constraint firstAttribute="trailing" secondItem="aik-PB-JnQ" secondAttribute="trailing" constant="15" id="ma7-tT-Trw"/>
+                                        <constraint firstItem="aik-PB-JnQ" firstAttribute="leading" secondItem="FW5-g4-Nw0" secondAttribute="leading" constant="15" id="nDi-fG-sPW"/>
+                                        <constraint firstItem="epQ-h9-UcR" firstAttribute="trailing" secondItem="nq8-EF-Gx5" secondAttribute="trailing" constant="-10" id="pfw-b1-9U4"/>
+                                        <constraint firstItem="nq8-EF-Gx5" firstAttribute="leading" secondItem="FW5-g4-Nw0" secondAttribute="leading" constant="15" id="pps-qx-YQw"/>
+                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="nq8-EF-Gx5" secondAttribute="bottom" constant="5" id="qmT-Og-8sx"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="muteButton" destination="Mja-b7-lZi" id="Psv-m0-dlh"/>
+                                    <outlet property="videoContainer" destination="nq8-EF-Gx5" id="LmK-F9-Rlj"/>
+                                    <outlet property="videoLabel" destination="aik-PB-JnQ" id="hQx-X7-93T"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Kyb-vL-8zb" id="Ff2-Ni-qB9"/>
+                            <outlet property="delegate" destination="Kyb-vL-8zb" id="nPN-bU-vyg"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="csl-hA-PKs"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bbP-i1-2Lf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="746" y="13"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
