@@ -18,8 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2200CEA2287F3A67005522AC /* PlayerReactNative.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerReactNative.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D624538127E3C145000161DB /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
-		D6AB5DBC277BD087008B937F /* PlayerReactNative.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = PlayerReactNative.app; path = "/Users/cceja/git-repos/Brightcove/ios-player-samples/PlayerUI/ReactNative/objc/build/Debug-iphoneos/PlayerReactNative.app"; sourceTree = "<absolute>"; };
 		D6AB5DBF277BD087008B937F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D6AB5DC0277BD087008B937F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D6AB5DC9277BD087008B937F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -56,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				D6AB5DBE277BD087008B937F /* PlayerReactNative */,
+				2200CEA2287F3A67005522AC /* PlayerReactNative.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,7 +104,7 @@
 			);
 			name = PlayerReactNative;
 			productName = PlayerReactNative;
-			productReference = D6AB5DBC277BD087008B937F /* PlayerReactNative.app */;
+			productReference = 2200CEA2287F3A67005522AC /* PlayerReactNative.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -221,6 +222,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
@@ -281,6 +283,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
