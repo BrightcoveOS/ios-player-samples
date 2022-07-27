@@ -425,19 +425,6 @@ extension DownloadManager: BCOVOfflineVideoManagerDelegate {
         backgroundSessionConfiguration.isDiscretionary = false
     }
     
-    func offlineVideoToken(_ offlineVideoToken: String?, downloadTask: AVAssetDownloadTask?, didProgressTo progressPercent: TimeInterval) {
-        // This delegate method reports progress for the primary video download
-        let percentString = String(format: "%0.2f", progressPercent)
-        print("Offline download didProgressTo: \(percentString) for token: \(offlineVideoToken!)")
-        
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus, object: nil)
-            let downloadsVC = AppDelegate.current().tabBarController.downloadsViewController()
-            downloadsVC?.updateInfoForSelectedDownload()
-            downloadsVC?.refresh()
-        }
-    }
-    
     func offlineVideoToken(_ offlineVideoToken: String!, aggregateDownloadTask: AVAggregateAssetDownloadTask!, didProgressTo progressPercent: TimeInterval, for mediaSelection: AVMediaSelection!) {
         // The specific requested media selected option related to this
         // offline video token has progressed to the specified percent

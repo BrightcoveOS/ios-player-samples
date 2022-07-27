@@ -695,7 +695,7 @@ static unsigned long long int directorySize(NSString *folderPath)
                     expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:absoluteExpirationTime];
                 }
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                dateFormatter.dateStyle = kCFDateFormatterMediumStyle;
+                dateFormatter.dateStyle = NSDateFormatterMediumStyle;
                 dateFormatter.timeStyle = NSDateFormatterShortStyle;
                 text = [NSString stringWithFormat:@"rental (expires %@)",
                         [dateFormatter stringFromDate:expirationDate]];
@@ -712,7 +712,7 @@ static unsigned long long int directorySize(NSString *folderPath)
                     NSDate *startDate = [NSDate dateWithTimeIntervalSinceReferenceDate:startTime];
                     NSDate *expirationDate = [startDate dateByAddingTimeInterval:rentalDuration];
                     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                    dateFormatter.dateStyle = kCFDateFormatterMediumStyle;
+                    dateFormatter.dateStyle = NSDateFormatterMediumStyle;
                     dateFormatter.timeStyle = NSDateFormatterShortStyle;
                     text = [NSString stringWithFormat:@"rental (expires %@)",
                             [dateFormatter stringFromDate:expirationDate]];
