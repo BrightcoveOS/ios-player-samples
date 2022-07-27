@@ -530,23 +530,6 @@
 }
 
 - (void)offlineVideoToken:(BCOVOfflineVideoToken)offlineVideoToken
-             downloadTask:(AVAssetDownloadTask *)downloadtask
-            didProgressTo:(NSTimeInterval)percent
-{
-    // This delegate method reports progress for the primary video download
-    NSLog(@"Offline download didProgressTo: %0.2f%% for token: %@", (float)percent, offlineVideoToken);
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-
-        if ([self.delegate respondsToSelector:@selector(downloadDidProgressTo:)])
-        {
-            [self.delegate downloadDidProgressTo:percent];
-        }
-
-    });
-}
-
-- (void)offlineVideoToken:(BCOVOfflineVideoToken)offlineVideoToken
 didFinishDownloadWithError:(NSError *)error
 {
     // The video has completed downloading
@@ -574,7 +557,7 @@ didFinishDownloadWithError:(NSError *)error
 }
 
 - (void)offlineVideoToken:(BCOVOfflineVideoToken)offlineVideoToken
-    aggregateDownloadTask:(AVAssetDownloadTask *)downloadtask
+    aggregateDownloadTask:(AVAggregateAssetDownloadTask *)downloadtask
             didProgressTo:(NSTimeInterval)progressPercent
         forMediaSelection:(AVMediaSelection *)mediaSelection NS_AVAILABLE_IOS(11_0)
 {
