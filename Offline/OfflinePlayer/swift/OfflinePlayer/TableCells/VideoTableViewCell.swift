@@ -23,7 +23,7 @@ class VideoTableViewCell: UITableViewCell {
     
     weak var video: BCOVVideo?
     weak var delegate: VideoTableViewCellDelegate?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         cleanup()
@@ -161,14 +161,9 @@ class VideoTableViewCell: UITableViewCell {
         handleDownloadState(offlineStatus: offlineStatus)
         
         progressView.isHidden = false
-        updateProgressView(withPercentage: offlineStatus.downloadPercent)
+        progressView.progress = Float(offlineStatus.downloadPercent / 100.0)
         
-        statusButtonImageView.image = UIImage(named: "downloaded")
         statusButton.isUserInteractionEnabled = false
-    }
-    
-    private func updateProgressView(withPercentage percentage: CGFloat) {
-        self.progressView.setProgress(Float(percentage / 100.0), animated: true)
     }
     
     private func formattedSizeString(filesize: Double) -> String {
