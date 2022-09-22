@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1677C4D328DC23E1009168EE /* SliderBrightCoveSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1677C4D228DC23E1009168EE /* SliderBrightCoveSwiftUIView.swift */; };
 		AE94B43BF938E88A9A21DFDC /* Pods_SwiftUIPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF415C5CE85421138C59DF58 /* Pods_SwiftUIPlayer.framework */; };
 		D6226168260927A3003CEF82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6226167260927A3003CEF82 /* AppDelegate.swift */; };
 		D622616A260927A3003CEF82 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6226169260927A3003CEF82 /* SceneDelegate.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1677C4D228DC23E1009168EE /* SliderBrightCoveSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderBrightCoveSwiftUIView.swift; sourceTree = "<group>"; };
 		A47013BCE0153E7BCB35BEF6 /* Pods-SwiftUIPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftUIPlayer.debug.xcconfig"; path = "Target Support Files/Pods-SwiftUIPlayer/Pods-SwiftUIPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		CD8E454B910F918FF4FCAFF5 /* Pods-SwiftUIPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftUIPlayer.release.xcconfig"; path = "Target Support Files/Pods-SwiftUIPlayer/Pods-SwiftUIPlayer.release.xcconfig"; sourceTree = "<group>"; };
 		CF415C5CE85421138C59DF58 /* Pods_SwiftUIPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftUIPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +49,7 @@
 		1677C4CF28DC1967009168EE /* PlayerUICustom */ = {
 			isa = PBXGroup;
 			children = (
+				1677C4D228DC23E1009168EE /* SliderBrightCoveSwiftUIView.swift */,
 			);
 			path = PlayerUICustom;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				D6226168260927A3003CEF82 /* AppDelegate.swift in Sources */,
 				D622616A260927A3003CEF82 /* SceneDelegate.swift in Sources */,
 				D622616C260927A3003CEF82 /* ContentView.swift in Sources */,
+				1677C4D328DC23E1009168EE /* SliderBrightCoveSwiftUIView.swift in Sources */,
 				D6226191260959BB003CEF82 /* PlayerUI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
