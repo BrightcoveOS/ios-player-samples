@@ -7,9 +7,9 @@ ios-player-samples.git is a collection of sample applications for the Brightcove
 
 ### Prerequisites
 
-1. CocoaPods 1.0+
-1. Xcode 11.0+
-1. iOS 11.0+ or tvOS 11.0+
+1. CocoaPods 1.11+
+1. Xcode 13.0+
+1. iOS 13.6+ or tvOS 13.4+
 
 An Apple Developer Program account is required to run any sample app on a physical device. In order to provision your device, edit the sample app bundle identifier to make it unique to your organization.
 
@@ -20,6 +20,10 @@ To ensure you are using the latest releases of the Brightcove software component
 ```
 pod repo update
 ```
+
+### About Bitcode
+
+Xcode 14 deprecates Bitcode. The default Bitcode setting in Xcode 14 is No. Brightcove SDK versions 6.10.6 and above do not include Bitcode images. If you are building sample projects using Xcode 13.4.1 or lower, manually disable Bitcode in the project.
 
 ### About Swift
 
