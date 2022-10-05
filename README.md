@@ -8,7 +8,7 @@ ios-player-samples.git is a collection of sample applications for the Brightcove
 ### Prerequisites
 
 1. CocoaPods 1.11+
-1. Xcode 13.0+
+1. Xcode 13.0+, Xcode 14.0+ is recommended (refer to _About Bitcode_ below).
 1. iOS 13.6+ or tvOS 13.4+
 
 An Apple Developer Program account is required to run any sample app on a physical device. In order to provision your device, edit the sample app bundle identifier to make it unique to your organization.
@@ -23,7 +23,15 @@ pod repo update
 
 ### About Bitcode
 
-Xcode 14 deprecates Bitcode. The default Bitcode setting in Xcode 14 is No. Brightcove SDK versions 6.10.6 and above do not include Bitcode images. If you are building sample projects using Xcode 13.4.1 or lower, manually disable Bitcode in the project.
+The ENABLE_BITCODE setting has been removed from all sample projects and the default value of the IDE is used instead. Xcode 14.0 has deprecated bitcode and the default setting is NO. The default bitcode setting in Xcode 13 is YES.
+
+Brightcove SDK versions 6.10.6 and above do not include bitcode images. If you are building sample projects using Xcode 13.4.1 or earlier, you must manually disable bitcode in your project settings.
+
+From the [Xcode 14 Release Notes](https://developer.apple.com/documentation/xcode-release-notes/xcode-14-release-notes):
+
+> Starting with Xcode 14, bitcode is no longer required for watchOS and tvOS applications, and the App Store no longer accepts bitcode submissions from Xcode 14.
+> 
+> Xcode no longer builds bitcode by default and generates a warning message if a project explicitly enables bitcode: “Building with bitcode is deprecated. Please update your project and/or target settings to disable bitcode.” The capability to build with bitcode will be removed in a future Xcode release. IPAs that contain bitcode will have the bitcode stripped before being submitted to the App Store. Debug symbols for past bitcode submissions remain available for download. (86118779)
 
 ### About Swift
 
