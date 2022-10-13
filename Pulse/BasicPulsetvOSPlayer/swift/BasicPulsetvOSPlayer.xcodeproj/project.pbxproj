@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -119,7 +119,7 @@
 				};
 			};
 			buildConfigurationList = D64ED37C241C20FD00C856DA /* Build configuration list for PBXProject "BasicPulsetvOSPlayer" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -219,7 +219,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -242,7 +241,7 @@
 				SDKROOT = appletvos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TVOS_DEPLOYMENT_TARGET = 13.2;
+				TVOS_DEPLOYMENT_TARGET = 13.4;
 			};
 			name = Debug;
 		};
@@ -281,7 +280,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -297,7 +295,7 @@
 				SDKROOT = appletvos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				TVOS_DEPLOYMENT_TARGET = 13.2;
+				TVOS_DEPLOYMENT_TARGET = 13.4;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -318,7 +316,6 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "BasicPulsetvOSPlayer/BasicPulsetvOSPlayer-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 11.0;
 				VALIDATE_WORKSPACE = YES;
 			};
 			name = Debug;
@@ -339,7 +336,6 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "BasicPulsetvOSPlayer/BasicPulsetvOSPlayer-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 11.0;
 				VALIDATE_WORKSPACE = YES;
 			};
 			name = Release;

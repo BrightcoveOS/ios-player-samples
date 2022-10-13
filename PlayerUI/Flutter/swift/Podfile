@@ -3,7 +3,7 @@ source 'https://github.com/brightcove/BrightcoveSpecs.git'
 
 use_frameworks!
 
-platform :ios, '11.0'
+platform :ios, '13.6'
 
 flutter_application_path = '../flutter_app'
 load File.join(flutter_application_path, '.ios', 'Flutter', 'podhelper.rb')

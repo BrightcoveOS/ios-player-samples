@@ -3,7 +3,7 @@ source 'https://github.com/brightcove/BrightcoveSpecs.git'
 
 use_frameworks!
 
-platform :tvos, '11.0'
+platform :tvos, '13.4'
 
 target 'AppleTV' do
   pod 'Brightcove-Player-Core/XCFramework'

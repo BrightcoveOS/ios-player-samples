@@ -8,8 +8,8 @@ This sample shows how to integrate Flutter with the Brightcove Player SDKs for i
 
 1. Flutter SDK
 1. CocoaPods 1.10+
-1. Xcode 11.0+
-1. iOS 11.0+
+1. Xcode 13.0+
+1. iOS 13.6+
 
 ## About Flutter
 
