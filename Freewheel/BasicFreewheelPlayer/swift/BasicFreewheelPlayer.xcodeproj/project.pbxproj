@@ -292,11 +292,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_ROOT}/Brightcove-Player-Core/ios/static\"",
-					"\"${PODS_ROOT}/Brightcove-Player-FreeWheel/ios\"",
-				);
 				INFOPLIST_FILE = BasicFreewheelPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -318,11 +313,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_ROOT}/Brightcove-Player-Core/ios/static\"",
-					"\"${PODS_ROOT}/Brightcove-Player-FreeWheel/ios\"",
-				);
 				INFOPLIST_FILE = BasicFreewheelPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
