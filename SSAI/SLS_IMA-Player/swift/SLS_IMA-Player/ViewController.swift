@@ -183,11 +183,11 @@ extension ViewController: BCOVPlaybackControllerAdsDelegate {
 // MARK: - IMALinkOpenerDelegate
 extension ViewController: IMALinkOpenerDelegate {
     
-    func linkOpenerDidOpen(inAppLink linkOpener: NSObject!) {
+    func linkOpenerDidOpen(inAppLink linkOpener: NSObject) {
         print("ViewController Debug - linkOpenerDidOpen")
     }
     
-    func linkOpenerDidClose(inAppLink linkOpener: NSObject!) {
+    func linkOpenerDidClose(inAppLink linkOpener: NSObject) {
         print("ViewController Debug - linkOpenerDidClose")
     }
     

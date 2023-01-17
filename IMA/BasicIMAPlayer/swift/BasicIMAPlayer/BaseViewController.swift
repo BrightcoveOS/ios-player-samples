@@ -225,7 +225,7 @@ extension BaseViewController: BCOVIMAPlaybackSessionDelegate {
 
 extension BaseViewController: IMALinkOpenerDelegate {
     
-    func linkOpenerDidClose(inAppLink linkOpener: NSObject!) {
+    func linkOpenerDidClose(inAppLink linkOpener: NSObject) {
         // Called when the in-app browser has closed.
         playbackController?.resumeAd()
     }
