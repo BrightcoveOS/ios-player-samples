@@ -140,7 +140,7 @@ class StreamingVideoViewController: BaseVideoViewController {
     
     private func showWarnings() {
         #if targetEnvironment(simulator)
-        UIAlertController.show(withTitle: "Reminder...", andMessage: "FairPlay videos won't download or display in a simulator.")
+        UIAlertController.show(withTitle: "Reminder...", andMessage: "iOS does not allow FairPlay-protected video to display in a simulator, nor does it allow video downloads to a simulator, so it's important to develop on an actual device.")
         #endif
         
         if ConfigConstants.AccountID.count == 0 {
