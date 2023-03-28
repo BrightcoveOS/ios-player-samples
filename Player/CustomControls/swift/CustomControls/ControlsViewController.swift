@@ -257,7 +257,7 @@ extension ControlsViewController: BCOVPlaybackSessionConsumer {
 
 // MARK: - ControlsViewControllerFullScreenDelegate
 
-protocol ControlsViewControllerFullScreenDelegate: class {
+protocol ControlsViewControllerFullScreenDelegate: AnyObject {
     func handleEnterFullScreenButtonPressed()
     func handleExitFullScreenButtonPressed()
 }

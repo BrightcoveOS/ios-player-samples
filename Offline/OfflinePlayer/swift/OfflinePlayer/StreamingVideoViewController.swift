@@ -105,7 +105,8 @@ class StreamingVideoViewController: BaseVideoViewController {
         let playbackServiceRequestFactory = BCOVPlaybackServiceRequestFactory(accountId: ConfigConstants.AccountID, policyKey: ConfigConstants.PolicyKey)
         
         let playbackService = BCOVPlaybackService(requestFactory: playbackServiceRequestFactory)
-        playbackService?.findPlaylist(withReferenceID: ConfigConstants.PlaylistID, parameters: queryParams, completion: { [weak self] (playlist: BCOVPlaylist?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetReferenceID:ConfigConstants.PlaylistID]
+        playbackService?.findPlaylist(withConfiguration: configuration, queryParameters: queryParams, completion: { [weak self] (playlist: BCOVPlaylist?, json: [AnyHashable:Any]?, error: Error?) in
             
             self?.refreshControl.endRefreshing()
             

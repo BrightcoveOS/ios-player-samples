@@ -156,10 +156,8 @@ static NSString * const kViewControllerVideoID = @"5702141808001";
                                               ]];
 
     NSLog(@"Request Content from the Video Cloud");
-    [self.playbackService findVideoWithVideoID:kViewControllerVideoID
-                                    parameters:nil completion:^(BCOVVideo *video,
-                                                                NSDictionary *jsonResponse,
-                                                                NSError *error)
+    NSDictionary *configuration = @{kBCOVPlaybackServiceConfigurationKeyAssetID:kViewControllerVideoID};
+    [self.playbackService findVideoWithConfiguration:configuration queryParameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error)
     {
         if (video)
         {

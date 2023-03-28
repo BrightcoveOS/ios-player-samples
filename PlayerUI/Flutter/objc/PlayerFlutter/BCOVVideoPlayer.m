@@ -157,7 +157,14 @@
                                     call.arguments[@"parameters"] :
                                     nil);
         
-        [_playbackService findVideoWithVideoID:videoId authToken:authToken parameters:parameters completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error)
+        NSMutableDictionary *configuration = @{
+            kBCOVPlaybackServiceConfigurationKeyAssetID:videoId
+        }.mutableCopy;
+        if (authToken)
+        {
+            configuration[kBCOVPlaybackServiceConfigurationKeyAuthToken] = authToken;
+        }
+        [_playbackService findVideoWithConfiguration:configuration queryParameters:parameters completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error)
          {
             if (video)
             {

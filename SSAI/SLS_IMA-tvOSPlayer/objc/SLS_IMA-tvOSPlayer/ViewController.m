@@ -120,7 +120,8 @@ static NSString * const kViewControllerAdConfigID = @"insertyouradconfigidhere";
     __weak typeof(self) weakSelf = self;
     
     NSDictionary *queryParmaters = @{ kBCOVPlaybackServiceParamaterKeyAdConfigId: kViewControllerAdConfigID };
-    [self.playbackService findVideoWithVideoID:kViewControllerVideoID parameters:queryParmaters completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
+    NSDictionary *configuration = @{kBCOVPlaybackServiceConfigurationKeyAssetID:kViewControllerVideoID};
+    [self.playbackService findVideoWithConfiguration:configuration queryParameters:queryParmaters completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
         
         if (video)
         {

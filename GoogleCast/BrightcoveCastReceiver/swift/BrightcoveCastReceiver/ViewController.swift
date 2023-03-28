@@ -37,6 +37,7 @@ fileprivate struct PlaybackConfig {
             //receiverAppConfig.authToken = ""
             
             // You can use the adConfigId property for SSAI
+            // Intended to be used alongside the SSAI Plugin for Brightcove Player SDK for iOS
             //receiverAppConfig.adConfigId = ""
             
             return BCOVGoogleCastManager(forBrightcoveReceiverApp: receiverAppConfig)
@@ -111,16 +112,17 @@ fileprivate struct PlaybackConfig {
         
         private func requestPlaylist() {
             let playbackService = BCOVPlaybackService(accountId: PlaybackConfig.AccountID, policyKey: PlaybackConfig.PlaybackServicePolicyKey)
-            playbackService?.findPlaylist(withReferenceID: PlaybackConfig.PlaylistRefID, parameters: nil, completion: { [weak self] (playlist: BCOVPlaylist?, json: [AnyHashable:Any]?, error: Error?) in
-                
+            let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetReferenceID:PlaybackConfig.PlaylistRefID]
+            playbackService?.findPlaylist(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (playlist: BCOVPlaylist?, json: [AnyHashable:Any]?, error: Error?) in
+
                 guard let playlist = playlist else {
                     print("PlayerViewController Debug - Error retrieving video playlist")
                     return
                 }
-                
+
                 self?.playlist = playlist
                 self?.tableView.reloadData()
-                
+
             })
         }
         

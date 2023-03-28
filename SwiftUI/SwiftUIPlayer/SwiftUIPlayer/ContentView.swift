@@ -50,7 +50,8 @@ struct ContentView: View {
                 .onAppear() {
                     let playbackService = BCOVPlaybackService(accountId: Constants.AccountID, policyKey: Constants.PolicyKey)
                     
-                    playbackService?.findVideo(withVideoID: Constants.VideoId, parameters: nil, completion: { (video: BCOVVideo?, jsonResponse: [AnyHashable : Any]?, error: Error?) in
+                    let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:Constants.VideoId]
+                    playbackService?.findVideo(withConfiguration: configuration, queryParameters: nil, completion: { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
                         
                         if let video = video {
                             self.playbackController.setVideos([video] as NSFastEnumeration)

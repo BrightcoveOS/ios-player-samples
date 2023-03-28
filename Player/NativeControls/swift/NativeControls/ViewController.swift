@@ -72,7 +72,8 @@ class ViewController: UIViewController {
     
     private func requestContentFromPlaybackService() {
         
-        playbackService?.findVideo(withVideoID: NativeControlsConstants.VideoID, parameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable : Any]?, error: Error?) in
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:NativeControlsConstants.VideoID]
+        playbackService?.findVideo(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
             
             if let strongSelf = self, let video = video {
                 strongSelf.playbackController?.setVideos([video] as NSFastEnumeration)

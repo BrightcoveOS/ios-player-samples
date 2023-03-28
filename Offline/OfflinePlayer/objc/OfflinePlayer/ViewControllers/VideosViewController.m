@@ -228,10 +228,9 @@
     BCOVPlaybackService *playbackService = [[BCOVPlaybackService alloc] initWithRequestFactory:playbackServiceRequestFactory];
     
     __weak typeof(self) weakSelf = self;
-    [playbackService findPlaylistWithReferenceID:kDynamicDeliveryPlaylistRefID
-                                      parameters:queryParameters
-                                      completion:^(BCOVPlaylist *playlist, NSDictionary *jsonResponse, NSError *error) {
-        
+    NSDictionary *configuration = @{kBCOVPlaybackServiceConfigurationKeyAssetReferenceID:kDynamicDeliveryPlaylistRefID};
+    [playbackService findPlaylistWithConfiguration:configuration queryParameters:queryParameters completion:^(BCOVPlaylist *playlist, NSDictionary *jsonResponse, NSError *error) {
+
         __strong typeof(weakSelf) strongSelf = weakSelf;
 
          [strongSelf.refreshControl endRefreshing];

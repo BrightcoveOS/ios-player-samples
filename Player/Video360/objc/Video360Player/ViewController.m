@@ -101,29 +101,28 @@ static NSString * const kSampleVideo360VideoID = @"1685628526640737870";
 
 - (void)requestContentFromPlaybackService
 {
-    [self.playbackService findVideoWithVideoID:kSampleVideo360VideoID
-                                    parameters:nil
-                                    completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
+    NSDictionary *configuration = @{kBCOVPlaybackServiceConfigurationKeyAssetID:kSampleVideo360VideoID};
+    [self.playbackService findVideoWithConfiguration:configuration queryParameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
                                         
-                                        if (video)
-                                        {
-                                            // Check "projection" property to confirm that this is a 360 degree video
-                                            NSString *projectionPropertyString = video.properties[kBCOVVideoPropertyKeyProjection];
-                                            
-                                            if (projectionPropertyString
-                                                && [projectionPropertyString isEqualToString:@"equirectangular"])
-                                            {
-                                                NSLog(@"Retrieved a 360 video");
-                                            }
-                                            
-                                            [self.playbackController setVideos:@[ video ]];
-                                        }
-                                        else
-                                        {
-                                            NSLog(@"Error retrieving video: %@", error);
-                                        }
-                                        
-                                    }];
+        if (video)
+        {
+            // Check "projection" property to confirm that this is a 360 degree video
+            NSString *projectionPropertyString = video.properties[kBCOVVideoPropertyKeyProjection];
+
+            if (projectionPropertyString
+            && [projectionPropertyString isEqualToString:@"equirectangular"])
+            {
+                NSLog(@"Retrieved a 360 video");
+            }
+
+            [self.playbackController setVideos:@[ video ]];
+        }
+        else
+        {
+            NSLog(@"Error retrieving video: %@", error);
+        }
+
+    }];
 }
 
 

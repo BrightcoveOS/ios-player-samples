@@ -138,16 +138,16 @@ class ViewController: UIViewController {
     
     private func requestContentFromPlaybackService() {
          // In order to play back content, we are going to request a video from the playback service.
-        playbackService?.findVideo(withVideoID: ConfigConstants.VideoID, parameters: nil
-            , completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable : Any]?, error: Error?) in
-                guard let video = video else {
-                    if let error = error {
-                        print("ViewController Debug - Error retrieving video playlist: \(error.localizedDescription)")
-                    }
-                    return
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:ConfigConstants.VideoID]
+        playbackService?.findVideo(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
+            guard let video = video else {
+                if let error = error {
+                    print("ViewController Debug - Error retrieving video playlist: \(error.localizedDescription)")
                 }
-                
-                self?.playbackController?.setVideos([video] as NSFastEnumeration)
+                return
+            }
+            
+            self?.playbackController?.setVideos([video] as NSFastEnumeration)
         })
     }
     

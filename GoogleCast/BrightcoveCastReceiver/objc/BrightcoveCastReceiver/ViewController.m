@@ -54,6 +54,7 @@ static NSString * const kPlaylistRefID = @"brightcove-native-sdk-plist";
     //receiverAppConfig.authToken = @"";
     
     // You can use the adConfigId property for SSAI
+    // Intended to be used alongside the SSAI Plugin for Brightcove Player SDK for iOS
     //receiverAppConfig.adConfigId = @"";
     
     self.googleCastManager = [[BCOVGoogleCastManager alloc] initForBrightcoveReceiverApp:receiverAppConfig];
@@ -94,7 +95,8 @@ static NSString * const kPlaylistRefID = @"brightcove-native-sdk-plist";
     BCOVPlaybackService *playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kAccountID policyKey:kServicePolicyKey];
     
     __weak typeof(self) weakSelf = self;
-    [playbackService findPlaylistWithReferenceID:kPlaylistRefID parameters:nil completion:^(BCOVPlaylist *playlist, NSDictionary *jsonResponse, NSError *error) {
+    NSDictionary *configuration = @{kBCOVPlaybackServiceConfigurationKeyAssetReferenceID:kPlaylistRefID};
+    [playbackService findPlaylistWithConfiguration:configuration queryParameters:nil completion:^(BCOVPlaylist *playlist, NSDictionary *jsonResponse, NSError *error) {
        
         if (playlist)
         {

@@ -38,12 +38,15 @@ class BCOVVideoPlayer: UIView {
             let authToken = playbackServiceArgs["authToken"] as? String
             let parameters = playbackServiceArgs["parameters"] as? [AnyHashable : Any]
             
-            self.playbackService.findVideo(withVideoID: videoId, authToken: authToken, parameters: parameters) { [self] video, jsonResponse, error in
-                if let video = video {
-                    self.playbackController.setVideos([video] as NSFastEnumeration)
-                }
-                
+            var configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:videoId]
+            if authToken != nil {
+                configuration[kBCOVPlaybackServiceConfigurationKeyAuthToken] = authToken
             }
+            playbackService?.findVideo(withConfiguration: configuration, queryParameters: parameters, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
+                if let video = video {
+                    self?.playbackController.setVideos([video] as NSFastEnumeration)
+                }
+            })
         }
     }
     

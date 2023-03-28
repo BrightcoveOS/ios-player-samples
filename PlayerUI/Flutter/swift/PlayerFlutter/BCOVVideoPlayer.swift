@@ -99,7 +99,11 @@ class BCOVVideoPlayer: NSObject {
             let authToken = parsedData["authToken"] as? String
             let parameters = parsedData["parameters"] as? [AnyHashable : Any]
             
-            self.playbackService .findVideo(withVideoID: videoId, authToken: authToken, parameters: parameters) { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
+            var configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:videoId]
+            if authToken != nil {
+                configuration[kBCOVPlaybackServiceConfigurationKeyAuthToken] = authToken
+            }
+            playbackService?.findVideo(withConfiguration: configuration, queryParameters: parameters, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
                 
                 if let video = video {
                     self?.playbackController.setVideos([video] as NSFastEnumeration)
@@ -108,7 +112,7 @@ class BCOVVideoPlayer: NSObject {
                     self?.eventSink?(["name": "onError"])
                 }
                 result(true)
-            }
+            })
         }
         else if "play" == call.method {
             self.playbackController.play()

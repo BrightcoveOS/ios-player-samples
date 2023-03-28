@@ -74,14 +74,15 @@ class ViewController: UIViewController {
     }
     
     func requestContentFromPlaybackService() {
-        playbackService?.findVideo(withVideoID: kViewControllerVideoID, parameters: nil) { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:kViewControllerVideoID]
+        playbackService?.findVideo(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
             
             if let v = video {
-                self.playbackController.setVideos([v] as NSArray)
+                self?.playbackController.setVideos([v] as NSArray)
             } else {
                 print("ViewController Debug - Error retrieving video: \(error?.localizedDescription ?? "unknown error")")
             }
-        }
+        })
     }
     
     func setUpAudioSession() {

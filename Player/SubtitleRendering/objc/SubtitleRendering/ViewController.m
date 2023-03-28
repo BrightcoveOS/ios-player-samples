@@ -90,7 +90,8 @@ static NSString * const kViewControllerVideoID = @"5702141808001";
 - (void)requestContentFromPlaybackService
 {
     __weak typeof(self) weakSelf = self;
-    [self.playbackService findVideoWithVideoID:kViewControllerVideoID parameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
+    NSDictionary *configuration = @{kBCOVPlaybackServiceConfigurationKeyAssetID:kViewControllerVideoID};
+    [self.playbackService findVideoWithConfiguration:configuration queryParameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
         
         __strong typeof(weakSelf) strongSelf = weakSelf;
         

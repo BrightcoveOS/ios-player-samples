@@ -88,7 +88,8 @@ class ViewController: UIViewController
     }
 
     private func requestContentFromPlaybackService() {
-        playbackService.findVideo(withVideoID: playbackConfig.videoID, parameters: nil) { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:playbackConfig.videoID]
+        playbackService.findVideo(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
             
             if let _video = video {
                 //  since "isAutoPlay" is true, setVideos will begin playing the content
@@ -97,7 +98,7 @@ class ViewController: UIViewController
                 print("ViewController Debug - Error retrieving video: \(error?.localizedDescription ?? "unknown error")")
             }
             
-        }
+        })
     }
   
 }

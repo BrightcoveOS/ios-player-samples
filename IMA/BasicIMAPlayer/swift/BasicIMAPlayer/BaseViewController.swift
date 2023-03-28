@@ -123,7 +123,8 @@ class BaseViewController: UIViewController {
         // you choose to hard code it into your app, that you provide a mechanism to
         // update it without having to submit an update to your app.
         
-        playbackService.findVideo(withVideoID: PlaybackConfig.VideoID, parameters: nil) { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:PlaybackConfig.VideoID]
+        playbackService.findVideo(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
             
             if let video = video {
                 
@@ -154,7 +155,7 @@ class BaseViewController: UIViewController {
             if let error = error {
                 print("Error retrieving video: \(error.localizedDescription)")
             }
-        }
+        })
     }
 }
 

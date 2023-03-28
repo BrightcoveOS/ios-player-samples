@@ -55,7 +55,8 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
     }
     
     func requestContentFromPlaybackService() {
-        playbackService.findPlaylist(withReferenceID: kViewControllerPlaylistRefID, parameters: nil) { [weak self] (playlist: BCOVPlaylist?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetReferenceID:kViewControllerPlaylistRefID]
+        playbackService.findPlaylist(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (playlist: BCOVPlaylist?, json: [AnyHashable:Any]?, error: Error?) in
             
             guard let strongSelf = self, let playlist = playlist, let videos = playlist.videos as? [BCOVVideo] else {
                 print("ViewController Debug - Error retrieving video: \(error?.localizedDescription ?? "unknown error")")
@@ -63,7 +64,7 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
             }
             
             strongSelf.videoPreloadManager?.videos = videos
-        }
+        })
     }
     
     func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
