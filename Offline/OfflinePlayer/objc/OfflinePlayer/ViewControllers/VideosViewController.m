@@ -372,7 +372,7 @@
 {
     // Simulator warning
 #if (TARGET_OS_SIMULATOR)
-    [UIAlertController showAlertWithTitle:@"Reminder..." message:@"FairPlay videos won't download or display in a simulator." actionTitle:@"OK" inController:self];
+    [UIAlertController showAlertWithTitle:@"Reminder..." message:@"iOS does not allow FairPlay-protected video to display in a simulator, nor does it allow video downloads to a simulator, so it's important to develop on an actual device." actionTitle:@"OK" inController:self];
 #endif
     
     // Account credentials warning
