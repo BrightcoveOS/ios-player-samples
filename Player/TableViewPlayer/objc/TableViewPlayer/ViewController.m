@@ -42,8 +42,9 @@ static NSString * const kPlaylistId = @"1735168388684004403";
     BCOVPlaybackService *playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kAccountID policyKey:kPolicyKey];
     
     __weak typeof(self) weakSelf = self;
-    [playbackService findPlaylistWithPlaylistID:kPlaylistId parameters:nil completion:^(BCOVPlaylist *playlist, NSDictionary *jsonResponse, NSError *error) {
-       
+    NSDictionary *configuration = @{kBCOVPlaybackServiceConfigurationKeyAssetID:kPlaylistId};
+    [playbackService findPlaylistWithConfiguration:configuration queryParameters:nil completion:^(BCOVPlaylist *playlist, NSDictionary *jsonResponse, NSError *error) {
+
         if (error)
         {
             NSLog(@"Failed to fetch playlist: %@", error.localizedDescription);

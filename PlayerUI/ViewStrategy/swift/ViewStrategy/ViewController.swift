@@ -83,7 +83,8 @@ class ViewController: UIViewController {
     
     func requestVideo()
     {
-        playbackService.findVideo(withVideoID: PlaybackConfig.VideoID, parameters: nil) { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:PlaybackConfig.VideoID]
+        playbackService.findVideo(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
             
             if let video = video
             {
@@ -93,7 +94,7 @@ class ViewController: UIViewController {
             {
                 print("ViewController Debug - Error retrieving video: \(error!.localizedDescription)")
             }
-        }
+        })
     }
 }
 

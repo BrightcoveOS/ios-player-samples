@@ -148,7 +148,8 @@ static NSString * const kViewControllerSlotId= @"300x250";
 - (void)requestContentFromPlaybackService
 {
     // In order to play back content, we are going to request a video from the playback service.
-    [self.playbackService findVideoWithVideoID:kViewControllerVideoID parameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
+    NSDictionary *configuration = @{kBCOVPlaybackServiceConfigurationKeyAssetID:kViewControllerVideoID};
+    [self.playbackService findVideoWithConfiguration:configuration queryParameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
 
         if (video)
         {
@@ -158,7 +159,7 @@ static NSString * const kViewControllerSlotId= @"300x250";
         {
             NSLog(@"ViewController Debug - Error retrieving video playlist: %@", error);
         }
-        
+
     }];
 }
 

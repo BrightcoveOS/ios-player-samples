@@ -92,7 +92,8 @@ class ViewController: UIViewController {
     // MARK: - Private
     
     private func requestContentFromPlaybackService() {
-        playbackService.findVideo(withVideoID: PlaybackConfig.VideoID, parameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse:[AnyHashable:Any]?, error: Error?) in
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:PlaybackConfig.VideoID]
+        playbackService.findVideo(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
             if let video = video {
                 let updatedVideo = self?.updateVideoWithVMAPTag(video)
                 self?.playbackController?.setVideos([updatedVideo] as NSFastEnumeration)

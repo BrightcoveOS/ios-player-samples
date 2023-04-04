@@ -62,7 +62,8 @@ static NSString * const kViewControllerPlaylistRefID = @"brightcove-native-sdk-p
 - (void)requestContentFromPlaybackService
 {
     __weak typeof(self) weakSelf = self;
-    [self.playbackService findPlaylistWithReferenceID:kViewControllerPlaylistRefID parameters:nil completion:^(BCOVPlaylist *playlist, NSDictionary *jsonResponse, NSError *error) {
+    NSDictionary *configuration = @{kBCOVPlaybackServiceConfigurationKeyAssetReferenceID:kViewControllerPlaylistRefID};
+    [self.playbackService findPlaylistWithConfiguration:configuration queryParameters:nil completion:^(BCOVPlaylist *playlist, NSDictionary *jsonResponse, NSError *error) {
         
         __strong typeof(weakSelf) strongSelf = weakSelf;
         

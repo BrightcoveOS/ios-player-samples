@@ -13,4 +13,8 @@ target 'PlayerFlutter' do
   pod 'Brightcove-Player-Core/XCFramework'
   install_all_flutter_pods(flutter_application_path)
 
+  post_install do |installer|
+    flutter_post_install(installer)
+  end
+
 end

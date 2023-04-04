@@ -39,7 +39,8 @@ class ViewController: UITableViewController {
     private func requestPlaylist() {
         let playbackService = BCOVPlaybackService(accountId: ConfigConstants.AccountID, policyKey: ConfigConstants.PolicyKey)
         
-        playbackService?.findPlaylist(withPlaylistID: ConfigConstants.PlaylistId, parameters: nil, completion: { [weak self] (playlist: BCOVPlaylist?, json: [AnyHashable:Any]?, error: Error?) in
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:ConfigConstants.PlaylistId]
+        playbackService?.findPlaylist(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (playlist: BCOVPlaylist?, json: [AnyHashable:Any]?, error: Error?) in
             
             if let error = error {
                 print("Failed to fetch playlist: \(error.localizedDescription)")

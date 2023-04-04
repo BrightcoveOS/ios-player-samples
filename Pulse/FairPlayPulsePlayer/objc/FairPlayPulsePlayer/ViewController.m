@@ -95,7 +95,8 @@ static NSString * const kPulseHost = @"https://bc-test.videoplaza.tv";
     
     __weak typeof(self) weakSelf = self;
     
-    [playbackService findVideoWithVideoID:kVideoID parameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
+    NSDictionary *configuration = @{kBCOVPlaybackServiceConfigurationKeyAssetID:kVideoID};
+    [playbackService findVideoWithConfiguration:configuration queryParameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
         
         if (video)
         {

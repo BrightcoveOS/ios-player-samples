@@ -206,7 +206,8 @@ class ViewController: UIViewController {
         ])
         
         print("Request Content from the Video Cloud")
-        playbackService.findVideo(withVideoID: PlayerUIConstants.VideoID, parameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:PlayerUIConstants.VideoID]
+        playbackService.findVideo(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
             
             if let video = video, let strongSelf = self {
                 strongSelf.playbackController?.setVideos([video] as NSFastEnumeration)

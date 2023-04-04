@@ -505,9 +505,8 @@
                                                                                                                           policyKey:kDynamicDeliveryPolicyKey];
     BCOVPlaybackService *playbackService = [[BCOVPlaybackService alloc] initWithRequestFactory:playbackServiceRequestFactory];
 
-    [playbackService findVideoWithVideoID:videoID
-                               parameters:nil
-                               completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
+    NSDictionary *configuration = @{kBCOVPlaybackServiceConfigurationKeyAssetID:videoID};
+    [playbackService findVideoWithConfiguration:configuration queryParameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
 
         // Pass on to caller
         completionHandler(video, jsonResponse, error);

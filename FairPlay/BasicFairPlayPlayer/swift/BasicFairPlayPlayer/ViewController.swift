@@ -67,15 +67,16 @@ class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
     }
     
     func requestContentFromPlaybackService() {
-        playbackService?.findVideo(withVideoID:kViewControllerVideoId, parameters: nil) { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:kViewControllerVideoId]
+        playbackService?.findVideo(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
             if video == nil
             {
                 print("ViewController Debug - Error retrieving video: \(error?.localizedDescription ?? "unknown error")")
                 return
             }
             
-            self.playbackController!.setVideos([ video! ] as NSArray)
-        }
+            self?.playbackController!.setVideos([ video! ] as NSArray)
+        })
     }
     
     // Create the player view

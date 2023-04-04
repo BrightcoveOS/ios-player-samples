@@ -80,14 +80,15 @@ class ViewController: UIViewController {
     // MARK: Helper Methods
     
     private func requestContentFromPlaybackService() {
-        playbackService?.findVideo(withVideoID: kViewControllerVideoID, parameters: nil) { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:kViewControllerVideoID]
+        playbackService?.findVideo(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
             
             if let video = video {
                 self?.gatherUsableTextTracks(video)
             } else {
                 print("ViewController Debug - Error retrieving video: \(error?.localizedDescription ?? "unknown error")")
             }
-        }
+        })
     }
     
     private func gatherUsableTextTracks(_ video: BCOVVideo) {

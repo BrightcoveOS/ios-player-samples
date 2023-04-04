@@ -122,7 +122,8 @@ class ViewController: UIViewController {
 
     private func requestContentFromPlaybackService() {
         
-        playbackService.findVideo(withVideoID: ConfigConstants.VideoID, parameters: nil) { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:ConfigConstants.VideoID]
+        playbackService.findVideo(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
             
             if let video = video {
                 self?.playbackController?.setVideos([video] as NSFastEnumeration)
@@ -132,7 +133,7 @@ class ViewController: UIViewController {
                 print("ViewController Debug - Error retrieving video playlist: \(error.localizedDescription)")
             }
             
-        }
+        })
         
     }
 

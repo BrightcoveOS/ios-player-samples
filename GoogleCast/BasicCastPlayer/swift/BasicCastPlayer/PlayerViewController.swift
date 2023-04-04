@@ -101,16 +101,17 @@ fileprivate struct playbackConfig {
     
     private func requestPlaylist() {
         let playbackService = BCOVPlaybackService(accountId: playbackConfig.accountID, policyKey: playbackConfig.playbackServicePolicyKey)
-        playbackService?.findPlaylist(withReferenceID: playbackConfig.playlistRefID, parameters: nil, completion: { [weak self] (playlist: BCOVPlaylist?, json: [AnyHashable:Any]?, error: Error?) in
-            
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetReferenceID:playbackConfig.playlistRefID]
+        playbackService?.findPlaylist(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (playlist: BCOVPlaylist?, json: [AnyHashable:Any]?, error: Error?) in
+
             guard let playlist = playlist else {
                 print("PlayerViewController Debug - Error retrieving video playlist")
                 return
             }
-            
+
             self?.playlist = playlist
             self?.tableView.reloadData()
-            
+
         })
     }
     

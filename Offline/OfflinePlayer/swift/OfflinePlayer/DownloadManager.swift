@@ -407,7 +407,8 @@ extension DownloadManager {
             return
         }
         
-        service.findVideo(withVideoID: videoID, parameters: nil, completion: { (video: BCOVVideo?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:videoID]
+        service.findVideo(withConfiguration: configuration, queryParameters: nil, completion: { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
             
             completion(video, jsonResponse, error)
             

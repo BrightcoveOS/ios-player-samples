@@ -114,8 +114,8 @@ class ViewController: UIViewController {
     
     private func requestContentFromPlaybackService() {
         let queryParameters = [kBCOVPlaybackServiceParamaterKeyAdConfigId: Constants.AdConfigId]
-        
-        playbackService.findVideo(withVideoID: Constants.VideoId, parameters: queryParameters) { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:Constants.VideoId]
+        playbackService.findVideo(withConfiguration: configuration, queryParameters: queryParameters, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
             
             guard let _video = video else {
                 print("ViewController Debug - Error retrieving video: \(error?.localizedDescription ?? "unknown error")")
@@ -123,7 +123,7 @@ class ViewController: UIViewController {
             }
             
             self?.playbackController?.setVideos([_video] as NSFastEnumeration)
-        }
+        })
     }
 }
     

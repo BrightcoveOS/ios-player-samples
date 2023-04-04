@@ -5,7 +5,7 @@
   "scripts": {
     "objc": "cd objc && pod install && cd .. && react-native run-ios --project-path './objc'",
     "swift": "cd swift && pod install && cd .. && react-native run-ios --project-path './swift'",
-    "start": "export NODE_OPTIONS='--openssl-legacy-provider' && react-native start --reset-cache"
+    "start": "react-native start --reset-cache"
   },
   "dependencies": {
     "@react-native-community/slider": "^4.2.1",

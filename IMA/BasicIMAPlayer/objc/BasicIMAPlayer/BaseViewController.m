@@ -145,8 +145,8 @@ NSString * const kViewControllerIMAPublisherID = @"insertyourpidhere";
     // for determining where the ad tag should originate from. We advise that if
     // you choose to hard code it into your app, that you provide a mechanism to
     // update it without having to submit an update to your app.
-
-    [self.playbackService findVideoWithVideoID:kViewControllerVideoID parameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
+    NSDictionary *configuration = @{kBCOVPlaybackServiceConfigurationKeyAssetID:kViewControllerVideoID};
+    [self.playbackService findVideoWithConfiguration:configuration queryParameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
 
         if (video)
         {

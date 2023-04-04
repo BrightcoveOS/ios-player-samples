@@ -100,8 +100,9 @@ static NSString * const kPlaylistRefID = @"brightcove-native-sdk-plist";
     BCOVPlaybackService *playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kAccountID policyKey:kServicePolicyKey];
     
     __weak typeof(self) weakSelf = self;
-    [playbackService findPlaylistWithReferenceID:kPlaylistRefID parameters:nil completion:^(BCOVPlaylist *playlist, NSDictionary *jsonResponse, NSError *error) {
-       
+    NSDictionary *configuration = @{kBCOVPlaybackServiceConfigurationKeyAssetReferenceID:kPlaylistRefID};
+    [playbackService findPlaylistWithConfiguration:configuration queryParameters:nil completion:^(BCOVPlaylist *playlist, NSDictionary *jsonResponse, NSError *error) {
+
         if (playlist)
         {
             weakSelf.playlist = playlist;
@@ -111,7 +112,7 @@ static NSString * const kPlaylistRefID = @"brightcove-native-sdk-plist";
         {
             NSLog(@"PlayerViewController Debug - Error retrieving video playlist");
         }
-        
+
     }];
 }
 
