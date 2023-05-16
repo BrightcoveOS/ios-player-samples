@@ -68,6 +68,10 @@ In both of the FairPlay sample apps, there are references to `FairPlayPublisherI
 
 iOS does **not** allow FairPlay-protected video to display in a simulator so it's important to develop on an actual device.
 
+#### DAI
+
+DAI sample demonstrate how to make a stream request for ad and content video—either VOD or live content.
+
 #### FreeWheel
 
 FreeWheel samples demonstrate how to play ads managed by FreeWheel. These are intended to cover the basic configuration to retrieve linear and companion ads.
