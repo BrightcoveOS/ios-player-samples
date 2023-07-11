@@ -12,4 +12,5 @@ class PlayerStateModelData: ObservableObject {
     @Published var buffer: Double = Double.zero
     @Published var progress: Double = Double.zero
     @Published var isPlaying: Bool = false
+    @Published var showControlsView: Bool = true
 }

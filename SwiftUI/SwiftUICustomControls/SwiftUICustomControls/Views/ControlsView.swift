@@ -85,5 +85,6 @@ struct ControlsView: View {
 struct ControlsView_Previews: PreviewProvider {
     static var previews: some View {
         ControlsView(playerUI: PlayerUI())
+            .environmentObject(PlayerStateModelData())
     }
 }

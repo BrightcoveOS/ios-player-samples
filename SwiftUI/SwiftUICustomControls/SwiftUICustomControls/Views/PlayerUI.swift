@@ -38,6 +38,7 @@ struct PlayerUI: UIViewRepresentable {
 
     class Coordinator: NSObject, BCOVPlaybackControllerDelegate {
         var playerStateModelData: PlayerStateModelData
+        @State var timer: Timer?
         
         init(playerStateModelData: PlayerStateModelData) {
             self.playerStateModelData = playerStateModelData
@@ -91,8 +92,14 @@ struct PlayerUI: UIViewRepresentable {
             switch lifecycleEvent.eventType {
             case kBCOVPlaybackSessionLifecycleEventPlay:
                 playerStateModelData.isPlaying = true
+                timer?.invalidate()
+                timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { [weak self] timer in
+                    self?.playerStateModelData.showControlsView = false
+                }
             case kBCOVPlaybackSessionLifecycleEventPause:
                 playerStateModelData.isPlaying = false
+                timer?.invalidate()
+                playerStateModelData.showControlsView = true
             case kBCOVPlaybackSessionLifecycleEventResumeFail:
                 print("resumeFail")
             case kBCOVPlaybackSessionLifecycleEventResumeBegin:

@@ -11,17 +11,24 @@ import Combine
 
 struct ContentView: View {
     @StateObject var playerStateModelData = PlayerStateModelData()
+    @State var cancellables = [AnyCancellable]()
 
     var playerUI = PlayerUI()
     var videoModelData = VideoModelData()
     
-    @State var cancellables = [AnyCancellable]()
+    var controlsView: some View {
+        ControlsView(playerUI: playerUI)
+            .opacity(playerStateModelData.showControlsView ? 1.0 : 0.0)
+            .animation(.easeInOut(duration: 0.5))
+    }
 
     var body: some View {
         VStack {
-            playerUI
-                .overlay(ControlsView(playerUI: playerUI), alignment: .bottom)
-            .aspectRatio(16/9, contentMode: .fit)
+            ZStack(alignment: .bottom) {
+                playerUI
+                    .aspectRatio(16/9, contentMode: .fit)
+                controlsView
+            }
             Spacer()
         }
         .environmentObject(playerStateModelData)
@@ -35,6 +42,9 @@ struct ContentView: View {
                     }
                 }
                 .store(in: &self.cancellables)
+        }
+        .onTapGesture {
+            playerStateModelData.showControlsView = !playerStateModelData.showControlsView
         }
     }
 }
