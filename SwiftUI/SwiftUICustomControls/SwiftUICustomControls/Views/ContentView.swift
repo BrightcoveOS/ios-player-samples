@@ -19,7 +19,7 @@ struct ContentView: View {
     var controlsView: some View {
         ControlsView(playerUI: playerUI)
             .opacity(playerStateModelData.showControlsView ? 1.0 : 0.0)
-            .animation(.easeInOut(duration: 0.5))
+            .animation(.easeInOut, value: playerStateModelData.showControlsView)
     }
 
     var body: some View {
