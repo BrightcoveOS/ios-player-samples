@@ -1,27 +1,16 @@
 //
-//  SwiftUIPlayer.swift
-//  SwiftUIPlayer
+//  AppDelegate.swift
+//  SwiftUICustomControls
 //
 //  Copyright © 2023 Brightcove, Inc. All rights reserved.
 //
 
-import SwiftUI
+import UIKit
 import AVFoundation
 
-@main
-struct SwiftUIPlayer: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-                .onAppear {
-                    setUpAudioSession()
-                }
-        }
-    }
-    
-    private func setUpAudioSession() {
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        
         var categoryError :NSError?
         var success: Bool
         do {
@@ -37,5 +26,7 @@ struct SwiftUIPlayer: App {
         if !success {
             print("AppDelegate Debug - Error setting AVAudioSession category.  Because of this, there may be no sound. \(categoryError!)")
         }
+        
+        return true
     }
 }
