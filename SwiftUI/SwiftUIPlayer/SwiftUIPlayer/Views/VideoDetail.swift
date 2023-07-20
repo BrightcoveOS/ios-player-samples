@@ -9,11 +9,9 @@ import SwiftUI
 import BrightcovePlayerSDK
 
 struct VideoDetail: View {
+    @EnvironmentObject var modelData: ModelData
+
     var videoListItem: VideoListItem
-    
-    init(videoListItem: VideoListItem) {
-        self.videoListItem = videoListItem
-    }
 
     var body: some View {
         VStack {
@@ -26,15 +24,16 @@ struct VideoDetail: View {
         }
         .onDisappear {
             // Clean-up for the shared PlayerUI
-            if !playerUI.pictureInPictureEnabled {
+            if !modelData.pictureInPictureEnabled {
                 playerUI.playbackController?.setVideos(nil)
             }
-            if playerUI.fullscreenEnabled {
+            if modelData.fullscreenEnabled {
                 playerUI.playerView.performScreenTransition(with: .normal)
             }
         }
         .navigationTitle(videoListItem.name)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(modelData.fullscreenEnabled)
     }
 }
 

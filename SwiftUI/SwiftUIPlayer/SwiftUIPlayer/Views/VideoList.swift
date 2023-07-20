@@ -22,6 +22,8 @@ struct VideoList: View {
             }
             .navigationTitle("Videos")
         }
+        .navigationViewStyle(.stack)
+        .environmentObject(modelData)
     }
 }
 
