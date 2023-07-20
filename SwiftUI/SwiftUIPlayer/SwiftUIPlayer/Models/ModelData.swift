@@ -17,6 +17,8 @@ struct Constants {
 
 final class ModelData: ObservableObject {
     @Published var videoListItems = [VideoListItem]()
+    @Published var pictureInPictureEnabled = false
+    @Published var fullscreenEnabled = false
     
     init() {
         requestPlaylist()

@@ -11,11 +11,10 @@ import AVKit
 
 
 struct PlayerUI: UIViewRepresentable {
+    @EnvironmentObject var modelData: ModelData
 
     var playbackController: BCOVPlaybackController?
     var playerView: BCOVPUIPlayerView
-    var fullscreenEnabled = false
-    var pictureInPictureEnabled = false
     
     init() {
         // Set up BCOVPlaybackController
@@ -36,7 +35,7 @@ struct PlayerUI: UIViewRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator()
+        Coordinator(modelData: modelData)
     }
    
     func makeUIView(context: Context) -> BCOVPUIPlayerView {
@@ -56,6 +55,12 @@ struct PlayerUI: UIViewRepresentable {
 
     class Coordinator: NSObject, BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate {
 
+        var modelData: ModelData
+        
+        init(modelData: ModelData) {
+            self.modelData = modelData
+        }
+
         // MARK: BCOVPlaybackControllerDelegate
     
         func playbackController(_ controller: BCOVPlaybackController?, didAdvanceTo session: BCOVPlaybackSession?) {
@@ -71,15 +76,15 @@ struct PlayerUI: UIViewRepresentable {
         // MARK: BCOVPUIPlayerViewDelegate
         
         func playerView(_ playerView: BCOVPUIPlayerView!, didTransitionTo screenMode: BCOVPUIScreenMode) {
-            playerUI.fullscreenEnabled = screenMode == .full
+            modelData.fullscreenEnabled = screenMode == .full
         }
 
         func pictureInPictureControllerDidStartPicture(inPicture pictureInPictureController: AVPictureInPictureController!) {
-            playerUI.pictureInPictureEnabled = true
+            modelData.pictureInPictureEnabled = true
         }
         
         func pictureInPictureControllerDidStopPicture(inPicture pictureInPictureController: AVPictureInPictureController!) {
-            playerUI.pictureInPictureEnabled = false
+            modelData.pictureInPictureEnabled = false
         }
     }
 
