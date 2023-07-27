@@ -12,25 +12,34 @@ struct VideoDetail: View {
     @EnvironmentObject var modelData: ModelData
 
     var videoListItem: VideoListItem
+    @State var shouldLoadVideo = true
 
     var body: some View {
         VStack {
-            playerUI
-                .aspectRatio(16/9, contentMode: .fit)
+            if modelData.controlType == .bcov {
+                bcovPlayerUI
+                    .aspectRatio(16/9, contentMode: .fit)
+            } else {
+                applePlayerUI
+                    .aspectRatio(16/9, contentMode: .fit)
+            }
             Spacer()
         }
         .onAppear {
-            playerUI.playbackController?.setVideos([videoListItem.video] as NSFastEnumeration)
+            if shouldLoadVideo {
+                let playbackController = (modelData.controlType == .bcov) ? bcovPlayerUI.playbackController : applePlayerUI.playbackController
+                playbackController?.setVideos([videoListItem.video] as NSFastEnumeration)
+                shouldLoadVideo = false
+            }
         }
         .onDisappear {
+            let playbackController = (modelData.controlType == .bcov) ? bcovPlayerUI.playbackController : applePlayerUI.playbackController
             // Clean-up for the shared PlayerUI
-            if !modelData.pictureInPictureEnabled {
-                playerUI.playbackController?.setVideos(nil)
-            }
-            if modelData.fullscreenEnabled {
-                playerUI.playerView.performScreenTransition(with: .normal)
+            if !modelData.pictureInPictureEnabled && !modelData.fullscreenEnabled {
+                playbackController?.setVideos(nil)
             }
         }
+        .statusBarHidden(false)
         .navigationTitle(videoListItem.name)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(modelData.fullscreenEnabled)
