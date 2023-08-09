@@ -157,8 +157,9 @@ class GoogleCastManager: NSObject {
             var trackType: GCKMediaTextTrackSubtype = .unknown
             if kind == "captions" || kind == "subtitles" {
                 trackType = kind == "captions" ? .captions : .subtitles
-                let captionsTrack = GCKMediaTrack(identifier: trackIdentifier, contentIdentifier: src, contentType: contentType, type: .text, textSubtype: trackType, name: name, languageCode: lang, customData: nil)
-                mediaTracks.append(captionsTrack)
+                if let captionsTrack = GCKMediaTrack(identifier: trackIdentifier, contentIdentifier: src, contentType: contentType, type: .text, textSubtype: trackType, name: name, languageCode: lang, customData: nil) {
+                    mediaTracks.append(captionsTrack)
+                }
             }
         }
         
