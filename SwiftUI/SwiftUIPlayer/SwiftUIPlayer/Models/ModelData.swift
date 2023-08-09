@@ -19,6 +19,14 @@ final class ModelData: ObservableObject {
     @Published var videoListItems = [VideoListItem]()
     @Published var pictureInPictureEnabled = false
     @Published var fullscreenEnabled = false
+    @Published var controlType: ModelData.ControlType = .bcov
+    
+    enum ControlType: String, CaseIterable, Identifiable {
+        case bcov = "BCOVPUIPlayerUI"
+        case native = "AVPlayerViewController"
+
+        var id: String { rawValue }
+    }
     
     init() {
         requestPlaylist()

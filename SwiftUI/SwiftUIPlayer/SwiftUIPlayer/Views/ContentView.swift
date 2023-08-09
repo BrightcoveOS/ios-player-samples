@@ -8,7 +8,8 @@
 import SwiftUI
 import BrightcovePlayerSDK
 
-var playerUI = PlayerUI()
+let bcovPlayerUI = BCOVPlayerUI()
+let applePlayerUI = ApplePlayerUI()
 
 struct ContentView: View {
     var body: some View {

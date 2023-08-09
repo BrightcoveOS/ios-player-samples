@@ -9,8 +9,7 @@ import SwiftUI
 import BrightcovePlayerSDK
 import AVKit
 
-
-struct PlayerUI: UIViewRepresentable {
+struct BCOVPlayerUI: UIViewRepresentable {
     @EnvironmentObject var modelData: ModelData
 
     var playbackController: BCOVPlaybackController?
@@ -91,8 +90,8 @@ struct PlayerUI: UIViewRepresentable {
     typealias UIViewType = BCOVPUIPlayerView
 }
 
-struct PlayerUI_Previews: PreviewProvider {
+struct BCOVPlayerUI_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerUI()
+        BCOVPlayerUI()
     }
 }
