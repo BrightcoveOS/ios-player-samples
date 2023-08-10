@@ -20,7 +20,6 @@ class DownloadManager: NSObject {
     // When all preloads are done, videos move to the download queue.
     private var videoPreloadQueue: [VideoDownload] = []
     private var videoDownloadQueue: [VideoDownload] = []
-    private var downloadInProgress = false
     
     weak var delegate: ReloadDelegate?
     
@@ -216,15 +215,7 @@ class DownloadManager: NSObject {
     }
     
     private func downloadVideoFromQueue() {
-        
-        // If we're already downoading, this will be called automatically
-        // when the download is done
-        // Only needed for pre-iOS 11.4 only which can only handle
-        // One download at a time
-        if downloadInProgress {
-            return
-        }
-        
+
         guard let videoDownload = videoDownloadQueue.first else {
             return
         }
@@ -234,9 +225,7 @@ class DownloadManager: NSObject {
         if let indexOfVideo = videoDownloadQueue.firstIndex(where: { $0.video.matches(offlineVideo: video) }) {
             videoDownloadQueue.remove(at: indexOfVideo)
         }
-        
-        downloadInProgress = true
-        
+
         // Display all available bitrates
         BCOVOfflineVideoManager.shared()?.variantBitrates(for: video, completion: { (bitrates: [NSNumber]?, error: Error?) in
             
@@ -289,17 +278,12 @@ class DownloadManager: NSObject {
             }
         }
         
-        BCOVOfflineVideoManager.shared()?.requestVideoDownload(video, mediaSelections: mediaSelections, parameters: videoDownload.paramaters, completion: { [weak self] (offlineVideoToken: String?, error: Error?) in
+        BCOVOfflineVideoManager.shared()?.requestVideoDownload(video, mediaSelections: mediaSelections, parameters: videoDownload.paramaters, completion: { (offlineVideoToken: String?, error: Error?) in
             
             DispatchQueue.main.async {
 
-                if let error = error, let self = self {
-                    
-                    self.downloadInProgress = false
-                    
-                    // try again with another video
-                    self.downloadVideoFromQueue()
-                    
+                if let error = error {
+
                     // Report any errors
                     if let offlineVideoToken = offlineVideoToken, let offlineVideo = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: offlineVideoToken), let name = localizedNameForLocale(offlineVideo, nil) {
                         UIAlertController.show(withTitle: "Video Download Error (\(name))", andMessage: error.localizedDescription)
@@ -440,11 +424,6 @@ extension DownloadManager: BCOVOfflineVideoManagerDelegate {
         if let error = error {
             print("Download finished with error: \(error.localizedDescription)")
         }
-        
-        downloadInProgress = false
-        
-        // Get the next video
-        downloadVideoFromQueue()
         
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus, object: nil)

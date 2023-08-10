@@ -15,7 +15,6 @@
 
 @interface DownloadManager ()
 
-@property (nonatomic, assign) BOOL downloadInProgress;
 @property (nonatomic, strong, readwrite) NSArray<BCOVOfflineVideoToken> *offlineVideoTokenArray;
 
 @end
@@ -214,15 +213,6 @@
 
 - (void)downloadVideoFromQueue
 {
-    // If we're already downloading, this will be called automatically
-    // when the download is done
-    // Only needed for pre-iOS 11.4 only which can only handle
-    // One download at a time
-    if (self.downloadInProgress)
-    {
-        return;
-    }
-    
     NSDictionary *videoDownloadDictionary = self.videoDownloadQueue.firstObject;
     BCOVVideo *video = videoDownloadDictionary[@"video"];
     NSDictionary *parameters = videoDownloadDictionary[@"parameters"];
@@ -234,8 +224,6 @@
     }
     
     [self.videoDownloadQueue removeObject:videoDownloadDictionary];
-    
-    self.downloadInProgress = YES;
 
     // Display all available bitrates
     [BCOVOfflineVideoManager.sharedManager variantBitratesForVideo:(BCOVVideo *)video
@@ -302,10 +290,6 @@
                                                 }
                                                 else
                                                 {
-                                                    strongSelf.downloadInProgress = NO;
-
-                                                    // try again with another video
-                                                    [strongSelf downloadVideoFromQueue];
 
                                                     if ([strongSelf.delegate respondsToSelector:@selector(encounteredErrorDownloading:forVideo:)])
                                                     {
@@ -527,11 +511,6 @@ didFinishDownloadWithError:(NSError *)error
     // The video has completed downloading
     
     NSLog(@"Download finished with error: %@", error);
-    
-    self.downloadInProgress = NO;
-    
-    // Get the next video
-    [self downloadVideoFromQueue];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         
