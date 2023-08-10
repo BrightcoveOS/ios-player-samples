@@ -459,37 +459,7 @@ static unsigned long long int directorySize(NSString *folderPath)
 
 - (IBAction)doCancelButton:(id)sender
 {
-    if (@available(iOS 11.2, *))
-    {
-        // iOS 11.2+: cancel normally
-        [self cancelVideoDownload];
-    }
-    else
-    {
-        [self forceStopAllDownloadTasks];
-    }
-}
-
-- (void)forceStopAllDownloadTasks
-{
-    // iOS 11.0 and 11.1 have a bug in which some downloads cannot be stopped using normal methods.
-    // As a workaround, you can call "forceStopAllDownloadTasks" to cancel all the video downloads
-    // that are still in progress.
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Stop All Downloads"
-                                                                   message:@"Do you want to stop all the downloads in progress?"
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Stop All" style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction *action) {
-                                                              
-                                                              [BCOVOfflineVideoManager.sharedManager forceStopAllDownloadTasks];
-                                                              
-                                                          }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
-                                                         handler:nil];
-    
-    [alert addAction:defaultAction];
-    [alert addAction:cancelAction];
-    [self presentViewController:alert animated:YES completion:nil];
+    [self cancelVideoDownload];
 }
 
 - (void)cancelVideoDownload

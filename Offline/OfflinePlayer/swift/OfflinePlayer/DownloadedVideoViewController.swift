@@ -171,21 +171,6 @@ class DownloadedVideoViewController: BaseVideoViewController {
     func refresh() {
         tableView?.reloadData()
     }
-    
-    private func forceStopAllDownloadTasks() {
-        // iOS 11.0 and 11.1 have a bug in which some downloads cannot be stopped using normal methods.
-        // As a workaround, you can call "forceStopAllDownloadTasks" to cancel all the video downloads
-        // that are still in progress.
-        let alert = UIAlertController(title: "Stop all Downloads", message: "Do you want to stop all the downloads in progress?", preferredStyle: .alert)
-
-        alert.addAction(UIAlertAction(title: "Stop All", style: .destructive) { (action: UIAlertAction) in
-            BCOVOfflineVideoManager.shared()?.forceStopAllDownloadTasks()
-        })
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        present(alert, animated: true, completion: nil)
-    }
 
     private func cancelVideoDownload() {
         
@@ -444,12 +429,7 @@ class DownloadedVideoViewController: BaseVideoViewController {
     }
     
     @IBAction private func cancelButtonPressed() {
-        if #available(iOS 11.2, *) {
-            // iOS 11.2+: cancel normally
-            cancelVideoDownload()
-        } else {
-             forceStopAllDownloadTasks()
-        }
+        cancelVideoDownload()
     }
 
 }

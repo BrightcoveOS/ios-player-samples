@@ -46,20 +46,8 @@
     }
     
     NSLog(@"didFinishLaunchingWithOptions:\n%@", launchOptions);
-    
-    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-    
-    return YES;
-}
 
-- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{
-    NSLog(@"performFetchWithCompletionHandler:");
-    
-    if (completionHandler != nil)
-    {
-        completionHandler(UIBackgroundFetchResultNoData);
-    }
+    return YES;
 }
 
 - (void)application:(UIApplication *)application
