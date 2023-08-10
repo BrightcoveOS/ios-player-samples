@@ -218,9 +218,7 @@
     // when the download is done
     // Only needed for pre-iOS 11.4 only which can only handle
     // One download at a time
-    if (@available(iOS 11.4, *))
-    {}
-    else if (self.downloadInProgress)
+    if (self.downloadInProgress)
     {
         return;
     }
@@ -307,12 +305,7 @@
                                                     strongSelf.downloadInProgress = NO;
 
                                                     // try again with another video
-                                                    if (@available(iOS 11.4, *))
-                                                    {}
-                                                    else
-                                                    {
-                                                        [strongSelf downloadVideoFromQueue];
-                                                    }
+                                                    [strongSelf downloadVideoFromQueue];
 
                                                     if ([strongSelf.delegate respondsToSelector:@selector(encounteredErrorDownloading:forVideo:)])
                                                     {
@@ -538,12 +531,7 @@ didFinishDownloadWithError:(NSError *)error
     self.downloadInProgress = NO;
     
     // Get the next video
-    if (@available(iOS 11.4, *))
-    {}
-    else
-    {
-        [self downloadVideoFromQueue];
-    }
+    [self downloadVideoFromQueue];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         

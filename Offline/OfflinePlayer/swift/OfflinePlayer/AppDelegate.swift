@@ -53,20 +53,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("AppDelegate Debug - Error setting AVAudioSession category.  Because of this, there may be no sound. \(categoryError!)")
         }
         
-        application.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
-        
         let off = NSNumber(booleanLiteral: false)
         
         let options = [kBCOVOfflineVideoManagerAllowsCellularDownloadKey: off, kBCOVOfflineVideoManagerAllowsCellularPlaybackKey: off, kBCOVOfflineVideoManagerAllowsCellularAnalyticsKey: off]
         BCOVOfflineVideoManager.initializeOfflineVideoManager(with: DownloadManager.shared, options: options)
         
         return true
-    }
-    
-    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        print("performFetchWithCompletionHandler")
-        
-        completionHandler(UIBackgroundFetchResult.noData)
     }
 
     func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
