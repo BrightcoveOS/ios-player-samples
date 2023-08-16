@@ -3,7 +3,7 @@ source 'https://github.com/brightcove/BrightcoveSpecs.git'
 
 use_frameworks!
 
-platform :ios, '13.6'
+platform :ios, '14.0'
 
 target 'BasicIMAPlayer' do
 	pod 'Brightcove-Player-IMA/XCFramework'
