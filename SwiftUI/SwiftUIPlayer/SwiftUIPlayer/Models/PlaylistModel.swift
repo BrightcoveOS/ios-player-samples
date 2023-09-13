@@ -1,13 +1,14 @@
 //
-//  ModelData.swift
+//  PlaylistModel.swift
 //  SwiftUIPlayer
 //
 //  Copyright © 2023 Brightcove, Inc. All rights reserved.
 //
 
 import Foundation
-import Combine
+
 import BrightcovePlayerSDK
+
 
 struct Constants {
     static let AccountID = "5434391461001"
@@ -15,29 +16,21 @@ struct Constants {
     static let PlaylistRefID = "brightcove-native-sdk-plist"
 }
 
-final class ModelData: ObservableObject {
-    @Published var videoListItems = [VideoListItem]()
-    @Published var pictureInPictureEnabled = false
-    @Published var fullscreenEnabled = false
-    @Published var controlType: ModelData.ControlType = .bcov
-    
-    enum ControlType: String, CaseIterable, Identifiable {
-        case bcov = "BCOVPUIPlayerUI"
-        case native = "AVPlayerViewController"
 
-        var id: String { rawValue }
-    }
-    
+final class PlaylistModel: ObservableObject {
+
+    @Published var videoListItems = [VideoListItem]()
+
     init() {
         requestPlaylist()
     }
-    
-    func requestPlaylist() {
+
+    private func requestPlaylist() {
         let playbackService = BCOVPlaybackService(accountId: Constants.AccountID, policyKey: Constants.PolicyKey)
-        
+
         let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetReferenceID:Constants.PlaylistRefID]
-        playbackService?.findPlaylist(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (playlist: BCOVPlaylist?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
-            
+
+        playbackService?.findPlaylist(withConfiguration: configuration, queryParameters: nil) { [weak self] playlist, jsonResponse, error in
             if let playlist = playlist, let videos = playlist.videos as? [BCOVVideo] {
                 var _videoListItems = [VideoListItem]()
                 for video in videos {
@@ -46,12 +39,11 @@ final class ModelData: ObservableObject {
                     }
                     let video = VideoListItem(id: videoId, name: videoName, video: video)
                     _videoListItems.append(video)
-                    self?.videoListItems = _videoListItems
                 }
+                self?.videoListItems = _videoListItems
             } else {
-                print("ContentView Debug - Error retrieving video: \(error!.localizedDescription)")
+                print("PlaylistModel Debug - Error retrieving video playlist: \(error!.localizedDescription)")
             }
-        })
+        }
     }
 }
-

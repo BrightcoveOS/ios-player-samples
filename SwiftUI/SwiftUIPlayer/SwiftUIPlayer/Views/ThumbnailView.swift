@@ -8,13 +8,15 @@
 import SwiftUI
 import BrightcovePlayerSDK
 
+
 struct ThumbnailView: View {
-    var video: BCOVVideo
+
     @ObservedObject var imageLoader:ImageLoader
 
-    init(video: BCOVVideo) {
-        self.video = video
-        let urlStr = video.properties[kBCOVVideoPropertyKeyThumbnail] as? String
+    let urlStr: String?
+
+    init(urlStr: String?) {
+        self.urlStr = urlStr
         imageLoader = ImageLoader(urlString:urlStr ?? "")
     }
 
@@ -26,9 +28,14 @@ struct ThumbnailView: View {
     }
 }
 
+
+// MARK: -
+
+#if DEBUG
 struct ThumbnailView_Previews: PreviewProvider {
     static var previews: some View {
-        ThumbnailView(video: BCOVVideo(source: nil, cuePoints: nil, properties:nil))
-            .previewLayout(.fixed(width: 30, height: 30))
+        let urlStr = "https://dp6mhagng1yw3.cloudfront.net/entries/15th/b2099e83-2214-43e0-93c0-0924d12d6cdc.jpeg"
+        ThumbnailView(urlStr: urlStr)
     }
 }
+#endif

@@ -6,12 +6,12 @@
 //
 
 import Foundation
-import Combine
 
-class ImageLoader: ObservableObject {
+
+final class ImageLoader: ObservableObject {
     @Published var data = Data()
 
-    init(urlString:String) {
+    init(urlString: String) {
         guard let url = URL(string: urlString) else { return }
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             guard let data = data, self != nil else { return }
