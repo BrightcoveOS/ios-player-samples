@@ -7,10 +7,11 @@
 
 import SwiftUI
 
+
 @main
 struct SwiftUICustomControls: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    
+
     var body: some Scene {
         WindowGroup {
             ContentView()

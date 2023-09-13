@@ -5,54 +5,73 @@
 //  Copyright © 2023 Brightcove, Inc. All rights reserved.
 //
 
-import BrightcovePlayerSDK
-import Foundation
 import SwiftUI
+import BrightcovePlayerSDK
 
 struct CustomSliderView: UIViewRepresentable {
+    typealias UIViewType = BCOVPUISlider
+    typealias SliderCompletionHandler = (Float) -> Void
+
+    @EnvironmentObject var playerModel: PlayerModel
     @Binding var value: Double
-    @EnvironmentObject var playerStateModelData: PlayerStateModelData
-    var onValueChange: (Float) -> Void?
+    let onValueChanged: SliderCompletionHandler?
+
+    init(value: Binding<Double>, onValueChanged: SliderCompletionHandler? = nil) {
+        _value = value
+        self.onValueChanged = onValueChanged
+    }
 
     func makeUIView(context: Context) -> BCOVPUISlider {
         let slider = BCOVPUISlider(frame: .zero)
-        slider.value = Float(value)
+        slider.value = Float(0)
         slider.minimumValue = .zero
-        slider.maximumValue = Float(playerStateModelData.duration)
-        slider.addTarget(
-            context.coordinator, action: #selector(Coordinator.onValueChanged(_:)),
-            for: .valueChanged)
+        slider.maximumValue = Float(playerModel.duration)
+        slider.addTarget(context.coordinator, action: #selector(CustomSliderViewCoordinator.valueChanged(_:)), for: .valueChanged)
         return slider
     }
 
-    func updateUIView(_ uiView: BCOVPUISlider, context: Context) {
-        uiView.value = Float(self.value)
-        uiView.maximumValue = Float(playerStateModelData.duration)
-        uiView.bufferProgress = Float(playerStateModelData.buffer)
+    func updateUIView(_ slider: BCOVPUISlider, context: Context) {
+        slider.value = Float(value)
+        slider.maximumValue = Float(playerModel.duration)
+        slider.bufferProgress = Float(playerModel.buffer)
     }
 
-    func makeCoordinator() -> Coordinator {
-        Coordinator(value: $value, buffer: $playerStateModelData.buffer, onValueChanged: onValueChange)
+    func makeCoordinator() -> CustomSliderViewCoordinator {
+        CustomSliderViewCoordinator(value: $value, buffer: $playerModel.buffer, onValueChanged: onValueChanged)
     }
 
-    //MARK: Coordinator
-    class Coordinator: NSObject {
-        var value: Binding<Double>
-        var buffer: Binding<Double>
-        var onValueChange: (Float) -> Void?
 
-        init(value: Binding<Double>, buffer: Binding<Double>, onValueChanged: @escaping (Float) -> Void?) {
+    // MARK: -
+
+    final class CustomSliderViewCoordinator: NSObject {
+
+        private(set) var value: Binding<Double>
+        private(set) var buffer: Binding<Double>
+        let onValueChanged: SliderCompletionHandler?
+
+        init(value: Binding<Double>, buffer: Binding<Double>, onValueChanged: SliderCompletionHandler? = nil) {
             self.value = value
             self.buffer = buffer
-            self.onValueChange = onValueChanged
+            self.onValueChanged = onValueChanged
         }
 
         @objc
-        func onValueChanged(_ sender: BCOVPUISlider) {
+        func valueChanged(_ sender: BCOVPUISlider) {
             self.value.wrappedValue = Double(sender.value)
             self.buffer.wrappedValue = Double(sender.bufferProgress)
-            onValueChange(sender.value)
+            onValueChanged?(sender.value)
         }
     }
-    typealias UIViewType = BCOVPUISlider
 }
+
+
+// MARK: -
+
+#if DEBUG
+struct CustomSliderView_Previews: PreviewProvider {
+    static var previews: some View {
+        CustomSliderView(value: .constant(0))
+            .environmentObject(PlayerModel())
+    }
+}
+#endif
