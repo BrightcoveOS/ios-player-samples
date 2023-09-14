@@ -8,9 +8,11 @@
 import UIKit
 import AVFoundation
 
-class AppDelegate: NSObject, UIApplicationDelegate {
+
+final class AppDelegate: NSObject, UIApplicationDelegate {
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        
+
         var categoryError :NSError?
         var success: Bool
         do {
@@ -26,7 +28,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         if !success {
             print("AppDelegate Debug - Error setting AVAudioSession category.  Because of this, there may be no sound. \(categoryError!)")
         }
-        
+
         return true
     }
 }

@@ -8,20 +8,20 @@
 import Foundation
 
 extension Int {
-    
+
     public func hmsFrom() -> (Int, Int, Int) {
         return (self / 3600, (self % 3600) / 60, (self % 3600) % 60)
     }
-    
+
     public func convertDurationToString() -> String {
         var duration = ""
-        let (hour, minute, second) = self.hmsFrom()
+        let (hour, minute, second) = hmsFrom()
         if (hour > 0) {
-            duration = self.getHour(hour: hour)
+            duration = getHour(hour: hour)
         }
-        return "\(duration)\(self.getMinute(minute: minute))\(self.getSecond(second: second))"
+        return "\(duration)\(getMinute(minute: minute))\(getSecond(second: second))"
     }
-    
+
     private func getHour(hour: Int) -> String {
         var duration = "\(hour):"
         if (hour < 10) {
@@ -29,7 +29,7 @@ extension Int {
         }
         return duration
     }
-    
+
     private func getMinute(minute: Int) -> String {
         if (minute == 0) {
             return "00:"
@@ -41,7 +41,7 @@ extension Int {
 
         return "\(minute):"
     }
-    
+
     private func getSecond(second: Int) -> String {
         if (second == 0){
             return "00"

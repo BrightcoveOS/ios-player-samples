@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import AVFoundation
+
 
 @main
 struct SwiftUIPlayer: App {
