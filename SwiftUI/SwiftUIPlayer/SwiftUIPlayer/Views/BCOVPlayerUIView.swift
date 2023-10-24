@@ -21,6 +21,10 @@ struct BCOVPlayerUIView: UIViewRepresentable {
         let options = BCOVPUIPlayerViewOptions()
         options.automaticControlTypeSelection = true
         options.showPictureInPictureButton = true
+        // When using a TabView in a single window project you can ensure
+        // that fullscreen behavior will present over the tab bar items
+        // with this approach.
+        options.presentingViewController = UIApplication.shared.windows.first?.rootViewController;
 
         let playerView = BCOVPUIPlayerView(playbackController: playerModel.controller, options: options, controlsView: nil)!
         playerView.delegate = playerModel
