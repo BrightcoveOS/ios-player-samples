@@ -114,6 +114,10 @@ SSAI samples demonstrate how to use the SSAI plugin. These are intended to cover
 
 SubtitleRendering samples demonstrate how to parse and display WEBVTT files so that you can customize the positioning and look of your subtitles.
 
+#### SwiftUIPlayer
+
+SwiftUIPlayer demonstrates how to use `BCOVUIPlayerView` and `AVPlayerViewController` with SwiftUI and how to present content in fullscreen over a SwiftUI TabView.
+
 ### Feature Highlights
 
 - An example of creating a `BCOVPlaybackSessionConsumer` can be found in the `OfflinePlayer` and `CustomControls` sample apps.
