@@ -9,9 +9,32 @@ import SwiftUI
 
 
 struct ContentView: View {
+    
+    @State private var selection: Tab = .videos
+    @StateObject private var playerModel = PlayerModel()
+
+    enum Tab {
+        case videos
+        case other
+    }
 
     var body: some View {
-        VideoListView()
+        TabView(selection: $selection) {
+            VideoListView(playerModel: playerModel)
+                .tabItem {
+                    if !playerModel.fullscreenEnabled {
+                        Label("Videos", systemImage: "list.triangle")
+                    }
+                }
+                .tag(Tab.videos)
+            Text("Hello, world!")
+                .tabItem {
+                    if !playerModel.fullscreenEnabled {
+                        Label("Other", systemImage: "info")
+                    }
+                }
+                .tag(Tab.other)
+        }
     }
 }
 

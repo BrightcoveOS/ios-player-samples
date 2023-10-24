@@ -19,7 +19,7 @@ enum ControlType: String, Equatable, CaseIterable, Identifiable {
 struct VideoListView: View {
 
     @StateObject private var playlistModel = PlaylistModel()
-    @ObservedObject private var playerModel = PlayerModel()
+    @ObservedObject var playerModel: PlayerModel
 
     @State private var controlType: ControlType = .bcov
 
@@ -65,7 +65,7 @@ struct VideoListView: View {
 #if DEBUG
 struct VideoListView_Previews: PreviewProvider {
     static var previews: some View {
-        VideoListView()
+        VideoListView(playerModel: PlayerModel())
     }
 }
 #endif
