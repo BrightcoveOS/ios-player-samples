@@ -2,12 +2,11 @@
 //  ViewController.swift
 //  AppleTV
 //
-//  Copyright © 2020 Brightcove. All rights reserved.
+//  Copyright © 2024 Brightcove. All rights reserved.
 //
 
 // This sample app shows how to set up and use the TV Player UI on tvOS.
-// It also shows how to subclass BCOVTVTabBarItemView to create your
-// own top tab bar item view with your own controls.
+// It also shows how to create a Custom Info View Controller with your own controls
 
 import BrightcovePlayerSDK
 
@@ -70,21 +69,20 @@ class ViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        createSampleTabBarItemView()
+        createSampleInfoView()
         requestContentFromPlaybackService()
     }
 
-    private func createSampleTabBarItemView() {
+    private func createSampleInfoView() {
         
-        guard let playerView = playerView, var topTabBarItemViews = playerView.settingsView.topTabBarItemViews else {
+        guard let playerView = playerView else {
             return
         }
-        
-        let sampleTabBarItemView = SampleTabBarItemView(size: CGSize.init(width: 620, height: 200), playerView: playerView)
-        
-        // Insert our new tab bar item view at the end of the top tab bar
-        topTabBarItemViews.append(sampleTabBarItemView)
-        playerView.settingsView.topTabBarItemViews = topTabBarItemViews
+
+        let sampleInfoVC = SampleInfoViewController(playerView: playerView)
+        sampleInfoVC.preferredContentSize = CGSizeMake(0, 200)
+
+        playerView.controlsView.customInfoViewControllers = [sampleInfoVC]
     }
 
     private func requestContentFromPlaybackService() {
@@ -106,13 +104,7 @@ class ViewController: UIViewController
 // MARK: - UIFocusEnvironment overrides
 
 extension ViewController {
-    
-    // Focus Environment override for tvOS 9
-    override var preferredFocusedView: UIView? {
-        return playerView
-    }
-    
-    // Focus Environment override for tvOS 10+
+
     override var preferredFocusEnvironments: [UIFocusEnvironment] {
         return (playerView != nil ? [ playerView! ] : [])
     }

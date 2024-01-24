@@ -1,15 +1,16 @@
 //
-//  SampleTabBarItemView.swift
+//  SampleInfoViewController.swift
 //  AppleTV
 //
-//  Copyright © 2020 Brightcove. All rights reserved.
+//  Copyright © 2024 Brightcove. All rights reserved.
 //
 
+import UIKit
 import BrightcovePlayerSDK
 
-// This is a simple BCOVTVTabBarItemView subclass
-// showing how to initialize the class and install a few buttons.
-class SampleTabBarItemView: BCOVTVTabBarItemView {
+class SampleInfoViewController: UIViewController, BCOVPlaybackSessionConsumer {
+
+    weak var playerView: BCOVTVPlayerView?
 
     lazy var button1: UIButton = {
         let button = UIButton.init(type: .system)
@@ -18,7 +19,7 @@ class SampleTabBarItemView: BCOVTVTabBarItemView {
         button.addTarget(self, action: #selector(buttonHandler), for: .primaryActionTriggered)
         return button
     }()
-    
+
     lazy var button2: UIButton = {
         let button = UIButton.init(type: .system)
         button.frame = CGRect.init(x:340, y:40, width:280, height:80)
@@ -26,27 +27,27 @@ class SampleTabBarItemView: BCOVTVTabBarItemView {
         button.addTarget(self, action: #selector(buttonHandler), for: .primaryActionTriggered)
         return button
     }()
-    
+
     // MARK: - View Lifecycle
 
-    override init(size: CGSize, playerView: BCOVTVPlayerView) {
-        super.init(size: size, playerView: playerView)
+    init(playerView: BCOVTVPlayerView) {
+        super.init(nibName: nil, bundle: nil)
+        self.playerView = playerView
 
-        // Be sure to set a title for your tab bar item view
         title = "Sample"
-        
-        addSubview(button1)
-        addSubview(button2)
+
+        view.addSubview(button1)
+        view.addSubview(button2)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: UI Interactions
     
     @objc func buttonHandler(button: UIButton) {
-        guard let text = button.titleLabel?.text else {
+        guard let text = button.titleLabel?.text, let playerView = playerView else {
             return
         }
         
@@ -75,27 +76,4 @@ class SampleTabBarItemView: BCOVTVTabBarItemView {
             fadingLabel.removeFromSuperview()
         })
     }
-
-}
-
-// MARK: - UIFocusEnvironment overrides
-
-extension SampleTabBarItemView {
-    
-    override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        
-        // If we're moving focus down, don't let the focus guide wrap focus
-        // back to the default button.
-        // Makes for more natural focus navigation.
-        if (context.focusHeading == UIFocusHeading.down) {
-            
-            if ((context.nextFocusedItem === button1) || (context.nextFocusedItem === button1)) {
-                return false
-            }
-            
-        }
-        
-        return true
-    }
-    
 }
