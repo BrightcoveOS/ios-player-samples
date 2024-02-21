@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JjR-2p-YCV">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Video View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="VideoViewController" id="BYZ-38-t0r" customClass="VideoViewController" customModule="VerticalPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YbY-Mv-C00">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PEg-gj-J6u">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play" translatesAutoresizingMaskIntoConstraints="NO" id="NVx-Ph-0RA">
+                                <rect key="frame" x="146.66666666666666" y="376" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="NVx-Ph-0RA" secondAttribute="height" multiplier="1:1" id="Gon-RI-OIC"/>
+                                    <constraint firstAttribute="width" constant="100" id="XeT-wH-3xh"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UPW-UF-rsI">
+                                <rect key="frame" x="0.0" y="791.66666666666663" width="393" height="60.333333333333371"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Video Description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VmI-GV-dpq">
+                                        <rect key="frame" x="20" y="20" width="303" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5wl-Pi-RyS">
+                                        <rect key="frame" x="343" y="20" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="5wl-Pi-RyS" secondAttribute="height" multiplier="1:1" id="886-wj-s2H"/>
+                                            <constraint firstAttribute="height" constant="30" id="PXU-WM-9Qz"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="square.and.arrow.up" catalog="system"/>
+                                        <connections>
+                                            <action selector="handleShareButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cUl-OL-BSo"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.65166239835778061" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="VmI-GV-dpq" firstAttribute="top" secondItem="UPW-UF-rsI" secondAttribute="top" constant="20" id="EV4-Bg-8yo"/>
+                                    <constraint firstAttribute="bottom" secondItem="VmI-GV-dpq" secondAttribute="bottom" constant="20" id="Sj2-Bz-fRa"/>
+                                    <constraint firstItem="5wl-Pi-RyS" firstAttribute="top" secondItem="VmI-GV-dpq" secondAttribute="top" id="T6M-b6-0QL"/>
+                                    <constraint firstItem="VmI-GV-dpq" firstAttribute="leading" secondItem="UPW-UF-rsI" secondAttribute="leading" constant="20" id="hG0-kt-0Hd"/>
+                                    <constraint firstItem="5wl-Pi-RyS" firstAttribute="leading" secondItem="VmI-GV-dpq" secondAttribute="trailing" constant="20" id="isy-jx-bLI"/>
+                                    <constraint firstAttribute="trailing" secondItem="5wl-Pi-RyS" secondAttribute="trailing" constant="20" id="wFP-Kn-6be"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="YbY-Mv-C00" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5Em-pc-aAl"/>
+                            <constraint firstItem="YbY-Mv-C00" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="6mQ-Dc-tmE"/>
+                            <constraint firstItem="PEg-gj-J6u" firstAttribute="trailing" secondItem="YbY-Mv-C00" secondAttribute="trailing" id="Agw-Ib-0OM"/>
+                            <constraint firstItem="UPW-UF-rsI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="NRl-zu-6wh"/>
+                            <constraint firstItem="NVx-Ph-0RA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Scy-Ti-yFy"/>
+                            <constraint firstItem="PEg-gj-J6u" firstAttribute="bottom" secondItem="YbY-Mv-C00" secondAttribute="bottom" id="Sws-Nj-Dxl"/>
+                            <constraint firstItem="PEg-gj-J6u" firstAttribute="top" secondItem="YbY-Mv-C00" secondAttribute="top" id="VhJ-Z0-Q9l"/>
+                            <constraint firstAttribute="bottom" secondItem="YbY-Mv-C00" secondAttribute="bottom" id="bfv-78-KmA"/>
+                            <constraint firstItem="UPW-UF-rsI" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="d8Q-qj-kjt"/>
+                            <constraint firstItem="NVx-Ph-0RA" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="hZH-kf-aCh"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YbY-Mv-C00" secondAttribute="trailing" id="iAi-4D-xKt"/>
+                            <constraint firstAttribute="bottom" secondItem="UPW-UF-rsI" secondAttribute="bottom" id="sJn-hx-c7G"/>
+                            <constraint firstItem="PEg-gj-J6u" firstAttribute="leading" secondItem="YbY-Mv-C00" secondAttribute="leading" id="vlT-cM-LRe"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="cDK-m5-w68"/>
+                    <connections>
+                        <outlet property="playIconView" destination="NVx-Ph-0RA" id="fbO-0J-wGt"/>
+                        <outlet property="posterView" destination="PEg-gj-J6u" id="v4F-tE-vsw"/>
+                        <outlet property="videoContainerView" destination="YbY-Mv-C00" id="Wka-lb-XUx"/>
+                        <outlet property="videoDescriptionLabel" destination="VmI-GV-dpq" id="bEL-su-bj5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2449.6183206106871" y="3.5211267605633805"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="TeH-h0-UCE">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="vertical" spineLocation="none" id="JjR-2p-YCV" customClass="BCOVPageViewController" customModule="VerticalPlayer" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zgh-ht-MDq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1753" y="4"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="play" width="153" height="153"/>
+        <image name="square.and.arrow.up" catalog="system" width="108" height="128"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
