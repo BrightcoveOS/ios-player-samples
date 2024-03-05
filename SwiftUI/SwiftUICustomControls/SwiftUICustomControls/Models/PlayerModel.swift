@@ -15,8 +15,9 @@ final class PlayerModel: NSObject, ObservableObject, BCOVPlaybackControllerDeleg
     @Published var buffer: Double = .zero
     @Published var progress: Double = .zero
     @Published var isPlaying = false
+    @Published var isShowThumbnail = false
     @Published var showControls = true
-
+    var thumbnailManager: ThumbnailManager?
     private(set) lazy var controller: BCOVPlaybackController? = {
         let sdkManager = BCOVPlayerSDKManager.shared()
 
@@ -28,6 +29,7 @@ final class PlayerModel: NSObject, ObservableObject, BCOVPlaybackControllerDeleg
             return nil
         }
 
+        _playbackController.thumbnailSeekingEnabled = false
         _playbackController.delegate = self
         _playbackController.isAutoPlay = true
         _playbackController.isAutoAdvance = false
@@ -61,7 +63,7 @@ final class PlayerModel: NSObject, ObservableObject, BCOVPlaybackControllerDeleg
     }
 
     func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didChangeDuration duration: TimeInterval) {
-        self.duration = duration.rounded()
+        self.duration = duration.rounded(.towardZero)
     }
 
     func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {

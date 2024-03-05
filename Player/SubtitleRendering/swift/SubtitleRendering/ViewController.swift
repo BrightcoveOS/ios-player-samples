@@ -48,7 +48,7 @@ class ViewController: UIViewController {
     
     private func setupPlaybackController() {
         playbackController = (BCOVPlayerSDKManager.shared().createPlaybackController())!
-                
+        playbackController?.thumbnailSeekingEnabled = true
         playbackController?.delegate = self
         playbackController?.isAutoPlay = true
     }

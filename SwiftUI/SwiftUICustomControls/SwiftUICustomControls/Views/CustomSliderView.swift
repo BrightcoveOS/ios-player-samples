@@ -8,58 +8,86 @@
 import SwiftUI
 import BrightcovePlayerSDK
 
-struct CustomSliderView: UIViewRepresentable {
+struct CustomSliderView<ThumbnailView: View>: UIViewRepresentable {
     typealias UIViewType = BCOVPUISlider
+    typealias ThumbnailVideoView = UIViewController
     typealias SliderCompletionHandler = (Float) -> Void
+    typealias SliderTouchHandler = (CGPoint, CGRect, Bool) -> Void
 
     @EnvironmentObject var playerModel: PlayerModel
-    @Binding var value: Double
     let onValueChanged: SliderCompletionHandler?
+    let thumbnailView: ThumbnailVideoView
+    let onTouchSliderEvent: SliderTouchHandler?
 
-    init(value: Binding<Double>, onValueChanged: SliderCompletionHandler? = nil) {
-        _value = value
+    init(
+        @ViewBuilder content: @escaping () -> ThumbnailView,
+        onValueChanged: SliderCompletionHandler? = nil,
+        onTouchSliderEvent: SliderTouchHandler? = nil
+    ) {
+        thumbnailView = UIHostingController(rootView: content())
         self.onValueChanged = onValueChanged
+        self.onTouchSliderEvent = onTouchSliderEvent
     }
 
     func makeUIView(context: Context) -> BCOVPUISlider {
         let slider = BCOVPUISlider(frame: .zero)
         slider.value = Float(0)
         slider.minimumValue = .zero
+        slider.isContinuous = true
         slider.maximumValue = Float(playerModel.duration)
+        thumbnailView.view.backgroundColor = UIColor.clear
+        slider.addSubview(thumbnailView.view)
         slider.addTarget(context.coordinator, action: #selector(CustomSliderViewCoordinator.valueChanged(_:)), for: .valueChanged)
+        slider.addTarget(context.coordinator, action: #selector(CustomSliderViewCoordinator.sliderOnTouchEvent), for: .allTouchEvents)
         return slider
     }
 
     func updateUIView(_ slider: BCOVPUISlider, context: Context) {
-        slider.value = Float(value)
+        slider.value = Float(playerModel.progress)
         slider.maximumValue = Float(playerModel.duration)
         slider.bufferProgress = Float(playerModel.buffer)
     }
 
     func makeCoordinator() -> CustomSliderViewCoordinator {
-        CustomSliderViewCoordinator(value: $value, buffer: $playerModel.buffer, onValueChanged: onValueChanged)
+        CustomSliderViewCoordinator(self)
     }
 
 
     // MARK: -
 
     final class CustomSliderViewCoordinator: NSObject {
+        let parent: CustomSliderView
 
-        private(set) var value: Binding<Double>
-        private(set) var buffer: Binding<Double>
-        let onValueChanged: SliderCompletionHandler?
-
-        init(value: Binding<Double>, buffer: Binding<Double>, onValueChanged: SliderCompletionHandler? = nil) {
-            self.value = value
-            self.buffer = buffer
-            self.onValueChanged = onValueChanged
+        init(_ parent: CustomSliderView) {
+            self.parent = parent
         }
 
         @objc
         func valueChanged(_ sender: BCOVPUISlider) {
-            self.value.wrappedValue = Double(sender.value)
-            self.buffer.wrappedValue = Double(sender.bufferProgress)
-            onValueChanged?(sender.value)
+            parent.playerModel.progress = Double(sender.value)
+            parent.playerModel.buffer = Double(sender.bufferProgress)
+            parent.onValueChanged?(sender.value)
+            parent.thumbnailView.view.center = CGPoint(
+                x: sender.thumbBounds.midX,
+                y: sender.thumbBounds.minY - (parent.thumbnailView.view.frame.height / 2) - 32
+            )
+        }
+
+        @objc
+        /// Handle Events When Touch On BCOVUISlider
+        /// - Parameters:
+        ///   - sender: Slider
+        ///   - event: UIEvent
+        func sliderOnTouchEvent(sender: BCOVPUISlider, event: UIEvent) {
+            guard let touchEvent = event.allTouches?.first else { return }
+            switch touchEvent.phase {
+            case .began,
+                .ended:
+                parent.onTouchSliderEvent?(touchEvent.location(in:  sender), sender.thumbFrame, sender.isTracking)
+            case .moved:
+                parent.onTouchSliderEvent?(touchEvent.location(in: sender), sender.thumbFrame, sender.isTracking)
+            default: break
+            }
         }
     }
 }
@@ -70,7 +98,9 @@ struct CustomSliderView: UIViewRepresentable {
 #if DEBUG
 struct CustomSliderView_Previews: PreviewProvider {
     static var previews: some View {
-        CustomSliderView(value: .constant(0))
+        CustomSliderView {
+            Color.red
+        }
             .environmentObject(PlayerModel())
     }
 }

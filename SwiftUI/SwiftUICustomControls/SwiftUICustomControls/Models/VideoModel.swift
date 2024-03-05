@@ -23,7 +23,7 @@ final class VideoModel {
         return Future<BCOVVideo, Error> { promise in
             let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:Constants.VideoId]
             let playbackService = BCOVPlaybackService(accountId: Constants.AccountID, policyKey: Constants.PolicyKey)
-
+            
             playbackService?.findVideo(withConfiguration: configuration, queryParameters: nil) { video, jsonResponse, error in
                 if let video = video {
                     promise(.success(video))
