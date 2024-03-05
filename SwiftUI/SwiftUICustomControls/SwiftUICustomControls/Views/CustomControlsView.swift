@@ -18,69 +18,77 @@ struct CustomControlsView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            HStack {
-                Text(playerModel.progress.convertDurationToString())
-                    .font(.system(size: labelFontSize))
-                    .fontWeight(.regular)
-                    .foregroundColor(Color.white)
-                    .multilineTextAlignment(.center)
-                    .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
-
-                CustomSliderView(value: $playerModel.progress) { value in
-                    playerModel.controller?.seek(to: CMTime(seconds: playerModel.progress, preferredTimescale: CMTimeScale(1.0)), toleranceBefore: .zero, toleranceAfter: .zero) { sliderChangeValue in
-                        if sliderChangeValue { print("Slider progress changed") }
+            VStack(spacing: 0) {
+                HStack {
+                    Text(playerModel.progress.convertDurationToString())
+                        .font(.system(size: labelFontSize))
+                        .fontWeight(.regular)
+                        .foregroundColor(Color.white)
+                        .multilineTextAlignment(.center)
+                        .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
+                    CustomSliderView {
+                        ThumbnailView()
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                            .frame(width: 100, height: 60)
+                    } onValueChanged: { value in
+                        playerModel.controller?.seek(to: CMTime(seconds: playerModel.progress, preferredTimescale: CMTimeScale(1.0)), toleranceBefore: .zero, toleranceAfter: .zero) { sliderChangeValue in
+                            if sliderChangeValue { print("Slider progress changed") }
+                        }
+                    } onTouchSliderEvent: { _, _, isTrack in
+                        withAnimation(isTrack ? .linear : nil) {
+                            playerModel.isShowThumbnail = isTrack
+                        }
                     }
+
+                    Text(playerModel.duration.convertDurationToString())
+                        .font(.system(size: labelFontSize))
+                        .fontWeight(.regular)
+                        .foregroundColor(Color.white)
+                        .multilineTextAlignment(.center)
+                        .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
                 }
 
-                Text(playerModel.duration.convertDurationToString())
-                    .font(.system(size: labelFontSize))
-                    .fontWeight(.regular)
-                    .foregroundColor(Color.white)
-                    .multilineTextAlignment(.center)
-                    .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
-            }
+                HStack {
+                    Spacer()
 
-            HStack {
-                Spacer()
-                
-                Button {
-                    playerModel.controller?.seek(to: CMTime(seconds: playerModel.progress - 10, preferredTimescale: CMTimeScale(1.0))) { back in
-                    if back { print("Back - 10 second") }
-                }
-                } label: {
-                    Image(systemName: "gobackward.10")
-                        .resizable()
-                        .frame(width: buttonSize, height: buttonSize)
-                }
-
-                Button {
-                    playerModel.isPlaying ? playerModel.controller?.pause() : playerModel.controller?.play()
-                } label: {
-                    Image(systemName: playerModel.isPlaying ? "pause" : "play")
-                        .resizable()
-                        .frame(width: buttonSize, height: buttonSize)
-                        .padding()
-                }
-
-                Button {
-                    playerModel.controller?.seek(to: CMTime(seconds: playerModel.progress + 10, preferredTimescale: CMTimeScale(1.0))) { next in
-                        if next { print("Next + 10 second") }
+                    Button {
+                        playerModel.controller?.seek(to: CMTime(seconds: playerModel.progress - 10, preferredTimescale: CMTimeScale(1.0))) { back in
+                            if back { print("Back - 10 second") }
+                        }
+                    } label: {
+                        Image(systemName: "gobackward.10")
+                            .resizable()
+                            .frame(width: buttonSize, height: buttonSize)
                     }
-                } label: {
-                    Image(systemName: "goforward.10")
-                        .resizable()
-                        .frame(width: buttonSize, height: buttonSize)
-                }
 
-                Spacer()
+                    Button {
+                        playerModel.isPlaying ? playerModel.controller?.pause() : playerModel.controller?.play()
+                    } label: {
+                        Image(systemName: playerModel.isPlaying ? "pause" : "play")
+                            .resizable()
+                            .frame(width: buttonSize, height: buttonSize)
+                            .padding()
+                    }
+
+                    Button {
+                        playerModel.controller?.seek(to: CMTime(seconds: playerModel.progress + 10, preferredTimescale: CMTimeScale(1.0))) { next in
+                            if next { print("Next + 10 second") }
+                        }
+                    } label: {
+                        Image(systemName: "goforward.10")
+                            .resizable()
+                            .frame(width: buttonSize, height: buttonSize)
+                    }
+
+                    Spacer()
+                }
+                .foregroundColor(.white)
             }
-            .foregroundColor(.white)
+            .padding(8)
+            .background(Color.black.opacity(0.5))
         }
-        .padding(8)
-        .background(Color.black.opacity(0.5))
     }
 }
-
 
 // MARK: -
 

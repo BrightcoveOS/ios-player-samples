@@ -7,7 +7,7 @@
 
 import Combine
 import SwiftUI
-
+import BrightcovePlayerSDK
 
 struct PlayerUIView: View {
 
@@ -42,13 +42,40 @@ struct PlayerUIView: View {
                         print("VideoModel Debug - Error retrieving video: \(error.localizedDescription)")
                     }
                 }, receiveValue: { video in
-                    playerModel.controller?.setVideos([video] as NSFastEnumeration)
+                    handleReceiveVideo(video)
                 })
                 .store(in: &cancellables)
         }
         .alert(isPresented: $showAlert) { () -> Alert in
             Alert(title: Text("SwiftUICustomControls"), message: Text("Error retrieving video."), dismissButton: .cancel())
         }
+    }
+}
+
+private extension PlayerUIView {
+    /// Handle Receive Video After Request From BrightCove
+    /// - Parameter video: BCOVVideo
+    func handleReceiveVideo(_ video: BCOVVideo) {
+        if let textTracks = video.properties[kBCOVVideoPropertyKeyTextTracks] as? [[String: Any]] {
+            for track in textTracks {
+                if let trackLabel = track["label"] as? String, trackLabel == "thumbnails" {
+                    if let trackSrc = track["src"] as? String {
+                        if trackSrc.hasPrefix("https://") {
+                            if let httpsThumbnailURL = URL(string: trackSrc) {
+                                playerModel.thumbnailManager = ThumbnailManager(url: httpsThumbnailURL)
+                            }
+                            break
+                        } else if trackSrc.hasPrefix("http://") {
+                            if let httpThumbnailURL = URL(string: trackSrc) {
+                                playerModel.thumbnailManager = ThumbnailManager(url: httpThumbnailURL)
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+        playerModel.controller?.setVideos([video] as NSFastEnumeration)
     }
 }
 
