@@ -3,23 +3,23 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D6DB4FB42BA3724100F47C9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6DB4FB32BA3724100F47C9F /* Assets.xcassets */; };
 		E9DEE561216E8D250033C285 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE560216E8D250033C285 /* AppDelegate.swift */; };
 		E9DEE563216E8D250033C285 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE562216E8D250033C285 /* ViewController.swift */; };
 		E9DEE566216E8D250033C285 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE564216E8D250033C285 /* Main.storyboard */; };
-		E9DEE568216E8D260033C285 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE567216E8D260033C285 /* Assets.xcassets */; };
 		E9DEE56B216E8D260033C285 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE569216E8D260033C285 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D6DB4FB32BA3724100F47C9F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		E9DEE55D216E8D250033C285 /* BasicSidecarSubtitlesPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicSidecarSubtitlesPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9DEE560216E8D250033C285 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9DEE562216E8D250033C285 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E9DEE565216E8D250033C285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E9DEE567216E8D260033C285 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9DEE56A216E8D260033C285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E9DEE56C216E8D260033C285 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -54,12 +54,12 @@
 		E9DEE55F216E8D250033C285 /* BasicSidecarSubtitlesPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				E9DEE56C216E8D260033C285 /* Info.plist */,
+				D6DB4FB32BA3724100F47C9F /* Assets.xcassets */,
+				E9DEE569216E8D260033C285 /* LaunchScreen.storyboard */,
+				E9DEE564216E8D250033C285 /* Main.storyboard */,
 				E9DEE560216E8D250033C285 /* AppDelegate.swift */,
 				E9DEE562216E8D250033C285 /* ViewController.swift */,
-				E9DEE564216E8D250033C285 /* Main.storyboard */,
-				E9DEE567216E8D260033C285 /* Assets.xcassets */,
-				E9DEE569216E8D260033C285 /* LaunchScreen.storyboard */,
-				E9DEE56C216E8D260033C285 /* Info.plist */,
 			);
 			path = BasicSidecarSubtitlesPlayer;
 			sourceTree = "<group>";
@@ -92,7 +92,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 1200;
-				ORGANIZATIONNAME = "Brightcove, Inc";
+				ORGANIZATIONNAME = "Brightcove, Inc.";
 				TargetAttributes = {
 					E9DEE55C216E8D250033C285 = {
 						CreatedOnToolsVersion = 10.0;
@@ -101,7 +101,7 @@
 				};
 			};
 			buildConfigurationList = E9DEE558216E8D250033C285 /* Build configuration list for PBXProject "BasicSidecarSubtitlesPlayer" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -124,7 +124,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9DEE56B216E8D260033C285 /* LaunchScreen.storyboard in Resources */,
-				E9DEE568216E8D260033C285 /* Assets.xcassets in Resources */,
+				D6DB4FB42BA3724100F47C9F /* Assets.xcassets in Resources */,
 				E9DEE566216E8D250033C285 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -196,7 +196,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -215,7 +214,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -258,7 +257,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -271,7 +269,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -285,14 +283,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = BasicSidecarSubtitlesPlayer/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = SidecarSubtitles;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.BasicSidecarSubtitlesPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -304,14 +302,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = BasicSidecarSubtitlesPlayer/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = SidecarSubtitles;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.BasicSidecarSubtitlesPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
