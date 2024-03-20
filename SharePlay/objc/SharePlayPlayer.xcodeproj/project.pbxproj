@@ -3,37 +3,32 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8E9B1AB354E3455473915F61 /* Pods_SharePlayPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF598F3255970C1BC7E1E90 /* Pods_SharePlayPlayer.framework */; };
-		E9970D44268B80D3002D46F6 /* WatchTogether.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9970D43268B80D3002D46F6 /* WatchTogether.swift */; };
-		E9970D46268B9194002D46F6 /* WatchTogetherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9970D45268B9194002D46F6 /* WatchTogetherWrapper.swift */; };
+		D65403592BAB7CFA00DD8346 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D65403572BAB7CFA00DD8346 /* Main.storyboard */; };
+		D654035D2BAB7FBF00DD8346 /* WatchTogether.swift in Sources */ = {isa = PBXBuildFile; fileRef = D654035C2BAB7FBF00DD8346 /* WatchTogether.swift */; };
+		D654035F2BAB7FD500DD8346 /* WatchTogetherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D654035E2BAB7FD500DD8346 /* WatchTogetherWrapper.swift */; };
+		D65403612BAB826300DD8346 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D65403602BAB826300DD8346 /* Assets.xcassets */; };
 		E9D1EBFF268B7BE60064295E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D1EBFE268B7BE60064295E /* AppDelegate.m */; };
 		E9D1EC05268B7BE60064295E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D1EC04268B7BE60064295E /* ViewController.m */; };
-		E9D1EC08268B7BE60064295E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9D1EC06268B7BE60064295E /* Main.storyboard */; };
-		E9D1EC0A268B7BE80064295E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9D1EC09268B7BE80064295E /* Assets.xcassets */; };
 		E9D1EC0D268B7BE80064295E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9D1EC0B268B7BE80064295E /* LaunchScreen.storyboard */; };
 		E9D1EC10268B7BE80064295E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D1EC0F268B7BE80064295E /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3DF598F3255970C1BC7E1E90 /* Pods_SharePlayPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SharePlayPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6392A08C2801510F8FEB34A3 /* Pods-SharePlayPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SharePlayPlayer.release.xcconfig"; path = "Target Support Files/Pods-SharePlayPlayer/Pods-SharePlayPlayer.release.xcconfig"; sourceTree = "<group>"; };
-		75444EBD7343F31699AC91AD /* Pods-SharePlayPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SharePlayPlayer.debug.xcconfig"; path = "Target Support Files/Pods-SharePlayPlayer/Pods-SharePlayPlayer.debug.xcconfig"; sourceTree = "<group>"; };
-		E9970D3F268B7F80002D46F6 /* GroupActivities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GroupActivities.framework; path = System/Library/Frameworks/GroupActivities.framework; sourceTree = SDKROOT; };
+		D65403582BAB7CFA00DD8346 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D654035C2BAB7FBF00DD8346 /* WatchTogether.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchTogether.swift; sourceTree = "<group>"; };
+		D654035E2BAB7FD500DD8346 /* WatchTogetherWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchTogetherWrapper.swift; sourceTree = "<group>"; };
+		D65403602BAB826300DD8346 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
+		D65403622BAB82E900DD8346 /* SharePlayPlayer-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SharePlayPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
 		E9970D41268B800A002D46F6 /* SharePlayPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SharePlayPlayer.entitlements; sourceTree = "<group>"; };
-		E9970D42268B80D3002D46F6 /* SharePlayPlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SharePlayPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
-		E9970D43268B80D3002D46F6 /* WatchTogether.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTogether.swift; sourceTree = "<group>"; };
-		E9970D45268B9194002D46F6 /* WatchTogetherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTogetherWrapper.swift; sourceTree = "<group>"; };
 		E9D1EBFA268B7BE60064295E /* SharePlayPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SharePlayPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9D1EBFD268B7BE60064295E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E9D1EBFE268B7BE60064295E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E9D1EC03268B7BE60064295E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		E9D1EC04268B7BE60064295E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		E9D1EC07268B7BE60064295E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E9D1EC09268B7BE80064295E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9D1EC0C268B7BE80064295E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E9D1EC0E268B7BE80064295E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9D1EC0F268B7BE80064295E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -44,38 +39,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E9B1AB354E3455473915F61 /* Pods_SharePlayPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		25335FDACE36BDF992340675 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				75444EBD7343F31699AC91AD /* Pods-SharePlayPlayer.debug.xcconfig */,
-				6392A08C2801510F8FEB34A3 /* Pods-SharePlayPlayer.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		D01FC595EEA8CE3DD33E9803 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E9970D3F268B7F80002D46F6 /* GroupActivities.framework */,
-				3DF598F3255970C1BC7E1E90 /* Pods_SharePlayPlayer.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		E9D1EBF1268B7BE60064295E = {
 			isa = PBXGroup;
 			children = (
 				E9D1EBFC268B7BE60064295E /* SharePlayPlayer */,
 				E9D1EBFB268B7BE60064295E /* Products */,
-				25335FDACE36BDF992340675 /* Pods */,
-				D01FC595EEA8CE3DD33E9803 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,19 +64,19 @@
 		E9D1EBFC268B7BE60064295E /* SharePlayPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				E9D1EC0E268B7BE80064295E /* Info.plist */,
 				E9970D41268B800A002D46F6 /* SharePlayPlayer.entitlements */,
+				D65403602BAB826300DD8346 /* Assets.xcassets */,
+				E9D1EC0B268B7BE80064295E /* LaunchScreen.storyboard */,
+				D65403572BAB7CFA00DD8346 /* Main.storyboard */,
+				D65403622BAB82E900DD8346 /* SharePlayPlayer-Bridging-Header.h */,
+				E9D1EC0F268B7BE80064295E /* main.m */,
 				E9D1EBFD268B7BE60064295E /* AppDelegate.h */,
 				E9D1EBFE268B7BE60064295E /* AppDelegate.m */,
 				E9D1EC03268B7BE60064295E /* ViewController.h */,
 				E9D1EC04268B7BE60064295E /* ViewController.m */,
-				E9970D42268B80D3002D46F6 /* SharePlayPlayer-Bridging-Header.h */,
-				E9970D43268B80D3002D46F6 /* WatchTogether.swift */,
-				E9970D45268B9194002D46F6 /* WatchTogetherWrapper.swift */,
-				E9D1EC06268B7BE60064295E /* Main.storyboard */,
-				E9D1EC09268B7BE80064295E /* Assets.xcassets */,
-				E9D1EC0B268B7BE80064295E /* LaunchScreen.storyboard */,
-				E9D1EC0E268B7BE80064295E /* Info.plist */,
-				E9D1EC0F268B7BE80064295E /* main.m */,
+				D654035C2BAB7FBF00DD8346 /* WatchTogether.swift */,
+				D654035E2BAB7FD500DD8346 /* WatchTogetherWrapper.swift */,
 			);
 			path = SharePlayPlayer;
 			sourceTree = "<group>";
@@ -114,12 +88,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9D1EC13268B7BE80064295E /* Build configuration list for PBXNativeTarget "SharePlayPlayer" */;
 			buildPhases = (
-				319B95B73EB54DB9B527CD36 /* [CP] Check Pods Manifest.lock */,
 				E9D1EBF6268B7BE60064295E /* Sources */,
 				E9D1EBF7268B7BE60064295E /* Frameworks */,
 				E9D1EBF8268B7BE60064295E /* Resources */,
-				2458ABC42506A1969BF7C225 /* [CP] Embed Pods Frameworks */,
-				A4CD4CAAD12183951CAA3E56 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -137,15 +108,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1250;
+				ORGANIZATIONNAME = "Brightcove, Inc.";
 				TargetAttributes = {
 					E9D1EBF9268B7BE60064295E = {
 						CreatedOnToolsVersion = 12.5;
-						LastSwiftMigration = 1300;
+						LastSwiftMigration = 1530;
 					};
 				};
 			};
 			buildConfigurationList = E9D1EBF5268B7BE60064295E /* Build configuration list for PBXProject "SharePlayPlayer" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -168,92 +140,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9D1EC0D268B7BE80064295E /* LaunchScreen.storyboard in Resources */,
-				E9D1EC0A268B7BE80064295E /* Assets.xcassets in Resources */,
-				E9D1EC08268B7BE60064295E /* Main.storyboard in Resources */,
+				D65403612BAB826300DD8346 /* Assets.xcassets in Resources */,
+				D65403592BAB7CFA00DD8346 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		2458ABC42506A1969BF7C225 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SharePlayPlayer/Pods-SharePlayPlayer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SharePlayPlayer/Pods-SharePlayPlayer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SharePlayPlayer/Pods-SharePlayPlayer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		319B95B73EB54DB9B527CD36 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SharePlayPlayer-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A4CD4CAAD12183951CAA3E56 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SharePlayPlayer/Pods-SharePlayPlayer-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SharePlayPlayer/Pods-SharePlayPlayer-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SharePlayPlayer/Pods-SharePlayPlayer-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E9D1EBF6268B7BE60064295E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D654035F2BAB7FD500DD8346 /* WatchTogetherWrapper.swift in Sources */,
 				E9D1EC05268B7BE60064295E /* ViewController.m in Sources */,
-				E9970D46268B9194002D46F6 /* WatchTogetherWrapper.swift in Sources */,
-				E9970D44268B80D3002D46F6 /* WatchTogether.swift in Sources */,
 				E9D1EBFF268B7BE60064295E /* AppDelegate.m in Sources */,
 				E9D1EC10268B7BE80064295E /* main.m in Sources */,
+				D654035D2BAB7FBF00DD8346 /* WatchTogether.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		E9D1EC06268B7BE60064295E /* Main.storyboard */ = {
+		D65403572BAB7CFA00DD8346 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E9D1EC07268B7BE60064295E /* Base */,
+				D65403582BAB7CFA00DD8346 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -383,22 +296,23 @@
 		};
 		E9D1EC14268B7BE80064295E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 75444EBD7343F31699AC91AD /* Pods-SharePlayPlayer.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SharePlayPlayer/SharePlayPlayer.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = SharePlayPlayer/Info.plist;
+				DEFINES_MODULE = YES;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = SharePlay;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.SharePlayPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "SharePlayPlayer/SharePlayPlayer-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -407,22 +321,23 @@
 		};
 		E9D1EC15268B7BE80064295E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6392A08C2801510F8FEB34A3 /* Pods-SharePlayPlayer.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SharePlayPlayer/SharePlayPlayer.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = SharePlayPlayer/Info.plist;
+				DEFINES_MODULE = YES;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = SharePlay;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.SharePlayPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "SharePlayPlayer/SharePlayPlayer-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
