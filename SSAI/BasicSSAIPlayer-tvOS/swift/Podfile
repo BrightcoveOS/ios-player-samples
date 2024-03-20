@@ -1,0 +1,10 @@
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/brightcove/BrightcoveSpecs.git'
+
+platform :tvos, '12.0'
+
+use_frameworks!
+
+target 'BasicSSAIPlayer' do
+	pod 'Brightcove-Player-SSAI/XCFramework'
+end

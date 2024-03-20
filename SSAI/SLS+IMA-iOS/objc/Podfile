@@ -1,0 +1,11 @@
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/brightcove/BrightcoveSpecs.git'
+
+platform :ios, '14.0'
+
+use_frameworks!
+
+target 'SLS_IMA-Player' do
+	pod 'Brightcove-Player-SSAI/XCFramework'
+	pod 'Brightcove-Player-IMA/XCFramework'
+end
