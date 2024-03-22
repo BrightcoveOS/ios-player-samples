@@ -1,0 +1,10 @@
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/brightcove/BrightcoveSpecs.git'
+
+platform :tvos, '14.0'
+
+use_frameworks!
+
+target 'NativeControlsIMAPlayer' do
+  pod 'Brightcove-Player-IMA/XCFramework'
+end
