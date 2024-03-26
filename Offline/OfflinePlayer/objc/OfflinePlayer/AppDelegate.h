@@ -2,14 +2,14 @@
 //  AppDelegate.h
 //  OfflinePlayer
 //
-//  Created by Steve Bushell on 1/27/17.
-//  Copyright (c) 2020 Brightcove. All rights reserved.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) UIWindow *window;
 
 @end

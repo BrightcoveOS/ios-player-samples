@@ -31,7 +31,7 @@
         <!--Videos-->
         <scene sceneID="46q-hW-hNc">
             <objects>
-                <viewController title="Videos" id="0VD-KN-ddQ" customClass="VideosViewController" customModule="OfflinePlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Videos" id="0VD-KN-ddQ" customClass="VideosViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fq6-0z-TeF">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -54,7 +54,7 @@
                                 <rect key="frame" x="0.0" y="333" width="430" height="488"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="VideoTableViewCell" rowHeight="44" id="ksm-Pf-2k2" customClass="VideoTableViewCell" customModule="OfflinePlayer" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="VideoTableViewCell" rowHeight="44" id="ksm-Pf-2k2" customClass="VideoTableViewCell">
                                         <rect key="frame" x="0.0" y="50" width="430" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ksm-Pf-2k2" id="7tH-q3-2Cg">
@@ -151,7 +151,7 @@
         <!--Downloads-->
         <scene sceneID="6RR-m9-GHB">
             <objects>
-                <viewController title="Downloads" id="wee-QO-J3C" customClass="DownloadsViewController" customModule="OfflinePlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Downloads" id="wee-QO-J3C" customClass="DownloadsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Fya-6i-iH5">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -247,7 +247,7 @@
                                 <rect key="frame" x="0.0" y="377" width="430" height="416"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="VideoTableViewCell" rowHeight="44" id="YFg-oS-6xB" customClass="VideoTableViewCell" customModule="OfflinePlayer" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="VideoTableViewCell" rowHeight="44" id="YFg-oS-6xB" customClass="VideoTableViewCell">
                                         <rect key="frame" x="0.0" y="50" width="430" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YFg-oS-6xB" id="lav-90-G8K">
@@ -369,7 +369,7 @@
         <!--Settings-->
         <scene sceneID="XvY-cr-paq">
             <objects>
-                <viewController title="Settings" id="qH0-Ho-30C" customClass="SettingsViewController" customModule="OfflinePlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Settings" id="qH0-Ho-30C" customClass="SettingsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="y6D-xz-FpF">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -2,189 +2,134 @@
 //  VideoManager.swift
 //  OfflinePlayer
 //
-//  Copyright © 2020 Brightcove, Inc. All rights reserved.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 import UIKit
+
 import BrightcovePlayerSDK
 
-enum VideoState {
-    case OnlineOnly
-    case Downloadable
-    case Downloading
-    case Paused
-    case Cancelled
-    case Downloaded
-    case Error
-}
 
-class VideoManager: NSObject {
-    
-    weak var delegate: ReloadDelegate?
-    
-    var currentVideos: [BCOVVideo]?
-    var currentPlaylistTitle: String?
-    var currentPlaylistDescription: String?
-    
-    var imageCacheDictionary: [String:UIImage]?
-    var videosTableViewData: [[String:Any]]?
-    var estimatedDownloadSizeDictionary: [String:Double]?
-    
-    // Update the video dictionary array with the current status
-    // as reported by the offline video manager
-    func updateStatusForPlaylist() {
-        
-        guard let _videosTableViewData = videosTableViewData, let statusArray = BCOVOfflineVideoManager.shared()?.offlineVideoStatus() else {
+// Customize these values with your own account information
+// Add your Brightcove account and video information here.
+let kAccountId = "5434391461001"
+let kPolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
+let kPlaylistRefId = "brightcove-native-sdk-plist"
+
+
+final class VideoManager: NSObject {
+
+    static var shared = VideoManager()
+
+    fileprivate lazy var playbackService: BCOVPlaybackService = {
+        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+                                                        policyKey: kPolicyKey)
+        return .init(requestFactory: factory)
+    }()
+
+    fileprivate(set) lazy var videos: [BCOVVideo] = .init()
+    fileprivate(set) lazy var thumbnails: [String: UIImage] = .init()
+    fileprivate(set) lazy var downloadSize: [String: Double] = .init()
+
+    func retrievePlaylist(with configuration: [String: Any],
+                          queryParameters: [String: Any]?,
+                          completion: @escaping (BCOVPlaylist?, [AnyHashable: Any]?, Error?) -> Void) {
+
+        playbackService.findPlaylist(withConfiguration: configuration, queryParameters: queryParameters) {
+            (playlist: BCOVPlaylist?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
+            completion(playlist, jsonResponse, error)
+        }
+    }
+
+    func retrieveVideo(_ video: BCOVVideo,
+                       completion: @escaping (BCOVVideo?, [AnyHashable: Any]?, Error?) -> Void) {
+        guard let videoId = video.videoId else {
             return
         }
-        
-        // Iterate through all the videos in our videos table,
-        // and update the status for each one.
-        
-        var updatedData: [[String:Any]] = []
-        
-        for var videoDictionary in _videosTableViewData {
-            
-            guard let video = videoDictionary["video"] as? BCOVVideo else {
+
+        let configuration: [String: Any] = [ kBCOVPlaybackServiceConfigurationKeyAssetID: videoId ]
+        playbackService.findVideo(withConfiguration: configuration , queryParameters: nil) {
+            (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
+            completion(video, jsonResponse, error)
+        }
+    }
+
+    func usePlaylist(_ playlist: [BCOVVideo],
+                     with bitrate: Int64) {
+
+        videos = playlist
+        thumbnails = .init()
+        downloadSize = .init()
+
+        for video in videos {
+            estimateDownloadSize(for: video,
+                                 with: bitrate)
+
+            cacheThumbnail(for: video)
+        }
+
+        NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus,
+                                        object: nil)
+    }
+
+    fileprivate func estimateDownloadSize(for video: BCOVVideo,
+                                          with bitrate: Int64) {
+        // Estimate download size for each video
+        guard let videoId = video.videoId,
+              let offlineManager = BCOVOfflineVideoManager.shared() else {
+            return
+        }
+
+        let options = [kBCOVOfflineVideoManagerRequestedBitrateKey: bitrate]
+
+        offlineManager.estimateDownloadSize(video, options: options) {
+            (megabytes: Double, error: Error?) in
+
+            DispatchQueue.main.async { [self] in
+                downloadSize[videoId] = megabytes
+
+                NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus,
+                                                object: video)
+            }
+        }
+    }
+
+    fileprivate func cacheThumbnail(for video: BCOVVideo) {
+        // videoId is the key in the image cache dictionary
+        guard let videoId = video.videoId,
+              let sources = video.properties[kBCOVVideoPropertyKeyThumbnailSources] as? [[String: Any]] else {
+            return
+        }
+
+        for thumbnail in sources {
+            guard let urlString = thumbnail["src"] as? String,
+                  let url = URL(string: urlString),
+                  let scheme = url.scheme,
+                  scheme.caseInsensitiveCompare(kBCOVSourceURLSchemeHTTPS) == .orderedSame else {
                 continue
             }
-            
-            var found = false
-            
-            for offlineVideoStatus in statusArray {
-                
-                guard let offlineVideo = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: offlineVideoStatus.offlineVideoToken) else {
-                    continue
+
+            DispatchQueue.global(qos: .background).async {
+                var thumbnailImageData: Data?
+
+                do {
+                    thumbnailImageData = try Data(contentsOf: url)
+                } catch {
+                    print("Error getting thumbnail image data: \(error.localizedDescription)")
                 }
-                
-                // Find the matching local video
-                if video.matches(offlineVideo: offlineVideo) {
-                    
-                    // Match! Update status for this dictionary.
-                    found = true
-                    
-                    switch offlineVideoStatus.downloadState {
-                        case .licensePreloaded,
-                             .stateRequested,
-                             .stateDownloading:
-                        videoDictionary["state"] = VideoState.Downloading
-                        case .stateSuspended:
-                        videoDictionary["state"] = VideoState.Paused
-                        case .stateCancelled:
-                        videoDictionary["state"] = VideoState.Cancelled
-                        case .stateCompleted:
-                        videoDictionary["state"] = VideoState.Downloaded
-                        case .stateError:
-                        videoDictionary["state"] = VideoState.Downloadable
-                        default:
-                        break
-                    }
-                    
-                }
-                
-            }
-            
-            if !found {
-                videoDictionary["state"] = VideoState.Downloadable
-            }
-        
-            updatedData.append(videoDictionary)
-            
-        }
-        
-        videosTableViewData = updatedData
-        
-    }
-    
-    func usePlaylist(_ playlist: [BCOVVideo], withBitrate bitrate: Int64) {
-        
-        // Re-initialize all the containers that store information
-        // related to the videos in the current playlist
-        imageCacheDictionary = [:]
-        videosTableViewData = []
-        estimatedDownloadSizeDictionary = [:]
-        
-        for video in playlist { 
-            cacheThumbnail(forVideo: video)
-            estimateDownloadSize(forVideo: video, withBitrate: bitrate)
-        }
-        
-        updateStatusForPlaylist()
-        
-        delegate?.reloadData()
-    }
-    
-    private func estimateDownloadSize(forVideo video: BCOVVideo, withBitrate bitrate: Int64) {
-        
-        // Estimate download size for each video
-        BCOVOfflineVideoManager.shared()?.estimateDownloadSize(video, options: [kBCOVOfflineVideoManagerRequestedBitrateKey:bitrate], completion: { [weak self] (megabytes: Double, error: Error?) in
-            
-            guard let videoID = video.properties[kBCOVVideoPropertyKeyId] as? String else {
-                return
-            }
-            
-            // Store the estimated size in our dictionary
-            // so we don't need to keep recomputing it
-            // Use the video's id as the key
-            self?.estimatedDownloadSizeDictionary?[videoID] = megabytes
-            
-            DispatchQueue.main.async {
-                self?.delegate?.reloadRow(forVideo: video)
-            }
-            
-        })
-        
-        let videoDictionary: [String:Any] = ["video": video, "state": video.canBeDownloaded ? VideoState.Downloadable : VideoState.OnlineOnly]
-        
-        videosTableViewData?.append(videoDictionary)
-        
-    }
-    
-    private func cacheThumbnail(forVideo video: BCOVVideo) {
-        
-        // Async task to get and store thumbnails
-        DispatchQueue.global(qos: .default).async {
-            
-            // videoID is the key in the image cache dictionary
-            guard let videoID = video.properties[kBCOVVideoPropertyKeyId] as? String, let thumbnailSources = video.properties[kBCOVVideoPropertyKeyThumbnailSources] as? [[String:Any]] else {
-                return
-            }
-            
-            for thumbnailDictionary in thumbnailSources {
-                
-                guard let thumbnailURLString = thumbnailDictionary["src"] as? String, let thumbnailURL = URL(string: thumbnailURLString) else {
+
+                guard let thumbnailImageData,
+                      let thumbnailImage = UIImage(data: thumbnailImageData) else {
                     return
                 }
-                
-                if thumbnailURL.scheme?.caseInsensitiveCompare("https") == .orderedSame {
-                    
-                    var thumbnailImageData: Data?
-                    
-                    do {
-                        thumbnailImageData = try Data(contentsOf: thumbnailURL)
-                    } catch let error {
-                        print("Error getting thumbnail image data: \(error.localizedDescription)")
-                    }
-                    
-                    guard let _thumbnailImageData = thumbnailImageData, let thumbnailImage = UIImage(data: _thumbnailImageData) else {
-                        return
-                    }
-                    
-                    DispatchQueue.main.async {
-                        
-                        self.imageCacheDictionary?[videoID] = thumbnailImage
-                        self.delegate?.reloadRow(forVideo: video)
-                        
-                    }
-                    
+
+                DispatchQueue.main.async { [self] in
+                    thumbnails[videoId] = thumbnailImage
+
+                    NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus,
+                                                    object: video)
                 }
-                
             }
-            
         }
-        
     }
-    
 }
-
-

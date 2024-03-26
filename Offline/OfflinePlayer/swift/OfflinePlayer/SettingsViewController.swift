@@ -2,207 +2,158 @@
 //  SettingsViewController.swift
 //  OfflinePlayer
 //
-//  Copyright © 2020 Brightcove, Inc. All rights reserved.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 import UIKit
+
 import BrightcovePlayerSDK
 
-struct DefaultSettings {
+
+fileprivate struct DefaultSettings {
     static let Bitrate: Int64 = 1000000
     static let RentalDuration: Int64 = 3600
     static let PlayDuration: Int64 = 600
 }
 
-class SettingsViewController: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView! {
+final class SettingsViewController: UIViewController {
+
+    @IBOutlet fileprivate weak var allowCellularDownloadSwitch: UISwitch! {
         didSet {
-            tableView.estimatedRowHeight = 45
+#if targetEnvironment(simulator) || targetEnvironment(macCatalyst)
+            allowCellularDownloadSwitch.isEnabled = false
+#else
+            allowCellularDownloadSwitch.addTarget(self,
+                                                  action: #selector(doAllowDownloadsOverCellular(_:)),
+                                                  for: .valueChanged)
+#endif
         }
     }
-    
-    weak var bitrateTextField: UITextField? {
+
+    @IBOutlet fileprivate weak var bitrateTextField: UITextField! {
         didSet {
-            bitrateTextField?.text = "\(DefaultSettings.Bitrate)"
+            bitrateTextField.text = "\(DefaultSettings.Bitrate)"
+            bitrateTextField.inputAccessoryView = keyboardDoneButtonView
         }
     }
-    weak var rentalDurationTextField: UITextField? {
+
+    @IBOutlet fileprivate weak var licenseTypeSegmentedControl: UISegmentedControl! {
         didSet {
-            rentalDurationTextField?.text = "\(DefaultSettings.RentalDuration)"
-            rentalDurationTextField?.isEnabled = !isPurchaseLicenseType()
-            rentalDurationTextField?.alpha = !isPurchaseLicenseType() ? 1.0 : 0.5
+            licenseTypeSegmentedControl.addTarget(self,
+                                                  action: #selector(doLicenseTypeChange),
+                                                  for: .valueChanged)
         }
     }
-    weak var playDurationTextField: UITextField? {
-           didSet {
-               playDurationTextField?.text = "\(DefaultSettings.PlayDuration)"
-               playDurationTextField?.isEnabled = !isPurchaseLicenseType()
-               playDurationTextField?.alpha = !isPurchaseLicenseType() ? 1.0 : 0.5
-           }
-       }
-    weak var licenseTypeSegmentedControl: UISegmentedControl?
-    
+
+    @IBOutlet fileprivate weak var rentalDurationTextField: UITextField! {
+        didSet {
+            rentalDurationTextField.text = "\(DefaultSettings.RentalDuration)"
+            rentalDurationTextField.inputAccessoryView = keyboardDoneButtonView
+        }
+    }
+
+    @IBOutlet fileprivate weak var playDurationTextField: UITextField! {
+        didSet {
+            playDurationTextField.text = "\(DefaultSettings.PlayDuration)"
+            playDurationTextField.inputAccessoryView = keyboardDoneButtonView
+        }
+    }
+
+    @IBOutlet fileprivate weak var sdkVersionLabel: UILabel! {
+        didSet {
+            if let sdkVersion = BCOVPlayerSDKManager.version() {
+                sdkVersionLabel.text = "BrightcovePlayerSDK v\(sdkVersion)"
+            }
+        }
+    }
+
+    // Add a "Done" button to the numeric keyboard
+    fileprivate lazy var keyboardDoneButtonView: UIToolbar = {
+        let doneButton = UIBarButtonItem(title: "Done",
+                                         style: .done,
+                                         target: self,
+                                         action: #selector(doneClicked))
+
+        let keyboardDoneButtonView = UIToolbar()
+        keyboardDoneButtonView.setItems([doneButton], animated: false)
+        keyboardDoneButtonView.sizeToFit()
+
+        return keyboardDoneButtonView
+    }()
+
+    var allowDownloadsOverCellular: Bool {
+        return allowCellularDownloadSwitch.isOn
+    }
+
+    var purchaseLicenseType: Bool {
+        return licenseTypeSegmentedControl?.selectedSegmentIndex == 1
+    }
+
+    var bitrate: Int64 {
+        guard let textValue = bitrateTextField?.text,
+              let bitrate = Int64(textValue) else {
+            return DefaultSettings.Bitrate
+        }
+
+        return bitrate
+    }
+
+    var rentalDuration: Int64 {
+        guard let textValue = rentalDurationTextField?.text,
+              let rentalDuration = Int64(textValue) else {
+            return DefaultSettings.RentalDuration
+        }
+
+        return rentalDuration
+    }
+
+    var playDuration: Int64 {
+        guard let textValue = playDurationTextField?.text,
+              let playDuration = Int64(textValue) else {
+            return DefaultSettings.PlayDuration
+        }
+
+        return playDuration
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        doLicenseTypeChange()
     }
-    
-    func bitrate() -> Int64 {
-        guard let textValue = bitrateTextField?.text, let bitrate = Int64(textValue) else {
-            return DefaultSettings.Bitrate
-        }
-        
-        return bitrate
-    }
-    
-    func rentalDuration() -> Int64 {
-        guard let textValue = rentalDurationTextField?.text, let durationSeconds = Int64(textValue) else {
-            return DefaultSettings.RentalDuration
-        }
-        
-        return durationSeconds
-    }
-    
-    func playDuration() -> Int64 {
-        guard let textValue = playDurationTextField?.text, let durationSeconds = Int64(textValue) else {
-            return DefaultSettings.PlayDuration
-        }
-        
-        return durationSeconds
-    }
-    
-    func isPurchaseLicenseType() -> Bool {
-        return licenseTypeSegmentedControl?.selectedSegmentIndex == 1
-    }
-    
-    // MARK: - Notification Methods
-    
-    @objc private func keyboardWillShow() {
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed(_:)))
-        doneButton.tintColor = UIColor(red: 63.0/255.0, green: 35.0/255.0, blue: 62.0/255.0, alpha: 1.0)
-        navigationItem.rightBarButtonItem = doneButton
-    }
-    
-    @objc private func keyboardWillHide() {
-        navigationItem.rightBarButtonItem = nil
-    }
-    
-    // MARK: - UI Actions
-    
-    @objc private func doneButtonPressed(_ button: UIBarButtonItem) {
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
         view.endEditing(true)
     }
-    
-    @objc private func allowDownloadsOverCellularSwitchValueChanged(_ theSwitch: UISwitch) {
-        
-        guard let downloadManager = tabBarController?.streamingViewController()?.downloadManager else {
-            return
-        }
-        
-        let isOn = NSNumber(booleanLiteral: theSwitch.isOn)
-        
-        let optionsDictionary = [
+
+#if !targetEnvironment(simulator) && !targetEnvironment(macCatalyst)
+    @objc
+    fileprivate func doAllowDownloadsOverCellular(_ sender: UISwitch) {
+        let isOn = NSNumber(booleanLiteral: sender.isOn)
+
+        let options = [
             kBCOVOfflineVideoManagerAllowsCellularDownloadKey: isOn,
             kBCOVOfflineVideoManagerAllowsCellularPlaybackKey: isOn,
             kBCOVOfflineVideoManagerAllowsCellularAnalyticsKey: isOn
         ]
-        
+
         // Re-initialize with same delegate, but new options.
-        BCOVOfflineVideoManager.initializeOfflineVideoManager(with: downloadManager, options: optionsDictionary)
+        BCOVOfflineVideoManager.initializeOfflineVideoManager(with: DownloadManager.shared,
+                                                              options: options)
     }
+#endif
     
-    @objc private func licenseTypeChanged(_ segmentedControl: UISegmentedControl) {
-        tableView.reloadData()
+    @objc
+    fileprivate func doLicenseTypeChange() {
+        rentalDurationTextField.isEnabled = !purchaseLicenseType
+        playDurationTextField.isEnabled = purchaseLicenseType
     }
 
-}
-
-// MARK: - UITableViewDataSource
-
-extension SettingsViewController: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+    @objc
+    fileprivate func doneClicked() {
+        view.endEditing(true)
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchTableViewCell
-            cell.theSwitch.addTarget(self, action: #selector(allowDownloadsOverCellularSwitchValueChanged(_:)), for: .valueChanged)
-            return cell
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldTableViewCell
-            bitrateTextField = cell.textField
-            return cell
-        case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SegmentedControlCell", for: indexPath) as! SegmentedControlTableViewCell
-            licenseTypeSegmentedControl = cell.segmentedControl
-            cell.segmentedControl.addTarget(self, action: #selector(licenseTypeChanged(_:)), for: .valueChanged)
-            return cell
-        case 3:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldTableViewCell
-            rentalDurationTextField = cell.textField
-            return cell
-        case 4:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldTableViewCell
-            playDurationTextField = cell.textField
-            return cell
-        default:
-            return tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return "Allow Cellular Downloads"
-        case 1:
-            return "Bitrate to Download"
-        case 2:
-            return "License Type"
-        case 3:
-            return "Rental Duration"
-        case 4:
-            return "Play Duration"
-        default:
-            return nil
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        switch section {
-        case 3, 4:
-            return "Values specified in seconds"
-        default:
-            return nil
-        }
-    }
-    
-}
-
-// MARK: - UITableViewDelegate
-
-extension SettingsViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        switch section {
-        case 3, 4:
-            return 35
-        default:
-            return 15
-        }
-    }
-    
 }

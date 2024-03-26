@@ -2,456 +2,405 @@
 //  DownloadManager.swift
 //  OfflinePlayer
 //
-//  Copyright © 2020 Brightcove, Inc. All rights reserved.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 import UIKit
+
 import BrightcovePlayerSDK
+
 
 struct VideoDownload {
     let video: BCOVVideo
-    let paramaters: [String:Any]
+    let paramaters: [String: Any]
 }
 
-class DownloadManager: NSObject {
-    
-    // The download queue.
-    // Videos go into the preload queue first.
-    // When all preloads are done, videos move to the download queue.
-    private var videoPreloadQueue: [VideoDownload] = []
-    private var videoDownloadQueue: [VideoDownload] = []
-    
-    weak var delegate: ReloadDelegate?
-    
+
+final class DownloadManager: NSObject {
+
     static var shared = DownloadManager()
-    
-    func doDownload(forVideo video: BCOVVideo) {
-        
-        if videoAlreadyProcessing(video) {
-            return
-        }
-        
-        let downloadParamaters = DownloadManager.generateDownloadParameters()
-        
-        let videoDownload = VideoDownload(video: video, paramaters: downloadParamaters)
-        
-        videoPreloadQueue.append(videoDownload)
-        
-        runPreloadVideoQueue()
-        
-    }
-    
-    private func languagesArrayForAlternativeRenditions(attributesDictArray: [[AnyHashable:Any]]?) -> [String] {
-     
-        // We want to download all subtitle/audio tracks
-        guard let attributesDictArray = attributesDictArray else {
-            return []
-        }
-        
-        //print("Alternative Rendition Attributes Dictionaries: \(attributesDictArray)")
-        
-        // Collect all the available subtitle languages in a set to avoid duplicates
-        var languageSet = Set<String>()
-        for attributeDict in attributesDictArray {
-            if let typeString = attributeDict["TYPE"] as? String, let langString = attributeDict["LANGUAGE"] as? String {
-                if typeString == "SUBTITLES" {
-                    languageSet.insert(langString)
-                }
-            }
-        }
-        
-        let languagesArray = Array(languageSet)
-        // For debugging: display the languages we found
-        var languagesString = String()
-        var first = true
-        for languageString in languagesArray {
-            // Add comma before each entry after the first
-            if first {
-                first = false
-            } else {
-                languagesString = languagesString + ", "
-            }
-            
-            languagesString = languagesString + languageString
-        }
-        
-        print("Languages to download: \(languagesString)")
-        
-        return languagesArray
-    }
-        
-    private func videoAlreadyProcessing(_ video: BCOVVideo) -> Bool {
-        // First check to see if the video is in a preload queue
-        // videoPreloadQueue is an array of NSDictionary objects,
-        // with a BCOVVideo under each "video" key.
-        
-        for videoDict in videoPreloadQueue {
-            
-            if videoDict.video.matches(offlineVideo: video) {
-                if let videoName = localizedNameForLocale(video, nil) {
-                    UIAlertController.show(withTitle: "Video Already in Preload Queue", andMessage: "The video \(videoName) is already queued to be preloaded")
-                }
-                return true
-            }
-            
-        }
-        
-        // First check to see if the video is in a download queue
-        // videoDownloadQueue is an array of BCOVVideo objects
-        for videoDict in videoDownloadQueue {
-         
-            if videoDict.video.matches(offlineVideo: video) {
-                if let videoName = localizedNameForLocale(video, nil) {
-                    UIAlertController.show(withTitle: "Video Already in Download Queue", andMessage: "The video \(videoName) is already queued to be downloaded")
-                }
-                return true
-            }
-            
-        }
-        
-        // Next check to see if the video has already been downloaded
-        // or is in the process of downloading
-        guard let offlineVideoTokens = BCOVOfflineVideoManager.shared()?.offlineVideoTokens else {
-            return false
-        }
-        
-        for offlineVideoToken in offlineVideoTokens {
-            
-            guard let testVideo = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: offlineVideoToken) else {
-                continue
-            }
-            
-            if testVideo.matches(offlineVideo: video) {
-                
-                let videoName = localizedNameForLocale(video, nil) ?? ""
-                
-                // If the status is error, alert the user and allow them to retry the download
-                if let downloadStatus = BCOVOfflineVideoManager.shared()?.offlineVideoStatus(forToken: offlineVideoToken) {
-                    if downloadStatus.downloadState == .stateError {
-                        
-                        UIAlertController.show(withTitle: "Video Failed to Download", message: "The video \(videoName) previously failed to download, would you like to try again?", actionTitle: "Retry", cancelTitle: "Cancel") {
-                            
-                            print("Deleting previous download for video and attempting again.")
-                            
-                            BCOVOfflineVideoManager.shared()?.deleteOfflineVideo(offlineVideoToken)
-                            
-                            DownloadManager.shared.doDownload(forVideo: video)
-                            
-                        }
 
-                        return true
-                    }
-                }
-                
-                UIAlertController.show(withTitle: "Video Already Downloaded", andMessage: "The video \(videoName) is already downloaded (or downloading)")
-                return true
-                
-            }
-            
-        }
-        
-        return false
-    }
-    
-    private func runPreloadVideoQueue() {
-        
-        guard let videoDownload = videoPreloadQueue.first else {
-            downloadVideoFromQueue()
-            return
-        }
-        
-        let video = videoDownload.video
-        
-        if let indexOfVideo = videoPreloadQueue.firstIndex(where: { $0.video.matches(offlineVideo: video) }) {
-            videoPreloadQueue.remove(at: indexOfVideo)
-        }
-        
-        // Preloading only applies to FairPlay-protected videos.
-        // If there's no FairPlay involved, the video is moved on
-        // to the video download queue.
-        
-        if !video.usesFairPlay {
-            if let videoName = localizedNameForLocale(video, nil) {
-                print("Video \"\(videoName)\" does not use FairPlay; preloading not necessary")
-            }
-            
-            videoDownloadQueue.append(videoDownload)
-            
-            delegate?.reloadRow(forVideo: video)
-            runPreloadVideoQueue()
-        } else {
-            
-            BCOVOfflineVideoManager.shared()?.preloadFairPlayLicense(video, parameters: videoDownload.paramaters, completion: { [weak self] (offlineVideoToken: String?, error: Error?) in
-                
-                DispatchQueue.main.async {
-                    
-                    if let error = error {
-                        
-                        var name = localizedNameForLocale(video, nil) ?? "unknown"
-                        if let offlineVideo = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: offlineVideoToken), let offlineName = localizedNameForLocale(offlineVideo, nil) {
-                            name = offlineName
-                        }
-                        
-                        // Report any errors
-                        UIAlertController.show(withTitle: "Video Preload Error (\(name))", andMessage: error.localizedDescription)
-                        
-                    } else {
-                        if let offlineVideoToken = offlineVideoToken {
-                            print("Preloaded \(offlineVideoToken)")
-                        }
-                        
-                        self?.videoDownloadQueue.append(videoDownload)
-                        self?.delegate?.reloadRow(forVideo: video)
-                    }
-                    
-                    self?.runPreloadVideoQueue()
-                    
-                }
-                
-            })
-            
-        }
-        
-    }
-    
-    private func downloadVideoFromQueue() {
-
-        guard let videoDownload = videoDownloadQueue.first else {
-            return
-        }
-        
-        let video = videoDownload.video
-        
-        if let indexOfVideo = videoDownloadQueue.firstIndex(where: { $0.video.matches(offlineVideo: video) }) {
-            videoDownloadQueue.remove(at: indexOfVideo)
-        }
-
-        // Display all available bitrates
-        BCOVOfflineVideoManager.shared()?.variantBitrates(for: video, completion: { (bitrates: [NSNumber]?, error: Error?) in
-            
-            if let name = localizedNameForLocale(video, nil) {
-                print("Variant Bitrates for video: \(name)")
-            }
-            
-            if let bitrates = bitrates {
-                for bitrate in bitrates {
-                    print("\(bitrate.intValue)")
-                }
-            }
-            
-        })
-    
-        var avURLAsset: AVURLAsset?
-        do {
-            avURLAsset = try BCOVOfflineVideoManager.shared()?.urlAsset(for: video)
-        } catch {}
-        
-        if let avURLAsset = avURLAsset {
-            // HLSe (AES-128) streams are not supported for offline playback
-            if avURLAsset.url.absoluteString.contains("aes128") {
-                UIAlertController.show(withTitle: "Content Not Supported", andMessage: "Offline playback is not supported for HLSe content.")
-                return
-            }
-        }
-        
-        // If mediaSelections is `nil` the SDK will default to the AVURLAsset's `preferredMediaSelection`
-        var mediaSelections = [AVMediaSelection]()
-        
-        if let avURLAsset = avURLAsset {
-            mediaSelections = avURLAsset.allMediaSelections
-            
-            if let legibleMediaSelectionGroup = avURLAsset.mediaSelectionGroup(forMediaCharacteristic: .legible), let audibleMediaSelectionGroup = avURLAsset.mediaSelectionGroup(forMediaCharacteristic: .audible) {
-                
-                var counter = 0
-                for selection in mediaSelections {
-                    let legibleMediaSelectionOption = selection.selectedMediaOption(in: legibleMediaSelectionGroup)
-                    let audibleMediaSelectionOption = selection.selectedMediaOption(in: audibleMediaSelectionGroup)
-                    
-                    let legibleName = legibleMediaSelectionOption?.displayName ?? "nil"
-                    let audibleName = audibleMediaSelectionOption?.displayName ?? "nil"
-                    
-                    print("AVMediaSelection option \(counter) | legible display name: \(legibleName)")
-                    print("AVMediaSelection option \(counter) | audible display name: \(audibleName)")
-                    counter += 1
-                }
-                
-            }
-        }
-        
-        BCOVOfflineVideoManager.shared()?.requestVideoDownload(video, mediaSelections: mediaSelections, parameters: videoDownload.paramaters, completion: { (offlineVideoToken: String?, error: Error?) in
-            
-            DispatchQueue.main.async {
-
-                if let error = error {
-
-                    // Report any errors
-                    if let offlineVideoToken = offlineVideoToken, let offlineVideo = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: offlineVideoToken), let name = localizedNameForLocale(offlineVideo, nil) {
-                        UIAlertController.show(withTitle: "Video Download Error (\(name))", andMessage: error.localizedDescription)
-                    } else {
-                        UIAlertController.show(withTitle: "Video Download Error", andMessage: error.localizedDescription)
-                    }
-                    
-                    
-                } else  {
-                    
-                    NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus, object: nil)
-                    
-                }
-                
-            }
-            
-        })
-        
-    }
-
-}
-
-// MARK: - Class Methods
-
-extension DownloadManager {
-    
-    class func generateDownloadParameters() -> [String:Any] {
-        
+    class var downloadParameters: [String: Any] {
         // Get base license parameters
-        var downloadParameters = DownloadManager.generateLicenseParameters()
-        
+        var downloadParameters = DownloadManager.licenseParameters
+
+        guard let window = UIApplication.shared.keyWindow,
+              let rootViewController = window.rootViewController as? UITabBarController,
+              let settingsViewController = rootViewController.settingsViewController else {
+            return downloadParameters
+        }
+
         // Add bitrate parameter for the primary download
-        let bitrate = AppDelegate.current().tabBarController.settingsViewController()?.bitrate() ?? 0
-        
+        let bitrate = settingsViewController.bitrate
+
         print("Requested bitrate: \(bitrate)")
-        
+
         downloadParameters[kBCOVOfflineVideoManagerRequestedBitrateKey] = bitrate
-        
+
         return downloadParameters
     }
-    
-    class func generateLicenseParameters() -> [String:Any] {
-        
-        var licenseParamaters: [String:Any] = [:]
-        
+
+    class var licenseParameters: [String: Any]  {
+        guard let window = UIApplication.shared.keyWindow,
+              let rootViewController = window.rootViewController as? UITabBarController,
+              let settingsViewController = rootViewController.settingsViewController else {
+            return .init()
+        }
+
+        var licenseParamaters: [String: Any] = .init()
+
         // Generate the license parameters based on the Settings tab
-        let isPurchaseLicense = AppDelegate.current().tabBarController.settingsViewController()?.isPurchaseLicenseType() ?? false
+        let isPurchaseLicense = settingsViewController.purchaseLicenseType
         // License details are only needed for FairPlay-protected videos.
         // It's harmless to add it for non-FairPlay videos too.
-        
+
         if isPurchaseLicense {
             print("Requesting Purchase License")
             licenseParamaters[kBCOVFairPlayLicensePurchaseKey] = true
         } else {
-            let rentalDuration = AppDelegate.current().tabBarController.settingsViewController()?.rentalDuration() ?? 0
-            let playDuration = AppDelegate.current().tabBarController.settingsViewController()?.playDuration() ?? 0
-            
-            print("Requesting Rental License:\nrentalDuration: \(rentalDuration)")
-            
+            let rentalDuration = settingsViewController.rentalDuration
+            let playDuration = settingsViewController.playDuration
+
+            print("Requesting Rental License\nrentalDuration: \(rentalDuration)\nplayDuration: \(playDuration)")
             licenseParamaters[kBCOVFairPlayLicenseRentalDurationKey] = rentalDuration
             licenseParamaters[kBCOVFairPlayLicensePlayDurationKey] = playDuration
         }
-        
+
         return licenseParamaters
     }
-    
-    class func mediaSelectionDescription(fromMediaSelection selection: AVMediaSelection, forToken token: String) -> String {
-        // Get the offline video object and its path
-        guard let offlineVideo = BCOVOfflineVideoManager.shared()?.videoObject(fromOfflineVideoToken: token), let videoPath = offlineVideo.properties[kBCOVOfflineVideoFilePathPropertyKey] as? String else {
-            return "MediaSelection(n/a)"
-        }
-        
-        let videoPathURL = URL(fileURLWithPath: videoPath)
-        let urlAsset = AVURLAsset(url: videoPathURL)
-        let desc = mediaSelectionDescription(fromMediaSelection: selection, withURLAsset: urlAsset)
-        
-        return desc
-    }
-    
-    class func mediaSelectionDescription(fromMediaSelection selection: AVMediaSelection, withURLAsset asset: AVURLAsset) -> String {
-        
-        // Return a string description of the specified Media Selection.
-        guard let legibleMSG = asset.mediaSelectionGroup(forMediaCharacteristic: .legible), let audibleMSG = asset.mediaSelectionGroup(forMediaCharacteristic: .audible) else {
-            return "MediaSelection(n/a)"
-        }
-        let legibleDisplayName = selection.selectedMediaOption(in: legibleMSG)?.displayName ?? "-"
-        let audibleDisplayName = selection.selectedMediaOption(in: audibleMSG)?.displayName ?? "-"
-        return "MediaSelection(obj:\(selection), legible:\(legibleDisplayName), audible:\(audibleDisplayName))"
-    }
-    
-    class func retrieveVideo(withVideoID videoID: String, completion: @escaping (BCOVVideo?, [AnyHashable:Any]?, Error?) -> Void) {
-    
-        // Retrieve a playlist through the BCOVPlaybackService
-        let factory = BCOVPlaybackServiceRequestFactory(accountId: ConfigConstants.AccountID, policyKey: ConfigConstants.PolicyKey)
-    
-        guard let service = BCOVPlaybackService(requestFactory: factory) else {
-            completion(nil, nil, nil)
+
+    // The download queue.
+    // Videos go into the preload queue first.
+    // When all preloads are done, videos move to the download queue.
+    fileprivate lazy var videoPreloadQueue: [VideoDownload] = .init()
+    fileprivate lazy var videoDownloadQueue: [VideoDownload] = .init()
+
+    func doDownload(forVideo video: BCOVVideo) {
+        if videoAlreadyProcessing(video) {
             return
         }
-        
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:videoID]
-        service.findVideo(withConfiguration: configuration, queryParameters: nil, completion: { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
-            
-            completion(video, jsonResponse, error)
-            
-        })
-        
+
+        let videoDownload = VideoDownload(video: video,
+                                          paramaters: DownloadManager.downloadParameters)
+
+        videoPreloadQueue.append(videoDownload)
+
+        DispatchQueue.main.async { [self] in
+            runPreloadVideoQueue()
+        }
+    }
+
+    fileprivate func videoAlreadyProcessing(_ video: BCOVVideo) -> Bool {
+        // First check to see if the video is in a preload queue
+        // videoPreloadQueue is an array of NSDictionary objects,
+        // with a BCOVVideo under each "video" key.
+        for videoDict in videoPreloadQueue {
+            if videoDict.video.matches(with: video) {
+                UIAlertController.showWith(title: "Video Already in Preload Queue",
+                                           message: "The video \(video.localizedName ?? "unknown") is already queued to be preloaded")
+
+                return true
+            }
+        }
+
+        // First check to see if the video is in a download queue
+        // videoDownloadQueue is an array of BCOVVideo objects
+        for videoDict in videoDownloadQueue {
+            if videoDict.video.matches(with: video) {
+                UIAlertController.showWith(title: "Video Already in Download Queue",
+                                           message: "The video \(video.localizedName ?? "unknown") is already queued to be downloaded")
+
+                return true
+            }
+        }
+
+        // Next check to see if the video has already been downloaded
+        // or is in the process of downloading
+        guard let offlineManager = BCOVOfflineVideoManager.shared(),
+              let offlineVideoTokens = offlineManager.offlineVideoTokens else {
+            return false
+        }
+
+        for offlineVideoToken in offlineVideoTokens {
+            guard let offlineVideo = offlineManager.videoObject(fromOfflineVideoToken: offlineVideoToken) else {
+                continue
+            }
+
+            if offlineVideo.matches(with: video) {
+                // If the status is error, alert the user and allow them to retry the download
+                if let offlineVideoStatus = offlineManager.offlineVideoStatus(forToken: offlineVideoToken),
+                   offlineVideoStatus.downloadState == .stateError ||
+                    offlineVideoStatus.downloadState == .stateCancelled {
+                    UIAlertController.showWith(title: "Video Failed to Download",
+                                               message: "The video \(video.localizedName ?? "unknown") previously failed to download or was cancelled, would you like to try again?",
+                                               actionTitle: "Retry",
+                                               cancelTitle: "Cancel") {
+
+                        print("Deleting previous download for video and attempting again.")
+                        offlineManager.deleteOfflineVideo(offlineVideoToken)
+                        DownloadManager.shared.doDownload(forVideo: video)
+                    }
+
+                    return true
+                }
+
+                UIAlertController.showWith(title: "Video Already Downloaded",
+                                           message: "The video \(video.localizedName ?? "unknown") is already downloaded (or downloading)")
+                return true
+            }
+        }
+
+        return false
+    }
+
+    fileprivate func runPreloadVideoQueue() {
+        guard let videoDownload = videoPreloadQueue.first else {
+            DispatchQueue.global(qos: .background).async { [self] in
+                downloadVideoFromQueue()
+            }
+
+            return
+        }
+
+        if let indexOfVideo = videoPreloadQueue.firstIndex(where: { $0.video.matches(with: videoDownload.video) }) {
+            videoPreloadQueue.remove(at: indexOfVideo)
+        }
+
+        // Preloading only applies to FairPlay-protected videos.
+        // If there's no FairPlay involved, the video is moved on
+        // to the video download queue.
+        if !videoDownload.video.usesFairPlay {
+            print("Video \"\(videoDownload.video.localizedName ?? "unknown")\" does not use FairPlay; preloading not necessary")
+
+            videoDownloadQueue.append(videoDownload)
+
+            DispatchQueue.main.async { [self] in
+                runPreloadVideoQueue()
+
+                NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus,
+                                                object: videoDownload.video)
+            }
+        } else {
+            guard let offlineManager = BCOVOfflineVideoManager.shared() else {
+                return
+            }
+
+            offlineManager.preloadFairPlayLicense(videoDownload.video,
+                                                  parameters: videoDownload.paramaters) {
+                (offlineVideoToken: String?, error: Error?) in
+
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+
+                    if let error {
+                        // Report any errors
+                        UIAlertController.showWith(title: "Video Preload Error\n(\(videoDownload.video.localizedName ?? "unknown"))",
+                                                   message: error.localizedDescription)
+                    } else {
+                        if let offlineVideoToken {
+                            print("Preloaded \(offlineVideoToken)")
+                        }
+
+                        videoDownloadQueue.append(videoDownload)
+                    }
+
+                    runPreloadVideoQueue()
+
+                    NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus,
+                                                    object: videoDownload.video)
+                }
+            }
+        }
+    }
+
+    fileprivate func downloadVideoFromQueue() {
+        guard let videoDownload = videoDownloadQueue.first else {
+            return
+        }
+
+        if let indexOfVideo = videoDownloadQueue.firstIndex(where: { $0.video.matches(with: videoDownload.video) }) {
+            videoDownloadQueue.remove(at: indexOfVideo)
+        }
+
+        guard let offlineManager = BCOVOfflineVideoManager.shared() else {
+            return
+        }
+
+        // Display all available bitrates
+        offlineManager.variantBitrates(for: videoDownload.video) {
+            (bitrates: [NSNumber]?, error: Error?) in
+
+            print("Variant Bitrates for video: \(videoDownload.video.localizedName ?? "unknown")")
+
+            if let bitrates {
+                for bitrate in bitrates {
+                    print("\(bitrate.intValue)")
+                }
+            }
+        }
+
+        var urlAsset: AVURLAsset?
+        do {
+            urlAsset = try offlineManager.urlAsset(for: videoDownload.video)
+        } catch {}
+
+        if let urlAsset {
+            // HLSe (AES-128) streams are not supported for offline playback
+            if urlAsset.url.absoluteString.contains("aes128") {
+                UIAlertController.showWith(title: "Content Not Supported",
+                                           message: "Offline playback is not supported for HLSe content.")
+                return
+            }
+        }
+
+        // If mediaSelections is `nil` the SDK will default to the AVURLAsset's `preferredMediaSelection`
+        var mediaSelections = [AVMediaSelection]()
+
+        if let urlAsset {
+            mediaSelections = urlAsset.allMediaSelections
+
+            if let legibleMediaSelectionGroup = urlAsset.mediaSelectionGroup(forMediaCharacteristic: .legible),
+               let audibleMediaSelectionGroup = urlAsset.mediaSelectionGroup(forMediaCharacteristic: .audible) {
+
+                var counter = 0
+                for selection in mediaSelections {
+                    let legibleMediaSelectionOption = selection.selectedMediaOption(in: legibleMediaSelectionGroup)
+                    let audibleMediaSelectionOption = selection.selectedMediaOption(in: audibleMediaSelectionGroup)
+
+                    let legibleName = legibleMediaSelectionOption?.displayName ?? "nil"
+                    let audibleName = audibleMediaSelectionOption?.displayName ?? "nil"
+
+                    print("AVMediaSelection option \(counter) | legible display name: \(legibleName)")
+                    print("AVMediaSelection option \(counter) | audible display name: \(audibleName)")
+                    counter += 1
+                }
+            }
+        }
+
+        offlineManager.requestVideoDownload(videoDownload.video,
+                                            mediaSelections: mediaSelections,
+                                            parameters: videoDownload.paramaters) {
+            (offlineVideoToken: String?, error: Error?) in
+
+            DispatchQueue.main.async {
+                if let error {
+                    // Report any errors
+                    UIAlertController.showWith(title: "Video Download Error",
+                                               message: error.localizedDescription)
+                }
+
+                NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus,
+                                                object: videoDownload.video)
+            }
+        }
+    }
+
+    fileprivate class func mediaSelectionDescription(from mediaSelection: AVMediaSelection,
+                                                     with urlAsset: AVURLAsset) -> String {
+        // Return a string description of the specified Media Selection.
+        guard let legibleMSG = urlAsset.mediaSelectionGroup(forMediaCharacteristic: .legible),
+              let audibleMSG = urlAsset.mediaSelectionGroup(forMediaCharacteristic: .audible) else {
+            return "MediaSelection(n/a)"
+        }
+
+        let legibleDisplayName = mediaSelection.selectedMediaOption(in: legibleMSG)?.displayName ?? "-"
+        let audibleDisplayName = mediaSelection.selectedMediaOption(in: audibleMSG)?.displayName ?? "-"
+
+        return "MediaSelection(obj:\(mediaSelection), legible:\(legibleDisplayName), audible:\(audibleDisplayName))"
+    }
+
+    fileprivate class func mediaSelectionDescription(from mediaSelection: AVMediaSelection,
+                                                     for token: String) -> String {
+
+        // Get the offline video object and its path
+        guard let offlineManager = BCOVOfflineVideoManager.shared(),
+              let video = offlineManager.videoObject(fromOfflineVideoToken: token),
+              let videoPath = video.properties[kBCOVOfflineVideoFilePathPropertyKey] as? String else {
+            return "MediaSelection(n/a)"
+        }
+
+        let videoPathURL = URL(fileURLWithPath: videoPath)
+        let urlAsset = AVURLAsset(url: videoPathURL)
+        let desc = DownloadManager.mediaSelectionDescription(from: mediaSelection,
+                                                             with: urlAsset)
+
+        return desc
     }
 }
+
 
 // MARK: - BCOVOfflineVideoManagerDelegate
 
 extension DownloadManager: BCOVOfflineVideoManagerDelegate {
-    
+
     func didCreateSharedBackgroundSesssionConfiguration(_ backgroundSessionConfiguration: URLSessionConfiguration!) {
         // Helps prevent downloads from appearing to sometimes stall
         backgroundSessionConfiguration.isDiscretionary = false
     }
-    
-    func offlineVideoToken(_ offlineVideoToken: String!, aggregateDownloadTask: AVAggregateAssetDownloadTask!, didProgressTo progressPercent: TimeInterval, for mediaSelection: AVMediaSelection!) {
+
+    func offlineVideoToken(_ offlineVideoToken: String!,
+                           aggregateDownloadTask: AVAggregateAssetDownloadTask!,
+                           didProgressTo progressPercent: TimeInterval,
+                           for mediaSelection: AVMediaSelection!) {
+
         // The specific requested media selected option related to this
         // offline video token has progressed to the specified percent
-        if let offlineVideoToken = offlineVideoToken {
-            print("aggregateDownloadTask:didProgressTo:\(progressPercent) for token: \(offlineVideoToken)")
+        guard let offlineVideoToken,
+              let offlineManager = BCOVOfflineVideoManager.shared(),
+              let offlineVideo = offlineManager.videoObject(fromOfflineVideoToken: offlineVideoToken) else {
+
+            NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus,
+                                            object: nil)
+            return
         }
-        
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus, object: nil)
-            let downloadsVC = AppDelegate.current().tabBarController.downloadsViewController()
-            downloadsVC?.updateInfoForSelectedDownload()
-            downloadsVC?.refresh()
-        }
+
+        print("aggregateDownloadTask:didProgressTo: \(String(format: "%0.2f", progressPercent)) for token: \(offlineVideoToken)")
+
+        NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus,
+                                        object: offlineVideo)
     }
-    
-    func offlineVideoToken(_ offlineVideoToken: String?, didFinishDownloadWithError error: Error?) {
+
+    func offlineVideoToken(_ offlineVideoToken: String!,
+                           didFinishMediaSelectionDownload mediaSelection: AVMediaSelection!) {
+
+        // The specific requested media selected option related to this
+        // offline video token has completed downloading
+        guard let offlineVideoToken,
+              let offlineManager = BCOVOfflineVideoManager.shared(),
+              let offlineVideoStatus = offlineManager.offlineVideoStatus(forToken: offlineVideoToken) else {
+            return
+        }
+
+        let urlAsset = offlineVideoStatus.aggregateDownloadTask.urlAsset
+        let mediaSelectionDescription = DownloadManager.mediaSelectionDescription(from: mediaSelection,
+                                                                                  with: urlAsset)
+
+        print("didFinishMediaSelectionDownload: \(mediaSelectionDescription) for token: \(offlineVideoToken)")
+    }
+
+    func offlineVideoToken(_ offlineVideoToken: String!,
+                           didFinishDownloadWithError error: Error?) {
+
         // The video has completed downloading
-        
-        if let error = error {
+        if let error {
             print("Download finished with error: \(error.localizedDescription)")
         }
-        
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus, object: nil)
-            let downloadsVC = AppDelegate.current().tabBarController.downloadsViewController()
-            // We want to ensure 'updateInfoForSelectedDownload'
-            // is called after we reload the table view with 'refresh'
-            // instead of calling the methods async.
-            // This is because we calculate downloadSize in
-            // `cellForRowAtIndexPath:` and we want to make sure
-            // we can reflect that data in the info label
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({
-                downloadsVC?.updateInfoForSelectedDownload()
-            })
-            downloadsVC?.refresh()
-            CATransaction.commit()
-        }
-    }
-    
-    func offlineVideoStorageDidChange() {
 
-        // the offline storage changed. refresh to reflect new contents.
-        let videosVC = AppDelegate.current().tabBarController.streamingViewController()
-        videosVC?.updateStatus()
-        
-        let downloadsVC = AppDelegate.current().tabBarController.downloadsViewController()
-        downloadsVC?.refresh()
-        downloadsVC?.updateInfoForSelectedDownload()
+        guard let offlineManager = BCOVOfflineVideoManager.shared(),
+              let offlineVideo = offlineManager.videoObject(fromOfflineVideoToken: offlineVideoToken) else {
+
+            NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus,
+                                            object: nil)
+
+            return
+        }
+
+        NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus,
+                                        object: offlineVideo)
     }
-    
+
+    func offlineVideoStorageDidChange() {
+        NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus,
+                                        object: nil)
+    }
 }
