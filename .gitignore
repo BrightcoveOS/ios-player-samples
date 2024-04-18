@@ -4,6 +4,8 @@
 # Xcode
 #
 build/
+derivedData/
+clonedSourcePackages/
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -20,13 +22,16 @@ DerivedData
 *.ipa
 *.xcuserstate
 
+*.xcframework
+*.framework
+
 # CocoaPods
 #
 # We recommend against adding the Pods directory to your .gitignore. However
 # you should judge for yourself, the pros and cons are mentioned at:
 # http://guides.cocoapods.org/using/using-cocoapods.html#should-i-ignore-the-pods-directory-in-source-control
 #
-Pods/
+**/Pods/
 Podfile.lock
 *.xcworkspace
 
@@ -53,3 +58,13 @@ pubspec.lock
 node_modules/
 yarn.lock
 package-lock.json
+.xcode*
+*.xcprivacy
+ 
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

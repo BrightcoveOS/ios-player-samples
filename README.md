@@ -9,7 +9,7 @@ ios-player-samples.git is a collection of sample applications for the Brightcove
 
 1. CocoaPods 1.11+
 1. Xcode 13.0+, Xcode 14.0+ is recommended (refer to _About Bitcode_ below).
-1. iOS 13.6+ or tvOS 13.4+
+1. iOS 12.0+ or tvOS 12.0+
 
 An Apple Developer Program account is required to run any sample app on a physical device. In order to provision your device, edit the sample app bundle identifier to make it unique to your organization.
 
@@ -57,10 +57,6 @@ Note: If you intend to use these samples offline, be sure to run Cocoapods befor
 #### FairPlay
 
 FairPlay samples demonstrate how to play protected videos using FairPlay plugin that is integrated into the core BrightcovePlayerSDK framework. 
-
-#### FairPlayIMAPlayer
-
-To see an example of using FairPlay with Google Interactive Media Ads (IMA), refer to the FairPlayIMAPlayer sample app in the IMA folder.
 
 #### A note about the FairPlay sample apps
 
@@ -126,7 +122,6 @@ SwiftUIPlayer demonstrates how to use `BCOVUIPlayerView` and `AVPlayerViewContro
 - An example of setting up lock screen playback controls can be found in the  `VideoCloudBasicPlayer` sample app.
 - An example of creation a `BCOVPlaybackController` using a view strategy can be found in the `PlayerUI` section.
 - An example of creating a custom Audio & Subtitles menu can be found in `CustomControls`
-- An example of creating a `BCOVVideo` directly from a URL can be found in `FairPlayIMAPlayer`
 
 ### Localization 
 
