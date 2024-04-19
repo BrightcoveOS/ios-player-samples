@@ -2,222 +2,195 @@
 //  ViewStrategyCustomControls.swift
 //  ViewStrategy
 //
-//  Created by Carlos Ceja.
-//  Copyright © 2020 Brightcove. All rights reserved.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 import UIKit
-
 import BrightcovePlayerSDK
 
 
-class ViewStrategyCustomControls: UIView {
-    
-    private weak var playbackController: BCOVPlaybackController?
-    
-    var currentTimeLabel: UILabel?
-    var durationTimeLabel: UILabel?
-    var playImageView: UIImageView?
-    var pauseImageView: UIImageView?
-    var playPauseButton: UIButton?
-    var progressView: UIProgressView?
-    
-    var isPlaying: Bool?
+final class ViewStrategyCustomControls: UIView {
 
+    fileprivate weak var playbackController: BCOVPlaybackController?
+    fileprivate weak var player: AVPlayer?
 
-    init(playbackController: BCOVPlaybackController?) {
-        super.init(frame: CGRect.zero)
-        
+    fileprivate lazy var currentTimeLabel: UILabel = {
+        let currentTimeLabel = UILabel()
+        currentTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        currentTimeLabel.text = "00:00"
+        currentTimeLabel.textColor = .white
+        currentTimeLabel.font = .systemFont(ofSize: 20)
+        return currentTimeLabel
+    }()
+
+    fileprivate lazy var durationTimeLabel: UILabel = {
+        let durationTimeLabel = UILabel()
+        durationTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        durationTimeLabel.text = "00:00"
+        durationTimeLabel.textColor = .white
+        durationTimeLabel.font = .systemFont(ofSize: 20)
+        return durationTimeLabel
+    }()
+
+    fileprivate lazy var progressView: UIProgressView = {
+        let progressView = UIProgressView(progressViewStyle: .bar)
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.frame.size = bounds.size
+        progressView.frame.origin = CGPoint(x: 0, y: bounds.height)
+        progressView.progress = 0.0
+        progressView.backgroundColor = .white
+        return progressView
+    }()
+
+    fileprivate lazy var playImage: UIImage? = UIImage(named: "play.fill")
+
+    fileprivate lazy var pauseImage: UIImage? = UIImage(named: "pause.fill")
+
+    fileprivate lazy var playPauseButton: UIButton = {
+        let playPauseButton = UIButton(frame: CGRect(x: 0, y: 0,
+                                                     width: 50, height: 50))
+        playPauseButton.translatesAutoresizingMaskIntoConstraints = false
+        playPauseButton.tintColor = .white
+        playPauseButton.setImage(playImage, for: .normal)
+        playPauseButton.addTarget(self,
+                                  action: #selector(playPauseButtonPressed),
+                                  for: .touchUpInside)
+        return playPauseButton
+    }()
+
+    init(with playbackController: BCOVPlaybackController?) {
+        super.init(frame: .zero)
+
+        autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
         self.playbackController = playbackController
-        
-        self.isPlaying = self.playbackController?.isAutoPlay
-        
-        setup()
-        
-        setupConstraints()
+
+        addSubview(currentTimeLabel)
+        addSubview(durationTimeLabel)
+        addSubview(playPauseButton)
+        addSubview(progressView)
+
+        NSLayoutConstraint.activate(constraints)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func setup() -> Void {
-        
-        self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
-        do {
-            self.currentTimeLabel = UILabel()
-            self.currentTimeLabel?.text = "00:00"
-            self.currentTimeLabel?.textColor = UIColor.white
-        }
-        
-        do {
-            self.durationTimeLabel = UILabel()
-            self.durationTimeLabel?.text = "00:00"
-            self.durationTimeLabel?.textColor = UIColor.white
-        }
-        
-        do {
-            self.progressView = UIProgressView()
-            self.progressView?.progress = 0.0
-            self.progressView?.backgroundColor = UIColor.white
-        }
-        
-        do {
-            let originalImage = UIImage(named: "PlayButton")
-            let tintedImage = originalImage?.withRenderingMode(.alwaysTemplate)
-            
-            self.playImageView = UIImageView(image: tintedImage)
-            self.playImageView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            self.playImageView?.contentMode = .scaleAspectFit
-            self.playImageView?.tintColor = UIColor.white
-            self.playImageView?.isUserInteractionEnabled = false
-            self.playImageView?.frame = CGRect(x: 0.0, y: 0.0, width: 30.0, height: 30.0)
-            self.playImageView?.bounds = CGRect(x: 0.0, y: 0.0, width: 30.0, height: 30.0).insetBy(dx: 7.0, dy: 7.0)
-        }
-        
-        do {
-            let originalImage = UIImage(named: "PauseButton")
-            let tintedImage = originalImage?.withRenderingMode(.alwaysTemplate)
-            
-            self.pauseImageView = UIImageView(image: tintedImage)
-            self.pauseImageView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            self.pauseImageView?.contentMode = .scaleAspectFit
-            self.pauseImageView?.tintColor = UIColor.white
-            self.pauseImageView?.isUserInteractionEnabled = false
-            self.pauseImageView?.frame = CGRect(x: 0.0, y: 0.0, width: 30.0, height: 30.0)
-            self.pauseImageView?.bounds = CGRect(x: 0.0, y: 0.0, width: 30.0, height: 30.0).insetBy(dx: 7.0, dy: 7.0)
-        }
-        
-        do {
-            self.playPauseButton = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: 30.0, height: 30.0))
-            self.playPauseButton?.addTarget(self, action: #selector(playPauseButtonPressed(_:)), for: .touchUpInside)
-            
-            self.playPauseButton?.addSubview(self.playImageView!)
-            self.playPauseButton?.addSubview(self.pauseImageView!)
-        }
+    override var constraints: [NSLayoutConstraint] {
+        let option: NSLayoutConstraint.FormatOptions = .directionLeadingToTrailing
+        let views = [
+            "superview": self,
+            "currentTimeLabel": currentTimeLabel,
+            "durationTimeLabel": durationTimeLabel,
+            "playPauseButton": playPauseButton,
+            "progressView": progressView
+        ]
 
+        let hcCurrentTimeLabel = NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[currentTimeLabel(>=30,<=100)]",
+                                                                options: option,
+                                                                metrics: nil,
+                                                                views: views)
+
+        let vcCurrentTimeLabel = NSLayoutConstraint.constraints(withVisualFormat: "V:[currentTimeLabel(50)]-10-|",
+                                                                options: option,
+                                                                metrics: nil,
+                                                                views: views)
+
+        let hcDurationTimeLabel = NSLayoutConstraint.constraints(withVisualFormat: "H:[durationTimeLabel(>=30,<=100)]-20-|",
+                                                                 options: option,
+                                                                 metrics: nil,
+                                                                 views: views)
+
+        let vcDurationTimeLabel = NSLayoutConstraint.constraints(withVisualFormat: "V:[durationTimeLabel(50)]-10-|",
+                                                                 options: option,
+                                                                 metrics: nil,
+                                                                 views: views)
+
+        let hcPlayPauseButton = NSLayoutConstraint.constraints(withVisualFormat: "V:[superview]-(<=1)-[playPauseButton]",
+                                                               options: .alignAllCenterX,
+                                                               metrics: nil,
+                                                               views: views)
+
+        let vcPlayPauseButton = NSLayoutConstraint.constraints(withVisualFormat: "V:[playPauseButton(50)]-10-|",
+                                                               options: option,
+                                                               metrics: nil,
+                                                               views: views)
+
+        let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[progressView]|",
+                                                                   options: option,
+                                                                   metrics: nil,
+                                                                   views: views)
+
+        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:[progressView(5)]|",
+                                                                 options: option,
+                                                                 metrics: nil,
+                                                                 views: views)
+
+        return [
+            hcCurrentTimeLabel,
+            vcCurrentTimeLabel,
+            hcDurationTimeLabel,
+            vcDurationTimeLabel,
+            hcPlayPauseButton,
+            vcPlayPauseButton,
+            horizontalConstraints,
+            verticalConstraints
+        ].flatMap { $0 }
     }
-    
-    func setupConstraints() -> Void {
-        
-        do {
-            let currentTimeLabel = self.currentTimeLabel
-            currentTimeLabel?.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(currentTimeLabel!)
 
-            let durationTimeLabel = self.durationTimeLabel
-            durationTimeLabel?.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(durationTimeLabel!)
-
-            let playPauseButton = self.playPauseButton
-            playPauseButton?.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(playPauseButton!)
-            
-            let option: NSLayoutConstraint.FormatOptions = .directionLeadingToTrailing
-            let views = [
-                "currentTimeLabel" : currentTimeLabel,
-                "durationTimeLabel" : durationTimeLabel,
-                "playPauseButton" : playPauseButton
-            ]
-
-            let hcCurrentTimeLabel = NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[currentTimeLabel(>=30,<=50)]", options: option, metrics: nil, views: views as [String : Any])
-
-            let vcCurrentTimeLabel = NSLayoutConstraint.constraints(withVisualFormat: "V:[currentTimeLabel(30)]-10-|", options: option, metrics: nil, views: views as [String : Any])
-            
-            let hcDurationTimeLabel = NSLayoutConstraint.constraints(withVisualFormat: "H:[durationTimeLabel(>=30,<=50)]-20-|", options: option, metrics: nil, views: views as [String : Any])
-
-            let vcDurationTimeLabel = NSLayoutConstraint.constraints(withVisualFormat: "V:[durationTimeLabel(30)]-10-|", options: option, metrics: nil, views: views as [String : Any])
-
-            let hcPlayPauseButton = NSLayoutConstraint.constraints(withVisualFormat: "V:[superview]-(<=1)-[playPauseButton]", options: .alignAllCenterX, metrics: nil, views: [
-                "superview": self,
-                "playPauseButton": playPauseButton as Any
-            ])
-
-            let vcPlayPauseButton = NSLayoutConstraint.constraints(withVisualFormat: "V:[playPauseButton(30)]-10-|", options: option, metrics: nil, views: views as [String : Any])
-
-            addConstraints(hcCurrentTimeLabel)
-            addConstraints(vcCurrentTimeLabel)
-            addConstraints(hcDurationTimeLabel)
-            addConstraints(vcDurationTimeLabel)
-            addConstraints(hcPlayPauseButton)
-            addConstraints(vcPlayPauseButton)
-        }
-        
-        do {
-            let view = self.progressView
-            view?.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(view!)
-
-            let option: NSLayoutConstraint.FormatOptions = .directionLeadingToTrailing
-            let views = [
-                "view" : view
-            ]
-
-            let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options: option, metrics: nil, views: views as [String : Any])
-
-            let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:[view(5)]|", options: option, metrics: nil, views: views as [String : Any])
-
-            addConstraints(horizontalConstraints)
-            addConstraints(verticalConstraints)
-        }
-
-    }
-    
     @objc
-    func playPauseButtonPressed(_ sender: Any?) {
-        
-        self.isPlaying = !self.isPlaying!
+    func playPauseButtonPressed() {
+        guard let playbackController,
+              let player else { return }
 
-        if self.isPlaying! {
-            self.playPauseButton?.subviews[0].isHidden = true
-            self.playPauseButton?.subviews[1].isHidden = false
-            self.playbackController?.play()
+        if player.timeControlStatus == .playing {
+            playPauseButton.setImage(playImage, for: .normal)
+            playbackController.pause()
         } else {
-            self.playPauseButton?.subviews[0].isHidden = false
-            self.playPauseButton?.subviews[1].isHidden = true
-            self.playbackController?.pause()
+            playPauseButton.setImage(pauseImage?.withRenderingMode(.alwaysTemplate), for: .normal)
+            playbackController.play()
         }
-
     }
-    
+
     class func timeFormatter(_ seconds: TimeInterval) -> String? {
-        
         let dcFormatter = DateComponentsFormatter()
         dcFormatter.zeroFormattingBehavior = .pad
-        dcFormatter.allowedUnits = [.minute, .second]
+        dcFormatter.allowedUnits = seconds < 3600 ? [.minute, .second] : [.hour, .minute, .second]
         let formatted = dcFormatter.string(from: seconds)
-        
-        return formatted
 
+        return formatted
     }
-    
 }
 
+
+// MARK: - BCOVPlaybackSessionConsumer
+
 extension ViewStrategyCustomControls: BCOVPlaybackSessionConsumer {
-    
-    func didAdvance(to session: BCOVPlaybackSession?) {
-        if self.isPlaying! {
-            self.playPauseButton?.subviews[0].isHidden = true
-        }
-    }
-    
-    func playbackSession(_ session: BCOVPlaybackSession?, didProgressTo progress: TimeInterval) {
-        var duration: TimeInterval? = nil
-        if let duration1 = session?.player.currentItem?.duration {
-            duration = TimeInterval(CMTimeGetSeconds(duration1))
-        }
-        let percent = Float(progress / (duration ?? 0.0))
 
-        self.progressView?.progress = !percent.isNaN ? percent : 0.0
+    func didAdvance(to session: BCOVPlaybackSession) {
+        player = session.player
 
-        if progress >= 0.0 {
-            self.currentTimeLabel?.text = ViewStrategyCustomControls.timeFormatter(progress)
+        if let playbackController,
+           playbackController.isAutoPlay {
+            playPauseButton.setImage(pauseImage, for: .normal)
         }
     }
 
-    func playbackSession(_ session: BCOVPlaybackSession?, didChangeDuration duration: TimeInterval) {
-        self.durationTimeLabel?.text = ViewStrategyCustomControls.timeFormatter(duration)
+    func playbackSession(_ session: BCOVPlaybackSession!,
+                         didProgressTo progress: TimeInterval) {
+        guard let duration = session.player.currentItem?.duration,
+              duration.isValid,
+              progress.isFinite else {
+            return
+        }
+
+        progressView.progress = Float(progress / CMTimeGetSeconds(duration))
+        currentTimeLabel.text = ViewStrategyCustomControls.timeFormatter(progress)
     }
 
+    func playbackSession(_ session: BCOVPlaybackSession,
+                         didChangeDuration duration: TimeInterval) {
+        durationTimeLabel.text = ViewStrategyCustomControls.timeFormatter(duration)
+    }
 }

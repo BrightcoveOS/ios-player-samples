@@ -1,17 +1,17 @@
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/brightcove/BrightcoveSpecs.git'
 
+platform :ios, '12.0'
+
 use_frameworks!
 
-platform :ios, '13.6'
-
-flutter_application_path = '../flutter_app'
+flutter_application_path = '../flutter_bcov'
 load File.join(flutter_application_path, '.ios', 'Flutter', 'podhelper.rb')
 
-target 'PlayerFlutter' do
+target 'FlutterPlayer' do
 
-  pod 'Brightcove-Player-Core/XCFramework'
   install_all_flutter_pods(flutter_application_path)
+  pod 'Brightcove-Player-Core/XCFramework'
 
   post_install do |installer|
     flutter_post_install(installer)

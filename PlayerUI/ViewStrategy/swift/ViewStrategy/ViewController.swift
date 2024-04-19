@@ -2,114 +2,154 @@
 //  ViewController.swift
 //  ViewStrategy
 //
-//  Created by Carlos Ceja.
-//  Copyright © 2020 Brightcove. All rights reserved.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 import UIKit
-
 import BrightcovePlayerSDK
 
 
-// ** Customize these values with your own account information **
-struct PlaybackConfig
-{
-    static let PolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
-    static let AccountID = "5434391461001"
-    static let VideoID = "6140448705001"
-}
+// Customize these values with your own account information
+// Add your Brightcove account and video information here.
+let kAccountId = "5434391461001"
+let kPolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
+let kVideoId = "6140448705001"
 
 
-class ViewController: UIViewController {
-    
-    @IBOutlet weak var videoContainer: UIView!
-    
-    private lazy var playbackService: BCOVPlaybackService = {
-        
-        return BCOVPlaybackService(accountId: PlaybackConfig.AccountID, policyKey: PlaybackConfig.PolicyKey)
-        
+final class ViewController: UIViewController {
+
+    @IBOutlet fileprivate weak var videoContainerView: UIView!
+
+    fileprivate lazy var playbackService: BCOVPlaybackService = {
+        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+                                                        policyKey: kPolicyKey)
+        return .init(requestFactory: factory)
     }()
 
-    
-    private lazy var playbackController: BCOVPlaybackController? = {
-        
-        let viewStrategy: BCOVPlaybackControllerViewStrategy = { (videoView, playbackController) -> UIView? in
+    fileprivate lazy var playbackController: BCOVPlaybackController? = {
+        let viewStrategy: BCOVPlaybackControllerViewStrategy = {
+            (videoView: UIView?,
+             playbackController: BCOVPlaybackController?) -> UIView? in
             
             // Create some custom controls for the video view,
             // and compose both into a container view.
-            let controlsAndVideoView = UIView(frame: CGRect.zero)
+            guard let videoView,
+                  let playbackController else {
+                return nil
+            }
 
-            let controlsView = ViewStrategyCustomControls(playbackController: playbackController)
+            let controlsAndVideoView = UIView(frame: .zero)
+            let controlsView = ViewStrategyCustomControls(with: playbackController)
 
-            controlsAndVideoView.addSubview(videoView!)
+            controlsAndVideoView.frame = videoView.bounds
+            controlsAndVideoView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+            controlsView.frame = videoView.bounds
+            controlsView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+            controlsAndVideoView.addSubview(videoView)
             controlsAndVideoView.addSubview(controlsView)
 
-            videoView?.frame = controlsAndVideoView.bounds
-
-            playbackController?.add(controlsView)
+            playbackController.add(controlsView)
 
             return controlsAndVideoView
         }
-        
-        guard let _playbackController = BCOVPlayerSDKManager.shared()?.createPlaybackController(viewStrategy: viewStrategy) else {
-            return nil;
+
+        guard let sdkManager = BCOVPlayerSDKManager.sharedManager(),
+              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
+                                                         applicationId: nil) else {
+            return nil
         }
-        
-        _playbackController.isAutoPlay = true
-        _playbackController.isAutoAdvance = true
-        _playbackController.delegate = self
-        
-        _playbackController.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Add to parent view
-        self.videoContainer.addSubview(_playbackController.view)
-        
-        NSLayoutConstraint.activate([
-            _playbackController.view.topAnchor.constraint(equalTo: self.videoContainer.topAnchor),
-            _playbackController.view.rightAnchor.constraint(equalTo: self.videoContainer.rightAnchor),
-            _playbackController.view.leftAnchor.constraint(equalTo: self.videoContainer.leftAnchor),
-            _playbackController.view.bottomAnchor.constraint(equalTo: self.videoContainer.bottomAnchor)
-        ])
-        
-        return _playbackController
-        
+
+        let fps = sdkManager.createFairPlaySessionProvider(withApplicationCertificate: nil,
+                                                           authorizationProxy: authProxy,
+                                                           upstreamSessionProvider: nil)
+
+        guard let playbackController = sdkManager.createPlaybackController(with: fps,
+                                                                           viewStrategy: viewStrategy) else {
+            return nil
+        }
+
+        playbackController.delegate = self
+        playbackController.isAutoAdvance = true
+        playbackController.isAutoPlay = true
+
+        playbackController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        playbackController.view.frame = videoContainerView.bounds
+        videoContainerView.addSubview(playbackController.view)
+
+        return playbackController
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        requestVideo()
+
+        requestContentFromPlaybackService()
     }
     
-    func requestVideo()
-    {
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:PlaybackConfig.VideoID]
-        playbackService.findVideo(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
-            
-            if let video = video
-            {
-                self?.playbackController?.setVideos([video] as NSFastEnumeration)
+    fileprivate func requestContentFromPlaybackService() {
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId]
+        playbackService.findVideo(withConfiguration: configuration,
+                                  queryParameters: nil) {
+            [playbackController] (video: BCOVVideo?,
+                                  jsonResponse: [AnyHashable: Any]?,
+                                  error: Error?) in
+            guard let playbackController,
+                  let video else {
+                if let error {
+                    print("ViewController - Error retrieving video: \(error.localizedDescription)")
+                }
+
+                return
             }
-            else
-            {
-                print("ViewController Debug - Error retrieving video: \(error!.localizedDescription)")
+
+#if targetEnvironment(simulator)
+            if video.usesFairPlay {
+                // FairPlay doesn't work when we're running in a simulator,
+                // so put up an alert.
+                let alert = UIAlertController(title: "FairPlay Warning",
+                                              message: """
+                                               FairPlay only works on actual \
+                                               iOS or tvOS devices.\n
+                                               You will not be able to view \
+                                               any FairPlay content in the \
+                                               iOS or tvOS simulator.
+                                               """,
+                                              preferredStyle: .alert)
+
+                alert.addAction(.init(title: "OK", style: .default))
+
+                DispatchQueue.main.async { [self] in
+                    present(alert, animated: true)
+                }
+
+                return
             }
-        })
+#endif
+
+            playbackController.setVideos([video] as NSFastEnumeration)
+        }
     }
 }
 
-extension ViewController: BCOVPlaybackControllerDelegate
-{
-    func playbackController(_ controller: BCOVPlaybackController?, didAdvanceTo session: BCOVPlaybackSession?)
-    {
-        print("ViewController Debug - Advanced to new session.")
+
+// MARK: - BCOVPlaybackControllerDelegate
+
+extension ViewController: BCOVPlaybackControllerDelegate {
+
+    func playbackController(_ controller: BCOVPlaybackController!,
+                            didAdvanceTo session: BCOVPlaybackSession!) {
+        print("ViewController - Advanced to new session.")
     }
-    
-    func playbackController(_ controller: BCOVPlaybackController?, playbackSession session: BCOVPlaybackSession?, didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent?)
-    {
-        if let eventType = lifecycleEvent?.eventType
-        {
-            print("Event: \(eventType)")
+
+    func playbackController(_ controller: BCOVPlaybackController!,
+                            playbackSession session: BCOVPlaybackSession,
+                            didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
+
+        if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
+           let error = lifecycleEvent.properties["error"] as? NSError {
+            // Report any errors that may have occurred with playback.
+            print("ViewController - Playback error: \(error.localizedDescription)")
         }
     }
 }

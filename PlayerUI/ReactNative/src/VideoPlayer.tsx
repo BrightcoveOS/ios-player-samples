@@ -4,19 +4,6 @@ import BCOVVideoPlayer from './BCOVVideoPlayer';
 import BCOVControls from './Controls';
 
 type Props = {
-  options: {
-    playbackService: {
-      accountId: string;
-      videoId: string;
-      policyKey?: string;
-      authToken?: string;
-      parameters?: object;
-    },
-    playbackController: {
-      autoAdvance: boolean;
-      autoPlay: boolean;
-    },
-  };
   style?: object;
 };
 
@@ -24,9 +11,7 @@ const VideoPlayer: React.FC<Props> = (props) => {
   
   const playerRef = useRef(null);
 
-  const { autoPlay } = props.options.playbackController;
-
-  const [isPlaying, setIsPlaying] = useState(autoPlay);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
@@ -37,9 +22,13 @@ const VideoPlayer: React.FC<Props> = (props) => {
   };
 
   const onReady = (event: any) => {
-    const { duration } = event.nativeEvent;
+    const { duration, isAutoPlay } = event.nativeEvent;
     if (duration) {
       setDuration(duration / 1000);
+    }
+
+    if (isAutoPlay) {
+      setIsPlaying(isAutoPlay);
     }
   };
 
@@ -64,15 +53,11 @@ const VideoPlayer: React.FC<Props> = (props) => {
       />
       <BCOVControls
         isPlaying={isPlaying}
-        progress={currentTime}
         duration={duration}
+        progress={currentTime}
         onPress={onPressPlayPause} />
     </View>
   );
 };
 
 export default VideoPlayer;
-function ReactNative(ReactNative: any) {
-  throw new Error('Function not implemented.');
-}
-

@@ -3,15 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		D668DA9B24A2999D0017B5FC /* ViewStrategyCustomControls.m in Sources */ = {isa = PBXBuildFile; fileRef = D668DA9A24A2999D0017B5FC /* ViewStrategyCustomControls.m */; };
+		D694FC1D2BD60ECA00B4F688 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D694FC1C2BD60ECA00B4F688 /* Assets.xcassets */; };
 		D6BFF22A2497E7FE00822358 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BFF2292497E7FE00822358 /* AppDelegate.m */; };
 		D6BFF2302497E7FE00822358 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BFF22F2497E7FE00822358 /* ViewController.m */; };
 		D6BFF2332497E7FE00822358 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6BFF2312497E7FE00822358 /* Main.storyboard */; };
-		D6BFF2352497E80000822358 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6BFF2342497E80000822358 /* Assets.xcassets */; };
 		D6BFF2382497E80000822358 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6BFF2362497E80000822358 /* LaunchScreen.storyboard */; };
 		D6BFF23B2497E80000822358 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BFF23A2497E80000822358 /* main.m */; };
 /* End PBXBuildFile section */
@@ -19,13 +19,13 @@
 /* Begin PBXFileReference section */
 		D668DA9924A2999D0017B5FC /* ViewStrategyCustomControls.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewStrategyCustomControls.h; sourceTree = "<group>"; };
 		D668DA9A24A2999D0017B5FC /* ViewStrategyCustomControls.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewStrategyCustomControls.m; sourceTree = "<group>"; };
+		D694FC1C2BD60ECA00B4F688 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		D6BFF2252497E7FE00822358 /* ViewStrategy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViewStrategy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6BFF2282497E7FE00822358 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D6BFF2292497E7FE00822358 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D6BFF22E2497E7FE00822358 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		D6BFF22F2497E7FE00822358 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		D6BFF2322497E7FE00822358 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D6BFF2342497E80000822358 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D6BFF2372497E80000822358 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D6BFF2392497E80000822358 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6BFF23A2497E80000822358 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -61,13 +61,13 @@
 		D6BFF2272497E7FE00822358 /* ViewStrategy */ = {
 			isa = PBXGroup;
 			children = (
+				D6BFF2392497E80000822358 /* Info.plist */,
+				D694FC1C2BD60ECA00B4F688 /* Assets.xcassets */,
+				D6BFF2362497E80000822358 /* LaunchScreen.storyboard */,
+				D6BFF2312497E7FE00822358 /* Main.storyboard */,
+				D6BFF23A2497E80000822358 /* main.m */,
 				D6BFF2282497E7FE00822358 /* AppDelegate.h */,
 				D6BFF2292497E7FE00822358 /* AppDelegate.m */,
-				D6BFF2342497E80000822358 /* Assets.xcassets */,
-				D6BFF2392497E80000822358 /* Info.plist */,
-				D6BFF2362497E80000822358 /* LaunchScreen.storyboard */,
-				D6BFF23A2497E80000822358 /* main.m */,
-				D6BFF2312497E7FE00822358 /* Main.storyboard */,
 				D6BFF22E2497E7FE00822358 /* ViewController.h */,
 				D6BFF22F2497E7FE00822358 /* ViewController.m */,
 				D668DA9924A2999D0017B5FC /* ViewStrategyCustomControls.h */,
@@ -103,7 +103,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1200;
-				ORGANIZATIONNAME = Brightcove;
+				ORGANIZATIONNAME = "Brightcove, Inc.";
 				TargetAttributes = {
 					D6BFF2242497E7FE00822358 = {
 						CreatedOnToolsVersion = 11.5;
@@ -111,7 +111,7 @@
 				};
 			};
 			buildConfigurationList = D6BFF2202497E7FE00822358 /* Build configuration list for PBXProject "ViewStrategy" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -134,7 +134,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6BFF2382497E80000822358 /* LaunchScreen.storyboard in Resources */,
-				D6BFF2352497E80000822358 /* Assets.xcassets in Resources */,
+				D694FC1D2BD60ECA00B4F688 /* Assets.xcassets in Resources */,
 				D6BFF2332497E7FE00822358 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,7 +226,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -279,7 +279,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -291,15 +291,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = ViewStrategy/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = ViewStrategy;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.ViewStrategy;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -311,15 +310,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = ViewStrategy/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = ViewStrategy;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.ViewStrategy;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
