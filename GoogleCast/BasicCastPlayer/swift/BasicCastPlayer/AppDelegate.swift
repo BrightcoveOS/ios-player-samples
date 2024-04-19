@@ -2,21 +2,23 @@
 //  AppDelegate.swift
 //  BasicCastPlayer
 //
-//  Copyright © 2020 Brightcove, Inc. All rights reserved.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
-import UIKit
 import AVFoundation
+import UIKit
 import GoogleCast
 
+
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var castContainerViewController: GCKUICastContainerViewController?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
         /*
          Set the AVAudioSession category to allow audio playback when:
 
@@ -28,45 +30,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
          Refer to the AVAudioSession Class Reference:
          https://developer.apple.com/documentation/avfoundation/avaudiosession
-        */
-        
-        var categoryError :NSError?
-        var success: Bool
+         */
+
         do {
             // see https://developer.apple.com/documentation/avfoundation/avaudiosessioncategoryplayback
             // and https://developer.apple.com/documentation/avfoundation/avaudiosessionmodemovieplayback
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback, options: .duckOthers)
-            success = true
-        } catch let error as NSError {
-            categoryError = error
-            success = false
+            try AVAudioSession.sharedInstance().setCategory(.playback,
+                                                            mode: .moviePlayback,
+                                                            options: .duckOthers)
+        } catch {
+            print("AppDelegate - Error setting AVAudioSession category. Because of this, there may be no sound. \(error)")
         }
-        
-        if !success {
-            print("AppDelegate Debug - Error setting AVAudioSession category.  Because of this, there may be no sound. \(categoryError!)")
-        }
-        
+
         // More Info @ https://developers.google.com/cast/docs/ios_sender/integrate#initialize_the_cast_context
         let discoveryCriteria = GCKDiscoveryCriteria(applicationID: kGCKDefaultMediaReceiverApplicationID)
         let options = GCKCastOptions(discoveryCriteria: discoveryCriteria)
+        options.physicalVolumeButtonsWillControlDeviceVolume = true
         GCKCastContext.setSharedInstanceWith(options)
-        
+
         // More Info @ https://developers.google.com/cast/docs/ios_sender/integrate#add_expanded_controller
         GCKCastContext.sharedInstance().useDefaultExpandedMediaControls = true
-        
+
         // More Info @ https://developers.google.com/cast/docs/ios_sender/integrate#add_mini_controllers
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let navigationController = storyboard.instantiateViewController(withIdentifier: "NavController")
         castContainerViewController = GCKCastContext.sharedInstance().createCastContainerController(for: navigationController)
         castContainerViewController?.miniMediaControlsItemEnabled = true
-        
+
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = castContainerViewController
         window?.makeKeyAndVisible()
-        
+
         return true
     }
 
-
 }
-

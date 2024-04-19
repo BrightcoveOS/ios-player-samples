@@ -1,6 +1,6 @@
 //
 //  ViewController.h
-//  BrightcoveCastReceiver
+//  BasicCastPlayer
 //
 //  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
@@ -11,4 +11,3 @@
 @interface ViewController : UIViewController
 
 @end
-

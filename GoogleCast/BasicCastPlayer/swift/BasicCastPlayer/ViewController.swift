@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  BrightcoveCastReceiver
+//  BasicCastPlayer
 //
 //  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
@@ -118,30 +118,17 @@ final class ViewController: UIViewController {
         playerView.playbackController = playbackController
 
         googleCastManager.delegate = self
-
         playbackController.add(googleCastManager)
 
         return playbackController
     }()
 
-    fileprivate lazy var googleCastManager: BCOVGoogleCastManager  = {
-        let receiverAppConfig = BCOVReceiverAppConfig()
-        receiverAppConfig.accountId = kAccountId
-        receiverAppConfig.policyKey = kPolicyKey
-        receiverAppConfig.splashScreen = "https://solutions.brightcove.com/jblaker/cast-splash.jpg"
+    fileprivate lazy var googleCastManager: BCOVGoogleCastManager = BCOVGoogleCastManager()
 
-        // You can specify a customized player
-        // receiverAppConfig.playerUrl = "https://players.brightcove.net/5434391461001/nVM2434Z1_default/index.min.js"
-
-        // You can use the authToken property for PAS/EPA
-        // receiverAppConfig.authToken = ""
-
-        // You can use the adConfigId property for SSAI
-        // Intended to be used alongside the SSAI Plugin for Brightcove Player SDK for iOS
-        // receiverAppConfig.adConfigId = ""
-
-        return BCOVGoogleCastManager(forBrightcoveReceiverApp: receiverAppConfig)
-    }()
+    // If you need to extend the behavior of BCOVGoogleCastManager
+    // you can customize the GoogleCastManager class in this project
+    // and use it instead of BCOVGoogleCastManager.
+    // fileprivate lazy var googleCastManager: GoogleCastManager = GoogleCastManager()
 
     fileprivate lazy var videos: [BCOVVideo] = .init()
 
@@ -196,7 +183,7 @@ final class ViewController: UIViewController {
 
             if let playlist,
                let videos = playlist.videos as? [BCOVVideo] {
-                headerLabel.text = playlist.properties[kBCOVPlaylistPropertiesKeyName] as? String ?? "BrightcoveCastReceiver"
+                headerLabel.text = playlist.properties[kBCOVPlaylistPropertiesKeyName] as? String ?? "BasicCastPlayer"
 #if targetEnvironment(simulator)
                 self.videos = videos.filter({ !$0.usesFairPlay })
 #else
@@ -204,7 +191,7 @@ final class ViewController: UIViewController {
 #endif
                 tableView.reloadData()
             } else {
-                headerLabel.text = "BrightcoveCastReceiver"
+                headerLabel.text = "BasicCastPlayer"
                 print("No playlist for Id \"\(kPlaylistRefId)\" was found.")
             }
         }
@@ -236,6 +223,7 @@ extension ViewController: BCOVPlaybackControllerDelegate {
         }
     }
 }
+
 
 // MARK: - BCOVPUIPlayerViewDelegate
 
@@ -285,6 +273,45 @@ extension ViewController: BCOVGoogleCastManagerDelegate {
 }
 
 
+// MARK: - GoogleCastManagerDelegate
+
+// Uncomment this extension if you are using GoogleCastManager
+// instead of BCOVGoogleCastManager
+
+//extension ViewController: GoogleCastManagerDelegate {
+//
+//    func switchedToLocalPlayback(withLastKnownStreamPosition streamPosition: TimeInterval, 
+//                                 withError error: Error?) {
+//        if streamPosition > 0,
+//           let playbackController {
+//            playbackController.play()
+//        }
+//
+//        videoContainerView.isHidden = false
+//
+//        if let error {
+//            print("Switched to local playback with error: \(error.localizedDescription)")
+//        }
+//    }
+//
+//    func switchedToRemotePlayback() {
+//        videoContainerView.isHidden = true
+//    }
+//
+//    func castedVideoDidComplete() {
+//        videoContainerView.isHidden = true
+//    }
+//
+//    func castedVideoFailedToPlay() {
+//        print("Failed to play Cast video")
+//    }
+//
+//    func suitableSourceNotFound() {
+//        print("Suitable source for video not found!")
+//    }
+//}
+
+
 // MARK: - UITableViewDataSource
 
 extension ViewController: UITableViewDataSource {
@@ -298,7 +325,7 @@ extension ViewController: UITableViewDataSource {
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let videoCell = tableView.dequeueReusableCell(withIdentifier: "BasicCell",
-                                                      for: indexPath)
+                                                 for: indexPath)
         if indexPath.section == 0 {
             videoCell.textLabel?.text = "Play All"
             return videoCell
@@ -317,7 +344,7 @@ extension ViewController: UITableViewDataSource {
         return videos.count > 0 ? 2 : 0
     }
 
-    func tableView(_ tableView: UITableView,
+    func tableView(_ tableView: UITableView, 
                    heightForHeaderInSection section: Int) -> CGFloat {
         return .leastNonzeroMagnitude
     }
@@ -328,7 +355,7 @@ extension ViewController: UITableViewDataSource {
 
 extension ViewController: UITableViewDelegate {
 
-    func tableView(_ tableView: UITableView,
+    func tableView(_ tableView: UITableView, 
                    didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 

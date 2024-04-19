@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KD-kL-veh">
+    <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="EHf-IW-A2E">
+        <scene sceneID="Rc7-d3-poP">
             <objects>
-                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                <viewController id="7KD-kL-veh" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uVr-NU-3ff"/>
+                        <viewControllerLayoutGuide type="bottom" id="qJG-7p-cWW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QOp-wl-KMk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2024, Brightcove, Inc. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="rkm-Xz-kS3">
-                                <rect key="frame" x="40" y="841" width="334" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2024 Brightcove, Inc. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="kP3-9l-zXH">
+                                <rect key="frame" x="10" y="751" width="355" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BrightcoveCastReceiver" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="LUy-TO-uJc">
-                                <rect key="frame" x="40" y="426.5" width="334" height="43"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BrightcoveCastReceiver" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="JcT-fs-cJ9">
+                                <rect key="frame" x="18" y="388" width="339.33333333333331" height="36"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="LUy-TO-uJc" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="41a-1W-dJB"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="rkm-Xz-kS3" secondAttribute="bottom" id="9md-4P-gd0"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rkm-Xz-kS3" secondAttribute="trailing" constant="40" id="GkH-rs-Va1"/>
-                            <constraint firstItem="LUy-TO-uJc" firstAttribute="leading" relation="lessThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="ceS-RR-V7p"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LUy-TO-uJc" secondAttribute="trailing" constant="40" id="e3W-zk-KZh"/>
-                            <constraint firstItem="LUy-TO-uJc" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="jrC-4W-H9l"/>
-                            <constraint firstItem="rkm-Xz-kS3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="qhD-Lc-NGw"/>
+                            <constraint firstItem="JcT-fs-cJ9" firstAttribute="centerY" secondItem="QOp-wl-KMk" secondAttribute="centerY" id="bEp-4b-1uN"/>
+                            <constraint firstItem="qJG-7p-cWW" firstAttribute="top" secondItem="kP3-9l-zXH" secondAttribute="bottom" constant="10" id="cIY-ht-E8D"/>
+                            <constraint firstItem="kP3-9l-zXH" firstAttribute="leading" secondItem="QOp-wl-KMk" secondAttribute="leading" constant="10" id="gA5-zn-pIN"/>
+                            <constraint firstAttribute="trailing" secondItem="kP3-9l-zXH" secondAttribute="trailing" constant="10" id="p4Z-mp-NMF"/>
+                            <constraint firstItem="JcT-fs-cJ9" firstAttribute="centerX" secondItem="QOp-wl-KMk" secondAttribute="centerX" id="twU-t3-NV2"/>
                         </constraints>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uV5-LC-2oo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="-487" y="312"/>
         </scene>
     </scenes>
     <resources>

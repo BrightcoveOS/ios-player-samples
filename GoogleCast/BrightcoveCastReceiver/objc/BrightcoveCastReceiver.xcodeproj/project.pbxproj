@@ -7,22 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D657E9C82BD2F744005A18F9 /* GCKUICastContainerViewController+BrightcoveCastReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = D657E9C72BD2F744005A18F9 /* GCKUICastContainerViewController+BrightcoveCastReceiver.m */; };
+		D657E9CA2BD2F92D005A18F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D657E9C92BD2F92D005A18F9 /* Assets.xcassets */; };
 		E9D8318624B392E500825557 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D8318524B392E500825557 /* AppDelegate.m */; };
 		E9D8318C24B392E500825557 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D8318B24B392E500825557 /* ViewController.m */; };
 		E9D8318F24B392E500825557 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9D8318D24B392E500825557 /* Main.storyboard */; };
-		E9D8319124B392E700825557 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9D8319024B392E700825557 /* Assets.xcassets */; };
 		E9D8319424B392E700825557 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9D8319224B392E700825557 /* LaunchScreen.storyboard */; };
 		E9D8319724B392E700825557 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D8319624B392E700825557 /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D657E9C62BD2F744005A18F9 /* GCKUICastContainerViewController+BrightcoveCastReceiver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GCKUICastContainerViewController+BrightcoveCastReceiver.h"; sourceTree = "<group>"; };
+		D657E9C72BD2F744005A18F9 /* GCKUICastContainerViewController+BrightcoveCastReceiver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "GCKUICastContainerViewController+BrightcoveCastReceiver.m"; sourceTree = "<group>"; };
+		D657E9C92BD2F92D005A18F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		E9D8318124B392E500825557 /* BrightcoveCastReceiver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrightcoveCastReceiver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9D8318424B392E500825557 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E9D8318524B392E500825557 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E9D8318A24B392E500825557 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		E9D8318B24B392E500825557 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E9D8318E24B392E500825557 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E9D8319024B392E700825557 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9D8319324B392E700825557 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E9D8319524B392E700825557 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9D8319624B392E700825557 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -60,15 +63,17 @@
 			isa = PBXGroup;
 			children = (
 				E9D8319D24B393AD00825557 /* BrightcoveCastReceiver.entitlements */,
+				E9D8319524B392E700825557 /* Info.plist */,
+				D657E9C92BD2F92D005A18F9 /* Assets.xcassets */,
+				E9D8319224B392E700825557 /* LaunchScreen.storyboard */,
+				E9D8318D24B392E500825557 /* Main.storyboard */,
+				E9D8319624B392E700825557 /* main.m */,
 				E9D8318424B392E500825557 /* AppDelegate.h */,
 				E9D8318524B392E500825557 /* AppDelegate.m */,
+				D657E9C62BD2F744005A18F9 /* GCKUICastContainerViewController+BrightcoveCastReceiver.h */,
+				D657E9C72BD2F744005A18F9 /* GCKUICastContainerViewController+BrightcoveCastReceiver.m */,
 				E9D8318A24B392E500825557 /* ViewController.h */,
 				E9D8318B24B392E500825557 /* ViewController.m */,
-				E9D8318D24B392E500825557 /* Main.storyboard */,
-				E9D8319024B392E700825557 /* Assets.xcassets */,
-				E9D8319224B392E700825557 /* LaunchScreen.storyboard */,
-				E9D8319524B392E700825557 /* Info.plist */,
-				E9D8319624B392E700825557 /* main.m */,
 			);
 			path = BrightcoveCastReceiver;
 			sourceTree = "<group>";
@@ -100,7 +105,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1200;
-				ORGANIZATIONNAME = "Brightcove, Inc";
+				ORGANIZATIONNAME = "Brightcove, Inc.";
 				TargetAttributes = {
 					E9D8318024B392E500825557 = {
 						CreatedOnToolsVersion = 11.5;
@@ -108,7 +113,7 @@
 				};
 			};
 			buildConfigurationList = E9D8317C24B392E500825557 /* Build configuration list for PBXProject "BrightcoveCastReceiver" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -131,7 +136,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9D8319424B392E700825557 /* LaunchScreen.storyboard in Resources */,
-				E9D8319124B392E700825557 /* Assets.xcassets in Resources */,
+				D657E9CA2BD2F92D005A18F9 /* Assets.xcassets in Resources */,
 				E9D8318F24B392E500825557 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D657E9C82BD2F744005A18F9 /* GCKUICastContainerViewController+BrightcoveCastReceiver.m in Sources */,
 				E9D8318C24B392E500825557 /* ViewController.m in Sources */,
 				E9D8318624B392E500825557 /* AppDelegate.m in Sources */,
 				E9D8319724B392E700825557 /* main.m in Sources */,
@@ -222,7 +228,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -275,7 +281,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -288,14 +294,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = BrightcoveCastReceiver/BrightcoveCastReceiver.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = BrightcoveCastReceiver/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = GoogleCast;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.BrightcoveCastReceiver;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_WORKSPACE = YES;
@@ -307,14 +313,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = BrightcoveCastReceiver/BrightcoveCastReceiver.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = BrightcoveCastReceiver/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = GoogleCast;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.BrightcoveCastReceiver;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_WORKSPACE = YES;
