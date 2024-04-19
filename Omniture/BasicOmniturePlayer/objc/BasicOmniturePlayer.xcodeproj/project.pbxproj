@@ -3,109 +3,94 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9840591F1A3F8A9000732E8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9840591E1A3F8A9000732E8C /* main.m */; };
-		984059221A3F8A9000732E8C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 984059211A3F8A9000732E8C /* AppDelegate.m */; };
-		984059251A3F8A9000732E8C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 984059241A3F8A9000732E8C /* ViewController.m */; };
-		984059281A3F8A9000732E8C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 984059261A3F8A9000732E8C /* Main.storyboard */; };
-		9840592A1A3F8A9000732E8C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 984059291A3F8A9000732E8C /* Images.xcassets */; };
-		9840592D1A3F8A9000732E8C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9840592B1A3F8A9000732E8C /* LaunchScreen.xib */; };
-		9840599D1A3F8B3D00732E8C /* ADBMobileConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = 984059431A3F8B3D00732E8C /* ADBMobileConfig.json */; };
-		E92862E827FF70BF00C66F99 /* AdobeMobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92862E727FF70BF00C66F99 /* AdobeMobile.xcframework */; };
-		E92862EA27FF70CD00C66F99 /* MediaSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92862E927FF70CD00C66F99 /* MediaSDK.xcframework */; };
-		E92862EF27FF71F100C66F99 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92862EE27FF71F100C66F99 /* WebKit.framework */; };
+		D6672B382BD481290014EE48 /* AdobeMobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6672B132BD480780014EE48 /* AdobeMobile.xcframework */; };
+		D6672B3A2BD481290014EE48 /* MediaSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6672B142BD480780014EE48 /* MediaSDK.xcframework */; };
+		D6672B3F2BD4812C0014EE48 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F3A42F2BD47E7600C75F5A /* WebKit.framework */; };
+		D6672B402BD482D10014EE48 /* AppDelegate.h in Sources */ = {isa = PBXBuildFile; fileRef = D6F3A4152BD47E5300C75F5A /* AppDelegate.h */; };
+		D6672B412BD482D10014EE48 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F3A4162BD47E5300C75F5A /* AppDelegate.m */; };
+		D6672B422BD482D10014EE48 /* ViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = D6F3A41B2BD47E5300C75F5A /* ViewController.h */; };
+		D6672B432BD482D10014EE48 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F3A41C2BD47E5300C75F5A /* ViewController.m */; };
+		D6672B442BD482D10014EE48 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F3A4272BD47E5400C75F5A /* main.m */; };
+		D6672B452BD482DC0014EE48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6F3A4372BD47EB800C75F5A /* Assets.xcassets */; };
+		D6672B492BD483390014EE48 /* ADBMobileConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = D6672B482BD483390014EE48 /* ADBMobileConfig.json */; };
+		D6A570322BE75A5D00ADA632 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6A5702E2BE75A5D00ADA632 /* Main.storyboard */; };
+		D6A570332BE75A5D00ADA632 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6A570302BE75A5D00ADA632 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		984059191A3F8A9000732E8C /* BasicOmniturePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicOmniturePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9840591D1A3F8A9000732E8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9840591E1A3F8A9000732E8C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		984059201A3F8A9000732E8C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		984059211A3F8A9000732E8C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		984059231A3F8A9000732E8C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		984059241A3F8A9000732E8C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		984059271A3F8A9000732E8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		984059291A3F8A9000732E8C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		9840592C1A3F8A9000732E8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		984059431A3F8B3D00732E8C /* ADBMobileConfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ADBMobileConfig.json; path = AdobeMobile/ADBMobileConfig.json; sourceTree = "<group>"; };
-		E92862E727FF70BF00C66F99 /* AdobeMobile.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AdobeMobile.xcframework; path = "mobile-services-4.21.2-iOS/sdks/iOS/AdobeMobileLibrary/AdobeMobile.xcframework"; sourceTree = "<group>"; };
-		E92862E927FF70CD00C66F99 /* MediaSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MediaSDK.xcframework; path = "media-sdks-ios-v2.3.0/sdks/iOS/libs/MediaSDK.xcframework"; sourceTree = "<group>"; };
-		E92862EE27FF71F100C66F99 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		D6672B132BD480780014EE48 /* AdobeMobile.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AdobeMobile.xcframework; sourceTree = "<group>"; };
+		D6672B142BD480780014EE48 /* MediaSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = MediaSDK.xcframework; sourceTree = "<group>"; };
+		D6672B1E2BD480A20014EE48 /* BasicOmniturePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicOmniturePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6672B482BD483390014EE48 /* ADBMobileConfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ADBMobileConfig.json; sourceTree = "<group>"; };
+		D6A5702F2BE75A5D00ADA632 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D6A570312BE75A5D00ADA632 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D6F3A4152BD47E5300C75F5A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D6F3A4162BD47E5300C75F5A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D6F3A41B2BD47E5300C75F5A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		D6F3A41C2BD47E5300C75F5A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		D6F3A4262BD47E5400C75F5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6F3A4272BD47E5400C75F5A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D6F3A42F2BD47E7600C75F5A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		D6F3A4372BD47EB800C75F5A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		984059161A3F8A9000732E8C /* Frameworks */ = {
+		D6672B1B2BD480A20014EE48 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E92862EF27FF71F100C66F99 /* WebKit.framework in Frameworks */,
-				E92862E827FF70BF00C66F99 /* AdobeMobile.xcframework in Frameworks */,
-				E92862EA27FF70CD00C66F99 /* MediaSDK.xcframework in Frameworks */,
+				D6672B382BD481290014EE48 /* AdobeMobile.xcframework in Frameworks */,
+				D6672B3A2BD481290014EE48 /* MediaSDK.xcframework in Frameworks */,
+				D6672B3F2BD4812C0014EE48 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		984059101A3F8A9000732E8C = {
+		D6F3A4092BD47E5300C75F5A = {
 			isa = PBXGroup;
 			children = (
-				E92862E427FF6ECA00C66F99 /* Adobe */,
-				9840591B1A3F8A9000732E8C /* BasicOmniturePlayer */,
-				9840591A1A3F8A9000732E8C /* Products */,
-				E92862ED27FF71F100C66F99 /* Frameworks */,
+				D6F3A4142BD47E5300C75F5A /* BasicOmniturePlayer */,
+				D6F3A42E2BD47E7600C75F5A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		9840591A1A3F8A9000732E8C /* Products */ = {
+		D6F3A4132BD47E5300C75F5A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				984059191A3F8A9000732E8C /* BasicOmniturePlayer.app */,
+				D6672B1E2BD480A20014EE48 /* BasicOmniturePlayer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9840591B1A3F8A9000732E8C /* BasicOmniturePlayer */ = {
+		D6F3A4142BD47E5300C75F5A /* BasicOmniturePlayer */ = {
 			isa = PBXGroup;
 			children = (
-				984059201A3F8A9000732E8C /* AppDelegate.h */,
-				984059211A3F8A9000732E8C /* AppDelegate.m */,
-				984059231A3F8A9000732E8C /* ViewController.h */,
-				984059241A3F8A9000732E8C /* ViewController.m */,
-				984059261A3F8A9000732E8C /* Main.storyboard */,
-				984059291A3F8A9000732E8C /* Images.xcassets */,
-				9840592B1A3F8A9000732E8C /* LaunchScreen.xib */,
-				9840591C1A3F8A9000732E8C /* Supporting Files */,
+				D6672B482BD483390014EE48 /* ADBMobileConfig.json */,
+				D6F3A4262BD47E5400C75F5A /* Info.plist */,
+				D6A570302BE75A5D00ADA632 /* LaunchScreen.storyboard */,
+				D6A5702E2BE75A5D00ADA632 /* Main.storyboard */,
+				D6F3A4372BD47EB800C75F5A /* Assets.xcassets */,
+				D6F3A4272BD47E5400C75F5A /* main.m */,
+				D6F3A4152BD47E5300C75F5A /* AppDelegate.h */,
+				D6F3A4162BD47E5300C75F5A /* AppDelegate.m */,
+				D6F3A41B2BD47E5300C75F5A /* ViewController.h */,
+				D6F3A41C2BD47E5300C75F5A /* ViewController.m */,
 			);
 			path = BasicOmniturePlayer;
 			sourceTree = "<group>";
 		};
-		9840591C1A3F8A9000732E8C /* Supporting Files */ = {
+		D6F3A42E2BD47E7600C75F5A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9840591D1A3F8A9000732E8C /* Info.plist */,
-				9840591E1A3F8A9000732E8C /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		E92862E427FF6ECA00C66F99 /* Adobe */ = {
-			isa = PBXGroup;
-			children = (
-				984059431A3F8B3D00732E8C /* ADBMobileConfig.json */,
-				E92862E727FF70BF00C66F99 /* AdobeMobile.xcframework */,
-				E92862E927FF70CD00C66F99 /* MediaSDK.xcframework */,
-			);
-			name = Adobe;
-			sourceTree = "<group>";
-		};
-		E92862ED27FF71F100C66F99 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E92862EE27FF71F100C66F99 /* WebKit.framework */,
+				D6672B132BD480780014EE48 /* AdobeMobile.xcframework */,
+				D6672B142BD480780014EE48 /* MediaSDK.xcframework */,
+				D6F3A42F2BD47E7600C75F5A /* WebKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -113,116 +98,173 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		984059181A3F8A9000732E8C /* BasicOmniturePlayer */ = {
+		D6672B1D2BD480A20014EE48 /* BasicOmniturePlayer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9840593C1A3F8A9000732E8C /* Build configuration list for PBXNativeTarget "BasicOmniturePlayer" */;
+			buildConfigurationList = D6672B342BD480A30014EE48 /* Build configuration list for PBXNativeTarget "BasicOmniturePlayer" */;
 			buildPhases = (
-				984059151A3F8A9000732E8C /* Sources */,
-				984059161A3F8A9000732E8C /* Frameworks */,
-				984059171A3F8A9000732E8C /* Resources */,
+				D6672B1A2BD480A20014EE48 /* Sources */,
+				D6672B1B2BD480A20014EE48 /* Frameworks */,
+				D6672B1C2BD480A20014EE48 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = BasicOmniturePlayer;
-			productName = BasicOmniturePlayer;
-			productReference = 984059191A3F8A9000732E8C /* BasicOmniturePlayer.app */;
+			productName = asb;
+			productReference = D6672B1E2BD480A20014EE48 /* BasicOmniturePlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		984059111A3F8A9000732E8C /* Project object */ = {
+		D6F3A40A2BD47E5300C75F5A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1200;
-				ORGANIZATIONNAME = "Brightcove Inc";
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1530;
+				ORGANIZATIONNAME = "Brightcove, Inc.";
 				TargetAttributes = {
-					984059181A3F8A9000732E8C = {
-						CreatedOnToolsVersion = 6.1;
+					D6672B1D2BD480A20014EE48 = {
+						CreatedOnToolsVersion = 15.3;
 					};
 				};
 			};
-			buildConfigurationList = 984059141A3F8A9000732E8C /* Build configuration list for PBXProject "BasicOmniturePlayer" */;
-			compatibilityVersion = "Xcode 13.0";
+			buildConfigurationList = D6F3A40D2BD47E5300C75F5A /* Build configuration list for PBXProject "BasicOmniturePlayer" */;
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 984059101A3F8A9000732E8C;
-			productRefGroup = 9840591A1A3F8A9000732E8C /* Products */;
+			mainGroup = D6F3A4092BD47E5300C75F5A;
+			productRefGroup = D6F3A4132BD47E5300C75F5A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				984059181A3F8A9000732E8C /* BasicOmniturePlayer */,
+				D6672B1D2BD480A20014EE48 /* BasicOmniturePlayer */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		984059171A3F8A9000732E8C /* Resources */ = {
+		D6672B1C2BD480A20014EE48 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				984059281A3F8A9000732E8C /* Main.storyboard in Resources */,
-				9840599D1A3F8B3D00732E8C /* ADBMobileConfig.json in Resources */,
-				9840592D1A3F8A9000732E8C /* LaunchScreen.xib in Resources */,
-				9840592A1A3F8A9000732E8C /* Images.xcassets in Resources */,
+				D6A570322BE75A5D00ADA632 /* Main.storyboard in Resources */,
+				D6A570332BE75A5D00ADA632 /* LaunchScreen.storyboard in Resources */,
+				D6672B452BD482DC0014EE48 /* Assets.xcassets in Resources */,
+				D6672B492BD483390014EE48 /* ADBMobileConfig.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		984059151A3F8A9000732E8C /* Sources */ = {
+		D6672B1A2BD480A20014EE48 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				984059251A3F8A9000732E8C /* ViewController.m in Sources */,
-				984059221A3F8A9000732E8C /* AppDelegate.m in Sources */,
-				9840591F1A3F8A9000732E8C /* main.m in Sources */,
+				D6672B402BD482D10014EE48 /* AppDelegate.h in Sources */,
+				D6672B412BD482D10014EE48 /* AppDelegate.m in Sources */,
+				D6672B422BD482D10014EE48 /* ViewController.h in Sources */,
+				D6672B432BD482D10014EE48 /* ViewController.m in Sources */,
+				D6672B442BD482D10014EE48 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		984059261A3F8A9000732E8C /* Main.storyboard */ = {
+		D6A5702E2BE75A5D00ADA632 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				984059271A3F8A9000732E8C /* Base */,
+				D6A5702F2BE75A5D00ADA632 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		9840592B1A3F8A9000732E8C /* LaunchScreen.xib */ = {
+		D6A570302BE75A5D00ADA632 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				9840592C1A3F8A9000732E8C /* Base */,
+				D6A570312BE75A5D00ADA632 /* Base */,
 			);
-			name = LaunchScreen.xib;
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		9840593A1A3F8A9000732E8C /* Debug */ = {
+		D6672B352BD480A30014EE48 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				HEADER_SEARCH_PATHS = (
+					"\"$(inherited)\"",
+					"\"$(PROJECT_DIR)/AdobeMobile.xcframework/\"/**",
+					"\"$(PROJECT_DIR)/MediaSDK.xcframework/\"/**",
+				);
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Omniture;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D6672B362BD480A30014EE48 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				HEADER_SEARCH_PATHS = (
+					"\"$(inherited)\"",
+					"\"$(PROJECT_DIR)/AdobeMobile.xcframework/\"/**",
+					"\"$(PROJECT_DIR)/MediaSDK.xcframework/\"/**",
+				);
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Omniture;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D6F3A4292BD47E5400C75F5A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -235,13 +277,14 @@
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -249,35 +292,39 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		9840593B1A3F8A9000732E8C /* Release */ = {
+		D6F3A42A2BD47E5400C75F5A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -290,13 +337,14 @@
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -304,78 +352,37 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		9840593D1A3F8A9000732E8C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/mobile-services-4.21.2-iOS/sdks/iOS/AdobeMobileLibrary\"",
-				);
-				INFOPLIST_FILE = BasicOmniturePlayer/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.BasicOmniturePlayer;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALIDATE_WORKSPACE = YES;
-			};
-			name = Debug;
-		};
-		9840593E1A3F8A9000732E8C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/mobile-services-4.21.2-iOS/sdks/iOS/AdobeMobileLibrary\"",
-				);
-				INFOPLIST_FILE = BasicOmniturePlayer/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.BasicOmniturePlayer;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALIDATE_WORKSPACE = YES;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		984059141A3F8A9000732E8C /* Build configuration list for PBXProject "BasicOmniturePlayer" */ = {
+		D6672B342BD480A30014EE48 /* Build configuration list for PBXNativeTarget "BasicOmniturePlayer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9840593A1A3F8A9000732E8C /* Debug */,
-				9840593B1A3F8A9000732E8C /* Release */,
+				D6672B352BD480A30014EE48 /* Debug */,
+				D6672B362BD480A30014EE48 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9840593C1A3F8A9000732E8C /* Build configuration list for PBXNativeTarget "BasicOmniturePlayer" */ = {
+		D6F3A40D2BD47E5300C75F5A /* Build configuration list for PBXProject "BasicOmniturePlayer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9840593D1A3F8A9000732E8C /* Debug */,
-				9840593E1A3F8A9000732E8C /* Release */,
+				D6F3A4292BD47E5400C75F5A /* Debug */,
+				D6F3A42A2BD47E5400C75F5A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 984059111A3F8A9000732E8C /* Project object */;
+	rootObject = D6F3A40A2BD47E5300C75F5A /* Project object */;
 }

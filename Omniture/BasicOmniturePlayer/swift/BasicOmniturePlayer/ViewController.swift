@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  BasicOmniturePlayer
 //
-//  Copyright © 2020 Brightcove, Inc. All rights reserved.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 import UIKit
@@ -10,167 +10,242 @@ import UIKit
 import BrightcovePlayerSDK
 import BrightcoveAMC
 
-struct ConfigConstants {
-    static let PlaybackServicePolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
-    static let AccountID = "5434391461001"
-    static let VideoID = "6140448705001"
-}
 
-class ViewController: UIViewController {
-    
-    @IBOutlet weak var videoContainerView: UIView!
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
-    private lazy var playerView: BCOVPUIPlayerView? = {
-        // Create PlayerUI views with normal VOD controls.
-        let controlView = BCOVPUIBasicControlView.withVODLayout()
-        guard let _playerView = BCOVPUIPlayerView(playbackController: nil, options: nil, controlsView: controlView) else {
-            return nil
-        }
-        
-        // Add to parent view
-        self.videoContainerView.addSubview(_playerView)
-        _playerView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            _playerView.topAnchor.constraint(equalTo: self.videoContainerView.topAnchor),
-            _playerView.rightAnchor.constraint(equalTo: self.videoContainerView.rightAnchor),
-            _playerView.leftAnchor.constraint(equalTo: self.videoContainerView.leftAnchor),
-            _playerView.bottomAnchor.constraint(equalTo: self.videoContainerView.bottomAnchor)
-        ])
-        
-        return _playerView
+// Customize these values with your own account information
+// Add your Brightcove account and video information here.
+let kAccountId = "5434391461001"
+let kPolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
+let kVideoId = "6140448705001"
+
+
+final class ViewController: UIViewController {
+
+    @IBOutlet fileprivate weak var videoContainerView: UIView!
+
+    fileprivate lazy var playbackService: BCOVPlaybackService = {
+        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+                                                        policyKey: kPolicyKey)
+        return .init(requestFactory: factory)
     }()
-    
-    private lazy var playbackController: BCOVPlaybackController? = {
-        guard let _playbackController = BCOVPlayerSDKManager.shared()?.createPlaybackController(viewStrategy: nil) else {
+
+    fileprivate lazy var playerView: BCOVPUIPlayerView? = {
+        let options = BCOVPUIPlayerViewOptions()
+        options.presentingViewController = self
+        options.automaticControlTypeSelection = true
+
+        guard let playerView = BCOVPUIPlayerView(playbackController: nil,
+                                                 options: options,
+                                                 controlsView: nil) else {
             return nil
         }
-        
-        _playbackController.delegate = self
-        _playbackController.isAutoAdvance = true
-        _playbackController.isAutoPlay = true
-        
+
+        playerView.delegate = self
+
+        playerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        playerView.frame = videoContainerView.bounds
+        videoContainerView.addSubview(playerView)
+
+        return playerView
+    }()
+
+    fileprivate lazy var playbackController: BCOVPlaybackController? = {
+        guard let sdkManager = BCOVPlayerSDKManager.sharedManager(),
+              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
+                                                         applicationId: nil) else {
+            return nil
+        }
+
+        let fps = sdkManager.createFairPlaySessionProvider(withApplicationCertificate: nil,
+                                                           authorizationProxy: authProxy,
+                                                           upstreamSessionProvider: nil)
+
+        guard let playerView,
+              let playbackController = sdkManager.createPlaybackController(with: fps,
+                                                                           viewStrategy: nil) else {
+            return nil
+        }
+
+        playbackController.delegate = self
+        playbackController.isAutoAdvance = true
+        playbackController.isAutoPlay = true
+
+        playerView.playbackController = playbackController
+
         // Use Adobe Video Media Heartbeat v2.0 analytics
-        _playbackController.add(self.videoHeartbeatSessionConsumer)
+        playbackController.add(videoHeartbeatSessionConsumer)
         // OR use Adobe media analytics
-        //_playbackController.add(self.mediaAnalyticsSessionConsumer)
-        
-        return _playbackController
-    }()
-    
-    private lazy var videoHeartbeatSessionConsumer: BCOVAMCSessionConsumer = {
+        //playbackController.add(mediaAnalyticsSessionConsumer)
 
-        var videoHeartbeatConfigurationPolicy: BCOVAMCVideoHeartbeatConfigurationPolicy = {
+        return playbackController
+    }()
+
+    fileprivate lazy var videoHeartbeatSessionConsumer: BCOVAMCSessionConsumer = {
+        let videoHeartbeatConfigurationPolicy: BCOVAMCVideoHeartbeatConfigurationPolicy = {
             (session: BCOVPlaybackSession?) in
-            
+
             let configData = ADBMediaHeartbeatConfig()
-            
+
             configData.trackingServer = "ovppartners.hb.omtrdc.net"
             configData.channel = "test-channel"
             configData.appVersion = "1.0.0"
             configData.ovp = "Brightcove"
             configData.playerName = "BasicOmniturePlayer"
             configData.ssl = false
-            
+
             // NOTE: remove this in production code.
             configData.debugLogging = true
-            
+
             return configData
-            
+
         }
-        
+
         let heartbeatPolicy = BCOVAMCAnalyticsPolicy(heartbeatConfigurationPolicy: videoHeartbeatConfigurationPolicy)
-        
-        return BCOVAMCSessionConsumer.heartbeatAnalyticsConsumer(with: heartbeatPolicy, delegate: self)
-        
+
+        return BCOVAMCSessionConsumer.heartbeatAnalyticsConsumer(with: heartbeatPolicy,
+                                                                 delegate: self)
     }()
-    
-    private lazy var mediaAnalyticsSessionConsumer: BCOVAMCSessionConsumer = {
-       
+
+    fileprivate lazy var mediaAnalyticsSessionConsumer: BCOVAMCSessionConsumer = {
         let mediaSettingPolicy: BCOVAMCMediaSettingPolicy = {
             (session: BCOVPlaybackSession?) in
             
             // You can set video length to 0. Omniture plugin will update it later for you.
-            let settings = ADBMobile.mediaCreateSettings(withName: "BCOVOmniturePlayerMediaSettings", length: 0, playerName: "BasicOmmiturePlayer", playerID: "BasicOmniturePlayer")
-            
+            let settings = ADBMobile.mediaCreateSettings(withName: "BCOVOmniturePlayerMediaSettings",
+                                                         length: 0,
+                                                         playerName: "BasicOmmiturePlayer",
+                                                         playerID: "BasicOmniturePlayer")
+
             // Adobe media analytics setting customization
-            // settings.milestones = @"25,50,75";
-            
+            // settings.milestones = @"25,50,75"
+
             return settings
         }
-        
+
         let mediaPolicy = BCOVAMCAnalyticsPolicy(mediaSettingsPolicy: mediaSettingPolicy)
-        
-        return BCOVAMCSessionConsumer.mediaAnalyticsConsumer(with: mediaPolicy, delegate: self)
-    }()
-    
-    private lazy var playbackService: BCOVPlaybackService = {
-        return BCOVPlaybackService(accountId: ConfigConstants.AccountID, policyKey: ConfigConstants.PlaybackServicePolicyKey)
+
+        return BCOVAMCSessionConsumer.mediaAnalyticsConsumer(with: mediaPolicy,
+                                                             delegate: self)
     }()
 
-    // MARK: - View Lifecycle
-    
+    fileprivate lazy var statusBarHidden = false {
+        didSet {
+            setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+
+    override var prefersStatusBarHidden: Bool {
+        return statusBarHidden
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        playerView?.playbackController = playbackController
+
         requestContentFromPlaybackService()
     }
 
-    private func requestContentFromPlaybackService() {
-        
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:ConfigConstants.VideoID]
-        playbackService.findVideo(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
-            
-            if let video = video {
-                self?.playbackController?.setVideos([video] as NSFastEnumeration)
-            }
-            
-            if let error = error {
-                print("ViewController Debug - Error retrieving video playlist: \(error.localizedDescription)")
-            }
-            
-        })
-        
-    }
+    fileprivate func requestContentFromPlaybackService() {
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId]
+        playbackService.findVideo(withConfiguration: configuration,
+                                  queryParameters: nil) {
+            [playbackController] (video: BCOVVideo?,
+                                  jsonResponse: [AnyHashable: Any]?,
+                                  error: Error?) in
+            guard let playbackController,
+                  let video else {
+                if let error {
+                    print("ViewController - Error retrieving video: \(error.localizedDescription)")
+                }
 
+                return
+            }
+
+#if targetEnvironment(simulator)
+            if video.usesFairPlay {
+                // FairPlay doesn't work when we're running in a simulator,
+                // so put up an alert.
+                let alert = UIAlertController(title: "FairPlay Warning",
+                                              message: """
+                                               FairPlay only works on actual \
+                                               iOS or tvOS devices.\n
+                                               You will not be able to view \
+                                               any FairPlay content in the \
+                                               iOS or tvOS simulator.
+                                               """,
+                                              preferredStyle: .alert)
+
+                alert.addAction(.init(title: "OK", style: .default))
+
+                DispatchQueue.main.async { [self] in
+                    present(alert, animated: true)
+                }
+
+                return
+            }
+#endif
+
+            playbackController.setVideos([video] as NSFastEnumeration)
+        }
+    }
 }
+
 
 // MARK: - BCOVPlaybackControllerDelegate
 
 extension ViewController: BCOVPlaybackControllerDelegate {
-    
-    func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController Debug - Advanced to new session.")
+
+    func playbackController(_ controller: BCOVPlaybackController!,
+                            didAdvanceTo session: BCOVPlaybackSession!) {
+        print("ViewController - Advanced to new session.")
     }
-    
+
+    func playbackController(_ controller: BCOVPlaybackController!,
+                            playbackSession session: BCOVPlaybackSession,
+                            didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
+
+        if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
+           let error = lifecycleEvent.properties["error"] as? NSError {
+            // Report any errors that may have occurred with playback.
+            print("ViewController - Playback error: \(error.localizedDescription)")
+        }
+    }
 }
+
+
+// MARK: - BCOVPUIPlayerViewDelegate
+
+extension ViewController: BCOVPUIPlayerViewDelegate {
+
+    func playerView(_ playerView: BCOVPUIPlayerView!,
+                    willTransitionTo screenMode: BCOVPUIScreenMode) {
+        statusBarHidden = screenMode == .full
+    }
+}
+
 
 // MARK: - BCOVAMCSessionConsumerHeartbeatDelegate
 
 extension ViewController: BCOVAMCSessionConsumerHeartbeatDelegate {
-    
+
     func heartbeatVideoUnloaded(on session: BCOVPlaybackSession!) {
-        print("ViewController Debug - heartbeatVideoUnloadedOnSession:")
+        print("ViewController - heartbeatVideoUnloadedOnSession")
     }
-    
 }
 
-// MARK: - BCOVAMCSessionConsumerMeidaDelegate
 
-extension ViewController: BCOVAMCSessionConsumerMeidaDelegate {
-    
-    func media(on session: BCOVPlaybackSession!, mediaState: ADBMediaState!) {
+// MARK: - BCOVAMCSessionConsumerMediaDelegate
+
+extension ViewController: BCOVAMCSessionConsumerMediaDelegate {
+
+    func media(on session: BCOVPlaybackSession!,
+               mediaState: ADBMediaState!) {
         guard let mediaEvent = mediaState.mediaEvent else {
             return
         }
-        print("mediaEvent = \(mediaEvent)")
+
+        print("ViewController - mediaEvent = \(mediaEvent)")
+
         if  mediaEvent == "MILESTONE" {
-            print("milestone = \(mediaState.milestone)")
+            print("ViewController - milestone = \(mediaState.milestone)")
         }
     }
-    
 }
