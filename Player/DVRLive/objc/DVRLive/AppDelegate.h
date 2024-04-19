@@ -1,16 +1,15 @@
 //
 //  AppDelegate.h
-//  VideoCloudBasicPlayer
+//  DVRLive
 //
-//  Copyright © 2020 Brightcove, Inc. All rights reserved.
-//  License: https://accounts.brightcove.com/en/terms-and-conditions
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) UIWindow *window;
 
 @end
-

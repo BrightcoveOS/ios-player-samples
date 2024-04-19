@@ -2,22 +2,21 @@
 //  ControlsViewController.m
 //  CustomControls
 //
-//  Copyright © 2020 Brightcove, Inc. All rights reserved.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
-
-#import "ControlsViewController.h"
 
 #import "ClosedCaptionMenuController.h"
 
+#import "ControlsViewController.h"
+
+
 // ** Customize these values **
-static NSTimeInterval const kViewControllerControlsVisibleDuration = 5.;
-static NSTimeInterval const kViewControllerFadeControlsInAnimationDuration = .1;
-static NSTimeInterval const kViewControllerFadeControlsOutAnimationDuration = .2;
+static NSTimeInterval const kVisibleDuration = 5.0;
+static NSTimeInterval const kAnimateInDuration = 0.1;
+static NSTimeInterval const kAnimateOutDuration = 0.2;
 
 
-@interface ControlsViewController ()
-
-@property (nonatomic, weak) AVPlayer *currentPlayer;
+@interface ControlsViewController () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView *controlsContainer;
 @property (nonatomic, weak) IBOutlet UIButton *playPauseButton;
@@ -28,6 +27,7 @@ static NSTimeInterval const kViewControllerFadeControlsOutAnimationDuration = .2
 @property (nonatomic, weak) IBOutlet MPVolumeView *externalScreenButton;
 @property (nonatomic, weak) IBOutlet UIButton *closedCaptionButton;
 
+@property (nonatomic, weak) AVPlayer *currentPlayer;
 @property (nonatomic, strong) NSTimer *controlTimer;
 @property (nonatomic, assign, getter=wasPlayingOnSeek) BOOL playingOnSeek;
 @property (nonatomic, strong) ClosedCaptionMenuController *ccMenuController;
@@ -37,14 +37,14 @@ static NSTimeInterval const kViewControllerFadeControlsOutAnimationDuration = .2
 
 @implementation ControlsViewController
 
-#pragma mark BCOVDelegatingSessionConsumerDelegate
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
 
     // Used for hiding and showing the controls.
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapDetected:)];
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self 
+                                                                                    action:@selector(tapDetected:)];
     tapRecognizer.numberOfTapsRequired = 1;
     tapRecognizer.numberOfTouchesRequired = 1;
     tapRecognizer.delegate = self;
@@ -54,147 +54,59 @@ static NSTimeInterval const kViewControllerFadeControlsOutAnimationDuration = .2
     self.externalScreenButton.showsVolumeSlider = NO;
     
     self.closedCaptionButton.enabled = NO;
-    
+
     self.ccMenuController = [[ClosedCaptionMenuController alloc] initWithStyle:UITableViewStyleGrouped];
     self.ccMenuController.controlsView = self;
 }
 
-- (void)didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
+- (void)setClosedCaptionEnabled:(BOOL)closedCaptionEnabled
 {
-    self.currentPlayer = session.player;
-
-    // Reset State
-    self.playingOnSeek = NO;
-    self.playheadLabel.text = [ControlsViewController formatTime:0];
-    self.playheadSlider.value = 0.f;
-
-    [self invalidateTimerAndShowControls];
+    _closedCaptionEnabled = closedCaptionEnabled;
+    self.closedCaptionButton.enabled = closedCaptionEnabled;
 }
 
-- (void)playbackSession:(id<BCOVPlaybackSession>)session didChangeDuration:(NSTimeInterval)duration
+- (void)tapDetected:(UIGestureRecognizer *)gestureRecognizer
 {
-    self.durationLabel.text = [ControlsViewController formatTime:duration];
-}
-
-- (void)playbackSession:(id<BCOVPlaybackSession>)session didProgressTo:(NSTimeInterval)progress
-{
-    self.playheadLabel.text = [ControlsViewController formatTime:progress];
-
-    NSTimeInterval duration = CMTimeGetSeconds(session.player.currentItem.duration);
-    float percent = progress / duration;
-    self.playheadSlider.value = isnan(percent) ? 0.0f : percent;
-}
-
-- (void)playbackSession:(id<BCOVPlaybackSession>)session didReceiveLifecycleEvent:(BCOVPlaybackSessionLifecycleEvent *)lifecycleEvent
-{
-    if ([kBCOVPlaybackSessionLifecycleEventPlay isEqualToString:lifecycleEvent.eventType])
+    if (self.playPauseButton.isSelected)
     {
-        self.playPauseButton.selected = YES;
-
-        [self reestablishTimer];
-    }
-    else if([kBCOVPlaybackSessionLifecycleEventPause isEqualToString:lifecycleEvent.eventType])
-    {
-        self.playPauseButton.selected = NO;
-
-        [self invalidateTimerAndShowControls];
-    } else if ([kBCOVPlaybackSessionLifecycleEventReady isEqualToString:lifecycleEvent.eventType])
-    {
-        self.ccMenuController.currentSession = session;
-    }
-}
-
-#pragma mark IBActions
-
-- (IBAction)handlePlayPauseButtonPressed:(UIButton *)sender
-{
-    if (sender.selected)
-    {
-        [self.playbackController pause];
-    }
-    else
-    {
-        [self.playbackController play];
-    }
-}
-
-- (IBAction)handlePlayheadSliderValueChanged:(UISlider *)sender
-{
-    NSTimeInterval newCurrentTime = sender.value * CMTimeGetSeconds(self.currentPlayer.currentItem.duration);
-    self.playheadLabel.text = [ControlsViewController formatTime:newCurrentTime];
-}
-
-- (IBAction)handlePlayheadSliderTouchBegin:(UISlider *)sender
-{
-    self.playingOnSeek = self.playPauseButton.selected;
-    [self.playbackController pause];
-}
-
-- (IBAction)handlePlayheadSliderTouchEnd:(UISlider *)sender
-{
-    NSTimeInterval newCurrentTime = sender.value * CMTimeGetSeconds(self.currentPlayer.currentItem.duration);
-    CMTime seekToTime = CMTimeMakeWithSeconds(newCurrentTime, 600);
-
-    typeof(self) __weak weakSelf = self;
-
-    [self.playbackController seekToTime:seekToTime completionHandler:^(BOOL finished) {
-
-        typeof(self) strongSelf = weakSelf;
-
-        if (finished && strongSelf.wasPlayingOnSeek)
+        if (self.controlsContainer.alpha == 0.f)
         {
-            strongSelf.playingOnSeek = NO;
-            [strongSelf.playbackController play];
+            [self fadeControlsIn];
         }
-
-    }];
-}
-
-- (IBAction)handleFullScreenButtonPressed:(UIButton *)sender
-{
-    if (sender.isSelected)
-    {
-        sender.selected = NO;
-        [self.delegate handleExitFullScreenButtonPressed];
-    }
-    else
-    {
-        sender.selected = YES;
-        [self.delegate handleEnterFullScreenButtonPressed];
+        else if (self.controlsContainer.alpha == 1.f)
+        {
+            [self fadeControlsOut];
+        }
     }
 }
-
-- (IBAction)handleClosedCaptionButtonPressed:(UIButton *)sender
-{    
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.ccMenuController];
-    [self presentViewController:navController animated:YES completion:nil];
-}
-
-#pragma mark Hide/Show Controls
 
 - (void)fadeControlsIn
 {
-    [UIView animateWithDuration:kViewControllerFadeControlsInAnimationDuration animations:^{
-
+    [UIView animateWithDuration:kAnimateInDuration animations:^{
         [self showControls];
-
     } completion:^(BOOL finished) {
-
         if(finished)
         {
             [self reestablishTimer];
         }
-
     }];
 }
 
 - (void)fadeControlsOut
 {
-    [UIView animateWithDuration:kViewControllerFadeControlsOutAnimationDuration animations:^{
-
+    [UIView animateWithDuration:kAnimateOutDuration animations:^{
         [self hideControls];
-
     }];
+}
+
+- (void)reestablishTimer
+{
+    [self.controlTimer invalidate];
+    self.controlTimer = [NSTimer scheduledTimerWithTimeInterval:kVisibleDuration
+                                                         target:self
+                                                       selector:@selector(fadeControlsOut)
+                                                       userInfo:nil
+                                                        repeats:NO];
 }
 
 - (void)hideControls
@@ -207,55 +119,11 @@ static NSTimeInterval const kViewControllerFadeControlsOutAnimationDuration = .2
     self.controlsContainer.alpha = 1.f;
 }
 
-- (void)reestablishTimer
-{
-    [self.controlTimer invalidate];
-    self.controlTimer = [NSTimer scheduledTimerWithTimeInterval:kViewControllerControlsVisibleDuration target:self selector:@selector(fadeControlsOut) userInfo:nil repeats:NO];
-}
-
--(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-{
-    // This makes sure that we don't try and hide the controls if someone is pressing any of the buttons
-    // or slider.
-    if([touch.view isKindOfClass:[UIButton class]] || [touch.view isKindOfClass:[UISlider class]])
-    {
-        return NO;
-    }
-
-    return YES;
-}
-
-- (void)tapDetected:(UIGestureRecognizer *)gestureRecognizer
-{
-    if(self.playPauseButton.isSelected)
-    {
-        if(self.controlsContainer.alpha == 0.f)
-        {
-            [self fadeControlsIn];
-        }
-        else if (self.controlsContainer.alpha == 1.f)
-        {
-            [self fadeControlsOut];
-        }
-    }
-}
-
 - (void)invalidateTimerAndShowControls
 {
     [self.controlTimer invalidate];
     [self showControls];
 }
-
-#pragma mark - Setters
-
-- (void)setClosedCaptionEnabled:(BOOL)closedCaptionEnabled
-{
-    _closedCaptionEnabled = closedCaptionEnabled;
-    
-    self.closedCaptionButton.enabled = closedCaptionEnabled;
-}
-
-#pragma mark Class Methods
 
 + (NSString *)formatTime:(NSTimeInterval)timeInterval
 {
@@ -291,8 +159,135 @@ static NSTimeInterval const kViewControllerFadeControlsOutAnimationDuration = .2
     {
         ret = [NSString stringWithFormat:@"%@:%@", formattedMinutes, formattedSeconds];
     }
-    
+
     return ret;
+}
+
+- (IBAction)handlePlayPauseButtonPressed:(UIButton *)sender
+{
+    if (sender.selected)
+    {
+        [self.playbackController pause];
+    }
+    else
+    {
+        [self.playbackController play];
+    }
+}
+
+- (IBAction)handlePlayheadSliderValueChanged:(UISlider *)sender
+{
+    NSTimeInterval newCurrentTime = sender.value * CMTimeGetSeconds(self.currentPlayer.currentItem.duration);
+    self.playheadLabel.text = [ControlsViewController formatTime:newCurrentTime];
+}
+
+- (IBAction)handlePlayheadSliderTouchBegin:(UISlider *)sender
+{
+    self.playingOnSeek = self.playPauseButton.selected;
+    [self.playbackController pause];
+}
+
+- (IBAction)handlePlayheadSliderTouchEnd:(UISlider *)sender
+{
+    NSTimeInterval newCurrentTime = sender.value * CMTimeGetSeconds(self.currentPlayer.currentItem.duration);
+    CMTime seekToTime = CMTimeMakeWithSeconds(newCurrentTime, 600);
+
+    typeof(self) __weak weakSelf = self;
+
+    [self.playbackController seekToTime:seekToTime completionHandler:^(BOOL finished) {
+        typeof(self) strongSelf = weakSelf;
+        if (finished && strongSelf.wasPlayingOnSeek)
+        {
+            strongSelf.playingOnSeek = NO;
+            [strongSelf.playbackController play];
+        }
+    }];
+}
+
+- (IBAction)handleFullScreenButtonPressed:(UIButton *)sender
+{
+    if (sender.isSelected)
+    {
+        sender.selected = NO;
+        [self.delegate handleExitFullScreenButtonPressed];
+    }
+    else
+    {
+        sender.selected = YES;
+        [self.delegate handleEnterFullScreenButtonPressed];
+    }
+}
+
+- (IBAction)handleClosedCaptionButtonPressed:(UIButton *)sender
+{
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.ccMenuController];
+    [self presentViewController:navController animated:YES completion:nil];
+}
+
+
+#pragma mark - BCOVPlaybackSessionConsumer
+
+- (void)didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
+{
+    self.currentPlayer = session.player;
+
+    // Reset State
+    self.playingOnSeek = NO;
+    self.playheadLabel.text = [ControlsViewController formatTime:0];
+    self.playheadSlider.value = 0.f;
+
+    [self invalidateTimerAndShowControls];
+}
+
+- (void)playbackSession:(id<BCOVPlaybackSession>)session 
+      didChangeDuration:(NSTimeInterval)duration
+{
+    self.durationLabel.text = [ControlsViewController formatTime:duration];
+}
+
+- (void)playbackSession:(id<BCOVPlaybackSession>)session 
+          didProgressTo:(NSTimeInterval)progress
+{
+    self.playheadLabel.text = [ControlsViewController formatTime:progress];
+
+    NSTimeInterval duration = CMTimeGetSeconds(session.player.currentItem.duration);
+    float percent = progress / duration;
+    self.playheadSlider.value = isnan(percent) ? 0.0f : percent;
+}
+
+- (void)playbackSession:(id<BCOVPlaybackSession>)session 
+didReceiveLifecycleEvent:(BCOVPlaybackSessionLifecycleEvent *)lifecycleEvent
+{
+    if ([kBCOVPlaybackSessionLifecycleEventPlay isEqualToString:lifecycleEvent.eventType])
+    {
+        self.playPauseButton.selected = YES;
+        [self reestablishTimer];
+    }
+    else if([kBCOVPlaybackSessionLifecycleEventPause isEqualToString:lifecycleEvent.eventType])
+    {
+        self.playPauseButton.selected = NO;
+        [self invalidateTimerAndShowControls];
+    } 
+    else if ([kBCOVPlaybackSessionLifecycleEventReady isEqualToString:lifecycleEvent.eventType])
+    {
+        self.ccMenuController.currentSession = session;
+    }
+}
+
+
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+      shouldReceiveTouch:(UITouch *)touch
+{
+    // This makes sure that we don't try and hide the controls if someone is pressing any of the buttons
+    // or slider.
+    if([touch.view isKindOfClass:[UIButton class]] || [touch.view isKindOfClass:[UISlider class]])
+    {
+        return NO;
+    }
+
+    return YES;
 }
 
 @end

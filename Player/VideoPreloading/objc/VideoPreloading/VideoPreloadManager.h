@@ -1,28 +1,22 @@
 //
 //  VideoPreloadManager.h
-//  VideoCloudBasicPlayer
+//  VideoPreloading
 //
-//  Created by Jeremy Blaker on 3/21/19.
-//  Copyright © 2020 Brightcove. All rights reserved.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
 
-@class BCOVVideo;
-@class BCOVPUIPlayerView;
-@protocol BCOVPlaybackControllerDelegate;
-@protocol BCOVPlaybackSession;
-
-NS_ASSUME_NONNULL_BEGIN
 
 @interface VideoPreloadManager : NSObject
 
-- (instancetype)initWithPlaybackControllerDelegate:(id<BCOVPlaybackControllerDelegate> _Nonnull)delegate andPlayerView:(BCOVPUIPlayerView * _Nonnull)playerView andShouldAutoPlay:(BOOL)shouldAutoPlay;
+- (instancetype _Nonnull)initWithPlaybackControllerDelegate:(id<BCOVPlaybackControllerDelegate> _Nonnull)delegate 
+                                              andPlayerView:(BCOVPUIPlayerView * _Nonnull)playerView
+                                          andShouldAutoPlay:(BOOL)shouldAutoPlay;
 - (void)preloadNextVideoIfNeccessary:(id<BCOVPlaybackSession> _Nonnull)session;
 - (void)currentVideoDidCompletePlayback;
 
-@property (nonatomic, strong) NSArray<BCOVVideo *> *videos;
+@property (nonatomic, strong, nullable) NSArray<BCOVVideo *> *videos;
 
 @end
-
-NS_ASSUME_NONNULL_END

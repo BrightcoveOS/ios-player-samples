@@ -3,23 +3,23 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D6B08BA92BE57DBE00BFA9A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6B08BA82BE57DBE00BFA9A3 /* Assets.xcassets */; };
 		E9DEE543216E39F60033C285 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE542216E39F60033C285 /* AppDelegate.swift */; };
 		E9DEE545216E39F60033C285 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE544216E39F60033C285 /* ViewController.swift */; };
 		E9DEE548216E39F60033C285 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE546216E39F60033C285 /* Main.storyboard */; };
-		E9DEE54A216E39F70033C285 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE549216E39F70033C285 /* Assets.xcassets */; };
 		E9DEE54D216E39F70033C285 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE54B216E39F70033C285 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D6B08BA82BE57DBE00BFA9A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		E9DEE53F216E39F60033C285 /* Video360Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Video360Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9DEE542216E39F60033C285 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9DEE544216E39F60033C285 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E9DEE547216E39F60033C285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E9DEE549216E39F70033C285 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9DEE54C216E39F70033C285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E9DEE54E216E39F70033C285 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -54,12 +54,12 @@
 		E9DEE541216E39F60033C285 /* Video360Player */ = {
 			isa = PBXGroup;
 			children = (
+				E9DEE54E216E39F70033C285 /* Info.plist */,
+				D6B08BA82BE57DBE00BFA9A3 /* Assets.xcassets */,
+				E9DEE54B216E39F70033C285 /* LaunchScreen.storyboard */,
+				E9DEE546216E39F60033C285 /* Main.storyboard */,
 				E9DEE542216E39F60033C285 /* AppDelegate.swift */,
 				E9DEE544216E39F60033C285 /* ViewController.swift */,
-				E9DEE546216E39F60033C285 /* Main.storyboard */,
-				E9DEE549216E39F70033C285 /* Assets.xcassets */,
-				E9DEE54B216E39F70033C285 /* LaunchScreen.storyboard */,
-				E9DEE54E216E39F70033C285 /* Info.plist */,
 			);
 			path = Video360Player;
 			sourceTree = "<group>";
@@ -92,7 +92,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 1200;
-				ORGANIZATIONNAME = "Brightcove, Inc";
+				ORGANIZATIONNAME = "Brightcove, Inc.";
 				TargetAttributes = {
 					E9DEE53E216E39F60033C285 = {
 						CreatedOnToolsVersion = 10.0;
@@ -101,7 +101,7 @@
 				};
 			};
 			buildConfigurationList = E9DEE53A216E39F60033C285 /* Build configuration list for PBXProject "Video360Player" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -124,7 +124,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9DEE54D216E39F70033C285 /* LaunchScreen.storyboard in Resources */,
-				E9DEE54A216E39F70033C285 /* Assets.xcassets in Resources */,
+				D6B08BA92BE57DBE00BFA9A3 /* Assets.xcassets in Resources */,
 				E9DEE548216E39F60033C285 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -196,7 +196,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -215,7 +214,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -258,7 +257,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -271,7 +269,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -285,14 +283,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = Video360Player/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Video360;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.Video360Player;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -304,14 +302,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = Video360Player/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Video360;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.Video360Player;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

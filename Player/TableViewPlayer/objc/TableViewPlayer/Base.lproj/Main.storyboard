@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Kyb-vL-8zb">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Kyb-vL-8zb">
+    <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,7 +18,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="VideoCell" rowHeight="289" id="uZw-BL-7X3" customClass="VideoTableViewCell">
-                                <rect key="frame" x="0.0" y="44.5" width="414" height="289"/>
+                                <rect key="frame" x="0.0" y="50" width="414" height="289"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uZw-BL-7X3" id="FW5-g4-Nw0">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="289"/>
@@ -32,14 +32,14 @@
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="epQ-h9-UcR">
-                                            <rect key="frame" x="304" y="50.5" width="85" height="31"/>
+                                            <rect key="frame" x="294.5" y="50.5" width="94.5" height="34.5"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mja-b7-lZi">
-                                                    <rect key="frame" x="5" y="0.0" width="75" height="31"/>
+                                                    <rect key="frame" x="5" y="0.0" width="84.5" height="34.5"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="Unmute"/>
                                                     <connections>
-                                                        <action selector="toggleVideoMute:" destination="uZw-BL-7X3" eventType="touchUpInside" id="Xw7-oi-ssN"/>
+                                                        <action selector="toggleVideoMute:" destination="uZw-BL-7X3" eventType="touchUpInside" id="8o3-x5-I7M"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -71,9 +71,9 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="muteButton" destination="Mja-b7-lZi" id="Psv-m0-dlh"/>
-                                    <outlet property="videoContainer" destination="nq8-EF-Gx5" id="LmK-F9-Rlj"/>
-                                    <outlet property="videoLabel" destination="aik-PB-JnQ" id="hQx-X7-93T"/>
+                                    <outlet property="muteButton" destination="Mja-b7-lZi" id="66C-x1-hTz"/>
+                                    <outlet property="videoContainerView" destination="nq8-EF-Gx5" id="uw2-SE-1uO"/>
+                                    <outlet property="videoLabel" destination="aik-PB-JnQ" id="10v-Dx-87H"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

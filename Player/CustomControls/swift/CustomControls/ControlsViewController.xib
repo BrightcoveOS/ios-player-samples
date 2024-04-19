@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_72" orientation="portrait" appearance="light"/>
+    <accessibilityOverrides/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -34,12 +36,14 @@
                                 <constraint firstAttribute="width" constant="40" id="PfI-Eo-7B8"/>
                                 <constraint firstAttribute="height" constant="40" id="Psr-0E-fGm"/>
                             </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <inset key="contentEdgeInsets" minX="7" minY="7" maxX="7" maxY="7"/>
                             <inset key="imageEdgeInsets" minX="7" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" image="Play Button">
+                            <state key="normal">
                                 <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <imageReference key="image" image="play.fill"/>
                             </state>
-                            <state key="selected" image="Pause Button"/>
+                            <state key="selected" image="pause.fill"/>
                             <connections>
                                 <action selector="handlePlayPauseButtonPressed:" destination="-1" eventType="touchUpInside" id="AyS-7U-WHy"/>
                             </connections>
@@ -65,15 +69,17 @@
                                 <constraint firstAttribute="width" constant="40" id="5ft-sI-zrh"/>
                                 <constraint firstAttribute="height" constant="40" id="ooI-kS-482"/>
                             </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <inset key="contentEdgeInsets" minX="7" minY="7" maxX="7" maxY="7"/>
-                            <state key="normal" image="Fullscreen Button">
+                            <state key="normal" image="arrow.down.left.and.arrow.up.right">
                                 <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
+                            <state key="selected" image="arrow.up.right.and.arrow.down.left"/>
                             <connections>
                                 <action selector="handleFullScreenButtonPressed:" destination="-1" eventType="touchUpInside" id="f2f-8t-ngd"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vg-J7-gRf" userLabel="fullscreenButton">
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vg-J7-gRf" userLabel="closedCaptionButton">
                             <rect key="frame" x="504" y="0.0" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="0Lw-HT-a7G"/>
@@ -81,11 +87,11 @@
                             </constraints>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <inset key="contentEdgeInsets" minX="7" minY="7" maxX="7" maxY="7"/>
-                            <state key="normal" image="ClosedCaptioning">
+                            <state key="normal" image="captions.bubble">
                                 <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
-                                <action selector="handleClosedCaptionButtonPressed:" destination="-1" eventType="touchUpInside" id="wem-A2-2cZ"/>
+                                <action selector="handleClosedCaptionButtonPressed:" destination="-1" eventType="touchUpInside" id="nsC-u0-pcE"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSU-1E-M8Y" userLabel="durationLabel">
@@ -136,10 +142,10 @@
         </view>
     </objects>
     <resources>
-        <image name="ClosedCaptioning" width="1024" height="1024"/>
-        <image name="Fullscreen Button" width="42" height="42"/>
-        <image name="Pause Button" width="40" height="41.5"/>
-        <image name="Play Button" width="93" height="118.5"/>
+        <image name="arrow.down.left.and.arrow.up.right" width="10" height="10"/>
+        <image name="captions.bubble" width="12" height="11"/>
+        <image name="pause.fill" width="7" height="9"/>
+        <image name="play.fill" width="8" height="9"/>
         <systemColor name="darkTextColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

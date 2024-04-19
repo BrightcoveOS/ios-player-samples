@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_0" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,30 +16,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U45-8H-pUj" userLabel="videoContainer">
-                                <rect key="frame" x="0.0" y="44.000000000000014" width="390" height="219.33333333333337"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VLg-m1-MHh">
+                                <rect key="frame" x="0.0" y="47.000000000000014" width="390" height="219.33333333333337"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="U45-8H-pUj" secondAttribute="height" multiplier="16:9" priority="750" id="epP-mi-zcO"/>
+                                    <constraint firstAttribute="width" secondItem="VLg-m1-MHh" secondAttribute="height" multiplier="16:9" priority="750" id="o3I-ZE-6uu"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="xxa-m1-iht"/>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="U45-8H-pUj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="GlN-xV-Ddg"/>
-                            <constraint firstAttribute="trailing" secondItem="U45-8H-pUj" secondAttribute="trailing" id="Jd7-T9-Yfs"/>
-                            <constraint firstItem="xxa-m1-iht" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="U45-8H-pUj" secondAttribute="bottom" id="UjJ-R4-AaJ"/>
-                            <constraint firstItem="U45-8H-pUj" firstAttribute="top" secondItem="xxa-m1-iht" secondAttribute="top" id="qoJ-3e-68J"/>
+                            <constraint firstItem="VLg-m1-MHh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="J2g-Tk-WT6"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="VLg-m1-MHh" secondAttribute="bottom" id="QaC-5P-ong"/>
+                            <constraint firstItem="VLg-m1-MHh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="blI-Fw-30F"/>
+                            <constraint firstAttribute="trailing" secondItem="VLg-m1-MHh" secondAttribute="trailing" id="w78-Ja-Uyh"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="videoContainer" destination="U45-8H-pUj" id="vvu-jd-sG3"/>
+                        <outlet property="videoContainerView" destination="VLg-m1-MHh" id="QBT-Jf-yzX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-17" y="-39"/>
+            <point key="canvasLocation" x="22" y="112"/>
         </scene>
     </scenes>
 </document>

@@ -3,25 +3,25 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D6B08BA32BE534B100BFA9A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6B08BA22BE534B100BFA9A3 /* Assets.xcassets */; };
 		E96CB8F72AC487750035A454 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96CB8F62AC487750035A454 /* AppDelegate.swift */; };
 		E96CB8FB2AC487750035A454 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96CB8FA2AC487750035A454 /* VideoViewController.swift */; };
 		E96CB8FE2AC487750035A454 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E96CB8FC2AC487750035A454 /* Main.storyboard */; };
-		E96CB9002AC487770035A454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E96CB8FF2AC487770035A454 /* Assets.xcassets */; };
 		E96CB9032AC487770035A454 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E96CB9012AC487770035A454 /* LaunchScreen.storyboard */; };
 		E96CB90C2AC487A20035A454 /* BrightcovePlayerSDK in Frameworks */ = {isa = PBXBuildFile; productRef = E96CB90B2AC487A20035A454 /* BrightcovePlayerSDK */; };
 		E96CB90E2AC5F8980035A454 /* BCOVPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96CB90D2AC5F8980035A454 /* BCOVPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D6B08BA22BE534B100BFA9A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		E96CB8F32AC487750035A454 /* VerticalPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VerticalPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E96CB8F62AC487750035A454 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E96CB8FA2AC487750035A454 /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		E96CB8FD2AC487750035A454 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E96CB8FF2AC487770035A454 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E96CB9022AC487770035A454 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E96CB9042AC487770035A454 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E96CB90D2AC5F8980035A454 /* BCOVPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCOVPageViewController.swift; sourceTree = "<group>"; };
@@ -58,13 +58,13 @@
 		E96CB8F52AC487750035A454 /* VerticalPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				E96CB8F62AC487750035A454 /* AppDelegate.swift */,
-				E96CB8FA2AC487750035A454 /* VideoViewController.swift */,
-				E96CB90D2AC5F8980035A454 /* BCOVPageViewController.swift */,
-				E96CB8FC2AC487750035A454 /* Main.storyboard */,
-				E96CB8FF2AC487770035A454 /* Assets.xcassets */,
-				E96CB9012AC487770035A454 /* LaunchScreen.storyboard */,
 				E96CB9042AC487770035A454 /* Info.plist */,
+				D6B08BA22BE534B100BFA9A3 /* Assets.xcassets */,
+				E96CB8FC2AC487750035A454 /* Main.storyboard */,
+				E96CB9012AC487770035A454 /* LaunchScreen.storyboard */,
+				E96CB8F62AC487750035A454 /* AppDelegate.swift */,
+				E96CB90D2AC5F8980035A454 /* BCOVPageViewController.swift */,
+				E96CB8FA2AC487750035A454 /* VideoViewController.swift */,
 			);
 			path = VerticalPlayer;
 			sourceTree = "<group>";
@@ -101,6 +101,7 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
+				ORGANIZATIONNAME = "Brightcove, Inc.";
 				TargetAttributes = {
 					E96CB8F22AC487750035A454 = {
 						CreatedOnToolsVersion = 15.0;
@@ -108,7 +109,7 @@
 				};
 			};
 			buildConfigurationList = E96CB8EE2AC487750035A454 /* Build configuration list for PBXProject "VerticalPlayer" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -134,7 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E96CB9032AC487770035A454 /* LaunchScreen.storyboard in Resources */,
-				E96CB9002AC487770035A454 /* Assets.xcassets in Resources */,
+				D6B08BA32BE534B100BFA9A3 /* Assets.xcassets in Resources */,
 				E96CB8FE2AC487750035A454 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,23 +299,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = VerticalPlayer/Info.plist;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Vertical;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.VerticalPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -327,23 +320,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = VerticalPlayer/Info.plist;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Vertical;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.VerticalPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -2,133 +2,160 @@
 //  ViewController.swift
 //  AppleTV
 //
-//  Copyright © 2020 Brightcove. All rights reserved.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 // This sample app shows how to set up and use the TV Player UI on tvOS.
-// It also shows how to subclass BCOVTVTabBarItemView to create your
-// own top tab bar item view with your own controls.
+// It also shows how to create a Custom Info View Controller with your own controls.
 
+import UIKit
 import BrightcovePlayerSDK
 
-fileprivate struct playbackConfig {
-    static let policyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
-    static let accountID = "5434391461001"
-    static let videoID = "6140448705001"
-}
 
-class ViewController: UIViewController
-{
-    @IBOutlet weak var videoContainerView: UIView!
-    
-    lazy var playerView: BCOVTVPlayerView? = {
-        // Set ourself as the presenting view controller
-        // so that tab bar panels can present other view controllers
+// Customize these values with your own account information
+// Add your Brightcove account and video information here.
+let kAccountId = "5434391461001"
+let kPolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
+let kVideoId = "6140448705001"
+
+
+final class ViewController: UIViewController {
+
+    fileprivate lazy var playbackService: BCOVPlaybackService = {
+        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+                                                        policyKey: kPolicyKey)
+        return .init(requestFactory: factory)
+    }()
+
+    fileprivate lazy var playerView: BCOVTVPlayerView? = {
         let options = BCOVTVPlayerViewOptions()
         options.presentingViewController = self
-        
-        // Create and add to the video container view
-        guard let _playerView = BCOVTVPlayerView(options: options) else {
+        options.automaticControlTypeSelection = true
+
+        guard let playerView = BCOVTVPlayerView(options: options) else {
             return nil
         }
-        
-        // Link the playback controller to the Player View
-        _playerView.playbackController = playbackController
-        
-        videoContainerView.addSubview(_playerView)
-        
-        _playerView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            _playerView.topAnchor.constraint(equalTo: videoContainerView.topAnchor),
-            _playerView.rightAnchor.constraint(equalTo: videoContainerView.rightAnchor),
-            _playerView.leftAnchor.constraint(equalTo: videoContainerView.leftAnchor),
-            _playerView.bottomAnchor.constraint(equalTo: videoContainerView.bottomAnchor)
-        ])
-        
-        return _playerView
+
+        playerView.frame = view.bounds
+        playerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+        let sampleInfoVC = SampleInfoViewController(playerView: playerView)
+        sampleInfoVC.preferredContentSize = CGSizeMake(0, 200)
+        playerView.controlsView.customInfoViewControllers = [sampleInfoVC]
+
+        view.addSubview(playerView)
+
+        return playerView
     }()
-    
-    lazy var playbackService: BCOVPlaybackService = {
-        return BCOVPlaybackService(accountId: playbackConfig.accountID, policyKey: playbackConfig.policyKey)
-    }()
-    
-    lazy var playbackController: BCOVPlaybackController? = {
-        guard let _playbackController = BCOVPlayerSDKManager.shared().createPlaybackController() else {
+
+    fileprivate lazy var playbackController: BCOVPlaybackController? = {
+        guard let sdkManager = BCOVPlayerSDKManager.sharedManager(),
+              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
+                                                         applicationId: nil) else {
             return nil
         }
-        _playbackController.delegate = self
-        _playbackController.isAutoAdvance = true
-        _playbackController.isAutoPlay = true
-        return _playbackController
+
+        let fps = sdkManager.createFairPlaySessionProvider(withApplicationCertificate: nil,
+                                                           authorizationProxy: authProxy,
+                                                           upstreamSessionProvider: nil)
+
+        guard let playerView,
+              let playbackController = sdkManager.createPlaybackController(with: fps,
+                                                                           viewStrategy: nil) else {
+            return nil
+        }
+
+        playbackController.delegate = self
+        playbackController.isAutoAdvance = true
+        playbackController.isAutoPlay = true
+
+        playerView.playbackController = playbackController
+
+        return playbackController
     }()
-    
-    required init?(coder aDecoder: NSCoder)
-    {
-        super.init(coder: aDecoder)
-    }
-    
-    override func viewDidLoad()
-    {
+
+    override func viewDidLoad() {
         super.viewDidLoad()
-        createSampleTabBarItemView()
+
         requestContentFromPlaybackService()
     }
 
-    private func createSampleTabBarItemView() {
-        
-        guard let playerView = playerView, var topTabBarItemViews = playerView.settingsView.topTabBarItemViews else {
-            return
-        }
-        
-        let sampleTabBarItemView = SampleTabBarItemView(size: CGSize.init(width: 620, height: 200), playerView: playerView)
-        
-        // Insert our new tab bar item view at the end of the top tab bar
-        topTabBarItemViews.append(sampleTabBarItemView)
-        playerView.settingsView.topTabBarItemViews = topTabBarItemViews
-    }
+    fileprivate func requestContentFromPlaybackService() {
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId]
+        playbackService.findVideo(withConfiguration: configuration,
+                                  queryParameters: nil) {
+            [playbackController] (video: BCOVVideo?,
+                                  jsonResponse: [AnyHashable: Any]?,
+                                  error: Error?) in
+            guard let playbackController,
+                  let video else {
+                if let error {
+                    print("ViewController - Error retrieving video: \(error.localizedDescription)")
+                }
 
-    private func requestContentFromPlaybackService() {
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:playbackConfig.videoID]
-        playbackService.findVideo(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
-            
-            if let _video = video {
-                //  since "isAutoPlay" is true, setVideos will begin playing the content
-                self?.playbackController?.setVideos([_video] as NSArray)
-            } else {
-                print("ViewController Debug - Error retrieving video: \(error?.localizedDescription ?? "unknown error")")
+                return
             }
-            
-        })
+
+#if targetEnvironment(simulator)
+            if video.usesFairPlay {
+                // FairPlay doesn't work when we're running in a simulator,
+                // so put up an alert.
+                let alert = UIAlertController(title: "FairPlay Warning",
+                                              message: """
+                                               FairPlay only works on actual \
+                                               iOS or tvOS devices.\n
+                                               You will not be able to view \
+                                               any FairPlay content in the \
+                                               iOS or tvOS simulator.
+                                               """,
+                                              preferredStyle: .alert)
+
+                alert.addAction(.init(title: "OK", style: .default))
+
+                DispatchQueue.main.async { [self] in
+                    present(alert, animated: true)
+                }
+
+                return
+            }
+#endif
+
+            playbackController.setVideos([video] as NSFastEnumeration)
+        }
     }
-  
 }
 
-// MARK: - UIFocusEnvironment overrides
-
-extension ViewController {
-    
-    // Focus Environment override for tvOS 9
-    override var preferredFocusedView: UIView? {
-        return playerView
-    }
-    
-    // Focus Environment override for tvOS 10+
-    override var preferredFocusEnvironments: [UIFocusEnvironment] {
-        return (playerView != nil ? [ playerView! ] : [])
-    }
-    
-}
 
 // MARK: - BCOVPlaybackControllerDelegate
 
 extension ViewController: BCOVPlaybackControllerDelegate {
-    
-    func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
-        NSLog("ViewController Debug - Advanced to new session.")
+
+    func playbackController(_ controller: BCOVPlaybackController!,
+                            didAdvanceTo session: BCOVPlaybackSession!) {
+        print("ViewController - Advanced to new session.")
     }
-    
-    func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
-        NSLog("Event: %@", lifecycleEvent.eventType)
+
+    func playbackController(_ controller: BCOVPlaybackController!,
+                            playbackSession session: BCOVPlaybackSession,
+                            didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
+
+        if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
+           let error = lifecycleEvent.properties["error"] as? NSError {
+            // Report any errors that may have occurred with playback.
+            print("ViewController - Playback error: \(error.localizedDescription)")
+        }
     }
-    
+}
+
+
+// MARK: - UIFocusEnvironment
+
+extension ViewController {
+
+    // Focus Environment override for tvOS 10+
+    override var preferredFocusEnvironments: [UIFocusEnvironment] {
+        guard let playerView else { return [] }
+        return [playerView]
+    }
+
 }

@@ -3,24 +3,24 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D6B08BA52BE539E900BFA9A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6B08BA42BE539E900BFA9A3 /* Assets.xcassets */; };
 		E91603F8285927A500467BEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91603F7285927A500467BEA /* AppDelegate.swift */; };
 		E91603FC285927A500467BEA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91603FB285927A500467BEA /* ViewController.swift */; };
 		E91603FF285927A500467BEA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E91603FD285927A500467BEA /* Main.storyboard */; };
-		E9160401285927A700467BEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9160400285927A700467BEA /* Assets.xcassets */; };
 		E9160404285927A700467BEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9160402285927A700467BEA /* LaunchScreen.storyboard */; };
 		E91604312859290600467BEA /* VideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91604302859290600467BEA /* VideoTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D6B08BA42BE539E900BFA9A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		E91603F4285927A500467BEA /* TableViewPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TableViewPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91603F7285927A500467BEA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E91603FB285927A500467BEA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E91603FE285927A500467BEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E9160400285927A700467BEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9160403285927A700467BEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E9160405285927A700467BEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E91604302859290600467BEA /* VideoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoTableViewCell.swift; sourceTree = "<group>"; };
@@ -56,13 +56,13 @@
 		E91603F6285927A500467BEA /* TableViewPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				E91603F7285927A500467BEA /* AppDelegate.swift */,
-				E91603FB285927A500467BEA /* ViewController.swift */,
-				E91604302859290600467BEA /* VideoTableViewCell.swift */,
-				E91603FD285927A500467BEA /* Main.storyboard */,
-				E9160400285927A700467BEA /* Assets.xcassets */,
-				E9160402285927A700467BEA /* LaunchScreen.storyboard */,
 				E9160405285927A700467BEA /* Info.plist */,
+				D6B08BA42BE539E900BFA9A3 /* Assets.xcassets */,
+				E9160402285927A700467BEA /* LaunchScreen.storyboard */,
+				E91603FD285927A500467BEA /* Main.storyboard */,
+				E91603F7285927A500467BEA /* AppDelegate.swift */,
+				E91604302859290600467BEA /* VideoTableViewCell.swift */,
+				E91603FB285927A500467BEA /* ViewController.swift */,
 			);
 			path = TableViewPlayer;
 			sourceTree = "<group>";
@@ -96,6 +96,7 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1330;
+				ORGANIZATIONNAME = "Brightcove, Inc.";
 				TargetAttributes = {
 					E91603F3285927A500467BEA = {
 						CreatedOnToolsVersion = 13.3.1;
@@ -103,7 +104,7 @@
 				};
 			};
 			buildConfigurationList = E91603EF285927A500467BEA /* Build configuration list for PBXProject "TableViewPlayer" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -126,7 +127,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9160404285927A700467BEA /* LaunchScreen.storyboard in Resources */,
-				E9160401285927A700467BEA /* Assets.xcassets in Resources */,
+				D6B08BA52BE539E900BFA9A3 /* Assets.xcassets in Resources */,
 				E91603FF285927A500467BEA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -216,7 +217,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -270,7 +271,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -285,22 +286,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TableViewPlayer/Info.plist;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = TableView;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.TableViewPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -313,22 +306,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TableViewPlayer/Info.plist;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = TableView;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.TableViewPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

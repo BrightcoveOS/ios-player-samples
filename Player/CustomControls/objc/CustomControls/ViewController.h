@@ -2,15 +2,12 @@
 //  ViewController.h
 //  CustomControls
 //
-//  Copyright © 2020 Brightcove, Inc. All rights reserved.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@import BrightcovePlayerSDK;
 
-
-@interface ViewController : UIViewController <BCOVPlaybackControllerDelegate>
+@interface ViewController : UIViewController
 
 @end
-

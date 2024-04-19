@@ -2,36 +2,47 @@
 //  ViewController.m
 //  SubtitleRendering
 //
-//  Created by Jeremy Blaker on 3/24/21.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
-#import "ViewController.h"
+#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
+
 #import "SubtitleManager.h"
 
-@import BrightcovePlayerSDK;
+#import "ViewController.h"
 
-// ** Customize these values with your own account information **
-static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
-static NSString * const kViewControllerAccountID = @"5434391461001";
-static NSString * const kViewControllerVideoID = @"5702141808001";
 
-@interface ViewController ()<BCOVPlaybackControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+// Customize these values with your own account information
+// Add your Brightcove account and video information here.
+static NSString * const kAccountId = @"5434391461001";
+static NSString * const kPolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
+static NSString * const kVideoId = @"5702141808001";
+
+
+@interface ViewController () <BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate, UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, weak) IBOutlet UIView *videoContainerView;
+@property (nonatomic, weak) IBOutlet UILabel *subtitlesLabel;
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
 
 @property (nonatomic, strong) BCOVPlaybackService *playbackService;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
 @property (nonatomic, strong) BCOVPUIPlayerView *playerView;
+
 @property (nonatomic, strong) NSArray *textTracks;
 @property (nonatomic, strong) SubtitleManager *subtitleManager;
 
-@property (nonatomic, weak) IBOutlet UIView *videoContainer;
-@property (nonatomic, weak) IBOutlet UITableView *tableView;
-@property (nonatomic, weak) IBOutlet UILabel *subtitlesLabel;
+@property (nonatomic, assign) BOOL statusBarHidden;
 
 @end
 
+
 @implementation ViewController
 
-#pragma mark - View Lifecycle
+- (BOOL)prefersStatusBarHidden
+{
+    return self.statusBarHidden;
+}
 
 - (void)viewDidLoad
 {
@@ -39,71 +50,110 @@ static NSString * const kViewControllerVideoID = @"5702141808001";
     
     self.subtitlesLabel.text = nil;
     
-    [self setup];
+    self.playbackService = ({
+        BCOVPlaybackServiceRequestFactory *factory = [[BCOVPlaybackServiceRequestFactory alloc]
+                                                      initWithAccountId:kAccountId
+                                                      policyKey:kPolicyKey];
+        
+        [[BCOVPlaybackService alloc] initWithRequestFactory:factory];
+    });
+    
+    self.playerView = ({
+        BCOVPUIPlayerViewOptions *options = [BCOVPUIPlayerViewOptions new];
+        options.presentingViewController = self;
+        
+        BCOVPUIBasicControlView *controlsView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
+        
+        BCOVPUIPlayerView *playerView = [[BCOVPUIPlayerView alloc]
+                                         initWithPlaybackController:nil
+                                         options:options
+                                         controlsView:controlsView];
+        
+        // Hide built-in CC button
+        BCOVPUIButton *ccButton = playerView.controlsView.closedCaptionButton;
+        ccButton.hidden = YES;
+        
+        playerView.delegate = self;
+        
+        playerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        playerView.frame = self.videoContainerView.bounds;
+        [self.videoContainerView addSubview:playerView];
+        
+        playerView;
+    });
+    
+    self.playbackController = ({
+        BCOVPlayerSDKManager *sdkManager = BCOVPlayerSDKManager.sharedManager;
+        
+        BCOVFPSBrightcoveAuthProxy *authProxy = [[BCOVFPSBrightcoveAuthProxy alloc] initWithPublisherId:nil
+                                                                                          applicationId:nil];
+        
+        id<BCOVPlaybackSessionProvider> fps = [sdkManager createFairPlaySessionProviderWithAuthorizationProxy:authProxy
+                                                                                      upstreamSessionProvider:nil];
+        
+        id<BCOVPlaybackController> playbackController = [sdkManager
+                                                         createPlaybackControllerWithSessionProvider:fps
+                                                         viewStrategy:nil];
+        
+        playbackController.delegate = self;
+        playbackController.autoAdvance = YES;
+        playbackController.autoPlay = YES;
+        
+        self.playerView.playbackController = playbackController;
+        
+        playbackController;
+    });
     
     [self requestContentFromPlaybackService];
 }
 
-#pragma mark - Setup
-
-- (void)setup
+- (void)setStatusBarHidden:(BOOL)statusBarHidden
 {
-    self.playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kViewControllerAccountID
-                                                                policyKey:kViewControllerPlaybackServicePolicyKey];
-    
-    [self setupPlaybackController];
-    [self setupPlayerView];
+    _statusBarHidden = statusBarHidden;
+    [self setNeedsStatusBarAppearanceUpdate];
 }
-
-- (void)setupPlaybackController
-{
-    self.playbackController = [BCOVPlayerSDKManager.sharedManager createPlaybackController];
-
-    self.playbackController.delegate = self;
-    self.playbackController.autoPlay = YES;
-}
-
-- (void)setupPlayerView
-{
-    BCOVPUIPlayerView *playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:nil controlsView:[BCOVPUIBasicControlView basicControlViewWithVODLayout] ];
-
-    [_videoContainer addSubview:playerView];
-    playerView.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
-                                              [playerView.topAnchor constraintEqualToAnchor:_videoContainer.topAnchor],
-                                              [playerView.rightAnchor constraintEqualToAnchor:_videoContainer.rightAnchor],
-                                              [playerView.leftAnchor constraintEqualToAnchor:_videoContainer.leftAnchor],
-                                              [playerView.bottomAnchor constraintEqualToAnchor:_videoContainer.bottomAnchor],
-                                              ]];
-    self.playerView = playerView;
-    
-    // Hide built-in CC button
-    BCOVPUIButton *ccButton = self.playerView.controlsView.closedCaptionButton;
-    ccButton.hidden = YES;
-
-    // Associate the playerView with the playback controller.
-    self.playerView.playbackController = self.playbackController;
-}
-
-#pragma mark - Helper Methods
 
 - (void)requestContentFromPlaybackService
 {
     __weak typeof(self) weakSelf = self;
-    NSDictionary *configuration = @{kBCOVPlaybackServiceConfigurationKeyAssetID:kViewControllerVideoID};
-    [self.playbackService findVideoWithConfiguration:configuration queryParameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
+    
+    NSDictionary *configuration = @{ kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId };
+    [self.playbackService findVideoWithConfiguration:configuration
+                                     queryParameters:nil
+                                          completion:^(BCOVVideo *video,
+                                                       NSDictionary *jsonResponse,
+                                                       NSError *error) {
         
         __strong typeof(weakSelf) strongSelf = weakSelf;
         
         if (video)
         {
+#if TARGET_OS_SIMULATOR
+            if (video.usesFairPlay)
+            {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"FairPlay Warning"
+                                                                               message:@"FairPlay only works on actual iOS or tvOS devices.\n\nYou will not be able to view any FairPlay content in the iOS or tvOS simulator."
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:nil]];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [strongSelf presentViewController:alert animated:YES completion:nil];
+                });
+                
+                return;
+            }
+#endif
+            
             [strongSelf gatherUsableTextTracks:video];
         }
         else
         {
-            NSLog(@"ViewController Debug - Error retrieving video: `%@`", error);
+            NSLog(@"ViewController - Error retrieving video: %@", error.localizedDescription);
         }
-
+        
     }];
 }
 
@@ -115,10 +165,9 @@ static NSString * const kViewControllerVideoID = @"5702141808001";
     // We're also going to set the `default` value of any of these
     // text tracks to ensure that AVPlayer doesn't select a track
     // automatically and attempt to render it itself.
-    
     NSArray *allTextTracks = video.properties[@"text_tracks"];
     NSMutableArray *usableTextTracks = @[].mutableCopy;
-
+    
     for (NSDictionary *textTrack in allTextTracks)
     {
         NSString *kind = textTrack[@"kind"];
@@ -130,7 +179,7 @@ static NSString * const kViewControllerVideoID = @"5702141808001";
         }
     }
     
-    self.textTracks = usableTextTracks;
+    self.textTracks = usableTextTracks.copy;
     [self.tableView reloadData];
     
     // If we have text tracks go ahead and
@@ -141,7 +190,7 @@ static NSString * const kViewControllerVideoID = @"5702141808001";
     }
     
     // Now update the BCOVVideo with our new text tracks array
-    video = [video update:^(id<BCOVMutableVideo>  _Nonnull mutableVideo) {
+    video = [video update:^(id<BCOVMutableVideo> _Nonnull mutableVideo) {
         NSMutableDictionary *props = mutableVideo.properties.mutableCopy;
         props[@"text_tracks"] = usableTextTracks;
         mutableVideo.properties = props;
@@ -181,43 +230,63 @@ static NSString * const kViewControllerVideoID = @"5702141808001";
     }
 }
 
-#pragma mark - UITableViewDataSource
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    return section == 0 ? @"Text Tracks" : nil;
-}
+#pragma mark - BCOVPlaybackControllerDelegate
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (void)playbackController:(id<BCOVPlaybackController>)controller
+didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 {
-    return 2;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return section == 0 ? self.textTracks.count : 1;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TextTrackCell"];
+    NSLog(@"ViewController - Advanced to new session.");
     
-    if (indexPath.section == 0)
+    // When Closed Captions + SDK is anabled in the device settings, Subtitles and
+    // Closed-Captions tracks might be forcibly rendered over the video. Rendering them
+    // also in a separate UIView may be undesirable.
+    if (UIAccessibilityIsClosedCaptioningEnabled())
     {
-        NSDictionary *textTrack = self.textTracks[indexPath.row];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", textTrack[@"label"], textTrack[@"srclang"]];
-    }
-    else
-    {
-        cell.textLabel.text = @"Disable text track";
+        NSLog(@"WARNING: Closed Captions + SDH is enabled in the device Accessibility settings.");
+        NSLog(@"         A text track might be forcibly rendered in the video view.");
     }
     
-    return cell;
+    __weak typeof(self) weakSelf = self;
+    [session.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 60)
+                                                 queue:dispatch_get_main_queue()
+                                            usingBlock:^(CMTime time) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        
+        if (strongSelf.subtitleManager)
+        {
+            NSString *subtitle = [strongSelf.subtitleManager subtitleForTime:time];
+            strongSelf.subtitlesLabel.text = subtitle;
+        }
+    }];
 }
+
+- (void)playbackController:(id<BCOVPlaybackController>)controller
+           playbackSession:(id<BCOVPlaybackSession>)session
+  didReceiveLifecycleEvent:(BCOVPlaybackSessionLifecycleEvent *)lifecycleEvent
+{
+    if ([kBCOVPlaybackSessionLifecycleEventFail isEqualToString:lifecycleEvent.eventType])
+    {
+        NSError *error = lifecycleEvent.properties[@"error"];
+        // Report any errors that may have occurred with playback.
+        NSLog(@"ViewController - Playback error: %@", error.localizedDescription);
+    }
+}
+
+
+#pragma mark - BCOVPUIPlayerViewDelegate
+
+- (void)playerView:(BCOVPUIPlayerView *)playerView
+willTransitionToScreenMode:(BCOVPUIScreenMode)screenMode
+{
+    self.statusBarHidden = screenMode == BCOVPUIScreenModeFull;
+}
+
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView 
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
@@ -233,31 +302,44 @@ static NSString * const kViewControllerVideoID = @"5702141808001";
     }
 }
 
-#pragma mark - BCOVPlaybackControllerDelegate
 
-- (void)playbackController:(id<BCOVPlaybackController>)controller didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // When Closed Captions + SDK is anabled in the device settings, Subtitles and
-    // Closed-Captions tracks might be forcibly rendered over the video. Rendering them
-    // also in a separate UIView may be undesirable.
-    if (UIAccessibilityIsClosedCaptioningEnabled())
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView 
+ numberOfRowsInSection:(NSInteger)section
+{
+    return section == 0 ? self.textTracks.count : 1;
+}
+
+- (NSString *)tableView:(UITableView *)tableView
+titleForHeaderInSection:(NSInteger)section
+{
+    return section == 0 ? @"Text Tracks" : nil;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView 
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TextTrackCell"];
+    
+    if (indexPath.section == 0)
     {
-        NSLog(@"WARNING: Closed Captions + SDH is enabled in the device Accessibility settings.");
-        NSLog(@"         A text track might be forcibly rendered in the video view.");
+        NSDictionary *textTrack = self.textTracks[indexPath.row];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", 
+                               textTrack[@"label"],
+                               textTrack[@"srclang"]];
+    }
+    else
+    {
+        cell.textLabel.text = @"Disable text track";
     }
     
-    __weak typeof(self) weakSelf = self;
-    [session.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 60) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
-        
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        
-        if (strongSelf.subtitleManager)
-        {
-            NSString *subtitle = [strongSelf.subtitleManager subtitleForTime:time];
-            strongSelf.subtitlesLabel.text = subtitle;
-        }
-        
-    }];
+    return cell;
 }
 
 @end

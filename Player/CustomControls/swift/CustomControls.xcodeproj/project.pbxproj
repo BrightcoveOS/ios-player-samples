@@ -3,27 +3,27 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D636D0502BE41CC000EC5C31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D636D04F2BE41CC000EC5C31 /* Assets.xcassets */; };
 		E9286A6225EE933A0022AC9F /* ClosedCaptionMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9286A6125EE933A0022AC9F /* ClosedCaptionMenuController.swift */; };
 		E9DEE501216CEC440033C285 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE500216CEC440033C285 /* AppDelegate.swift */; };
 		E9DEE503216CEC440033C285 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE502216CEC440033C285 /* ViewController.swift */; };
 		E9DEE506216CEC440033C285 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE504216CEC440033C285 /* Main.storyboard */; };
-		E9DEE508216CEC450033C285 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE507216CEC450033C285 /* Assets.xcassets */; };
 		E9DEE50B216CEC450033C285 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE509216CEC450033C285 /* LaunchScreen.storyboard */; };
 		E9DEE514216CEDDE0033C285 /* ControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE512216CEDDE0033C285 /* ControlsViewController.swift */; };
 		E9DEE515216CEDDE0033C285 /* ControlsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE513216CEDDE0033C285 /* ControlsViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D636D04F2BE41CC000EC5C31 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		E9286A6125EE933A0022AC9F /* ClosedCaptionMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosedCaptionMenuController.swift; sourceTree = "<group>"; };
 		E9DEE4FD216CEC430033C285 /* CustomControls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomControls.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9DEE500216CEC440033C285 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9DEE502216CEC440033C285 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E9DEE505216CEC440033C285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E9DEE507216CEC450033C285 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9DEE50A216CEC450033C285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E9DEE50C216CEC450033C285 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9DEE512216CEDDE0033C285 /* ControlsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsViewController.swift; sourceTree = "<group>"; };
@@ -60,15 +60,15 @@
 		E9DEE4FF216CEC440033C285 /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
+				E9DEE50C216CEC450033C285 /* Info.plist */,
+				D636D04F2BE41CC000EC5C31 /* Assets.xcassets */,
+				E9DEE509216CEC450033C285 /* LaunchScreen.storyboard */,
+				E9DEE504216CEC440033C285 /* Main.storyboard */,
+				E9DEE513216CEDDE0033C285 /* ControlsViewController.xib */,
 				E9DEE500216CEC440033C285 /* AppDelegate.swift */,
 				E9DEE502216CEC440033C285 /* ViewController.swift */,
 				E9DEE512216CEDDE0033C285 /* ControlsViewController.swift */,
 				E9286A6125EE933A0022AC9F /* ClosedCaptionMenuController.swift */,
-				E9DEE513216CEDDE0033C285 /* ControlsViewController.xib */,
-				E9DEE504216CEC440033C285 /* Main.storyboard */,
-				E9DEE507216CEC450033C285 /* Assets.xcassets */,
-				E9DEE509216CEC450033C285 /* LaunchScreen.storyboard */,
-				E9DEE50C216CEC450033C285 /* Info.plist */,
 			);
 			path = CustomControls;
 			sourceTree = "<group>";
@@ -99,9 +99,10 @@
 		E9DEE4F5216CEC430033C285 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = "";
 				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 1200;
-				ORGANIZATIONNAME = "Brightcove, Inc";
+				ORGANIZATIONNAME = "Brightcove, Inc.";
 				TargetAttributes = {
 					E9DEE4FC216CEC430033C285 = {
 						CreatedOnToolsVersion = 10.0;
@@ -110,7 +111,7 @@
 				};
 			};
 			buildConfigurationList = E9DEE4F8216CEC430033C285 /* Build configuration list for PBXProject "CustomControls" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -133,8 +134,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9DEE50B216CEC450033C285 /* LaunchScreen.storyboard in Resources */,
-				E9DEE508216CEC450033C285 /* Assets.xcassets in Resources */,
 				E9DEE515216CEDDE0033C285 /* ControlsViewController.xib in Resources */,
+				D636D0502BE41CC000EC5C31 /* Assets.xcassets in Resources */,
 				E9DEE506216CEC440033C285 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -208,7 +209,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -227,7 +227,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -270,7 +270,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -283,7 +282,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -297,14 +296,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = CustomControls/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = CustomControls;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.CustomControls;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -316,14 +315,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = CustomControls/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = CustomControls;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.CustomControls;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

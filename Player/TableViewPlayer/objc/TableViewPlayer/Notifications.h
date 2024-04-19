@@ -2,7 +2,7 @@
 //  Notifications.h
 //  TableViewPlayer
 //
-//  Created by Jeremy Blaker on 6/15/22.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
