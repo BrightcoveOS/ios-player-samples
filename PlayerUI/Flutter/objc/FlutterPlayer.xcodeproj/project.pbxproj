@@ -1,0 +1,349 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D61F811D2BD99FAA00AD32CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D61F811C2BD99FAA00AD32CE /* Assets.xcassets */; };
+		D61F81202BD9A12B00AD32CE /* BCOVVideoPlayerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D61F811F2BD9A12B00AD32CE /* BCOVVideoPlayerFactory.m */; };
+		D6E5A26D275E9C59007A7F89 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5A26C275E9C59007A7F89 /* AppDelegate.m */; };
+		D6E5A27B275E9C5B007A7F89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6E5A279275E9C5B007A7F89 /* LaunchScreen.storyboard */; };
+		D6E5A27E275E9C5B007A7F89 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5A27D275E9C5B007A7F89 /* main.m */; };
+		D6E5A28C275EA257007A7F89 /* BCOVFlutterPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5A28B275EA257007A7F89 /* BCOVFlutterPlugin.m */; };
+		D6E5A28F275EA2CE007A7F89 /* BCOVVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5A28E275EA2CE007A7F89 /* BCOVVideoPlayer.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D61F811C2BD99FAA00AD32CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
+		D61F811E2BD9A12B00AD32CE /* BCOVVideoPlayerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCOVVideoPlayerFactory.h; sourceTree = "<group>"; };
+		D61F811F2BD9A12B00AD32CE /* BCOVVideoPlayerFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCOVVideoPlayerFactory.m; sourceTree = "<group>"; };
+		D6E5A268275E9C59007A7F89 /* FlutterPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlutterPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6E5A26B275E9C59007A7F89 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D6E5A26C275E9C59007A7F89 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D6E5A27A275E9C5B007A7F89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D6E5A27C275E9C5B007A7F89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6E5A27D275E9C5B007A7F89 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D6E5A28A275EA257007A7F89 /* BCOVFlutterPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCOVFlutterPlugin.h; sourceTree = "<group>"; };
+		D6E5A28B275EA257007A7F89 /* BCOVFlutterPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCOVFlutterPlugin.m; sourceTree = "<group>"; };
+		D6E5A28D275EA2CE007A7F89 /* BCOVVideoPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCOVVideoPlayer.h; sourceTree = "<group>"; };
+		D6E5A28E275EA2CE007A7F89 /* BCOVVideoPlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCOVVideoPlayer.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D6E5A265275E9C59007A7F89 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D6E5A25F275E9C59007A7F89 = {
+			isa = PBXGroup;
+			children = (
+				D6E5A26A275E9C59007A7F89 /* FlutterPlayer */,
+				D6E5A269275E9C59007A7F89 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D6E5A269275E9C59007A7F89 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D6E5A268275E9C59007A7F89 /* FlutterPlayer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D6E5A26A275E9C59007A7F89 /* FlutterPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				D6E5A27C275E9C5B007A7F89 /* Info.plist */,
+				D61F811C2BD99FAA00AD32CE /* Assets.xcassets */,
+				D6E5A279275E9C5B007A7F89 /* LaunchScreen.storyboard */,
+				D6E5A27D275E9C5B007A7F89 /* main.m */,
+				D6E5A26B275E9C59007A7F89 /* AppDelegate.h */,
+				D6E5A26C275E9C59007A7F89 /* AppDelegate.m */,
+				D6E5A28A275EA257007A7F89 /* BCOVFlutterPlugin.h */,
+				D6E5A28B275EA257007A7F89 /* BCOVFlutterPlugin.m */,
+				D6E5A28D275EA2CE007A7F89 /* BCOVVideoPlayer.h */,
+				D6E5A28E275EA2CE007A7F89 /* BCOVVideoPlayer.m */,
+				D61F811E2BD9A12B00AD32CE /* BCOVVideoPlayerFactory.h */,
+				D61F811F2BD9A12B00AD32CE /* BCOVVideoPlayerFactory.m */,
+			);
+			path = FlutterPlayer;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D6E5A267275E9C59007A7F89 /* FlutterPlayer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D6E5A281275E9C5B007A7F89 /* Build configuration list for PBXNativeTarget "FlutterPlayer" */;
+			buildPhases = (
+				D6E5A264275E9C59007A7F89 /* Sources */,
+				D6E5A265275E9C59007A7F89 /* Frameworks */,
+				D6E5A266275E9C59007A7F89 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FlutterPlayer;
+			productName = PlayerFlutter;
+			productReference = D6E5A268275E9C59007A7F89 /* FlutterPlayer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D6E5A260275E9C59007A7F89 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1310;
+				ORGANIZATIONNAME = "Brightcove, Inc.";
+				TargetAttributes = {
+					D6E5A267275E9C59007A7F89 = {
+						CreatedOnToolsVersion = 13.1;
+					};
+				};
+			};
+			buildConfigurationList = D6E5A263275E9C59007A7F89 /* Build configuration list for PBXProject "FlutterPlayer" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D6E5A25F275E9C59007A7F89;
+			productRefGroup = D6E5A269275E9C59007A7F89 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D6E5A267275E9C59007A7F89 /* FlutterPlayer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D6E5A266275E9C59007A7F89 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6E5A27B275E9C5B007A7F89 /* LaunchScreen.storyboard in Resources */,
+				D61F811D2BD99FAA00AD32CE /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D6E5A264275E9C59007A7F89 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D61F81202BD9A12B00AD32CE /* BCOVVideoPlayerFactory.m in Sources */,
+				D6E5A28F275EA2CE007A7F89 /* BCOVVideoPlayer.m in Sources */,
+				D6E5A28C275EA257007A7F89 /* BCOVFlutterPlugin.m in Sources */,
+				D6E5A26D275E9C59007A7F89 /* AppDelegate.m in Sources */,
+				D6E5A27E275E9C5B007A7F89 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D6E5A279275E9C5B007A7F89 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D6E5A27A275E9C5B007A7F89 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D6E5A27F275E9C5B007A7F89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		D6E5A280275E9C5B007A7F89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D6E5A282275E9C5B007A7F89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Flutter;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D6E5A283275E9C5B007A7F89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Flutter;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D6E5A263275E9C59007A7F89 /* Build configuration list for PBXProject "FlutterPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D6E5A27F275E9C5B007A7F89 /* Debug */,
+				D6E5A280275E9C5B007A7F89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D6E5A281275E9C5B007A7F89 /* Build configuration list for PBXNativeTarget "FlutterPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D6E5A282275E9C5B007A7F89 /* Debug */,
+				D6E5A283275E9C5B007A7F89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D6E5A260275E9C59007A7F89 /* Project object */;
+}

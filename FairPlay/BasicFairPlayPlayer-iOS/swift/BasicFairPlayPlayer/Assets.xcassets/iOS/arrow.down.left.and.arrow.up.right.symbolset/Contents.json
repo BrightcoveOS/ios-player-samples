@@ -1,0 +1,12 @@
+{
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "symbols" : [
+    {
+      "filename" : "arrow.down.left.and.arrow.up.right.svg",
+      "idiom" : "universal"
+    }
+  ]
+}

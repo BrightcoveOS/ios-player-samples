@@ -2,30 +2,28 @@
 //  GoogleCastManager.h
 //  BasicCastPlayer
 //
-//  Copyright © 2020 Brightcove, Inc. All rights reserved.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
 
-#import <BrightcovePlayerSDK/BCOVPlaybackController.h>
 
-@protocol GoogleCastManagerDelegate<NSObject>
+@protocol GoogleCastManagerDelegate <NSObject>
 
-@property (nonatomic, strong, readonly) id<BCOVPlaybackController> _Nullable playbackController;
+@property (nonatomic, readonly, strong) id<BCOVPlaybackController> _Nullable playbackController;
 
-- (void)switchedToLocalPlayback:(NSTimeInterval)lastKnownStreamPosition withError:(nullable NSError *)error;
-
+- (void)switchedToLocalPlayback:(NSTimeInterval)lastKnownStreamPosition
+                      withError:(nullable NSError *)error;
 - (void)switchedToRemotePlayback;
-
 - (void)castedVideoDidComplete;
-
 - (void)castedVideoFailedToPlay;
-
 - (void)suitableSourceNotFound;
 
 @end
 
-@interface GoogleCastManager : NSObject<BCOVPlaybackSessionConsumer>
+
+@interface GoogleCastManager : NSObject <BCOVPlaybackSessionConsumer>
 
 @property (nonatomic, weak) id<GoogleCastManagerDelegate> _Nullable delegate;
 

@@ -2,188 +2,196 @@
 //  VideoViewController.swift
 //  VerticalPlayer
 //
-//  Created by Jeremy Blaker on 9/27/23.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 import UIKit
 import BrightcovePlayerSDK
 
-class VideoViewController: UIViewController {
-    
-    @IBOutlet weak var videoContainerView: UIView!
-    @IBOutlet weak var videoDescriptionLabel: UILabel! {
+
+final class VideoViewController: UIViewController {
+
+    @IBOutlet fileprivate weak var videoContainerView: UIView! {
+        didSet {
+            videoContainerView.addGestureRecognizer(playbackGesture)
+        }
+    }
+
+    @IBOutlet fileprivate weak var videoDescriptionLabel: UILabel! {
         didSet {
             videoDescriptionLabel.text = nil
         }
     }
-    @IBOutlet weak var playIconView: UIImageView!
-    @IBOutlet weak var posterView: UIImageView!
-    
-    var playbackController: BCOVPlaybackController?
-    var video: BCOVVideo?
-    var didSetVideo = false
 
-    var playbackGesture: UITapGestureRecognizer?
-    
-    weak var player: AVPlayer?
-    
+    @IBOutlet fileprivate weak var playIconView: UIImageView!
+
+    @IBOutlet fileprivate weak var posterView: UIImageView!
+
+    fileprivate lazy var playbackController: BCOVPlaybackController? = {
+        guard let sdkManager = BCOVPlayerSDKManager.sharedManager(),
+              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
+                                                         applicationId: nil) else {
+            return nil
+        }
+
+        let fps = sdkManager.createFairPlaySessionProvider(withApplicationCertificate: nil,
+                                                           authorizationProxy: authProxy,
+                                                           upstreamSessionProvider: nil)
+
+        guard let playbackController = sdkManager.createPlaybackController(with: fps,
+                                                                           viewStrategy: nil) else {
+            return nil
+        }
+
+        // Prevents the Brightcove SDK from making an unnecessary AVPlayerLayer
+        // since the AVPlayerViewController already makes one
+        playbackController.options = [ kBCOVAVPlayerViewControllerCompatibilityKey: true ]
+
+        playbackController.view.frame = videoContainerView.bounds
+        playbackController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        videoContainerView.addSubview(playbackController.view)
+
+        playbackController.delegate = self
+        playbackController.isAutoAdvance = true
+        playbackController.isAutoPlay = true
+
+        return playbackController
+    }()
+
+    fileprivate lazy var playbackGesture: UITapGestureRecognizer = {
+        let playbackGesture = UITapGestureRecognizer(target: self,
+                                                     action: #selector(handleTap(_:)))
+        return playbackGesture
+    }()
+
+    fileprivate lazy var didSetVideo = false
+
+    fileprivate weak var player: AVPlayer?
+
+    weak var video: BCOVVideo?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUp()
     }
 
-    func setUp() {
-        setUpPlaybackController()
-        setUpGestures()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         if didSetVideo {
-            playbackController?.play()
+            guard let playbackController else { return }
+            playbackController.play()
+            playIconView.alpha = 0.0
         } else {
-            if let video = video {
-                displayVideo(video)
+            guard let video else { return }
+
+            if let posterURLStr = video.properties[kBCOVVideoPropertyKeyPoster] as? String,
+               let posterURL = URL(string: posterURLStr) {
+                let urlRequest = URLRequest(url: posterURL)
+                URLSession.shared.dataTask(with: urlRequest) {
+                    (data: Data?, response: URLResponse?, error: Error?) in
+                    if let error {
+                        print(error.localizedDescription)
+                        return
+                    }
+
+                    guard let data,
+                          let image = UIImage(data: data) else { return }
+
+                    DispatchQueue.main.async { [self] in
+                        posterView.image = image
+                    }
+                }.resume()
+            }
+
+            videoDescriptionLabel.text = video.properties[kBCOVVideoPropertyKeyDescription] as? String ?? ""
+
+            if let playbackController {
+                playbackController.setVideos([video] as NSFastEnumeration)
+
                 didSetVideo = true
             }
         }
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        playbackController?.pause()
+        guard let playbackController else { return }
+        playbackController.pause()
     }
-    
-    func setUpPlayerView() {
-        guard let playerView = BCOVPUIPlayerView(playbackController: playbackController, options: nil, controlsView: BCOVPUIBasicControlView.withVODLayout()) else {
+
+    @IBAction
+    fileprivate func handleShareButton(_ button: UIBarButtonItem) {
+        guard let video,
+              let videoName = video.properties[kBCOVVideoPropertyKeyName] as? String,
+              let posterURLStr = video.properties[kBCOVVideoPropertyKeyPoster] as? String,
+              let posterURL = URL(string: posterURLStr) else {
             return
         }
-        
-        // Install in the container view and match its size.
-        videoContainerView.addSubview(playerView)
-        playerView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            playerView.topAnchor.constraint(equalTo: videoContainerView.topAnchor),
-            playerView.rightAnchor.constraint(equalTo: videoContainerView.rightAnchor),
-            playerView.leftAnchor.constraint(equalTo: videoContainerView.leftAnchor),
-            playerView.bottomAnchor.constraint(equalTo: videoContainerView.bottomAnchor)
-        ])
-    }
-    
-    func setUpPlaybackController() {
-        guard let playbackController = (BCOVPlayerSDKManager.shared().createPlaybackController()) else {
-            return
-        }
-        playbackController.delegate = self
-        playbackController.isAutoPlay = true
-        
-        videoContainerView.addSubview(playbackController.view)
-        playbackController.view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            playbackController.view.topAnchor.constraint(equalTo: videoContainerView.topAnchor),
-            playbackController.view.rightAnchor.constraint(equalTo: videoContainerView.rightAnchor),
-            playbackController.view.leftAnchor.constraint(equalTo: videoContainerView.leftAnchor),
-            playbackController.view.bottomAnchor.constraint(equalTo: videoContainerView.bottomAnchor)
-        ])
-        
-        self.playbackController = playbackController
-    }
-    
-    func setUpGestures() {
-        let playbackGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        videoContainerView.addGestureRecognizer(playbackGesture)
-        self.playbackGesture = playbackGesture
-    }
-    
-    func displayVideo(_ video: BCOVVideo) {
-        fetchPoster()
-        playbackController?.setVideos([video] as NSFastEnumeration)
-        guard let videoDescription = video.properties[kBCOVVideoPropertyKeyDescription] as? String else {
-            videoDescriptionLabel.text = ""
-            return
-        }
-        videoDescriptionLabel.text = videoDescription
-    }
-    
-    func fetchPoster() {
-        guard let video = video, let posterURLStr = video.properties[kBCOVVideoPropertyKeyPoster] as? String, let posterURL = URL(string: posterURLStr) else {
-            return
-        }
-        let urlRequest = URLRequest(url: posterURL)
-        let task = URLSession.shared.dataTask(with: urlRequest) { [weak self] (data: Data?, response: URLResponse?, error: Error?) in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            guard let data = data else {
-                return
-            }
-            let image = UIImage(data: data)
-            DispatchQueue.main.async {
-                self?.posterView.image = image
-            }
-        }
-        task.resume()
-    }
-    
-    // MARK: - Button Actions
-    
-    @IBAction func handleShareButton(_ button: UIBarButtonItem) {
-        guard let video = video, let videoName = video.properties[kBCOVVideoPropertyKeyName] as? String, let posterURLStr = video.properties[kBCOVVideoPropertyKeyPoster] as? String, let posterURL = URL(string: posterURLStr) else {
-            return
-        }
+
         let request = URLRequest(url: posterURL)
-        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            guard let data = data else {
-                return
-            }
+
+        URLSession.shared.dataTask(with: request) {
+            (data: Data?, response: URLResponse?, error: Error?) in
+            guard let data else { return }
             let message = "Check out this video, \"\(videoName)\", it's awesome."
             var items: [Any] = [message]
             if let posterImage = UIImage(data: data) {
                 items = [message, posterImage]
             }
-            DispatchQueue.main.async {
-                let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
-                self.present(activityVC, animated: true)
+            DispatchQueue.main.async { [self] in
+                let activityVC = UIActivityViewController(activityItems: items,
+                                                          applicationActivities: nil)
+                present(activityVC, animated: true)
             }
-        }
-        task.resume()
+        }.resume()
     }
-    
-    // MARK: - Gesture Actions
-    
-    @objc
-    func handleTap(_ recognizer: UITapGestureRecognizer) {
+
+    @IBAction
+    fileprivate func handleTap(_ recognizer: UITapGestureRecognizer) {
         if player?.rate == 0 {
             playbackController?.play()
-            UIView.animate(withDuration: 0.25) {
-                self.playIconView.alpha = 0.0
+            UIView.animate(withDuration: 0.25) { [self] in
+                playIconView.alpha = 0.0
             }
         } else {
             playbackController?.pause()
-            UIView.animate(withDuration: 0.25) {
-                self.playIconView.alpha = 1.0
+            UIView.animate(withDuration: 0.25) { [self] in
+                playIconView.alpha = 1.0
             }
         }
     }
 }
+
+
+// MARK: - BCOVPlaybackControllerDelegate
 
 extension VideoViewController: BCOVPlaybackControllerDelegate {
     
-    func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
+    func playbackController(_ controller: BCOVPlaybackController!, 
+                            didAdvanceTo session: BCOVPlaybackSession!) {
         session.playerLayer.videoGravity = .resizeAspectFill
         player = session.player
+        print("ViewController - Advanced to new session.")
     }
     
-    func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
-        if lifecycleEvent.eventType == kBCOVPlaybackSessionLifecycleEventPlaybackLikelyToKeepUp {
-            UIView.animate(withDuration: 0.25) {
-                self.posterView.alpha = 0.0
+    func playbackController(_ controller: BCOVPlaybackController!, 
+                            playbackSession session: BCOVPlaybackSession!,
+                            didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
+
+        if kBCOVPlaybackSessionLifecycleEventPlaybackLikelyToKeepUp == lifecycleEvent.eventType {
+            UIView.animate(withDuration: 0.25) { [self] in
+                posterView.alpha = 0.0
             }
         }
-        if lifecycleEvent.eventType == kBCOVPlaybackSessionLifecycleEventEnd {
-            playIconView.isHidden = false
+
+        if kBCOVPlaybackSessionLifecycleEventEnd == lifecycleEvent.eventType {
+            playIconView.alpha = 1.0
+        }
+
+        if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
+           let error = lifecycleEvent.properties["error"] as? NSError {
+            // Report any errors that may have occurred with playback.
+            print("ViewController - Playback error: \(error.localizedDescription)")
         }
     }
 }
-

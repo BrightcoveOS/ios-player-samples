@@ -2,13 +2,12 @@
 //  SubtitleManager.h
 //  SubtitleRendering
 //
-//  Created by Jeremy Blaker on 3/24/21.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import <CoreMedia/CoreMedia.h>
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface SubtitleManager : NSObject
 
@@ -16,5 +15,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)subtitleForTime:(CMTime)time;
 
 @end
-
-NS_ASSUME_NONNULL_END

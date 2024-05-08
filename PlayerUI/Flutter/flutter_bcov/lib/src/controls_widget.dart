@@ -1,16 +1,14 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Controls extends StatefulWidget {
-  const Controls({
-    Key? key,
-    required this.isPlaying,
-    required this.totalTime,
-    required this.currentTime,
-    required this.onUserInteractControls,
-    required this.onPlayStateChanged,
-  }) : super(key: key);
+  const Controls(
+      {super.key,
+      required this.isPlaying,
+      required this.totalTime,
+      required this.currentTime,
+      required this.onUserInteractControls,
+      required this.onHandle});
 
   /// When [isPlaying] is `true`, the play button displays a pause icon. When
   /// it is `false`, the button shows a play icon.
@@ -26,11 +24,10 @@ class Controls extends StatefulWidget {
 
   final Function() onUserInteractControls;
 
-  /// This is called when a user has pressed the play/pause button.
-  final ValueChanged<bool> onPlayStateChanged;
+  final ValueChanged<MethodCall> onHandle;
 
   @override
-  _ControlsState createState() => _ControlsState();
+  State<Controls> createState() => _ControlsState();
 }
 
 class _ControlsState extends State<Controls> {
@@ -44,16 +41,16 @@ class _ControlsState extends State<Controls> {
 
   @override
   Widget build(BuildContext context) {
-     _sliderValue = _getSliderValue();
+    _sliderValue = _getSliderValue();
 
     return Container(
-      color: Theme.of(context).backgroundColor.withOpacity(0.75),
+      color: Theme.of(context).colorScheme.background.withOpacity(0.75),
       height: 60,
       child: Row(
         children: [
-          _buildPlayPauseButton(context),
+          _buildPlayPauseButton(),
           _buildCurrentTimeLabel(),
-          _buildSeekBar(context),
+          _buildSeekBar(),
           _buildTotalTimeLabel(),
           const SizedBox(width: 16),
         ],
@@ -61,15 +58,15 @@ class _ControlsState extends State<Controls> {
     );
   }
 
-  IconButton _buildPlayPauseButton(BuildContext context) {
+  IconButton _buildPlayPauseButton() {
     return IconButton(
       icon: (widget.isPlaying)
           ? const Icon(Icons.pause)
           : const Icon(Icons.play_arrow),
-      color: Theme.of(context).textTheme.bodyText1!.color,
+      color: Theme.of(context).textTheme.titleMedium?.color,
       onPressed: () {
         widget.onUserInteractControls();
-        widget.onPlayStateChanged(!widget.isPlaying);
+        widget.onHandle(MethodCall('playPause', [!widget.isPlaying]));
       },
     );
   }
@@ -77,49 +74,63 @@ class _ControlsState extends State<Controls> {
   Text _buildCurrentTimeLabel() {
     return Text(
       _getTimeString(_sliderValue),
-      style: const TextStyle(
-        fontFeatures: [FontFeature.tabularFigures()],
-      ),
+      style: Theme.of(context)
+          .textTheme
+          .titleMedium
+          ?.apply(fontFeatures: const [FontFeature.tabularFigures()]),
     );
   }
 
-  Expanded _buildSeekBar(BuildContext context) {
+  Expanded _buildSeekBar() {
     return Expanded(
-      child: Slider(
-        value: _sliderValue,
-        activeColor: Theme.of(context).textTheme.bodyText2!.color,
-        inactiveColor: Theme.of(context).disabledColor,
-        onChanged: null,
-      ),
-    );
+        child: Material(
+            color: Theme.of(context).colorScheme.background.withOpacity(0.0),
+            child: SliderTheme(
+              data: SliderTheme.of(context).copyWith(
+                  activeTrackColor: Colors.red[700],
+                  inactiveTrackColor: Colors.red[100],
+                  trackShape: const RectangularSliderTrackShape(),
+                  trackHeight: 2.0,
+                  thumbColor: Colors.redAccent,
+                  thumbShape:
+                      const RoundSliderThumbShape(enabledThumbRadius: 5.0),
+                  overlayColor: Colors.red.withAlpha(32),
+                  overlayShape:
+                      const RoundSliderOverlayShape(overlayRadius: 10.0),
+                  allowedInteraction: SliderInteraction.slideThumb),
+              child: Slider(
+                  value: _sliderValue,
+                  onChanged: (_) => (),
+                  onChangeEnd: (newValue) => widget.onHandle(
+                      MethodCall('seek', [_getDuration(newValue).inSeconds]))),
+            )));
   }
 
   Text _buildTotalTimeLabel() {
     return Text(
       _getTimeString(1.0 - _sliderValue),
-      style: const TextStyle(
-        fontFeatures: [FontFeature.tabularFigures()],
-      ),
+      style: Theme.of(context)
+          .textTheme
+          .titleMedium
+          ?.apply(fontFeatures: const [FontFeature.tabularFigures()]),
     );
   }
 
-  double _getSliderValue() {
-    return (widget.totalTime.inSeconds > 0
-        ? widget.currentTime.inSeconds / widget.totalTime.inSeconds
-        : 0);
-  }
+  double _getSliderValue() => (widget.currentTime.inSeconds > 0
+      ? (widget.currentTime.inSeconds / widget.totalTime.inSeconds)
+      : 0.0);
 
   Duration _getDuration(double sliderValue) {
     final seconds = widget.totalTime.inSeconds * sliderValue;
-    return Duration(seconds: seconds.toInt());
+    return Duration(seconds: seconds.truncate());
   }
 
   String _getTimeString(double sliderValue) {
     final time = _getDuration(sliderValue);
 
     String twoDigits(int n) {
-      if (n >= 10) return "$n";
-      return "0$n";
+      if (n >= 10) return '$n';
+      return '0$n';
     }
 
     final minutes =
@@ -128,6 +139,6 @@ class _ControlsState extends State<Controls> {
         twoDigits(time.inSeconds.remainder(Duration.secondsPerMinute));
     final hours = widget.totalTime.inHours > 0 ? '${time.inHours}:' : '';
 
-    return "$hours$minutes:$seconds";
+    return '$hours$minutes:$seconds';
   }
 }

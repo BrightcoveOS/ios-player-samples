@@ -5,15 +5,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bcov/src/controls_widget.dart';
 
 class PlayerView extends StatefulWidget {
-  const PlayerView({
-    Key? key,
-    required this.isPlaying,
-    required this.totalTime,
-    required this.currentTime,
-    required this.creationParams,
-    required this.onPlatformViewCreated,
-    required this.onPlayStateChanged,
-  }) : super(key: key);
+  const PlayerView(
+      {super.key,
+      required this.isPlaying,
+      required this.totalTime,
+      required this.currentTime,
+      this.creationParams,
+      required this.onPlatformViewCreated,
+      required this.onHandle});
 
   /// When [isPlaying] is `true`, the play button displays a pause icon. When
   /// it is `false`, the button shows a play icon.
@@ -28,17 +27,17 @@ class PlayerView extends StatefulWidget {
   /// is playing to let the user know the current time in the audio track.
   final Duration currentTime;
 
-  final Map<String, dynamic> creationParams;
+  final Map<String, dynamic>? creationParams;
 
   /// Callback that is called when the view is created in the platform.
   final ValueChanged<int> onPlatformViewCreated;
 
   /// This is called when a user has pressed the play/pause button. You should
   /// update [isPlaying] and then rebuild the widget with the new value.
-  final ValueChanged<bool> onPlayStateChanged;
+  final ValueChanged<MethodCall> onHandle;
 
   @override
-  _PlayerViewState createState() => _PlayerViewState();
+  State<PlayerView> createState() => _PlayerViewState();
 }
 
 class _PlayerViewState extends State<PlayerView> {
@@ -58,14 +57,14 @@ class _PlayerViewState extends State<PlayerView> {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: <Widget>[
+      children: [
         Stack(
-          children: <Widget>[
+          children: [
             UiKitView(
               viewType: 'bcov.flutter/player_view',
+              onPlatformViewCreated: widget.onPlatformViewCreated,
               creationParams: widget.creationParams,
               creationParamsCodec: const StandardMessageCodec(),
-              onPlatformViewCreated: widget.onPlatformViewCreated,
             ),
             _buildToggleWidget(),
           ],
@@ -99,10 +98,8 @@ class _PlayerViewState extends State<PlayerView> {
           isPlaying: widget.isPlaying,
           totalTime: widget.totalTime,
           currentTime: widget.currentTime,
-          onUserInteractControls: () {
-            _userInteractWithControls();
-          },
-          onPlayStateChanged: widget.onPlayStateChanged,
+          onUserInteractControls: () => _userInteractWithControls(),
+          onHandle: widget.onHandle,
         ),
       ),
     );
@@ -111,15 +108,12 @@ class _PlayerViewState extends State<PlayerView> {
   /// Sets the auto hide timer.
   void _setAutoHideTimer() {
     _cancelAutoHideTimer();
-    _autoHideTimer = Timer(const Duration(milliseconds: 3000), () {
-      _toggleController(visibility: false);
-    });
+    _autoHideTimer = Timer(const Duration(seconds: 10),
+        () => _toggleController(visibility: false));
   }
 
   /// Cancels the auto hide timer.
-  void _cancelAutoHideTimer() {
-    _autoHideTimer?.cancel();
-  }
+  void _cancelAutoHideTimer() => _autoHideTimer?.cancel();
 
   /// Changes the state of the visibility of the controls and rebuilds
   /// the widget. If [visibility] is set then is used as a new value of

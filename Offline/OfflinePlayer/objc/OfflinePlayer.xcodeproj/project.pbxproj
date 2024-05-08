@@ -3,63 +3,69 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		223B44EF2003E7D400C6C60C /* DownloadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223B44E92003E7D400C6C60C /* DownloadsViewController.m */; };
-		223B44F02003E7D400C6C60C /* VideosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223B44EC2003E7D400C6C60C /* VideosViewController.m */; };
-		223B44F12003E7D400C6C60C /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223B44ED2003E7D400C6C60C /* SettingsViewController.m */; };
-		342B10D21FFED58C00A2D343 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B10D11FFED58C00A2D343 /* AppDelegate.m */; };
-		342B10D81FFED58C00A2D343 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 342B10D61FFED58C00A2D343 /* Main.storyboard */; };
-		342B10DA1FFED58C00A2D343 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 342B10D91FFED58C00A2D343 /* Assets.xcassets */; };
-		342B10DD1FFED58C00A2D343 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 342B10DB1FFED58C00A2D343 /* LaunchScreen.storyboard */; };
-		342B10E01FFED58C00A2D343 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B10DF1FFED58C00A2D343 /* main.m */; };
-		E91C9E7823677A7600500348 /* VideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E91CAA6D23675D1300290B60 /* VideoTableViewCell.xib */; };
-		E91CAA5E23673C9B00290B60 /* VideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E91CAA5D23673C9B00290B60 /* VideoTableViewCell.m */; };
-		E91CAA72236765AA00290B60 /* InterfaceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E91CAA71236765AA00290B60 /* InterfaceManager.m */; };
-		E91CAA75236769AC00290B60 /* SettingsAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E91CAA74236769AC00290B60 /* SettingsAdapter.m */; };
-		E96D8AA92368DB7D007F6543 /* UIAlertController+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = E96D8AA82368DB7D007F6543 /* UIAlertController+Convenience.m */; };
-		E9A6B425236A0EB700EB0690 /* BCOVVIdeo+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A6B424236A0EB700EB0690 /* BCOVVIdeo+Convenience.m */; };
-		E9E8A1AF2369DC9700976B25 /* DownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E8A1AE2369DC9700976B25 /* DownloadManager.m */; };
+		D65403882BB341EA00DD8346 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D65403872BB341EA00DD8346 /* main.m */; };
+		D6636AB02B6187F50039CF21 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D6636AAF2B6187F50039CF21 /* AppDelegate.m */; };
+		D6636ABE2B6187F70039CF21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6636ABC2B6187F70039CF21 /* LaunchScreen.storyboard */; };
+		D6636AC92B6188E40039CF21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6636AC82B6188E40039CF21 /* Assets.xcassets */; };
+		D6636ACC2B618A420039CF21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6636ACA2B618A420039CF21 /* Main.storyboard */; };
+		D6636AED2B621B6A0039CF21 /* VideosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6636AEC2B621B6A0039CF21 /* VideosViewController.m */; };
+		D6636AF32B622DD80039CF21 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6636AF22B622DD80039CF21 /* SettingsViewController.m */; };
+		D6DA6D122BC73AC4007CA132 /* BCOVVideo+OfflinePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DA6D112BC73AC4007CA132 /* BCOVVideo+OfflinePlayer.m */; };
+		D6DA6D152BC78115007CA132 /* BCOVOfflineVideoStatus+OfflinePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DA6D142BC78115007CA132 /* BCOVOfflineVideoStatus+OfflinePlayer.m */; };
+		D6DA6D1B2BC78FBC007CA132 /* UIAlertController+OfflinePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DA6D1A2BC78FBC007CA132 /* UIAlertController+OfflinePlayer.m */; };
+		D6DA6D1E2BC793B2007CA132 /* UITabBarController+OfflinePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DA6D1D2BC793B2007CA132 /* UITabBarController+OfflinePlayer.m */; };
+		D6DA6D212BC79A97007CA132 /* UITableViewCell+OfflinePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DA6D202BC79A97007CA132 /* UITableViewCell+OfflinePlayer.m */; };
+		D6DA6D242BC79BF1007CA132 /* UIDevice+OfflinePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DA6D232BC79BF1007CA132 /* UIDevice+OfflinePlayer.m */; };
+		D6DA6D282BC7BE41007CA132 /* VideoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DA6D272BC7BE41007CA132 /* VideoManager.m */; };
+		D6DA6D2B2BC7C39C007CA132 /* Notifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DA6D2A2BC7C39C007CA132 /* Notifications.m */; };
+		D6ECFED22B62C82F00C40FE7 /* DownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D6ECFECE2B62C82E00C40FE7 /* DownloadManager.m */; };
+		D6ECFED72B62D9CB00C40FE7 /* VideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6ECFED52B62D9CB00C40FE7 /* VideoTableViewCell.m */; };
+		D6ECFEDA2B62DACF00C40FE7 /* DownloadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6ECFED92B62DACF00C40FE7 /* DownloadsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		223B44E92003E7D400C6C60C /* DownloadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadsViewController.m; sourceTree = "<group>"; };
-		223B44EA2003E7D400C6C60C /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		223B44EB2003E7D400C6C60C /* VideosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideosViewController.h; sourceTree = "<group>"; };
-		223B44EC2003E7D400C6C60C /* VideosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideosViewController.m; sourceTree = "<group>"; };
-		223B44ED2003E7D400C6C60C /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
-		223B44EE2003E7D400C6C60C /* DownloadsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadsViewController.h; sourceTree = "<group>"; };
-		223B44F22003EAC400C6C60C /* OfflinePlayer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "OfflinePlayer-Info.plist"; sourceTree = "<group>"; };
-		223B44F72003EC3C00C6C60C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		223B44F92003EC4400C6C60C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		223B44FB2003EC4D00C6C60C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		223B44FD2003EC5700C6C60C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		342B10CD1FFED58C00A2D343 /* OfflinePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OfflinePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		342B10D01FFED58C00A2D343 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		342B10D11FFED58C00A2D343 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		342B10D71FFED58C00A2D343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		342B10D91FFED58C00A2D343 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		342B10DC1FFED58C00A2D343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		342B10DF1FFED58C00A2D343 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E91CAA5C23673C9B00290B60 /* VideoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoTableViewCell.h; sourceTree = "<group>"; };
-		E91CAA5D23673C9B00290B60 /* VideoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoTableViewCell.m; sourceTree = "<group>"; };
-		E91CAA6D23675D1300290B60 /* VideoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoTableViewCell.xib; sourceTree = "<group>"; };
-		E91CAA70236765A900290B60 /* InterfaceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceManager.h; sourceTree = "<group>"; };
-		E91CAA71236765AA00290B60 /* InterfaceManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceManager.m; sourceTree = "<group>"; };
-		E91CAA73236769AC00290B60 /* SettingsAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsAdapter.h; sourceTree = "<group>"; };
-		E91CAA74236769AC00290B60 /* SettingsAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsAdapter.m; sourceTree = "<group>"; };
-		E96D8AA72368DB7D007F6543 /* UIAlertController+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Convenience.h"; sourceTree = "<group>"; };
-		E96D8AA82368DB7D007F6543 /* UIAlertController+Convenience.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Convenience.m"; sourceTree = "<group>"; };
-		E9A6B423236A0EB700EB0690 /* BCOVVIdeo+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BCOVVIdeo+Convenience.h"; sourceTree = "<group>"; };
-		E9A6B424236A0EB700EB0690 /* BCOVVIdeo+Convenience.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "BCOVVIdeo+Convenience.m"; sourceTree = "<group>"; };
-		E9E8A1AD2369DC9700976B25 /* DownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadManager.h; sourceTree = "<group>"; };
-		E9E8A1AE2369DC9700976B25 /* DownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadManager.m; sourceTree = "<group>"; };
+		D65403872BB341EA00DD8346 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D6636AAB2B6187F50039CF21 /* OfflinePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OfflinePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6636AAE2B6187F50039CF21 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D6636AAF2B6187F50039CF21 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D6636ABD2B6187F70039CF21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D6636ABF2B6187F70039CF21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6636AC82B6188E40039CF21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
+		D6636ACB2B618A420039CF21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D6636AEB2B621B6A0039CF21 /* VideosViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideosViewController.h; sourceTree = "<group>"; };
+		D6636AEC2B621B6A0039CF21 /* VideosViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideosViewController.m; sourceTree = "<group>"; };
+		D6636AF12B622DD80039CF21 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		D6636AF22B622DD80039CF21 /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		D6DA6D102BC73AC4007CA132 /* BCOVVideo+OfflinePlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BCOVVideo+OfflinePlayer.h"; sourceTree = "<group>"; };
+		D6DA6D112BC73AC4007CA132 /* BCOVVideo+OfflinePlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "BCOVVideo+OfflinePlayer.m"; sourceTree = "<group>"; };
+		D6DA6D132BC78115007CA132 /* BCOVOfflineVideoStatus+OfflinePlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BCOVOfflineVideoStatus+OfflinePlayer.h"; sourceTree = "<group>"; };
+		D6DA6D142BC78115007CA132 /* BCOVOfflineVideoStatus+OfflinePlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "BCOVOfflineVideoStatus+OfflinePlayer.m"; sourceTree = "<group>"; };
+		D6DA6D192BC78FBC007CA132 /* UIAlertController+OfflinePlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+OfflinePlayer.h"; sourceTree = "<group>"; };
+		D6DA6D1A2BC78FBC007CA132 /* UIAlertController+OfflinePlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+OfflinePlayer.m"; sourceTree = "<group>"; };
+		D6DA6D1C2BC793B2007CA132 /* UITabBarController+OfflinePlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+OfflinePlayer.h"; sourceTree = "<group>"; };
+		D6DA6D1D2BC793B2007CA132 /* UITabBarController+OfflinePlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+OfflinePlayer.m"; sourceTree = "<group>"; };
+		D6DA6D1F2BC79A97007CA132 /* UITableViewCell+OfflinePlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+OfflinePlayer.h"; sourceTree = "<group>"; };
+		D6DA6D202BC79A97007CA132 /* UITableViewCell+OfflinePlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+OfflinePlayer.m"; sourceTree = "<group>"; };
+		D6DA6D222BC79BF1007CA132 /* UIDevice+OfflinePlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIDevice+OfflinePlayer.h"; sourceTree = "<group>"; };
+		D6DA6D232BC79BF1007CA132 /* UIDevice+OfflinePlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+OfflinePlayer.m"; sourceTree = "<group>"; };
+		D6DA6D262BC7BE41007CA132 /* VideoManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoManager.h; sourceTree = "<group>"; };
+		D6DA6D272BC7BE41007CA132 /* VideoManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoManager.m; sourceTree = "<group>"; };
+		D6DA6D292BC7C39C007CA132 /* Notifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Notifications.h; sourceTree = "<group>"; };
+		D6DA6D2A2BC7C39C007CA132 /* Notifications.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Notifications.m; sourceTree = "<group>"; };
+		D6ECFECD2B62C82E00C40FE7 /* DownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadManager.h; sourceTree = "<group>"; };
+		D6ECFECE2B62C82E00C40FE7 /* DownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadManager.m; sourceTree = "<group>"; };
+		D6ECFED52B62D9CB00C40FE7 /* VideoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableViewCell.m; sourceTree = "<group>"; };
+		D6ECFED62B62D9CB00C40FE7 /* VideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewCell.h; sourceTree = "<group>"; };
+		D6ECFED82B62DACF00C40FE7 /* DownloadsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadsViewController.h; sourceTree = "<group>"; };
+		D6ECFED92B62DACF00C40FE7 /* DownloadsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		342B10CA1FFED58C00A2D343 /* Frameworks */ = {
+		D6636AA82B6187F50039CF21 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -69,101 +75,96 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		223B44F62003EC3B00C6C60C /* Frameworks */ = {
+		D6636AA22B6187F50039CF21 = {
 			isa = PBXGroup;
 			children = (
-				223B44FD2003EC5700C6C60C /* Foundation.framework */,
-				223B44FB2003EC4D00C6C60C /* UIKit.framework */,
-				223B44F92003EC4400C6C60C /* CoreGraphics.framework */,
-				223B44F72003EC3C00C6C60C /* MediaPlayer.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		342B10C41FFED58C00A2D343 = {
-			isa = PBXGroup;
-			children = (
-				342B10CF1FFED58C00A2D343 /* OfflinePlayer */,
-				342B10CE1FFED58C00A2D343 /* Products */,
-				223B44F62003EC3B00C6C60C /* Frameworks */,
+				D6636AAD2B6187F50039CF21 /* OfflinePlayer */,
+				D6636AAC2B6187F50039CF21 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		342B10CE1FFED58C00A2D343 /* Products */ = {
+		D6636AAC2B6187F50039CF21 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				342B10CD1FFED58C00A2D343 /* OfflinePlayer.app */,
+				D6636AAB2B6187F50039CF21 /* OfflinePlayer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		342B10CF1FFED58C00A2D343 /* OfflinePlayer */ = {
+		D6636AAD2B6187F50039CF21 /* OfflinePlayer */ = {
 			isa = PBXGroup;
 			children = (
-				342B10D01FFED58C00A2D343 /* AppDelegate.h */,
-				342B10D11FFED58C00A2D343 /* AppDelegate.m */,
-				E927934C236B25C700435AD4 /* ViewControllers */,
-				E927934B236B25B600435AD4 /* TableViewCells */,
-				E927934D236B25E000435AD4 /* ManagersUtilities */,
-				342B10D91FFED58C00A2D343 /* Assets.xcassets */,
-				342B10DB1FFED58C00A2D343 /* LaunchScreen.storyboard */,
-				223B44F22003EAC400C6C60C /* OfflinePlayer-Info.plist */,
-				342B10DF1FFED58C00A2D343 /* main.m */,
+				D6636ABF2B6187F70039CF21 /* Info.plist */,
+				D6636AC82B6188E40039CF21 /* Assets.xcassets */,
+				D6636ABC2B6187F70039CF21 /* LaunchScreen.storyboard */,
+				D6636ACA2B618A420039CF21 /* Main.storyboard */,
+				D65403872BB341EA00DD8346 /* main.m */,
+				D6636AAE2B6187F50039CF21 /* AppDelegate.h */,
+				D6636AAF2B6187F50039CF21 /* AppDelegate.m */,
+				D6ECFECD2B62C82E00C40FE7 /* DownloadManager.h */,
+				D6ECFECE2B62C82E00C40FE7 /* DownloadManager.m */,
+				D6DA6D262BC7BE41007CA132 /* VideoManager.h */,
+				D6DA6D272BC7BE41007CA132 /* VideoManager.m */,
+				D6DA6D0F2BC738F8007CA132 /* Categories */,
+				D6DA6D252BC7A9CA007CA132 /* Misc */,
+				D6ECFEC82B6249C800C40FE7 /* ViewControllers */,
 			);
 			path = OfflinePlayer;
 			sourceTree = "<group>";
 		};
-		E927934B236B25B600435AD4 /* TableViewCells */ = {
+		D6DA6D0F2BC738F8007CA132 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				E91CAA5C23673C9B00290B60 /* VideoTableViewCell.h */,
-				E91CAA5D23673C9B00290B60 /* VideoTableViewCell.m */,
-				E91CAA6D23675D1300290B60 /* VideoTableViewCell.xib */,
+				D6DA6D132BC78115007CA132 /* BCOVOfflineVideoStatus+OfflinePlayer.h */,
+				D6DA6D142BC78115007CA132 /* BCOVOfflineVideoStatus+OfflinePlayer.m */,
+				D6DA6D102BC73AC4007CA132 /* BCOVVideo+OfflinePlayer.h */,
+				D6DA6D112BC73AC4007CA132 /* BCOVVideo+OfflinePlayer.m */,
+				D6DA6D192BC78FBC007CA132 /* UIAlertController+OfflinePlayer.h */,
+				D6DA6D1A2BC78FBC007CA132 /* UIAlertController+OfflinePlayer.m */,
+				D6DA6D222BC79BF1007CA132 /* UIDevice+OfflinePlayer.h */,
+				D6DA6D232BC79BF1007CA132 /* UIDevice+OfflinePlayer.m */,
+				D6DA6D1C2BC793B2007CA132 /* UITabBarController+OfflinePlayer.h */,
+				D6DA6D1D2BC793B2007CA132 /* UITabBarController+OfflinePlayer.m */,
+				D6DA6D1F2BC79A97007CA132 /* UITableViewCell+OfflinePlayer.h */,
+				D6DA6D202BC79A97007CA132 /* UITableViewCell+OfflinePlayer.m */,
 			);
-			path = TableViewCells;
+			name = Categories;
 			sourceTree = "<group>";
 		};
-		E927934C236B25C700435AD4 /* ViewControllers */ = {
+		D6DA6D252BC7A9CA007CA132 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				342B10D61FFED58C00A2D343 /* Main.storyboard */,
-				223B44EB2003E7D400C6C60C /* VideosViewController.h */,
-				223B44EC2003E7D400C6C60C /* VideosViewController.m */,
-				223B44EE2003E7D400C6C60C /* DownloadsViewController.h */,
-				223B44E92003E7D400C6C60C /* DownloadsViewController.m */,
-				223B44EA2003E7D400C6C60C /* SettingsViewController.h */,
-				223B44ED2003E7D400C6C60C /* SettingsViewController.m */,
+				D6DA6D292BC7C39C007CA132 /* Notifications.h */,
+				D6DA6D2A2BC7C39C007CA132 /* Notifications.m */,
+				D6ECFED62B62D9CB00C40FE7 /* VideoTableViewCell.h */,
+				D6ECFED52B62D9CB00C40FE7 /* VideoTableViewCell.m */,
 			);
-			path = ViewControllers;
+			name = Misc;
 			sourceTree = "<group>";
 		};
-		E927934D236B25E000435AD4 /* ManagersUtilities */ = {
+		D6ECFEC82B6249C800C40FE7 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				E91CAA70236765A900290B60 /* InterfaceManager.h */,
-				E91CAA71236765AA00290B60 /* InterfaceManager.m */,
-				E9E8A1AD2369DC9700976B25 /* DownloadManager.h */,
-				E9E8A1AE2369DC9700976B25 /* DownloadManager.m */,
-				E91CAA73236769AC00290B60 /* SettingsAdapter.h */,
-				E91CAA74236769AC00290B60 /* SettingsAdapter.m */,
-				E96D8AA72368DB7D007F6543 /* UIAlertController+Convenience.h */,
-				E96D8AA82368DB7D007F6543 /* UIAlertController+Convenience.m */,
-				E9A6B423236A0EB700EB0690 /* BCOVVIdeo+Convenience.h */,
-				E9A6B424236A0EB700EB0690 /* BCOVVIdeo+Convenience.m */,
+				D6636AEB2B621B6A0039CF21 /* VideosViewController.h */,
+				D6636AEC2B621B6A0039CF21 /* VideosViewController.m */,
+				D6ECFED82B62DACF00C40FE7 /* DownloadsViewController.h */,
+				D6ECFED92B62DACF00C40FE7 /* DownloadsViewController.m */,
+				D6636AF12B622DD80039CF21 /* SettingsViewController.h */,
+				D6636AF22B622DD80039CF21 /* SettingsViewController.m */,
 			);
-			path = ManagersUtilities;
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		342B10CC1FFED58C00A2D343 /* OfflinePlayer */ = {
+		D6636AAA2B6187F50039CF21 /* OfflinePlayer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 342B10E31FFED58C00A2D343 /* Build configuration list for PBXNativeTarget "OfflinePlayer" */;
+			buildConfigurationList = D6636AC42B6187F70039CF21 /* Build configuration list for PBXNativeTarget "OfflinePlayer" */;
 			buildPhases = (
-				342B10C91FFED58C00A2D343 /* Sources */,
-				342B10CA1FFED58C00A2D343 /* Frameworks */,
-				342B10CB1FFED58C00A2D343 /* Resources */,
+				D6636AA72B6187F50039CF21 /* Sources */,
+				D6636AA82B6187F50039CF21 /* Frameworks */,
+				D6636AA92B6187F50039CF21 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -171,107 +172,111 @@
 			);
 			name = OfflinePlayer;
 			productName = OfflinePlayer;
-			productReference = 342B10CD1FFED58C00A2D343 /* OfflinePlayer.app */;
+			productReference = D6636AAB2B6187F50039CF21 /* OfflinePlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		342B10C51FFED58C00A2D343 /* Project object */ = {
+		D6636AA32B6187F50039CF21 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1200;
-				ORGANIZATIONNAME = Brightcove;
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1520;
+				ORGANIZATIONNAME = "Brightcove, Inc.";
 				TargetAttributes = {
-					342B10CC1FFED58C00A2D343 = {
-						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
+					D6636AAA2B6187F50039CF21 = {
+						CreatedOnToolsVersion = 15.2;
 					};
 				};
 			};
-			buildConfigurationList = 342B10C81FFED58C00A2D343 /* Build configuration list for PBXProject "OfflinePlayer" */;
-			compatibilityVersion = "Xcode 13.0";
+			buildConfigurationList = D6636AA62B6187F50039CF21 /* Build configuration list for PBXProject "OfflinePlayer" */;
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 342B10C41FFED58C00A2D343;
-			productRefGroup = 342B10CE1FFED58C00A2D343 /* Products */;
+			mainGroup = D6636AA22B6187F50039CF21;
+			productRefGroup = D6636AAC2B6187F50039CF21 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				342B10CC1FFED58C00A2D343 /* OfflinePlayer */,
+				D6636AAA2B6187F50039CF21 /* OfflinePlayer */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		342B10CB1FFED58C00A2D343 /* Resources */ = {
+		D6636AA92B6187F50039CF21 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				342B10DD1FFED58C00A2D343 /* LaunchScreen.storyboard in Resources */,
-				E91C9E7823677A7600500348 /* VideoTableViewCell.xib in Resources */,
-				342B10DA1FFED58C00A2D343 /* Assets.xcassets in Resources */,
-				342B10D81FFED58C00A2D343 /* Main.storyboard in Resources */,
+				D6636ACC2B618A420039CF21 /* Main.storyboard in Resources */,
+				D6636ABE2B6187F70039CF21 /* LaunchScreen.storyboard in Resources */,
+				D6636AC92B6188E40039CF21 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		342B10C91FFED58C00A2D343 /* Sources */ = {
+		D6636AA72B6187F50039CF21 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				342B10E01FFED58C00A2D343 /* main.m in Sources */,
-				E9A6B425236A0EB700EB0690 /* BCOVVIdeo+Convenience.m in Sources */,
-				E96D8AA92368DB7D007F6543 /* UIAlertController+Convenience.m in Sources */,
-				342B10D21FFED58C00A2D343 /* AppDelegate.m in Sources */,
-				E9E8A1AF2369DC9700976B25 /* DownloadManager.m in Sources */,
-				223B44F02003E7D400C6C60C /* VideosViewController.m in Sources */,
-				E91CAA5E23673C9B00290B60 /* VideoTableViewCell.m in Sources */,
-				223B44EF2003E7D400C6C60C /* DownloadsViewController.m in Sources */,
-				223B44F12003E7D400C6C60C /* SettingsViewController.m in Sources */,
-				E91CAA72236765AA00290B60 /* InterfaceManager.m in Sources */,
-				E91CAA75236769AC00290B60 /* SettingsAdapter.m in Sources */,
+				D6636AED2B621B6A0039CF21 /* VideosViewController.m in Sources */,
+				D6DA6D2B2BC7C39C007CA132 /* Notifications.m in Sources */,
+				D6DA6D122BC73AC4007CA132 /* BCOVVideo+OfflinePlayer.m in Sources */,
+				D6ECFED72B62D9CB00C40FE7 /* VideoTableViewCell.m in Sources */,
+				D6DA6D152BC78115007CA132 /* BCOVOfflineVideoStatus+OfflinePlayer.m in Sources */,
+				D6636AB02B6187F50039CF21 /* AppDelegate.m in Sources */,
+				D6DA6D282BC7BE41007CA132 /* VideoManager.m in Sources */,
+				D6DA6D1E2BC793B2007CA132 /* UITabBarController+OfflinePlayer.m in Sources */,
+				D6636AF32B622DD80039CF21 /* SettingsViewController.m in Sources */,
+				D6DA6D1B2BC78FBC007CA132 /* UIAlertController+OfflinePlayer.m in Sources */,
+				D6ECFED22B62C82F00C40FE7 /* DownloadManager.m in Sources */,
+				D6ECFEDA2B62DACF00C40FE7 /* DownloadsViewController.m in Sources */,
+				D6DA6D242BC79BF1007CA132 /* UIDevice+OfflinePlayer.m in Sources */,
+				D65403882BB341EA00DD8346 /* main.m in Sources */,
+				D6DA6D212BC79A97007CA132 /* UITableViewCell+OfflinePlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		342B10D61FFED58C00A2D343 /* Main.storyboard */ = {
+		D6636ABC2B6187F70039CF21 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				342B10D71FFED58C00A2D343 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		342B10DB1FFED58C00A2D343 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				342B10DC1FFED58C00A2D343 /* Base */,
+				D6636ABD2B6187F70039CF21 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D6636ACA2B618A420039CF21 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D6636ACB2B618A420039CF21 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		342B10E11FFED58C00A2D343 /* Debug */ = {
+		D6636AC22B6187F70039CF21 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -294,12 +299,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -313,23 +317,26 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
-		342B10E21FFED58C00A2D343 /* Release */ = {
+		D6636AC32B6187F70039CF21 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -352,12 +359,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -365,73 +371,83 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		342B10E41FFED58C00A2D343 /* Debug */ = {
+		D6636AC52B6187F70039CF21 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				GCC_PREFIX_HEADER = "OfflinePlayer/OfflinePlayer-Prefix.pch";
-				INFOPLIST_FILE = "OfflinePlayer/OfflinePlayer-Info.plist";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ENABLE_HARDENED_RUNTIME = NO;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Offline;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.OfflinePlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_WORKSPACE = YES;
 			};
 			name = Debug;
 		};
-		342B10E51FFED58C00A2D343 /* Release */ = {
+		D6636AC62B6187F70039CF21 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				GCC_PREFIX_HEADER = "OfflinePlayer/OfflinePlayer-Prefix.pch";
-				INFOPLIST_FILE = "OfflinePlayer/OfflinePlayer-Info.plist";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ENABLE_HARDENED_RUNTIME = NO;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Offline;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.OfflinePlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_WORKSPACE = YES;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		342B10C81FFED58C00A2D343 /* Build configuration list for PBXProject "OfflinePlayer" */ = {
+		D6636AA62B6187F50039CF21 /* Build configuration list for PBXProject "OfflinePlayer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				342B10E11FFED58C00A2D343 /* Debug */,
-				342B10E21FFED58C00A2D343 /* Release */,
+				D6636AC22B6187F70039CF21 /* Debug */,
+				D6636AC32B6187F70039CF21 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		342B10E31FFED58C00A2D343 /* Build configuration list for PBXNativeTarget "OfflinePlayer" */ = {
+		D6636AC42B6187F70039CF21 /* Build configuration list for PBXNativeTarget "OfflinePlayer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				342B10E41FFED58C00A2D343 /* Debug */,
-				342B10E51FFED58C00A2D343 /* Release */,
+				D6636AC52B6187F70039CF21 /* Debug */,
+				D6636AC62B6187F70039CF21 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 342B10C51FFED58C00A2D343 /* Project object */;
+	rootObject = D6636AA32B6187F50039CF21 /* Project object */;
 }

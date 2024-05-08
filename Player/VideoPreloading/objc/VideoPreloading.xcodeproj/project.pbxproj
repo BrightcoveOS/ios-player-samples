@@ -3,27 +3,27 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D6B08BAF2BE5939B00BFA9A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6B08BAE2BE5939B00BFA9A3 /* Assets.xcassets */; };
 		E92272D72243F546000474A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E92272D62243F546000474A4 /* AppDelegate.m */; };
 		E92272DA2243F546000474A4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E92272D92243F546000474A4 /* ViewController.m */; };
 		E92272DD2243F546000474A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E92272DB2243F546000474A4 /* Main.storyboard */; };
-		E92272DF2243F547000474A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E92272DE2243F547000474A4 /* Assets.xcassets */; };
 		E92272E22243F547000474A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E92272E02243F547000474A4 /* LaunchScreen.storyboard */; };
 		E92272E52243F547000474A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E92272E42243F547000474A4 /* main.m */; };
 		E92272ED2243F620000474A4 /* VideoPreloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E92272EB2243F620000474A4 /* VideoPreloadManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D6B08BAE2BE5939B00BFA9A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		E92272D22243F546000474A4 /* VideoPreloading.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoPreloading.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E92272D52243F546000474A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E92272D62243F546000474A4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E92272D82243F546000474A4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		E92272D92243F546000474A4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E92272DC2243F546000474A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E92272DE2243F547000474A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E92272E12243F547000474A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E92272E32243F547000474A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E92272E42243F547000474A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -61,17 +61,17 @@
 		E92272D42243F546000474A4 /* VideoPreloading */ = {
 			isa = PBXGroup;
 			children = (
+				E92272E32243F547000474A4 /* Info.plist */,
+				D6B08BAE2BE5939B00BFA9A3 /* Assets.xcassets */,
+				E92272E02243F547000474A4 /* LaunchScreen.storyboard */,
+				E92272DB2243F546000474A4 /* Main.storyboard */,
+				E92272E42243F547000474A4 /* main.m */,
 				E92272D52243F546000474A4 /* AppDelegate.h */,
 				E92272D62243F546000474A4 /* AppDelegate.m */,
 				E92272D82243F546000474A4 /* ViewController.h */,
 				E92272D92243F546000474A4 /* ViewController.m */,
 				E92272EC2243F620000474A4 /* VideoPreloadManager.h */,
 				E92272EB2243F620000474A4 /* VideoPreloadManager.m */,
-				E92272DB2243F546000474A4 /* Main.storyboard */,
-				E92272DE2243F547000474A4 /* Assets.xcassets */,
-				E92272E02243F547000474A4 /* LaunchScreen.storyboard */,
-				E92272E32243F547000474A4 /* Info.plist */,
-				E92272E42243F547000474A4 /* main.m */,
 			);
 			path = VideoPreloading;
 			sourceTree = "<group>";
@@ -103,7 +103,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1200;
-				ORGANIZATIONNAME = "Brightcove, Inc";
+				ORGANIZATIONNAME = "Brightcove, Inc.";
 				TargetAttributes = {
 					E92272D12243F546000474A4 = {
 						CreatedOnToolsVersion = 10.1;
@@ -111,7 +111,7 @@
 				};
 			};
 			buildConfigurationList = E92272CD2243F546000474A4 /* Build configuration list for PBXProject "VideoPreloading" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -134,7 +134,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E92272E22243F547000474A4 /* LaunchScreen.storyboard in Resources */,
-				E92272DF2243F547000474A4 /* Assets.xcassets in Resources */,
+				D6B08BAF2BE5939B00BFA9A3 /* Assets.xcassets in Resources */,
 				E92272DD2243F546000474A4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -208,7 +208,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -227,7 +226,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -268,7 +267,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -281,7 +279,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -293,14 +291,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = VideoPreloading/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = VideoPreloading;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.VideoPreloading;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_WORKSPACE = YES;
@@ -311,14 +309,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = VideoPreloading/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = VideoPreloading;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.VideoPreloading;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_WORKSPACE = YES;

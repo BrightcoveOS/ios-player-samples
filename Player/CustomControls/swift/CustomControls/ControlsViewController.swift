@@ -2,11 +2,12 @@
 //  ControlsViewController.swift
 //  CustomControls
 //
-//  Copyright © 2020 Brightcove, Inc. All rights reserved.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 import UIKit
 import BrightcovePlayerSDK
+
 
 fileprivate struct ControlConstants {
     static let VisibleDuration: TimeInterval = 5.0
@@ -14,64 +15,63 @@ fileprivate struct ControlConstants {
     static let AnimateOutDuraton: TimeInterval = 0.2
 }
 
-class ControlsViewController: UIViewController {
+
+final class ControlsViewController: UIViewController {
+
+    @IBOutlet fileprivate weak var controlsContainer: UIView!
+    @IBOutlet fileprivate weak var playPauseButton: UIButton!
+    @IBOutlet fileprivate weak var playheadLabel: UILabel!
+    @IBOutlet fileprivate weak var playheadSlider: UISlider!
+    @IBOutlet fileprivate weak var durationLabel: UILabel!
+    @IBOutlet fileprivate weak var fullscreenButton: UIButton!
+    @IBOutlet fileprivate weak var externalScreenButton: MPVolumeView!
+    @IBOutlet fileprivate weak var closedCaptionButton: UIButton!
 
     weak var delegate: ControlsViewControllerFullScreenDelegate?
     weak var currentPlayer: AVPlayer?
     weak var playbackController: BCOVPlaybackController?
-    
-    @IBOutlet weak private var controlsContainer: UIView!
-    @IBOutlet weak private var playPauseButton: UIButton!
-    @IBOutlet weak private var playheadLabel: UILabel!
-    @IBOutlet weak private var playheadSlider: UISlider!
-    @IBOutlet weak private var durationLabel: UILabel!
-    @IBOutlet weak private var fullscreenButton: UIButton!
-    @IBOutlet weak private var externalScreenButton: MPVolumeView!
-    @IBOutlet weak private var closedCaptionButton: UIButton!
-    
-    private var controlTimer: Timer?
-    private var playingOnSeek: Bool = false
-    
+
     var closedCaptionEnabled: Bool = false {
         didSet {
             closedCaptionButton.isEnabled = closedCaptionEnabled
         }
     }
-    
-    private lazy var ccMenuController: ClosedCaptionMenuController = {
-        let _ccMenuController = ClosedCaptionMenuController(style: .grouped)
-        _ccMenuController.controlsView = self
-        return _ccMenuController
+
+    fileprivate var controlTimer: Timer?
+    fileprivate var playingOnSeek: Bool = false
+
+    fileprivate lazy var ccMenuController: ClosedCaptionMenuController = {
+        let ccMenuController = ClosedCaptionMenuController(style: .grouped)
+        ccMenuController.controlsView = self
+        return ccMenuController
     }()
-    
-    private lazy var numberFormatter: NumberFormatter = {
+
+    fileprivate lazy var numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.paddingCharacter = "0"
         formatter.minimumIntegerDigits = 2
         return formatter
     }()
-    
-    // MARK: - View Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Used for hiding and showing the controls.
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapDetected))
+        let tapRecognizer = UITapGestureRecognizer(target: self,
+                                                   action: #selector(tapDetected))
         tapRecognizer.numberOfTapsRequired = 1
         tapRecognizer.numberOfTouchesRequired = 1
         tapRecognizer.delegate = self
         view.addGestureRecognizer(tapRecognizer)
-        
+
         externalScreenButton.showsRouteButton = true
         externalScreenButton.showsVolumeSlider = false
-        
+
         closedCaptionButton.isEnabled = false
     }
-    
-    // MARK: - Misc
-    
-    @objc private func tapDetected() {
+
+    @objc
+    fileprivate func tapDetected() {
         if playPauseButton.isSelected {
             if controlsContainer.alpha == 0.0 {
                 fadeControlsIn()
@@ -80,61 +80,69 @@ class ControlsViewController: UIViewController {
             }
         }
     }
-    
-    private func fadeControlsIn() {
-        UIView.animate(withDuration: ControlConstants.AnimateInDuration, animations: {
-            self.showControls()
-        }) { [weak self](finished: Bool) in
+
+    fileprivate func fadeControlsIn() {
+        UIView.animate(withDuration: ControlConstants.AnimateInDuration) { [self] in
+            showControls()
+        } completion:{ [self] (finished: Bool) in
             if finished {
-                self?.reestablishTimer()
+                reestablishTimer()
             }
         }
     }
-    
-    @objc private func fadeControlsOut() {
-        UIView.animate(withDuration: ControlConstants.AnimateOutDuraton) {
-            self.hideControls()
-        }
 
+    @objc
+    fileprivate func fadeControlsOut() {
+        UIView.animate(withDuration: ControlConstants.AnimateOutDuraton) { [self] in
+            hideControls()
+        }
     }
-    
-    private func reestablishTimer() {
+
+    fileprivate func reestablishTimer() {
         controlTimer?.invalidate()
-        controlTimer = Timer.scheduledTimer(timeInterval: ControlConstants.VisibleDuration, target: self, selector: #selector(fadeControlsOut), userInfo: nil, repeats: false)
+        controlTimer = Timer.scheduledTimer(timeInterval: ControlConstants.VisibleDuration,
+                                            target: self,
+                                            selector: #selector(fadeControlsOut),
+                                            userInfo: nil,
+                                            repeats: false)
     }
-    
-    private func hideControls() {
+
+    fileprivate func hideControls() {
         controlsContainer.alpha = 0.0
     }
-    
-    private func showControls() {
+
+    fileprivate func showControls() {
         controlsContainer.alpha = 1.0
     }
-    
-    private func invalidateTimerAndShowControls() {
+
+    fileprivate func invalidateTimerAndShowControls() {
         controlTimer?.invalidate()
         showControls()
     }
-    
-    private func formatTime(timeInterval: TimeInterval) -> String? {
-        if (timeInterval.isNaN || !timeInterval.isFinite || timeInterval == 0) {
+
+    fileprivate func formatTime(timeInterval: TimeInterval) -> String? {
+        if timeInterval.isNaN ||
+            !timeInterval.isFinite ||
+            timeInterval == 0 {
             return "00:00"
         }
-        
+
         let hours  = floor(timeInterval / 60.0 / 60.0)
         let minutes = (timeInterval / 60).truncatingRemainder(dividingBy: 60)
         let seconds = timeInterval.truncatingRemainder(dividingBy: 60)
-        
-        guard let formattedMinutes = numberFormatter.string(from: NSNumber(value: minutes)), let formattedSeconds = numberFormatter.string(from: NSNumber(value: seconds)) else {
+
+        guard let formattedMinutes = numberFormatter.string(from: NSNumber(value: minutes)),
+              let formattedSeconds = numberFormatter.string(from: NSNumber(value: seconds)) else {
             return nil
         }
-        
-        return hours > 0 ? "\(hours):\(formattedMinutes):\(formattedSeconds)" : "\(formattedMinutes):\(formattedSeconds)"
-    }
-    
-    // MARK: - IBActions
 
-    @IBAction func handleFullScreenButtonPressed(_ button: UIButton) {
+        return (hours > 0 ?
+                "\(hours):\(formattedMinutes):\(formattedSeconds)" :
+                    "\(formattedMinutes):\(formattedSeconds)")
+    }
+
+    @IBAction
+    fileprivate func handleFullScreenButtonPressed(_ button: UIButton) {
         if button.isSelected {
             button.isSelected = false
             delegate?.handleExitFullScreenButtonPressed()
@@ -143,117 +151,123 @@ class ControlsViewController: UIViewController {
             delegate?.handleEnterFullScreenButtonPressed()
         }
     }
-    
-    @IBAction func handlePlayheadSliderTouchEnd(_ slider: UISlider) {
+
+    @IBAction
+    fileprivate func handlePlayheadSliderTouchEnd(_ slider: UISlider) {
         if let currentTime = currentPlayer?.currentItem {
             let newCurrentTime = Float64(slider.value) * CMTimeGetSeconds(currentTime.duration)
             let seekToTime = CMTimeMakeWithSeconds(newCurrentTime, preferredTimescale: 600)
-            
-            playbackController?.seek(to: seekToTime, completionHandler: { [weak self] (finished: Bool) in
-                self?.playingOnSeek = false
-                self?.playbackController?.play()
-            })
+
+            playbackController?.seek(to: seekToTime) { [self] (finished: Bool) in
+                playingOnSeek = false
+                playbackController?.play()
+            }
         }
     }
-    
-    @IBAction func handlePlayheadSliderTouchBegin(_ slider: UISlider) {
+
+    @IBAction
+    fileprivate func handlePlayheadSliderTouchBegin(_ slider: UISlider) {
         playingOnSeek = playPauseButton.isSelected
         playbackController?.pause()
     }
-    
-    @IBAction func handlePlayheadSliderValueChanged(_ slider: UISlider) {
+
+    @IBAction
+    fileprivate func handlePlayheadSliderValueChanged(_ slider: UISlider) {
         if let currentTime = currentPlayer?.currentItem {
             let currentTime = Float64(slider.value) * CMTimeGetSeconds(currentTime.duration)
             playheadLabel.text = formatTime(timeInterval: currentTime)
         }
-        
     }
-    
-    @IBAction func handlePlayPauseButtonPressed(_ button: UIButton) {
+
+    @IBAction
+    fileprivate func handlePlayPauseButtonPressed(_ button: UIButton) {
         if button.isSelected {
             playbackController?.pause()
         } else {
             playbackController?.play()
         }
     }
-    
-    @IBAction func handleClosedCaptionButtonPressed(_ button: UIButton) {
+
+    @IBAction 
+    fileprivate func handleClosedCaptionButtonPressed(_ button: UIButton) {
         let navController = UINavigationController(rootViewController: ccMenuController)
         present(navController, animated: true, completion: nil)
     }
-
 }
 
-// MARK: - UIGestureRecognizerDelegate
-
-extension ControlsViewController: UIGestureRecognizerDelegate {
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        // This makes sure that we don't try and hide the controls if someone is pressing any of the buttons
-        // or slider.
-        
-        guard let view = touch.view else {
-            return true
-        }
-        
-        if ( view.isKind(of: UIButton.classForCoder()) || view.isKind(of: UISlider.classForCoder()) ) {
-            return false
-        }
-        
-        return true
-    }
-    
-}
 
 // MARK: - BCOVPlaybackSessionConsumer
 
 extension ControlsViewController: BCOVPlaybackSessionConsumer {
-    
+
     func didAdvance(to session: BCOVPlaybackSession!) {
         currentPlayer = session.player
-        
+
         // Reset State
         playingOnSeek = false
         playheadLabel.text = formatTime(timeInterval: 0)
         playheadSlider.value = 0.0
-        
+
         invalidateTimerAndShowControls()
     }
-    
-    func playbackSession(_ session: BCOVPlaybackSession!, didChangeDuration duration: TimeInterval) {
+
+    func playbackSession(_ session: BCOVPlaybackSession!,
+                         didChangeDuration duration: TimeInterval) {
         durationLabel.text = formatTime(timeInterval: duration)
     }
-    
-    func playbackSession(_ session: BCOVPlaybackSession!, didProgressTo progress: TimeInterval) {
+
+    func playbackSession(_ session: BCOVPlaybackSession!,
+                         didProgressTo progress: TimeInterval) {
         playheadLabel.text = formatTime(timeInterval: progress)
-        
+
         guard let currentItem = session.player.currentItem else {
             return
         }
-        
+
         let duration = CMTimeGetSeconds(currentItem.duration)
         let percent = Float(progress / duration)
         playheadSlider.value = percent.isNaN ? 0.0 : percent
     }
-    
-    func playbackSession(_ session: BCOVPlaybackSession!, didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
-        
+
+    func playbackSession(_ session: BCOVPlaybackSession!,
+                         didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
+
         switch lifecycleEvent.eventType {
-        case kBCOVPlaybackSessionLifecycleEventPlay:
-            playPauseButton?.isSelected = true
-            reestablishTimer()
-        case kBCOVPlaybackSessionLifecycleEventPause:
-            playPauseButton.isSelected = false
-            invalidateTimerAndShowControls()
-        case kBCOVPlaybackSessionLifecycleEventReady:
-            ccMenuController.currentSession = session
-        default:
-            break
+            case kBCOVPlaybackSessionLifecycleEventPlay:
+                playPauseButton?.isSelected = true
+                reestablishTimer()
+            case kBCOVPlaybackSessionLifecycleEventPause:
+                playPauseButton.isSelected = false
+                invalidateTimerAndShowControls()
+            case kBCOVPlaybackSessionLifecycleEventReady:
+                ccMenuController.currentSession = session
+            default:
+                break
         }
-        
     }
-    
 }
+
+
+// MARK: - UIGestureRecognizerDelegate
+
+extension ControlsViewController: UIGestureRecognizerDelegate {
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, 
+                           shouldReceive touch: UITouch) -> Bool {
+        // This makes sure that we don't try and hide the controls 
+        // if someone is pressing any of the buttons or slider.
+
+        guard let view = touch.view else { return true }
+
+        if view.isKind(of: UIButton.classForCoder()) ||
+            view.isKind(of: UISlider.classForCoder()) {
+            return false
+        }
+
+        return true
+    }
+}
+
 
 // MARK: - ControlsViewControllerFullScreenDelegate
 

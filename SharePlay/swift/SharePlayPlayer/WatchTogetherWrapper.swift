@@ -2,13 +2,14 @@
 //  WatchTogetherWrapper.swift
 //  SharePlayPlayer
 //
-//  Created by Jeremy Blaker on 6/29/21.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
-import Foundation
-import BrightcovePlayerSDK
-import GroupActivities
 import Combine
+import Foundation
+import GroupActivities
+import BrightcovePlayerSDK
+
 
 protocol WatchTogetherWrapperDelegate: NSObject {
     func groupSessionWasJoined()
@@ -18,93 +19,95 @@ protocol WatchTogetherWrapperDelegate: NSObject {
     func activityFailedActivation()
 }
 
-class WatchTogetherWrapper: NSObject {
-    
-    public weak var player: AVPlayer? {
+
+final class WatchTogetherWrapper: NSObject {
+
+    weak var player: AVPlayer? {
         didSet {
-            guard let session = groupSession else {
+            guard let groupSession else {
                 return
             }
+
             // Coordinate playback with the active session.
-            player?.playbackCoordinator.coordinateWithSession(session)
+            player?.playbackCoordinator.coordinateWithSession(groupSession)
         }
     }
-    weak var delegate: WatchTogetherWrapperDelegate?
-    public weak var playbackController: BCOVPlaybackController?
 
-    private var subscriptions = [AnyCancellable]()
-    private var watchTogether: WatchTogether?
-    private var result: GroupActivityActivationResult?
-    private var groupSession: GroupSession<WatchTogether>? {
+    weak var delegate: WatchTogetherWrapperDelegate?
+    weak var playbackController: BCOVPlaybackController?
+
+    fileprivate var subscriptions = [AnyCancellable]()
+    fileprivate var watchTogether: WatchTogether?
+    fileprivate var result: GroupActivityActivationResult?
+    fileprivate var groupSession: GroupSession<WatchTogether>? {
         didSet {
-            guard let session = groupSession else {
+            guard let groupSession else {
                 // Stop playback if a session terminates.
                 player?.rate = 0
                 return
             }
+
             // Coordinate playback with the active session.
-            player?.playbackCoordinator.coordinateWithSession(session)
+            player?.playbackCoordinator.coordinateWithSession(groupSession)
         }
     }
-    
+
     override init() {
         super.init()
         startListening()
     }
-    
-    func activateNewActivity(withVideo video: BCOVVideo, withSource source: BCOVSource) {
-        
+
+    func activateNewActivity(withVideo video: BCOVVideo,
+                             withSource source: BCOVSource) {
+
         let movieTitle = video.properties[kBCOVVideoPropertyKeyName] as? String ?? "<Title Unavailable>"
 
         var metadata = GroupActivityMetadata()
         metadata.type = .watchTogether
         metadata.title = movieTitle
-        
-        var keySystems: [String:[String:String]]?
-        
-        if let _keySystems = source.properties["key_systems"] as? [String:[String:String]] {
-            keySystems = _keySystems
-        }
-        
-        watchTogether = WatchTogether(metadata: metadata, sourceURL: source.url.absoluteString, keySystems: keySystems)
 
-        guard let watchTogether = watchTogether else {
+        let keySystems = source.properties["key_systems"] as? [String: [String: String]]
+
+        watchTogether = WatchTogether(metadata: metadata,
+                                      sourceURL: source.url.absoluteString,
+                                      keySystems: keySystems)
+
+        guard let watchTogether else {
             return
         }
-        
+
         Task {
             let result = await watchTogether.prepareForActivation()
             switch result {
-            case .activationPreferred:
-                let didActivate = try await watchTogether.activate()
-                if didActivate {
-                    delegate?.activityWasActivated()
-                } else {
-                    delegate?.activityFailedActivation()
-                }
-                return
-            case .activationDisabled:
-                delegate?.activityWasDisabled()
-                return
-            default:
-                return
+                case .activationPreferred:
+                    let didActivate = try await watchTogether.activate()
+                    if didActivate {
+                        delegate?.activityWasActivated()
+                    } else {
+                        delegate?.activityFailedActivation()
+                    }
+                    break
+                case .activationDisabled:
+                    delegate?.activityWasDisabled()
+                    break
+                default:
+                    break
             }
         }
     }
 
     func endSharePlay() {
-        if let _groupSession = groupSession {
-            _groupSession.end()
-            groupSession = nil
+        if let groupSession {
+            groupSession.end()
         }
     }
-        
-    func startListening() {
+
+    fileprivate func startListening() {
         Task.init(priority: TaskPriority.background) {
             for await groupSession in WatchTogether.sessions() {
                 // Set the app's active group session.
                 self.groupSession = groupSession
-                
+
                 // Remove previous subscriptions.
                 subscriptions.removeAll()
 
@@ -117,51 +120,58 @@ class WatchTogetherWrapper: NSObject {
                         self?.subscriptions.removeAll()
                         self?.delegate?.groupSessionWasInvalidated()
                     }
-                    
+
                     if case .waiting = state {
                         // Join the session to participate in playback coordination.
                         groupSession.join()
                     }
-                    
+
                     if case .joined = state {
                         self?.delegate?.groupSessionWasJoined()
                     }
+
                 }.store(in: &subscriptions)
 
-                
                 // Observe when the local user or a remote participant starts an activity.
-                groupSession.$activity.sink { [weak self] activity in
+                groupSession.$activity.sink { [playbackController] activity in
 
                     if let sourceURL = URL(string: activity.sourceURL) {
-                        
+
                         var sourceProperties = [AnyHashable:AnyHashable]()
-                        
+
                         if let keySystems = activity.keySystems {
                             sourceProperties["key_systems"] = keySystems
                         }
-                                                
-                        let source = BCOVSource(url: sourceURL, deliveryMethod: kBCOVSourceDeliveryHLS, properties: sourceProperties)
-                        
-                        let video = BCOVVideo(source: source, cuePoints: nil, properties: nil)
-                        
-                        if let _playbackController = self?.playbackController {
+
+                        let source = BCOVSource(url: sourceURL,
+                                                deliveryMethod: kBCOVSourceDeliveryHLS,
+                                                properties: sourceProperties)
+
+                        let video = BCOVVideo(source: source,
+                                              cuePoints: nil,
+                                              properties: nil)
+
+                        if let playbackController {
                             DispatchQueue.main.async {
-                                _playbackController.setVideos([video] as NSFastEnumeration)
+                                playbackController.setVideos([video] as NSFastEnumeration)
                             }
                         }
 
                     }
-                    
+
                 }.store(in: &subscriptions)
             }
         }
     }
-    
 }
+
+
+// MARK: - BCOVPlaybackSessionConsumer
 
 extension WatchTogetherWrapper: BCOVPlaybackSessionConsumer {
-    func didAdvance(to session: BCOVPlaybackSession!) {
-        self.player = session.player
-    }
-}
 
+    func didAdvance(to session: BCOVPlaybackSession!) {
+        player = session.player
+    }
+
+}

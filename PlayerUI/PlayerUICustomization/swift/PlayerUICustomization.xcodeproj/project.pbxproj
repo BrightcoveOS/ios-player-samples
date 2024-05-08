@@ -3,28 +3,28 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D61F80FD2BD84ADA00AD32CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D61F80FC2BD84ADA00AD32CE /* Assets.xcassets */; };
+		D61F81082BD958D200AD32CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D61F81042BD958D200AD32CE /* LaunchScreen.storyboard */; };
+		D61F81092BD958D200AD32CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D61F81062BD958D200AD32CE /* Main.storyboard */; };
 		E990FB212812F7D4009EA040 /* fontello.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E990FB202812F7D4009EA040 /* fontello.ttf */; };
 		E9C263E5215D6FE80042F45D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C263E4215D6FE80042F45D /* AppDelegate.swift */; };
 		E9C263E7215D6FE80042F45D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C263E6215D6FE80042F45D /* ViewController.swift */; };
-		E9C263EA215D6FE80042F45D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9C263E8215D6FE80042F45D /* Main.storyboard */; };
-		E9C263EC215D6FE90042F45D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9C263EB215D6FE90042F45D /* Assets.xcassets */; };
-		E9C263EF215D6FE90042F45D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9C263ED215D6FE90042F45D /* LaunchScreen.storyboard */; };
 		E9C263F7215E735D0042F45D /* CustomLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C263F6215E735D0042F45D /* CustomLayouts.swift */; };
 		E9C263F9215E853C0042F45D /* ControlViewStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C263F8215E853C0042F45D /* ControlViewStyles.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D61F80FC2BD84ADA00AD32CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
+		D61F81052BD958D200AD32CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D61F81072BD958D200AD32CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E990FB202812F7D4009EA040 /* fontello.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = fontello.ttf; sourceTree = "<group>"; };
 		E9C263E1215D6FE80042F45D /* PlayerUICustomization.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerUICustomization.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9C263E4215D6FE80042F45D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9C263E6215D6FE80042F45D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		E9C263E9215D6FE80042F45D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E9C263EB215D6FE90042F45D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		E9C263EE215D6FE90042F45D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E9C263F0215D6FE90042F45D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9C263F6215E735D0042F45D /* CustomLayouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLayouts.swift; sourceTree = "<group>"; };
 		E9C263F8215E853C0042F45D /* ControlViewStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlViewStyles.swift; sourceTree = "<group>"; };
@@ -60,15 +60,15 @@
 		E9C263E3215D6FE80042F45D /* PlayerUICustomization */ = {
 			isa = PBXGroup;
 			children = (
+				E9C263F0215D6FE90042F45D /* Info.plist */,
+				D61F80FC2BD84ADA00AD32CE /* Assets.xcassets */,
+				D61F81042BD958D200AD32CE /* LaunchScreen.storyboard */,
+				D61F81062BD958D200AD32CE /* Main.storyboard */,
+				E990FB202812F7D4009EA040 /* fontello.ttf */,
 				E9C263E4215D6FE80042F45D /* AppDelegate.swift */,
 				E9C263E6215D6FE80042F45D /* ViewController.swift */,
-				E9C263F6215E735D0042F45D /* CustomLayouts.swift */,
 				E9C263F8215E853C0042F45D /* ControlViewStyles.swift */,
-				E9C263E8215D6FE80042F45D /* Main.storyboard */,
-				E9C263EB215D6FE90042F45D /* Assets.xcassets */,
-				E9C263ED215D6FE90042F45D /* LaunchScreen.storyboard */,
-				E9C263F0215D6FE90042F45D /* Info.plist */,
-				E990FB202812F7D4009EA040 /* fontello.ttf */,
+				E9C263F6215E735D0042F45D /* CustomLayouts.swift */,
 			);
 			path = PlayerUICustomization;
 			sourceTree = "<group>";
@@ -101,7 +101,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 1200;
-				ORGANIZATIONNAME = "Brightcove, Inc";
+				ORGANIZATIONNAME = "Brightcove, Inc.";
 				TargetAttributes = {
 					E9C263E0215D6FE80042F45D = {
 						CreatedOnToolsVersion = 10.0;
@@ -110,7 +110,7 @@
 				};
 			};
 			buildConfigurationList = E9C263DC215D6FE80042F45D /* Build configuration list for PBXProject "PlayerUICustomization" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -132,10 +132,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9C263EF215D6FE90042F45D /* LaunchScreen.storyboard in Resources */,
-				E9C263EC215D6FE90042F45D /* Assets.xcassets in Resources */,
-				E9C263EA215D6FE80042F45D /* Main.storyboard in Resources */,
+				D61F81082BD958D200AD32CE /* LaunchScreen.storyboard in Resources */,
+				D61F80FD2BD84ADA00AD32CE /* Assets.xcassets in Resources */,
 				E990FB212812F7D4009EA040 /* fontello.ttf in Resources */,
+				D61F81092BD958D200AD32CE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,20 +156,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		E9C263E8215D6FE80042F45D /* Main.storyboard */ = {
+		D61F81042BD958D200AD32CE /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E9C263E9215D6FE80042F45D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		E9C263ED215D6FE90042F45D /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E9C263EE215D6FE90042F45D /* Base */,
+				D61F81052BD958D200AD32CE /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D61F81062BD958D200AD32CE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D61F81072BD958D200AD32CE /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -208,7 +208,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -227,7 +226,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -270,7 +269,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -283,7 +281,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -297,14 +295,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = PlayerUICustomization/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = UICustomization;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.PlayerUICustomization;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -316,14 +314,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = PlayerUICustomization/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = UICustomization;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.PlayerUICustomization;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

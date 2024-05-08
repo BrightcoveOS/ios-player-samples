@@ -1,0 +1,18 @@
+{
+  "images" : [
+    {
+      "filename" : "BrightcoveLogo@1x.png",
+      "idiom" : "tv",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "BrightcoveLogo@2x.png",
+      "idiom" : "tv",
+      "scale" : "2x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

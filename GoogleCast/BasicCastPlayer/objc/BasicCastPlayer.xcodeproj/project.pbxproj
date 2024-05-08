@@ -3,30 +3,33 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D657E9BE2BD2C687005A18F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D657E9BD2BD2C687005A18F9 /* Assets.xcassets */; };
+		D657E9C12BD2D368005A18F9 /* GCKUICastContainerViewController+BasicCastPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D657E9C02BD2D368005A18F9 /* GCKUICastContainerViewController+BasicCastPlayer.m */; };
 		E915F98D23F1F96800F5A64A /* GoogleCastManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E915F98C23F1F96800F5A64A /* GoogleCastManager.m */; };
 		E9FF7E4021BACA2D000189E0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FF7E3F21BACA2D000189E0 /* AppDelegate.m */; };
-		E9FF7E4321BACA2D000189E0 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FF7E4221BACA2D000189E0 /* PlayerViewController.m */; };
+		E9FF7E4321BACA2D000189E0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FF7E4221BACA2D000189E0 /* ViewController.m */; };
 		E9FF7E4621BACA2D000189E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9FF7E4421BACA2D000189E0 /* Main.storyboard */; };
-		E9FF7E4821BACA2F000189E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9FF7E4721BACA2F000189E0 /* Assets.xcassets */; };
 		E9FF7E4B21BACA2F000189E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9FF7E4921BACA2F000189E0 /* LaunchScreen.storyboard */; };
 		E9FF7E4E21BACA2F000189E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FF7E4D21BACA2F000189E0 /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D657E9BD2BD2C687005A18F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
+		D657E9BF2BD2D368005A18F9 /* GCKUICastContainerViewController+BasicCastPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GCKUICastContainerViewController+BasicCastPlayer.h"; sourceTree = "<group>"; };
+		D657E9C02BD2D368005A18F9 /* GCKUICastContainerViewController+BasicCastPlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "GCKUICastContainerViewController+BasicCastPlayer.m"; sourceTree = "<group>"; };
 		E915F98B23F1F96800F5A64A /* GoogleCastManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleCastManager.h; sourceTree = "<group>"; };
 		E915F98C23F1F96800F5A64A /* GoogleCastManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleCastManager.m; sourceTree = "<group>"; };
 		E9B758962278E3C2008D1362 /* BasicCastPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BasicCastPlayer.entitlements; sourceTree = "<group>"; };
 		E9FF7E3B21BACA2D000189E0 /* BasicCastPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicCastPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9FF7E3E21BACA2D000189E0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E9FF7E3F21BACA2D000189E0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		E9FF7E4121BACA2D000189E0 /* PlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
-		E9FF7E4221BACA2D000189E0 /* PlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerViewController.m; sourceTree = "<group>"; };
+		E9FF7E4121BACA2D000189E0 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		E9FF7E4221BACA2D000189E0 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E9FF7E4521BACA2D000189E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E9FF7E4721BACA2F000189E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9FF7E4A21BACA2F000189E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E9FF7E4C21BACA2F000189E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9FF7E4D21BACA2F000189E0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -63,17 +66,19 @@
 			isa = PBXGroup;
 			children = (
 				E9B758962278E3C2008D1362 /* BasicCastPlayer.entitlements */,
+				E9FF7E4C21BACA2F000189E0 /* Info.plist */,
+				D657E9BD2BD2C687005A18F9 /* Assets.xcassets */,
+				E9FF7E4921BACA2F000189E0 /* LaunchScreen.storyboard */,
+				E9FF7E4421BACA2D000189E0 /* Main.storyboard */,
+				E9FF7E4D21BACA2F000189E0 /* main.m */,
 				E9FF7E3E21BACA2D000189E0 /* AppDelegate.h */,
 				E9FF7E3F21BACA2D000189E0 /* AppDelegate.m */,
-				E9FF7E4121BACA2D000189E0 /* PlayerViewController.h */,
-				E9FF7E4221BACA2D000189E0 /* PlayerViewController.m */,
+				D657E9BF2BD2D368005A18F9 /* GCKUICastContainerViewController+BasicCastPlayer.h */,
+				D657E9C02BD2D368005A18F9 /* GCKUICastContainerViewController+BasicCastPlayer.m */,
 				E915F98B23F1F96800F5A64A /* GoogleCastManager.h */,
 				E915F98C23F1F96800F5A64A /* GoogleCastManager.m */,
-				E9FF7E4421BACA2D000189E0 /* Main.storyboard */,
-				E9FF7E4721BACA2F000189E0 /* Assets.xcassets */,
-				E9FF7E4921BACA2F000189E0 /* LaunchScreen.storyboard */,
-				E9FF7E4C21BACA2F000189E0 /* Info.plist */,
-				E9FF7E4D21BACA2F000189E0 /* main.m */,
+				E9FF7E4121BACA2D000189E0 /* ViewController.h */,
+				E9FF7E4221BACA2D000189E0 /* ViewController.m */,
 			);
 			path = BasicCastPlayer;
 			sourceTree = "<group>";
@@ -105,7 +110,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1200;
-				ORGANIZATIONNAME = "Brightcove, Inc";
+				ORGANIZATIONNAME = "Brightcove, Inc.";
 				TargetAttributes = {
 					E9FF7E3A21BACA2D000189E0 = {
 						CreatedOnToolsVersion = 10.1;
@@ -118,7 +123,7 @@
 				};
 			};
 			buildConfigurationList = E9FF7E3621BACA2D000189E0 /* Build configuration list for PBXProject "BasicCastPlayer" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -141,7 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9FF7E4B21BACA2F000189E0 /* LaunchScreen.storyboard in Resources */,
-				E9FF7E4821BACA2F000189E0 /* Assets.xcassets in Resources */,
+				D657E9BE2BD2C687005A18F9 /* Assets.xcassets in Resources */,
 				E9FF7E4621BACA2D000189E0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,8 +158,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9FF7E4321BACA2D000189E0 /* PlayerViewController.m in Sources */,
+				E9FF7E4321BACA2D000189E0 /* ViewController.m in Sources */,
 				E915F98D23F1F96800F5A64A /* GoogleCastManager.m in Sources */,
+				D657E9C12BD2D368005A18F9 /* GCKUICastContainerViewController+BasicCastPlayer.m in Sources */,
 				E9FF7E4E21BACA2F000189E0 /* main.m in Sources */,
 				E9FF7E4021BACA2D000189E0 /* AppDelegate.m in Sources */,
 			);
@@ -215,7 +221,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -234,7 +239,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -275,7 +280,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -288,7 +292,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -301,14 +305,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = BasicCastPlayer/BasicCastPlayer.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = BasicCastPlayer/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = GoogleCast;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.BasicCastPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_WORKSPACE = YES;
@@ -320,14 +324,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = BasicCastPlayer/BasicCastPlayer.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = BasicCastPlayer/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = GoogleCast;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.BasicCastPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_WORKSPACE = YES;

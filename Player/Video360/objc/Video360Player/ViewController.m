@@ -22,121 +22,37 @@
  * when that delegate is called.
  */
 
-@import BrightcovePlayerSDK;
+#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
 
 #import "ViewController.h"
 
-// ** Customize these values with your own account information **
-static NSString * const kSampleVideoCloudPlaybackServicePolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
-static NSString * const kSampleVideoCloudAccountID = @"5434391461001";
-static NSString * const kSampleVideo360VideoID = @"1685628526640737870";
+
+// Customize these values with your own account information
+// Add your Brightcove account and video information here.
+static NSString * const kAccountId = @"5434391461001";
+static NSString * const kPolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
+static NSString * const kVideoId = @"1685628526640737870";
 
 
 @interface ViewController () <BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView *videoContainerView;
-@property (nonatomic) BCOVPlaybackService *playbackService;
-@property (nonatomic) NSObject<BCOVPlaybackController> *playbackController;
-@property (nonatomic) BCOVPUIPlayerView *playerView;
+@property (nonatomic, strong) BCOVPlaybackService *playbackService;
+@property (nonatomic, strong) BCOVPUIPlayerView *playerView;
+@property (nonatomic, strong) NSObject<BCOVPlaybackController> *playbackController;
 
-@property (nonatomic) BOOL landscapeOnly; // used to restrict device orientation
+@property (nonatomic, assign) BOOL landscapeOnly;
+
+@property (nonatomic, assign) BOOL statusBarHidden;
 
 @end
 
 
 @implementation ViewController
 
-#pragma mark Setup Methods
-
-- (void)viewDidLoad
+- (BOOL)prefersStatusBarHidden
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    
-    // Create Player View (PlayerUI)
-    [self createPlayerView];
-    
-    // Create Playback Controller
-    {
-        BCOVPlayerSDKManager *sdkManager = [BCOVPlayerSDKManager sharedManager];
-        
-        self.playbackController = [sdkManager createPlaybackController];
-        self.playbackController.delegate = self;
-        self.playbackController.autoAdvance = YES;
-        self.playbackController.autoPlay = YES;
-        self.playerView.playbackController = self.playbackController;
-    }
-    
-    // Instantiate Playback Service
-    self.playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kSampleVideoCloudAccountID
-                                                                policyKey:kSampleVideoCloudPlaybackServicePolicyKey];
-    
-    [self requestContentFromPlaybackService];
-}
-
-- (void)createPlayerView
-{
-    if (self.playerView == nil)
-    {
-        // Create PlayerUI views with normal VOD controls.
-        BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
-        self.playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:nil // can set this later
-                                                                        options:nil
-                                                                   controlsView:controlView];
-        
-        // Add to parent view
-        [self.videoContainerView addSubview:self.playerView];
-        self.playerView.translatesAutoresizingMaskIntoConstraints = NO;
-        [NSLayoutConstraint activateConstraints:@[
-                                                  [self.playerView.topAnchor constraintEqualToAnchor:self.videoContainerView.topAnchor],
-                                                  [self.playerView.rightAnchor constraintEqualToAnchor:self.videoContainerView.rightAnchor],
-                                                  [self.playerView.leftAnchor constraintEqualToAnchor:self.videoContainerView.leftAnchor],
-                                                  [self.playerView.bottomAnchor constraintEqualToAnchor:self.videoContainerView.bottomAnchor],
-                                                  ]];
-        
-        // Receive delegate method callbacks
-        self.playerView.delegate = self;
-    }
-}
-
-- (void)requestContentFromPlaybackService
-{
-    NSDictionary *configuration = @{kBCOVPlaybackServiceConfigurationKeyAssetID:kSampleVideo360VideoID};
-    [self.playbackService findVideoWithConfiguration:configuration queryParameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
-                                        
-        if (video)
-        {
-            // Check "projection" property to confirm that this is a 360 degree video
-            NSString *projectionPropertyString = video.properties[kBCOVVideoPropertyKeyProjection];
-
-            if (projectionPropertyString
-            && [projectionPropertyString isEqualToString:@"equirectangular"])
-            {
-                NSLog(@"Retrieved a 360 video");
-            }
-
-            [self.playbackController setVideos:@[ video ]];
-        }
-        else
-        {
-            NSLog(@"Error retrieving video: %@", error);
-        }
-
-    }];
-}
-
-
-#pragma mark - UIViewController overrides
-
-// UIViewController overrides that lets us control the orientation of the device
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    if (self.landscapeOnly)
-    {
-        return UIInterfaceOrientationMaskLandscape;
-    }
-    
-    return UIInterfaceOrientationMaskAll;
+    return self.statusBarHidden;
 }
 
 - (BOOL)shouldAutorotate
@@ -144,76 +60,207 @@ static NSString * const kSampleVideo360VideoID = @"1685628526640737870";
     return YES;
 }
 
-
-#pragma mark - BCOVPlaybackControllerDelegate Methods
-
-- (void)playbackController:(id<BCOVPlaybackController>)controller didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    NSLog(@"Advanced to new session.");
+    return (self.landscapeOnly
+            ? UIInterfaceOrientationMaskLandscape
+            : UIInterfaceOrientationMaskAll);
 }
 
-- (void)playbackController:(id<BCOVPlaybackController>)controller didCompletePlaylist:(id<NSFastEnumeration>)playlist
+- (void)viewDidLoad
 {
-    // Play it again
-    [controller setVideos:playlist];
+    [super viewDidLoad];
+    // Do any additional setup after loading the view, typically from a nib.
+
+    self.playbackService = ({
+        BCOVPlaybackServiceRequestFactory *factory = [[BCOVPlaybackServiceRequestFactory alloc]
+                                                      initWithAccountId:kAccountId
+                                                      policyKey:kPolicyKey];
+
+        [[BCOVPlaybackService alloc] initWithRequestFactory:factory];
+    });
+
+    self.playerView = ({
+        BCOVPUIPlayerViewOptions *options = [BCOVPUIPlayerViewOptions new];
+        options.presentingViewController = self;
+        options.automaticControlTypeSelection = YES;
+
+        BCOVPUIPlayerView *playerView = [[BCOVPUIPlayerView alloc]
+                                         initWithPlaybackController:nil
+                                         options:options
+                                         controlsView:nil];
+
+        playerView.delegate = self;
+
+        playerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        playerView.frame = self.videoContainerView.bounds;
+        [self.videoContainerView addSubview:playerView];
+
+        playerView;
+    });
+
+    self.playbackController = ({
+        BCOVPlayerSDKManager *sdkManager = BCOVPlayerSDKManager.sharedManager;
+
+        BCOVFPSBrightcoveAuthProxy *authProxy = [[BCOVFPSBrightcoveAuthProxy alloc] initWithPublisherId:nil
+                                                                                          applicationId:nil];
+
+        id<BCOVPlaybackSessionProvider> fps = [sdkManager createFairPlaySessionProviderWithAuthorizationProxy:authProxy
+                                                                                      upstreamSessionProvider:nil];
+
+        id<BCOVPlaybackController> playbackController = [sdkManager
+                                                         createPlaybackControllerWithSessionProvider:fps
+                                                         viewStrategy:nil];
+        playbackController.delegate = self;
+        playbackController.autoAdvance = YES;
+        playbackController.autoPlay = YES;
+
+        self.playerView.playbackController = playbackController;
+
+        playbackController;
+    });
+
+    [self requestContentFromPlaybackService];
+}
+
+- (void)setStatusBarHidden:(BOOL)statusBarHidden
+{
+    _statusBarHidden = statusBarHidden;
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (void)requestContentFromPlaybackService
+{
+    __weak typeof(self) weakSelf = self;
+
+    NSDictionary *configuration = @{ kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId };
+    [self.playbackService findVideoWithConfiguration:configuration
+                                     queryParameters:nil
+                                          completion:^(BCOVVideo *video,
+                                                       NSDictionary *jsonResponse,
+                                                       NSError *error) {
+
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+
+        if (video)
+        {
+#if TARGET_OS_SIMULATOR
+            if (video.usesFairPlay)
+            {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"FairPlay Warning"
+                                                                               message:@"FairPlay only works on actual iOS or tvOS devices.\n\nYou will not be able to view any FairPlay content in the iOS or tvOS simulator."
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+
+                [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:nil]];
+
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [strongSelf presentViewController:alert animated:YES completion:nil];
+                });
+
+                return;
+            }
+#endif
+
+            // Check "projection" property to confirm that this is a 360 degree video
+            NSString *projectionProperty = video.properties[kBCOVVideoPropertyKeyProjection];
+
+            if ([projectionProperty isEqualToString:@"equirectangular"])
+            {
+                NSLog(@"Retrieved a 360 video");
+            }
+
+            [strongSelf.playbackController setVideos:@[video]];
+        }
+        else
+        {
+            NSLog(@"ViewController - Error retrieving video: %@", error.localizedDescription);
+        }
+
+    }];
 }
 
 
-#pragma mark - BCOVPUIPlayerViewDelegate Methods
+#pragma mark - BCOVPlaybackControllerDelegate
+
+- (void)playbackController:(id<BCOVPlaybackController>)controller
+didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
+{
+    NSLog(@"ViewController - Advanced to new session.");
+}
+
+- (void)playbackController:(id<BCOVPlaybackController>)controller
+           playbackSession:(id<BCOVPlaybackSession>)session
+  didReceiveLifecycleEvent:(BCOVPlaybackSessionLifecycleEvent *)lifecycleEvent
+{
+    if ([kBCOVPlaybackSessionLifecycleEventFail isEqualToString:lifecycleEvent.eventType])
+    {
+        NSError *error = lifecycleEvent.properties[@"error"];
+        // Report any errors that may have occurred with playback.
+        NSLog(@"ViewController - Playback error: %@", error.localizedDescription);
+    }
+}
+
+
+#pragma mark - BCOVPUIPlayerViewDelegate
+
+- (void)playerView:(BCOVPUIPlayerView *)playerView
+willTransitionToScreenMode:(BCOVPUIScreenMode)screenMode
+{
+    self.statusBarHidden = screenMode == BCOVPUIScreenModeFull;
+}
 
 - (void)didSetVideo360NavigationMethod:(BCOVPUIVideo360NavigationMethod)navigationMethod
                        projectionStyle:(BCOVVideo360ProjectionStyle)projectionStyle
 {
     // This method is called when the Video 360 button is tapped.
     // Use this notification to force an orientation change for the VR Goggles projection style.
-    
     switch (projectionStyle)
     {
         case BCOVVideo360ProjectionStyleNormal:
         {
             NSLog(@"projectionStyle == BCOVVideo360ProjectionStyleNormal");
-            
+
             // No landscape restriction
             self.landscapeOnly = NO;
-            
+
             // If the goggles are off, change the device orientation
             // and exit full-screen
+
+            [UIDevice.currentDevice setValue:[NSNumber numberWithInt:UIInterfaceOrientationPortrait]
+                                      forKey:@"orientation"];
+            [UIViewController attemptRotationToDeviceOrientation];
             [self.playerView performScreenTransitionWithScreenMode:BCOVPUIScreenModeNormal];
-            NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
-            [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
             break;
         }
-            
+
         case BCOVVideo360ProjectionStyleVRGoggles:
         {
             NSLog(@"projectionStyle == BCOVVideo360ProjectionStyleVRGoggles");
-            
+
             // Allow only landscape if wearing goggles
             self.landscapeOnly = YES;
-            
+
             // If the goggles are on, change the device orientation
-            UIDeviceOrientation currentDeviceOrientation = [UIDevice currentDevice].orientation;
-            switch (currentDeviceOrientation)
+            switch (UIDevice.currentDevice.orientation)
             {
                 case UIDeviceOrientationLandscapeLeft:
                 case UIDeviceOrientationLandscapeRight:
                     // already landscape
                     break;
-                    
+
                 default:
                 {
                     // switch orientation
-                    NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
-                    [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+                    [UIDevice.currentDevice setValue:[NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft]
+                                              forKey:@"orientation"];
+                    [UIViewController attemptRotationToDeviceOrientation];
                     break;
                 }
             }
-            
-            break;
         }
     }
-    
-    [UIViewController attemptRotationToDeviceOrientation];
 }
 
 @end

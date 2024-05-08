@@ -3,16 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		AAB8B7931D205530005076DF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB8B7921D205530005076DF /* main.m */; };
 		AAB8B7961D205530005076DF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB8B7951D205530005076DF /* AppDelegate.m */; };
 		AAB8B7991D205530005076DF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB8B7981D205530005076DF /* ViewController.m */; };
-		AAB8B79C1D205530005076DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAB8B79A1D205530005076DF /* Main.storyboard */; };
-		AAB8B79E1D205530005076DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAB8B79D1D205530005076DF /* Assets.xcassets */; };
-		AAB8B7A11D205530005076DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAB8B79F1D205530005076DF /* LaunchScreen.storyboard */; };
+		D61F810E2BD958F600AD32CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D61F810A2BD958F600AD32CE /* LaunchScreen.storyboard */; };
+		D61F810F2BD958F600AD32CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D61F810C2BD958F600AD32CE /* Main.storyboard */; };
+		D61F81112BD9590200AD32CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D61F81102BD9590200AD32CE /* Assets.xcassets */; };
+		D61F81142BD95AEE00AD32CE /* ControlViewStyles.m in Sources */ = {isa = PBXBuildFile; fileRef = D61F81132BD95AEE00AD32CE /* ControlViewStyles.m */; };
+		D61F81172BD95D6E00AD32CE /* CustomLayouts.m in Sources */ = {isa = PBXBuildFile; fileRef = D61F81162BD95D6E00AD32CE /* CustomLayouts.m */; };
 		E990FB1F2812F4AB009EA040 /* fontello.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E990FB1D2812F1DF009EA040 /* fontello.ttf */; };
 /* End PBXBuildFile section */
 
@@ -36,10 +38,14 @@
 		AAB8B7951D205530005076DF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		AAB8B7971D205530005076DF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		AAB8B7981D205530005076DF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		AAB8B79B1D205530005076DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		AAB8B79D1D205530005076DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		AAB8B7A01D205530005076DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AAB8B7A21D205530005076DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D61F810B2BD958F600AD32CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D61F810D2BD958F600AD32CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D61F81102BD9590200AD32CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
+		D61F81122BD95AEE00AD32CE /* ControlViewStyles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ControlViewStyles.h; sourceTree = "<group>"; };
+		D61F81132BD95AEE00AD32CE /* ControlViewStyles.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ControlViewStyles.m; sourceTree = "<group>"; };
+		D61F81152BD95D6E00AD32CE /* CustomLayouts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomLayouts.h; sourceTree = "<group>"; };
+		D61F81162BD95D6E00AD32CE /* CustomLayouts.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomLayouts.m; sourceTree = "<group>"; };
 		E990FB1D2812F1DF009EA040 /* fontello.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = fontello.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,26 +79,22 @@
 		AAB8B7901D205530005076DF /* PlayerUICustomization */ = {
 			isa = PBXGroup;
 			children = (
-				AAB8B7941D205530005076DF /* AppDelegate.h */,
-				AAB8B7951D205530005076DF /* AppDelegate.m */,
-				AAB8B7971D205530005076DF /* ViewController.h */,
-				AAB8B7981D205530005076DF /* ViewController.m */,
-				AAB8B79A1D205530005076DF /* Main.storyboard */,
-				AAB8B79D1D205530005076DF /* Assets.xcassets */,
-				AAB8B79F1D205530005076DF /* LaunchScreen.storyboard */,
 				AAB8B7A21D205530005076DF /* Info.plist */,
 				E990FB1D2812F1DF009EA040 /* fontello.ttf */,
-				AAB8B7911D205530005076DF /* Supporting Files */,
+				D61F81102BD9590200AD32CE /* Assets.xcassets */,
+				D61F810A2BD958F600AD32CE /* LaunchScreen.storyboard */,
+				D61F810C2BD958F600AD32CE /* Main.storyboard */,
+				AAB8B7921D205530005076DF /* main.m */,
+				AAB8B7941D205530005076DF /* AppDelegate.h */,
+				AAB8B7951D205530005076DF /* AppDelegate.m */,
+				D61F81122BD95AEE00AD32CE /* ControlViewStyles.h */,
+				D61F81132BD95AEE00AD32CE /* ControlViewStyles.m */,
+				D61F81152BD95D6E00AD32CE /* CustomLayouts.h */,
+				D61F81162BD95D6E00AD32CE /* CustomLayouts.m */,
+				AAB8B7971D205530005076DF /* ViewController.h */,
+				AAB8B7981D205530005076DF /* ViewController.m */,
 			);
 			path = PlayerUICustomization;
-			sourceTree = "<group>";
-		};
-		AAB8B7911D205530005076DF /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				AAB8B7921D205530005076DF /* main.m */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -123,7 +125,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1200;
-				ORGANIZATIONNAME = Brightcove;
+				ORGANIZATIONNAME = "Brightcove, Inc.";
 				TargetAttributes = {
 					AAB8B78D1D205530005076DF = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -131,7 +133,7 @@
 				};
 			};
 			buildConfigurationList = AAB8B7891D205530005076DF /* Build configuration list for PBXProject "PlayerUICustomization" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -153,10 +155,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAB8B7A11D205530005076DF /* LaunchScreen.storyboard in Resources */,
-				AAB8B79E1D205530005076DF /* Assets.xcassets in Resources */,
-				AAB8B79C1D205530005076DF /* Main.storyboard in Resources */,
+				D61F810F2BD958F600AD32CE /* Main.storyboard in Resources */,
 				E990FB1F2812F4AB009EA040 /* fontello.ttf in Resources */,
+				D61F81112BD9590200AD32CE /* Assets.xcassets in Resources */,
+				D61F810E2BD958F600AD32CE /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,27 +171,29 @@
 			files = (
 				AAB8B7991D205530005076DF /* ViewController.m in Sources */,
 				AAB8B7961D205530005076DF /* AppDelegate.m in Sources */,
+				D61F81142BD95AEE00AD32CE /* ControlViewStyles.m in Sources */,
 				AAB8B7931D205530005076DF /* main.m in Sources */,
+				D61F81172BD95D6E00AD32CE /* CustomLayouts.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		AAB8B79A1D205530005076DF /* Main.storyboard */ = {
+		D61F810A2BD958F600AD32CE /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AAB8B79B1D205530005076DF /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		AAB8B79F1D205530005076DF /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AAB8B7A01D205530005076DF /* Base */,
+				D61F810B2BD958F600AD32CE /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D61F810C2BD958F600AD32CE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D61F810D2BD958F600AD32CE /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -225,7 +229,6 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -244,7 +247,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -282,7 +285,6 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -295,7 +297,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -307,14 +309,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = PlayerUICustomization/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = UICustomization;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.PlayerUICustomization;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_WORKSPACE = YES;
 			};
@@ -324,14 +327,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = PlayerUICustomization/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = UICustomization;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.PlayerUICustomization;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_WORKSPACE = YES;
 			};

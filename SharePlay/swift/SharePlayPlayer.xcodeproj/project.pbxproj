@@ -3,25 +3,25 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D65403562BAB52AC00DD8346 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D65403552BAB52AC00DD8346 /* Assets.xcassets */; };
 		E911F94427E37EEB005111A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911F94327E37EEB005111A5 /* AppDelegate.swift */; };
 		E911F94827E37EEB005111A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911F94727E37EEB005111A5 /* ViewController.swift */; };
 		E911F94B27E37EEB005111A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E911F94927E37EEB005111A5 /* Main.storyboard */; };
-		E911F94D27E37EED005111A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E911F94C27E37EED005111A5 /* Assets.xcassets */; };
 		E911F95027E37EED005111A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E911F94E27E37EED005111A5 /* LaunchScreen.storyboard */; };
 		E911F95927E37F99005111A5 /* WatchTogetherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911F95727E37F99005111A5 /* WatchTogetherWrapper.swift */; };
 		E911F95A27E37F99005111A5 /* WatchTogether.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911F95827E37F99005111A5 /* WatchTogether.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D65403552BAB52AC00DD8346 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		E911F94027E37EEB005111A5 /* SharePlayPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SharePlayPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E911F94327E37EEB005111A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E911F94727E37EEB005111A5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E911F94A27E37EEB005111A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E911F94C27E37EED005111A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E911F94F27E37EED005111A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E911F95127E37EED005111A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E911F95727E37F99005111A5 /* WatchTogetherWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchTogetherWrapper.swift; sourceTree = "<group>"; };
@@ -59,15 +59,15 @@
 		E911F94227E37EEB005111A5 /* SharePlayPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				E911F95127E37EED005111A5 /* Info.plist */,
+				D65403552BAB52AC00DD8346 /* Assets.xcassets */,
 				E911F95B27E37FC8005111A5 /* SharePlayPlayer.entitlements */,
+				E911F94E27E37EED005111A5 /* LaunchScreen.storyboard */,
+				E911F94927E37EEB005111A5 /* Main.storyboard */,
 				E911F94327E37EEB005111A5 /* AppDelegate.swift */,
 				E911F94727E37EEB005111A5 /* ViewController.swift */,
 				E911F95827E37F99005111A5 /* WatchTogether.swift */,
 				E911F95727E37F99005111A5 /* WatchTogetherWrapper.swift */,
-				E911F94927E37EEB005111A5 /* Main.storyboard */,
-				E911F94C27E37EED005111A5 /* Assets.xcassets */,
-				E911F94E27E37EED005111A5 /* LaunchScreen.storyboard */,
-				E911F95127E37EED005111A5 /* Info.plist */,
 			);
 			path = SharePlayPlayer;
 			sourceTree = "<group>";
@@ -101,6 +101,7 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1320;
+				ORGANIZATIONNAME = "Brightcove, Inc.";
 				TargetAttributes = {
 					E911F93F27E37EEB005111A5 = {
 						CreatedOnToolsVersion = 13.2.1;
@@ -108,7 +109,7 @@
 				};
 			};
 			buildConfigurationList = E911F93B27E37EEB005111A5 /* Build configuration list for PBXProject "SharePlayPlayer" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -131,7 +132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E911F95027E37EED005111A5 /* LaunchScreen.storyboard in Resources */,
-				E911F94D27E37EED005111A5 /* Assets.xcassets in Resources */,
+				D65403562BAB52AC00DD8346 /* Assets.xcassets in Resources */,
 				E911F94B27E37EEB005111A5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,22 +295,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SharePlayPlayer/SharePlayPlayer.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SharePlayPlayer/Info.plist;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = SharePlay;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.SharePlayPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -323,22 +316,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SharePlayPlayer/SharePlayPlayer.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SharePlayPlayer/Info.plist;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = SharePlay;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.SharePlayPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

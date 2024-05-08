@@ -1,0 +1,393 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D606D46C2BD0C546006874CD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D606D46B2BD0C546006874CD /* AppDelegate.m */; };
+		D606D4722BD0C546006874CD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D606D4712BD0C546006874CD /* ViewController.m */; };
+		D606D47D2BD0C547006874CD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D606D47C2BD0C547006874CD /* main.m */; };
+		D606D4862BD0C629006874CD /* Library.json in Resources */ = {isa = PBXBuildFile; fileRef = D606D4832BD0C629006874CD /* Library.json */; };
+		D606D4872BD0C629006874CD /* BCOVPulseVideoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D606D4842BD0C629006874CD /* BCOVPulseVideoItem.m */; };
+		D606D4892BD0C638006874CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D606D4882BD0C638006874CD /* Assets.xcassets */; };
+		D606D48A2BD0C6EC006874CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D606D4782BD0C547006874CD /* LaunchScreen.storyboard */; };
+		D606D48B2BD0C6EC006874CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D606D4732BD0C546006874CD /* Main.storyboard */; };
+		D6672BC62BD4C6990014EE48 /* Pulse.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6672BC42BD4C6990014EE48 /* Pulse.xcframework */; };
+		D6672BC72BD4C6990014EE48 /* Pulse.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6672BC42BD4C6990014EE48 /* Pulse.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D6672BC82BD4C6990014EE48 /* OMSDK_Invidi.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6672BC52BD4C6990014EE48 /* OMSDK_Invidi.xcframework */; };
+		D6672BC92BD4C6990014EE48 /* OMSDK_Invidi.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6672BC52BD4C6990014EE48 /* OMSDK_Invidi.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D6672BCA2BD4C6990014EE48 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D6672BC72BD4C6990014EE48 /* Pulse.xcframework in Embed Frameworks */,
+				D6672BC92BD4C6990014EE48 /* OMSDK_Invidi.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		D606D4672BD0C546006874CD /* BasicPulsePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicPulsePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D606D46A2BD0C546006874CD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D606D46B2BD0C546006874CD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D606D4702BD0C546006874CD /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		D606D4712BD0C546006874CD /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		D606D4742BD0C546006874CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D606D4792BD0C547006874CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D606D47B2BD0C547006874CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D606D47C2BD0C547006874CD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D606D4832BD0C629006874CD /* Library.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Library.json; sourceTree = "<group>"; };
+		D606D4842BD0C629006874CD /* BCOVPulseVideoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCOVPulseVideoItem.m; sourceTree = "<group>"; };
+		D606D4852BD0C629006874CD /* BCOVPulseVideoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCOVPulseVideoItem.h; sourceTree = "<group>"; };
+		D606D4882BD0C638006874CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
+		D6672BC42BD4C6990014EE48 /* Pulse.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Pulse.xcframework; sourceTree = "<group>"; };
+		D6672BC52BD4C6990014EE48 /* OMSDK_Invidi.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = OMSDK_Invidi.xcframework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D606D4642BD0C546006874CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6672BC62BD4C6990014EE48 /* Pulse.xcframework in Frameworks */,
+				D6672BC82BD4C6990014EE48 /* OMSDK_Invidi.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D606D45E2BD0C546006874CD = {
+			isa = PBXGroup;
+			children = (
+				D606D4692BD0C546006874CD /* BasicPulsePlayer */,
+				D606D4682BD0C546006874CD /* Products */,
+				D6672BC32BD4C6990014EE48 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D606D4682BD0C546006874CD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D606D4672BD0C546006874CD /* BasicPulsePlayer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D606D4692BD0C546006874CD /* BasicPulsePlayer */ = {
+			isa = PBXGroup;
+			children = (
+				D606D47B2BD0C547006874CD /* Info.plist */,
+				D606D4832BD0C629006874CD /* Library.json */,
+				D606D4882BD0C638006874CD /* Assets.xcassets */,
+				D606D4782BD0C547006874CD /* LaunchScreen.storyboard */,
+				D606D4732BD0C546006874CD /* Main.storyboard */,
+				D606D47C2BD0C547006874CD /* main.m */,
+				D606D46A2BD0C546006874CD /* AppDelegate.h */,
+				D606D46B2BD0C546006874CD /* AppDelegate.m */,
+				D606D4852BD0C629006874CD /* BCOVPulseVideoItem.h */,
+				D606D4842BD0C629006874CD /* BCOVPulseVideoItem.m */,
+				D606D4702BD0C546006874CD /* ViewController.h */,
+				D606D4712BD0C546006874CD /* ViewController.m */,
+			);
+			path = BasicPulsePlayer;
+			sourceTree = "<group>";
+		};
+		D6672BC32BD4C6990014EE48 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D6672BC52BD4C6990014EE48 /* OMSDK_Invidi.xcframework */,
+				D6672BC42BD4C6990014EE48 /* Pulse.xcframework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D606D4662BD0C546006874CD /* BasicPulsePlayer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D606D4802BD0C547006874CD /* Build configuration list for PBXNativeTarget "BasicPulsePlayer" */;
+			buildPhases = (
+				D606D4632BD0C546006874CD /* Sources */,
+				D606D4642BD0C546006874CD /* Frameworks */,
+				D606D4652BD0C546006874CD /* Resources */,
+				D6672BCA2BD4C6990014EE48 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BasicPulsePlayer;
+			productName = BasicPulsePlayer;
+			productReference = D606D4672BD0C546006874CD /* BasicPulsePlayer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D606D45F2BD0C546006874CD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1530;
+				ORGANIZATIONNAME = "Brightcove, Inc.";
+				TargetAttributes = {
+					D606D4662BD0C546006874CD = {
+						CreatedOnToolsVersion = 15.3;
+					};
+				};
+			};
+			buildConfigurationList = D606D4622BD0C546006874CD /* Build configuration list for PBXProject "BasicPulsePlayer" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D606D45E2BD0C546006874CD;
+			productRefGroup = D606D4682BD0C546006874CD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D606D4662BD0C546006874CD /* BasicPulsePlayer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D606D4652BD0C546006874CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D606D48A2BD0C6EC006874CD /* LaunchScreen.storyboard in Resources */,
+				D606D48B2BD0C6EC006874CD /* Main.storyboard in Resources */,
+				D606D4862BD0C629006874CD /* Library.json in Resources */,
+				D606D4892BD0C638006874CD /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D606D4632BD0C546006874CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D606D4872BD0C629006874CD /* BCOVPulseVideoItem.m in Sources */,
+				D606D4722BD0C546006874CD /* ViewController.m in Sources */,
+				D606D46C2BD0C546006874CD /* AppDelegate.m in Sources */,
+				D606D47D2BD0C547006874CD /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D606D4732BD0C546006874CD /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D606D4742BD0C546006874CD /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D606D4782BD0C547006874CD /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D606D4792BD0C547006874CD /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D606D47E2BD0C547006874CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		D606D47F2BD0C547006874CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D606D4812BD0C547006874CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Pulse;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D606D4822BD0C547006874CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Pulse;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D606D4622BD0C546006874CD /* Build configuration list for PBXProject "BasicPulsePlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D606D47E2BD0C547006874CD /* Debug */,
+				D606D47F2BD0C547006874CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D606D4802BD0C547006874CD /* Build configuration list for PBXNativeTarget "BasicPulsePlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D606D4812BD0C547006874CD /* Debug */,
+				D606D4822BD0C547006874CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D606D45F2BD0C546006874CD /* Project object */;
+}

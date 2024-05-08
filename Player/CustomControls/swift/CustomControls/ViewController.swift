@@ -2,102 +2,108 @@
 //  ViewController.swift
 //  CustomControls
 //
-//  Copyright © 2020 Brightcove, Inc. All rights reserved.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 import UIKit
 import BrightcovePlayerSDK
 
-fileprivate struct ConfigConstants {
-    static let PlaybackServicePolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
-    static let AccountID = "5434391461001"
-    static let VideoID = "5702141808001"
-}
 
-class ViewController: UIViewController {
-    
-    @IBOutlet private var videoContainer: UIView!
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
-    private lazy var playbackService: BCOVPlaybackService = {
-       return BCOVPlaybackService(accountId: ConfigConstants.AccountID, policyKey: ConfigConstants.PlaybackServicePolicyKey)
+// Customize these values with your own account information
+// Add your Brightcove account and video information here.
+let kAccountId = "5434391461001"
+let kPolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
+let kVideoId = "5702141808001"
+
+
+final class ViewController: UIViewController {
+
+    @IBOutlet fileprivate weak var videoContainerView: UIView!
+
+    fileprivate lazy var playbackService: BCOVPlaybackService = {
+        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+                                                        policyKey: kPolicyKey)
+        return .init(requestFactory: factory)
     }()
-    
-    private lazy var playbackController: BCOVPlaybackController? = {
-        guard let vc = BCOVPlayerSDKManager.shared()?.createPlaybackController() else {
+
+    fileprivate lazy var playbackController: BCOVPlaybackController? = {
+        guard let sdkManager = BCOVPlayerSDKManager.sharedManager(),
+              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
+                                                         applicationId: nil) else {
             return nil
         }
-        vc.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        vc.delegate = self
-        vc.isAutoAdvance = true
-        vc.isAutoPlay = true
-        vc.allowsExternalPlayback = true
-        vc.add(self.controlsViewController)
-        controlsViewController.playbackController = vc
-        return vc
-    }()
-    
-    private lazy var videoView: UIView = {
-        let view = UIView()
-        view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        return view
-    }()
-    
-    private lazy var controlsViewController: ControlsViewController = {
-        let vc = ControlsViewController()
-        vc.delegate = self
-        return vc
-    }()
-    
-    private lazy var fullscreenViewController: UIViewController = {
-       return UIViewController()
-    }()
-    
-    private lazy var standardVideoViewConstraints: [NSLayoutConstraint] = {
-        return [
-            videoView.topAnchor.constraint(equalTo: self.videoContainer.topAnchor),
-            videoView.rightAnchor.constraint(equalTo: self.videoContainer.rightAnchor),
-            videoView.leftAnchor.constraint(equalTo: self.videoContainer.leftAnchor),
-            videoView.bottomAnchor.constraint(equalTo: self.videoContainer.bottomAnchor)
-        ]
-    }()
-    
-    private lazy var fullscreenVideoViewConstraints: [NSLayoutConstraint] = {
-        var insets = UIEdgeInsets.zero
-        if #available(iOS 11, *) {
-            insets = view.safeAreaInsets
+
+        let fps = sdkManager.createFairPlaySessionProvider(withApplicationCertificate: nil,
+                                                           authorizationProxy: authProxy,
+                                                           upstreamSessionProvider: nil)
+
+        guard let playbackController = sdkManager.createPlaybackController(with: fps,
+                                                                           viewStrategy: nil) else {
+            return nil
         }
+
+        playbackController.delegate = self
+        playbackController.isAutoAdvance = true
+        playbackController.isAutoPlay = true
+        playbackController.allowsExternalPlayback = true
+        playbackController.add(controlsViewController)
+
+        playbackController.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+
+        controlsViewController.playbackController = playbackController
+
+        return playbackController
+    }()
+
+    fileprivate lazy var videoView: UIView = {
+        let videoView = UIView()
+        videoView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        return videoView
+    }()
+
+    fileprivate lazy var controlsViewController: ControlsViewController = {
+        let controlsViewController = ControlsViewController()
+        controlsViewController.delegate = self
+        return controlsViewController
+    }()
+
+    fileprivate lazy var fullscreenViewController: UIViewController = UIViewController()
+
+    fileprivate lazy var standardVideoViewConstraints: [NSLayoutConstraint] = {
         return [
-            videoView.topAnchor.constraint(equalTo: self.fullscreenViewController.view.topAnchor, constant:insets.top),
-            videoView.rightAnchor.constraint(equalTo: self.fullscreenViewController.view.rightAnchor),
-            videoView.leftAnchor.constraint(equalTo: self.fullscreenViewController.view.leftAnchor),
-            videoView.bottomAnchor.constraint(equalTo: self.fullscreenViewController.view.bottomAnchor, constant:-insets.bottom)
+            videoView.topAnchor.constraint(equalTo: videoContainerView.topAnchor),
+            videoView.rightAnchor.constraint(equalTo: videoContainerView.rightAnchor),
+            videoView.leftAnchor.constraint(equalTo: videoContainerView.leftAnchor),
+            videoView.bottomAnchor.constraint(equalTo: videoContainerView.bottomAnchor)
         ]
     }()
 
-    // MARK: - View Lifecyle
-    
+    fileprivate lazy var fullscreenVideoViewConstraints: [NSLayoutConstraint] = {
+        var insets = view.safeAreaInsets
+        return [
+            videoView.topAnchor.constraint(equalTo: fullscreenViewController.view.topAnchor, constant:insets.top),
+            videoView.rightAnchor.constraint(equalTo: fullscreenViewController.view.rightAnchor),
+            videoView.leftAnchor.constraint(equalTo: fullscreenViewController.view.leftAnchor),
+            videoView.bottomAnchor.constraint(equalTo: fullscreenViewController.view.bottomAnchor, constant:-insets.bottom)
+        ]
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        guard let playbackController = playbackController else {
-            return
-        }
-        
+
+        guard let playbackController else { return }
+
         // Add the playbackController view
         // to videoView and setup its constraints
         videoView.addSubview(playbackController.view)
         playbackController.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            playbackController.view.topAnchor.constraint(equalTo: self.videoView.topAnchor),
-            playbackController.view.rightAnchor.constraint(equalTo: self.videoView.rightAnchor),
-            playbackController.view.leftAnchor.constraint(equalTo: self.videoView.leftAnchor),
-            playbackController.view.bottomAnchor.constraint(equalTo: self.videoView.bottomAnchor)
+            playbackController.view.topAnchor.constraint(equalTo: videoView.topAnchor),
+            playbackController.view.rightAnchor.constraint(equalTo: videoView.rightAnchor),
+            playbackController.view.leftAnchor.constraint(equalTo: videoView.leftAnchor),
+            playbackController.view.bottomAnchor.constraint(equalTo: videoView.bottomAnchor)
         ])
-        
+
         // Setup controlsViewController by
         // adding it as a child view controller,
         // adding its view as a subview of videoView
@@ -107,78 +113,113 @@ class ViewController: UIViewController {
         controlsViewController.didMove(toParent: self)
         controlsViewController.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            controlsViewController.view.topAnchor.constraint(equalTo: self.videoView.topAnchor),
-            controlsViewController.view.rightAnchor.constraint(equalTo: self.videoView.rightAnchor),
-            controlsViewController.view.leftAnchor.constraint(equalTo: self.videoView.leftAnchor),
-            controlsViewController.view.bottomAnchor.constraint(equalTo: self.videoView.bottomAnchor)
+            controlsViewController.view.topAnchor.constraint(equalTo: videoView.topAnchor),
+            controlsViewController.view.rightAnchor.constraint(equalTo: videoView.rightAnchor),
+            controlsViewController.view.leftAnchor.constraint(equalTo: videoView.leftAnchor),
+            controlsViewController.view.bottomAnchor.constraint(equalTo: videoView.bottomAnchor)
         ])
-        
+
         // Then add videoView as a subview of videoContainer
-        videoContainer.addSubview(videoView)
-        
+        videoContainerView.addSubview(videoView)
+
         // Activate the standard view constraints
         videoView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate(standardVideoViewConstraints)
 
         requestContentFromPlaybackService()
     }
-    
+
     // MARK: - Misc
-    
-    private func requestContentFromPlaybackService() {
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:ConfigConstants.VideoID]
-        playbackService.findVideo(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
-            
-            if let video = video {
-                self?.playbackController?.setVideos([video] as NSFastEnumeration)
+
+    fileprivate func requestContentFromPlaybackService() {
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId]
+        playbackService.findVideo(withConfiguration: configuration,
+                                  queryParameters: nil) {
+            [playbackController] (video: BCOVVideo?,
+                                  jsonResponse: [AnyHashable: Any]?,
+                                  error: Error?) in
+            guard let playbackController,
+                  let video else {
+                if let error {
+                    print("ViewController - Error retrieving video: \(error.localizedDescription)")
+                }
+
+                return
             }
-            
-            if let error = error {
-                print("ViewController Debug - Error retrieving video playlist: \(error.localizedDescription)")
+
+#if targetEnvironment(simulator)
+            if video.usesFairPlay {
+                // FairPlay doesn't work when we're running in a simulator,
+                // so put up an alert.
+                let alert = UIAlertController(title: "FairPlay Warning",
+                                              message: """
+                                               FairPlay only works on actual \
+                                               iOS or tvOS devices.\n
+                                               You will not be able to view \
+                                               any FairPlay content in the \
+                                               iOS or tvOS simulator.
+                                               """,
+                                              preferredStyle: .alert)
+
+                alert.addAction(.init(title: "OK", style: .default))
+
+                DispatchQueue.main.async { [self] in
+                    present(alert, animated: true)
+                }
+
+                return
             }
-            
-        })
+#endif
+
+            playbackController.setVideos([video] as NSFastEnumeration)
+        }
     }
-
-
 }
+
 
 // MARK: - BCOVPlaybackControllerDelegate
 
 extension ViewController: BCOVPlaybackControllerDelegate {
-    
-    func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController Debug - Advanced to new session.")
+
+    func playbackController(_ controller: BCOVPlaybackController!,
+                            didAdvanceTo session: BCOVPlaybackSession!) {
+        print("ViewController - Advanced to new session.")
     }
-    
+
+    func playbackController(_ controller: BCOVPlaybackController!,
+                            playbackSession session: BCOVPlaybackSession,
+                            didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
+
+        if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
+           let error = lifecycleEvent.properties["error"] as? NSError {
+            // Report any errors that may have occurred with playback.
+            print("ViewController - Playback error: \(error.localizedDescription)")
+        }
+    }
 }
+
 
 // MARK: - ControlsViewControllerFullScreenDelegate
 
 extension ViewController: ControlsViewControllerFullScreenDelegate {
-    
-    func handleExitFullScreenButtonPressed() {
-        dismiss(animated: false) {
-            
-            self.addChild(self.controlsViewController)
-            self.videoContainer.addSubview(self.videoView)
-            NSLayoutConstraint.deactivate(self.fullscreenVideoViewConstraints)
-            NSLayoutConstraint.activate(self.standardVideoViewConstraints)
-            self.controlsViewController.didMove(toParent: self)
-            
-        }
-    }
-    
+
     func handleEnterFullScreenButtonPressed() {
         fullscreenViewController.addChild(controlsViewController)
         fullscreenViewController.view.addSubview(videoView)
-        NSLayoutConstraint.deactivate(self.standardVideoViewConstraints)
-        NSLayoutConstraint.activate(self.fullscreenVideoViewConstraints)
+        NSLayoutConstraint.deactivate(standardVideoViewConstraints)
+        NSLayoutConstraint.activate(fullscreenVideoViewConstraints)
         controlsViewController.didMove(toParent: fullscreenViewController)
-        
+
         present(fullscreenViewController, animated: false, completion: nil)
     }
-    
+
+    func handleExitFullScreenButtonPressed() {
+        dismiss(animated: false) { [self] in
+            addChild(controlsViewController)
+            videoContainerView.addSubview(videoView)
+            NSLayoutConstraint.deactivate(fullscreenVideoViewConstraints)
+            NSLayoutConstraint.activate(standardVideoViewConstraints)
+            controlsViewController.didMove(toParent: self)
+        }
+    }
 }
-
-

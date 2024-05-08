@@ -3,15 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		491576A519D9F2B700B2E657 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491576A419D9F2B700B2E657 /* AppDelegate.swift */; };
 		491576A719D9F2B700B2E657 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491576A619D9F2B700B2E657 /* ViewController.swift */; };
 		491576AA19D9F2B700B2E657 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 491576A819D9F2B700B2E657 /* Main.storyboard */; };
-		491576AC19D9F2B700B2E657 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 491576AB19D9F2B700B2E657 /* Images.xcassets */; };
-		491576AF19D9F2B700B2E657 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 491576AD19D9F2B700B2E657 /* LaunchScreen.xib */; };
+		D6B08BB22BE614D000BFA9A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6B08BB02BE614D000BFA9A3 /* LaunchScreen.storyboard */; };
+		D6FC4B562BE63BB700172AE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6FC4B552BE63BB700172AE9 /* Assets.xcassets */; };
 		E984FCB22425394300085367 /* NowPlayingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E984FCB12425394300085367 /* NowPlayingHandler.swift */; };
 /* End PBXBuildFile section */
 
@@ -21,24 +21,16 @@
 		491576A419D9F2B700B2E657 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		491576A619D9F2B700B2E657 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		491576A919D9F2B700B2E657 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		491576AB19D9F2B700B2E657 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		491576AE19D9F2B700B2E657 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		D6B08BB12BE614D000BFA9A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D6FC4B552BE63BB700172AE9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		E962EECB25DC261C007ABEFF /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
-		E962EECC25DC261C007ABEFF /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E962EECE25DC2753007ABEFF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
-		E962EECF25DC2753007ABEFF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E962EED025DC275A007ABEFF /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
-		E962EED125DC275A007ABEFF /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E962EED225DC2760007ABEFF /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
-		E962EED325DC2760007ABEFF /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E962EED425DC2765007ABEFF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
-		E962EED525DC2765007ABEFF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E962EED625DC2768007ABEFF /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
-		E962EED725DC2768007ABEFF /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E962EED825DC276B007ABEFF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
-		E962EED925DC276B007ABEFF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		E962EEDA25DC2770007ABEFF /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
-		E962EEDB25DC2770007ABEFF /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		E984FCB12425394300085367 /* NowPlayingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,23 +64,15 @@
 		491576A119D9F2B700B2E657 /* VideoCloudBasicPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				491576A419D9F2B700B2E657 /* AppDelegate.swift */,
-				491576A619D9F2B700B2E657 /* ViewController.swift */,
-				E984FCB12425394300085367 /* NowPlayingHandler.swift */,
+				D6FC4B552BE63BB700172AE9 /* Assets.xcassets */,
+				491576A319D9F2B700B2E657 /* Info.plist */,
+				D6B08BB02BE614D000BFA9A3 /* LaunchScreen.storyboard */,
 				491576A819D9F2B700B2E657 /* Main.storyboard */,
-				491576AB19D9F2B700B2E657 /* Images.xcassets */,
-				491576AD19D9F2B700B2E657 /* LaunchScreen.xib */,
-				491576A219D9F2B700B2E657 /* Supporting Files */,
+				491576A419D9F2B700B2E657 /* AppDelegate.swift */,
+				E984FCB12425394300085367 /* NowPlayingHandler.swift */,
+				491576A619D9F2B700B2E657 /* ViewController.swift */,
 			);
 			path = VideoCloudBasicPlayer;
-			sourceTree = "<group>";
-		};
-		491576A219D9F2B700B2E657 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				491576A319D9F2B700B2E657 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -120,7 +104,7 @@
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 1200;
-				ORGANIZATIONNAME = Brightcove;
+				ORGANIZATIONNAME = "Brightcove, Inc.";
 				TargetAttributes = {
 					4915769E19D9F2B700B2E657 = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -134,7 +118,7 @@
 				};
 			};
 			buildConfigurationList = 4915769A19D9F2B700B2E657 /* Build configuration list for PBXProject "VideoCloudBasicPlayer" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -164,9 +148,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6B08BB22BE614D000BFA9A3 /* LaunchScreen.storyboard in Resources */,
+				D6FC4B562BE63BB700172AE9 /* Assets.xcassets in Resources */,
 				491576AA19D9F2B700B2E657 /* Main.storyboard in Resources */,
-				491576AF19D9F2B700B2E657 /* LaunchScreen.xib in Resources */,
-				491576AC19D9F2B700B2E657 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,20 +186,12 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		491576AD19D9F2B700B2E657 /* LaunchScreen.xib */ = {
+		D6B08BB02BE614D000BFA9A3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				491576AE19D9F2B700B2E657 /* Base */,
-				E962EECC25DC261C007ABEFF /* ar */,
-				E962EECF25DC2753007ABEFF /* de */,
-				E962EED125DC275A007ABEFF /* es */,
-				E962EED325DC2760007ABEFF /* fr */,
-				E962EED525DC2765007ABEFF /* ja */,
-				E962EED725DC2768007ABEFF /* ko */,
-				E962EED925DC276B007ABEFF /* zh-Hans */,
-				E962EEDB25DC2770007ABEFF /* zh-Hant */,
+				D6B08BB12BE614D000BFA9A3 /* Base */,
 			);
-			name = LaunchScreen.xib;
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -250,7 +226,6 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -269,10 +244,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -308,7 +283,6 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -321,9 +295,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -336,8 +310,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = VideoCloudBasicPlayer/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = VideoCloud;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -352,8 +327,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = VideoCloudBasicPlayer/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = VideoCloud;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

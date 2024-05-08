@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Animated, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { Animated, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Slider from '@react-native-community/slider';
 
@@ -18,20 +18,22 @@ const PlayPauseButton: React.FC<PlayPauseProps> = (props) => {
 };
 
 type ControlsProps = {
-    duration: number;
     isPlaying: boolean;
-    onPress: () => void;
+    duration: number;
     progress: number;
+    onPress: () => void;
 }
 
 const Controls: React.FC<ControlsProps> = (props) => {
 
-    const { duration, isPlaying, onPress, progress } = props;
+    const { isPlaying, duration, progress, onPress } = props;
 
     const [opacity] = useState(new Animated.Value(1));
     const [isVisible, setIsVisible] = useState(true);
+    const [icon, setIcon] = useState();
 
     useEffect(() => {
+        Icon.getImageSource('circle', 12, 'white').then(setIcon);
         fadeOutControls();
     }, []);
 
@@ -74,7 +76,7 @@ const Controls: React.FC<ControlsProps> = (props) => {
     };
 
     return (
-        <TouchableWithoutFeedback accessible={false} onPress={toggleControls}>
+        <TouchableWithoutFeedback onPress={toggleControls}>
             <Animated.View style={[styles.container, { opacity }]}>
                 {isVisible &&
                     (<View style={[styles.mediaControlsContainer, styles.progressContainer]}>
@@ -91,6 +93,7 @@ const Controls: React.FC<ControlsProps> = (props) => {
                                     disabled={true}
                                     value={progress}
                                     maximumValue={duration}
+                                    thumbImage={icon}
                                     thumbTintColor={'rgba(218, 223, 225, 1)'}
                                     maximumTrackTintColor={'rgba(0, 0, 0, 0.5)'}
                                     minimumTrackTintColor={'rgba(0, 0, 0, 0.95)'}

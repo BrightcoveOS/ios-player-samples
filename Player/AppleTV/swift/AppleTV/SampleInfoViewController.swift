@@ -2,33 +2,39 @@
 //  SampleInfoViewController.swift
 //  AppleTV
 //
-//  Copyright © 2024 Brightcove. All rights reserved.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 import UIKit
 import BrightcovePlayerSDK
 
-class SampleInfoViewController: UIViewController, BCOVPlaybackSessionConsumer {
+final class SampleInfoViewController: UIViewController, BCOVPlaybackSessionConsumer {
 
-    weak var playerView: BCOVTVPlayerView?
+    fileprivate weak var playerView: BCOVTVPlayerView?
 
-    lazy var button1: UIButton = {
+    fileprivate lazy var button1: UIButton = {
         let button = UIButton.init(type: .system)
         button.frame = CGRect.init(x:20, y:40, width:280, height:80)
         button.setTitle("Button 1", for:.normal)
-        button.addTarget(self, action: #selector(buttonHandler), for: .primaryActionTriggered)
+        button.addTarget(self,
+                         action: #selector(buttonHandler),
+                         for: .primaryActionTriggered)
         return button
     }()
 
-    lazy var button2: UIButton = {
+    fileprivate lazy var button2: UIButton = {
         let button = UIButton.init(type: .system)
         button.frame = CGRect.init(x:340, y:40, width:280, height:80)
         button.setTitle("Button 2", for:.normal)
-        button.addTarget(self, action: #selector(buttonHandler), for: .primaryActionTriggered)
+        button.addTarget(self,
+                         action: #selector(buttonHandler),
+                         for: .primaryActionTriggered)
         return button
     }()
 
-    // MARK: - View Lifecycle
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     init(playerView: BCOVTVPlayerView) {
         super.init(nibName: nil, bundle: nil)
@@ -39,23 +45,19 @@ class SampleInfoViewController: UIViewController, BCOVPlaybackSessionConsumer {
         view.addSubview(button1)
         view.addSubview(button2)
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
-    // MARK: UI Interactions
-    
-    @objc func buttonHandler(button: UIButton) {
-        guard let text = button.titleLabel?.text, let playerView = playerView else {
+    @objc
+    fileprivate func buttonHandler(button: UIButton) {
+        guard let playerView,
+              let text = button.titleLabel?.text else {
             return
         }
-        
+
         print("\(text) triggered")
-        
+
         // Show a large label in the middle of the screen and fade it away.
         let fadingLabel: UILabel = {
-            let label: UILabel = UILabel.init(frame: CGRect.init(x:0, y:0, width:840, height:140))
+            let label: UILabel = .init(frame: CGRect.init(x:0, y:0, width:840, height:140))
             label.clipsToBounds = true
             label.textColor = .red
             label.textAlignment = NSTextAlignment.center
@@ -69,11 +71,11 @@ class SampleInfoViewController: UIViewController, BCOVPlaybackSessionConsumer {
             playerView.overlayView.addSubview(label)
             return label
         }()
-        
-        UIView.animate(withDuration: 3.0, animations: {
+
+        UIView.animate(withDuration: 3.0) {
             fadingLabel.alpha = 0.0
-        }, completion: { (finished) in
+        } completion: { _ in
             fadingLabel.removeFromSuperview()
-        })
+        }
     }
 }

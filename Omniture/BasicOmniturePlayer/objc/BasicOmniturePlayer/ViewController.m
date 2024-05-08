@@ -1,190 +1,255 @@
 //
 //  ViewController.m
-//  BCOVOmniturePlayer
+//  BasicOmniturePlayer
 //
-//  Copyright © 2020 Brightcove, Inc. All rights reserved.
-//  License: https://accounts.brightcove.com/en/terms-and-conditions
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
-// Adobe Media Heartbeat
+#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
+#import <BrightcoveAMC/BrightcoveAMC.h>
+
+#import "ADBMobile.h"
 #import "ADBMediaHeartbeat.h"
 #import "ADBMediaHeartbeatConfig.h"
-
-// Adobe Mobile Marketing Cloud
-#import "ADBMobile.h"
 
 #import "ViewController.h"
 
 
-// ** Customize these values with your own account information **
-static NSString * const kViewControllerPlaybackServicePolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
-static NSString * const kViewControllerAccountID = @"5434391461001";
-static NSString * const kViewControllerVideoID = @"6140448705001";
+// Customize these values with your own account information
+// Add your Brightcove account and video information here.
+static NSString * const kAccountId = @"5434391461001";
+static NSString * const kPolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
+static NSString * const kVideoId = @"6140448705001";
 
 
-@interface ViewController () <BCOVPlaybackControllerDelegate, BCOVAMCSessionConsumerHeartbeatDelegate, BCOVAMCSessionConsumerMeidaDelegate>
+@interface ViewController () <BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate, BCOVAMCSessionConsumerHeartbeatDelegate, BCOVAMCSessionConsumerMediaDelegate>
+
+@property (nonatomic, weak) IBOutlet UIView *videoContainerView;
 
 @property (nonatomic, strong) BCOVPlaybackService *playbackService;
+@property (nonatomic, strong) BCOVPUIPlayerView *playerView;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
-@property (nonatomic, weak) IBOutlet UIView *videoContainerView;
-@property (nonatomic) BCOVPUIPlayerView *playerView;
+
+@property (nonatomic, assign) BOOL statusBarHidden;
 
 @end
 
+
 @implementation ViewController
 
-- (instancetype)initWithCoder:(NSCoder *)coder
+- (BOOL)prefersStatusBarHidden
 {
-    self = [super initWithCoder:coder];
-    if (self)
-    {
-        [self setup];
-    }
-    return self;
+    return self.statusBarHidden;
 }
 
-- (void)setup
+- (void)viewDidLoad
 {
-    BCOVPlayerSDKManager *manager = [BCOVPlayerSDKManager sharedManager];
-    
-    _playbackController = [manager createPlaybackControllerWithViewStrategy:nil];
-    _playbackController.delegate = self;
-    _playbackController.autoAdvance = YES;
-    _playbackController.autoPlay = YES;
+    [super viewDidLoad];
 
-    // Use Adobe Video Media Heartbeat v2.0 analytics
-    [_playbackController addSessionConsumer: [self videoHeartbeatSessionConsumer]];
-    // OR use Adobe media analytics
-//    [_playbackController addSessionConsumer: [self mediaAnalyticsSessionConsumer]];
+    self.playbackService = ({
+        BCOVPlaybackServiceRequestFactory *factory = [[BCOVPlaybackServiceRequestFactory alloc]
+                                                      initWithAccountId:kAccountId
+                                                      policyKey:kPolicyKey];
 
-    
-    _playbackService = [[BCOVPlaybackService alloc] initWithAccountId:kViewControllerAccountID
-															policyKey:kViewControllerPlaybackServicePolicyKey];
-    
+        [[BCOVPlaybackService alloc] initWithRequestFactory:factory];
+    });
+
+    self.playerView = ({
+        BCOVPUIPlayerViewOptions *options = [BCOVPUIPlayerViewOptions new];
+        options.presentingViewController = self;
+        options.automaticControlTypeSelection = YES;
+
+        BCOVPUIPlayerView *playerView = [[BCOVPUIPlayerView alloc]
+                                         initWithPlaybackController:nil
+                                         options:options
+                                         controlsView:nil];
+
+        playerView.delegate = self;
+
+        playerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        playerView.frame = self.videoContainerView.bounds;
+        [self.videoContainerView addSubview:playerView];
+
+        playerView;
+    });
+
+    self.playbackController = ({
+        BCOVPlayerSDKManager *sdkManager = BCOVPlayerSDKManager.sharedManager;
+
+        BCOVFPSBrightcoveAuthProxy *authProxy = [[BCOVFPSBrightcoveAuthProxy alloc] initWithPublisherId:nil
+                                                                                          applicationId:nil];
+
+        id<BCOVPlaybackSessionProvider> fps = [sdkManager createFairPlaySessionProviderWithAuthorizationProxy:authProxy
+                                                                                      upstreamSessionProvider:nil];
+
+        id<BCOVPlaybackController> playbackController = [sdkManager
+                                                         createPlaybackControllerWithSessionProvider:fps
+                                                         viewStrategy:nil];
+        playbackController.delegate = self;
+        playbackController.autoAdvance = YES;
+        playbackController.autoPlay = YES;
+
+        self.playerView.playbackController = playbackController;
+
+        // Use Adobe Video Media Heartbeat v2.0 analytics
+        [playbackController addSessionConsumer: [self videoHeartbeatSessionConsumer]];
+        // OR use Adobe media analytics
+        // [playbackController addSessionConsumer: [self mediaAnalyticsSessionConsumer]];
+
+        playbackController;
+    });
+
+    [self requestContentFromPlaybackService];
 }
 
-
-#pragma mark BCOVAMCSessionConsumer
+- (void)setStatusBarHidden:(BOOL)statusBarHidden
+{
+    _statusBarHidden = statusBarHidden;
+    [self setNeedsStatusBarAppearanceUpdate];
+}
 
 - (BCOVAMCSessionConsumer *)videoHeartbeatSessionConsumer
 {
-    BCOVAMCVideoHeartbeatConfigurationPolicy videoHeartbeatConfigurationPolicy = ^ADBMediaHeartbeatConfig *(id<BCOVPlaybackSession> session) {
-        
-        ADBMediaHeartbeatConfig *configData = [[ADBMediaHeartbeatConfig alloc] init];
-        
+    BCOVAMCVideoHeartbeatConfigurationPolicy videoHeartbeatConfigurationPolicy =
+    ^ADBMediaHeartbeatConfig *(id<BCOVPlaybackSession> session) {
+
+        ADBMediaHeartbeatConfig *configData = [ADBMediaHeartbeatConfig new];
+
         configData.trackingServer = @"ovppartners.hb.omtrdc.net";
         configData.channel = @"test-channel";
         configData.appVersion = @"1.0.0";
         configData.ovp = @"Brightcove";
         configData.playerName = @"BasicOmniturePlayer";
         configData.ssl = NO;
-        
+
         // NOTE: remove this in production code.
         configData.debugLogging = YES;
-        
+
         return configData;
     };
-    
+
     BCOVAMCAnalyticsPolicy *heartbeatPolicy = [[BCOVAMCAnalyticsPolicy alloc] initWithHeartbeatConfigurationPolicy:videoHeartbeatConfigurationPolicy];
-    
-    return [BCOVAMCSessionConsumer heartbeatAnalyticsConsumerWithPolicy:heartbeatPolicy delegate:self];
+
+    return [BCOVAMCSessionConsumer heartbeatAnalyticsConsumerWithPolicy:heartbeatPolicy
+                                                               delegate:self];
 }
 
 - (BCOVAMCSessionConsumer *)mediaAnalyticsSessionConsumer
 {
-    BCOVAMCMediaSettingPolicy mediaSettingPolicy = ^ADBMediaSettings *(id<BCOVPlaybackSession> session) {
+    BCOVAMCMediaSettingPolicy mediaSettingPolicy =
+    ^ADBMediaSettings *(id<BCOVPlaybackSession> session) {
         ADBMediaSettings *settings = [ADBMobile mediaCreateSettingsWithName:@"BCOVOmniturePlayerMediaSettings"
-        // You can set video length to 0. Omniture plugin will update it later for you.
+                                      // You can set video length to 0. Omniture plugin will update it later for you.
                                                                      length:0
                                                                  playerName:@"BasicOmniturePlayer"
                                                                    playerID:@"BasicOmniturePlayer"];
         // Adobe media analytics setting customization
         // settings.milestones = @"25,50,75";
-        
+
         return settings;
     };
-    
-    BCOVAMCAnalyticsPolicy *mediaPolicy = [[BCOVAMCAnalyticsPolicy alloc] initWithMediaSettingsPolicy:mediaSettingPolicy];
-    
-    return [BCOVAMCSessionConsumer mediaAnalyticsConsumerWithPolicy:mediaPolicy delegate:self];
+
+    BCOVAMCAnalyticsPolicy *mediaPolicy = [[BCOVAMCAnalyticsPolicy alloc]
+                                           initWithMediaSettingsPolicy:mediaSettingPolicy];
+
+    return [BCOVAMCSessionConsumer mediaAnalyticsConsumerWithPolicy:mediaPolicy
+                                                           delegate:self];
 }
-
-
-#pragma mark view lifecycle
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    [self UISetup];
-    
-}
-
-- (void)UISetup
-{
-    // Create and configure Control View.
-    BCOVPUIBasicControlView *controlView = [BCOVPUIBasicControlView basicControlViewWithVODLayout];
-    self.playerView = [[BCOVPUIPlayerView alloc] initWithPlaybackController:self.playbackController options:nil controlsView:controlView];
-    self.playerView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.videoContainerView addSubview:self.playerView];
-    [NSLayoutConstraint activateConstraints:@[
-                                              [self.playerView.topAnchor constraintEqualToAnchor:self.videoContainerView.topAnchor],
-                                              [self.playerView.rightAnchor constraintEqualToAnchor:self.videoContainerView.rightAnchor],
-                                              [self.playerView.leftAnchor constraintEqualToAnchor:self.videoContainerView.leftAnchor],
-                                              [self.playerView.bottomAnchor constraintEqualToAnchor:self.videoContainerView.bottomAnchor],
-                                            ]];
-    
-    [self requestContentFromPlaybackService];
-}
-
 
 - (void)requestContentFromPlaybackService
 {
-    NSDictionary *configuration = @{kBCOVPlaybackServiceConfigurationKeyAssetID:kViewControllerVideoID};
-    [self.playbackService findVideoWithConfiguration:configuration queryParameters:nil completion:^(BCOVVideo *video, NSDictionary *jsonResponse, NSError *error) {
+    __weak typeof(self) weakSelf = self;
+
+    NSDictionary *configuration = @{ kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId };
+    [self.playbackService findVideoWithConfiguration:configuration
+                                     queryParameters:nil
+                                          completion:^(BCOVVideo *video,
+                                                       NSDictionary *jsonResponse,
+                                                       NSError *error) {
+
+        __strong typeof(weakSelf) strongSelf = weakSelf;
 
         if (video)
         {
-            [self.playbackController setVideos:@[ video ]];
+#if TARGET_OS_SIMULATOR
+            if (video.usesFairPlay)
+            {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"FairPlay Warning"
+                                                                               message:@"FairPlay only works on actual iOS or tvOS devices.\n\nYou will not be able to view any FairPlay content in the iOS or tvOS simulator."
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+
+                [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:nil]];
+
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [strongSelf presentViewController:alert animated:YES completion:nil];
+                });
+
+                return;
+            }
+#endif
+
+            [strongSelf.playbackController setVideos:@[ video ]];
         }
         else
         {
-            NSLog(@"ViewController Debug - Error retrieving video playlist: `%@`", error);
+            NSLog(@"ViewController - Error retrieving video: %@", error.localizedDescription);
         }
-        
+
     }];
 }
 
-- (void)playbackController:(id<BCOVPlaybackController>)controller didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
+
+#pragma mark - BCOVPlaybackControllerDelegate
+
+- (void)playbackController:(id<BCOVPlaybackController>)controller
+didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 {
-    NSLog(@"ViewController Debug - Advanced to new session.");
+    NSLog(@"ViewController - Advanced to new session.");
+}
+
+- (void)playbackController:(id<BCOVPlaybackController>)controller
+           playbackSession:(id<BCOVPlaybackSession>)session
+  didReceiveLifecycleEvent:(BCOVPlaybackSessionLifecycleEvent *)lifecycleEvent
+{
+    if ([kBCOVPlaybackSessionLifecycleEventFail isEqualToString:lifecycleEvent.eventType])
+    {
+        NSError *error = lifecycleEvent.properties[@"error"];
+        // Report any errors that may have occurred with playback.
+        NSLog(@"ViewController - Playback error: %@", error.localizedDescription);
+    }
 }
 
 
-#pragma mark UI Styling
+#pragma mark - BCOVPUIPlayerViewDelegate
 
-- (UIStatusBarStyle)preferredStatusBarStyle
+- (void)playerView:(BCOVPUIPlayerView *)playerView
+willTransitionToScreenMode:(BCOVPUIScreenMode)screenMode
 {
-    return UIStatusBarStyleLightContent;
+    self.statusBarHidden = screenMode == BCOVPUIScreenModeFull;
 }
+
 
 #pragma mark - BCOVAMCSessionConsumerHeartbeatDelegate
 
 - (void)heartbeatVideoUnloadedOnSession:(id<BCOVPlaybackSession>)session;
 {
-    NSLog(@"ViewController Debug - heartbeatVideoUnloadedOnSession:");
+    NSLog(@"ViewController - heartbeatVideoUnloadedOnSession:");
 }
 
-#pragma mark - @protocol BCOVAMCSessionConsumerMediaDelegate <NSObject>
 
-- (void)mediaOnSession:(id<BCOVPlaybackSession>)session mediaState:(ADBMediaState *)mediaState;
+#pragma mark - BCOVAMCSessionConsumerMediaDelegate
+
+- (void)mediaOnSession:(id<BCOVPlaybackSession>)session
+            mediaState:(ADBMediaState *)mediaState;
 {
-    NSLog(@"mediaEvent = %@", mediaState.mediaEvent);
+    NSLog(@"ViewController - mediaEvent = %@", mediaState.mediaEvent);
+
     if([mediaState.mediaEvent isEqualToString:@"MILESTONE"])
     {
-        NSLog(@"milestone = %lu", (unsigned long)mediaState.milestone);
+        NSLog(@"ViewController - milestone = %lu", (unsigned long)mediaState.milestone);
     }
 }
-
 
 @end

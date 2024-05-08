@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,10 +11,10 @@
 		49E6421B1A0280DD00D284AC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E6421A1A0280DD00D284AC /* AppDelegate.m */; };
 		49E6421E1A0280DD00D284AC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E6421D1A0280DD00D284AC /* ViewController.m */; };
 		49E642211A0280DD00D284AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49E6421F1A0280DD00D284AC /* Main.storyboard */; };
-		49E642231A0280DD00D284AC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49E642221A0280DD00D284AC /* Images.xcassets */; };
-		49E642261A0280DD00D284AC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49E642241A0280DD00D284AC /* LaunchScreen.xib */; };
 		49E6423E1A02932F00D284AC /* ControlsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E6423C1A02932F00D284AC /* ControlsViewController.m */; };
 		49E6423F1A02932F00D284AC /* ControlsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49E6423D1A02932F00D284AC /* ControlsViewController.xib */; };
+		D6B08B882BE48E1300BFA9A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6B08B872BE48E1300BFA9A3 /* Assets.xcassets */; };
+		D6B08B8B2BE48E1A00BFA9A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6B08B892BE48E1A00BFA9A3 /* LaunchScreen.storyboard */; };
 		E9286A6D25EE94BD0022AC9F /* ClosedCaptionMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9286A6C25EE94BD0022AC9F /* ClosedCaptionMenuController.m */; };
 /* End PBXBuildFile section */
 
@@ -27,11 +27,11 @@
 		49E6421C1A0280DD00D284AC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		49E6421D1A0280DD00D284AC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		49E642201A0280DD00D284AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		49E642221A0280DD00D284AC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		49E642251A0280DD00D284AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		49E6423B1A02932F00D284AC /* ControlsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlsViewController.h; sourceTree = "<group>"; };
 		49E6423C1A02932F00D284AC /* ControlsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlsViewController.m; sourceTree = "<group>"; };
 		49E6423D1A02932F00D284AC /* ControlsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlsViewController.xib; sourceTree = "<group>"; };
+		D6B08B872BE48E1300BFA9A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
+		D6B08B8A2BE48E1A00BFA9A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E9286A6B25EE94BD0022AC9F /* ClosedCaptionMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClosedCaptionMenuController.h; sourceTree = "<group>"; };
 		E9286A6C25EE94BD0022AC9F /* ClosedCaptionMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClosedCaptionMenuController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -66,30 +66,22 @@
 		49E642141A0280DD00D284AC /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
+				49E642161A0280DD00D284AC /* Info.plist */,
+				D6B08B872BE48E1300BFA9A3 /* Assets.xcassets */,
+				D6B08B892BE48E1A00BFA9A3 /* LaunchScreen.storyboard */,
+				49E6421F1A0280DD00D284AC /* Main.storyboard */,
+				49E6423D1A02932F00D284AC /* ControlsViewController.xib */,
+				49E642171A0280DD00D284AC /* main.m */,
 				49E642191A0280DD00D284AC /* AppDelegate.h */,
 				49E6421A1A0280DD00D284AC /* AppDelegate.m */,
-				49E6423B1A02932F00D284AC /* ControlsViewController.h */,
-				49E6423C1A02932F00D284AC /* ControlsViewController.m */,
-				49E6423D1A02932F00D284AC /* ControlsViewController.xib */,
-				49E6421C1A0280DD00D284AC /* ViewController.h */,
-				49E6421D1A0280DD00D284AC /* ViewController.m */,
 				E9286A6B25EE94BD0022AC9F /* ClosedCaptionMenuController.h */,
 				E9286A6C25EE94BD0022AC9F /* ClosedCaptionMenuController.m */,
-				49E6421F1A0280DD00D284AC /* Main.storyboard */,
-				49E642221A0280DD00D284AC /* Images.xcassets */,
-				49E642241A0280DD00D284AC /* LaunchScreen.xib */,
-				49E642151A0280DD00D284AC /* Supporting Files */,
+				49E6423B1A02932F00D284AC /* ControlsViewController.h */,
+				49E6423C1A02932F00D284AC /* ControlsViewController.m */,
+				49E6421C1A0280DD00D284AC /* ViewController.h */,
+				49E6421D1A0280DD00D284AC /* ViewController.m */,
 			);
 			path = CustomControls;
-			sourceTree = "<group>";
-		};
-		49E642151A0280DD00D284AC /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				49E642161A0280DD00D284AC /* Info.plist */,
-				49E642171A0280DD00D284AC /* main.m */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,7 +111,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1200;
-				ORGANIZATIONNAME = Brightcove;
+				ORGANIZATIONNAME = "Brightcove, Inc.";
 				TargetAttributes = {
 					49E642111A0280DD00D284AC = {
 						CreatedOnToolsVersion = 6.1;
@@ -132,7 +124,7 @@
 				};
 			};
 			buildConfigurationList = 49E6420D1A0280DD00D284AC /* Build configuration list for PBXProject "CustomControls" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -155,9 +147,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				49E642211A0280DD00D284AC /* Main.storyboard in Resources */,
-				49E642261A0280DD00D284AC /* LaunchScreen.xib in Resources */,
+				D6B08B8B2BE48E1A00BFA9A3 /* LaunchScreen.storyboard in Resources */,
+				D6B08B882BE48E1300BFA9A3 /* Assets.xcassets in Resources */,
 				49E6423F1A02932F00D284AC /* ControlsViewController.xib in Resources */,
-				49E642231A0280DD00D284AC /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,12 +179,12 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		49E642241A0280DD00D284AC /* LaunchScreen.xib */ = {
+		D6B08B892BE48E1A00BFA9A3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				49E642251A0280DD00D284AC /* Base */,
+				D6B08B8A2BE48E1A00BFA9A3 /* Base */,
 			);
-			name = LaunchScreen.xib;
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -227,7 +219,6 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -246,7 +237,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -283,7 +274,6 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -296,7 +286,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -308,8 +298,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = CustomControls/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = CustomControls;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -324,8 +315,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = CustomControls/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = CustomControls;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

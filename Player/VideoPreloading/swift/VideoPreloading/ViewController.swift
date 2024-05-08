@@ -2,84 +2,135 @@
 //  ViewController.swift
 //  VideoPreloading
 //
-//  Created by Jeremy Blaker on 3/21/19.
-//  Copyright © 2020 Brightcove, Inc. All rights reserved.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 import UIKit
 import BrightcovePlayerSDK
 
-import UIKit
-import BrightcovePlayerSDK
 
-let kViewControllerPlaybackServicePolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
-let kViewControllerAccountID = "5434391461001"
-let kViewControllerPlaylistRefID = "brightcove-native-sdk-plist"
+// Customize these values with your own account information
+// Add your Brightcove account and video information here.
+let kAccountId = "5434391461001"
+let kPolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
+let kPlaylistRefId = "brightcove-native-sdk-plist"
 
-class ViewController: UIViewController, BCOVPlaybackControllerDelegate {
-    
-    private lazy var playbackService: BCOVPlaybackService = {
-       return BCOVPlaybackService(accountId: kViewControllerAccountID, policyKey: kViewControllerPlaybackServicePolicyKey)
+
+final class ViewController: UIViewController {
+
+    @IBOutlet fileprivate weak var videoContainerView: UIView!
+
+    fileprivate lazy var playbackService: BCOVPlaybackService = {
+        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+                                                        policyKey: kPolicyKey)
+        return .init(requestFactory: factory)
     }()
-    
-    private lazy var videoPreloadManager: VideoPreloadManager? = {
-        guard let playerView = self.playerView else {
+
+    fileprivate lazy var playerView: BCOVPUIPlayerView? = {
+        let options = BCOVPUIPlayerViewOptions()
+        options.presentingViewController = self
+        options.automaticControlTypeSelection = true
+
+        guard let playerView = BCOVPUIPlayerView(playbackController: nil,
+                                                 options: options,
+                                                 controlsView: nil) else {
             return nil
         }
-        return VideoPreloadManager(withPlaybackControllerDelegate: self, andPlayerView: playerView, andShouldAutoPlay: true)
-    }()
-    
-    private lazy var playerView: BCOVPUIPlayerView? = {
-        // Set up our player view. Create with a standard VOD layout.
-        guard let playerView = BCOVPUIPlayerView(playbackController: nil, options: nil, controlsView: BCOVPUIBasicControlView.withVODLayout()) else {
-            return nil
-        }
-        
-        // Install in the container view and match its size.
-        self.videoContainerView.addSubview(playerView)
-        playerView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            playerView.topAnchor.constraint(equalTo: self.videoContainerView.topAnchor),
-            playerView.rightAnchor.constraint(equalTo: self.videoContainerView.rightAnchor),
-            playerView.leftAnchor.constraint(equalTo: self.videoContainerView.leftAnchor),
-            playerView.bottomAnchor.constraint(equalTo: self.videoContainerView.bottomAnchor)
-            ])
+
+        playerView.delegate = self
+
+        playerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        playerView.frame = videoContainerView.bounds
+        videoContainerView.addSubview(playerView)
+
         return playerView
     }()
 
-    @IBOutlet weak var videoContainerView: UIView!
-    
+    fileprivate lazy var statusBarHidden = false {
+        didSet {
+            setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+
+    override var prefersStatusBarHidden: Bool {
+        return statusBarHidden
+    }
+
+    fileprivate lazy var videoPreloadManager: VideoPreloadManager? = {
+        guard let playerView else { return nil }
+
+        return VideoPreloadManager(with: playerView, and: true, and: self)
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         requestContentFromPlaybackService()
     }
-    
-    func requestContentFromPlaybackService() {
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetReferenceID:kViewControllerPlaylistRefID]
-        playbackService.findPlaylist(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (playlist: BCOVPlaylist?, json: [AnyHashable:Any]?, error: Error?) in
-            
-            guard let strongSelf = self, let playlist = playlist, let videos = playlist.videos as? [BCOVVideo] else {
-                print("ViewController Debug - Error retrieving video: \(error?.localizedDescription ?? "unknown error")")
+
+    fileprivate func requestContentFromPlaybackService() {
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetReferenceID: kPlaylistRefId]
+        playbackService.findPlaylist(withConfiguration: configuration,
+                                     queryParameters: nil) {
+            [self] (playlist: BCOVPlaylist?,
+                    json: [AnyHashable:Any]?,
+                    error: Error?) in
+
+            guard let videoPreloadManager,
+                  let playlist,
+                  let videos = playlist.videos as? [BCOVVideo] else {
+                if let error {
+                    print("ViewController - Error retrieving video playlist: \(error.localizedDescription)")
+                }
+
                 return
             }
-            
-            strongSelf.videoPreloadManager?.videos = videos
-        })
-    }
-    
-    func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
-        print("Advanced to new session")
-    }
-    
-    func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didProgressTo progress: TimeInterval) {
-        print("Progress: \(progress) seconds")
-        videoPreloadManager?.preloadNextVideoIfNeccessary(session)
-    }
-    
-    func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
-        if (lifecycleEvent.eventType == kBCOVPlaybackSessionLifecycleEventEnd)
-        {
-            videoPreloadManager?.currentVideoDidCompletePlayback()
+
+#if targetEnvironment(simulator)
+            videoPreloadManager.videos = videos.filter({ !$0.usesFairPlay })
+#else
+            videoPreloadManager.videos = videos
+#endif
         }
+    }
+}
+
+
+// MARK: - BCOVPlaybackControllerDelegate
+
+extension ViewController: BCOVPlaybackControllerDelegate {
+
+    func playbackController(_ controller: BCOVPlaybackController!,
+                            didAdvanceTo session: BCOVPlaybackSession!) {
+        print("ViewController - Advanced to new session.")
+    }
+
+    func playbackController(_ controller: BCOVPlaybackController!,
+                            playbackSession session: BCOVPlaybackSession,
+                            didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
+        if kBCOVPlaybackSessionLifecycleEventEnd == lifecycleEvent.eventType,
+           let videoPreloadManager {
+            videoPreloadManager.currentVideoDidCompletePlayback()
+        }
+    }
+
+    func playbackController(_ controller: BCOVPlaybackController!,
+                            playbackSession session: BCOVPlaybackSession!,
+                            didProgressTo progress: TimeInterval) {
+        print("Progress: \(progress) seconds")
+
+        if let videoPreloadManager {
+            videoPreloadManager.preloadNextVideoIfNeccessary(session)
+        }
+    }
+}
+
+
+// MARK: - BCOVPUIPlayerViewDelegate
+
+extension ViewController: BCOVPUIPlayerViewDelegate {
+
+    func playerView(_ playerView: BCOVPUIPlayerView!,
+                    willTransitionTo screenMode: BCOVPUIScreenMode) {
+        statusBarHidden = screenMode == .full
     }
 }

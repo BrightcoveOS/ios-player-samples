@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,10 +17,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qit-e7-Cfy">
-                                <rect key="frame" x="0.0" y="277" width="414" height="60.5"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tzv-Xm-L4q">
+                                <rect key="frame" x="0.0" y="281" width="414" height="60.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitles" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HAP-Wn-TSB">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitles" textAlignment="center" lineBreakMode="clip" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HAP-Wn-TSB">
                                         <rect key="frame" x="20" y="20" width="374" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -29,21 +29,21 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <constraints>
-                                    <constraint firstItem="HAP-Wn-TSB" firstAttribute="leading" secondItem="Qit-e7-Cfy" secondAttribute="leading" constant="20" id="2qa-RG-WLN"/>
-                                    <constraint firstAttribute="bottom" secondItem="HAP-Wn-TSB" secondAttribute="bottom" constant="20" id="3tf-pW-pVU"/>
-                                    <constraint firstAttribute="trailing" secondItem="HAP-Wn-TSB" secondAttribute="trailing" constant="20" id="FED-Od-1gG"/>
-                                    <constraint firstItem="HAP-Wn-TSB" firstAttribute="top" secondItem="Qit-e7-Cfy" secondAttribute="top" constant="20" id="ebJ-lX-8wt"/>
+                                    <constraint firstAttribute="trailing" secondItem="HAP-Wn-TSB" secondAttribute="trailing" constant="20" id="ZGa-Cp-fIr"/>
+                                    <constraint firstAttribute="bottom" secondItem="HAP-Wn-TSB" secondAttribute="bottom" constant="20" id="cnW-r9-C9B"/>
+                                    <constraint firstItem="HAP-Wn-TSB" firstAttribute="top" secondItem="Tzv-Xm-L4q" secondAttribute="top" constant="20" id="emw-Dl-jtE"/>
+                                    <constraint firstItem="HAP-Wn-TSB" firstAttribute="leading" secondItem="Tzv-Xm-L4q" secondAttribute="leading" constant="20" id="wT4-0B-l4O"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S3g-mk-SJz">
-                                <rect key="frame" x="0.0" y="44" width="414" height="233"/>
+                                <rect key="frame" x="0.0" y="48" width="414" height="233"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="S3g-mk-SJz" secondAttribute="height" multiplier="16:9" id="aPK-73-uvF"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="dcz-zp-FTZ">
-                                <rect key="frame" x="0.0" y="337.5" width="414" height="524.5"/>
+                                <rect key="frame" x="0.0" y="341.5" width="414" height="520.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextTrackCell" textLabel="Rbx-gm-9gC" style="IBUITableViewCellStyleDefault" id="Z8H-vH-OFV">
@@ -65,8 +65,8 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="VDb-aa-oPT"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Sms-MX-1Mg"/>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="WdT-3Y-71R"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="ueZ-U7-Nv7"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -75,20 +75,20 @@
                         <constraints>
                             <constraint firstItem="S3g-mk-SJz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="0L6-sF-EE5"/>
                             <constraint firstItem="dcz-zp-FTZ" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="1Qz-eS-m0A"/>
-                            <constraint firstItem="Qit-e7-Cfy" firstAttribute="top" secondItem="S3g-mk-SJz" secondAttribute="bottom" id="1cY-Fc-wHk"/>
                             <constraint firstItem="S3g-mk-SJz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="2jy-uz-oSq"/>
-                            <constraint firstItem="Qit-e7-Cfy" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="8HV-bY-5uf"/>
                             <constraint firstItem="dcz-zp-FTZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="8gI-om-CtC"/>
                             <constraint firstItem="dcz-zp-FTZ" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="9NQ-qX-pZo"/>
                             <constraint firstItem="S3g-mk-SJz" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Fv2-X0-DQA"/>
-                            <constraint firstItem="Qit-e7-Cfy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="MMY-rj-Iet"/>
-                            <constraint firstItem="dcz-zp-FTZ" firstAttribute="top" secondItem="Qit-e7-Cfy" secondAttribute="bottom" id="iTw-y2-aP7"/>
+                            <constraint firstItem="Tzv-Xm-L4q" firstAttribute="top" secondItem="S3g-mk-SJz" secondAttribute="bottom" id="NQ2-5s-dpk"/>
+                            <constraint firstItem="dcz-zp-FTZ" firstAttribute="top" secondItem="Tzv-Xm-L4q" secondAttribute="bottom" id="nrE-iC-nF5"/>
+                            <constraint firstItem="Tzv-Xm-L4q" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="pdE-C4-Nmu"/>
+                            <constraint firstItem="Tzv-Xm-L4q" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="vlj-NY-6OQ"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="subtitlesLabel" destination="HAP-Wn-TSB" id="KaM-43-Zyp"/>
-                        <outlet property="tableView" destination="dcz-zp-FTZ" id="Gnc-4D-Sgt"/>
-                        <outlet property="videoContainer" destination="S3g-mk-SJz" id="8vf-X3-j3v"/>
+                        <outlet property="subtitlesLabel" destination="HAP-Wn-TSB" id="kai-1i-YzS"/>
+                        <outlet property="tableView" destination="dcz-zp-FTZ" id="o0H-4b-Pld"/>
+                        <outlet property="videoContainerView" destination="S3g-mk-SJz" id="BnV-4p-6rv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

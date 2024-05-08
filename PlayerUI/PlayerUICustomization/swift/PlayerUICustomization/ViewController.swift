@@ -2,8 +2,9 @@
 //  ViewController.swift
 //  PlayerUICustomization
 //
-//  Copyright © 2020 Brightcove, Inc. All rights reserved.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
+
 // This sample app shows you how to use the PlayerUI control customization.
 // The PlayerUI code is now integrated in the BrightcovePlayerSDK module, so you
 // can begin using it without importing any other modules besides the BrightcovePlayerSDK.
@@ -68,289 +69,335 @@
 import UIKit
 import BrightcovePlayerSDK
 
-// ** Customize these values with your own account information **
-struct PlayerUIConstants {
-    static let PlaybackServicePolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
-    static let AccountID = "5434391461001"
-    static let VideoID = "5702141808001"
-}
 
-class ViewController: UIViewController {
+// Customize these values with your own account information
+// Add your Brightcove account and video information here.
+let kAccountId = "5434391461001"
+let kPolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
+let kVideoId = "5702148954001"
+
+
+final class ViewController: UIViewController {
+
+    @IBOutlet fileprivate weak var videoContainerView: UIView!
+    @IBOutlet fileprivate weak var layoutLabel: UILabel!
 
     enum LayoutType: String {
         case Basic = "Built-in VOD Controls"
         case Simple = "Simple Custom Controls"
         case LiveDVR = "Built-in Live DVR Controls"
         case BasicLive = "Built-in Live Controls"
-        case ComplexCustom = "Complex Layout"
-        case Nil = "Nil layout"
-        
-        func setup(forControlsView controlsView: BCOVPUIBasicControlView, layoutLabel: UILabel, compactLayoutMaximumWidth: CGFloat) -> BCOVPUILayoutView? {
-            layoutLabel.text = self.rawValue
-            
-            var controlLayout: BCOVPUIControlLayout?
-            var layoutView: BCOVPUILayoutView?
-            
+        case Complex = "Complex Layout"
+        case `nil` = "nil Layout"
+
+        func setup(forControlsView controlsView: BCOVPUIBasicControlView,
+                   compactLayoutMaximumWidth: CGFloat) {
+
+            lazy var controlLayout: BCOVPUIControlLayout? = nil
+
             switch self {
-            case .Basic:
-                controlLayout = BCOVPUIControlLayout.basicVOD()
-            case .Simple:
-                let (_controlLayout, _layoutView) = CustomLayouts.Simple(forControlsView: controlsView)
-                controlLayout = _controlLayout
-                layoutView = _layoutView
-            case .LiveDVR:
-                controlLayout = BCOVPUIControlLayout.basicLiveDVR()
-            case .BasicLive:
-                controlLayout = BCOVPUIControlLayout.basicLive()
-            case .ComplexCustom:
-                let (_controlLayout, _layoutView) = CustomLayouts.Complex(forControlsView: controlsView)
-                controlLayout = _controlLayout
-                layoutView = _layoutView
-            case .Nil:
-                break
+                case .Basic:
+                    controlLayout = BCOVPUIControlLayout.basicVOD()
+                case .Simple:
+                    controlLayout = CustomLayouts.Simple()
+                case .LiveDVR:
+                    controlLayout = BCOVPUIControlLayout.basicLiveDVR()
+                case .BasicLive:
+                    controlLayout = BCOVPUIControlLayout.basicLive()
+                case .Complex:
+                    controlLayout = CustomLayouts.Complex()
+                case .nil:
+                    break
             }
-            
+
             controlLayout?.compactLayoutMaximumWidth = compactLayoutMaximumWidth
-            
             controlsView.layout = controlLayout
-            
-            return layoutView
         }
-        
+
         func nextLayout() -> LayoutType {
             switch self {
-            case .Basic:
-                return .Simple
-            case .Simple:
-                return .LiveDVR
-            case .LiveDVR:
-                return .BasicLive
-            case .BasicLive:
-                return .ComplexCustom
-            case .ComplexCustom:
-                return .Nil
-            case .Nil:
-                return .Basic
+                case .Basic:
+                    return .Simple
+                case .Simple:
+                    return .LiveDVR
+                case .LiveDVR:
+                    return .BasicLive
+                case .BasicLive:
+                    return .Complex
+                case .Complex:
+                    return .nil
+                case .nil:
+                    return .Basic
             }
         }
     }
-    
-    @IBOutlet var videoView: UIView!
-    @IBOutlet var layoutLabel: UILabel!
-    
-    lazy var playbackService: BCOVPlaybackService = {
-       return BCOVPlaybackService(accountId: PlayerUIConstants.AccountID, policyKey: PlayerUIConstants.PlaybackServicePolicyKey)
+
+    fileprivate lazy var playbackService: BCOVPlaybackService = {
+        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+                                                        policyKey: kPolicyKey)
+        return .init(requestFactory: factory)
     }()
-    lazy var playbackController: BCOVPlaybackController? = {
-        guard let manager = BCOVPlayerSDKManager.shared(), let controller = manager.createPlaybackController() else {
-            return nil
-        }
-        controller.delegate = self
-        controller.isAutoAdvance = true
-        controller.isAutoPlay = true
-        return controller
-    }()
-    lazy var compactLayoutMaximumWidth: CGFloat = {
-       return (view.frame.width + view.frame.height) / 2
-    }()
-    
-    // Which layout are we displaying?
-    var layout: LayoutType = .Basic
-    // This stores a ref to a view we want to show/hide on demand.
-    var hideableLayoutView: BCOVPUILayoutView?
-    // PlayerUI's Player View
-    var playerView: BCOVPUIPlayerView?
-    
-    // MARK: - View Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configurePlayer()
-        updateLayout()
-        accessibilitySetup()
-    }
-    
-    // MARK: - Helper Methods
-    
-    private func configurePlayer() {
-        print("Configure the Player View")
-        
+
+    fileprivate lazy var playerView: BCOVPUIPlayerView? = {
         let options = BCOVPUIPlayerViewOptions()
         options.presentingViewController = self
-        
+
         // Make the controls linger on screen for a long time
         // so you can examine the controls.
         options.hideControlsInterval = 120
-        
+
         // But hide and show quickly.
         options.hideControlsAnimationDuration = 0.2
-        
-        let controlView = BCOVPUIBasicControlView.withVODLayout()
-        
-        playerView = BCOVPUIPlayerView(playbackController: playbackController, options: options, controlsView: controlView)
-        
-        guard let playerView = playerView else {
-            return
+
+        let controlsView = BCOVPUIBasicControlView.withVODLayout()
+        guard let playerView = BCOVPUIPlayerView(playbackController: nil,
+                                                 options: options,
+                                                 controlsView: controlsView) else {
+            return nil
         }
 
         playerView.delegate = self
-        
-        // Add BCOVPUIPlayerView to video view.
-        videoView.addSubview(playerView)
-        playerView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            playerView.topAnchor.constraint(equalTo: self.videoView.topAnchor),
-            playerView.rightAnchor.constraint(equalTo: self.videoView.rightAnchor),
-            playerView.leftAnchor.constraint(equalTo: self.videoView.leftAnchor),
-            playerView.bottomAnchor.constraint(equalTo: self.videoView.bottomAnchor)
-        ])
-        
-        print("Request Content from the Video Cloud")
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID:PlayerUIConstants.VideoID]
-        playbackService.findVideo(withConfiguration: configuration, queryParameters: nil, completion: { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
-            
-            if let video = video, let strongSelf = self {
-                strongSelf.playbackController?.setVideos([video] as NSFastEnumeration)
-            }
-            
-            if let error = error {
-                print("ViewController Debug - Error retrieving video playlist: \(error.localizedDescription)")
-            }
-            
-        })
-    }
-    
-    private func updateLayout() {
-        if let playerView = playerView {
-            hideableLayoutView = layout.setup(forControlsView: playerView.controlsView, layoutLabel: layoutLabel, compactLayoutMaximumWidth: compactLayoutMaximumWidth)
-        }
-    }
-    
-    // MARK: - IBActions
-    
-    @IBAction private func setNextLayout() {
-        // Cycle through the various layouts.
-        layout = layout.nextLayout()
-        
-        // Apply the new layout
-        updateLayout()
-        
-        // Apply styles for specific layouts
-        if let playerView = playerView {
-            switch layout {
-            case .ComplexCustom:
-                ControlViewStyles.Complex(forControlsView: playerView.controlsView)
-            case .Simple:
-                // Customize the font for the play/pause button
-                // This font is registered in Info.plist
-                let fontello = UIFont(name: "fontello", size: 22)
-                let playbackButton = playerView.controlsView.playbackButton
-                playbackButton?.titleLabel?.font = fontello
-                playbackButton?.primaryTitle = "\u{e801}"
-                playbackButton?.secondaryTitle = "\u{e802}"
-                playbackButton?.showPrimaryTitle(true)
 
-                // Alternatively you can customize a single-state button
-                // with an image instead
-                let iconImage = UIImage(named: "ClosedCaptionIcon")
-                let ccButton = playerView.controlsView.closedCaptionButton
-                ccButton?.primaryTitle = ""
-                ccButton?.secondaryTitle = ""
-                ccButton?.showPrimaryTitle(true)
-                ccButton?.setBackgroundImage(iconImage, for: .normal)
-                ccButton?.tintColor = .white
-            default:
-                break
-            }
+        playerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        playerView.frame = videoContainerView.bounds
+        videoContainerView.addSubview(playerView)
+
+        if playerView.controlsView != nil {
+            playerView.controlsView.durationLabel.accessibilityLabelPrefix = "Total Time"
+            playerView.controlsView.currentTimeLabel.accessibilityLabelPrefix = "As of now"
+            playerView.controlsView.progressSlider.accessibilityLabel = "Timeline"
+
+            playerView.controlsView.setButtonsAccessibilityDelegate(self)
         }
-        
+
+        return playerView
+    }()
+
+    fileprivate lazy var playbackController: BCOVPlaybackController? = {
+        guard let sdkManager = BCOVPlayerSDKManager.sharedManager(),
+              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
+                                                         applicationId: nil) else {
+            return nil
+        }
+
+        let fps = sdkManager.createFairPlaySessionProvider(withApplicationCertificate: nil,
+                                                           authorizationProxy: authProxy,
+                                                           upstreamSessionProvider: nil)
+
+        guard let playerView,
+              let playbackController = sdkManager.createPlaybackController(with: fps,
+                                                                           viewStrategy: nil) else {
+            return nil
+        }
+
+        playbackController.delegate = self
+        playbackController.isAutoAdvance = true
+        playbackController.isAutoPlay = true
+
+        playerView.playbackController = playbackController
+
+        return playbackController
+    }()
+
+    fileprivate lazy var compactLayoutMaximumWidth: CGFloat = {
+        return (view.frame.width + view.frame.height) / 2
+    }()
+
+    // Which layout are we displaying?
+    fileprivate var layout: LayoutType = .Basic {
+        didSet {
+            layoutLabel.text = layout.rawValue
+
+            guard let playerView else { return }
+
+            layout.setup(forControlsView: playerView.controlsView,
+                         compactLayoutMaximumWidth: compactLayoutMaximumWidth)
+        }
     }
-    
-    // MARK: - Misc
-    
-    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+
+    fileprivate lazy var statusBarHidden = false {
+        didSet {
+            setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+
+    override var prefersStatusBarHidden: Bool {
+        return statusBarHidden
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        layout = .Basic
+
+        requestContentFromPlaybackService()
+    }
+
+    override func motionBegan(_ motion: UIEvent.EventSubtype,
+                              with event: UIEvent?) {
+        super.motionBegan(motion, with: event)
+
+        guard let playerView,
+              let controlsView = playerView.controlsView,
+              let hideableLayoutView = controlsView.layout.allLayoutItems.first(where: { ($0 as? BCOVPUILayoutView)?.tag == BCOVPUIViewTag.buttonPlayback.rawValue }) as? BCOVPUILayoutView else { return }
+
         // When the device is shaken, toggle the removal of the saved layout view.
         print("motionBegan - hiding/showing layout view")
-        
-        guard let hideableLayoutView = hideableLayoutView, let playerView = playerView else {
-            return
-        }
-        
+
         hideableLayoutView.isRemoved = !hideableLayoutView.isRemoved
-        
+
         playerView.controlsView.setNeedsLayout()
     }
-    
-    @objc func handleButtonTap(button: UIButton) {
+
+    @objc
+    func handleButtonTap() {
         // When the "Tap Me" button is tapped, show a red label that fades quickly.
-        guard let playerView = playerView else {
-            return
-        }
-        let label = UILabel(frame: playerView.frame)
+        guard let contentOverlayView = playerView?.contentOverlayView else { return }
+
+        let label = UILabel(frame: contentOverlayView.frame)
         label.text = "Tapped!"
         label.textColor = .red
         label.font = UIFont.boldSystemFont(ofSize: 128)
         label.sizeToFit()
-        playerView.addSubview(label)
-        label.center = playerView.center
-        
+        contentOverlayView.addSubview(label)
+
+        label.center = contentOverlayView.center
+
         UIView.animate(withDuration: 1, animations: {
             label.alpha = 0
         }) { (finished: Bool) in
             label.removeFromSuperview()
         }
     }
-    
-    private func accessibilitySetup() {
-        playerView?.controlsView.setButtonsAccessibilityDelegate(self)
-        
-        playerView?.controlsView.durationLabel.accessibilityLabelPrefix = "Total Time";
-        playerView?.controlsView.currentTimeLabel.accessibilityLabelPrefix = "As of now";
-        playerView?.controlsView.progressSlider.accessibilityLabel = "Timeline";
-        playbackController?.view.accessibilityHint = "Double tap to show or hide controls";
+
+    fileprivate func requestContentFromPlaybackService() {
+        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId]
+        playbackService.findVideo(withConfiguration: configuration,
+                                  queryParameters: nil) {
+            [playbackController] (video: BCOVVideo?,
+                                  jsonResponse: [AnyHashable: Any]?,
+                                  error: Error?) in
+            guard let playbackController,
+                  let video else {
+                if let error {
+                    print("ViewController - Error retrieving video: \(error.localizedDescription)")
+                }
+
+                return
+            }
+
+#if targetEnvironment(simulator)
+            if video.usesFairPlay {
+                // FairPlay doesn't work when we're running in a simulator,
+                // so put up an alert.
+                let alert = UIAlertController(title: "FairPlay Warning",
+                                              message: """
+                                               FairPlay only works on actual \
+                                               iOS or tvOS devices.\n
+                                               You will not be able to view \
+                                               any FairPlay content in the \
+                                               iOS or tvOS simulator.
+                                               """,
+                                              preferredStyle: .alert)
+
+                alert.addAction(.init(title: "OK", style: .default))
+
+                DispatchQueue.main.async { [self] in
+                    present(alert, animated: true)
+                }
+
+                return
+            }
+#endif
+
+            playbackController.setVideos([video] as NSFastEnumeration)
+        }
     }
 
+    @IBAction
+    fileprivate func setNextLayout() {
+        // Cycle through the various layouts.
+        layout = layout.nextLayout()
+
+        // Apply styles for specific layouts
+        if let playerView {
+            switch layout {
+                case .Simple:
+                    ControlViewStyles.Simple(forControlsView: playerView.controlsView)
+                case .Complex:
+                    ControlViewStyles.Complex(forControlsView: playerView.controlsView)
+                default:
+                    break
+            }
+        }
+    }
 }
+
 
 // MARK: - BCOVPlaybackControllerDelegate
 
 extension ViewController: BCOVPlaybackControllerDelegate {
-    
-    func playbackController(_ controller: BCOVPlaybackController!, didCompletePlaylist playlist: NSFastEnumeration!) {
-        // When the playlist completes, play it again.
-        playbackController?.setVideos(playlist)
+
+    func playbackController(_ controller: BCOVPlaybackController!,
+                            didAdvanceTo session: BCOVPlaybackSession!) {
+        print("ViewController - Advanced to new session.")
     }
-    
+
+    func playbackController(_ controller: BCOVPlaybackController!,
+                            playbackSession session: BCOVPlaybackSession,
+                            didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
+
+        if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
+           let error = lifecycleEvent.properties["error"] as? NSError {
+            // Report any errors that may have occurred with playback.
+            print("ViewController - Playback error: \(error.localizedDescription)")
+        }
+    }
+
+    func playbackController(_ controller: BCOVPlaybackController!,
+                            didCompletePlaylist playlist: NSFastEnumeration!) {
+        // When the playlist completes, play it again.
+        controller.setVideos(playlist)
+    }
 }
+
 
 // MARK: - BCOVPUIPlayerViewDelegate
 
 extension ViewController: BCOVPUIPlayerViewDelegate {
-    
+
+    func playerView(_ playerView: BCOVPUIPlayerView!,
+                    willTransitionTo screenMode: BCOVPUIScreenMode) {
+        statusBarHidden = screenMode == .full
+    }
 }
+
 
 // MARK: - BCOVPUIButtonAccessibilityDelegate
 
 extension ViewController: BCOVPUIButtonAccessibilityDelegate {
-    
-    func accessibilityLabel(for button: BCOVPUIButton!, isPrimaryState: Bool) -> String! {
+
+    func accessibilityLabel(for button: BCOVPUIButton!,
+                            isPrimaryState: Bool) -> String! {
         switch button.tag {
-        case BCOVPUIViewTag.buttonPlayback.rawValue:
-            return isPrimaryState ? NSLocalizedString("Start Playback", comment: "") : NSLocalizedString("Stop Playback", comment: "")
-        case BCOVPUIViewTag.buttonScreenMode.rawValue:
-            return isPrimaryState ? NSLocalizedString("Enter Fullscreen", comment: "") : NSLocalizedString("Exit Fullscreen", comment: "")
-        case BCOVPUIViewTag.buttonJumpBack.rawValue:
-            return nil
-        case BCOVPUIViewTag.buttonClosedCaption.rawValue:
-            return nil
-        case BCOVPUIViewTag.buttonVideo360.rawValue:
-            return nil
-        case BCOVPUIViewTag.buttonPreferredBitrate.rawValue:
-            return nil
-        default:
-            return nil
+            case BCOVPUIViewTag.buttonPlayback.rawValue:
+                return (isPrimaryState ?
+                        NSLocalizedString("Start Playback", comment: "") :
+                            NSLocalizedString("Stop Playback", comment: ""))
+            case BCOVPUIViewTag.buttonScreenMode.rawValue:
+                return (isPrimaryState ?
+                        NSLocalizedString("Enter Fullscreen", comment: "") :
+                            NSLocalizedString("Exit Fullscreen", comment: ""))
+            case BCOVPUIViewTag.buttonJumpBack.rawValue:
+                return nil
+            case BCOVPUIViewTag.buttonClosedCaption.rawValue:
+                return nil
+            case BCOVPUIViewTag.buttonVideo360.rawValue:
+                return nil
+            case BCOVPUIViewTag.buttonPreferredBitrate.rawValue:
+                return nil
+            default:
+                return nil
         }
     }
-    
 }
-

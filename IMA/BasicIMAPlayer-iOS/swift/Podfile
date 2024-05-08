@@ -1,0 +1,10 @@
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/brightcove/BrightcoveSpecs.git'
+
+platform :ios, '14.0'
+
+use_frameworks!
+
+target 'BasicIMAPlayer' do
+  pod 'Brightcove-Player-IMA/XCFramework'
+end

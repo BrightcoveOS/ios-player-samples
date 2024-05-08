@@ -2,16 +2,13 @@
 //  SubtitleManager.m
 //  SubtitleRendering
 //
-//  Created by Jeremy Blaker on 3/24/21.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 #import "SubtitleManager.h"
 
-static NSString * const kSubtitleFontKey = @"FontKey";
-static NSString * const kSubtitleColorKey = @"ColorKey";
-static NSString * const kSubtitleKey = @"SubtitleKey";
-static NSString * const kSubtitleHeightKey = @"SubtitleHeightKey";
-static NSString * const kSubtitlePayloadKey = @"PayloadKey";
+
+#pragma mark -
 
 @interface Subtitle : NSObject
 
@@ -21,16 +18,20 @@ static NSString * const kSubtitlePayloadKey = @"PayloadKey";
 
 @end
 
+
 @implementation Subtitle
 
 @end
 
+
+#pragma mark -
+
 @interface SubtitleManager ()
 
-@property (nonatomic, strong) NSURL *subtitleURL;
-@property (nonatomic, strong) NSArray<Subtitle *> *subtitles;
+@property (nonatomic, strong) NSMutableArray<Subtitle *> *subtitles;
 
 @end
+
 
 @implementation SubtitleManager
 
@@ -38,52 +39,54 @@ static NSString * const kSubtitlePayloadKey = @"PayloadKey";
 {
     if (self = [super init])
     {
-        _subtitleURL = subtitleURL;
-        [self fetchSubtitleData];
-    }
-    return self;
-}
+        NSURLRequest *request = [NSURLRequest requestWithURL:subtitleURL];
 
-- (void)fetchSubtitleData
-{
-    __weak typeof(self) weakSelf = self;
-    
-    NSURLSessionDataTask *task = [NSURLSession.sharedSession dataTaskWithRequest:[NSURLRequest requestWithURL:self.subtitleURL] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        
-        if (error)
-        {
-            NSLog(@"SubtitleManager encountered error: %@", error.localizedDescription);
-        }
-        else
-        {
-            NSString *subtitleString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            [strongSelf parseSubtitleString:subtitleString];
-        }
-        
-    }];
-    
-    [task resume];
+        __weak typeof(self) weakSelf = self;
+
+        [[NSURLSession.sharedSession dataTaskWithRequest:request
+                                       completionHandler:^(NSData * _Nullable data,
+                                                           NSURLResponse * _Nullable response,
+                                                           NSError * _Nullable error) {
+
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+
+            if (error)
+            {
+                NSLog(@"SubtitleManager encountered error: %@", error.localizedDescription);
+            }
+            else
+            {
+                NSString *subtitleString = [[NSString alloc] initWithData:data 
+                                                                 encoding:NSUTF8StringEncoding];
+                [strongSelf parseSubtitleString:subtitleString];
+            }
+
+        }] resume];
+
+
+    }
+
+    return self;
 }
 
 - (void)parseSubtitleString:(NSString *)subtitleString
 {
-    NSArray *lines = [subtitleString componentsSeparatedByString:@"\n"];
-    
     NSMutableArray *subtitles = @[].mutableCopy;
-    
-    Subtitle *currentSubtitle;
 
+    NSArray *lines = [subtitleString componentsSeparatedByString:@"\n"];
     for (NSString *line in lines)
     {
         NSError *regexError;
         
         // This regular expression pattern may need to be adjusted for your
         // subtitle file as the time range pattern may be different
-        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"([0-9]{2}):([0-9]{2}).([0-9]{3}) --> ([0-9]{2}):([0-9]{2}).([0-9]{3})" options:NSRegularExpressionCaseInsensitive error:&regexError];
-        NSArray *matches = [regex matchesInString:line options:0 range:NSMakeRange(0, line.length)];
-        
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"([0-9]{2}):([0-9]{2}).([0-9]{3}) --> ([0-9]{2}):([0-9]{2}).([0-9]{3})" 
+                                                                               options:NSRegularExpressionCaseInsensitive
+                                                                                 error:&regexError];
+        NSArray *matches = [regex matchesInString:line 
+                                          options:0
+                                            range:NSMakeRange(0, line.length)];
+
         if (regexError)
         {
             NSLog(@"Error: %@", regexError.localizedDescription);
@@ -101,27 +104,27 @@ static NSString * const kSubtitlePayloadKey = @"PayloadKey";
             
             double endTime = ([[line substringWithRange:[result rangeAtIndex:4]] doubleValue] * 60.0 * 60.0) + [[line substringWithRange:[result rangeAtIndex:5]] doubleValue] * 60.0 + ([[line substringWithRange:[result rangeAtIndex:6]] doubleValue] / 1000.0);
             
-            // Add previous subtitle to array, if we have one
-            if (currentSubtitle)
-            {
-                [subtitles addObject:currentSubtitle];
-            }
-            
             // Create a new instance and assign the time range
-            currentSubtitle = [Subtitle new];
-            currentSubtitle.startTime = CMTimeMake(startTime, 60);
-            currentSubtitle.endTime = CMTimeMake(endTime, 60);
+            Subtitle *subtitle = [Subtitle new];
+            subtitle.startTime = CMTimeMake(startTime, 60);
+            subtitle.endTime = CMTimeMake(endTime, 60);
+
+            [subtitles addObject:subtitle];
         }
 
-        if (matches.count == 0 && currentSubtitle != nil && line.length > 0)
+        if (matches.count == 0 && line.length > 0)
         {
-            if (currentSubtitle.text)
+            Subtitle *currentSubtitle = subtitles.lastObject;
+            if (currentSubtitle)
             {
-                currentSubtitle.text = [currentSubtitle.text stringByAppendingString:[NSString stringWithFormat:@" %@", line]];
-            }
-            else
-            {
-                currentSubtitle.text = line;
+                if (currentSubtitle.text)
+                {
+                    currentSubtitle.text = [currentSubtitle.text stringByAppendingString:[NSString stringWithFormat:@" %@", line]];
+                }
+                else
+                {
+                    currentSubtitle.text = line;
+                }
             }
         }
     }
@@ -131,14 +134,15 @@ static NSString * const kSubtitlePayloadKey = @"PayloadKey";
 
 - (NSString *)subtitleForTime:(CMTime)time
 {
-    for (Subtitle *subtitle in self.subtitles)
+    for (Subtitle *subtitle in self.subtitles.copy)
     {
-        if (CMTIME_COMPARE_INLINE(subtitle.startTime, <=, time) && CMTIME_COMPARE_INLINE(subtitle.endTime, >=, time))
+        if (CMTIME_COMPARE_INLINE(subtitle.startTime, <=, time) &&
+            CMTIME_COMPARE_INLINE(subtitle.endTime, >=, time))
         {
             return subtitle.text;
         }
     }
-    
+
     return nil;
 }
 

@@ -2,13 +2,11 @@
 //  ViewController.h
 //  TableViewPlayer
 //
-//  Created by Jeremy Blaker on 6/14/22.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UITableViewController
 
-
 @end
-

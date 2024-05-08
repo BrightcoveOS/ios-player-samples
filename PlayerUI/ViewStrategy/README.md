@@ -6,7 +6,7 @@ View Strategy Sample
 ```
 - (void)createPlaybackController
 {
-    BCOVPlayerSDKManager *manager = [BCOVPlayerSDKManager sharedManager];
+    BCOVPlayerSDKManager *sdkManager = BCOVPlayerSDKManager.sharedManager;
 
     BCOVPlaybackControllerViewStrategy viewStrategy = ^UIView *(UIView *videoView, id<BCOVPlaybackController> playbackController)
     {
@@ -21,23 +21,17 @@ View Strategy Sample
         return controlsAndVideoView;
     };
 
-    self.playbackController = [manager createPlaybackControllerWithViewStrategy:viewStrategy];
+    self.playbackController = [sdkManager createPlaybackControllerWithViewStrategy:viewStrategy];
 
+    self.playbackController.delegate = self;
     self.playbackController.autoPlay = YES;
     self.playbackController.autoAdvance = YES;
-    self.playbackController.delegate = self;
 
-    self.playbackController.view.translatesAutoresizingMaskIntoConstraints = NO;
-        
-    [self.videoContainer addSubview:self.playbackController.view];
-    
-    [NSLayoutConstraint activateConstraints:@[
-        [self.playbackController.view.topAnchor constraintEqualToAnchor:self.videoContainer.topAnchor],
-        [self.playbackController.view.rightAnchor constraintEqualToAnchor:self.videoContainer.rightAnchor],
-        [self.playbackController.view.leftAnchor constraintEqualToAnchor:self.videoContainer.leftAnchor],
-        [self.playbackController.view.bottomAnchor constraintEqualToAnchor:self.videoContainer.bottomAnchor],
-    ]];
+    self.playbackController.view.frame = self.videoContainerView.bounds;
+    self.playbackController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
+    [self.videoContainerView addSubview:self.playbackController.view];
 }
 ```
 
-The `BCOVPlaybackControllerViewStrategy` layers the controls view on top of the videoView. This composed view is then passed into the `-[BCOVSDKManager createPlaybackControllerWithViewStrategy:viewStrategy];`
+The `BCOVPlaybackControllerViewStrategy` layers the controls view on top of the videoView. This composed view is then passed into the `-[BCOVPlayerSDKManager.sharedManager createPlaybackControllerWithViewStrategy:viewStrategy];`

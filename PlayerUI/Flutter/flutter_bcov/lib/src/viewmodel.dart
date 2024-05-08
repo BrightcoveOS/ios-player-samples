@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bcov/src/player_controller.dart';
 
 class BCOVViewModel extends ChangeNotifier {
   late EventChannel _eventChannel;
@@ -20,26 +19,27 @@ class BCOVViewModel extends ChangeNotifier {
   }
 
   Future<void> onPlatformViewCreated(int viewId) async {
-    _eventChannel = EventChannel(
-        'bcov.flutter/event_channel_$viewId', const JSONMethodCodec());
+    _eventChannel =
+        const EventChannel('bcov.flutter/event_channel', JSONMethodCodec());
     _eventChannel.receiveBroadcastStream().listen(_processEvent);
 
-    _methodChannel = MethodChannel('bcov.flutter/method_channel_$viewId');
+    _methodChannel = const MethodChannel('bcov.flutter/method_channel');
 
     notifyListeners();
   }
 
-  Future<void> onSetVideo(PlaybackService playbackService) async {
-    await _methodChannel.invokeMethod('setVideo', playbackService.toJson());
-  }
+  Future<void> onHandle(MethodCall call) async {
+    switch (call.method) {
+      case 'playPause':
+        _methodChannel.invokeMethod(call.method, !call.arguments[0]);
+        _isPlaying = !_isPlaying;
+        break;
 
-  Future<void> onPlayStateChanged(bool isPlaying) async {
-    if (isPlaying) {
-      _methodChannel.invokeMapMethod('play');
-    } else {
-      _methodChannel.invokeListMethod('pause');
+      case 'seek':
+        _methodChannel.invokeMethod(call.method, call.arguments[0]);
+        break;
     }
-    _isPlaying = isPlaying;
+
     notifyListeners();
   }
 
@@ -49,21 +49,25 @@ class BCOVViewModel extends ChangeNotifier {
     switch (eventName) {
       case 'didAdvanceToPlaybackSession':
         int milliseconds = event['duration'].toInt();
-        bool isPlaying = event['isPlaying'];
+        bool isPlaying = event['isAutoPlay'];
         _totalTime = Duration(milliseconds: milliseconds);
         _isPlaying = isPlaying;
-        notifyListeners();
         break;
 
       case 'didProgressTo':
-        int milliseconds = event['progress'].toInt();
-        _currentTime = Duration(milliseconds: milliseconds);
-        notifyListeners();
+        int seconds = event['progress'].toInt();
+        _currentTime = Duration(seconds: seconds);
+        break;
+
+      case 'eventEnd':
+        _currentTime = const Duration(seconds: 0);
+        _isPlaying = false;
         break;
 
       case 'onError':
-        print('error');
         break;
     }
+
+    notifyListeners();
   }
 }

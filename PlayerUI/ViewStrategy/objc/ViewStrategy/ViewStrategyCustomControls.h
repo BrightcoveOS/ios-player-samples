@@ -2,13 +2,12 @@
 //  ViewStrategyCustomControls.h
 //  ViewStrategy
 //
-//  Created by Carlos Ceja.
-//  Copyright © 2020 Brightcove. All rights reserved.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@import BrightcovePlayerSDK;
+#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
 
 
 @interface ViewStrategyCustomControls : UIView <BCOVPlaybackSessionConsumer>

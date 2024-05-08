@@ -2,21 +2,16 @@
 //  PlaybackConfiguration.h
 //  TableViewPlayer
 //
-//  Created by Jeremy Blaker on 6/15/22.
+//  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
 
-@protocol BCOVPlaybackController;
-@protocol BCOVPlaybackSession;
-
-NS_ASSUME_NONNULL_BEGIN
 
 @interface PlaybackConfiguration : NSObject
 
+@property (nonatomic, strong) id<BCOVPlaybackSession> playbackSession;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
-@property (nonatomic, strong, nullable) id<BCOVPlaybackSession> playbackSession;
 
 @end
-
-NS_ASSUME_NONNULL_END

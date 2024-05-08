@@ -3,27 +3,27 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D6B08B9D2BE4D19A00BFA9A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6B08B9C2BE4D19A00BFA9A3 /* Assets.xcassets */; };
 		E97EFAAA260B90680052C061 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E97EFAA9260B90680052C061 /* AppDelegate.m */; };
 		E97EFAB0260B90680052C061 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97EFAAF260B90680052C061 /* ViewController.m */; };
 		E97EFAB3260B90680052C061 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E97EFAB1260B90680052C061 /* Main.storyboard */; };
-		E97EFAB5260B90690052C061 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E97EFAB4260B90690052C061 /* Assets.xcassets */; };
 		E97EFAB8260B90690052C061 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E97EFAB6260B90690052C061 /* LaunchScreen.storyboard */; };
 		E97EFABB260B90690052C061 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E97EFABA260B90690052C061 /* main.m */; };
 		E97EFAE9260BB95B0052C061 /* SubtitleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E97EFAE8260BB95B0052C061 /* SubtitleManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D6B08B9C2BE4D19A00BFA9A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		E97EFAA5260B90680052C061 /* SubtitleRendering.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SubtitleRendering.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E97EFAA8260B90680052C061 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E97EFAA9260B90680052C061 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E97EFAAE260B90680052C061 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		E97EFAAF260B90680052C061 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E97EFAB2260B90680052C061 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E97EFAB4260B90690052C061 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E97EFAB7260B90690052C061 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E97EFAB9260B90690052C061 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E97EFABA260B90690052C061 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -61,17 +61,17 @@
 		E97EFAA7260B90680052C061 /* SubtitleRendering */ = {
 			isa = PBXGroup;
 			children = (
+				E97EFAB9260B90690052C061 /* Info.plist */,
+				D6B08B9C2BE4D19A00BFA9A3 /* Assets.xcassets */,
+				E97EFAB6260B90690052C061 /* LaunchScreen.storyboard */,
+				E97EFAB1260B90680052C061 /* Main.storyboard */,
+				E97EFABA260B90690052C061 /* main.m */,
 				E97EFAA8260B90680052C061 /* AppDelegate.h */,
 				E97EFAA9260B90680052C061 /* AppDelegate.m */,
-				E97EFAAE260B90680052C061 /* ViewController.h */,
-				E97EFAAF260B90680052C061 /* ViewController.m */,
 				E97EFAE7260BB95B0052C061 /* SubtitleManager.h */,
 				E97EFAE8260BB95B0052C061 /* SubtitleManager.m */,
-				E97EFAB1260B90680052C061 /* Main.storyboard */,
-				E97EFAB4260B90690052C061 /* Assets.xcassets */,
-				E97EFAB6260B90690052C061 /* LaunchScreen.storyboard */,
-				E97EFAB9260B90690052C061 /* Info.plist */,
-				E97EFABA260B90690052C061 /* main.m */,
+				E97EFAAE260B90680052C061 /* ViewController.h */,
+				E97EFAAF260B90680052C061 /* ViewController.m */,
 			);
 			path = SubtitleRendering;
 			sourceTree = "<group>";
@@ -103,6 +103,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1240;
+				ORGANIZATIONNAME = "Brightcove, Inc.";
 				TargetAttributes = {
 					E97EFAA4260B90680052C061 = {
 						CreatedOnToolsVersion = 12.4;
@@ -110,7 +111,7 @@
 				};
 			};
 			buildConfigurationList = E97EFAA0260B90680052C061 /* Build configuration list for PBXProject "SubtitleRendering" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -133,7 +134,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E97EFAB8260B90690052C061 /* LaunchScreen.storyboard in Resources */,
-				E97EFAB5260B90690052C061 /* Assets.xcassets in Resources */,
+				D6B08B9D2BE4D19A00BFA9A3 /* Assets.xcassets in Resources */,
 				E97EFAB3260B90680052C061 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -225,7 +226,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -278,7 +279,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -291,14 +292,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = SubtitleRendering/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = SubtitleRendering;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.compannyname.SubtitleRendering;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -309,14 +310,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = SubtitleRendering/Info.plist;
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = SubtitleRendering;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.compannyname.SubtitleRendering;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
