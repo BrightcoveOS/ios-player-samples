@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2hf-JO-2jZ">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="9j9-3q-zjr">
+            <objects>
+                <navigationController id="2hf-JO-2jZ" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="X3p-zM-F2v">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="4e1-TR-k0g" kind="relationship" relationship="rootViewController" id="LhG-QT-qmB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="owE-mQ-6Jr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-285" y="-2309"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="tAB-UT-haE">
+            <objects>
+                <viewController id="4e1-TR-k0g" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1a1-A1-kox">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="glD-ne-TSU">
+                                <rect key="frame" x="20" y="391.66666666666669" width="353" height="68.666666666666686"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mgd-Th-5KA">
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="34.333333333333336"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Video Properties"/>
+                                        <connections>
+                                            <segue destination="gwn-CK-1jH" kind="show" identifier="VideoProperties" id="4lT-sW-DcW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4A-x7-Y1V">
+                                        <rect key="frame" x="0.0" y="34.333333333333314" width="353" height="34.333333333333343"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Asset Key"/>
+                                        <connections>
+                                            <segue destination="fkl-lH-lA3" kind="show" identifier="AssetKey" id="11h-O7-hck"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="gB1-he-vND"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="glD-ne-TSU" firstAttribute="centerY" secondItem="1a1-A1-kox" secondAttribute="centerY" id="4sh-iS-whH"/>
+                            <constraint firstItem="gB1-he-vND" firstAttribute="trailing" secondItem="glD-ne-TSU" secondAttribute="trailing" constant="20" id="5Yp-Bf-9aR"/>
+                            <constraint firstItem="glD-ne-TSU" firstAttribute="leading" secondItem="gB1-he-vND" secondAttribute="leading" constant="20" id="MuF-ZT-KZD"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="cbc-kH-3BS"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rfa-q7-9wI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="471" y="-2309"/>
+        </scene>
+        <!--Video Properties View Controller-->
+        <scene sceneID="fbh-Ly-3NQ">
+            <objects>
+                <viewController id="gwn-CK-1jH" customClass="VideoPropertiesViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BZx-0L-Bpc">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bdg-nE-fst">
+                                <rect key="frame" x="0.0" y="103" width="393" height="221"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="bdg-nE-fst" secondAttribute="height" multiplier="16:9" id="g4P-7o-L6R"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="5CA-EG-aJF"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="bdg-nE-fst" firstAttribute="leading" secondItem="5CA-EG-aJF" secondAttribute="leading" id="9LJ-7Y-cUp"/>
+                            <constraint firstItem="bdg-nE-fst" firstAttribute="top" secondItem="5CA-EG-aJF" secondAttribute="top" id="Qb1-wn-Pl7"/>
+                            <constraint firstItem="5CA-EG-aJF" firstAttribute="trailing" secondItem="bdg-nE-fst" secondAttribute="trailing" id="ymI-us-s2c"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Ksz-JB-uju"/>
+                    <connections>
+                        <outlet property="videoContainerView" destination="bdg-nE-fst" id="AkQ-XT-Xti"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6EH-Fr-xfz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1247" y="-2315"/>
+        </scene>
+        <!--Asset Key View Controller-->
+        <scene sceneID="OR7-nO-JsT">
+            <objects>
+                <viewController id="fkl-lH-lA3" customClass="AssetKeyViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mCn-8s-4wH">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jes-C1-dN1">
+                                <rect key="frame" x="0.0" y="103" width="393" height="221"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Jes-C1-dN1" secondAttribute="height" multiplier="16:9" id="MmX-lX-boN"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="G5F-HT-R7C"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="G5F-HT-R7C" firstAttribute="trailing" secondItem="Jes-C1-dN1" secondAttribute="trailing" id="bxN-xs-ewd"/>
+                            <constraint firstItem="Jes-C1-dN1" firstAttribute="leading" secondItem="G5F-HT-R7C" secondAttribute="leading" id="lhg-nm-ybn"/>
+                            <constraint firstItem="Jes-C1-dN1" firstAttribute="top" secondItem="G5F-HT-R7C" secondAttribute="top" id="nQl-Bh-Jht"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Eol-3u-TqQ"/>
+                    <connections>
+                        <outlet property="videoContainerView" destination="Jes-C1-dN1" id="UZ1-4l-dFM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tPW-DU-Qy9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1237" y="-1577"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
