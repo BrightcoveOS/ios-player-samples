@@ -25,3 +25,7 @@ To take advantage of IAB Open Measurement, keep the following points in mind:
  ```
 
 See the *Open Measurement* section of [brightcove-player-sdk-ios-ssai](https://github.com/brightcove/brightcove-player-sdk-ios-ssai#OpenMeasurement) for more information.
+
+## PAL SDK Integration
+
+The BasicSSAIPlayer-iOS project provides an example of how to integrate the Brightcove SSAI plugin with the PAL SDK. If you want to use this integration you'll need to download the [PAL SDK XCFramework](https://developers.google.com/ad-manager/pal/ios/download) and add it to the the project and then uncomment the sections of code related to the PAL SDK. There are comments throughout the code that will help you know which code to uncomment.
