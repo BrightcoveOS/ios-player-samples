@@ -9,7 +9,8 @@ import AdSupport
 import AppTrackingTransparency
 import UIKit
 import BrightcoveSSAI
-// import OMSDK_Brightcove
+//import OMSDK_Brightcove
+//import ProgrammaticAccessLibrary
 
 
 // Customize these values with your own account information
@@ -110,6 +111,16 @@ final class ViewController: UIViewController {
     // will be bypassed and a hard-coded VMAP URL will be used
     // to create a BCOVVideo instead
     fileprivate let useVMAPURL = false
+    
+    // When this value is set to YES the PAL SDK
+    // will be used in conjuction with the Brightcove SSAI plugin
+    fileprivate let usePAL = false
+    
+    // If using PAL SDK uncomment these properties
+//    fileprivate var didSendPlaybackStart = false
+//    fileprivate var nonceLoader: NonceLoader?
+//    fileprivate var nonceManager: NonceManager?
+//    fileprivate var PALNonce: String?
 
     fileprivate lazy var statusBarHidden = false {
         didSet {
@@ -125,12 +136,25 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
 
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(requestTrackingAuthorization),
+                                               selector: #selector(applicationDidBecomeActive(_:)),
                                                name: UIApplication.didBecomeActiveNotification,
                                                object: nil)
     }
-
+    
     @objc
+    fileprivate func applicationDidBecomeActive(_ notification: NSNotification) {
+        if usePAL {
+            // If using PAL SDK uncomment this line
+//            setUpPAL()
+        } else {
+            requestTrackingAuthorization()
+        }
+        
+        NotificationCenter.default.removeObserver(self,
+                                                  name: UIApplication.didBecomeActiveNotification,
+                                                  object: nil)
+    }
+
     fileprivate func requestTrackingAuthorization() {
         if #available(iOS 14.5, *) {
             ATTrackingManager.requestTrackingAuthorization { status in
@@ -152,40 +176,7 @@ final class ViewController: UIViewController {
                 DispatchQueue.main.async { [self] in
                     // Tracking authorization completed.
                     // Start loading ads here.
-                    if useVMAPURL {
-                        if let playbackController,
-                           let url = URL(string: kVMAPURL) {
-                            let video = BCOVVideo(url: url)
-
-#if targetEnvironment(simulator)
-                            if video.usesFairPlay {
-                                // FairPlay doesn't work when we're running in a simulator,
-                                // so put up an alert.
-                                let alert = UIAlertController(title: "FairPlay Warning",
-                                                              message: """
-                                               FairPlay only works on actual \
-                                               iOS or tvOS devices.\n
-                                               You will not be able to view \
-                                               any FairPlay content in the \
-                                               iOS or tvOS simulator.
-                                               """,
-                                                              preferredStyle: .alert)
-
-                                alert.addAction(.init(title: "OK", style: .default))
-
-                                DispatchQueue.main.async { [self] in
-                                    present(alert, animated: true)
-                                }
-
-                                return
-                            }
-#endif
-
-                            playbackController.setVideos([video] as NSFastEnumeration)
-                        }
-                    } else {
-                        requestContentFromPlaybackService()
-                    }
+                    videoSetUp()
                 }
 
             }
@@ -200,10 +191,43 @@ final class ViewController: UIViewController {
                 requestContentFromPlaybackService()
             }
         }
+    }
+    
+    fileprivate func videoSetUp() {
+        if useVMAPURL {
+            if let playbackController,
+               let url = URL(string: kVMAPURL) {
+                let video = BCOVVideo(url: url)
 
-        NotificationCenter.default.removeObserver(self,
-                                                  name: UIApplication.didBecomeActiveNotification,
-                                                  object: nil)
+#if targetEnvironment(simulator)
+                if video.usesFairPlay {
+                    // FairPlay doesn't work when we're running in a simulator,
+                    // so put up an alert.
+                    let alert = UIAlertController(title: "FairPlay Warning",
+                                                  message: """
+                                   FairPlay only works on actual \
+                                   iOS or tvOS devices.\n
+                                   You will not be able to view \
+                                   any FairPlay content in the \
+                                   iOS or tvOS simulator.
+                                   """,
+                                                  preferredStyle: .alert)
+
+                    alert.addAction(.init(title: "OK", style: .default))
+
+                    DispatchQueue.main.async { [self] in
+                        present(alert, animated: true)
+                    }
+
+                    return
+                }
+#endif
+
+                playbackController.setVideos([video] as NSFastEnumeration)
+            }
+        } else {
+            requestContentFromPlaybackService()
+        }
     }
 
     fileprivate func requestContentFromPlaybackService() {
@@ -216,7 +240,7 @@ final class ViewController: UIViewController {
                                   jsonResponse: [AnyHashable: Any]?,
                                   error: Error?) in
             guard let playbackController,
-                  let video else {
+                  var video else {
                 if let error {
                     print("ViewController - Error retrieving video: \(error.localizedDescription)")
                 }
@@ -247,7 +271,13 @@ final class ViewController: UIViewController {
                 return
             }
 #endif
-
+            // If using PAL SDK uncomment this block
+//            if self.usePAL {
+//                if let jsonResponse = jsonResponse {
+//                    let updatedJSON = self.appendPALNonce(forJSON: jsonResponse)
+//                    video = BCOVPlaybackService.video(fromJSONDictionary: updatedJSON)
+//                }
+//            }
             playbackController.setVideos([video] as NSFastEnumeration)
         }
     }
@@ -272,9 +302,20 @@ extension ViewController: BCOVPlaybackControllerDelegate {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }
+        
+        // If using PAL SDK uncomment this block
+//        if usePAL {
+//            if lifecycleEvent.eventType == kBCOVPlaybackSessionLifecycleEventPlay && !didSendPlaybackStart {
+//                didSendPlaybackStart = true
+//                nonceManager?.sendPlaybackStart()
+//            }
+//
+//            if lifecycleEvent.eventType == kBCOVPlaybackSessionLifecycleEventEnd {
+//                nonceManager?.sendPlaybackEnd()
+//            }
+//        }
     }
 }
-
 
 // MARK: - BCOVPlaybackControllerAdsDelegate
 
@@ -314,4 +355,86 @@ extension ViewController: BCOVPUIPlayerViewDelegate {
                     willTransitionTo screenMode: BCOVPUIScreenMode) {
         statusBarHidden = screenMode == .full
     }
+    
+    func willOpenExternalBrowser(with ad: BCOVAd!) {
+        if usePAL {
+            // If using PAL SDK uncomment this line
+//            nonceManager?.sendAdClick()
+        }
+    }
 }
+
+// MARK: - PAL Integration
+// If using PAL SDK uncomment these methods
+
+//extension ViewController {
+//    
+//    func setUpPAL() {
+//        // The default value for 'allowStorage' and 'directedForChildOrUnknownAge' is
+//        // 'NO', but should be updated once the appropriate consent has been gathered.
+//        // Publishers should either integrate with a CMP or use a different method to
+//        // handle storage consent.
+//        let settings = Settings()
+//        settings.allowStorage = true
+//        settings.directedForChildOrUnknownAge = false
+//
+//        nonceLoader = NonceLoader(settings: settings)
+//        nonceLoader?.delegate = self
+//
+//        requestNonceManager()
+//    }
+//
+//    func requestNonceManager() {
+//        // See https://developers.google.com/ad-manager/pal/ios/reference/Classes/PALNonceRequest
+//        // for all possible configurations.
+//        let request = NonceRequest()
+//        request.continuousPlayback = Flag.off
+//        request.playerType = "BasicSSAIPlayer"
+//        request.playerVersion = "1.0.0"
+//        request.sessionID = NSUUID().uuidString
+//        request.willAdAutoPlay = Flag.on
+//        request.willAdPlayMuted = Flag.off
+//
+//        nonceLoader?.loadNonceManager(with: request)
+//    }
+//
+//    func appendPALNonce(forJSON json: [AnyHashable: Any]) -> [AnyHashable: Any] {
+//        guard let sources = json["sources"] as? [[AnyHashable:Any]] else {
+//            return json
+//        }
+//        var updatedJson = json
+//        var updatedSources = [[AnyHashable:Any]]()
+//        for source in sources {
+//            guard var vmapURL = source["vmap"] as? String, let PALNonce = PALNonce else {
+//                continue
+//            }
+//            vmapURL = "\(vmapURL)&givn=\(PALNonce)"
+//            var updatedSource = source
+//            updatedSource["vmap"] = vmapURL
+//            updatedSources.append(updatedSource)
+//        }
+//        updatedJson["sources"] = updatedSources
+//        return updatedJson
+//    }
+//
+//}
+
+// MARK: - PAL Integration
+// If using PAL SDK uncomment these methods
+
+//extension ViewController: NonceLoaderDelegate {
+//    
+//    func nonceLoader(_ nonceLoader: NonceLoader, with request: NonceRequest, didLoad nonceManager: NonceManager) {
+//        print("Programmatic access nonce: \(nonceManager.nonce)")
+//        // Capture the created nonce manager and attach its gesture recognizer to the video view.
+//        self.nonceManager = nonceManager
+//
+//        PALNonce = nonceManager.nonce
+//
+//        videoSetUp()
+//    }
+//
+//    func nonceLoader(_ nonceLoader: NonceLoader, with request: NonceRequest, didFailWith error: any Error) {
+//        print("Error generating programmatic access nonce: \(error)")
+//    }
+//}
