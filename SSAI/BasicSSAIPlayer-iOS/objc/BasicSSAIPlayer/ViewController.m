@@ -248,7 +248,7 @@ static NSString * const kVMAPURL = @"https://sdks.support.brightcove.com/assets/
                                                     handler:nil]];
 
             dispatch_async(dispatch_get_main_queue(), ^{
-                [strongSelf presentViewController:alert animated:YES completion:nil];
+                [self presentViewController:alert animated:YES completion:nil];
             });
 
             return;
