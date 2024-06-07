@@ -7,6 +7,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import <GoogleCast/GoogleCast.h>
+#import <BrightcoveGoogleCast/BrightcoveGoogleCast.h>
 
 #import "AppDelegate.h"
 
@@ -43,7 +44,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     }
 
     // More Info @ https://developers.google.com/cast/docs/ios_sender/integrate#initialize_the_cast_context
-    GCKDiscoveryCriteria *discoveryCriteria = [[GCKDiscoveryCriteria alloc] initWithApplicationID:kGCKDefaultMediaReceiverApplicationID];
+    GCKDiscoveryCriteria *discoveryCriteria = [[GCKDiscoveryCriteria alloc] initWithApplicationID:kBCOVCAFReceiverApplicationID];
     GCKCastOptions *options = [[GCKCastOptions alloc] initWithDiscoveryCriteria:discoveryCriteria];
     options.physicalVolumeButtonsWillControlDeviceVolume = YES;
     [GCKCastContext setSharedInstanceWithOptions:options];
