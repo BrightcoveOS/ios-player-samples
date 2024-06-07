@@ -8,6 +8,7 @@
 import AVFoundation
 import UIKit
 import GoogleCast
+import BrightcoveGoogleCast
 
 
 @UIApplicationMain
@@ -43,7 +44,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         // More Info @ https://developers.google.com/cast/docs/ios_sender/integrate#initialize_the_cast_context
-        let discoveryCriteria = GCKDiscoveryCriteria(applicationID: kGCKDefaultMediaReceiverApplicationID)
+        let discoveryCriteria = GCKDiscoveryCriteria(applicationID: kBCOVCAFReceiverApplicationID)
         let options = GCKCastOptions(discoveryCriteria: discoveryCriteria)
         options.physicalVolumeButtonsWillControlDeviceVolume = true
         GCKCastContext.setSharedInstanceWith(options)
