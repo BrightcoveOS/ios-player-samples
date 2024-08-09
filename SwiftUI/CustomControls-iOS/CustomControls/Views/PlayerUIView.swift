@@ -30,6 +30,7 @@ struct PlayerUIView: View {
         VStack {
             ZStack(alignment: .bottom) {
                 VideoContainerView(view: playerModel.playbackController?.view)
+                playerModel.contentOverlayViewContainer
                 CustomControlsView()
                     .environmentObject(playerModel)
                     .opacity(playerModel.showControls ? 1.0 : 0.0)
