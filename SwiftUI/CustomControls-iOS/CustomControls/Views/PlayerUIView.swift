@@ -40,7 +40,9 @@ struct PlayerUIView: View {
         }
         .aspectRatio(16/9, contentMode: .fit)
         .onTapGesture {
-            playerModel.showControls = !playerModel.showControls
+            if !playerModel.inAdSequence {
+                playerModel.showControls = !playerModel.showControls
+            }
         }
         .onAppear {
             let videoModel = VideoModel()

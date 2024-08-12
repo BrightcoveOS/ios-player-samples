@@ -29,6 +29,9 @@ final class PlayerModel: NSObject, ObservableObject {
 
     @Published
     var showControls = true
+    
+    @Published
+    var inAdSequence = false
 
     var thumbnailManager: ThumbnailManager?
 
@@ -50,7 +53,7 @@ final class PlayerModel: NSObject, ObservableObject {
         var sessionProvider = fps
 
 //        let useIMA = true
-        
+//        
 //        if useIMA {
 //            let imaSettings = IMASettings()
 //            imaSettings.language = NSLocale.current.languageCode!
@@ -180,9 +183,11 @@ extension PlayerModel: BCOVPlaybackControllerDelegate {
             case kBCOVPlaybackSessionLifecycleEventPlaybackLikelyToKeepUp:
                 print("likelyToKeepUp")
             case kBCOVPlaybackSessionLifecycleEventAdSequenceEnter:
+                inAdSequence = true
+                // Hide the controls as soon as we enter an ads sequence
                 showControls = false
             case kBCOVPlaybackSessionLifecycleEventAdSequenceExit:
-                showControls = true
+                inAdSequence = false
             default: break
         }
     }
