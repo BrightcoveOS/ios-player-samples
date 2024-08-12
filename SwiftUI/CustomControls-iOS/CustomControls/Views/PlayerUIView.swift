@@ -30,6 +30,7 @@ struct PlayerUIView: View {
         VStack {
             ZStack(alignment: .bottom) {
                 VideoContainerView(view: playerModel.playbackController?.view)
+                playerModel.contentOverlayViewContainer
                 CustomControlsView()
                     .environmentObject(playerModel)
                     .opacity(playerModel.showControls ? 1.0 : 0.0)
@@ -39,7 +40,9 @@ struct PlayerUIView: View {
         }
         .aspectRatio(16/9, contentMode: .fit)
         .onTapGesture {
-            playerModel.showControls = !playerModel.showControls
+            if !playerModel.inAdSequence {
+                playerModel.showControls = !playerModel.showControls
+            }
         }
         .onAppear {
             let videoModel = VideoModel()

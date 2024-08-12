@@ -7,7 +7,8 @@
 
 import SwiftUI
 import BrightcovePlayerSDK
-
+//import BrightcoveIMA
+//import GoogleInteractiveMediaAds
 
 final class PlayerModel: NSObject, ObservableObject {
 
@@ -28,8 +29,13 @@ final class PlayerModel: NSObject, ObservableObject {
 
     @Published
     var showControls = true
+    
+    @Published
+    var inAdSequence = false
 
     var thumbnailManager: ThumbnailManager?
+
+    var contentOverlayViewContainer = VideoContainerView(view: UIView())
 
     fileprivate var timer: Timer?
 
@@ -43,8 +49,38 @@ final class PlayerModel: NSObject, ObservableObject {
         let fps = sdkManager.createFairPlaySessionProvider(withApplicationCertificate: nil,
                                                            authorizationProxy: authProxy,
                                                            upstreamSessionProvider: nil)
+        
+        var sessionProvider = fps
 
-        guard let playbackController = sdkManager.createPlaybackController(with: fps,
+//        let useIMA = true
+//        
+//        if useIMA {
+//            let imaSettings = IMASettings()
+//            imaSettings.language = NSLocale.current.languageCode!
+//            
+//            let renderSettings = IMAAdsRenderingSettings()
+//            renderSettings.linkOpenerDelegate = self
+//            
+//            let adsRequestPolicy = BCOVIMAAdsRequestPolicy(vmapAdTagUrl: kVMAPAdTagURL)
+//
+//            // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition:
+//            // which allows us to modify the IMAAdsRequest object before it is used to load ads.
+//            let imaPlaybackSessionOptions = [kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self]
+//            
+//            if let imaSessionProvider = sdkManager.createIMASessionProvider(with: imaSettings,
+//                                                                            adsRenderingSettings: renderSettings,
+//                                                                            adsRequestPolicy: adsRequestPolicy,
+//                                                                            adContainer: contentOverlayViewContainer.view!,
+//                                                                            viewController: rootViewController(),
+//                                                                            companionSlots: nil,
+//                                                                            upstreamSessionProvider: fps,
+//                                                                            options: imaPlaybackSessionOptions)
+//            {
+//                sessionProvider = imaSessionProvider
+//            }
+//        }
+        
+        guard let playbackController = sdkManager.createPlaybackController(with: sessionProvider,
                                                                            viewStrategy: nil) else {
             return nil
         }
@@ -55,6 +91,15 @@ final class PlayerModel: NSObject, ObservableObject {
 
         return playbackController
     }()
+    
+    fileprivate func rootViewController() -> UIViewController? {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first,
+           let rootViewController = window.rootViewController {
+            return rootViewController
+        }
+        return nil
+    }
 
     // Buffer Refer: https://stackoverflow.com/questions/7691854/avplayer-streaming-progress
     fileprivate func availableDuration(player: AVPlayer) -> TimeInterval {
@@ -137,7 +182,44 @@ extension PlayerModel: BCOVPlaybackControllerDelegate {
                 print("bufferEmpty")
             case kBCOVPlaybackSessionLifecycleEventPlaybackLikelyToKeepUp:
                 print("likelyToKeepUp")
+            case kBCOVPlaybackSessionLifecycleEventAdSequenceEnter:
+                inAdSequence = true
+                // Hide the controls as soon as we enter an ads sequence
+                showControls = false
+            case kBCOVPlaybackSessionLifecycleEventAdSequenceExit:
+                inAdSequence = false
             default: break
         }
     }
 }
+
+// MARK: - BCOVIMAPlaybackSessionDelegate
+
+//extension PlayerModel: BCOVIMAPlaybackSessionDelegate {
+//
+//    func willCallIMAAdsLoaderRequestAds(with adsRequest: IMAAdsRequest!,
+//                                        forPosition position: TimeInterval) {
+//        // for demo purposes, increase the VAST ad load timeout.
+//        adsRequest.vastLoadTimeout = 3000.0
+//        print("ViewController - IMAAdsRequest.vastLoadTimeout set to \(String(format: "%.1f", adsRequest.vastLoadTimeout)) milliseconds.")
+//    }
+//
+//}
+
+// MARK: - IMALinkOpenerDelegate
+
+//extension PlayerModel: IMALinkOpenerDelegate {
+//
+//    func linkOpenerDidOpen(inAppLink linkOpener: NSObject) {
+//        print("ViewController - linkOpenerDidOpen")
+//    }
+//
+//    func linkOpenerDidClose(inAppLink linkOpener: NSObject) {
+//        print("ViewController - linkOpenerDidClose")
+//
+//        // Called when the in-app browser has closed.
+//        guard let playbackController else { return }
+//        playbackController.resumeAd()
+//    }
+//
+//}
