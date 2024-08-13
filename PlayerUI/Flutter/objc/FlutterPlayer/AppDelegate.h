@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 
 
-@class  FlutterEngine;
+@class FlutterEngine, FlutterViewController;
 
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
@@ -16,5 +16,7 @@
 @property (nonatomic, strong) UIWindow *window;
 
 @property (nonatomic, readonly, strong) FlutterEngine *flutterEngine;
+
+@property (nonatomic, strong) FlutterViewController *flutterViewController;
 
 @end

@@ -8,6 +8,7 @@ class PlayerView extends StatefulWidget {
   const PlayerView(
       {super.key,
       required this.isPlaying,
+      required this.inAdSequence,
       required this.totalTime,
       required this.currentTime,
       this.creationParams,
@@ -17,6 +18,9 @@ class PlayerView extends StatefulWidget {
   /// When [isPlaying] is `true`, the play button displays a pause icon. When
   /// it is `false`, the button shows a play icon.
   final bool isPlaying;
+
+  /// When [inAdSequence] is `true` the controls will be hidden
+  final bool inAdSequence;
 
   /// This is the total time length of the audio track that is being played.
   final Duration totalTime;
@@ -93,7 +97,7 @@ class _PlayerViewState extends State<PlayerView> {
       left: 0,
       right: 0,
       child: Offstage(
-        offstage: !_visible,
+        offstage: (!_visible || widget.inAdSequence),
         child: Controls(
           isPlaying: widget.isPlaying,
           totalTime: widget.totalTime,
@@ -119,6 +123,9 @@ class _PlayerViewState extends State<PlayerView> {
   /// the widget. If [visibility] is set then is used as a new value of
   /// visibility.
   void _toggleController({bool? visibility}) {
+    if (widget.inAdSequence) {
+      return;
+    }
     setState(() {
       _visible = visibility ?? !_visible;
     });

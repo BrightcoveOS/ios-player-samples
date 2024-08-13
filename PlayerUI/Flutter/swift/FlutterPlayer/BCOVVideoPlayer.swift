@@ -10,6 +10,8 @@ import AVKit
 import Foundation
 import Flutter
 import BrightcovePlayerSDK
+//import BrightcoveIMA
+//import GoogleInteractiveMediaAds
 
 
 // Customize these values with your own account information
@@ -17,9 +19,15 @@ import BrightcovePlayerSDK
 let kAccountId = "5434391461001"
 let kPolicyKey = "BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L"
 let kVideoId = "6140448705001"
+let kVMAPAdTagURL = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpost&cmsid=496&vid=short_onecue&correlator="
 
 
 final class BCOVVideoPlayer: NSObject {
+    
+    // Create the container that will contain the player and content overlay views
+    fileprivate lazy var containerView = UIView()
+    // Create the content overlay view for displaying ads (if configured)
+    fileprivate lazy var contentOverlayView = UIView()
 
     fileprivate lazy var playbackService: BCOVPlaybackService = {
         let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
@@ -38,7 +46,42 @@ final class BCOVVideoPlayer: NSObject {
                                                            authorizationProxy: authProxy,
                                                            upstreamSessionProvider: nil)
 
-        guard let playbackController = sdkManager.createPlaybackController(with: fps,
+        var sessionProvider = fps
+
+//        let useIMA = true
+//
+//        if useIMA {
+//            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate, let flutterViewController = appDelegate.flutterViewController else {
+//                return nil
+//            }
+//            
+//            let imaSettings = IMASettings()
+//            imaSettings.language = NSLocale.current.languageCode!
+//
+//            let renderSettings = IMAAdsRenderingSettings()
+//            renderSettings.linkOpenerPresentingController = flutterViewController
+//            renderSettings.linkOpenerDelegate = self
+//
+//            let adsRequestPolicy = BCOVIMAAdsRequestPolicy(vmapAdTagUrl: kVMAPAdTagURL)
+//
+//            // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition:
+//            // which allows us to modify the IMAAdsRequest object before it is used to load ads.
+//            let imaPlaybackSessionOptions = [kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self]
+//
+//            if let imaSessionProvider = sdkManager.createIMASessionProvider(with: imaSettings,
+//                                                                            adsRenderingSettings: renderSettings,
+//                                                                            adsRequestPolicy: adsRequestPolicy,
+//                                                                            adContainer: contentOverlayView,
+//                                                                            viewController: flutterViewController,
+//                                                                            companionSlots: nil,
+//                                                                            upstreamSessionProvider: fps,
+//                                                                            options: imaPlaybackSessionOptions)
+//            {
+//                sessionProvider = imaSessionProvider
+//            }
+//        }
+        
+        guard let playbackController = sdkManager.createPlaybackController(with: sessionProvider,
                                                                            viewStrategy: nil) else {
             return nil
         }
@@ -49,13 +92,9 @@ final class BCOVVideoPlayer: NSObject {
         playbackController.isAutoAdvance = true
         playbackController.isAutoPlay = true
 
-        return playbackController
-    }()
+        setUpViews(withPlaybackController: playbackController)
 
-    fileprivate lazy var avpvc: AVPlayerViewController = {
-        let avpvc = AVPlayerViewController()
-        avpvc.showsPlaybackControls = false
-        return avpvc
+        return playbackController
     }()
 
     fileprivate lazy var appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
@@ -96,6 +135,16 @@ final class BCOVVideoPlayer: NSObject {
         }
 
         requestContentFromPlaybackService()
+    }
+    
+    fileprivate func setUpViews(withPlaybackController playbackController: BCOVPlaybackController) {
+        containerView.addSubview(playbackController.view)
+        playbackController.view.frame = containerView.frame
+        playbackController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+        containerView.addSubview(contentOverlayView)
+        contentOverlayView.frame = containerView.frame
+        contentOverlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
 
     fileprivate func requestContentFromPlaybackService() {
@@ -185,8 +234,6 @@ extension BCOVVideoPlayer: BCOVPlaybackControllerDelegate {
                             didAdvanceTo session: BCOVPlaybackSession!) {
         print("ViewController - Advanced to new session.")
 
-        avpvc.player = session.player
-
         guard let eventSink,
               let duration = session.video.properties[kBCOVVideoPropertyKeyDuration] as? TimeInterval else {
             return
@@ -211,6 +258,16 @@ extension BCOVVideoPlayer: BCOVPlaybackControllerDelegate {
            let eventSink {
             eventSink([ "name": "eventEnd" ])
         }
+
+        if kBCOVPlaybackSessionLifecycleEventAdSequenceEnter == lifecycleEvent.eventType,
+           let eventSink {
+            eventSink([ "name": "eventAdSequenceEnter" ])
+        }
+
+        if kBCOVPlaybackSessionLifecycleEventAdSequenceExit == lifecycleEvent.eventType,
+           let eventSink {
+            eventSink([ "name": "eventAdSequenceExit" ])
+        }
     }
 
     func playbackController(_ controller: BCOVPlaybackController!,
@@ -230,7 +287,7 @@ extension BCOVVideoPlayer: BCOVPlaybackControllerDelegate {
 extension BCOVVideoPlayer: FlutterPlatformView {
 
     func view() -> UIView {
-        return avpvc.view
+        return containerView
     }
 }
 
@@ -250,3 +307,34 @@ extension BCOVVideoPlayer: FlutterStreamHandler {
         return nil
     }
 }
+
+// MARK: - BCOVIMAPlaybackSessionDelegate
+
+//extension BCOVVideoPlayer: BCOVIMAPlaybackSessionDelegate {
+//
+//    func willCallIMAAdsLoaderRequestAds(with adsRequest: IMAAdsRequest!,
+//                                        forPosition position: TimeInterval) {
+//        // for demo purposes, increase the VAST ad load timeout.
+//        adsRequest.vastLoadTimeout = 3000.0
+//        print("ViewController - IMAAdsRequest.vastLoadTimeout set to \(String(format: "%.1f", adsRequest.vastLoadTimeout)) milliseconds.")
+//    }
+//
+//}
+
+// MARK: - IMALinkOpenerDelegate
+
+//extension BCOVVideoPlayer: IMALinkOpenerDelegate {
+//
+//    func linkOpenerDidOpen(inAppLink linkOpener: NSObject) {
+//        print("ViewController - linkOpenerDidOpen")
+//    }
+//
+//    func linkOpenerDidClose(inAppLink linkOpener: NSObject) {
+//        print("ViewController - linkOpenerDidClose")
+//
+//        // Called when the in-app browser has closed.
+//        guard let playbackController else { return }
+//        playbackController.resumeAd()
+//    }
+//
+//}

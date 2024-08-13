@@ -16,6 +16,7 @@ class BCOVVideoPlayer extends StatelessWidget {
         isPlaying: model.isPlaying,
         totalTime: model.totalTime,
         currentTime: model.currentTime,
+        inAdSequence: model.inAdSequence,
         onPlatformViewCreated: (viewId) => model.onPlatformViewCreated(viewId),
         onHandle: (args) => model.onHandle(args),
       ),

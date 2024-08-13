@@ -6,10 +6,12 @@ class BCOVViewModel extends ChangeNotifier {
   late MethodChannel _methodChannel;
 
   bool _isPlaying = false;
+  bool _inAdSequence = false;
   Duration _currentTime = const Duration();
   Duration _totalTime = const Duration();
 
   bool get isPlaying => _isPlaying;
+  bool get inAdSequence => _inAdSequence;
   Duration get currentTime => _currentTime;
   Duration get totalTime => _totalTime;
 
@@ -65,6 +67,14 @@ class BCOVViewModel extends ChangeNotifier {
         break;
 
       case 'onError':
+        break;
+
+      case 'eventAdSequenceExit':
+        _inAdSequence = false;
+        break;
+
+      case 'eventAdSequenceEnter':
+        _inAdSequence = true;
         break;
     }
 
