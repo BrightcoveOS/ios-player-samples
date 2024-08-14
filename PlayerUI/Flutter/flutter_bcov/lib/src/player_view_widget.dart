@@ -70,7 +70,7 @@ class _PlayerViewState extends State<PlayerView> {
               creationParams: widget.creationParams,
               creationParamsCodec: const StandardMessageCodec(),
             ),
-            _buildToggleWidget(),
+            !widget.inAdSequence ? _buildToggleWidget() : Container(),
           ],
         ),
         _buildMediaController(),
