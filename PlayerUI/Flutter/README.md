@@ -39,3 +39,9 @@ The *flutter_bcov* folder contains the package of the plugin.
 1. Run the command `flutter attach -d 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX' --app-id com.yourcompany.FlutterPlayer` using the *id* retrieved in the previous step and the *Bundle Identifier*, for this example the bundle identifier is *com.yourcompany.FlutterPlayer*.
 1. You can restart or reload the widgets in your terminal.
 1. Using *Visual Studio Code* you can debug the variables or adding break points for the Flutter code.
+
+### Using the Brightcove IMA Plugin
+
+The FlutterPlayer sample project is configured to support the IMA Plugin for Brightcove Player SDK for iOS. By default the IMA related code is commented out so that you can build the project without the IMA SDK depdendency. 
+
+If you wish to enable the IMA functionality you will need to uncomment the IMA specific code.

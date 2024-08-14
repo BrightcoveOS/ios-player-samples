@@ -15,6 +15,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    var flutterViewController: FlutterViewController?
+
     fileprivate(set) lazy var flutterEngine: FlutterEngine = .init(name: "io.flutter")
 
     func application(_ application: UIApplication,
@@ -54,8 +56,10 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
                                                                               nibName: nil,
                                                                               bundle: nil)
 
+        self.flutterViewController = flutterViewController
+
         window = .init(frame: UIScreen.main.bounds)
-        window?.rootViewController = flutterViewController
+        window?.rootViewController = self.flutterViewController
         window?.makeKeyAndVisible()
 
         return true

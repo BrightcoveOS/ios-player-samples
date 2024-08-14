@@ -63,8 +63,10 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
                                                     nibName:nil
                                                     bundle:nil];
 
+    self.flutterViewController = flutterViewController;
+
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    self.window.rootViewController = flutterViewController;
+    self.window.rootViewController = self.flutterViewController;
     [self.window makeKeyAndVisible];
 
     return YES;;

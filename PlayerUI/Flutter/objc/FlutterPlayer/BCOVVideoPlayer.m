@@ -9,6 +9,9 @@
 #import <AVKit/AVKit.h>
 #import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
 
+//#import <BrightcoveIMA/BrightcoveIMA.h>
+//#import <GoogleInteractiveMediaAds/GoogleInteractiveMediaAds.h>
+
 #import "AppDelegate.h"
 
 #import "BCOVVideoPlayer.h"
@@ -19,11 +22,14 @@
 static NSString * const kAccountId = @"5434391461001";
 static NSString * const kPolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
 static NSString * const kVideoId = @"6140448705001";
+static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpost&cmsid=496&vid=short_onecue&correlator=";
 
 
 @interface BCOVVideoPlayer () <BCOVPlaybackControllerDelegate>
+//@interface BCOVVideoPlayer () <BCOVPlaybackControllerDelegate, IMALinkOpenerDelegate>
 
-@property (nonatomic, strong) AVPlayerViewController *avpvc;
+@property (nonatomic, strong) UIView *containerView;
+@property (nonatomic, strong) UIView *contentOverlayView;
 @property (nonatomic, strong) BCOVPlaybackService *playbackService;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
 
@@ -42,6 +48,14 @@ static NSString * const kVideoId = @"6140448705001";
 {
     if (self = [super init])
     {
+        // Create the container that will contain the player and content overlay views
+        self.containerView = [UIView new];
+
+        // Create the content overlay view for displaying ads (if configured)
+        self.contentOverlayView = [UIView new];
+        self.contentOverlayView.frame = self.containerView.frame;
+        self.contentOverlayView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+
         self.playbackService = ({
             BCOVPlaybackServiceRequestFactory *factory = [[BCOVPlaybackServiceRequestFactory alloc]
                                                           initWithAccountId:kAccountId
@@ -59,8 +73,41 @@ static NSString * const kVideoId = @"6140448705001";
             id<BCOVPlaybackSessionProvider> fps = [sdkManager createFairPlaySessionProviderWithAuthorizationProxy:authProxy
                                                                                           upstreamSessionProvider:nil];
 
+            id<BCOVPlaybackSessionProvider> sessionProvider = fps;
+
+//            BOOL useIMA = YES;
+//
+//            if (useIMA)
+//            {
+//                FlutterViewController *flutterViewController = ((AppDelegate *)UIApplication.sharedApplication.delegate).flutterViewController;
+//
+//                IMASettings *imaSettings = [IMASettings new];
+//                imaSettings.language = NSLocale.currentLocale.languageCode;
+//
+//                IMAAdsRenderingSettings *renderSettings = [IMAAdsRenderingSettings new];
+//                renderSettings.linkOpenerPresentingController = flutterViewController;
+//                renderSettings.linkOpenerDelegate = self;
+//
+//                BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy adsRequestPolicyWithVMAPAdTagUrl:kVMAPAdTagURL];
+//
+//                // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition:
+//                // which allows us to modify the IMAAdsRequest object before it is used to load ads.
+//                NSDictionary *imaPlaybackSessionOptions = @{ kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self };
+//
+//                id<BCOVPlaybackSessionProvider> imaSessionProvider = [sdkManager createIMASessionProviderWithSettings:imaSettings
+//                                                                                                 adsRenderingSettings:renderSettings
+//                                                                                                     adsRequestPolicy:adsRequestPolicy
+//                                                                                                          adContainer:self.contentOverlayView
+//                                                                                                       viewController:flutterViewController
+//                                                                                                       companionSlots:nil
+//                                                                                              upstreamSessionProvider:fps
+//                                                                                                              options:imaPlaybackSessionOptions];
+//
+//                sessionProvider = imaSessionProvider;
+//            }
+
             id<BCOVPlaybackController> playbackController = [sdkManager
-                                                             createPlaybackControllerWithSessionProvider:fps
+                                                             createPlaybackControllerWithSessionProvider:sessionProvider
                                                              viewStrategy:nil];
             playbackController.delegate = self;
             playbackController.autoAdvance = YES;
@@ -68,12 +115,12 @@ static NSString * const kVideoId = @"6140448705001";
 
             playbackController;
         });
+        
+        self.playbackController.view.frame = self.containerView.frame;
+        self.playbackController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        [self.containerView addSubview:self.playbackController.view];
 
-        self.avpvc = ({
-            AVPlayerViewController *avpvc = [AVPlayerViewController new];
-            avpvc.showsPlaybackControls = NO;
-            avpvc;
-        });
+        [self.containerView addSubview:self.contentOverlayView];
 
         // register for Flutter method channel
         self.methodChannel = ({
@@ -187,8 +234,6 @@ didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 {
     NSLog(@"ViewController - Advanced to new session.");
 
-    self.avpvc.player = session.player;
-
     NSNumber *duration = session.video.properties[kBCOVVideoPropertyKeyDuration];
     self.eventSink(@{ @"name": @"didAdvanceToPlaybackSession",
                       @"duration": duration,
@@ -210,6 +255,16 @@ didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
     {
         self.eventSink(@{ @"name": @"eventEnd" });
     }
+
+    if ([kBCOVPlaybackSessionLifecycleEventAdSequenceEnter isEqualToString:lifecycleEvent.eventType])
+    {
+        self.eventSink(@{ @"name": @"eventAdSequenceEnter" });
+    }
+
+    if ([kBCOVPlaybackSessionLifecycleEventAdSequenceExit isEqualToString:lifecycleEvent.eventType])
+    {
+        self.eventSink(@{ @"name": @"eventAdSequenceExit" });
+    }
 }
 
 - (void)playbackController:(id<BCOVPlaybackController>)controller
@@ -228,7 +283,7 @@ didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 
 - (nonnull UIView *)view
 {
-    return self.avpvc.view;
+    return self.containerView;
 }
 
 
@@ -246,5 +301,31 @@ didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
     self.eventSink = nil;
     return nil;
 }
+
+#pragma mark - BCOVIMAPlaybackSessionDelegate
+
+//- (void)willCallIMAAdsLoaderRequestAdsWithRequest:(IMAAdsRequest *)adsRequest
+//                                      forPosition:(NSTimeInterval)position
+//{
+//    // for demo purposes, increase the VAST ad load timeout.
+//    adsRequest.vastLoadTimeout = 3000.;
+//    NSLog(@"ViewController - IMAAdsRequest.vastLoadTimeout set to %.1f milliseconds.", adsRequest.vastLoadTimeout);
+//}
+
+
+#pragma mark - IMALinkOpenerDelegate
+
+//- (void)linkOpenerDidOpenInAppLink:(NSObject *)linkOpener
+//{
+//    NSLog(@"ViewController - linkOpenerDidOpen");
+//}
+//
+//- (void)linkOpenerDidCloseInAppLink:(NSObject *)linkOpener
+//{
+//    NSLog(@"ViewController - linkOpenerDidClose");
+//
+//    // Called when the in-app browser has closed.
+//    [self.playbackController resumeAd];
+//}
 
 @end
