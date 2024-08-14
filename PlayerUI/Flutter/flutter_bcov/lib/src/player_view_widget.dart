@@ -123,9 +123,6 @@ class _PlayerViewState extends State<PlayerView> {
   /// the widget. If [visibility] is set then is used as a new value of
   /// visibility.
   void _toggleController({bool? visibility}) {
-    if (widget.inAdSequence) {
-      return;
-    }
     setState(() {
       _visible = visibility ?? !_visible;
     });
