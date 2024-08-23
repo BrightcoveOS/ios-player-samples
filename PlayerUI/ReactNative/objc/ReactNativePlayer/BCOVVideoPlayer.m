@@ -5,10 +5,11 @@
 //  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
-#import <AVFoundation/AVFoundation.h>
-#import <AVKit/AVKit.h>
 #import <React/RCTBridgeModule.h>
 #import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
+
+//#import <BrightcoveIMA/BrightcoveIMA.h>
+//#import <GoogleInteractiveMediaAds/GoogleInteractiveMediaAds.h>
 
 #import "BCOVVideoPlayer.h"
 
@@ -18,12 +19,13 @@
 static NSString * const kAccountId = @"5434391461001";
 static NSString * const kPolicyKey = @"BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L";
 static NSString * const kVideoId = @"6140448705001";
+static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpost&cmsid=496&vid=short_onecue&correlator=";
 
 
 @interface BCOVVideoPlayer () <BCOVPlaybackControllerDelegate>
+//@interface BCOVVideoPlayer () <BCOVPlaybackControllerDelegate, IMALinkOpenerDelegate>
 
-@property (nonatomic, strong) AVPlayerViewController *avpvc;
-
+@property (nonatomic, strong) UIView *contentOverlayView;
 @property (nonatomic, strong) BCOVPlaybackService *playbackService;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
 
@@ -34,8 +36,13 @@ static NSString * const kVideoId = @"6140448705001";
 
 - (instancetype)init
 {
-    if (self = [super initWithFrame:UIScreen.mainScreen.bounds])
+    if (self = [super initWithFrame:CGRectZero])
     {
+        // Create the content overlay view for displaying ads (if configured)
+        self.contentOverlayView = [UIView new];
+        self.contentOverlayView.frame = self.bounds;
+        self.contentOverlayView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+
         self.playbackService = ({
             BCOVPlaybackServiceRequestFactory *factory = [[BCOVPlaybackServiceRequestFactory alloc]
                                                           initWithAccountId:kAccountId
@@ -53,23 +60,55 @@ static NSString * const kVideoId = @"6140448705001";
             id<BCOVPlaybackSessionProvider> fps = [sdkManager createFairPlaySessionProviderWithAuthorizationProxy:authProxy
                                                                                           upstreamSessionProvider:nil];
 
+            id<BCOVPlaybackSessionProvider> sessionProvider = fps;
+
+//            BOOL useIMA = YES;
+//
+//            if (useIMA)
+//            {
+//                UIViewController *presentedViewController = RCTPresentedViewController();
+//
+//                IMASettings *imaSettings = [IMASettings new];
+//                imaSettings.language = NSLocale.currentLocale.languageCode;
+//
+//                IMAAdsRenderingSettings *renderSettings = [IMAAdsRenderingSettings new];
+//                renderSettings.linkOpenerPresentingController = presentedViewController;
+//                renderSettings.linkOpenerDelegate = self;
+//
+//                BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy adsRequestPolicyWithVMAPAdTagUrl:kVMAPAdTagURL];
+//
+//                // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition:
+//                // which allows us to modify the IMAAdsRequest object before it is used to load ads.
+//                NSDictionary *imaPlaybackSessionOptions = @{ kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self };
+//
+//                id<BCOVPlaybackSessionProvider> imaSessionProvider = [sdkManager createIMASessionProviderWithSettings:imaSettings
+//                                                                                                 adsRenderingSettings:renderSettings
+//                                                                                                     adsRequestPolicy:adsRequestPolicy
+//                                                                                                          adContainer:self.contentOverlayView
+//                                                                                                       viewController:presentedViewController
+//                                                                                                       companionSlots:nil
+//                                                                                              upstreamSessionProvider:fps
+//                                                                                                              options:imaPlaybackSessionOptions];
+//
+//                sessionProvider = imaSessionProvider;
+//            }
+
             id<BCOVPlaybackController> playbackController = [sdkManager
-                                                             createPlaybackControllerWithSessionProvider:fps
+                                                             createPlaybackControllerWithSessionProvider:sessionProvider
                                                              viewStrategy:nil];
             playbackController.delegate = self;
             playbackController.autoAdvance = YES;
             playbackController.autoPlay = YES;
 
+            playbackController.view.frame = self.bounds;
+            playbackController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+
             playbackController;
         });
 
-        self.avpvc = ({
-            AVPlayerViewController *avpvc = [AVPlayerViewController new];
-            avpvc.showsPlaybackControls = NO;
-            avpvc;
-        });
+        [self addSubview:self.playbackController.view];
 
-        [self addSubview:self.avpvc.view];
+        [self addSubview:self.contentOverlayView];
 
         [self requestContentFromPlaybackService];
     }
@@ -142,8 +181,6 @@ didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 {
     NSLog(@"ViewController - Advanced to new session.");
 
-    self.avpvc.player = session.player;
-
     NSNumber *duration = session.video.properties[kBCOVVideoPropertyKeyDuration];
     self.onReady(@{ @"duration": duration,
                     @"isAutoPlay": @(controller.isAutoPlay) });
@@ -159,6 +196,22 @@ didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
         // Report any errors that may have occurred with playback.
         NSLog(@"ViewController - Playback error: %@", error.localizedDescription);
     }
+
+    if ([kBCOVPlaybackSessionLifecycleEventAdSequenceEnter isEqualToString:lifecycleEvent.eventType])
+    {
+        if (self.onEvent)
+        {
+            self.onEvent(@{ @"inAdSequence": @(YES) });
+        }
+    }
+
+    if ([kBCOVPlaybackSessionLifecycleEventAdSequenceExit isEqualToString:lifecycleEvent.eventType])
+    {
+        if (self.onEvent)
+        {
+            self.onEvent(@{ @"inAdSequence": @(NO) });
+        }
+    }
 }
 
 - (void)playbackController:(id<BCOVPlaybackController>)controller
@@ -170,5 +223,32 @@ didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
         self.onProgress(@{ @"progress": @(progress) });
     }
 }
+
+
+#pragma mark - BCOVIMAPlaybackSessionDelegate
+
+//- (void)willCallIMAAdsLoaderRequestAdsWithRequest:(IMAAdsRequest *)adsRequest
+//                                      forPosition:(NSTimeInterval)position
+//{
+//    // for demo purposes, increase the VAST ad load timeout.
+//    adsRequest.vastLoadTimeout = 3000.;
+//    NSLog(@"ViewController - IMAAdsRequest.vastLoadTimeout set to %.1f milliseconds.", adsRequest.vastLoadTimeout);
+//}
+
+
+#pragma mark - IMALinkOpenerDelegate
+
+//- (void)linkOpenerDidOpenInAppLink:(NSObject *)linkOpener
+//{
+//    NSLog(@"ViewController - linkOpenerDidOpen");
+//}
+//
+//- (void)linkOpenerDidCloseInAppLink:(NSObject *)linkOpener
+//{
+//    NSLog(@"ViewController - linkOpenerDidClose");
+//
+//    // Called when the in-app browser has closed.
+//    [self.playbackController resumeAd];
+//}
 
 @end

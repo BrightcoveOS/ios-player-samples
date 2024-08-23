@@ -46,6 +46,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
     RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self
                                               launchOptions:nil];
+
     RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                      moduleName:@"ReactNativePlayer"
                                               initialProperties:nil];
