@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		73798765F87BFA1BC28FF5D5 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0B98F0B2C5F214F99D04B684 /* PrivacyInfo.xcprivacy */; };
 		D662EBFB2BE284EE003EB5AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D662EBFA2BE284EE003EB5AF /* Assets.xcassets */; };
 		D6AB5DC1277BD087008B937F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AB5DC0277BD087008B937F /* AppDelegate.m */; };
 		D6AB5DCF277BD092008B937F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6AB5DCD277BD092008B937F /* LaunchScreen.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B98F0B2C5F214F99D04B684 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = ../PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		D662EBFA2BE284EE003EB5AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		D6901BBB2BE374CD009C6C1C /* ReactNativePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactNativePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6AB5DBF277BD087008B937F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				D6CA0C2827A834BA003B1C6B /* BCOVVideoPlayer.m */,
 				D6CA0C2127A7C2A6003B1C6B /* BCOVVideoPlayerManager.h */,
 				D6CA0C2227A7C2A6003B1C6B /* BCOVVideoPlayerManager.m */,
+				0B98F0B2C5F214F99D04B684 /* PrivacyInfo.xcprivacy */,
 			);
 			path = ReactNativePlayer;
 			sourceTree = "<group>";
@@ -125,6 +128,7 @@
 			files = (
 				D662EBFB2BE284EE003EB5AF /* Assets.xcassets in Resources */,
 				D6AB5DCF277BD092008B937F /* LaunchScreen.storyboard in Resources */,
+				73798765F87BFA1BC28FF5D5 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +164,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
@@ -190,6 +195,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CXX = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -209,6 +215,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD = "";
+				LDPLUSPLUS = "";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -217,6 +225,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				USE_HERMES = true;
 			};
 			name = Debug;
@@ -225,6 +234,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
@@ -255,6 +265,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CXX = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -268,6 +279,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD = "";
+				LDPLUSPLUS = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_CFLAGS = "$(inherited)";

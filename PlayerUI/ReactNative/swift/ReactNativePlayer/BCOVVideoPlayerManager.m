@@ -24,6 +24,8 @@ RCT_EXPORT_MODULE(BCOVVideoPlayer)
 
 RCT_EXPORT_VIEW_PROPERTY(onReady, RCTDirectEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onProgress, RCTDirectEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onEvent, RCTDirectEventBlock);
+
 RCT_EXPORT_METHOD(playPause:(nonnull NSNumber *)reactTag
                   isPlaying:(BOOL)isPlaying {
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager,

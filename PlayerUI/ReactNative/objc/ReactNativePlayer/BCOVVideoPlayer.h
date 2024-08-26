@@ -14,6 +14,7 @@
 
 @property (nonatomic, copy) RCTDirectEventBlock onReady;
 @property (nonatomic, copy) RCTDirectEventBlock onProgress;
+@property (nonatomic, copy) RCTDirectEventBlock onEvent;
 
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithCoder:(NSCoder *)coder NS_UNAVAILABLE;

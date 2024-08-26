@@ -14,6 +14,7 @@ const VideoPlayer: React.FC<Props> = (props) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [inAdSequence, setInAdSequence] = useState(false);
 
   const onPressPlayPause = () => {
     const player = NativeModules.BCOVVideoPlayer;
@@ -39,10 +40,16 @@ const VideoPlayer: React.FC<Props> = (props) => {
     }
   };
 
+  const onEvent = (event: any) => {
+    const { inAdSequence } = event.nativeEvent;
+    setInAdSequence(!!inAdSequence);
+  }
+
   const nativeProps = {
     ...props,
     onReady,
     onProgress,
+    onEvent,
   };
 
   return (
@@ -51,11 +58,11 @@ const VideoPlayer: React.FC<Props> = (props) => {
         ref={playerRef}
         {...nativeProps}
       />
-      <BCOVControls
+      {!inAdSequence && <BCOVControls
         isPlaying={isPlaying}
         duration={duration}
         progress={currentTime}
-        onPress={onPressPlayPause} />
+        onPress={onPressPlayPause} />}
     </View>
   );
 };
