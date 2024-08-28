@@ -1,17 +1,20 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import VideoPlayer from './src/VideoPlayer';
 
 const App = () => {
   return (
-    <SafeAreaView  style={ styles.appContainer }>
-      <VideoPlayer style={ styles.videoContainer } />
-    </SafeAreaView>
+    <GestureHandlerRootView style={ styles.container } >
+      <SafeAreaView style={ styles.container } >
+        <VideoPlayer style={ styles.videoContainer } />
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 };
 
 const styles = StyleSheet.create({
-  appContainer: {
+  container: {
     flex: 1,
   },
   videoContainer: {
