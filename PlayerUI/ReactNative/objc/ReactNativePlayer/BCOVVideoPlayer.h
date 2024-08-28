@@ -19,6 +19,9 @@
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithCoder:(NSCoder *)coder NS_UNAVAILABLE;
 - (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
+
 - (void)playPause:(BOOL)isPlaying;
+- (NSURL *)thumbnailAtTime:(NSNumber *)value;
+- (void)onSlidingComplete:(NSNumber *)value;
 
 @end
