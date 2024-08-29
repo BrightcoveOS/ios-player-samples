@@ -11,6 +11,7 @@
 //#import <BrightcoveIMA/BrightcoveIMA.h>
 //#import <GoogleInteractiveMediaAds/GoogleInteractiveMediaAds.h>
 
+#import "BCOVThumbnailManager.h"
 #import "BCOVVideoPlayer.h"
 
 
@@ -28,6 +29,7 @@ static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampa
 @property (nonatomic, strong) UIView *contentOverlayView;
 @property (nonatomic, strong) BCOVPlaybackService *playbackService;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
+@property (nonatomic, strong) BCOVThumbnailManager *thumbnailManager;
 
 @end
 
@@ -39,9 +41,13 @@ static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampa
     if (self = [super initWithFrame:CGRectZero])
     {
         // Create the content overlay view for displaying ads (if configured)
-        self.contentOverlayView = [UIView new];
-        self.contentOverlayView.frame = self.bounds;
-        self.contentOverlayView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        self.contentOverlayView = ({
+            UIView *contentOverlayView = [UIView new];
+            contentOverlayView.frame = self.bounds;
+            contentOverlayView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+
+            contentOverlayView;
+        });
 
         self.playbackService = ({
             BCOVPlaybackServiceRequestFactory *factory = [[BCOVPlaybackServiceRequestFactory alloc]
@@ -151,6 +157,11 @@ static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampa
             }
 #endif
 
+            if (strongSelf.playbackController.thumbnailSeekingEnabled)
+            {
+                [strongSelf handleThumbnailsForVideo:video];
+            }
+
             [strongSelf.playbackController setVideos:@[ video ]];
         }
         else
@@ -173,6 +184,43 @@ static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampa
     }
 }
 
+- (NSURL *)thumbnailAtTime:(NSNumber *)value
+{
+    if (self.thumbnailManager)
+    {
+        NSURL *thumbnailURL = [self.thumbnailManager thumbnailAtTime:value.CMTimeValue];
+        return thumbnailURL;
+    }
+
+    return nil;
+}
+
+- (void)onSlidingComplete:(NSNumber *)value
+{
+    [self.playbackController seekToTime:value.CMTimeValue
+                        toleranceBefore:kCMTimeZero
+                         toleranceAfter:kCMTimeZero
+                      completionHandler:nil];
+}
+
+- (void)handleThumbnailsForVideo:(BCOVVideo *)video
+{
+    NSArray *textTracks = video.properties[kBCOVVideoPropertyKeyTextTracks];
+
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"src" ascending:NO];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.label MATCHES %@ AND (SELF.src BEGINSWITH %@ OR SELF.src BEGINSWITH %@)", @"thumbnails", @"https://", @"http://"];
+    NSArray *filtered = [[textTracks filteredArrayUsingPredicate:predicate] sortedArrayUsingDescriptors:@[sort]];
+
+    if (filtered.count > 1)
+    {
+        NSDictionary *textTrack = filtered.firstObject;
+        NSString *trackSrc = textTrack[@"src"];
+        NSURL *thumbnailURL = [NSURL URLWithString:trackSrc];
+
+        self.thumbnailManager = [[BCOVThumbnailManager alloc] initWithURL:thumbnailURL];
+    }
+}
+
 
 #pragma mark - BCOVPlaybackControllerDelegate
 
@@ -181,9 +229,25 @@ didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 {
     NSLog(@"ViewController - Advanced to new session.");
 
-    NSNumber *duration = session.video.properties[kBCOVVideoPropertyKeyDuration];
-    self.onReady(@{ @"duration": duration,
-                    @"isAutoPlay": @(controller.isAutoPlay) });
+    if (self.onReady)
+    {
+        NSNumber *duration = session.video.properties[kBCOVVideoPropertyKeyDuration];
+        NSMutableDictionary *data = @{ @"duration": duration,
+                                       @"isAutoPlay": @(controller.isAutoPlay) }.mutableCopy;
+
+        if (self.thumbnailManager.thumbnails.count > 0)
+        {
+            NSMutableArray *thumbnails = @[].mutableCopy;
+            for (BCOVThumbnail *thumbnail in self.thumbnailManager.thumbnails)
+            {
+                [thumbnails addObject:@{ @"uri": thumbnail.url.absoluteString }];
+            }
+
+            [data setObject:thumbnails forKey:@"thumbnails"];
+        }
+
+        self.onReady(data.copy);
+    }
 }
 
 - (void)playbackController:(id<BCOVPlaybackController>)controller

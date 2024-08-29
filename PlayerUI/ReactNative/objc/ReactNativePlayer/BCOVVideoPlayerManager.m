@@ -7,7 +7,6 @@
 
 #import <React/RCTBridge.h>
 #import <React/RCTUIManager.h>
-#import <React/RCTViewManager.h>
 
 #import "BCOVVideoPlayer.h"
 
@@ -28,7 +27,8 @@ RCT_EXPORT_VIEW_PROPERTY(onProgress, RCTDirectEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onEvent, RCTDirectEventBlock);
 
 RCT_EXPORT_METHOD(playPause:(nonnull NSNumber *)reactTag
-                  isPlaying:(BOOL)isPlaying {
+                  isPlaying:(BOOL)isPlaying
+{
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager,
                                         NSDictionary<NSNumber *, UIView *> *viewRegistry)
      {
@@ -36,6 +36,39 @@ RCT_EXPORT_METHOD(playPause:(nonnull NSNumber *)reactTag
         if ([player isKindOfClass:[BCOVVideoPlayer class]])
         {
             [player playPause:isPlaying];
+        }
+    }];
+});
+
+RCT_EXPORT_METHOD(thumbnailAtTime:(nonnull NSNumber *)reactTag
+                  number:(nonnull NSNumber *)value
+                  data:(RCTResponseSenderBlock)data)
+{
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager,
+                                        NSDictionary<NSNumber *, UIView *> *viewRegistry)
+     {
+        BCOVVideoPlayer *player = (BCOVVideoPlayer *)viewRegistry[reactTag];
+        if ([player isKindOfClass:[BCOVVideoPlayer class]])
+        {
+            NSURL *thumbnailURL = [player thumbnailAtTime:value];
+            if (thumbnailURL)
+            {
+                data(@[thumbnailURL.absoluteString]);
+            }
+        }
+    }];
+}
+
+RCT_EXPORT_METHOD(onSlidingComplete:(nonnull NSNumber *)reactTag
+                  number:(nonnull NSNumber *)value
+{
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager,
+                                        NSDictionary<NSNumber *, UIView *> *viewRegistry)
+     {
+        BCOVVideoPlayer *player = (BCOVVideoPlayer *)viewRegistry[reactTag];
+        if ([player isKindOfClass:[BCOVVideoPlayer class]])
+        {
+            [player onSlidingComplete:value];
         }
     }];
 });

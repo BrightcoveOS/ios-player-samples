@@ -12,17 +12,19 @@
 		D624536927E3816C000161DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D624536727E3816C000161DB /* LaunchScreen.storyboard */; };
 		D624537327E385F6000161DB /* BCOVVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D624537227E385F6000161DB /* BCOVVideoPlayer.swift */; };
 		D624537C27E3ABA1000161DB /* BCOVVideoPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D624537B27E3ABA1000161DB /* BCOVVideoPlayerManager.m */; };
+		D67C378A2C7FB1FB00808D73 /* BCOVThumbnailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67C37892C7FB1FB00808D73 /* BCOVThumbnailManager.swift */; };
 		D6901BB82BE36D25009C6C1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6901BB62BE36D25009C6C1C /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B3344F66B27733B9EDC81BA0 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = ../PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		B3344F66B27733B9EDC81BA0 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = ../PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		D624535C27E3816A000161DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D624536827E3816C000161DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D624536A27E3816C000161DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D624537227E385F6000161DB /* BCOVVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCOVVideoPlayer.swift; sourceTree = "<group>"; };
 		D624537627E38F5B000161DB /* ReactNativePlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReactNativePlayer-Bridging-Header.h"; sourceTree = "<group>"; };
 		D624537B27E3ABA1000161DB /* BCOVVideoPlayerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCOVVideoPlayerManager.m; sourceTree = "<group>"; };
+		D67C37892C7FB1FB00808D73 /* BCOVThumbnailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCOVThumbnailManager.swift; sourceTree = "<group>"; };
 		D6901BB62BE36D25009C6C1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		D6901BBA2BE371D0009C6C1C /* BCOVVideoPlayerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCOVVideoPlayerManager.h; sourceTree = "<group>"; };
 		D6901BBC2BE374F1009C6C1C /* ReactNativePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactNativePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,6 +60,7 @@
 				D624537B27E3ABA1000161DB /* BCOVVideoPlayerManager.m */,
 				D624535C27E3816A000161DB /* AppDelegate.swift */,
 				D624537227E385F6000161DB /* BCOVVideoPlayer.swift */,
+				D67C37892C7FB1FB00808D73 /* BCOVThumbnailManager.swift */,
 				B3344F66B27733B9EDC81BA0 /* PrivacyInfo.xcprivacy */,
 			);
 			path = ReactNativePlayer;
@@ -138,6 +141,7 @@
 			files = (
 				D624535D27E3816A000161DB /* AppDelegate.swift in Sources */,
 				D624537327E385F6000161DB /* BCOVVideoPlayer.swift in Sources */,
+				D67C378A2C7FB1FB00808D73 /* BCOVThumbnailManager.swift in Sources */,
 				D624537C27E3ABA1000161DB /* BCOVVideoPlayerManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -209,7 +213,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD = "";
 				LDPLUSPLUS = "";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -273,7 +277,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD = "";
 				LDPLUSPLUS = "";
 				MTL_ENABLE_DEBUG_INFO = NO;

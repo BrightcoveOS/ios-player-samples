@@ -14,10 +14,11 @@
 		D6AB5DD2277BD092008B937F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AB5DD1277BD092008B937F /* main.m */; };
 		D6CA0C2327A7C2A6003B1C6B /* BCOVVideoPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D6CA0C2227A7C2A6003B1C6B /* BCOVVideoPlayerManager.m */; };
 		D6CA0C2927A834BA003B1C6B /* BCOVVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D6CA0C2827A834BA003B1C6B /* BCOVVideoPlayer.m */; };
+		D6E4ED8D2C799130001A95DF /* BCOVThumbnailManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E4ED8C2C799130001A95DF /* BCOVThumbnailManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0B98F0B2C5F214F99D04B684 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = ../PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		0B98F0B2C5F214F99D04B684 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = ../PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		D662EBFA2BE284EE003EB5AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		D6901BBB2BE374CD009C6C1C /* ReactNativePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactNativePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6AB5DBF277BD087008B937F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -29,6 +30,8 @@
 		D6CA0C2227A7C2A6003B1C6B /* BCOVVideoPlayerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCOVVideoPlayerManager.m; sourceTree = "<group>"; };
 		D6CA0C2727A834BA003B1C6B /* BCOVVideoPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCOVVideoPlayer.h; sourceTree = "<group>"; };
 		D6CA0C2827A834BA003B1C6B /* BCOVVideoPlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCOVVideoPlayer.m; sourceTree = "<group>"; };
+		D6E4ED8B2C799130001A95DF /* BCOVThumbnailManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCOVThumbnailManager.h; sourceTree = "<group>"; };
+		D6E4ED8C2C799130001A95DF /* BCOVThumbnailManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCOVThumbnailManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +66,8 @@
 				D6CA0C2827A834BA003B1C6B /* BCOVVideoPlayer.m */,
 				D6CA0C2127A7C2A6003B1C6B /* BCOVVideoPlayerManager.h */,
 				D6CA0C2227A7C2A6003B1C6B /* BCOVVideoPlayerManager.m */,
+				D6E4ED8B2C799130001A95DF /* BCOVThumbnailManager.h */,
+				D6E4ED8C2C799130001A95DF /* BCOVThumbnailManager.m */,
 				0B98F0B2C5F214F99D04B684 /* PrivacyInfo.xcprivacy */,
 			);
 			path = ReactNativePlayer;
@@ -141,6 +146,7 @@
 			files = (
 				D6AB5DC1277BD087008B937F /* AppDelegate.m in Sources */,
 				D6CA0C2927A834BA003B1C6B /* BCOVVideoPlayer.m in Sources */,
+				D6E4ED8D2C799130001A95DF /* BCOVThumbnailManager.m in Sources */,
 				D6AB5DD2277BD092008B937F /* main.m in Sources */,
 				D6CA0C2327A7C2A6003B1C6B /* BCOVVideoPlayerManager.m in Sources */,
 			);
@@ -214,7 +220,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD = "";
 				LDPLUSPLUS = "";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -278,7 +284,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD = "";
 				LDPLUSPLUS = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -301,7 +307,7 @@
 				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = ReactNative;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -321,7 +327,7 @@
 				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = ReactNative;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

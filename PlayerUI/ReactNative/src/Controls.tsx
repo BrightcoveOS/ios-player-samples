@@ -1,69 +1,97 @@
 import React, { useEffect, useState } from 'react';
-import { Animated, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Slider from '@react-native-community/slider';
+import FastImage from 'react-native-fast-image';
+import Animated, {
+    useSharedValue,
+    withTiming,
+    Easing,
+    useAnimatedStyle,
+    withDelay,
+    cancelAnimation,
+    runOnJS,
+    AnimatableValue,
+} from "react-native-reanimated";
+
+export interface thumbnailCallback { (thumbnail: string): void }
 
 type PlayPauseProps = {
     isPlaying: boolean;
-    onPress: () => void;
-};
-
-const PlayPauseButton: React.FC<PlayPauseProps> = (props) => {
-
-    const { isPlaying, onPress } = props;
-
-    return (
-        <Icon name={isPlaying ? 'pause' : 'play-arrow'} size={42} onPress={onPress} />
-    )
+    onPress?: () => void;
 };
 
 type ControlsProps = {
     isPlaying: boolean;
     duration: number;
     progress: number;
-    onPress: () => void;
+    onPress?: () => void;
+    thumbnailAtTime?: (value: number, thumbnail: thumbnailCallback) => void;
+    onSlidingComplete?: (value: number) => void;
 }
 
-const Controls: React.FC<ControlsProps> = (props) => {
+const PlayPauseButton: React.FC<PlayPauseProps> = (props) => {
+    const { isPlaying, onPress } = props;
 
-    const { isPlaying, duration, progress, onPress } = props;
+    return (
+        <Icon name={isPlaying ? 'pause' : 'play-arrow'} size={45} onPress={onPress} />
+    )
+};
 
-    const [opacity] = useState(new Animated.Value(1));
-    const [isVisible, setIsVisible] = useState(true);
+export const Controls: React.FC<ControlsProps> = (props) => {
+    const {
+        isPlaying,
+        duration,
+        progress,
+        onPress,
+        thumbnailAtTime,
+        onSlidingComplete,
+    } = props;
+
+    const opacity = useSharedValue<number>(1);
+    const [thumbnailURL, setThumbnailURL] = useState('');
+    const [isScrubbing, setIsScrubbing] = useState(false);
+    const [position, setPosition] = useState(0);
     const [icon, setIcon] = useState();
 
     useEffect(() => {
-        Icon.getImageSource('circle', 12, 'white').then(setIcon);
-        fadeOutControls();
+        Icon.getImageSource('circle', 15, 'white')
+            .then(setIcon);
+        fadeOutControls(3000);
     }, []);
 
     const fadeInControls = () => {
-        setIsVisible(true);
-        Animated.timing(opacity, {
-            toValue: 1,
+        opacity.value = withTiming(1, {
             duration: 300,
-            useNativeDriver: false,
-        }).start(() => {
-            fadeOutControls();
-        });
+            easing: Easing.linear,
+        }, (finished?: boolean, current?: AnimatableValue) => {
+            if (finished) {
+              runOnJS(fadeOutControls)(3000);
+            }});
     };
 
-    const fadeOutControls = () => {
-        Animated.timing(opacity, {
-            toValue: 0,
-            duration: 300,
-            delay: 3000,
-            useNativeDriver: false,
-        }).start(() => {
-            setIsVisible(false);
-        });
+    const fadeOutControls = (delay: number) => {
+        opacity.value = withDelay(delay,
+            withTiming(0, {
+                duration: 300,
+                easing: Easing.linear,
+            }));
     };
+
+    const animatedStyle = useAnimatedStyle(() => {
+        return {
+            opacity: opacity.value,
+        };
+    });
 
     const toggleControls = () => {
-        opacity.stopAnimation((value) => {
-            setIsVisible(!!value);
-            return value ? fadeOutControls() : fadeInControls();
-        });
+        cancelAnimation(opacity);
+
+        if (opacity.value) {
+            fadeOutControls(0);
+        } else {
+            fadeInControls();
+        }
     };
 
     const timeString = (time: number) => {
@@ -77,34 +105,52 @@ const Controls: React.FC<ControlsProps> = (props) => {
 
     return (
         <TouchableWithoutFeedback onPress={toggleControls}>
-            <Animated.View style={[styles.container, { opacity }]}>
-                {isVisible &&
-                    (<View style={[styles.mediaControlsContainer, styles.progressContainer]}>
-                        <TouchableOpacity>
-                            <PlayPauseButton isPlaying={isPlaying} onPress={onPress} />
-                        </TouchableOpacity>
+            <Animated.View style={[styles.container, animatedStyle]}>
+                { opacity && (<View style={[styles.mediaControlsContainer, styles.progressContainer]}>
+                    <PlayPauseButton isPlaying={isPlaying} onPress={onPress} />
                         <View style={styles.progressColumnContainer}>
-                            <View style={styles.timerLabelsContainer}>
+                            <View style={styles.timerLabelContainer}>
                                 <Text style={styles.timerLabel}>
-                                    {timeString(progress)}
+                                    { timeString(progress) }
                                 </Text>
-                                <Slider
-                                    style={styles.slider}
-                                    disabled={true}
-                                    value={progress}
-                                    maximumValue={duration}
-                                    thumbImage={icon}
-                                    thumbTintColor={'rgba(218, 223, 225, 1)'}
-                                    maximumTrackTintColor={'rgba(0, 0, 0, 0.5)'}
-                                    minimumTrackTintColor={'rgba(0, 0, 0, 0.95)'}
-                                />
+                                <Slider style={styles.slider}
+                                        value={progress}
+                                        minimumValue={0}
+                                        maximumValue={duration}
+                                        thumbImage={icon}
+                                        minimumTrackTintColor={'rgba(0, 0, 0, 0.95)'}
+                                        maximumTrackTintColor={'rgba(0, 0, 0, 0.5)'}
+                                        onValueChange={(value: number) => {
+                                            thumbnailAtTime?.(value, (url: string) => {
+                                                setPosition(Math.round((value * 100) / duration));
+                                                setThumbnailURL(url);
+                                            });
+                                        }}
+                                        onSlidingStart={() => {
+                                            cancelAnimation(opacity);
+                                            setIsScrubbing(true);
+                                        }}
+                                        onSlidingComplete={(value: number) => {
+                                            setIsScrubbing(false);
+                                            onSlidingComplete?.(value);
+                                            fadeOutControls(3000);
+                                        }}>
+                                    { isScrubbing &&
+                                        <View style={[styles.thumbnailContainer, { left: `${position}%` }]}>
+                                            <FastImage style={styles.thumbnailImage}
+                                                       resizeMode={FastImage.resizeMode.stretch}
+                                                       source={{
+                                                        uri: thumbnailURL,
+                                                        priority: FastImage.priority.high,
+                                                        cache: FastImage.cacheControl.cacheOnly}}/>
+                                        </View> }
+                                </Slider>
                                 <Text style={styles.timerLabel}>
-                                    {timeString(duration-progress)}
+                                    { timeString(duration) }
                                 </Text>
                             </View>
                         </View>
-                    </View>)
-                }
+                    </View>)}
             </Animated.View>
         </TouchableWithoutFeedback>
     );
@@ -134,31 +180,39 @@ const styles = StyleSheet.create({
     },
     progressContainer: {
         flexDirection: 'row',
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
     },
     progressColumnContainer: {
         flex: 1,
-        alignItems: 'flex-end',
-        alignSelf: 'flex-end',
+        alignSelf: 'center',
     },
-    timerLabelsContainer: {
-        alignSelf: 'stretch',
+    timerLabelContainer: {
+        alignSelf: 'center',
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
     },
     timerLabel: {
         fontWeight: '300',
-        fontSize: 18,
-        marginStart: 13,
-        marginEnd: 13,
+        fontSize: 20,
+        marginStart: 15,
+        marginEnd: 15,
         fontVariant: ['tabular-nums'],
     },
     slider: {
-        flex: 1,
-        marginStart: 13,
-        marginEnd: 13,
+        flex: 1
+    },
+    thumbnailContainer: {
+        position: 'absolute',
+        backgroundColor: 'gray',
+        borderColor: 'rgba(179, 157, 219, 0.85)',
+        borderWidth: 0.5,
+        aspectRatio: 16/9,
+        width: 100,
+        bottom: 40,
+        transform: [ { translateX: -50 }]
+    },
+    thumbnailImage: {
+        flex: 1
     },
 });
-
-export default Controls;

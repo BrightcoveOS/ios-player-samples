@@ -98,6 +98,8 @@ final class BCOVVideoPlayer: UIView {
         return playbackController
     }()
 
+    fileprivate var thumbnailManager: BCOVThumbnailManager?
+
     @objc
     fileprivate(set) var onReady: RCTDirectEventBlock?
 
@@ -120,6 +122,33 @@ final class BCOVVideoPlayer: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    @objc
+    func playPause(_ isPlaying: Bool) {
+        guard let playbackController else { return }
+        if isPlaying {
+            playbackController.pause()
+        } else {
+            playbackController.play()
+        }
+    }
+
+    @objc
+    func thumbnailAtTime(_ value: NSNumber) -> URL? {
+        guard let thumbnailManager else { return nil }
+
+        return thumbnailManager.thumbnailAtTime(value.timeValue)
+    }
+
+    @objc
+    func onSlidingComplete(_ value: NSNumber) {
+        guard let playbackController else { return }
+
+        playbackController.seek(to: value.timeValue,
+                                toleranceBefore: .zero,
+                                toleranceAfter: .zero,
+                                completionHandler: nil)
     }
 
     fileprivate func requestContentFromPlaybackService() {
@@ -165,17 +194,24 @@ final class BCOVVideoPlayer: UIView {
             }
 #endif
 
+            if playbackController.thumbnailSeekingEnabled {
+                handleThumbnails(for: video)
+            }
+
             playbackController.setVideos([video] as NSFastEnumeration)
         }
     }
 
-    @objc
-    func playPause(_ isPlaying: Bool) {
-        guard let playbackController else { return }
-        if isPlaying {
-            playbackController.pause()
-        } else {
-            playbackController.play()
+    fileprivate func handleThumbnails(for video: BCOVVideo) {
+        if let textTracks = video.properties[kBCOVVideoPropertyKeyTextTracks] as? [[String: Any]] {
+            let filtered = textTracks.filter { $0["label"] as? String == "thumbnails" }
+                .sorted(by: { ($0["src"] as? String)?.compare($1["src"] as? String ?? "") == .orderedDescending })
+            if filtered.count > 1,
+               let textTrack = filtered.first,
+               let trackSrc = textTrack["src"] as? String,
+               let url = URL(string: trackSrc) {
+                thumbnailManager = BCOVThumbnailManager(thumbnailsURL: url)
+            }
         }
     }
 }
@@ -194,8 +230,19 @@ extension BCOVVideoPlayer: BCOVPlaybackControllerDelegate {
             return
         }
 
-        onReady([ "duration": duration,
-                  "isAutoPlay": NSNumber(value: controller.isAutoPlay) ])
+        var data = [ "duration": duration,
+                     "isAutoPlay": NSNumber(value: controller.isAutoPlay) ] as [String: Any]
+
+        if let thumbnailManager,
+           thumbnailManager.thumbnails.count > 0 {
+            let thumbnails = thumbnailManager.thumbnails.map { thumbnail in
+                return ["uri": thumbnail.url?.absoluteString ]
+            }
+
+            data["thumbnails"] = thumbnails;
+        }
+
+        onReady(data)
     }
 
     func playbackController(_ controller: BCOVPlaybackController!,
