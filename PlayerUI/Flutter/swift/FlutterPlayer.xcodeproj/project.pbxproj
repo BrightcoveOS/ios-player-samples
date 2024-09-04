@@ -13,6 +13,7 @@
 		D60B637D2760094E00CE4CAA /* BCOVVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60B637C2760094D00CE4CAA /* BCOVVideoPlayer.swift */; };
 		D61F81192BD9930600AD32CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D61F81182BD9930600AD32CE /* Assets.xcassets */; };
 		D61F811B2BD99D1800AD32CE /* BCOVVideoPlayerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61F811A2BD99D1800AD32CE /* BCOVVideoPlayerFactory.swift */; };
+		D68EEC3B2C88D690006E9C89 /* BCOVThumbnailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68EEC3A2C88D690006E9C89 /* BCOVThumbnailManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		D60B637C2760094D00CE4CAA /* BCOVVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCOVVideoPlayer.swift; sourceTree = "<group>"; };
 		D61F81182BD9930600AD32CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		D61F811A2BD99D1800AD32CE /* BCOVVideoPlayerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCOVVideoPlayerFactory.swift; sourceTree = "<group>"; };
+		D68EEC3A2C88D690006E9C89 /* BCOVThumbnailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCOVThumbnailManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				D60B637A276007AA00CE4CAA /* BCOVFlutterPlugin.swift */,
 				D60B637C2760094D00CE4CAA /* BCOVVideoPlayer.swift */,
 				D61F811A2BD99D1800AD32CE /* BCOVVideoPlayerFactory.swift */,
+				D68EEC3A2C88D690006E9C89 /* BCOVThumbnailManager.swift */,
 			);
 			path = FlutterPlayer;
 			sourceTree = "<group>";
@@ -138,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D68EEC3B2C88D690006E9C89 /* BCOVThumbnailManager.swift in Sources */,
 				D60B63612760058500CE4CAA /* AppDelegate.swift in Sources */,
 				D60B637D2760094E00CE4CAA /* BCOVVideoPlayer.swift in Sources */,
 				D60B637B276007AA00CE4CAA /* BCOVFlutterPlugin.swift in Sources */,

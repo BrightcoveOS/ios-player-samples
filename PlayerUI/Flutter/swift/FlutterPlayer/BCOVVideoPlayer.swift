@@ -23,11 +23,17 @@ let kVMAPAdTagURL = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/
 
 
 final class BCOVVideoPlayer: NSObject {
-    
+
     // Create the container that will contain the player and content overlay views
     fileprivate lazy var containerView = UIView()
+
     // Create the content overlay view for displaying ads (if configured)
-    fileprivate lazy var contentOverlayView = UIView()
+    fileprivate lazy var contentOverlayView: UIView = {
+        let contentOverlayView = UIView()
+        contentOverlayView.frame = containerView.bounds
+        contentOverlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        return contentOverlayView
+    }()
 
     fileprivate lazy var playbackService: BCOVPlaybackService = {
         let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
@@ -48,54 +54,56 @@ final class BCOVVideoPlayer: NSObject {
 
         var sessionProvider = fps
 
-//        let useIMA = true
-//
-//        if useIMA {
-//            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate, let flutterViewController = appDelegate.flutterViewController else {
-//                return nil
-//            }
-//            
-//            let imaSettings = IMASettings()
-//            imaSettings.language = NSLocale.current.languageCode!
-//
-//            let renderSettings = IMAAdsRenderingSettings()
-//            renderSettings.linkOpenerPresentingController = flutterViewController
-//            renderSettings.linkOpenerDelegate = self
-//
-//            let adsRequestPolicy = BCOVIMAAdsRequestPolicy(vmapAdTagUrl: kVMAPAdTagURL)
-//
-//            // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition:
-//            // which allows us to modify the IMAAdsRequest object before it is used to load ads.
-//            let imaPlaybackSessionOptions = [kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self]
-//
-//            if let imaSessionProvider = sdkManager.createIMASessionProvider(with: imaSettings,
-//                                                                            adsRenderingSettings: renderSettings,
-//                                                                            adsRequestPolicy: adsRequestPolicy,
-//                                                                            adContainer: contentOverlayView,
-//                                                                            viewController: flutterViewController,
-//                                                                            companionSlots: nil,
-//                                                                            upstreamSessionProvider: fps,
-//                                                                            options: imaPlaybackSessionOptions)
-//            {
-//                sessionProvider = imaSessionProvider
-//            }
-//        }
-        
+        //        let useIMA = true
+        //
+        //        if useIMA {
+        //            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate, let flutterViewController = appDelegate.flutterViewController else {
+        //                return nil
+        //            }
+        //
+        //            let imaSettings = IMASettings()
+        //            imaSettings.language = NSLocale.current.languageCode!
+        //
+        //            let renderSettings = IMAAdsRenderingSettings()
+        //            renderSettings.linkOpenerPresentingController = flutterViewController
+        //            renderSettings.linkOpenerDelegate = self
+        //
+        //            let adsRequestPolicy = BCOVIMAAdsRequestPolicy(vmapAdTagUrl: kVMAPAdTagURL)
+        //
+        //            // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition:
+        //            // which allows us to modify the IMAAdsRequest object before it is used to load ads.
+        //            let imaPlaybackSessionOptions = [kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self]
+        //
+        //            if let imaSessionProvider = sdkManager.createIMASessionProvider(with: imaSettings,
+        //                                                                            adsRenderingSettings: renderSettings,
+        //                                                                            adsRequestPolicy: adsRequestPolicy,
+        //                                                                            adContainer: contentOverlayView,
+        //                                                                            viewController: flutterViewController,
+        //                                                                            companionSlots: nil,
+        //                                                                            upstreamSessionProvider: fps,
+        //                                                                            options: imaPlaybackSessionOptions)
+        //            {
+        //                sessionProvider = imaSessionProvider
+        //            }
+        //        }
+
         guard let playbackController = sdkManager.createPlaybackController(with: sessionProvider,
                                                                            viewStrategy: nil) else {
             return nil
         }
 
-        playbackController.options = [kBCOVAVPlayerViewControllerCompatibilityKey: true]
-
         playbackController.delegate = self
         playbackController.isAutoAdvance = true
         playbackController.isAutoPlay = true
 
-        setUpViews(withPlaybackController: playbackController)
+        playbackController.view.frame = containerView.bounds
+        playbackController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
 
         return playbackController
     }()
+
+    fileprivate var thumbnailManager: BCOVThumbnailManager?
 
     fileprivate lazy var appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
 
@@ -122,7 +130,8 @@ final class BCOVVideoPlayer: NSObject {
         super.init()
 
         guard let eventChannel,
-              let methodChannel else {
+              let methodChannel,
+              let playbackController else {
             return
         }
 
@@ -134,17 +143,10 @@ final class BCOVVideoPlayer: NSObject {
             handle(call, result: result)
         }
 
-        requestContentFromPlaybackService()
-    }
-    
-    fileprivate func setUpViews(withPlaybackController playbackController: BCOVPlaybackController) {
         containerView.addSubview(playbackController.view)
-        playbackController.view.frame = containerView.frame
-        playbackController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
         containerView.addSubview(contentOverlayView)
-        contentOverlayView.frame = containerView.frame
-        contentOverlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+        requestContentFromPlaybackService()
     }
 
     fileprivate func requestContentFromPlaybackService() {
@@ -190,7 +192,24 @@ final class BCOVVideoPlayer: NSObject {
             }
 #endif
 
+            if playbackController.thumbnailSeekingEnabled {
+                handleThumbnails(for: video)
+            }
+
             playbackController.setVideos([video] as NSFastEnumeration)
+        }
+    }
+
+    fileprivate func handleThumbnails(for video: BCOVVideo) {
+        if let textTracks = video.properties[kBCOVVideoPropertyKeyTextTracks] as? [[String: Any]] {
+            let filtered = textTracks.filter { $0["label"] as? String == "thumbnails" }
+                .sorted(by: { ($0["src"] as? String)?.compare($1["src"] as? String ?? "") == .orderedDescending })
+            if filtered.count > 1,
+               let textTrack = filtered.first,
+               let trackSrc = textTrack["src"] as? String,
+               let url = URL(string: trackSrc) {
+                thumbnailManager = BCOVThumbnailManager(thumbnailsURL: url)
+            }
         }
     }
 
@@ -201,6 +220,7 @@ final class BCOVVideoPlayer: NSObject {
             result(FlutterMethodNotImplemented)
             return
         }
+
         switch (call.method) {
             case "playPause":
                 if let isPlaying = call.arguments as? Bool {
@@ -210,12 +230,27 @@ final class BCOVVideoPlayer: NSObject {
                         playbackController.play()
                     }
                 }
+                result(nil)
                 break
 
             case "seek":
                 if let seconds = call.arguments as? TimeInterval {
                     let seekTo = CMTimeMakeWithSeconds(seconds, preferredTimescale: 600)
-                    playbackController.seek(to: seekTo, completionHandler: nil)
+                    playbackController.seek(to: seekTo,
+                                            toleranceBefore: .zero,
+                                            toleranceAfter: .zero,
+                                            completionHandler: nil)
+                }
+                result(nil)
+                break
+
+            case "thumbnailAtTime":
+                if let seconds = call.arguments as? TimeInterval {
+                    let thumbnailTime = CMTimeMakeWithSeconds(seconds, preferredTimescale: 600)
+                    if let thumbnailManager,
+                       let url = thumbnailManager.thumbnailAtTime(thumbnailTime) {
+                        result(url.absoluteString)
+                    }
                 }
                 break
 
