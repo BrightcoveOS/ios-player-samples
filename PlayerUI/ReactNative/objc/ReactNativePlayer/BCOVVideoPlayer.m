@@ -238,7 +238,7 @@ didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
         if (self.thumbnailManager.thumbnails.count > 0)
         {
             NSMutableArray *thumbnails = @[].mutableCopy;
-            for (BCOVThumbnail *thumbnail in self.thumbnailManager.thumbnails)
+            for (Thumbnail *thumbnail in self.thumbnailManager.thumbnails)
             {
                 [thumbnails addObject:@{ @"uri": thumbnail.url.absoluteString }];
             }

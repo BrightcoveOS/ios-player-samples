@@ -236,7 +236,7 @@ extension BCOVVideoPlayer: BCOVPlaybackControllerDelegate {
         if let thumbnailManager,
            thumbnailManager.thumbnails.count > 0 {
             let thumbnails = thumbnailManager.thumbnails.map { thumbnail in
-                return ["uri": thumbnail.url?.absoluteString ]
+                return [ "uri": thumbnail.url?.absoluteString ]
             }
 
             data["thumbnails"] = thumbnails;

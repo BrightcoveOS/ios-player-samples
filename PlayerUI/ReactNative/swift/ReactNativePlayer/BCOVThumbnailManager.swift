@@ -11,7 +11,7 @@ import UIKit
 
 // MARK: -
 
-final class BCOVThumbnail {
+final class Thumbnail {
 
     var startTime: CMTime?
     var endTime:  CMTime?
@@ -23,7 +23,7 @@ final class BCOVThumbnail {
 
 final class BCOVThumbnailManager {
 
-    fileprivate(set) lazy var thumbnails: [BCOVThumbnail] = .init()
+    fileprivate(set) lazy var thumbnails: [Thumbnail] = .init()
 
     init(thumbnailsURL: URL) {
         URLSession.shared.dataTask(with: URLRequest(url: thumbnailsURL)) {
@@ -94,7 +94,7 @@ final class BCOVThumbnailManager {
                         let endTime = (endTimeMinute * 60.0 * 60.0) + (endTimeSecond * 60) + (endTimeMS / 1000)
 
                         // Create a new instance and assign the time range
-                        let thumbnail = BCOVThumbnail()
+                        let thumbnail = Thumbnail()
                         thumbnail.startTime = CMTimeMake(value: Int64(startTime),
                                                          timescale: 60)
                         thumbnail.endTime = CMTimeMake(value: Int64(endTime),

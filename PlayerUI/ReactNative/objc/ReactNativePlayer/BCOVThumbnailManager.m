@@ -7,7 +7,10 @@
 
 #import "BCOVThumbnailManager.h"
 
-@implementation BCOVThumbnail
+
+#pragma mark -
+
+@implementation Thumbnail
 
 @end
 
@@ -16,7 +19,7 @@
 
 @interface BCOVThumbnailManager ()
 
-@property (nonatomic, readwrite, strong) NSArray<BCOVThumbnail *> *thumbnails;
+@property (nonatomic, readwrite, strong) NSArray<Thumbnail *> *thumbnails;
 
 @end
 
@@ -57,7 +60,7 @@
 
 - (NSURL *)thumbnailAtTime:(CMTime)time
 {
-    for (BCOVThumbnail *thumbnail in self.thumbnails)
+    for (Thumbnail *thumbnail in self.thumbnails)
     {
         if (CMTIME_COMPARE_INLINE(thumbnail.startTime, <=, time) &&
             CMTIME_COMPARE_INLINE(thumbnail.endTime, >=, time))
@@ -106,7 +109,7 @@
             double endTime = ([[line substringWithRange:[result rangeAtIndex:4]] doubleValue] * 60.0 * 60.0) + [[line substringWithRange:[result rangeAtIndex:5]] doubleValue] * 60.0 + ([[line substringWithRange:[result rangeAtIndex:6]] doubleValue] / 1000.0);
 
             // Create a new instance and assign the time range
-            BCOVThumbnail *thumbnail = [BCOVThumbnail new];
+            Thumbnail *thumbnail = [Thumbnail new];
             thumbnail.startTime = CMTimeMake(startTime, 60);
             thumbnail.endTime = CMTimeMake(endTime, 60);
 
@@ -115,7 +118,7 @@
 
         if (matches.count == 0 && line.length > 0)
         {
-            BCOVThumbnail *currentThumbnail = thumbnails.lastObject;
+            Thumbnail *currentThumbnail = thumbnails.lastObject;
             if (currentThumbnail)
             {
                 currentThumbnail.url = [NSURL URLWithString:line];

@@ -11,7 +11,7 @@
 
 #pragma mark -
 
-@interface BCOVThumbnail : NSObject
+@interface Thumbnail : NSObject
 
 @property (nonatomic, assign) CMTime startTime;
 @property (nonatomic, assign) CMTime endTime;
@@ -24,7 +24,7 @@
 
 @interface BCOVThumbnailManager : NSObject
 
-@property (nonatomic, readonly, strong) NSArray<BCOVThumbnail *> *thumbnails;
+@property (nonatomic, readonly, strong) NSArray<Thumbnail *> *thumbnails;
 
 - (instancetype)initWithURL:(NSURL *)thumbnailURL;
 - (NSURL *)thumbnailAtTime:(CMTime)time;
