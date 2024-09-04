@@ -13,6 +13,7 @@
 //#import <GoogleInteractiveMediaAds/GoogleInteractiveMediaAds.h>
 
 #import "AppDelegate.h"
+#import "BCOVThumbnailManager.h"
 
 #import "BCOVVideoPlayer.h"
 
@@ -32,6 +33,7 @@ static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampa
 @property (nonatomic, strong) UIView *contentOverlayView;
 @property (nonatomic, strong) BCOVPlaybackService *playbackService;
 @property (nonatomic, strong) id<BCOVPlaybackController> playbackController;
+@property (nonatomic, strong) BCOVThumbnailManager *thumbnailManager;
 
 @property (nonatomic, strong) FlutterMethodChannel *methodChannel;
 @property (nonatomic, strong) FlutterEventChannel *eventChannel;
@@ -52,9 +54,13 @@ static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampa
         self.containerView = [UIView new];
 
         // Create the content overlay view for displaying ads (if configured)
-        self.contentOverlayView = [UIView new];
-        self.contentOverlayView.frame = self.containerView.frame;
-        self.contentOverlayView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        self.contentOverlayView = ({
+            UIView *contentOverlayView = [UIView new];
+            contentOverlayView.frame = self.containerView.bounds;
+            contentOverlayView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+
+            contentOverlayView;
+        });
 
         self.playbackService = ({
             BCOVPlaybackServiceRequestFactory *factory = [[BCOVPlaybackServiceRequestFactory alloc]
@@ -75,36 +81,36 @@ static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampa
 
             id<BCOVPlaybackSessionProvider> sessionProvider = fps;
 
-//            BOOL useIMA = YES;
-//
-//            if (useIMA)
-//            {
-//                FlutterViewController *flutterViewController = ((AppDelegate *)UIApplication.sharedApplication.delegate).flutterViewController;
-//
-//                IMASettings *imaSettings = [IMASettings new];
-//                imaSettings.language = NSLocale.currentLocale.languageCode;
-//
-//                IMAAdsRenderingSettings *renderSettings = [IMAAdsRenderingSettings new];
-//                renderSettings.linkOpenerPresentingController = flutterViewController;
-//                renderSettings.linkOpenerDelegate = self;
-//
-//                BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy adsRequestPolicyWithVMAPAdTagUrl:kVMAPAdTagURL];
-//
-//                // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition:
-//                // which allows us to modify the IMAAdsRequest object before it is used to load ads.
-//                NSDictionary *imaPlaybackSessionOptions = @{ kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self };
-//
-//                id<BCOVPlaybackSessionProvider> imaSessionProvider = [sdkManager createIMASessionProviderWithSettings:imaSettings
-//                                                                                                 adsRenderingSettings:renderSettings
-//                                                                                                     adsRequestPolicy:adsRequestPolicy
-//                                                                                                          adContainer:self.contentOverlayView
-//                                                                                                       viewController:flutterViewController
-//                                                                                                       companionSlots:nil
-//                                                                                              upstreamSessionProvider:fps
-//                                                                                                              options:imaPlaybackSessionOptions];
-//
-//                sessionProvider = imaSessionProvider;
-//            }
+            //            BOOL useIMA = YES;
+            //
+            //            if (useIMA)
+            //            {
+            //                FlutterViewController *flutterViewController = ((AppDelegate *)UIApplication.sharedApplication.delegate).flutterViewController;
+            //
+            //                IMASettings *imaSettings = [IMASettings new];
+            //                imaSettings.language = NSLocale.currentLocale.languageCode;
+            //
+            //                IMAAdsRenderingSettings *renderSettings = [IMAAdsRenderingSettings new];
+            //                renderSettings.linkOpenerPresentingController = flutterViewController;
+            //                renderSettings.linkOpenerDelegate = self;
+            //
+            //                BCOVIMAAdsRequestPolicy *adsRequestPolicy = [BCOVIMAAdsRequestPolicy adsRequestPolicyWithVMAPAdTagUrl:kVMAPAdTagURL];
+            //
+            //                // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition:
+            //                // which allows us to modify the IMAAdsRequest object before it is used to load ads.
+            //                NSDictionary *imaPlaybackSessionOptions = @{ kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self };
+            //
+            //                id<BCOVPlaybackSessionProvider> imaSessionProvider = [sdkManager createIMASessionProviderWithSettings:imaSettings
+            //                                                                                                 adsRenderingSettings:renderSettings
+            //                                                                                                     adsRequestPolicy:adsRequestPolicy
+            //                                                                                                          adContainer:self.contentOverlayView
+            //                                                                                                       viewController:flutterViewController
+            //                                                                                                       companionSlots:nil
+            //                                                                                              upstreamSessionProvider:fps
+            //                                                                                                              options:imaPlaybackSessionOptions];
+            //
+            //                sessionProvider = imaSessionProvider;
+            //            }
 
             id<BCOVPlaybackController> playbackController = [sdkManager
                                                              createPlaybackControllerWithSessionProvider:sessionProvider
@@ -113,11 +119,12 @@ static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampa
             playbackController.autoAdvance = YES;
             playbackController.autoPlay = YES;
 
+            playbackController.view.frame = self.containerView.frame;
+            playbackController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+
             playbackController;
         });
-        
-        self.playbackController.view.frame = self.containerView.frame;
-        self.playbackController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+
         [self.containerView addSubview:self.playbackController.view];
 
         [self.containerView addSubview:self.contentOverlayView];
@@ -132,7 +139,8 @@ static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampa
             [methodChannel setMethodCallHandler:^(FlutterMethodCall * _Nonnull call,
                                                   FlutterResult _Nonnull result) {
                 __strong typeof(weakSelf) strongSelf = weakSelf;
-                [strongSelf handleMethodCall:call result:result];
+                [strongSelf handleMethodCall:call
+                                      result:result];
             }];
             methodChannel;
         });
@@ -189,6 +197,11 @@ static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampa
             }
 #endif
 
+            if (strongSelf.playbackController.thumbnailSeekingEnabled)
+            {
+                [strongSelf handleThumbnailsForVideo:video];
+            }
+
             [strongSelf.playbackController setVideos:@[ video ]];
         }
         else
@@ -213,17 +226,63 @@ static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampa
         {
             [self.playbackController play];
         }
+
+        result(nil);
     }
     else if ([@"seek" isEqualToString:call.method])
     {
         NSNumber *seconds = call.arguments;
         CMTime seekTo = CMTimeMakeWithSeconds(seconds.intValue, 600);
-        [self.playbackController seekToTime:seekTo completionHandler:nil];
+        [self.playbackController seekToTime:seekTo
+                            toleranceBefore:kCMTimeZero
+                             toleranceAfter:kCMTimeZero
+                          completionHandler:nil];
+
+        result(nil);
+    }
+    else if ([@"thumbnailAtTime" isEqualToString:call.method])
+    {
+        NSNumber *seconds = call.arguments;
+        CMTime thumbnailTime = CMTimeMakeWithSeconds(seconds.intValue, 600);
+        NSURL *url = [self.thumbnailManager thumbnailAtTime:thumbnailTime];
+        if (url)
+        {
+            result(url.absoluteString);
+        }
     }
     else
     {
         result(FlutterMethodNotImplemented);
     }
+}
+
+- (void)handleThumbnailsForVideo:(BCOVVideo *)video
+{
+    NSArray *textTracks = video.properties[kBCOVVideoPropertyKeyTextTracks];
+
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"src" ascending:NO];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.label MATCHES %@ AND (SELF.src BEGINSWITH %@ OR SELF.src BEGINSWITH %@)", @"thumbnails", @"https://", @"http://"];
+    NSArray *filtered = [[textTracks filteredArrayUsingPredicate:predicate] sortedArrayUsingDescriptors:@[sort]];
+
+    if (filtered.count > 1)
+    {
+        NSDictionary *textTrack = filtered.firstObject;
+        NSString *trackSrc = textTrack[@"src"];
+        NSURL *thumbnailURL = [NSURL URLWithString:trackSrc];
+
+        self.thumbnailManager = [[BCOVThumbnailManager alloc] initWithURL:thumbnailURL];
+    }
+}
+
+- (NSURL *)thumbnailAtTime:(NSNumber *)value
+{
+    if (self.thumbnailManager)
+    {
+        NSURL *thumbnailURL = [self.thumbnailManager thumbnailAtTime:value.CMTimeValue];
+        return thumbnailURL;
+    }
+
+    return nil;
 }
 
 
@@ -301,6 +360,7 @@ didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
     self.eventSink = nil;
     return nil;
 }
+
 
 #pragma mark - BCOVIMAPlaybackSessionDelegate
 

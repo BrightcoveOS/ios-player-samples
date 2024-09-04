@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D61F811D2BD99FAA00AD32CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D61F811C2BD99FAA00AD32CE /* Assets.xcassets */; };
 		D61F81202BD9A12B00AD32CE /* BCOVVideoPlayerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D61F811F2BD9A12B00AD32CE /* BCOVVideoPlayerFactory.m */; };
+		D6E52BA52C801D6B004812A0 /* BCOVThumbnailManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E52BA42C801D6B004812A0 /* BCOVThumbnailManager.m */; };
 		D6E5A26D275E9C59007A7F89 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5A26C275E9C59007A7F89 /* AppDelegate.m */; };
 		D6E5A27B275E9C5B007A7F89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6E5A279275E9C5B007A7F89 /* LaunchScreen.storyboard */; };
 		D6E5A27E275E9C5B007A7F89 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5A27D275E9C5B007A7F89 /* main.m */; };
@@ -20,6 +21,8 @@
 		D61F811C2BD99FAA00AD32CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		D61F811E2BD9A12B00AD32CE /* BCOVVideoPlayerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCOVVideoPlayerFactory.h; sourceTree = "<group>"; };
 		D61F811F2BD9A12B00AD32CE /* BCOVVideoPlayerFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCOVVideoPlayerFactory.m; sourceTree = "<group>"; };
+		D6E52BA32C801D6B004812A0 /* BCOVThumbnailManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCOVThumbnailManager.h; sourceTree = "<group>"; };
+		D6E52BA42C801D6B004812A0 /* BCOVThumbnailManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCOVThumbnailManager.m; sourceTree = "<group>"; };
 		D6E5A268275E9C59007A7F89 /* FlutterPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlutterPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6E5A26B275E9C59007A7F89 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D6E5A26C275E9C59007A7F89 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -74,6 +77,8 @@
 				D6E5A28E275EA2CE007A7F89 /* BCOVVideoPlayer.m */,
 				D61F811E2BD9A12B00AD32CE /* BCOVVideoPlayerFactory.h */,
 				D61F811F2BD9A12B00AD32CE /* BCOVVideoPlayerFactory.m */,
+				D6E52BA32C801D6B004812A0 /* BCOVThumbnailManager.h */,
+				D6E52BA42C801D6B004812A0 /* BCOVThumbnailManager.m */,
 			);
 			path = FlutterPlayer;
 			sourceTree = "<group>";
@@ -152,6 +157,7 @@
 				D6E5A28F275EA2CE007A7F89 /* BCOVVideoPlayer.m in Sources */,
 				D6E5A28C275EA257007A7F89 /* BCOVFlutterPlugin.m in Sources */,
 				D6E5A26D275E9C59007A7F89 /* AppDelegate.m in Sources */,
+				D6E52BA52C801D6B004812A0 /* BCOVThumbnailManager.m in Sources */,
 				D6E5A27E275E9C5B007A7F89 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

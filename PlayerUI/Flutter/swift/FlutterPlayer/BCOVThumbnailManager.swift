@@ -1,6 +1,6 @@
 //
 //  BCOVThumbnailManager.swift
-//  ReactNativePlayer
+//  FlutterPlayer
 //
 //  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //

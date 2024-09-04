@@ -1,14 +1,12 @@
 //
 //  BCOVThumbnailManager.m
-//  ReactNativePlayer
+//  FlutterPlayer
 //
 //  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
 #import "BCOVThumbnailManager.h"
 
-
-#pragma mark -
 
 @implementation Thumbnail
 
@@ -48,7 +46,7 @@
             else
             {
                 NSString *thumbnailString = [[NSString alloc] initWithData:data
-                                                                 encoding:NSUTF8StringEncoding];
+                                                                  encoding:NSUTF8StringEncoding];
                 [strongSelf parseThumbnailString:thumbnailString];
             }
 
