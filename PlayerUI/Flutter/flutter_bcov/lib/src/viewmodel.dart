@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class BCOVViewModel extends ChangeNotifier {
@@ -9,11 +10,13 @@ class BCOVViewModel extends ChangeNotifier {
   bool _inAdSequence = false;
   Duration _currentTime = const Duration();
   Duration _totalTime = const Duration();
+  String? _thumbnailURL;
 
   bool get isPlaying => _isPlaying;
   bool get inAdSequence => _inAdSequence;
   Duration get currentTime => _currentTime;
   Duration get totalTime => _totalTime;
+  String? get thumbnailURL => _thumbnailURL;
 
   Future<void> loadData() async {
     _currentTime = const Duration(seconds: 0);
@@ -39,6 +42,11 @@ class BCOVViewModel extends ChangeNotifier {
 
       case 'seek':
         _methodChannel.invokeMethod(call.method, call.arguments[0]);
+        break;
+
+      case 'thumbnailAtTime':
+        _thumbnailURL =
+            await _methodChannel.invokeMethod(call.method, call.arguments[0]);
         break;
     }
 

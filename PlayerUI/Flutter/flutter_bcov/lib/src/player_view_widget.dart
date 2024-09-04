@@ -8,6 +8,7 @@ class PlayerView extends StatefulWidget {
   const PlayerView(
       {super.key,
       required this.isPlaying,
+      this.thumbnailURL,
       required this.inAdSequence,
       required this.totalTime,
       required this.currentTime,
@@ -19,16 +20,19 @@ class PlayerView extends StatefulWidget {
   /// it is `false`, the button shows a play icon.
   final bool isPlaying;
 
+  /// The thumbnail URL when the `thumbnailSeekingEnabled` is true in the
+  /// playback controller.
+  final String? thumbnailURL;
+
   /// When [inAdSequence] is `true` the controls will be hidden
   final bool inAdSequence;
 
-  /// This is the total time length of the audio track that is being played.
+  /// This is the total time length of the video that is being played.
   final Duration totalTime;
 
   /// The [currentTime] is displayed between the play/pause button and the seek
   /// bar. This value also affects the current position of the seek bar in
-  /// relation to the total time. An audio plugin can update this value as it
-  /// is playing to let the user know the current time in the audio track.
+  /// relation to the total time.
   final Duration currentTime;
 
   final Map<String, dynamic>? creationParams;
@@ -98,11 +102,13 @@ class _PlayerViewState extends State<PlayerView> {
       right: 0,
       child: Offstage(
         offstage: (!_visible || widget.inAdSequence),
-        child: Controls(
+        child: BCOVControls(
           isPlaying: widget.isPlaying,
+          thumbnailURL: widget.thumbnailURL,
           totalTime: widget.totalTime,
           currentTime: widget.currentTime,
-          onUserInteractControls: () => _userInteractWithControls(),
+          onUserInteractControls: ({bool? isScrubbing}) =>
+              _userInteractWithControls(isScrubbing: isScrubbing),
           onHandle: widget.onHandle,
         ),
       ),
@@ -138,8 +144,11 @@ class _PlayerViewState extends State<PlayerView> {
     }
   }
 
-  void _userInteractWithControls() {
+  void _userInteractWithControls({bool? isScrubbing}) {
     _cancelAutoHideTimer();
-    _setAutoHideTimer();
+
+    if (!isScrubbing!) {
+      _setAutoHideTimer();
+    }
   }
 }
