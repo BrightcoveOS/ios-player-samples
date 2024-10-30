@@ -32,9 +32,9 @@ final class ViewController: UIViewController {
     fileprivate var bcovAdContext: BCOVFWContext?
 
     fileprivate lazy var playbackService: BCOVPlaybackService = {
-        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+        let factory = BCOVPlaybackServiceRequestFactory(withAccountId: kAccountId,
                                                         policyKey: kPolicyKey)
-        return .init(requestFactory: factory)
+        return .init(withRequestFactory: factory)
     }()
 
     fileprivate lazy var playerView: BCOVPUIPlayerView? = {
@@ -62,24 +62,21 @@ final class ViewController: UIViewController {
         options.cuePointProgressPolicy = BCOVCuePointProgressPolicy(processingCuePoints: .processFinalCuePoint,
                                                                     resumingPlaybackFrom: .fromContentPlayhead,
                                                                     ignoringPreviouslyProcessedCuePoints: true)
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+        let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
+                                                         applicationId: nil)
 
-        guard let sdkManager = BCOVPlayerSDKManager.shared(),
-              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                         applicationId: nil) else {
-            return nil
-        }
-
-        let fps = sdkManager.createFairPlaySessionProvider(with: authProxy,
+        let fps = sdkManager.createFairPlaySessionProvider(withAuthorizationProxy: authProxy,
                                                            upstreamSessionProvider: nil)
 
         guard let playerView,
               let fwSessionProvider = sdkManager.createFWSessionProvider(adContextPolicy: adContextPolicy,
                                                                          upstreamSessionProvider: fps,
-                                                                         options: options),
-              let playbackController = sdkManager.createPlaybackController(with: fwSessionProvider,
-                                                                           viewStrategy: nil) else {
+                                                                         options: options) else {
             return nil
         }
+        
+        let playbackController = sdkManager.createPlaybackController(withSessionProvider: fwSessionProvider, viewStrategy: nil)
 
         playbackController.delegate = self
         playbackController.isAutoAdvance = true
@@ -213,11 +210,11 @@ final class ViewController: UIViewController {
     }
 
     fileprivate func requestContentFromPlaybackService() {
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId]
+        let configuration = [BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId]
         playbackService.findVideo(withConfiguration: configuration,
                                   queryParameters: nil) {
             [playbackController] (video: BCOVVideo?,
-                                  jsonResponse: [AnyHashable: Any]?,
+                                  jsonResponse: Any?,
                                   error: Error?) in
             guard let playbackController,
                   let video else {
@@ -252,7 +249,7 @@ final class ViewController: UIViewController {
             }
 #endif
 
-            playbackController.setVideos([video] as NSFastEnumeration)
+            playbackController.setVideos([video])
         }
     }
 }
