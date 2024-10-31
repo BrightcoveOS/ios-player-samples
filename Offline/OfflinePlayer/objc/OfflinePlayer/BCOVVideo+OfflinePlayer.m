@@ -12,27 +12,27 @@
 
 - (NSString *)accountId
 {
-    return self.properties[kBCOVVideoPropertyKeyAccountId];
+    return self.properties[BCOVVideo.PropertyKeyAccountId];
 }
 
 - (NSString *)videoId
 {
-    return self.properties[kBCOVVideoPropertyKeyId];
+    return self.properties[BCOVVideo.PropertyKeyId];
 }
 
 - (NSString *)localizedName
 {
-    return localizedNameForLocale(self, nil);
+    return [self localizedNameForLocale:nil];
 }
 
 - (NSString *)localizedShortDescription
 {
-    return localizedShortDescriptionForLocale(self, nil);
+    return [self localizedShortDescriptionForLocale:nil];
 }
 
 - (NSString *)duration
 {
-    NSNumber *durationNumber = self.properties[kBCOVVideoPropertyKeyDuration];
+    NSNumber *durationNumber = self.properties[BCOVVideo.PropertyKeyDuration];
     if (durationNumber == nil)
     {
         return @"";

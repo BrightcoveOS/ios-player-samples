@@ -5,8 +5,6 @@
 //  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
-#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
-
 #import "BCOVVideo+OfflinePlayer.h"
 #import "DownloadManager.h"
 #import "Notifications.h"
@@ -84,7 +82,7 @@ NSString * const kPlaylistRefId = @"brightcove-native-sdk-plist";
                                 NSError *error))completionHandler
 {
     NSDictionary *configuration = @{
-        kBCOVPlaybackServiceConfigurationKeyAssetID: video.videoId
+        BCOVPlaybackService.ConfigurationKeyAssetID: video.videoId
     };
 
     [self.playbackService findVideoWithConfiguration:configuration
@@ -140,13 +138,13 @@ NSString * const kPlaylistRefId = @"brightcove-native-sdk-plist";
 
 - (void)cacheThumbnailForVideo:(BCOVVideo *)video
 {
-    NSDictionary *sources = video.properties[kBCOVVideoPropertyKeyThumbnailSources];
+    NSDictionary *sources = video.properties[BCOVVideo.PropertyKeyThumbnailSources];
 
     for (NSDictionary *thumbnail in sources)
     {
         NSString *urlString = thumbnail[@"src"];
         NSURL *url = [NSURL URLWithString:urlString];
-        if ([url.scheme caseInsensitiveCompare:kBCOVSourceURLSchemeHTTPS] == NSOrderedSame)
+        if ([url.scheme caseInsensitiveCompare:BCOVSource.URLSchemeHTTPS] == NSOrderedSame)
         {
             __weak typeof(self) weakSelf = self;
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{

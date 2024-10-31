@@ -5,8 +5,6 @@
 //  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
-#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
-
 #import "DownloadManager.h"
 #import "SettingsViewController.h"
 #import "UITabBarController+OfflinePlayer.h"
@@ -76,7 +74,7 @@ UInt64 const kPlayDuration = 600;
 {
     [super viewDidLoad];
 
-    self.sdkVersionLabel.text = [NSString stringWithFormat:@"BrightcovePlayerSDK v%@",
+    self.sdkVersionLabel.text = [NSString stringWithFormat:@"BrightcovePlayerSDK v%ld",
                                  BCOVPlayerSDKManager.version];
 
 #if TARGET_OS_SIMULATOR || TARGET_OS_MACCATALYST

@@ -22,9 +22,9 @@ final class VideoManager: NSObject {
     static var shared = VideoManager()
 
     fileprivate lazy var playbackService: BCOVPlaybackService = {
-        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+        let factory = BCOVPlaybackServiceRequestFactory(withAccountId: kAccountId,
                                                         policyKey: kPolicyKey)
-        return .init(requestFactory: factory)
+        return .init(withRequestFactory: factory)
     }()
 
     fileprivate(set) lazy var videos: [BCOVVideo] = .init()
@@ -36,8 +36,8 @@ final class VideoManager: NSObject {
                           completion: @escaping (BCOVPlaylist?, [AnyHashable: Any]?, Error?) -> Void) {
 
         playbackService.findPlaylist(withConfiguration: configuration, queryParameters: queryParameters) {
-            (playlist: BCOVPlaylist?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
-            completion(playlist, jsonResponse, error)
+            (playlist: BCOVPlaylist?, jsonResponse: Any?, error: Error?) in
+            completion(playlist, jsonResponse as? [AnyHashable : Any], error)
         }
     }
 
@@ -47,10 +47,10 @@ final class VideoManager: NSObject {
             return
         }
 
-        let configuration: [String: Any] = [ kBCOVPlaybackServiceConfigurationKeyAssetID: videoId ]
+        let configuration: [String: Any] = [ BCOVPlaybackService.ConfigurationKeyAssetID: videoId ]
         playbackService.findVideo(withConfiguration: configuration , queryParameters: nil) {
-            (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) in
-            completion(video, jsonResponse, error)
+            (video: BCOVVideo?, jsonResponse: Any?, error: Error?) in
+            completion(video, jsonResponse as? [AnyHashable : Any], error)
         }
     }
 
@@ -97,7 +97,7 @@ final class VideoManager: NSObject {
     fileprivate func cacheThumbnail(for video: BCOVVideo) {
         // videoId is the key in the image cache dictionary
         guard let videoId = video.videoId,
-              let sources = video.properties[kBCOVVideoPropertyKeyThumbnailSources] as? [[String: Any]] else {
+              let sources = video.properties[BCOVVideo.PropertyKeyThumbnailSources] as? [[String: Any]] else {
             return
         }
 
@@ -105,7 +105,7 @@ final class VideoManager: NSObject {
             guard let urlString = thumbnail["src"] as? String,
                   let url = URL(string: urlString),
                   let scheme = url.scheme,
-                  scheme.caseInsensitiveCompare(kBCOVSourceURLSchemeHTTPS) == .orderedSame else {
+                  scheme.caseInsensitiveCompare(BCOVSource.URLSchemeHTTPS) == .orderedSame else {
                 continue
             }
 

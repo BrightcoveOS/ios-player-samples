@@ -62,9 +62,8 @@ final class SettingsViewController: UIViewController {
 
     @IBOutlet fileprivate weak var sdkVersionLabel: UILabel! {
         didSet {
-            if let sdkVersion = BCOVPlayerSDKManager.version() {
-                sdkVersionLabel.text = "BrightcovePlayerSDK v\(sdkVersion)"
-            }
+            let sdkVersion = BCOVPlayerSDKManager.version()
+            sdkVersionLabel.text = "BrightcovePlayerSDK v\(sdkVersion)"
         }
     }
 

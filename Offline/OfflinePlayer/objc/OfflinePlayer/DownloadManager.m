@@ -5,8 +5,6 @@
 //  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
-#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
-
 #import "BCOVVideo+OfflinePlayer.h"
 #import "Notifications.h"
 #import "SettingsViewController.h"

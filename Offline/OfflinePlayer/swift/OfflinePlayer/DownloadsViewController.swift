@@ -168,30 +168,28 @@ final class DownloadsViewController: UIViewController {
     }()
 
     fileprivate lazy var playbackController: BCOVPlaybackController? = {
-        guard let sdkManager = BCOVPlayerSDKManager.sharedManager(),
-              let offlineManager = BCOVOfflineVideoManager.shared(),
-              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                         applicationId: nil),
-              let sourcePolicy = BCOVBasicSourceSelectionPolicy.sourceSelectionHLS(withScheme: kBCOVSourceURLSchemeHTTPS) else {
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+        guard let offlineManager = BCOVOfflineVideoManager.shared() else {
             return nil
         }
+        let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
+                                                   applicationId: nil)
+        let sourcePolicy = BCOVBasicSourceSelectionPolicy.sourceSelectionHLS(withScheme: BCOVSource.URLSchemeHTTPS)
 
         let bspOptions = BCOVBasicSessionProviderOptions()
         bspOptions.sourceSelectionPolicy = sourcePolicy
 
-        guard let bsp = sdkManager.createBasicSessionProvider(with: bspOptions) else {
-            return nil
-        }
+        let bsp = sdkManager.createBasicSessionProvider(withOptions: bspOptions)
 
         let fps = sdkManager.createFairPlaySessionProvider(withApplicationCertificate: nil,
                                                            authorizationProxy: authProxy,
                                                            upstreamSessionProvider: bsp)
 
-        guard let playerView,
-              let playbackController = sdkManager.createPlaybackController(with: fps,
-                                                                           viewStrategy: nil) else {
+        guard let playerView else {
             return nil
         }
+
+        let playbackController = sdkManager.createPlaybackController(withSessionProvider: fps, viewStrategy: nil)
 
         playbackController.delegate = self
         playbackController.isAutoAdvance = true
@@ -427,10 +425,9 @@ final class DownloadsViewController: UIViewController {
 
                     if let offlineVideoToken {
                         let updatedVideo = video.update { (mutableVideo: BCOVMutableVideo) in
-                            if var mutableProperties = mutableVideo.properties {
-                                mutableProperties[kBCOVOfflineVideoTokenPropertyKey] = offlineVideoToken
-                                mutableVideo.properties = mutableProperties
-                            }
+                            var mutableProperties = mutableVideo.properties
+                            mutableProperties[kBCOVOfflineVideoTokenPropertyKey] = offlineVideoToken
+                            mutableVideo.properties = mutableProperties
                         }
 
                         DispatchQueue.main.async {
@@ -522,7 +519,7 @@ final class DownloadsViewController: UIViewController {
                 return
             }
 
-            playbackController.setVideos([offlineVideoStatus.offlineVideo] as NSFastEnumeration)
+            playbackController.setVideos([offlineVideoStatus.offlineVideo])
             currentlyPlayingOfflineVideoToken = selectedOfflineVideoToken
 
         }

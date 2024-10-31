@@ -5,8 +5,6 @@
 //  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
-#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
-
 #import "BCOVVideo+OfflinePlayer.h"
 #import "DownloadManager.h"
 #import "Notifications.h"
@@ -140,7 +138,7 @@
         BCOVOfflineVideoManager.sharedManager.authProxy = authProxy;
 
         BCOVBasicSessionProviderOptions *bspOptions = [BCOVBasicSessionProviderOptions new];
-        bspOptions.sourceSelectionPolicy = [BCOVBasicSourceSelectionPolicy sourceSelectionHLSWithScheme:kBCOVSourceURLSchemeHTTPS];
+        bspOptions.sourceSelectionPolicy = [BCOVBasicSourceSelectionPolicy sourceSelectionHLSWithScheme:BCOVSource.URLSchemeHTTPS];
         id<BCOVPlaybackSessionProvider> bsp = [sdkManager createBasicSessionProviderWithOptions:bspOptions];
 
         id<BCOVPlaybackSessionProvider> fps = [sdkManager createFairPlaySessionProviderWithApplicationCertificate:nil
@@ -223,7 +221,7 @@
 {
     [self.refreshControl beginRefreshing];
 
-    NSDictionary *configuration = @{ kBCOVPlaybackServiceConfigurationKeyAssetReferenceID: kPlaylistRefId };
+    NSDictionary *configuration = @{ BCOVPlaybackService.ConfigurationKeyAssetReferenceID: kPlaylistRefId };
 
     NSDictionary *queryParams = @{ @"limit": @(100), @"offset": @(0) };
 
@@ -241,7 +239,7 @@
             [VideoManager.shared usePlaylist:playlist.videos
                                  withBitrate:settingViewController.bitrate];
 
-            self.headerLabel.text = playlist.properties[kBCOVPlaylistPropertiesKeyName] ?: @"Offline Player";
+            self.headerLabel.text = playlist.properties[BCOVPlaylist.PropertiesKeyName] ?: @"Offline Player";
             self.footerLabel.text = [NSString stringWithFormat:@"%lu %@",
                                            playlist.count,
                                            (playlist.count != 1 ? @"Videos" : @"Video")];

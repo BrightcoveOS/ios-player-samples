@@ -94,13 +94,13 @@ final class VideosViewController: UIViewController {
     }()
 
     fileprivate lazy var playbackController: BCOVPlaybackController? = {
-        guard let sdkManager = BCOVPlayerSDKManager.sharedManager(),
-              let offlineManager = BCOVOfflineVideoManager.shared(),
-              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                         applicationId: nil),
-              let sourcePolicy = BCOVBasicSourceSelectionPolicy.sourceSelectionHLS(withScheme: kBCOVSourceURLSchemeHTTPS) else {
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+        guard let offlineManager = BCOVOfflineVideoManager.shared() else {
             return nil
         }
+        let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
+                                                   applicationId: nil)
+        let sourcePolicy = BCOVBasicSourceSelectionPolicy.sourceSelectionHLS(withScheme: BCOVSource.URLSchemeHTTPS)
 
         // You can use the same auth proxy for the offline video manager
         // and the call to create the FairPlay session provider.
@@ -109,19 +109,15 @@ final class VideosViewController: UIViewController {
         let bspOptions = BCOVBasicSessionProviderOptions()
         bspOptions.sourceSelectionPolicy = sourcePolicy
 
-        guard let bsp = sdkManager.createBasicSessionProvider(with: bspOptions) else {
+        let bsp = sdkManager.createBasicSessionProvider(withOptions: bspOptions)
+
+        let fps = sdkManager.createFairPlaySessionProvider(withApplicationCertificate: nil, authorizationProxy: authProxy, upstreamSessionProvider: bsp)
+
+        guard let playerView else {
             return nil
         }
 
-        let fps = sdkManager.createFairPlaySessionProvider(withApplicationCertificate: nil,
-                                                           authorizationProxy: authProxy,
-                                                           upstreamSessionProvider: bsp)
-
-        guard let playerView,
-              let playbackController = sdkManager.createPlaybackController(with: fps,
-                                                                           viewStrategy: nil) else {
-            return nil
-        }
+        let playbackController = sdkManager.createPlaybackController(withSessionProvider: fps, viewStrategy: nil)
 
         playbackController.delegate = self
         playbackController.isAutoAdvance = true
@@ -220,7 +216,7 @@ final class VideosViewController: UIViewController {
 
         let queryParams = ["limit": 100, "offset": 0]
 
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetReferenceID: kPlaylistRefId]
+        let configuration = [BCOVPlaybackService.ConfigurationKeyAssetReferenceID: kPlaylistRefId]
         VideoManager.shared.retrievePlaylist(with: configuration,
                                              queryParameters: queryParams) {
             [self] (playlist: BCOVPlaylist?, json: [AnyHashable: Any]?, error: Error?) in
@@ -228,15 +224,16 @@ final class VideosViewController: UIViewController {
             refreshControl.endRefreshing()
 
             if let playlist,
-               let videos = playlist.videos as? [BCOVVideo],
                let tabBarController,
                let settingsViewController = tabBarController.settingsViewController {
+
+                let videos = playlist.videos
 
                 let bitrate = settingsViewController.bitrate
                 VideoManager.shared.usePlaylist(videos,
                                                 with: bitrate)
 
-                headerLabel.text = playlist.properties[kBCOVPlaylistPropertiesKeyName] as? String ?? "Offline Player"
+                headerLabel.text = playlist.properties[BCOVPlaylist.PropertiesKeyName] as? String ?? "Offline Player"
                 footerLabel.text = "\(videos.count) \(videos.count != 1 ? "Videos" : "Video")"
             } else {
                 print("No playlist for Id \"\(kPlaylistRefId)\" was found.")
@@ -339,7 +336,7 @@ extension VideosViewController: UITableViewDelegate {
 
         if let playbackController {
             if !(UIDevice.current.isSimulator && video.usesFairPlay) {
-                playbackController.setVideos([video] as NSFastEnumeration)
+                playbackController.setVideos([video])
             } else {
                 UIAlertController.showWith(title: "FairPlay Warning",
                                            message: "FairPlay only works on actual iOS devices.\n\nYou will not be able to view any FairPlay content in the iOS simulator.")

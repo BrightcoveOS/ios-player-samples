@@ -5,8 +5,6 @@
 //  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
-#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
-
 #import "BCOVVideo+OfflinePlayer.h"
 #import "UIDevice+OfflinePlayer.h"
 #import "UITableViewCell+OfflinePlayer.h"

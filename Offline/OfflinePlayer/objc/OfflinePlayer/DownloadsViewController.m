@@ -5,8 +5,6 @@
 //  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
-#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
-
 #import "BCOVOfflineVideoStatus+OfflinePlayer.h"
 #import "BCOVVideo+OfflinePlayer.h"
 #import "DownloadManager.h"
@@ -164,7 +162,7 @@
                                                                                           applicationId:nil];
 
         BCOVBasicSessionProviderOptions *bspOptions = [BCOVBasicSessionProviderOptions new];
-        bspOptions.sourceSelectionPolicy = [BCOVBasicSourceSelectionPolicy sourceSelectionHLSWithScheme:kBCOVSourceURLSchemeHTTPS];
+        bspOptions.sourceSelectionPolicy = [BCOVBasicSourceSelectionPolicy sourceSelectionHLSWithScheme:BCOVSource.URLSchemeHTTPS];
         id<BCOVPlaybackSessionProvider> bsp = [sdkManager createBasicSessionProviderWithOptions:bspOptions];
 
         id<BCOVPlaybackSessionProvider> fps = [sdkManager createFairPlaySessionProviderWithApplicationCertificate:nil
@@ -432,7 +430,7 @@
                                                                           offlineVideoToken,
                                                                           NSError *error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    BCOVVideo *updatedVideo = [video update:^(id<BCOVMutableVideo> _Nonnull mutableVideo) {
+                    BCOVVideo *updatedVideo = [video update:^(BCOVMutableVideo* mutableVideo) {
                         NSMutableDictionary *mutableProperties = mutableVideo.properties.mutableCopy;
                         if (offlineVideoToken)
                         {

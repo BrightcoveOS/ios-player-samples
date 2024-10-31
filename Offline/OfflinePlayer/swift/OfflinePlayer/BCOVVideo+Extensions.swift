@@ -11,23 +11,23 @@ import BrightcovePlayerSDK
 extension BCOVVideo {
 
     var accountId: String? {
-        return properties[kBCOVVideoPropertyKeyAccountId] as? String
+        return properties[BCOVVideo.PropertyKeyAccountId] as? String
     }
 
     var videoId: String? {
-        return properties[kBCOVVideoPropertyKeyId] as? String
+        return properties[BCOVVideo.PropertyKeyId] as? String
     }
 
     var localizedName: String? {
-        return localizedNameForLocale(self, nil)
+        return self.localizedName(forLocale: nil)
     }
 
     var localizedShortDescription: String? {
-        return localizedShortDescriptionForLocale(self, nil)
+        return self.localizedShortDescription(forLocale: nil)
     }
 
     var duration: String {
-        guard let durationNumber = properties[kBCOVVideoPropertyKeyDuration] as? NSNumber else {
+        guard let durationNumber = properties[BCOVVideo.PropertyKeyDuration] as? NSNumber else {
             return ""
         }
 
