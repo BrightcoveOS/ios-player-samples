@@ -135,15 +135,15 @@
     self.currentVideo = video;
 
     NSString *videoURL = source.url.absoluteString;
-    NSString *name = video.properties[kBCOVVideoPropertyKeyName];
-    NSNumber *durationNumber = video.properties[kBCOVVideoPropertyKeyDuration];
+    NSString *name = video.properties[BCOVVideo.PropertyKeyName];
+    NSNumber *durationNumber = video.properties[BCOVVideo.PropertyKeyDuration];
 
     GCKMediaMetadata *metadata = [[GCKMediaMetadata alloc]
                                   initWithMetadataType:GCKMediaMetadataTypeGeneric];
     [metadata setString:name
                  forKey:kGCKMetadataKeyTitle];
 
-    NSString *poster = video.properties[kBCOVVideoPropertyKeyPoster];
+    NSString *poster = video.properties[BCOVVideo.PropertyKeyPoster];
     if (poster)
     {
         NSURL *imageURL = [NSURL URLWithString:poster];
@@ -157,7 +157,7 @@
 
     NSMutableArray *mediaTracks = @[].mutableCopy;
 
-    NSArray *textTracks = video.properties[kBCOVVideoPropertyKeyTextTracks];
+    NSArray *textTracks = video.properties[BCOVVideo.PropertyKeyTextTracks];
 
     NSInteger trackIdentifier = 0;
 

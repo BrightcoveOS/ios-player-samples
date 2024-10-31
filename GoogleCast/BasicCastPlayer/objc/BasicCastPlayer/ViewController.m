@@ -10,8 +10,8 @@
 // and use it instead of BCOVGoogleCastManager.
 #define USE_BCOVGOOGLECAST_MANAGER 1
 
+@import BrightcovePlayerSDK;
 #import <GoogleCast/GoogleCast.h>
-#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
 #import <BrightcoveGoogleCast/BrightcoveGoogleCast.h>
 
 #import "AppDelegate.h"
@@ -194,7 +194,7 @@ static NSString * const kPlaylistRefId = @"brightcove-native-sdk-plist";
 {
     __weak typeof(self) weakSelf = self;
 
-    NSDictionary *configuration = @{ kBCOVPlaybackServiceConfigurationKeyAssetReferenceID: kPlaylistRefId };
+    NSDictionary *configuration = @{ BCOVPlaybackService.ConfigurationKeyAssetReferenceID: kPlaylistRefId };
     [self.playbackService findPlaylistWithConfiguration:configuration
                                         queryParameters:nil
                                              completion:^(BCOVPlaylist *playlist,
@@ -205,7 +205,7 @@ static NSString * const kPlaylistRefId = @"brightcove-native-sdk-plist";
 
         if (playlist)
         {
-            strongSelf.headerLabel.text = playlist.properties[kBCOVPlaylistPropertiesKeyName] ?: @"BasicCastPlayer";
+            strongSelf.headerLabel.text = playlist.properties[BCOVPlaylist.PropertiesKeyName] ?: @"BasicCastPlayer";
 #if TARGET_OS_SIMULATOR
             NSPredicate *fairPlayPredicate = [NSPredicate predicateWithFormat:@"self.usesFairPlay == %@", @(NO)];
             strongSelf.videos = [playlist.videos filteredArrayUsingPredicate:fairPlayPredicate];
@@ -364,7 +364,7 @@ willTransitionToScreenMode:(BCOVPUIScreenMode)screenMode
     }
 
     BCOVVideo *video = self.videos[indexPath.row];
-    videoCell.textLabel.text = video.properties[kBCOVVideoPropertyKeyName] ?: @"";
+    videoCell.textLabel.text = video.properties[BCOVVideo.PropertyKeyName] ?: @"";
 
     return videoCell;
 }

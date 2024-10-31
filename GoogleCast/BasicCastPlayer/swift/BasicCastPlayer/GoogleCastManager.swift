@@ -50,11 +50,15 @@ final class GoogleCastManager: NSObject {
                                          withHTTPS: Bool) -> BCOVSource? {
         // We prioritize HLS v3 > DASH v1 > MP4
         let filteredSources = sources.filter { (source: BCOVSource) -> Bool in
-            if withHTTPS {
-                return source.url.absoluteString.hasPrefix("https://")
-            }
+            if let url = source.url {
+                if withHTTPS {
+                    return url.absoluteString.hasPrefix("https://")
+                }
 
-            return source.url.absoluteString.hasPrefix("http://")
+                return url.absoluteString.hasPrefix("http://")
+            }else{
+                return false
+            }
         }
 
         var hlsSource: BCOVSource?
@@ -62,7 +66,7 @@ final class GoogleCastManager: NSObject {
         var mp4Source: BCOVSource?
 
         for source in filteredSources {
-            let urlString = source.url.absoluteString
+            let urlString = source.url!.absoluteString
             let deliveryMethod = source.deliveryMethod
 
             if urlString.contains("hls/v3") &&
@@ -104,7 +108,7 @@ final class GoogleCastManager: NSObject {
 
         // Don't restart the current video
         if let currentVideo {
-            didContinueCurrentVideo = currentVideo.isEqual(to: video)
+            didContinueCurrentVideo = currentVideo.isEqual(video)
             if didContinueCurrentVideo { return }
         }
 
@@ -121,7 +125,7 @@ final class GoogleCastManager: NSObject {
 
         // If no source was able to be found, let the delegate know
         // and do not continue
-        guard let source else {
+        guard let source, let url = source.url else {
             suitableSourceNotFound = true
             delegate?.suitableSourceNotFound()
             return
@@ -129,14 +133,14 @@ final class GoogleCastManager: NSObject {
 
         currentVideo = video
 
-        let videoURL = source.url.absoluteString
-        let name = video.properties[kBCOVVideoPropertyKeyName] as! String
-        let durationNumber = video.properties[kBCOVVideoPropertyKeyDuration] as! NSNumber
+        let videoURL = url.absoluteString
+        let name = video.properties[BCOVVideo.PropertyKeyName] as! String
+        let durationNumber = video.properties[BCOVVideo.PropertyKeyDuration] as! NSNumber
 
         let metaData = GCKMediaMetadata(metadataType: .generic)
         metaData.setString(name, forKey: kGCKMetadataKeyTitle)
 
-        if let poster = video.properties[kBCOVVideoPropertyKeyPoster] as? String,
+        if let poster = video.properties[BCOVVideo.PropertyKeyPoster] as? String,
            let imageURL = URL(string: poster) {
             let image = GCKImage(url: imageURL,
                                  width:Int(posterImageSize.width),
@@ -146,7 +150,7 @@ final class GoogleCastManager: NSObject {
 
         var mediaTracks = [GCKMediaTrack]()
 
-        let textTracks = video.properties[kBCOVVideoPropertyKeyTextTracks] as! [[String: AnyHashable]]
+        let textTracks = video.properties[BCOVVideo.PropertyKeyTextTracks] as! [[String: AnyHashable]]
 
         var trackIdentifier = 0
 

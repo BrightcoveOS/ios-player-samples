@@ -5,8 +5,9 @@
 //  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
+@import BrightcovePlayerSDK;
+
 #import <UIKit/UIKit.h>
-#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
 
 
 @protocol GoogleCastManagerDelegate <NSObject>
