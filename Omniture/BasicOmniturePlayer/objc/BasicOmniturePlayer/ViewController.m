@@ -5,7 +5,7 @@
 //  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
-#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
+@import BrightcovePlayerSDK;
 #import <BrightcoveAMC/BrightcoveAMC.h>
 
 #import "ADBMobile.h"
@@ -160,7 +160,7 @@ static NSString * const kVideoId = @"6140448705001";
 {
     __weak typeof(self) weakSelf = self;
 
-    NSDictionary *configuration = @{ kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId };
+    NSDictionary *configuration = @{ BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId };
     [self.playbackService findVideoWithConfiguration:configuration
                                      queryParameters:nil
                                           completion:^(BCOVVideo *video,
