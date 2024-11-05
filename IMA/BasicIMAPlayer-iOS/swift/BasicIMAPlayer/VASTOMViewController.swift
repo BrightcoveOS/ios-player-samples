@@ -39,8 +39,9 @@ final class VASTOMViewController: BaseViewController {
         // which allows us to modify the IMAAdsRequest object before it is used to load ads.
         let imaPlaybackSessionOptions = [kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self]
 
-        guard let sdkManager = BCOVPlayerSDKManager.shared(),
-              let playerView,
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+
+        guard let playerView,
               let contentOverlayView = playerView.contentOverlayView,
               let fps,
               let imaSessionProvider = sdkManager.createIMASessionProvider(with: imaSettings,
@@ -50,11 +51,12 @@ final class VASTOMViewController: BaseViewController {
                                                                            viewController: self,
                                                                            companionSlots: companionAdSlots,
                                                                            upstreamSessionProvider: fps,
-                                                                           options: imaPlaybackSessionOptions),
-              let playbackController = sdkManager.createPlaybackController(with: imaSessionProvider,
-                                                                           viewStrategy: nil) else {
+                                                                           options: imaPlaybackSessionOptions) else {
             return
         }
+
+        let playbackController = sdkManager.createPlaybackController(withSessionProvider: imaSessionProvider,
+                                                                     viewStrategy: nil)
 
         playbackController.delegate = self
         playbackController.isAutoAdvance = true

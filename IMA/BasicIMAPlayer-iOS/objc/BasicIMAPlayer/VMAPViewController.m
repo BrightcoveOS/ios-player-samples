@@ -90,7 +90,7 @@ static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampa
     if (self.useVideoProperties)
     {
         // Update each video to add the tag.
-        return [video update:^(id<BCOVMutableVideo> mutableVideo) {
+        return [video update:^(BCOVMutableVideo* mutableVideo) {
 
             // The BCOVIMA plugin will look for the presence of kBCOVIMAAdTag in
             // the video's properties when using ad rules. This URL returns

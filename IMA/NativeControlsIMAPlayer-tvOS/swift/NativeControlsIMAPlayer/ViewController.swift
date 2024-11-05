@@ -24,9 +24,9 @@ let kVMAPAdTagURL = "http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=%2
 final class ViewController: UIViewController {
 
     fileprivate lazy var playbackService: BCOVPlaybackService = {
-        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+        let factory = BCOVPlaybackServiceRequestFactory(withAccountId: kAccountId,
                                                         policyKey: kPolicyKey)
-        return .init(requestFactory: factory)
+        return .init(withRequestFactory: factory)
     }()
 
     fileprivate lazy var avpvc: AVPlayerViewController = {
@@ -39,14 +39,11 @@ final class ViewController: UIViewController {
     }()
 
     fileprivate lazy var playbackController: BCOVPlaybackController? = {
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+        let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
+                                                   applicationId: nil)
 
-        guard let sdkManager = BCOVPlayerSDKManager.shared(),
-              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                         applicationId: nil) else {
-            return nil
-        }
-
-        let fps = sdkManager.createFairPlaySessionProvider(with: authProxy,
+        let fps = sdkManager.createFairPlaySessionProvider(withAuthorizationProxy: authProxy,
                                                            upstreamSessionProvider: nil)
 
         let imaSettings = IMASettings()
@@ -69,11 +66,12 @@ final class ViewController: UIViewController {
                                                                            viewController: avpvc,
                                                                            companionSlots: nil,
                                                                            upstreamSessionProvider: fps,
-                                                                           options: imaPlaybackSessionOptions),
-              let playbackController = sdkManager.createPlaybackController(with: imaSessionProvider,
-                                                                           viewStrategy: nil) else {
+                                                                           options: imaPlaybackSessionOptions) else {
             return nil
         }
+        
+        let playbackController = sdkManager.createPlaybackController(withSessionProvider: imaSessionProvider,
+                                                                     viewStrategy: nil)
 
         // Prevents the Brightcove SDK from making an unnecessary AVPlayerLayer
         // since the AVPlayerViewController already makes one
@@ -131,11 +129,11 @@ final class ViewController: UIViewController {
     }
 
     fileprivate func requestContentFromPlaybackService() {
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId]
+        let configuration = [BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId]
         playbackService.findVideo(withConfiguration: configuration,
                                   queryParameters: nil) {
             [self] (video: BCOVVideo?,
-                    jsonResponse: [AnyHashable: Any]?,
+                    jsonResponse: Any?,
                     error: Error?) in
             guard let video,
                   let playbackController else {
@@ -171,7 +169,7 @@ final class ViewController: UIViewController {
 #endif
 
             let updatedVideo = updateVideoWithVMAPTag(video)
-            playbackController.setVideos([updatedVideo] as NSFastEnumeration)
+            playbackController.setVideos([updatedVideo])
         }
     }
 
@@ -182,10 +180,9 @@ final class ViewController: UIViewController {
             // The BCOVIMA plugin will look for the presence of kBCOVIMAAdTag in
             // the video's properties when using server side ad rules. This URL returns
             // a VMAP response that is handled by the Google IMA library.
-            if var updatedProperties = mutableVideo.properties {
-                updatedProperties[kBCOVIMAAdTag] = kVMAPAdTagURL
-                mutableVideo.properties = updatedProperties
-            }
+            var updatedProperties = mutableVideo.properties
+            updatedProperties[kBCOVIMAAdTag] = kVMAPAdTagURL
+            mutableVideo.properties = updatedProperties
         }
     }
 
@@ -195,19 +192,19 @@ final class ViewController: UIViewController {
         var metadataArray = [AVMetadataItem]()
 
         // Title
-        if let title = video.properties[kBCOVVideoPropertyKeyName] as? String {
+        if let title = video.properties[BCOVVideo.PropertyKeyName] as? String {
             metadataArray.append(makeMetadataItem(withIdentifier: AVMetadataIdentifier.commonIdentifierTitle,
                                                   andValue: title))
         }
 
         // Desc
-        if let desc = video.properties[kBCOVVideoPropertyKeyDescription] as? String {
+        if let desc = video.properties[BCOVVideo.PropertyKeyDescription] as? String {
             metadataArray.append(makeMetadataItem(withIdentifier: AVMetadataIdentifier.commonIdentifierDescription,
                                                   andValue: desc))
         }
 
         // Poster
-        if let posterURLString = video.properties[kBCOVVideoPropertyKeyPoster] as? String,
+        if let posterURLString = video.properties[BCOVVideo.PropertyKeyPoster] as? String,
            let posterURL = URL(string: posterURLString) {
             do {
                 let posterData = try Data(contentsOf: posterURL)

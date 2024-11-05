@@ -68,7 +68,7 @@ static NSString * const kVASTOMAdTagURL = @"https://pubads.g.doubleclick.net/gam
 {
     NSDictionary *properties = @{ kBCOVIMAAdTag: kVASTOMAdTagURL };
 
-    return [video update:^(id<BCOVMutableVideo> mutableVideo)
+    return [video update:^(BCOVMutableVideo* mutableVideo)
     {
         mutableVideo.cuePoints = [[BCOVCuePointCollection alloc] initWithArray:@[
             [[BCOVCuePoint alloc] initWithType:kBCOVIMACuePointTypeAd 

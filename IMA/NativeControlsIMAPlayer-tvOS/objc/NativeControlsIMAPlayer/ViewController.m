@@ -152,7 +152,7 @@ static NSString * const kVMAPAdTagURL = @"http://pubads.g.doubleclick.net/gampad
 {
     __weak typeof(self) weakSelf = self;
 
-    NSDictionary *configuration = @{ kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId };
+    NSDictionary *configuration = @{ BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId };
     [self.playbackService findVideoWithConfiguration:configuration
                                      queryParameters:nil
                                           completion:^(BCOVVideo *video,
@@ -194,7 +194,7 @@ static NSString * const kVMAPAdTagURL = @"http://pubads.g.doubleclick.net/gampad
 
 - (BCOVVideo *)updateVideoWithVMAPTag:(BCOVVideo *)video
 {
-    return [video update:^(id<BCOVMutableVideo> mutableVideo) {
+    return [video update:^(BCOVMutableVideo* mutableVideo) {
 
         // The BCOVIMA plugin will look for the presence of kBCOVIMAAdTag in
         // the video's properties when using server side ad rules. This URL returns
@@ -215,7 +215,7 @@ static NSString * const kVMAPAdTagURL = @"http://pubads.g.doubleclick.net/gampad
     NSMutableArray *metadataArray = @[].mutableCopy;
 
     // Title
-    NSString *title = [video.properties[kBCOVVideoPropertyKeyName] copy];
+    NSString *title = [video.properties[BCOVVideo.PropertyKeyName] copy];
     if (title)
     {
         [metadataArray addObject:[self makeMetadataItem:AVMetadataCommonIdentifierTitle
@@ -223,7 +223,7 @@ static NSString * const kVMAPAdTagURL = @"http://pubads.g.doubleclick.net/gampad
     }
 
     // Desc
-    NSString *desc = [video.properties[kBCOVVideoPropertyKeyDescription] copy];
+    NSString *desc = [video.properties[BCOVVideo.PropertyKeyDescription] copy];
     if (desc)
     {
         [metadataArray addObject:[self makeMetadataItem:AVMetadataCommonIdentifierDescription
@@ -231,7 +231,7 @@ static NSString * const kVMAPAdTagURL = @"http://pubads.g.doubleclick.net/gampad
     }
 
     // Poster
-    NSString *posterURLString = [video.properties[kBCOVVideoPropertyKeyPoster] copy];
+    NSString *posterURLString = [video.properties[BCOVVideo.PropertyKeyPoster] copy];
     NSURL *posterURL = [NSURL URLWithString:posterURLString];
     if (posterURL)
     {

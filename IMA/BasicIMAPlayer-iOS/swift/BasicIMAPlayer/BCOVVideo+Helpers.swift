@@ -73,10 +73,9 @@ extension BCOVVideo {
             // The BCOVIMA plugin will look for the presence of kBCOVIMAAdTag in
             // the video's properties when using ad rules. This URL returns
             // a VMAP response that is handled by the Google IMA library.
-            if var updatedProperties = mutableVideo.properties {
-                updatedProperties[kBCOVIMAAdTag] = vmapTag
-                mutableVideo.properties = updatedProperties
-            }
+            var updatedProperties = mutableVideo.properties
+            updatedProperties[kBCOVIMAAdTag] = vmapTag
+            mutableVideo.properties = updatedProperties
         }
     }
 }
