@@ -117,7 +117,7 @@ static NSString * const kVideoId = @"5702141808001";
 {
     __weak typeof(self) weakSelf = self;
     
-    NSDictionary *configuration = @{ kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId };
+    NSDictionary *configuration = @{ BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId };
     [self.playbackService findVideoWithConfiguration:configuration
                                      queryParameters:nil
                                           completion:^(BCOVVideo *video,
@@ -190,7 +190,7 @@ static NSString * const kVideoId = @"5702141808001";
     }
     
     // Now update the BCOVVideo with our new text tracks array
-    video = [video update:^(id<BCOVMutableVideo> _Nonnull mutableVideo) {
+    video = [video update:^(BCOVMutableVideo* mutableVideo) {
         NSMutableDictionary *props = mutableVideo.properties.mutableCopy;
         props[@"text_tracks"] = usableTextTracks;
         mutableVideo.properties = props;

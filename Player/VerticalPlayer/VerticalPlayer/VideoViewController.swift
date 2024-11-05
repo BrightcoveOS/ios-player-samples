@@ -28,20 +28,16 @@ final class VideoViewController: UIViewController {
     @IBOutlet fileprivate weak var posterView: UIImageView!
 
     fileprivate lazy var playbackController: BCOVPlaybackController? = {
-        guard let sdkManager = BCOVPlayerSDKManager.sharedManager(),
-              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                         applicationId: nil) else {
-            return nil
-        }
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+        let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
+                                                         applicationId: nil)
 
         let fps = sdkManager.createFairPlaySessionProvider(withApplicationCertificate: nil,
                                                            authorizationProxy: authProxy,
                                                            upstreamSessionProvider: nil)
 
-        guard let playbackController = sdkManager.createPlaybackController(with: fps,
-                                                                           viewStrategy: nil) else {
-            return nil
-        }
+        let playbackController = sdkManager.createPlaybackController(withSessionProvider: fps,
+                                                                           viewStrategy: nil)
 
         // Prevents the Brightcove SDK from making an unnecessary AVPlayerLayer
         // since the AVPlayerViewController already makes one
@@ -84,7 +80,7 @@ final class VideoViewController: UIViewController {
         } else {
             guard let video else { return }
 
-            if let posterURLStr = video.properties[kBCOVVideoPropertyKeyPoster] as? String,
+            if let posterURLStr = video.properties[BCOVVideo.PropertyKeyPoster] as? String,
                let posterURL = URL(string: posterURLStr) {
                 let urlRequest = URLRequest(url: posterURL)
                 URLSession.shared.dataTask(with: urlRequest) {
@@ -103,10 +99,10 @@ final class VideoViewController: UIViewController {
                 }.resume()
             }
 
-            videoDescriptionLabel.text = video.properties[kBCOVVideoPropertyKeyDescription] as? String ?? ""
+            videoDescriptionLabel.text = video.properties[BCOVVideo.PropertyKeyDescription] as? String ?? ""
 
             if let playbackController {
-                playbackController.setVideos([video] as NSFastEnumeration)
+                playbackController.setVideos([video])
 
                 didSetVideo = true
             }
@@ -122,8 +118,8 @@ final class VideoViewController: UIViewController {
     @IBAction
     fileprivate func handleShareButton(_ button: UIBarButtonItem) {
         guard let video,
-              let videoName = video.properties[kBCOVVideoPropertyKeyName] as? String,
-              let posterURLStr = video.properties[kBCOVVideoPropertyKeyPoster] as? String,
+              let videoName = video.properties[BCOVVideo.PropertyKeyName] as? String,
+              let posterURLStr = video.properties[BCOVVideo.PropertyKeyPoster] as? String,
               let posterURL = URL(string: posterURLStr) else {
             return
         }

@@ -79,7 +79,7 @@ static NSString * const kVideoURLString = @"<URL of Live HLS>";
 
     NSURL *videoURL = [NSURL URLWithString:kVideoURLString];
     BCOVSource *source = [[BCOVSource alloc] initWithURL:videoURL 
-                                          deliveryMethod:kBCOVSourceDeliveryHLS
+                                          deliveryMethod:BCOVSource.DeliveryHLS
                                               properties:nil];
     BCOVVideo *video = [[BCOVVideo alloc] initWithSource:source 
                                                cuePoints:nil

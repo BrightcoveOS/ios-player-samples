@@ -84,7 +84,7 @@ static NSString * const kPlaylistRefId = @"brightcove-native-sdk-plist";
 {
     __weak typeof(self) weakSelf = self;
 
-    NSDictionary *configuration = @{kBCOVPlaybackServiceConfigurationKeyAssetReferenceID:kPlaylistRefId };
+    NSDictionary *configuration = @{BCOVPlaybackService.ConfigurationKeyAssetReferenceID:kPlaylistRefId };
     [self.playbackService findPlaylistWithConfiguration:configuration
                                         queryParameters:nil
                                              completion:^(BCOVPlaylist *playlist,

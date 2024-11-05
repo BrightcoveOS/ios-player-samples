@@ -133,7 +133,7 @@ static NSString * const kVideoId = @"1685628526640737870";
 {
     __weak typeof(self) weakSelf = self;
 
-    NSDictionary *configuration = @{ kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId };
+    NSDictionary *configuration = @{ BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId };
     [self.playbackService findVideoWithConfiguration:configuration
                                      queryParameters:nil
                                           completion:^(BCOVVideo *video,
@@ -164,7 +164,7 @@ static NSString * const kVideoId = @"1685628526640737870";
 #endif
 
             // Check "projection" property to confirm that this is a 360 degree video
-            NSString *projectionProperty = video.properties[kBCOVVideoPropertyKeyProjection];
+            NSString *projectionProperty = video.properties[BCOVVideo.PropertyKeyProjection];
 
             if ([projectionProperty isEqualToString:@"equirectangular"])
             {

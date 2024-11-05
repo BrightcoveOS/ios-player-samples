@@ -90,7 +90,7 @@ final class VideoTableViewCell: UITableViewCell {
             playerView.playbackController = playbackController
         }
         
-        if let videoTitle = video.properties[kBCOVVideoPropertyKeyName] as? String {
+        if let videoTitle = video.properties[BCOVVideo.PropertyKeyName] as? String {
             videoLabel.text = videoTitle
         }
     }

@@ -21,9 +21,9 @@ final class ViewController: UIViewController {
     @IBOutlet fileprivate weak var videoContainerView: UIView!
 
     fileprivate lazy var playbackService: BCOVPlaybackService = {
-        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+        let factory = BCOVPlaybackServiceRequestFactory(withAccountId: kAccountId,
                                                         policyKey: kPolicyKey)
-        return .init(requestFactory: factory)
+        return .init(withRequestFactory: factory)
     }()
 
     fileprivate lazy var playerView: BCOVPUIPlayerView? = {
@@ -68,22 +68,23 @@ final class ViewController: UIViewController {
     }
 
     fileprivate func requestContentFromPlaybackService() {
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetReferenceID: kPlaylistRefId]
+        let configuration = [BCOVPlaybackService.ConfigurationKeyAssetReferenceID: kPlaylistRefId]
         playbackService.findPlaylist(withConfiguration: configuration,
                                      queryParameters: nil) {
             [self] (playlist: BCOVPlaylist?,
-                    json: [AnyHashable:Any]?,
+                    json: Any?,
                     error: Error?) in
 
             guard let videoPreloadManager,
-                  let playlist,
-                  let videos = playlist.videos as? [BCOVVideo] else {
+                  let playlist else {
                 if let error {
                     print("ViewController - Error retrieving video playlist: \(error.localizedDescription)")
                 }
 
                 return
             }
+
+            let videos = playlist.videos
 
 #if targetEnvironment(simulator)
             videoPreloadManager.videos = videos.filter({ !$0.usesFairPlay })

@@ -123,8 +123,8 @@ extension NowPlayingHandler: BCOVPlaybackSessionConsumer {
 
         nowPlayingInfo = [String: AnyHashable]()
 
-        guard let videoName = localizedNameForLocale(session.video, nil),
-              let durationNum = session.video.properties[kBCOVVideoPropertyKeyDuration] as? NSNumber else {
+        guard let videoName = session.video.localizedName(forLocale: nil),
+              let durationNum = session.video.properties[BCOVVideo.PropertyKeyDuration] as? NSNumber else {
             return
         }
 
@@ -137,7 +137,7 @@ extension NowPlayingHandler: BCOVPlaybackSessionConsumer {
         let infoCenter = MPNowPlayingInfoCenter.default()
         infoCenter.nowPlayingInfo = nowPlayingInfo
 
-        if let posterURL = session.video.properties[kBCOVVideoPropertyKeyPoster] as? String,
+        if let posterURL = session.video.properties[BCOVVideo.PropertyKeyPoster] as? String,
            let url = URL(string: posterURL) {
             DispatchQueue.global(qos: .background).async { [self] in
                 do {

@@ -144,14 +144,14 @@ static void * const KVOContext = (void*)&KVOContext;
     MPNowPlayingInfoCenter *infoCenter = MPNowPlayingInfoCenter.defaultCenter;
 
     self.nowPlayingInfo = @{}.mutableCopy;
-    self.nowPlayingInfo[MPMediaItemPropertyTitle] = localizedNameForLocale(session.video, nil);
+    self.nowPlayingInfo[MPMediaItemPropertyTitle] = [session.video localizedNameForLocale:nil];
 
-    NSNumber *durationNumber = session.video.properties[kBCOVVideoPropertyKeyDuration];
+    NSNumber *durationNumber = session.video.properties[BCOVVideo.PropertyKeyDuration];
     self.nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = @(durationNumber.doubleValue / 1000);
 
     infoCenter.nowPlayingInfo = self.nowPlayingInfo;
 
-    NSString *posterURL = session.video.properties[kBCOVVideoPropertyKeyPoster];
+    NSString *posterURL = session.video.properties[BCOVVideo.PropertyKeyPoster];
     NSURL *url = [NSURL URLWithString:posterURL];
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{

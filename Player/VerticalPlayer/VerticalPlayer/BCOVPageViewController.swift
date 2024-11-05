@@ -18,9 +18,9 @@ let kPlaylistId = "1791438459701684628"
 final class BCOVPageViewController: UIPageViewController {
 
     fileprivate lazy var playbackService: BCOVPlaybackService = {
-        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+        let factory = BCOVPlaybackServiceRequestFactory(withAccountId: kAccountId,
                                                         policyKey: kPolicyKey)
-        return .init(requestFactory: factory)
+        return .init(withRequestFactory: factory)
     }()
 
     fileprivate lazy var videos: [BCOVVideo] = .init()
@@ -39,19 +39,20 @@ final class BCOVPageViewController: UIPageViewController {
     }
 
     fileprivate func requestContentFromPlaybackService() {
-        let configuration = [ kBCOVPlaybackServiceConfigurationKeyAssetID: kPlaylistId]
+        let configuration = [ BCOVPlaybackService.ConfigurationKeyAssetID: kPlaylistId]
         playbackService.findPlaylist(withConfiguration: configuration, queryParameters: nil) {
             [self] (playlist: BCOVPlaylist?,
-                    json: [AnyHashable:Any]?,
+                    json: Any?,
                     error: Error?) in
-            guard let playlist,
-                  let videos = playlist.videos as? [BCOVVideo] else {
+            guard let playlist else {
                 if let error {
                     print("ViewController - Error retrieving video playlist: \(error.localizedDescription)")
                 }
 
                 return
             }
+
+            let videos = playlist.videos
 
 #if targetEnvironment(simulator)
             self.videos = videos.filter({ !$0.usesFairPlay })
@@ -72,7 +73,7 @@ final class BCOVPageViewController: UIPageViewController {
     }
 
     fileprivate func fetchPoster(video: BCOVVideo) {
-        guard let posterURLStr = video.properties[kBCOVVideoPropertyKeyPoster] as? String,
+        guard let posterURLStr = video.properties[BCOVVideo.PropertyKeyPoster] as? String,
               let posterURL = URL(string: posterURLStr) else {
             return
         }

@@ -29,9 +29,9 @@ final class PlaybackConfiguration {
 final class ViewController: UITableViewController {
 
     fileprivate lazy var playbackService: BCOVPlaybackService = {
-        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+        let factory = BCOVPlaybackServiceRequestFactory(withAccountId: kAccountId,
                                                         policyKey: kPolicyKey)
-        return .init(requestFactory: factory)
+        return .init(withRequestFactory: factory)
     }()
 
     fileprivate lazy var playbackConfigurations = [String: PlaybackConfiguration]()
@@ -40,14 +40,15 @@ final class ViewController: UITableViewController {
             guard let videos else { return }
 
             for video in videos {
-                guard let videoId = video.properties[kBCOVVideoPropertyKeyId] as? String,
-                      let sdkManager = BCOVPlayerSDKManager.shared(),
-                      let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                                 applicationId: nil) else {
+                guard let videoId = video.properties[BCOVVideo.PropertyKeyId] as? String else {
                     continue
                 }
 
-                let newPlaybackController = sdkManager.createFairPlayPlaybackController(with: authProxy)
+                let sdkManager = BCOVPlayerSDKManager.sharedManager()
+                let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
+                                                               applicationId: nil)
+
+                let newPlaybackController = sdkManager.createFairPlayPlaybackController(withAuthorizationProxy: authProxy)
                 newPlaybackController.delegate = self
 
                 // Optimize buffering by keeping them at low values
@@ -69,7 +70,7 @@ final class ViewController: UITableViewController {
 
                 playbackConfigurations[videoId] = playbackConfiguration
 
-                newPlaybackController.setVideos([video] as NSFastEnumeration)
+                newPlaybackController.setVideos([video])
             }
 
             tableView.reloadData()
@@ -87,20 +88,21 @@ final class ViewController: UITableViewController {
     }
 
     fileprivate func requestContentFromPlaybackService() {
-        let configuration = [ kBCOVPlaybackServiceConfigurationKeyAssetID: kPlaylistId]
+        let configuration = [ BCOVPlaybackService.ConfigurationKeyAssetID: kPlaylistId]
         playbackService.findPlaylist(withConfiguration: configuration,
                                      queryParameters: nil) {
             [self] (playlist: BCOVPlaylist?,
-                    json: [AnyHashable:Any]?,
+                    json: Any?,
                     error: Error?) in
-            guard let playlist,
-                  let videos = playlist.videos as? [BCOVVideo] else {
+            guard let playlist else {
                 if let error {
                     print("ViewController - Error retrieving video playlist: \(error.localizedDescription)")
                 }
 
                 return
             }
+
+            let videos = playlist.videos
 
 #if targetEnvironment(simulator)
             self.videos = videos.filter({ !$0.usesFairPlay })
@@ -127,7 +129,7 @@ extension ViewController : BCOVPlaybackControllerDelegate {
     func playbackController(_ controller: BCOVPlaybackController!,
                             didAdvanceTo session: BCOVPlaybackSession!) {
 
-        guard let videoId = session.video.properties[kBCOVVideoPropertyKeyId] as? String,
+        guard let videoId = session.video.properties[BCOVVideo.PropertyKeyId] as? String,
               let currentItem = session.player.currentItem,
               let playbackConfiguration = playbackConfigurations[videoId] else {
             return
@@ -138,7 +140,7 @@ extension ViewController : BCOVPlaybackControllerDelegate {
 
         if currentItem.duration.isIndefinite,
            let videos {
-            self.videos = videos.filter({ $0.properties[kBCOVVideoPropertyKeyId] as? String != videoId })
+            self.videos = videos.filter({ $0.properties[BCOVVideo.PropertyKeyId] as? String != videoId })
             playbackConfigurations.removeValue(forKey: videoId)
             tableView.reloadData()
         }
@@ -160,7 +162,7 @@ extension ViewController {
                             cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "VideoCell") as? VideoTableViewCell,
               let video = videos?[indexPath.row],
-              let videoId = video.properties[kBCOVVideoPropertyKeyId] as? String,
+              let videoId = video.properties[BCOVVideo.PropertyKeyId] as? String,
               let playbackConfiguration = playbackConfigurations[videoId] else {
             return UITableViewCell()
         }

@@ -85,7 +85,7 @@
 {
     self.playbackConfiguration = playbackConfiguration;
     self.playerView.playbackController = playbackConfiguration.playbackController;
-    self.videoLabel.text = video.properties[kBCOVVideoPropertyKeyName];
+    self.videoLabel.text = video.properties[BCOVVideo.PropertyKeyName];
 }
 
 - (void)unmuteNotificationReceived:(NSNotification *)notification

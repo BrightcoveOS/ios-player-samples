@@ -88,7 +88,7 @@ static NSString * const kPlaylistId = @"1735168388684004403";
         PlaybackConfiguration *playbackConfiguration = [PlaybackConfiguration new];
         playbackConfiguration.playbackController = playbackController;
 
-        NSString *videoId = video.properties[kBCOVVideoPropertyKeyId];
+        NSString *videoId = video.properties[BCOVVideo.PropertyKeyId];
         self.playbackConfigurations[videoId] = playbackConfiguration;
 
         [playbackController setVideos:@[video]];
@@ -100,7 +100,7 @@ static NSString * const kPlaylistId = @"1735168388684004403";
 - (void)requestContentFromPlaybackService
 {
     __weak typeof(self) weakSelf = self;
-    NSDictionary *configuration = @{kBCOVPlaybackServiceConfigurationKeyAssetID:kPlaylistId};
+    NSDictionary *configuration = @{BCOVPlaybackService.ConfigurationKeyAssetID:kPlaylistId};
     [self.playbackService findPlaylistWithConfiguration:configuration
                                         queryParameters:nil completion:^(BCOVPlaylist *playlist,
                                                                          NSDictionary *jsonResponse,
@@ -141,13 +141,13 @@ didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 {
     session.player.muted = YES;
 
-    NSString *videoId = session.video.properties[kBCOVVideoPropertyKeyId];
+    NSString *videoId = session.video.properties[BCOVVideo.PropertyKeyId];
     PlaybackConfiguration *playbackConfiguration = self.playbackConfigurations[videoId];
     playbackConfiguration.playbackSession = session;
 
     if CMTIME_IS_INDEFINITE(session.player.currentItem.duration)
     {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.properties.%@ != %@", kBCOVVideoPropertyKeyId, videoId];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.properties.%@ != %@", BCOVVideo.PropertyKeyId, videoId];
         NSArray *filtered = [self.videos filteredArrayUsingPredicate:predicate];
         self.videos = filtered;
         [self.playbackConfigurations removeObjectForKey:videoId];
@@ -170,7 +170,7 @@ didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
     VideoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VideoCell"];
 
     BCOVVideo *video = self.videos[indexPath.row];
-    NSString *videoId = video.properties[kBCOVVideoPropertyKeyId];
+    NSString *videoId = video.properties[BCOVVideo.PropertyKeyId];
     PlaybackConfiguration *playbackConfiguration = self.playbackConfigurations[videoId];
 
     [cell setUpWithVideo:video playbackConfiguration:playbackConfiguration];

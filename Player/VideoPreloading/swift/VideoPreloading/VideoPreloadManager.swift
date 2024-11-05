@@ -15,21 +15,20 @@ let kPreloadNextSessionThreshold = 0.75 // Translates to 75% of video completed
 final class VideoPreloadManager: NSObject {
 
     fileprivate lazy var playbackControllerAlpha: BCOVPlaybackController? = {
-        guard let sdkManager = BCOVPlayerSDKManager.sharedManager(),
-              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                         applicationId: nil) else {
-            return nil
-        }
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+        let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
+                                                         applicationId: nil)
 
         let fps = sdkManager.createFairPlaySessionProvider(withApplicationCertificate: nil,
                                                            authorizationProxy: authProxy,
                                                            upstreamSessionProvider: nil)
 
-        guard let playerView,
-              let playbackController = sdkManager.createPlaybackController(with: fps,
-                                                                           viewStrategy: nil) else {
+        guard let playerView else {
             return nil
         }
+
+        let playbackController = sdkManager.createPlaybackController(withSessionProvider: fps,
+                                                                     viewStrategy: nil)
 
         playbackController.delegate = delegate
         playbackController.isAutoAdvance = false
@@ -44,20 +43,16 @@ final class VideoPreloadManager: NSObject {
     }()
 
     fileprivate lazy var playbackControllerBravo: BCOVPlaybackController? = {
-        guard let sdkManager = BCOVPlayerSDKManager.sharedManager(),
-              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                         applicationId: nil) else {
-            return nil
-        }
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+        let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
+                                                         applicationId: nil)
 
         let fps = sdkManager.createFairPlaySessionProvider(withApplicationCertificate: nil,
                                                            authorizationProxy: authProxy,
                                                            upstreamSessionProvider: nil)
 
-        guard let playbackController = sdkManager.createPlaybackController(with: fps,
-                                                                           viewStrategy: nil) else {
-            return nil
-        }
+        let playbackController = sdkManager.createPlaybackController(withSessionProvider: fps,
+                                                                           viewStrategy: nil)
 
         playbackController.delegate = delegate
         playbackController.isAutoAdvance = false
@@ -81,7 +76,7 @@ final class VideoPreloadManager: NSObject {
             // we want to play the first video on the initial playbackController
             guard let playbackControllerAlpha,
                   let firstVideo = videos?.first else { return }
-            playbackControllerAlpha.setVideos([firstVideo] as NSFastEnumeration)
+            playbackControllerAlpha.setVideos([firstVideo])
         }
     }
 
@@ -156,7 +151,7 @@ final class VideoPreloadManager: NSObject {
 
         // Set the next video on the next controller to
         // begin preloading
-        nextPlaybackController.setVideos([nextVideo] as NSFastEnumeration)
+        nextPlaybackController.setVideos([nextVideo])
 
         // Save the next video's index as the currentVideoIndex
         currentVideoIndex = nextVideoIndex
