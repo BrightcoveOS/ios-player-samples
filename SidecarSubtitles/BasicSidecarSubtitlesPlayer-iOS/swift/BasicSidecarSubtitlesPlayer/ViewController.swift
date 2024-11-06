@@ -42,9 +42,9 @@ final class ViewController: UIViewController {
     @IBOutlet fileprivate weak var videoContainerView: UIView!
 
     fileprivate lazy var playbackService: BCOVPlaybackService = {
-        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+        let factory = BCOVPlaybackServiceRequestFactory(withAccountId: kAccountId,
                                                         policyKey: kPolicyKey)
-        return .init(requestFactory: factory)
+        return .init(withRequestFactory: factory)
     }()
 
     fileprivate lazy var playerView: BCOVPUIPlayerView? = {
@@ -68,22 +68,21 @@ final class ViewController: UIViewController {
     }()
 
     fileprivate lazy var playbackController: BCOVPlaybackController? = {
+        
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+        let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
+                                                         applicationId: nil)
 
-        guard let sdkManager = BCOVPlayerSDKManager.shared(),
-              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                         applicationId: nil) else {
-            return nil
-        }
-
-        let fps = sdkManager.createFairPlaySessionProvider(with: authProxy,
+        let fps = sdkManager.createFairPlaySessionProvider(withAuthorizationProxy: authProxy,
                                                            upstreamSessionProvider: nil)
 
-        guard let playerView,
-              let sidecarSubtitlesSessionProvider = sdkManager.createSidecarSubtitlesSessionProvider(withUpstreamSessionProvider: fps),
-              let playbackController = sdkManager.createPlaybackController(with: sidecarSubtitlesSessionProvider,
-                                                                           viewStrategy: nil) else {
+        guard let playerView else {
             return nil
         }
+
+        let sidecarSubtitlesSessionProvider = sdkManager.createSidecarSubtitlesSessionProvider(withUpstreamSessionProvider: fps)
+        let playbackController = sdkManager.createPlaybackController(withSessionProvider: sidecarSubtitlesSessionProvider,
+                                                                         viewStrategy: nil)
 
         playbackController.delegate = self
         playbackController.isAutoAdvance = true
@@ -98,32 +97,32 @@ final class ViewController: UIViewController {
         // Create the array of subtitle dictionaries
         return [
             [
-                // required tracks descriptor: kBCOVSSTextTracksKindSubtitles or kBCOVSSTextTracksKindCaptions
-                kBCOVSSTextTracksKeyKind: kBCOVSSTextTracksKindSubtitles,
+                // required tracks descriptor: BCOVSSConstants.TextTracksKindSubtitles or BCOVSSConstants.TextTracksKindCaptions
+                BCOVSSConstants.TextTracksKeyKind: BCOVSSConstants.TextTracksKindSubtitles,
 
                 // required language code
-                kBCOVSSTextTracksKeySourceLanguage: "en",
+                BCOVSSConstants.TextTracksKeySourceLanguage: "en",
 
                 // required display name
-                kBCOVSSTextTracksKeyLabel: "English",
+                BCOVSSConstants.TextTracksKeyLabel: "English",
 
                 // required: source URL of WebVTT file or playlist as NSString
-                kBCOVSSTextTracksKeySource: "http://players.brightcove.net/3636334163001/ios_native_player_sdk/vtt/sample.vtt",
+                BCOVSSConstants.TextTracksKeySource: "http://players.brightcove.net/3636334163001/ios_native_player_sdk/vtt/sample.vtt",
 
                 // optional MIME type
-                kBCOVSSTextTracksKeyMIMEType: "text/vtt",
+                BCOVSSConstants.TextTracksKeyMIMEType: "text/vtt",
 
                 // optional "default" indicator
-                kBCOVSSTextTracksKeyDefault: true,
+                BCOVSSConstants.TextTracksKeyDefault: true,
 
                 // duration is required for WebVTT URLs (ending in ".vtt")
                 // optional for WebVTT playlists (ending in ".m3u8")
-                kBCOVSSTextTracksKeyDuration: NSNumber(value: 959), // seconds as NSNumber
+                BCOVSSConstants.TextTracksKeyDuration: NSNumber(value: 959), // seconds as NSNumber
 
                 // The source type is only needed if your source URL
                 // does not end in ".vtt" or ".m3u8" and thus its type is ambiguous.
                 // Our URL ends in ".vtt" so we don't need to set this, but it won't hurt.
-                kBCOVSSTextTracksKeySourceType: kBCOVSSTextTracksKeySourceTypeWebVTTURL
+                BCOVSSConstants.TextTracksKeySourceType: BCOVSSConstants.TextTracksKeySourceTypeWebVTTURL
             ]
         ]
     }()
@@ -145,11 +144,11 @@ final class ViewController: UIViewController {
     }
 
     fileprivate func requestContentFromPlaybackService() {
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId]
+        let configuration = [BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId]
         playbackService.findVideo(withConfiguration: configuration,
                                   queryParameters: nil) {
             [playbackController] (video: BCOVVideo?,
-                                  jsonResponse: [AnyHashable: Any]?,
+                                  jsonResponse: Any?,
                                   error: Error?) in
             guard let playbackController,
                   let video else {
@@ -188,21 +187,21 @@ final class ViewController: UIViewController {
 
                 // Get the existing text tracks, if any
                 guard let properties = mutableVideo?.properties,
-                      let currentTextTracks = properties[kBCOVSSVideoPropertiesKeyTextTracks] as? [[String: Any]] else {
+                      let currentTextTracks = properties[BCOVSSConstants.VideoPropertiesKeyTextTracks] as? [[String: Any]] else {
                     return
                 }
 
                 // Combine the two arrays together.
                 // We don't want to lose the original tracks that might already be in there.
-                let combinedTextTracks: [[String: Any]] = currentTextTracks + textTracks
+                let combinedTextTracks: [[String: Any]] = currentTextTracks + self.textTracks
 
                 // Store text tracks in the text tracks property
                 var updatedDictionary = properties
-                updatedDictionary[kBCOVSSVideoPropertiesKeyTextTracks] = combinedTextTracks
+                updatedDictionary[BCOVSSConstants.VideoPropertiesKeyTextTracks] = combinedTextTracks
                 mutableVideo?.properties = updatedDictionary
             }
 
-            playbackController.setVideos([updatedVideo] as NSFastEnumeration)
+            playbackController.setVideos([updatedVideo])
         }
     }
 }

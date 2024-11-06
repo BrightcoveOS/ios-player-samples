@@ -79,32 +79,32 @@ static NSString * const kVideoId = @"6140448705001";
     NSArray *textTracks =
     @[
         @{
-            // required tracks descriptor: kBCOVSSTextTracksKindSubtitles or kBCOVSSTextTracksKindCaptions
-            kBCOVSSTextTracksKeyKind: kBCOVSSTextTracksKindSubtitles,
+            // required tracks descriptor: BCOVSSConstants.TextTracksKindSubtitles or BCOVSSConstants.TextTracksKindCaptions
+            BCOVSSConstants.TextTracksKeyKind: BCOVSSConstants.TextTracksKindSubtitles,
 
             // required language code
-            kBCOVSSTextTracksKeySourceLanguage: @"en",
+            BCOVSSConstants.TextTracksKeySourceLanguage: @"en",
 
             // required display name
-            kBCOVSSTextTracksKeyLabel: @"English",
+            BCOVSSConstants.TextTracksKeyLabel: @"English",
 
             // required: source URL of WebVTT file or playlist as NSString
-            kBCOVSSTextTracksKeySource: @"http://players.brightcove.net/3636334163001/ios_native_player_sdk/vtt/sample.vtt",
+            BCOVSSConstants.TextTracksKeySource: @"http://players.brightcove.net/3636334163001/ios_native_player_sdk/vtt/sample.vtt",
 
             // optional MIME type
-            kBCOVSSTextTracksKeyMIMEType: @"text/vtt",
+            BCOVSSConstants.TextTracksKeyMIMEType: @"text/vtt",
 
             // optional "default" indicator
-            kBCOVSSTextTracksKeyDefault: @(YES),
+            BCOVSSConstants.TextTracksKeyDefault: @(YES),
 
             // duration is required for WebVTT URLs (ending in ".vtt");
             // optional for WebVTT playlists (ending in ".m3u8")
-            kBCOVSSTextTracksKeyDuration: @(959), // seconds as NSNumber
+            BCOVSSConstants.TextTracksKeyDuration: @(959), // seconds as NSNumber
 
             // The source type is only needed if your source URL
             // does not end in ".vtt" or ".m3u8" and thus its type is ambiguous.
             // Our URL ends in ".vtt" so we don't need to set this, but it won't hurt.
-            kBCOVSSTextTracksKeySourceType: kBCOVSSTextTracksKeySourceTypeWebVTTURL
+            BCOVSSConstants.TextTracksKeySourceType: BCOVSSConstants.TextTracksKeySourceTypeWebVTTURL
 
         }
     ];
@@ -168,7 +168,7 @@ static NSString * const kVideoId = @"6140448705001";
 {
     __weak typeof(self) weakSelf = self;
 
-    NSDictionary *configuration = @{ kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId };
+    NSDictionary *configuration = @{ BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId };
     [self.playbackService findVideoWithConfiguration:configuration
                                      queryParameters:nil
                                           completion:^(BCOVVideo *video,
@@ -199,10 +199,10 @@ static NSString * const kVideoId = @"6140448705001";
 #endif
 
             // Add subtitle track to video object
-            BCOVVideo *updatedVideo = [video update:^(id<BCOVMutableVideo> mutableVideo) {
+            BCOVVideo *updatedVideo = [video update:^(BCOVMutableVideo* mutableVideo) {
 
                 // Get the existing text tracks, if any
-                NSArray *currentTextTracks = mutableVideo.properties[kBCOVSSVideoPropertiesKeyTextTracks];
+                NSArray *currentTextTracks = mutableVideo.properties[BCOVSSConstants.VideoPropertiesKeyTextTracks];
 
                 // Get the subtitles array
                 NSArray *newTextTracks = [strongSelf textTracks];
@@ -217,7 +217,7 @@ static NSString * const kVideoId = @"6140448705001";
                 NSMutableDictionary *updatedDictionary = [mutableVideo.properties mutableCopy];
 
                 // Store text tracks in the text tracks property
-                updatedDictionary[kBCOVSSVideoPropertiesKeyTextTracks] = combinedTextTracks;
+                updatedDictionary[BCOVSSConstants.VideoPropertiesKeyTextTracks] = combinedTextTracks;
                 mutableVideo.properties = updatedDictionary;
 
             }];
