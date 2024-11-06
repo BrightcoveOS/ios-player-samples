@@ -27,7 +27,7 @@
 		D67C37892C7FB1FB00808D73 /* BCOVThumbnailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCOVThumbnailManager.swift; sourceTree = "<group>"; };
 		D6901BB62BE36D25009C6C1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		D6901BBA2BE371D0009C6C1C /* BCOVVideoPlayerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCOVVideoPlayerManager.h; sourceTree = "<group>"; };
-		D6901BBC2BE374F1009C6C1C /* ReactNativePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactNativePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC1D47C82CDBCABB0092157A /* ReactNativePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactNativePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,7 +45,7 @@
 			isa = PBXGroup;
 			children = (
 				D624535B27E3816A000161DB /* ReactNativePlayer */,
-				D6901BBC2BE374F1009C6C1C /* ReactNativePlayer.app */,
+				EC1D47C92CDBCAC60092157A /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,6 +66,14 @@
 			path = ReactNativePlayer;
 			sourceTree = "<group>";
 		};
+		EC1D47C92CDBCAC60092157A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC1D47C82CDBCABB0092157A /* ReactNativePlayer.app */,
+			);
+			path = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -83,7 +91,7 @@
 			);
 			name = ReactNativePlayer;
 			productName = PlayerReactNative;
-			productReference = D6901BBC2BE374F1009C6C1C /* ReactNativePlayer.app */;
+			productReference = EC1D47C82CDBCABB0092157A /* ReactNativePlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */

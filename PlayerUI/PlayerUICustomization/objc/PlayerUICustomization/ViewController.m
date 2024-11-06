@@ -289,7 +289,7 @@ static NSString * const kVideoId = @"5702148954001";
 {
     __weak typeof(self) weakSelf = self;
 
-    NSDictionary *configuration = @{ kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId };
+    NSDictionary *configuration = @{ BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId };
     [self.playbackService findVideoWithConfiguration:configuration
                                      queryParameters:nil
                                           completion:^(BCOVVideo *video,
@@ -333,8 +333,7 @@ static NSString * const kVideoId = @"5702148954001";
 
 #pragma mark - BCOVPlaybackControllerDelegate
 
-- (void)playbackController:(id<BCOVPlaybackController>)controller
-       didCompletePlaylist:(id<NSFastEnumeration>)playlist
+- (void)playbackController:(id<BCOVPlaybackController>)controller didCompletePlaylist:(NSArray<BCOVVideo *> *)playlist
 {
     // When the playlist completes, play it again.
     [self.playbackController setVideos:playlist];

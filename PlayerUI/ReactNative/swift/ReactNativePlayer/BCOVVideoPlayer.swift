@@ -34,17 +34,15 @@ final class BCOVVideoPlayer: UIView {
     }()
 
     fileprivate lazy var playbackService: BCOVPlaybackService = {
-        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+        let factory = BCOVPlaybackServiceRequestFactory(withAccountId: kAccountId,
                                                         policyKey: kPolicyKey)
-        return .init(requestFactory: factory)
+        return .init(withRequestFactory: factory)
     }()
 
     fileprivate lazy var playbackController: BCOVPlaybackController? = {
-        guard let sdkManager = BCOVPlayerSDKManager.sharedManager(),
-              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                         applicationId: nil) else {
-            return nil
-        }
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+        let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
+                                                         applicationId: nil)
 
         let fps = sdkManager.createFairPlaySessionProvider(withApplicationCertificate: nil,
                                                            authorizationProxy: authProxy,
@@ -83,10 +81,8 @@ final class BCOVVideoPlayer: UIView {
 //            }
 //        }
 
-        guard let playbackController = sdkManager.createPlaybackController(with: sessionProvider,
-                                                                           viewStrategy: nil) else {
-            return nil
-        }
+        let playbackController = sdkManager.createPlaybackController(withSessionProvider: sessionProvider,
+                                                                           viewStrategy: nil)
 
         playbackController.view.frame = self.bounds
         playbackController.view.autoresizingMask  = [.flexibleWidth, .flexibleHeight]
@@ -152,11 +148,11 @@ final class BCOVVideoPlayer: UIView {
     }
 
     fileprivate func requestContentFromPlaybackService() {
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId]
+        let configuration = [BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId]
         playbackService.findVideo(withConfiguration: configuration,
                                   queryParameters: nil) {
             [self] (video: BCOVVideo?,
-                    jsonResponse: [AnyHashable: Any]?,
+                    jsonResponse: Any?,
                     error: Error?) in
             guard let playbackController,
                   let video else {
@@ -198,12 +194,12 @@ final class BCOVVideoPlayer: UIView {
                 handleThumbnails(for: video)
             }
 
-            playbackController.setVideos([video] as NSFastEnumeration)
+            playbackController.setVideos([video])
         }
     }
 
     fileprivate func handleThumbnails(for video: BCOVVideo) {
-        if let textTracks = video.properties[kBCOVVideoPropertyKeyTextTracks] as? [[String: Any]] {
+        if let textTracks = video.properties[BCOVVideo.PropertyKeyTextTracks] as? [[String: Any]] {
             let filtered = textTracks.filter { $0["label"] as? String == "thumbnails" }
                 .sorted(by: { ($0["src"] as? String)?.compare($1["src"] as? String ?? "") == .orderedDescending })
             if filtered.count > 1,

@@ -5,9 +5,9 @@
 //  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
+@import BrightcovePlayerSDK;
 #import <AVFoundation/AVFoundation.h>
 #import <AVKit/AVKit.h>
-#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
 
 //#import <BrightcoveIMA/BrightcoveIMA.h>
 //#import <GoogleInteractiveMediaAds/GoogleInteractiveMediaAds.h>
@@ -166,7 +166,7 @@ static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampa
 {
     __weak typeof(self) weakSelf = self;
 
-    NSDictionary *configuration = @{ kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId };
+    NSDictionary *configuration = @{ BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId };
     [self.playbackService findVideoWithConfiguration:configuration
                                      queryParameters:nil
                                           completion:^(BCOVVideo *video,
@@ -258,7 +258,7 @@ static NSString * const kVMAPAdTagURL = @"https://pubads.g.doubleclick.net/gampa
 
 - (void)handleThumbnailsForVideo:(BCOVVideo *)video
 {
-    NSArray *textTracks = video.properties[kBCOVVideoPropertyKeyTextTracks];
+    NSArray *textTracks = video.properties[BCOVVideo.PropertyKeyTextTracks];
 
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"src" ascending:NO];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.label MATCHES %@ AND (SELF.src BEGINSWITH %@ OR SELF.src BEGINSWITH %@)", @"thumbnails", @"https://", @"http://"];
@@ -293,7 +293,7 @@ didAdvanceToPlaybackSession:(id<BCOVPlaybackSession>)session
 {
     NSLog(@"ViewController - Advanced to new session.");
 
-    NSNumber *duration = session.video.properties[kBCOVVideoPropertyKeyDuration];
+    NSNumber *duration = session.video.properties[BCOVVideo.PropertyKeyDuration];
     self.eventSink(@{ @"name": @"didAdvanceToPlaybackSession",
                       @"duration": duration,
                       @"isAutoPlay": @(controller.isAutoPlay) });

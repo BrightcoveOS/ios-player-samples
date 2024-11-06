@@ -20,7 +20,6 @@
 /* Begin PBXFileReference section */
 		0B98F0B2C5F214F99D04B684 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = ../PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		D662EBFA2BE284EE003EB5AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
-		D6901BBB2BE374CD009C6C1C /* ReactNativePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactNativePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6AB5DBF277BD087008B937F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D6AB5DC0277BD087008B937F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D6AB5DCE277BD092008B937F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -32,6 +31,7 @@
 		D6CA0C2827A834BA003B1C6B /* BCOVVideoPlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCOVVideoPlayer.m; sourceTree = "<group>"; };
 		D6E4ED8B2C799130001A95DF /* BCOVThumbnailManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCOVThumbnailManager.h; sourceTree = "<group>"; };
 		D6E4ED8C2C799130001A95DF /* BCOVThumbnailManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCOVThumbnailManager.m; sourceTree = "<group>"; };
+		EC1D47CA2CDBCB750092157A /* ReactNativePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactNativePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,7 +49,7 @@
 			isa = PBXGroup;
 			children = (
 				D6AB5DBE277BD087008B937F /* ReactNativePlayer */,
-				D6901BBB2BE374CD009C6C1C /* ReactNativePlayer.app */,
+				EC1D47CB2CDBCB7F0092157A /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,6 +73,14 @@
 			path = ReactNativePlayer;
 			sourceTree = "<group>";
 		};
+		EC1D47CB2CDBCB7F0092157A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC1D47CA2CDBCB750092157A /* ReactNativePlayer.app */,
+			);
+			path = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -90,7 +98,7 @@
 			);
 			name = ReactNativePlayer;
 			productName = PlayerReactNative;
-			productReference = D6901BBB2BE374CD009C6C1C /* ReactNativePlayer.app */;
+			productReference = EC1D47CA2CDBCB750092157A /* ReactNativePlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
