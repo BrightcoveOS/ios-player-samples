@@ -60,16 +60,20 @@ final class WatchTogetherWrapper: NSObject {
     func activateNewActivity(withVideo video: BCOVVideo,
                              withSource source: BCOVSource) {
 
-        let movieTitle = video.properties[kBCOVVideoPropertyKeyName] as? String ?? "<Title Unavailable>"
+        let movieTitle = video.properties[BCOVVideo.PropertyKeyName] as? String ?? "<Title Unavailable>"
 
         var metadata = GroupActivityMetadata()
         metadata.type = .watchTogether
         metadata.title = movieTitle
 
         let keySystems = source.properties["key_systems"] as? [String: [String: String]]
+        
+        guard let sourceURL = source.url else {
+            return
+        }
 
         watchTogether = WatchTogether(metadata: metadata,
-                                      sourceURL: source.url.absoluteString,
+                                      sourceURL: sourceURL.absoluteString,
                                       keySystems: keySystems)
 
         guard let watchTogether else {
@@ -143,17 +147,17 @@ final class WatchTogetherWrapper: NSObject {
                             sourceProperties["key_systems"] = keySystems
                         }
 
-                        let source = BCOVSource(url: sourceURL,
-                                                deliveryMethod: kBCOVSourceDeliveryHLS,
+                        let source = BCOVSource(withURL: sourceURL,
+                                                deliveryMethod: BCOVSource.DeliveryHLS,
                                                 properties: sourceProperties)
 
-                        let video = BCOVVideo(source: source,
+                        let video = BCOVVideo(withSource: source,
                                               cuePoints: nil,
                                               properties: nil)
 
                         if let playbackController {
                             DispatchQueue.main.async {
-                                playbackController.setVideos([video] as NSFastEnumeration)
+                                playbackController.setVideos([video])
                             }
                         }
 
