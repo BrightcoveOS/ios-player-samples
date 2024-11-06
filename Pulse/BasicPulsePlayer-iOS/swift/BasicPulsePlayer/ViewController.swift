@@ -51,9 +51,9 @@ final class ViewController: UIViewController {
     }()
 
     fileprivate lazy var playbackService: BCOVPlaybackService = {
-        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+        let factory = BCOVPlaybackServiceRequestFactory(withAccountId: kAccountId,
                                                         policyKey: kPolicyKey)
-        return .init(requestFactory: factory)
+        return .init(withRequestFactory: factory)
     }()
 
     fileprivate lazy var playerView: BCOVPUIPlayerView? = {
@@ -99,11 +99,9 @@ final class ViewController: UIViewController {
          *  https://docs.invidi.com/r/INVIDI-Pulse-Documentation/Pulse-SDKs-parameter-reference
          */
 
-        guard let sdkManager = BCOVPlayerSDKManager.shared(),
-              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                         applicationId: nil) else {
-            return nil
-        }
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+        let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
+                                                         applicationId: nil)
 
         // See http://pulse-sdks.videoplaza.com/ios_2/latest/Classes/OOContentMetadata.html
         let contentMetadata = OOContentMetadata()
@@ -117,13 +115,9 @@ final class ViewController: UIViewController {
             kBCOVPulseOptionPulsePlaybackSessionDelegateKey: self,
             kBCOVPulseOptionPulsePersistentIdKey: persistentId]
 
-        let fps = sdkManager.createFairPlaySessionProvider(with: authProxy,
+        let fps = sdkManager.createFairPlaySessionProvider(withAuthorizationProxy: authProxy,
                                                            upstreamSessionProvider: nil)
-
-        guard let sdkManager = BCOVPlayerSDKManager.shared(),
-              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                         applicationId: nil),
-              let playerView,
+        guard let playerView,
               let contentOverlayView = playerView.contentOverlayView,
               let companionSlot = BCOVPulseCompanionSlot(view: companionSlotContainerView,
                                                          width: 400,
@@ -142,13 +136,14 @@ final class ViewController: UIViewController {
     }()
 
     fileprivate lazy var playbackController: BCOVPlaybackController? = {
-        guard let sdkManager = BCOVPlayerSDKManager.shared(),
-              let playerView,
-              let pulseSessionProvider,
-              let playbackController = sdkManager.createPlaybackController(with: pulseSessionProvider,
-                                                                           viewStrategy: nil) else {
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+        guard let playerView,
+              let pulseSessionProvider else {
             return nil
         }
+        
+        let playbackController = sdkManager.createPlaybackController(withSessionProvider: pulseSessionProvider,
+                                                                     viewStrategy: nil)
 
         playbackController.delegate = self
         playbackController.isAutoAdvance = true
@@ -243,11 +238,11 @@ final class ViewController: UIViewController {
     }
 
     fileprivate func requestContentFromPlaybackService() {
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId]
+        let configuration = [BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId]
         playbackService.findVideo(withConfiguration: configuration,
                                   queryParameters: nil) {
             [self] (video: BCOVVideo?,
-                    jsonResponse: [AnyHashable: Any]?,
+                    jsonResponse: Any?,
                     error: Error?) in
             guard let video else {
                 if let error {
@@ -414,7 +409,7 @@ extension ViewController: UITableViewDelegate {
 
         videoItem = videoItems[indexPath.row]
 
-        playbackController.setVideos([video] as NSFastEnumeration)
+        playbackController.setVideos([video])
 
         if let pulseSessionProvider,
            let extendSession = videoItem?.extendSession,
