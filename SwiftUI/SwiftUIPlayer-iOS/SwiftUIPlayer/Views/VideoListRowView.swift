@@ -12,19 +12,19 @@ import BrightcovePlayerSDK
 struct VideoListRowView: View {
 
     fileprivate var id: String? {
-        return video.properties[kBCOVVideoPropertyKeyId] as? String
+        return video.properties[BCOVVideo.PropertyKeyId] as? String
     }
 
     fileprivate var name: String? {
-        return video.properties[kBCOVVideoPropertyKeyName] as? String
+        return video.properties[BCOVVideo.PropertyKeyName] as? String
     }
 
     fileprivate var urlStr: String? {
-        return video.properties[kBCOVVideoPropertyKeyThumbnail] as? String
+        return video.properties[BCOVVideo.PropertyKeyThumbnail] as? String
     }
 
     fileprivate var duration: String {
-        guard var duration = video.properties[kBCOVVideoPropertyKeyDuration] as? TimeInterval else {
+        guard var duration = video.properties[BCOVVideo.PropertyKeyDuration] as? TimeInterval else {
             return ""
         }
 
@@ -57,12 +57,12 @@ struct VideoListRowView: View {
 struct VideoListRowView_Previews: PreviewProvider {
     static var previews: some View {
         let properties = [
-            kBCOVVideoPropertyKeyId: "1",
-            kBCOVVideoPropertyKeyName: "Test Video",
-            kBCOVVideoPropertyKeyThumbnail: "https://dp6mhagng1yw3.cloudfront.net/entries/15th/b2099e83-2214-43e0-93c0-0924d12d6cdc.jpeg",
-            kBCOVVideoPropertyKeyDuration: 180000 as TimeInterval
+            BCOVVideo.PropertyKeyId: "1",
+            BCOVVideo.PropertyKeyName: "Test Video",
+            BCOVVideo.PropertyKeyThumbnail: "https://dp6mhagng1yw3.cloudfront.net/entries/15th/b2099e83-2214-43e0-93c0-0924d12d6cdc.jpeg",
+            BCOVVideo.PropertyKeyDuration: 180000 as TimeInterval
         ] as [String : Any]
-        let video = BCOVVideo(source: nil, cuePoints: nil, properties: properties)
+        let video = BCOVVideo(withSource: nil, cuePoints: nil, properties: properties)
 
         VideoListRowView(video: video)
     }

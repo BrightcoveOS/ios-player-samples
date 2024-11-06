@@ -25,20 +25,16 @@ final class PlayerModel: NSObject, ObservableObject {
     }()
 
     fileprivate(set) lazy var playbackController: BCOVPlaybackController? = {
-        guard let sdkManager = BCOVPlayerSDKManager.sharedManager(),
-              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                         applicationId: nil) else {
-            return nil
-        }
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+        let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
+                                                         applicationId: nil)
 
         let fps = sdkManager.createFairPlaySessionProvider(withApplicationCertificate: nil,
                                                            authorizationProxy: authProxy,
                                                            upstreamSessionProvider: nil)
 
-        guard let playbackController = sdkManager.createPlaybackController(with: fps,
-                                                                           viewStrategy: nil) else {
-            return nil
-        }
+        let playbackController = sdkManager.createPlaybackController(withSessionProvider: fps,
+                                                                           viewStrategy: nil)
 
         playbackController.delegate = self
         playbackController.isAutoAdvance = true
