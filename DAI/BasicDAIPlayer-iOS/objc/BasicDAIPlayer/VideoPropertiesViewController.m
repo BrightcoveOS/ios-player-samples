@@ -48,7 +48,7 @@
 
 - (BCOVVideo *)updateVideo:(BCOVVideo *)video
 {
-    BCOVVideo *updatedVideo = [video update:^(id<BCOVMutableVideo>  _Nonnull mutableVideo) {
+    BCOVVideo *updatedVideo = [video update:^(BCOVMutableVideo* mutableVideo) {
 
         NSDictionary *adProperties = @{
             kBCOVDAIVideoPropertiesKeySourceId: kGoogleDAISourceId,

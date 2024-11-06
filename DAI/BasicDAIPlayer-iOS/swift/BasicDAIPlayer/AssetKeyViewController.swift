@@ -13,8 +13,8 @@ import BrightcoveDAI
 final class AssetKeyViewController: BaseViewController {
 
     override func setupPlaybackController() {
-        guard let sdkManager = BCOVPlayerSDKManager.shared(),
-              let fps else { return }
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+        guard let fps else { return }
 
         let imaSettings = IMASettings()
         imaSettings.language = NSLocale.current.languageCode!
@@ -38,11 +38,12 @@ final class AssetKeyViewController: BaseViewController {
                                                                      upstreamSessionProvider: fps,
                                                                      options: daiPlaybackSessionOptions)
 
-        guard let playerView,
-              let playbackController = sdkManager.createPlaybackController(with: daiSessionProvider,
-                                                                           viewStrategy: nil) else {
+        guard let playerView else {
             return
         }
+        
+        let playbackController = sdkManager.createPlaybackController(withSessionProvider: daiSessionProvider,
+                                                                     viewStrategy: nil)
 
         playbackController.delegate = self
         playbackController.isAutoPlay = true
@@ -59,11 +60,10 @@ final class AssetKeyViewController: BaseViewController {
                 return
             }
 
-            if var updatedProperties = mutableVideo.properties {
-                updatedProperties[kBCOVDAIVideoPropertiesKeyAssetKey] = kGoogleDAIAssetKey
+            var updatedProperties = mutableVideo.properties
+            updatedProperties[kBCOVDAIVideoPropertiesKeyAssetKey] = kGoogleDAIAssetKey
 
-                mutableVideo.properties = updatedProperties
-            }
+            mutableVideo.properties = updatedProperties
         }
 
         return updatedVideo

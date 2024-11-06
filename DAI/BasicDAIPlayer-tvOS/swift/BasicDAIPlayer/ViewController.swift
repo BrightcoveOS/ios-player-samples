@@ -24,9 +24,9 @@ let kGoogleDAIVideoId = "tears-of-steel"
 final class ViewController: UIViewController {
 
     fileprivate lazy var playbackService: BCOVPlaybackService = {
-        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+        let factory = BCOVPlaybackServiceRequestFactory(withAccountId: kAccountId,
                                                         policyKey: kPolicyKey)
-        return .init(requestFactory: factory)
+        return .init(withRequestFactory: factory)
     }()
 
     fileprivate lazy var playerView: BCOVTVPlayerView? = {
@@ -47,13 +47,11 @@ final class ViewController: UIViewController {
 
     fileprivate lazy var playbackController: BCOVPlaybackController? = {
 
-        guard let sdkManager = BCOVPlayerSDKManager.shared(),
-              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                         applicationId: nil) else {
-            return nil
-        }
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+        let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
+                                                         applicationId: nil)
 
-        let fps = sdkManager.createFairPlaySessionProvider(with: authProxy,
+        let fps = sdkManager.createFairPlaySessionProvider(withAuthorizationProxy: authProxy,
                                                            upstreamSessionProvider: nil)
 
         let imaSettings = IMASettings()
@@ -71,11 +69,12 @@ final class ViewController: UIViewController {
                                                                      companionSlots: nil,
                                                                      upstreamSessionProvider: fps)
 
-        guard let playerView,
-              let playbackController = sdkManager.createPlaybackController(with: daiSessionProvider,
-                                                                           viewStrategy: nil) else {
+        guard let playerView else {
             return nil
         }
+        
+        let playbackController = sdkManager.createPlaybackController(withSessionProvider: daiSessionProvider,
+                                                                     viewStrategy: nil)
 
         playbackController.delegate = self
         playbackController.isAutoPlay = true
@@ -135,12 +134,12 @@ final class ViewController: UIViewController {
     }
 
     fileprivate func requestContentFromPlaybackService() {
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId]
+        let configuration = [BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId]
 
         playbackService.findVideo(withConfiguration: configuration,
                                   queryParameters: nil) { 
             [self] (video: BCOVVideo?,
-                    jsonResponse: [AnyHashable: Any]?,
+                    jsonResponse: Any?,
                     error: Error?) in
 
             if let video,
@@ -175,15 +174,14 @@ final class ViewController: UIViewController {
                         return
                     }
 
-                    if var updatedProperties = mutableVideo.properties {
-                        updatedProperties[kBCOVDAIVideoPropertiesKeySourceId] = kGoogleDAISourceId
-                        updatedProperties[kBCOVDAIVideoPropertiesKeyVideoId] = kGoogleDAIVideoId
+                    var updatedProperties = mutableVideo.properties
+                    updatedProperties[kBCOVDAIVideoPropertiesKeySourceId] = kGoogleDAISourceId
+                    updatedProperties[kBCOVDAIVideoPropertiesKeyVideoId] = kGoogleDAIVideoId
 
-                        mutableVideo.properties = updatedProperties
-                    }
+                    mutableVideo.properties = updatedProperties
                 }
 
-                playbackController.setVideos([updatedVideo] as NSFastEnumeration)
+                playbackController.setVideos([updatedVideo])
             }
             else {
                 print("ViewController Debug - Error retrieving video")

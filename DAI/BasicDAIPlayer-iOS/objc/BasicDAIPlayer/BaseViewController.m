@@ -169,7 +169,7 @@ NSString * const kGoogleDAIAssetKey = @"sN_IYUG8STe1ZzhIIE_ksA";
 {
     __weak typeof(self) weakSelf = self;
 
-    NSDictionary *configuration = @{ kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId };
+    NSDictionary *configuration = @{ BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId };
     [self.playbackService findVideoWithConfiguration:configuration
                                      queryParameters:nil
                                           completion:^(BCOVVideo *video,

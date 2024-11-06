@@ -30,9 +30,9 @@ class BaseViewController: UIViewController {
     @IBOutlet fileprivate weak var videoContainerView: UIView!
 
     fileprivate lazy var playbackService: BCOVPlaybackService = {
-        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+        let factory = BCOVPlaybackServiceRequestFactory(withAccountId: kAccountId,
                                                         policyKey: kPolicyKey)
-        return .init(requestFactory: factory)
+        return .init(withRequestFactory: factory)
     }()
 
     fileprivate(set) lazy var playerView: BCOVPUIPlayerView? = {
@@ -56,13 +56,11 @@ class BaseViewController: UIViewController {
     }()
 
     fileprivate(set) lazy var fps: BCOVPlaybackSessionProvider? = {
-        guard let sdkManager = BCOVPlayerSDKManager.shared(),
-              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                         applicationId: nil) else {
-            return nil
-        }
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+        let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
+                                                         applicationId: nil)
 
-        return sdkManager.createFairPlaySessionProvider(with: authProxy,
+        return sdkManager.createFairPlaySessionProvider(withAuthorizationProxy: authProxy,
                                                         upstreamSessionProvider: nil)
     }()
 
@@ -145,11 +143,11 @@ class BaseViewController: UIViewController {
     }
 
     fileprivate func requestContentFromPlaybackService() {
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId]
+        let configuration = [BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId]
         playbackService.findVideo(withConfiguration: configuration,
                                   queryParameters: nil) {
             [self] (video: BCOVVideo?,
-                    jsonResponse: [AnyHashable: Any]?,
+                    jsonResponse: Any?,
                     error: Error?) in
             guard let video,
                   let playbackController else {
@@ -185,7 +183,7 @@ class BaseViewController: UIViewController {
 #endif
 
             let updatedVideo = updateVideo(video)
-            playbackController.setVideos([updatedVideo] as NSFastEnumeration)
+            playbackController.setVideos([updatedVideo])
         }
     }
 

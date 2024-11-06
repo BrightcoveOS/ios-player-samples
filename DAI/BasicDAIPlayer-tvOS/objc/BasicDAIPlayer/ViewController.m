@@ -147,7 +147,7 @@ static NSString * const kGoogleDAIVideoId = @"tears-of-steel";
 - (void)requestContentFromPlaybackService
 {
     NSDictionary *configuration = @{
-        kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId
+        BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId
     };
 
     __weak typeof(self) weakSelf = self;
@@ -181,7 +181,7 @@ static NSString * const kGoogleDAIVideoId = @"tears-of-steel";
             }
 #endif
 
-            BCOVVideo *updateVideo = [video update:^(id<BCOVMutableVideo> _Nonnull mutableVideo) {
+            BCOVVideo *updateVideo = [video update:^(BCOVMutableVideo* mutableVideo) {
                 NSDictionary *adProperties = @{
                     kBCOVDAIVideoPropertiesKeySourceId: kGoogleDAISourceId,
                     kBCOVDAIVideoPropertiesKeyVideoId: kGoogleDAIVideoId
