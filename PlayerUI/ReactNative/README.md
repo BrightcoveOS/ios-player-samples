@@ -14,10 +14,9 @@ This sample shows how to integrate React Native with the Brightcove Player SDKs 
 ## Running Sample App
 
 1. Install node dependencies using `yarn install`.
-1. Go to _objc_ or _swift_ project and run the command `pod install`.
-1. Update the `react-native.config.js` file according the `sourceDir` you have choosen under `ios` in the previous step
+1. Go to _ios_ project and run the command `pod install`.
 1. Start the react native server with `yarn start` script from `package.json`.
-1. Open `ReactNativePlayer.xcworkspace` (objc or swift).
+1. Open `ReactNativePlayer.xcworkspace`.
 1. Run the project using simulator or physical device.
 
 ### Using the Brightcove IMA Plugin

@@ -28,8 +28,8 @@ The *flutter_bcov* folder contains the package of the plugin.
 ## Running Sample App
 
 1. Go to *flutter_bcov* and run the command `flutter pub get`.
-1. Go to *objc* or *swift* project and run the command `pod install`.
-1. Open `FlutterPlayer.xcworkspace` (objc or swift).
+1. Run the command `pod install`.
+1. Open `FlutterPlayer.xcworkspace`.
 1. Run the project using simulator or physical device.
 
 ## Debugging Sample App

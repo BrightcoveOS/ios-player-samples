@@ -1,0 +1,11 @@
+source 'https://github.com/CocoaPods/Specs.git'
+# source 'https://github.com/brightcove/BrightcoveSpecs.git'
+source 'git@tcmac04.vidmark.local:preflight/BrightcoveSpecs.git'
+
+platform :ios, '14.0'
+
+use_frameworks!
+
+target 'BasicDAIPlayer' do
+  pod 'Brightcove-Player-DAI/XCFramework'
+end
