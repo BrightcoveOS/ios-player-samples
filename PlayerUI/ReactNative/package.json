@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "objc": "cd objc && pod install && cd .. && react-native run-ios",
-    "swift": "cd swift && pod install && cd .. && react-native run-ios",
+    "ios": "cd ios && pod install && cd .. && react-native run-ios",
     "start": "react-native start --reset-cache"
   },
   "dependencies": {
@@ -22,6 +21,8 @@
     "@babel/core": "^7.20.0",
     "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0",
+    "@react-native-community/cli": "^15.1.1",
+    "@react-native-community/cli-platform-ios": "^15.1.1",
     "@react-native/babel-preset": "0.75.2",
     "@react-native/eslint-config": "0.75.2",
     "@react-native/metro-config": "0.75.2",

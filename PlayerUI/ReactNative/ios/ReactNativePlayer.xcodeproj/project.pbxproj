@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AE24CBEFE0354E43D75D560F /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B3344F66B27733B9EDC81BA0 /* PrivacyInfo.xcprivacy */; };
+		A3343A0B15F7A84961277CE7 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = C27EA995407D3C6A6BFEC66C /* PrivacyInfo.xcprivacy */; };
 		D624535D27E3816A000161DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D624535C27E3816A000161DB /* AppDelegate.swift */; };
 		D624536927E3816C000161DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D624536727E3816C000161DB /* LaunchScreen.storyboard */; };
 		D624537327E385F6000161DB /* BCOVVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D624537227E385F6000161DB /* BCOVVideoPlayer.swift */; };
@@ -17,7 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B3344F66B27733B9EDC81BA0 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = ../PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		C27EA995407D3C6A6BFEC66C /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = ../PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		D624535C27E3816A000161DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D624536827E3816C000161DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D624536A27E3816C000161DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -25,9 +25,9 @@
 		D624537627E38F5B000161DB /* ReactNativePlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReactNativePlayer-Bridging-Header.h"; sourceTree = "<group>"; };
 		D624537B27E3ABA1000161DB /* BCOVVideoPlayerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCOVVideoPlayerManager.m; sourceTree = "<group>"; };
 		D67C37892C7FB1FB00808D73 /* BCOVThumbnailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCOVThumbnailManager.swift; sourceTree = "<group>"; };
-		D6901BB62BE36D25009C6C1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../FairPlay/BasicFairPlayPlayer-iOS/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
+		D6901BB62BE36D25009C6C1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		D6901BBA2BE371D0009C6C1C /* BCOVVideoPlayerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCOVVideoPlayerManager.h; sourceTree = "<group>"; };
-		EC1D47C82CDBCABB0092157A /* ReactNativePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactNativePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC68EC6F2CDD549C00043D6C /* ReactNativePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactNativePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,7 +45,7 @@
 			isa = PBXGroup;
 			children = (
 				D624535B27E3816A000161DB /* ReactNativePlayer */,
-				EC1D47C92CDBCAC60092157A /* Products */,
+				EC68EC702CDD54A100043D6C /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,17 +61,17 @@
 				D624535C27E3816A000161DB /* AppDelegate.swift */,
 				D624537227E385F6000161DB /* BCOVVideoPlayer.swift */,
 				D67C37892C7FB1FB00808D73 /* BCOVThumbnailManager.swift */,
-				B3344F66B27733B9EDC81BA0 /* PrivacyInfo.xcprivacy */,
+				C27EA995407D3C6A6BFEC66C /* PrivacyInfo.xcprivacy */,
 			);
 			path = ReactNativePlayer;
 			sourceTree = "<group>";
 		};
-		EC1D47C92CDBCAC60092157A /* Products */ = {
+		EC68EC702CDD54A100043D6C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EC1D47C82CDBCABB0092157A /* ReactNativePlayer.app */,
+				EC68EC6F2CDD549C00043D6C /* ReactNativePlayer.app */,
 			);
-			path = Products;
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -91,7 +91,7 @@
 			);
 			name = ReactNativePlayer;
 			productName = PlayerReactNative;
-			productReference = EC1D47C82CDBCABB0092157A /* ReactNativePlayer.app */;
+			productReference = EC68EC6F2CDD549C00043D6C /* ReactNativePlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -136,7 +136,7 @@
 			files = (
 				D624536927E3816C000161DB /* LaunchScreen.storyboard in Resources */,
 				D6901BB82BE36D25009C6C1C /* Assets.xcassets in Resources */,
-				AE24CBEFE0354E43D75D560F /* PrivacyInfo.xcprivacy in Resources */,
+				A3343A0B15F7A84961277CE7 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

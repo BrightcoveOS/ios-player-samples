@@ -56,7 +56,6 @@ pubspec.lock
 # React Native
 node_modules/
 yarn.lock
-package-lock.json
 .yarn
 .xcode*
 *.xcprivacy
