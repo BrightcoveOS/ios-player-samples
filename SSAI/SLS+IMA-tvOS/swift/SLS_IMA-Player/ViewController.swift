@@ -26,9 +26,9 @@ let kViewControllerVMAPAdTagURL = "insertyouradtaghere"
 final class ViewController: UIViewController {
 
     fileprivate lazy var playbackService: BCOVPlaybackService = {
-        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+        let factory = BCOVPlaybackServiceRequestFactory(withAccountId: kAccountId,
                                                         policyKey: kPolicyKey)
-        return .init(requestFactory: factory)
+        return .init(withRequestFactory: factory)
     }()
 
     fileprivate lazy var playerView: BCOVTVPlayerView? = {
@@ -48,11 +48,9 @@ final class ViewController: UIViewController {
     }()
 
     fileprivate lazy var playbackController: BCOVPlaybackController? = {
-        guard let sdkManager = BCOVPlayerSDKManager.sharedManager(),
-              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                         applicationId: nil) else {
-            return nil
-        }
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+        let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
+                                                         applicationId: nil)
 
         let imaSettings = IMASettings()
         imaSettings.language = NSLocale.current.languageCode!
@@ -67,7 +65,7 @@ final class ViewController: UIViewController {
         // which allows us to modify the IMAAdsRequest object before it is used to load ads.
         let imaPlaybackSessionOptions = [kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self]
 
-        let fps = sdkManager.createFairPlaySessionProvider(with: authProxy,
+        let fps = sdkManager.createFairPlaySessionProvider(withAuthorizationProxy: authProxy,
                                                            upstreamSessionProvider: nil)
 
         guard let playerView,
@@ -85,10 +83,8 @@ final class ViewController: UIViewController {
 
         let ssaiSessionProvider = sdkManager.createSSAISessionProvider(withUpstreamSessionProvider: imaSessionProvider)
 
-        guard let playbackController = sdkManager.createPlaybackController(with: ssaiSessionProvider,
-                                                                           viewStrategy: nil) else {
-            return nil
-        }
+        let playbackController = sdkManager.createPlaybackController(withSessionProvider: ssaiSessionProvider,
+                                                                           viewStrategy: nil)
 
         playbackController.delegate = self
         playbackController.isAutoPlay = true
@@ -148,13 +144,13 @@ final class ViewController: UIViewController {
     }
 
     fileprivate func requestContentFromPlaybackService() {
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId]
-        let queryParameters = [kBCOVPlaybackServiceParamaterKeyAdConfigId: kAdConfigId]
+        let configuration = [BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId]
+        let queryParameters = [BCOVPlaybackService.ParamaterKeyAdConfigId: kAdConfigId]
 
         playbackService.findVideo(withConfiguration: configuration,
                                   queryParameters: queryParameters) {
             [playbackController] (video: BCOVVideo?,
-                                  jsonResponse: [AnyHashable: Any]?,
+                                  jsonResponse: Any?,
                                   error: Error?) in
             guard let playbackController,
                   let video else {
@@ -188,7 +184,7 @@ final class ViewController: UIViewController {
             }
 #endif
 
-            playbackController.setVideos([video] as NSFastEnumeration)
+            playbackController.setVideos([video])
         }
     }
 

@@ -143,8 +143,8 @@ static NSString * const kAdConfigId = @"0e0bbcd1-bba0-45bf-a986-1288e5f9fc85";
 {
     __weak typeof(self) weakSelf = self;
 
-    NSDictionary *configuration = @{ kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId };
-    NSDictionary *queryParamaters = @{ kBCOVPlaybackServiceParamaterKeyAdConfigId: kAdConfigId };
+    NSDictionary *configuration = @{ BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId };
+    NSDictionary *queryParamaters = @{ BCOVPlaybackService.ParamaterKeyAdConfigId: kAdConfigId };
 
     [self.playbackService findVideoWithConfiguration:configuration
                                      queryParameters:queryParamaters

@@ -169,8 +169,8 @@ static NSString * const kViewControllerVMAPAdTagURL = @"insertyouradtaghere";
 {
     __weak typeof(self) weakSelf = self;
 
-    NSDictionary *configuration = @{ kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId };
-    NSDictionary *queryParameters = @{ kBCOVPlaybackServiceParamaterKeyAdConfigId: kAdConfigId };
+    NSDictionary *configuration = @{ BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId };
+    NSDictionary *queryParameters = @{ BCOVPlaybackService.ParamaterKeyAdConfigId: kAdConfigId };
     [self.playbackService findVideoWithConfiguration:configuration
                                      queryParameters:queryParameters
                                           completion:^(BCOVVideo *video,

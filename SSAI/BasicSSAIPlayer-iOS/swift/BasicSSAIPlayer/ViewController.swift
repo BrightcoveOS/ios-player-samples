@@ -28,9 +28,9 @@ final class ViewController: UIViewController {
     @IBOutlet fileprivate weak var companionSlotContainerView: UIView!
 
     fileprivate lazy var playbackService: BCOVPlaybackService = {
-        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+        let factory = BCOVPlaybackServiceRequestFactory(withAccountId: kAccountId,
                                                         policyKey: kPolicyKey)
-        return .init(requestFactory: factory)
+        return .init(withRequestFactory: factory)
     }()
 
     fileprivate lazy var playerView: BCOVPUIPlayerView? = {
@@ -54,11 +54,9 @@ final class ViewController: UIViewController {
     }()
 
     fileprivate lazy var playbackController: BCOVPlaybackController? = {
-        guard let sdkManager = BCOVPlayerSDKManager.sharedManager(),
-              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                         applicationId: nil) else {
-            return nil
-        }
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+        let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
+                                                         applicationId: nil)
 
         let fps = sdkManager.createFairPlaySessionProvider(withApplicationCertificate: nil,
                                                            authorizationProxy: authProxy,
@@ -78,11 +76,12 @@ final class ViewController: UIViewController {
 
         let ssaiSessionProvider = sdkManager.createSSAISessionProvider(withUpstreamSessionProvider: fps)
 
-        guard let playerView,
-              let playbackController = sdkManager.createPlaybackController(with: ssaiSessionProvider,
-                                                                           viewStrategy: nil) else {
+        guard let playerView else {
             return nil
         }
+
+        let playbackController = sdkManager.createPlaybackController(withSessionProvider: ssaiSessionProvider,
+                                                                     viewStrategy: nil)
 
         // Create a companion slot.
         let companionSlot = BCOVSSAICompanionSlot(view: companionSlotContainerView,
@@ -184,8 +183,8 @@ final class ViewController: UIViewController {
             if useVMAPURL {
                 if let playbackController,
                    let url = URL(string: kVMAPURL) {
-                    let video = BCOVVideo(url: url)
-                    playbackController.setVideos([video] as NSFastEnumeration)
+                    let video = BCOVVideo.video(withURL: url)
+                    playbackController.setVideos([video])
                 }
             } else {
                 requestContentFromPlaybackService()
@@ -197,7 +196,7 @@ final class ViewController: UIViewController {
         if useVMAPURL {
             if let playbackController,
                let url = URL(string: kVMAPURL) {
-                let video = BCOVVideo(url: url)
+                let video = BCOVVideo.video(withURL: url)
 
 #if targetEnvironment(simulator)
                 if video.usesFairPlay {
@@ -223,7 +222,7 @@ final class ViewController: UIViewController {
                 }
 #endif
 
-                playbackController.setVideos([video] as NSFastEnumeration)
+                playbackController.setVideos([video])
             }
         } else {
             requestContentFromPlaybackService()
@@ -231,13 +230,13 @@ final class ViewController: UIViewController {
     }
 
     fileprivate func requestContentFromPlaybackService() {
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId]
-        let queryParameters = [kBCOVPlaybackServiceParamaterKeyAdConfigId: kAdConfigId]
+        let configuration = [BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId]
+        let queryParameters = [BCOVPlaybackService.ParamaterKeyAdConfigId: kAdConfigId]
 
         playbackService.findVideo(withConfiguration: configuration,
                                   queryParameters: queryParameters) {
             [playbackController] (video: BCOVVideo?,
-                                  jsonResponse: [AnyHashable: Any]?,
+                                  jsonResponse: Any?,
                                   error: Error?) in
             guard let playbackController,
                   var video else {
@@ -278,7 +277,7 @@ final class ViewController: UIViewController {
 //                    video = BCOVPlaybackService.video(fromJSONDictionary: updatedJSON)
 //                }
 //            }
-            playbackController.setVideos([video] as NSFastEnumeration)
+            playbackController.setVideos([video])
         }
     }
 }
