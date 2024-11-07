@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
+@import BrightcovePlayerSDK;
 
 
 @interface VideoPreloadManager : NSObject

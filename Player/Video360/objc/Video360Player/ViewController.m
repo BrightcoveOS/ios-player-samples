@@ -22,7 +22,7 @@
  * when that delegate is called.
  */
 
-#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
+@import BrightcovePlayerSDK;
 
 #import "ViewController.h"
 

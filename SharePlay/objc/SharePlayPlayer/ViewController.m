@@ -5,7 +5,7 @@
 //  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
-#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
+@import BrightcovePlayerSDK;
 
 #import "SharePlayPlayer-Swift.h"
 #import "ViewController.h"

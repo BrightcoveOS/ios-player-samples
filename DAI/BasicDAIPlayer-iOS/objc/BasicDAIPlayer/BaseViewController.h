@@ -5,9 +5,9 @@
 //  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import BrightcovePlayerSDK;
 
-#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
+#import <UIKit/UIKit.h>
 #import <BrightcoveDAI/BrightcoveDAI.h>
 
 #import <GoogleInteractiveMediaAds/GoogleInteractiveMediaAds.h>

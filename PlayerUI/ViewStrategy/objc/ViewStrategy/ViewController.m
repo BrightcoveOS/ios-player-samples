@@ -5,8 +5,6 @@
 //  Copyright © 2024 Brightcove, Inc. All rights reserved.
 //
 
-#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
-
 #import "ViewStrategyCustomControls.h"
 
 #import "ViewController.h"

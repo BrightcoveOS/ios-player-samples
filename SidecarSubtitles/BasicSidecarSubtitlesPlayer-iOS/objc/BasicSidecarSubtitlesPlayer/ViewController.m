@@ -26,7 +26,7 @@
  *
  */
 
-#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
+@import BrightcovePlayerSDK;
 
 #import "ViewController.h"
 

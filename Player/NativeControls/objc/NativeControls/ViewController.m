@@ -5,8 +5,8 @@
 //  Copyright © 2020 Brightcove, Inc. All rights reserved.
 //
 
+@import BrightcovePlayerSDK;
 #import <AVKit/AVKit.h>
-#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
 
 #import "ViewController.h"
 

@@ -66,7 +66,7 @@
 // all playback controls.
 //
 
-#import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
+@import BrightcovePlayerSDK;
 
 #import "ControlViewStyles.h"
 #import "CustomLayouts.h"
