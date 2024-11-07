@@ -17,7 +17,7 @@
 
 /* Begin PBXFileReference section */
 		D657E9C22BD2F3AD005A18F9 /* GCKUICastContainerViewController+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GCKUICastContainerViewController+extensions.swift"; sourceTree = "<group>"; };
-		D657E9C42BD2F414005A18F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
+		D657E9C42BD2F414005A18F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../FairPlay/BasicFairPlayPlayer-iOS/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		E9D831B024B3A3E400825557 /* BrightcoveCastReceiver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrightcoveCastReceiver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9D831B324B3A3E400825557 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9D831B724B3A3E400825557 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };

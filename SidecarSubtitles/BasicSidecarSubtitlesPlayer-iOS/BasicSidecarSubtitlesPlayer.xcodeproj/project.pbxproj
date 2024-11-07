@@ -15,7 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D6DB4FB32BA3724100F47C9F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
+		D6DB4FB32BA3724100F47C9F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../FairPlay/BasicFairPlayPlayer-iOS/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		E9DEE55D216E8D250033C285 /* BasicSidecarSubtitlesPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicSidecarSubtitlesPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9DEE560216E8D250033C285 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9DEE562216E8D250033C285 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };

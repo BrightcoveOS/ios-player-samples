@@ -36,7 +36,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D64EB76F2BD05D4900378D34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
+		D64EB76F2BD05D4900378D34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../FairPlay/BasicFairPlayPlayer-iOS/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		D64EB7712BD0621100378D34 /* BCOVPulseVideoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCOVPulseVideoItem.swift; sourceTree = "<group>"; };
 		D6672BCC2BD4C7280014EE48 /* OMSDK_Invidi.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = OMSDK_Invidi.xcframework; sourceTree = "<group>"; };
 		D6672BCD2BD4C7280014EE48 /* Pulse.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Pulse.xcframework; sourceTree = "<group>"; };

@@ -25,7 +25,7 @@
 		D624537627E38F5B000161DB /* ReactNativePlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReactNativePlayer-Bridging-Header.h"; sourceTree = "<group>"; };
 		D624537B27E3ABA1000161DB /* BCOVVideoPlayerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCOVVideoPlayerManager.m; sourceTree = "<group>"; };
 		D67C37892C7FB1FB00808D73 /* BCOVThumbnailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCOVThumbnailManager.swift; sourceTree = "<group>"; };
-		D6901BB62BE36D25009C6C1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
+		D6901BB62BE36D25009C6C1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../FairPlay/BasicFairPlayPlayer-iOS/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		D6901BBA2BE371D0009C6C1C /* BCOVVideoPlayerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCOVVideoPlayerManager.h; sourceTree = "<group>"; };
 		EC1D47C82CDBCABB0092157A /* ReactNativePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactNativePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */

@@ -19,7 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D65403722BADF88B00DD8346 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
+		D65403722BADF88B00DD8346 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../FairPlay/BasicFairPlayPlayer-iOS/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		D6B50AA625B0F2B10019BE84 /* VASTOMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASTOMViewController.swift; sourceTree = "<group>"; };
 		E9337C802547297F00BD8A2A /* VMAPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMAPViewController.swift; sourceTree = "<group>"; };
 		E9337C832547298800BD8A2A /* VASTViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASTViewController.swift; sourceTree = "<group>"; };

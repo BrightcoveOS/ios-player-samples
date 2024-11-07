@@ -31,7 +31,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D60740D62BA0D4CF0075B82B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
+		D60740D62BA0D4CF0075B82B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../FairPlay/BasicFairPlayPlayer-iOS/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		D65269142BE9666C00CC4227 /* BasicFreeWheelPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicFreeWheelPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6672BBD2BD4BAC70014EE48 /* AdManager.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AdManager.xcframework; sourceTree = "<group>"; };
 		E93A3D6C217E6BEF00F971F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };

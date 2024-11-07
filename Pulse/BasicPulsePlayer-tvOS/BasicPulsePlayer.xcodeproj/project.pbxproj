@@ -38,7 +38,7 @@
 		D64ED390241C20FE00C856DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6634B192BD18FB0004DD1A0 /* BasicPulsePlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BasicPulsePlayer-Bridging-Header.h"; sourceTree = "<group>"; };
 		D675A4E82BD4C80E008DD765 /* Pulse_tvOS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Pulse_tvOS.xcframework; sourceTree = "<group>"; };
-		D6A5701D2BE74BE900ADA632 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
+		D6A5701D2BE74BE900ADA632 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../FairPlay/BasicFairPlayPlayer-iOS/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

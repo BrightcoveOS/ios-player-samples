@@ -23,7 +23,7 @@
 		D60B636E2760058E00CE4CAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D60B637A276007AA00CE4CAA /* BCOVFlutterPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCOVFlutterPlugin.swift; sourceTree = "<group>"; };
 		D60B637C2760094D00CE4CAA /* BCOVVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCOVVideoPlayer.swift; sourceTree = "<group>"; };
-		D61F81182BD9930600AD32CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../FairPlay/BasicFairPlayPlayer-iOS/swift/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
+		D61F81182BD9930600AD32CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../FairPlay/BasicFairPlayPlayer-iOS/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		D61F811A2BD99D1800AD32CE /* BCOVVideoPlayerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCOVVideoPlayerFactory.swift; sourceTree = "<group>"; };
 		D68EEC3A2C88D690006E9C89 /* BCOVThumbnailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCOVThumbnailManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
