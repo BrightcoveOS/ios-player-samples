@@ -68,7 +68,6 @@ final class ViewController: UIViewController {
     }()
 
     fileprivate lazy var playbackController: BCOVPlaybackController? = {
-        
         let sdkManager = BCOVPlayerSDKManager.sharedManager()
         let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
                                                          applicationId: nil)

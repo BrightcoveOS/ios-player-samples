@@ -72,7 +72,7 @@ final class ViewController: UIViewController {
         guard let playerView else {
             return nil
         }
-        
+
         let playbackController = sdkManager.createPlaybackController(withSessionProvider: daiSessionProvider,
                                                                      viewStrategy: nil)
 

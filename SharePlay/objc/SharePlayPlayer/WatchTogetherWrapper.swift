@@ -74,7 +74,7 @@ final class WatchTogetherWrapper: NSObject {
         metadata.title = movieTitle
 
         let keySystems = source.properties["key_systems"] as? [String: [String: String]]
-        
+
         guard let sourceURL = source.url else {
             return
         }

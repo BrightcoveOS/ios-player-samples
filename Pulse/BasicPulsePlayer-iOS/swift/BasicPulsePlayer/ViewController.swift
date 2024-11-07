@@ -141,7 +141,7 @@ final class ViewController: UIViewController {
               let pulseSessionProvider else {
             return nil
         }
-        
+
         let playbackController = sdkManager.createPlaybackController(withSessionProvider: pulseSessionProvider,
                                                                      viewStrategy: nil)
 

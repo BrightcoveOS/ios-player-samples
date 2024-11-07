@@ -69,7 +69,7 @@ final class ViewController: UIViewController {
                                                                            options: imaPlaybackSessionOptions) else {
             return nil
         }
-        
+
         let playbackController = sdkManager.createPlaybackController(withSessionProvider: imaSessionProvider,
                                                                      viewStrategy: nil)
 

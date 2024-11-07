@@ -75,7 +75,7 @@ final class ViewController: UIViewController {
                                                                          options: options) else {
             return nil
         }
-        
+
         let playbackController = sdkManager.createPlaybackController(withSessionProvider: fwSessionProvider, viewStrategy: nil)
 
         playbackController.delegate = self

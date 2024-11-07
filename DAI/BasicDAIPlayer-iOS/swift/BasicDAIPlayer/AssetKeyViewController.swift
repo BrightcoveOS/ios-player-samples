@@ -41,7 +41,7 @@ final class AssetKeyViewController: BaseViewController {
         guard let playerView else {
             return
         }
-        
+
         let playbackController = sdkManager.createPlaybackController(withSessionProvider: daiSessionProvider,
                                                                      viewStrategy: nil)
 
