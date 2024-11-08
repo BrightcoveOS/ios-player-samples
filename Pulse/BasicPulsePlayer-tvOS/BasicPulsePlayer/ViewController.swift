@@ -24,9 +24,9 @@ let kPulseHost = "https://bc-test.videoplaza.tv"
 final class ViewController: UIViewController {
 
     fileprivate lazy var playbackService: BCOVPlaybackService = {
-        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+        let factory = BCOVPlaybackServiceRequestFactory(withAccountId: kAccountId,
                                                         policyKey: kPolicyKey)
-        return .init(requestFactory: factory)
+        return .init(withRequestFactory: factory)
     }()
 
     fileprivate lazy var playerView: BCOVTVPlayerView? = {
@@ -68,11 +68,9 @@ final class ViewController: UIViewController {
          *  https://docs.invidi.com/r/INVIDI-Pulse-Documentation/Pulse-SDKs-parameter-reference
          */
 
-        guard let sdkManager = BCOVPlayerSDKManager.shared(),
-              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                         applicationId: nil) else {
-            return nil
-        }
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+        let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
+                                                         applicationId: nil)
 
         // See http://pulse-sdks.videoplaza.com/ios_2/latest/Classes/OOContentMetadata.html
         let contentMetadata = OOContentMetadata()
@@ -88,13 +86,10 @@ final class ViewController: UIViewController {
             kBCOVPulseOptionPulsePlaybackSessionDelegateKey: self,
             kBCOVPulseOptionPulsePersistentIdKey: persistentId]
 
-        let fps = sdkManager.createFairPlaySessionProvider(with: authProxy,
+        let fps = sdkManager.createFairPlaySessionProvider(withAuthorizationProxy: authProxy,
                                                            upstreamSessionProvider: nil)
 
-        guard let sdkManager = BCOVPlayerSDKManager.shared(),
-              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                         applicationId: nil),
-              let playerView,
+        guard let playerView,
               let contentOverlayView = playerView.contentOverlayView,
               let pulseSessionProvider = sdkManager.createPulseSessionProvider(withPulseHost: kPulseHost,
                                                                                contentMetadata: contentMetadata,
@@ -102,10 +97,11 @@ final class ViewController: UIViewController {
                                                                                adContainer: contentOverlayView,
                                                                                companionSlots: nil,
                                                                                upstreamSessionProvider: fps,
-                                                                               options: pulsePlaybackSessionOptions),
-              let playbackController = sdkManager.createPlaybackController(with: pulseSessionProvider, viewStrategy: nil) else {
+                                                                               options: pulsePlaybackSessionOptions) else {
             return nil
         }
+
+        let playbackController = sdkManager.createPlaybackController(withSessionProvider: pulseSessionProvider, viewStrategy: nil)
 
         playbackController.delegate = self
         playbackController.isAutoAdvance = true
@@ -166,11 +162,11 @@ final class ViewController: UIViewController {
     }
 
     fileprivate func requestContentFromPlaybackService() {
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId]
+        let configuration = [BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId]
         playbackService.findVideo(withConfiguration: configuration,
                                   queryParameters: nil) {
             [self] (video: BCOVVideo?,
-                    jsonResponse: [AnyHashable: Any]?,
+                    jsonResponse: Any?,
                     error: Error?) in
             guard let video,
                   let playbackController else {
@@ -205,7 +201,7 @@ final class ViewController: UIViewController {
             }
 #endif
 
-            playbackController.setVideos([video] as NSFastEnumeration)
+            playbackController.setVideos([video])
         }
     }
 }
