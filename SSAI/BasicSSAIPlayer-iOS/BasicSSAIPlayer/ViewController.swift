@@ -239,7 +239,7 @@ final class ViewController: UIViewController {
                                   jsonResponse: Any?,
                                   error: Error?) in
             guard let playbackController,
-                  var video else {
+                  let video else {
                 if let error {
                     print("ViewController - Error retrieving video: \(error.localizedDescription)")
                 }

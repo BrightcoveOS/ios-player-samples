@@ -35,21 +35,20 @@ final class ViewController: UIViewController {
     }()
 
     fileprivate lazy var playbackController: BCOVPlaybackController? = {
-        guard let sdkManager = BCOVPlayerSDKManager.sharedManager(),
-              let authProxy = BCOVFPSBrightcoveAuthProxy(publisherId: nil,
-                                                         applicationId: nil) else {
-            return nil
-        }
+        let sdkManager = BCOVPlayerSDKManager.sharedManager()
+        let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
+                                                         applicationId: nil)
 
         let fps = sdkManager.createFairPlaySessionProvider(withApplicationCertificate: nil,
                                                            authorizationProxy: authProxy,
                                                            upstreamSessionProvider: nil)
 
-        guard let playerView,
-              let playbackController = sdkManager.createPlaybackController(with: fps,
-                                                                           viewStrategy: nil) else {
+        guard let playerView else {
             return nil
         }
+
+        let playbackController = sdkManager.createPlaybackController(withSessionProvider: fps,
+                                                                     viewStrategy: nil)
 
         playbackController.delegate = self
         playbackController.isAutoAdvance = true
@@ -74,14 +73,15 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
 
         guard let playbackController,
-              let videoURL = URL(string: kVideoURLString),
-              let source = BCOVSource(url: videoURL,
-                                      deliveryMethod: kBCOVSourceDeliveryHLS,
-                                      properties: nil) else {
+              let videoURL = URL(string: kVideoURLString) else {
             return
         }
 
-        let video = BCOVVideo(source: source, cuePoints: nil, properties: nil)
+        let source = BCOVSource(withURL: videoURL,
+                                deliveryMethod: BCOVSource.DeliveryHLS,
+                                properties: nil)
+
+        let video = BCOVVideo(withSource: source, cuePoints: nil, properties: nil)
 
 #if targetEnvironment(simulator)
         if video.usesFairPlay {
@@ -107,7 +107,7 @@ final class ViewController: UIViewController {
         }
 #endif
 
-        playbackController.setVideos([video] as NSFastEnumeration)
+        playbackController.setVideos([video])
     }
 
 }
