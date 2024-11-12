@@ -6,5 +6,5 @@ platform :ios, '14.0'
 use_frameworks!
 
 target 'BasicCastPlayer' do
-  pod 'Brightcove-Player-GoogleCast/Bluetooth/XCFramework'
+  pod 'Brightcove-Player-GoogleCast/XCFramework'
 end
