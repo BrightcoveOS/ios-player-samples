@@ -1,15 +1,14 @@
-import React, { useRef, useState } from 'react';
-import { findNodeHandle, NativeModules, View } from 'react-native';
+import React, {useRef, useState} from 'react';
+import {findNodeHandle, NativeModules, View} from 'react-native';
 import BCOVVideoPlayer from './BCOVVideoPlayer';
-import { Controls as BCOVControls, thumbnailCallback } from './Controls';
+import {Controls as BCOVControls, thumbnailCallback} from './Controls';
 import FastImage from 'react-native-fast-image';
 
 type Props = {
   style?: object;
 };
 
-const VideoPlayer: React.FC<Props> = (props) => {
-  
+const VideoPlayer: React.FC<Props> = props => {
   const playerRef = useRef(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
@@ -24,7 +23,7 @@ const VideoPlayer: React.FC<Props> = (props) => {
   };
 
   const onReady = (event: any) => {
-    const { duration, isAutoPlay, thumbnails } = event.nativeEvent;
+    const {duration, isAutoPlay, thumbnails} = event.nativeEvent;
     if (duration) {
       setDuration(duration / 1000);
     }
@@ -39,14 +38,14 @@ const VideoPlayer: React.FC<Props> = (props) => {
   };
 
   const onProgress = (event: any) => {
-    const { progress } = event.nativeEvent;
+    const {progress} = event.nativeEvent;
     if (progress) {
       setCurrentTime(progress);
     }
   };
 
   const onEvent = (event: any) => {
-    const { inAdSequence } = event.nativeEvent;
+    const {inAdSequence} = event.nativeEvent;
     setInAdSequence(!!inAdSequence);
   };
 
@@ -71,17 +70,17 @@ const VideoPlayer: React.FC<Props> = (props) => {
 
   return (
     <View>
-      <BCOVVideoPlayer
-        ref={playerRef}
-        {...nativeProps}
-      />
-      { !inAdSequence &&
-          <BCOVControls isPlaying={isPlaying}
-                        duration={duration}
-                        progress={currentTime}
-                        onPress={onPressPlayPause}
-                        thumbnailAtTime={thumbnailAtTime}
-                        onSlidingComplete={onSlidingComplete}/> }
+      <BCOVVideoPlayer ref={playerRef} {...nativeProps} />
+      {!inAdSequence && (
+        <BCOVControls
+          isPlaying={isPlaying}
+          duration={duration}
+          progress={currentTime}
+          onPress={onPressPlayPause}
+          thumbnailAtTime={thumbnailAtTime}
+          onSlidingComplete={onSlidingComplete}
+        />
+      )}
     </View>
   );
 };

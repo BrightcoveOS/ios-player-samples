@@ -1,0 +1,374 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D6672B8F2BD48DBF0014EE48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6672B8E2BD48DBF0014EE48 /* AppDelegate.swift */; };
+		D6672B932BD48DBF0014EE48 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6672B922BD48DBF0014EE48 /* ViewController.swift */; };
+		D6672BA42BD48EA10014EE48 /* ADBMobileConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = D6672BA32BD48EA10014EE48 /* ADBMobileConfig.json */; };
+		D6672BA62BD48EB10014EE48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6672BA52BD48EB10014EE48 /* Assets.xcassets */; };
+		D6672BAB2BD48EC50014EE48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6672BA72BD48EC50014EE48 /* Main.storyboard */; };
+		D6672BAC2BD48EC50014EE48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6672BA92BD48EC50014EE48 /* LaunchScreen.storyboard */; };
+		D6672BAF2BD48F0A0014EE48 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6672BAE2BD48F0A0014EE48 /* WebKit.framework */; };
+		D6672BB22BD48F130014EE48 /* AdobeMobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6672BB02BD48F130014EE48 /* AdobeMobile.xcframework */; };
+		D6672BB42BD48F130014EE48 /* MediaSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6672BB12BD48F130014EE48 /* MediaSDK.xcframework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D63DC3FF2BE932C70049B06E /* BasicOmniturePlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "BasicOmniturePlayer-Bridging-Header.h"; path = "BasicOmniturePlayer/BasicOmniturePlayer-Bridging-Header.h"; sourceTree = "<group>"; };
+		D6672B8E2BD48DBF0014EE48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D6672B922BD48DBF0014EE48 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D6672B9C2BD48DC00014EE48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6672BA32BD48EA10014EE48 /* ADBMobileConfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ADBMobileConfig.json; sourceTree = "<group>"; };
+		D6672BA52BD48EB10014EE48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../FairPlay/BasicFairPlayPlayer-iOS/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
+		D6672BA82BD48EC50014EE48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D6672BAA2BD48EC50014EE48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D6672BAE2BD48F0A0014EE48 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		D6672BB02BD48F130014EE48 /* AdobeMobile.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AdobeMobile.xcframework; sourceTree = "<group>"; };
+		D6672BB12BD48F130014EE48 /* MediaSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = MediaSDK.xcframework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D6672B882BD48DBF0014EE48 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6672BAF2BD48F0A0014EE48 /* WebKit.framework in Frameworks */,
+				D6672BB42BD48F130014EE48 /* MediaSDK.xcframework in Frameworks */,
+				D6672BB22BD48F130014EE48 /* AdobeMobile.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D6672B822BD48DBF0014EE48 = {
+			isa = PBXGroup;
+			children = (
+				D63DC3FF2BE932C70049B06E /* BasicOmniturePlayer-Bridging-Header.h */,
+				D6672B8D2BD48DBF0014EE48 /* BasicOmniturePlayer */,
+				D6672BAD2BD48F0A0014EE48 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D6672B8D2BD48DBF0014EE48 /* BasicOmniturePlayer */ = {
+			isa = PBXGroup;
+			children = (
+				D6672BA32BD48EA10014EE48 /* ADBMobileConfig.json */,
+				D6672B9C2BD48DC00014EE48 /* Info.plist */,
+				D6672BA52BD48EB10014EE48 /* Assets.xcassets */,
+				D6672BA92BD48EC50014EE48 /* LaunchScreen.storyboard */,
+				D6672BA72BD48EC50014EE48 /* Main.storyboard */,
+				D6672B8E2BD48DBF0014EE48 /* AppDelegate.swift */,
+				D6672B922BD48DBF0014EE48 /* ViewController.swift */,
+			);
+			path = BasicOmniturePlayer;
+			sourceTree = "<group>";
+		};
+		D6672BAD2BD48F0A0014EE48 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D6672BB02BD48F130014EE48 /* AdobeMobile.xcframework */,
+				D6672BB12BD48F130014EE48 /* MediaSDK.xcframework */,
+				D6672BAE2BD48F0A0014EE48 /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D6672B8A2BD48DBF0014EE48 /* BasicOmniturePlayer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D6672B9F2BD48DC00014EE48 /* Build configuration list for PBXNativeTarget "BasicOmniturePlayer" */;
+			buildPhases = (
+				D6672B872BD48DBF0014EE48 /* Sources */,
+				D6672B882BD48DBF0014EE48 /* Frameworks */,
+				D6672B892BD48DBF0014EE48 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BasicOmniturePlayer;
+			productName = BasicOmniturePlayer;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D6672B832BD48DBF0014EE48 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1530;
+				LastUpgradeCheck = 1530;
+				ORGANIZATIONNAME = "Brightcove, Inc.";
+				TargetAttributes = {
+					D6672B8A2BD48DBF0014EE48 = {
+						CreatedOnToolsVersion = 15.3;
+					};
+				};
+			};
+			buildConfigurationList = D6672B862BD48DBF0014EE48 /* Build configuration list for PBXProject "BasicOmniturePlayer" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D6672B822BD48DBF0014EE48;
+			productRefGroup = D6672B822BD48DBF0014EE48;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D6672B8A2BD48DBF0014EE48 /* BasicOmniturePlayer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D6672B892BD48DBF0014EE48 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6672BAB2BD48EC50014EE48 /* Main.storyboard in Resources */,
+				D6672BAC2BD48EC50014EE48 /* LaunchScreen.storyboard in Resources */,
+				D6672BA62BD48EB10014EE48 /* Assets.xcassets in Resources */,
+				D6672BA42BD48EA10014EE48 /* ADBMobileConfig.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D6672B872BD48DBF0014EE48 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6672B932BD48DBF0014EE48 /* ViewController.swift in Sources */,
+				D6672B8F2BD48DBF0014EE48 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D6672BA72BD48EC50014EE48 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D6672BA82BD48EC50014EE48 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D6672BA92BD48EC50014EE48 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D6672BAA2BD48EC50014EE48 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D6672B9D2BD48DC00014EE48 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D6672B9E2BD48DC00014EE48 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D6672BA02BD48DC00014EE48 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				HEADER_SEARCH_PATHS = (
+					"\"$(inherited)\"",
+					"\"$(PROJECT_DIR)/AdobeMobile.xcframework/\"/**",
+					"\"$(PROJECT_DIR)/MediaSDK.xcframework/\"/**",
+				);
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Omniture;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D6672BA12BD48DC00014EE48 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				HEADER_SEARCH_PATHS = (
+					"\"$(inherited)\"",
+					"\"$(PROJECT_DIR)/AdobeMobile.xcframework/\"/**",
+					"\"$(PROJECT_DIR)/MediaSDK.xcframework/\"/**",
+				);
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Omniture;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.companyname.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D6672B862BD48DBF0014EE48 /* Build configuration list for PBXProject "BasicOmniturePlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D6672B9D2BD48DC00014EE48 /* Debug */,
+				D6672B9E2BD48DC00014EE48 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D6672B9F2BD48DC00014EE48 /* Build configuration list for PBXNativeTarget "BasicOmniturePlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D6672BA02BD48DC00014EE48 /* Debug */,
+				D6672BA12BD48DC00014EE48 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D6672B832BD48DBF0014EE48 /* Project object */;
+}

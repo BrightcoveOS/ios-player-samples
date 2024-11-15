@@ -68,7 +68,7 @@ struct PlayerUIView: View {
                         handleThumbnails(for: video)
                     }
 
-                    playbackController.setVideos([video] as NSFastEnumeration)
+                    playbackController.setVideos([video])
                 })
                 .store(in: &cancellables)
         }
@@ -91,7 +91,7 @@ struct PlayerUIView: View {
 private extension PlayerUIView {
 
     func handleThumbnails(for video: BCOVVideo) {
-        if let textTracks = video.properties[kBCOVVideoPropertyKeyTextTracks] as? [[String: Any]] {
+        if let textTracks = video.properties[BCOVVideo.PropertyKeyTextTracks] as? [[String: Any]] {
             for track in textTracks {
                 if let trackLabel = track["label"] as? String,
                    trackLabel == "thumbnails" {

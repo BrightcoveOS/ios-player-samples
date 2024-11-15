@@ -68,7 +68,7 @@ struct VideoDetailView: View {
                     return
                 }
 #endif
-                playbackController.setVideos([videoItem.video] as NSFastEnumeration)
+                playbackController.setVideos([videoItem.video])
                 didSetVideo.toggle()
             }
         }
@@ -89,7 +89,7 @@ struct VideoDetailView: View {
 struct VideoDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let playerModel = PlayerModel()
-        let video = BCOVVideo(source: nil,
+        let video = BCOVVideo(withSource: nil,
                               cuePoints: nil,
                               properties: nil)
         let videoListItem = VideoListItem(id: "1",

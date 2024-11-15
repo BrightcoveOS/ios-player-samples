@@ -19,18 +19,18 @@ let kVMAPAdTagURL = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/
 final class VideoModel {
 
     fileprivate lazy var playbackService: BCOVPlaybackService = {
-        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+        let factory = BCOVPlaybackServiceRequestFactory(withAccountId: kAccountId,
                                                         policyKey: kPolicyKey)
-        return .init(requestFactory: factory)
+        return .init(withRequestFactory: factory)
     }()
 
     func requestContentFromPlaybackService() -> Future<BCOVVideo, Error> {
         return Future<BCOVVideo, Error> { [self] promise in
-            let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetID: kVideoId]
+            let configuration = [BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId]
 
             playbackService.findVideo(withConfiguration: configuration,
                                       queryParameters: nil) { [promise] (video: BCOVVideo?,
-                                                                         jsonResponse: [AnyHashable: Any]?,
+                                                                         jsonResponse: Any?,
                                                                          error: Error?) in
                 if let video {
                     promise(.success(video))

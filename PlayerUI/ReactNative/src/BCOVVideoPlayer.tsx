@@ -1,4 +1,4 @@
-import { requireNativeComponent } from 'react-native';
+import {requireNativeComponent} from 'react-native';
 
 const BCOVVideoPlayer = requireNativeComponent('BCOVVideoPlayer');
 

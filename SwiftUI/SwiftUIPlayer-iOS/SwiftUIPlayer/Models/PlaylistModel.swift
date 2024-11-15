@@ -22,9 +22,9 @@ final class PlaylistModel: ObservableObject {
     var videoListItems = [VideoListItem]()
 
     fileprivate lazy var playbackService: BCOVPlaybackService = {
-        let factory = BCOVPlaybackServiceRequestFactory(accountId: kAccountId,
+        let factory = BCOVPlaybackServiceRequestFactory(withAccountId: kAccountId,
                                                         policyKey: kPolicyKey)
-        return .init(requestFactory: factory)
+        return .init(withRequestFactory: factory)
     }()
 
     init() {
@@ -33,15 +33,14 @@ final class PlaylistModel: ObservableObject {
 
     fileprivate func requestContentFromPlaybackService() {
 
-        let configuration = [kBCOVPlaybackServiceConfigurationKeyAssetReferenceID: kPlaylistRefId]
+        let configuration = [BCOVPlaybackService.ConfigurationKeyAssetReferenceID: kPlaylistRefId]
 
         playbackService.findPlaylist(withConfiguration: configuration, queryParameters: nil) {
             [weak self] (playlist: BCOVPlaylist?,
-                         jsonResponse: [AnyHashable: Any]?,
+                         jsonResponse: Any?,
                          error: Error?) in
 
-            guard let playlist,
-                  let videos = playlist.videos as? [BCOVVideo] else {
+            guard let playlist else {
                 if let error {
                     print("PlaylistModel - Error retrieving video playlist: \(error.localizedDescription)")
                 }
@@ -49,10 +48,12 @@ final class PlaylistModel: ObservableObject {
                 return
             }
 
+            let videos = playlist.videos
+
             var videoListItems = [VideoListItem]()
             for video in videos {
-                guard let videoId = video.properties[kBCOVVideoPropertyKeyId] as? String,
-                      let videoName = video.properties[kBCOVVideoPropertyKeyName] as? String else {
+                guard let videoId = video.properties[BCOVVideo.PropertyKeyId] as? String,
+                      let videoName = video.properties[BCOVVideo.PropertyKeyName] as? String else {
                     continue
                 }
 
