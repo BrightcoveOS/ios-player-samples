@@ -122,7 +122,7 @@ final class ViewController: UIViewController {
         return playbackController
     }()
 
-    fileprivate lazy var googleCastManager: BCOVGoogleCastManager  = {
+    fileprivate var googleCastManager: BCOVGoogleCastManager  = {
         let receiverAppConfig = BCOVReceiverAppConfig()
         receiverAppConfig.accountId = kAccountId
         receiverAppConfig.policyKey = kPolicyKey
