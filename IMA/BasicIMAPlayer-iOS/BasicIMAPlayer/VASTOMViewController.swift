@@ -74,13 +74,13 @@ final class VASTOMViewController: BaseViewController {
 
     // MARK: - BCOVPlaybackControllerAdsDelegate
 
-    override func playbackController(_ controller: BCOVPlaybackController!,
-                                     playbackSession session: BCOVPlaybackSession!,
-                                     didEnter adSequence: BCOVAdSequence!) {
+    override func playbackController(_ controller: BCOVPlaybackController,
+                                     playbackSession session: BCOVPlaybackSession,
+                                     didEnterAdSequence adSequence: BCOVAdSequence) {
 
         super.playbackController(controller,
                                  playbackSession: session,
-                                 didEnter: adSequence)
+                                 didEnterAdSequence: adSequence)
 
         guard let displayContainer = session.video.properties[kBCOVIMAVideoPropertiesKeyAdDisplayContainer] as? IMAAdDisplayContainer,
               let playerView,
@@ -95,9 +95,9 @@ final class VASTOMViewController: BaseViewController {
         displayContainer.register(overlayObstruction)
     }
 
-    override func playbackController(_ controller: BCOVPlaybackController!,
-                                     playbackSession session: BCOVPlaybackSession!,
-                                     didExitAdSequence adSequence: BCOVAdSequence!) {
+    override func playbackController(_ controller: BCOVPlaybackController,
+                                     playbackSession session: BCOVPlaybackSession,
+                                     didExitAdSequence adSequence: BCOVAdSequence) {
 
         super.playbackController(controller,
                                  playbackSession: session,
