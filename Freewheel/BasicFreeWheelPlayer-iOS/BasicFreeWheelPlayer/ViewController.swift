@@ -281,27 +281,27 @@ extension ViewController: BCOVPlaybackControllerDelegate {
 
 extension ViewController: BCOVPlaybackControllerAdsDelegate {
 
-    func playbackController(_ controller: BCOVPlaybackController!,
-                            playbackSession session: BCOVPlaybackSession!,
-                            didEnter adSequence: BCOVAdSequence!) {
+    func playbackController(_ controller: BCOVPlaybackController,
+                            playbackSession session: BCOVPlaybackSession,
+                            didEnterAdSequence adSequence: BCOVAdSequence) {
         print("ViewController - Entering ad sequence")
     }
 
-    func playbackController(_ controller: BCOVPlaybackController!,
-                            playbackSession session: BCOVPlaybackSession!,
-                            didExitAdSequence adSequence: BCOVAdSequence!) {
+    func playbackController(_ controller: BCOVPlaybackController,
+                            playbackSession session: BCOVPlaybackSession,
+                            didExitAdSequence adSequence: BCOVAdSequence) {
         print("ViewController - Exiting ad sequence")
     }
 
-    func playbackController(_ controller: BCOVPlaybackController!,
-                            playbackSession session: BCOVPlaybackSession!,
-                            didEnter ad: BCOVAd!) {
+    func playbackController(_ controller: BCOVPlaybackController,
+                            playbackSession session: BCOVPlaybackSession,
+                            didEnterAd ad: BCOVAd) {
         print("ViewController - Entering ad")
     }
 
-    func playbackController(_ controller: BCOVPlaybackController!,
-                            playbackSession session: BCOVPlaybackSession!,
-                            didExitAd ad: BCOVAd!) {
+    func playbackController(_ controller: BCOVPlaybackController,
+                            playbackSession session: BCOVPlaybackSession,
+                            didExitAd ad: BCOVAd) {
         print("ViewController - Exiting ad")
     }
 }
