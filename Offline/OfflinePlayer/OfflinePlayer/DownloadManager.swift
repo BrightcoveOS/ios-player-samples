@@ -35,7 +35,7 @@ final class DownloadManager: NSObject {
 
         print("Requested bitrate: \(bitrate)")
 
-        downloadParameters[kBCOVOfflineVideoManagerRequestedBitrateKey] = bitrate
+        downloadParameters[BCOVOfflineVideoManagerConstants.RequestedBitrateKey] = bitrate
 
         return downloadParameters
     }
@@ -56,14 +56,14 @@ final class DownloadManager: NSObject {
 
         if isPurchaseLicense {
             print("Requesting Purchase License")
-            licenseParamaters[kBCOVFairPlayLicensePurchaseKey] = true
+            licenseParamaters[BCOVFairPlayLicense.PurchaseKey] = true
         } else {
             let rentalDuration = settingsViewController.rentalDuration
             let playDuration = settingsViewController.playDuration
 
             print("Requesting Rental License\nrentalDuration: \(rentalDuration)\nplayDuration: \(playDuration)")
-            licenseParamaters[kBCOVFairPlayLicenseRentalDurationKey] = rentalDuration
-            licenseParamaters[kBCOVFairPlayLicensePlayDurationKey] = playDuration
+            licenseParamaters[BCOVFairPlayLicense.RentalDurationKey] = rentalDuration
+            licenseParamaters[BCOVFairPlayLicense.PlayDurationKey] = playDuration
         }
 
         return licenseParamaters
@@ -315,7 +315,7 @@ final class DownloadManager: NSObject {
         // Get the offline video object and its path
         guard let offlineManager = BCOVOfflineVideoManager.shared(),
               let video = offlineManager.videoObject(fromOfflineVideoToken: token),
-              let videoPath = video.properties[kBCOVOfflineVideoFilePathPropertyKey] as? String else {
+              let videoPath = video.properties[BCOVOfflineVideo.FilePathPropertyKey] as? String else {
             return "MediaSelection(n/a)"
         }
 

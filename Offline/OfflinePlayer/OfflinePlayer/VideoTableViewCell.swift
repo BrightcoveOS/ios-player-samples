@@ -60,7 +60,7 @@ final class VideoTableViewCell: UITableViewCell {
                 return VideoManager.shared.thumbnails[videoId]
             }
         } else {
-            if let urlPath = video.properties[kBCOVOfflineVideoPosterFilePathPropertyKey] as? String,
+            if let urlPath = video.properties[BCOVOfflineVideo.PosterFilePathPropertyKey] as? String,
                let image = UIImage(contentsOfFile: urlPath) {
                 return image
             }

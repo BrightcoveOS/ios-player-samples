@@ -336,7 +336,7 @@ final class DownloadsViewController: UIViewController {
         }
 
         // Load poster image into the detail view
-        if let posterPathString = video.properties[kBCOVOfflineVideoPosterFilePathPropertyKey] as? String,
+        if let posterPathString = video.properties[BCOVOfflineVideo.PosterFilePathPropertyKey] as? String,
            let posterImage = UIImage(contentsOfFile: posterPathString) {
             posterImageView.backgroundColor = .clear
             posterImageView.image = posterImage
@@ -426,7 +426,7 @@ final class DownloadsViewController: UIViewController {
                     if let offlineVideoToken {
                         let updatedVideo = video.update { (mutableVideo: BCOVMutableVideo) in
                             var mutableProperties = mutableVideo.properties
-                            mutableProperties[kBCOVOfflineVideoTokenPropertyKey] = offlineVideoToken
+                            mutableProperties[BCOVOfflineVideo.TokenPropertyKey] = offlineVideoToken
                             mutableVideo.properties = mutableProperties
                         }
 
@@ -629,7 +629,7 @@ extension DownloadsViewController: BCOVPlaybackControllerDelegate {
 
         print("Error: \(error.localizedDescription)")
 
-        if error.code == kBCOVOfflineVideoManagerErrorCodeExpiredLicense {
+        if error.code == BCOVOfflineVideoManagerErrorCode.ExpiredLicense.rawValue {
             UIAlertController.showWith(title: "License Expired",
                                        message: "The FairPlay license for the video \"\(session.video.localizedName ?? "unknown")\" has expired")
 

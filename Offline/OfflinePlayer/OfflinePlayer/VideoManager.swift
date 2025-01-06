@@ -80,7 +80,7 @@ final class VideoManager: NSObject {
             return
         }
 
-        let options = [kBCOVOfflineVideoManagerRequestedBitrateKey: bitrate]
+        let options = [BCOVOfflineVideoManagerConstants.RequestedBitrateKey: bitrate]
 
         offlineManager.estimateDownloadSize(video, options: options) {
             (megabytes: Double, error: Error?) in

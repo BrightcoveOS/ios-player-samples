@@ -134,9 +134,9 @@ final class SettingsViewController: UIViewController {
         let isOn = NSNumber(booleanLiteral: sender.isOn)
 
         let options = [
-            kBCOVOfflineVideoManagerAllowsCellularDownloadKey: isOn,
-            kBCOVOfflineVideoManagerAllowsCellularPlaybackKey: isOn,
-            kBCOVOfflineVideoManagerAllowsCellularAnalyticsKey: isOn
+            BCOVOfflineVideoManagerConstants.AllowsCellularDownloadKey: isOn,
+            BCOVOfflineVideoManagerConstants.AllowsCellularPlaybackKey: isOn,
+            BCOVOfflineVideoManagerConstants.AllowsCellularAnalyticsKey: isOn
         ]
 
         // Re-initialize with same delegate, but new options.

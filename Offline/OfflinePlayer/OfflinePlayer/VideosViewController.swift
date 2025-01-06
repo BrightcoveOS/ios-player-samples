@@ -155,9 +155,9 @@ final class VideosViewController: UIViewController {
         super.viewDidLoad()
 
         let options = [
-            kBCOVOfflineVideoManagerAllowsCellularDownloadKey: false,
-            kBCOVOfflineVideoManagerAllowsCellularPlaybackKey: false,
-            kBCOVOfflineVideoManagerAllowsCellularAnalyticsKey: false
+            BCOVOfflineVideoManagerConstants.AllowsCellularDownloadKey: false,
+            BCOVOfflineVideoManagerConstants.AllowsCellularPlaybackKey: false,
+            BCOVOfflineVideoManagerConstants.AllowsCellularAnalyticsKey: false
         ]
 
         BCOVOfflineVideoManager.initializeOfflineVideoManager(with: DownloadManager.shared,
@@ -167,7 +167,7 @@ final class VideosViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(analyticsStorageFullWarningNotificationReceived),
-                                               name: NSNotification.Name.bcovOfflineVideoManagerAnalyticsStorageFullWarning,
+                                               name: NSNotification.Name(BCOVOfflineVideoManagerConstants.AnalyticsStorageFullWarningNotification),
                                                object: nil)
 
         NotificationCenter.default.addObserver(self,
