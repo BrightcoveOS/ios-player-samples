@@ -95,7 +95,7 @@ final class VideosViewController: UIViewController {
 
     fileprivate lazy var playbackController: BCOVPlaybackController? = {
         let sdkManager = BCOVPlayerSDKManager.sharedManager()
-        guard let offlineManager = BCOVOfflineVideoManager.shared() else {
+        guard let offlineManager = BCOVOfflineVideoManager.sharedManager else {
             return nil
         }
         let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
@@ -155,19 +155,19 @@ final class VideosViewController: UIViewController {
         super.viewDidLoad()
 
         let options = [
-            BCOVOfflineVideoManagerConstants.AllowsCellularDownloadKey: false,
-            BCOVOfflineVideoManagerConstants.AllowsCellularPlaybackKey: false,
-            BCOVOfflineVideoManagerConstants.AllowsCellularAnalyticsKey: false
+            BCOVOfflineVideoManager.AllowsCellularDownloadKey: false,
+            BCOVOfflineVideoManager.AllowsCellularPlaybackKey: false,
+            BCOVOfflineVideoManager.AllowsCellularAnalyticsKey: false
         ]
 
-        BCOVOfflineVideoManager.initializeOfflineVideoManager(with: DownloadManager.shared,
+        BCOVOfflineVideoManager.initializeOfflineVideoManager(withDelegate: DownloadManager.shared,
                                                               options: options)
 
         requestContentFromPlaybackService()
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(analyticsStorageFullWarningNotificationReceived),
-                                               name: NSNotification.Name(BCOVOfflineVideoManagerConstants.AnalyticsStorageFullWarningNotification),
+                                               name: NSNotification.Name(BCOVOfflineVideoManager.AnalyticsStorageFullWarningNotification),
                                                object: nil)
 
         NotificationCenter.default.addObserver(self,

@@ -39,8 +39,8 @@ final class VideoTableViewCell: UITableViewCell {
             detailLabel.text = "\(video.duration) / \(fileSize)\n\(video.localizedShortDescription ?? "")"
 
             if video.offline,
-               let offlineVideoToken = video.offlineVideoToken,
-               let offlineManager = BCOVOfflineVideoManager.shared(),
+               let offlineVideoToken = video.offlineVideoToken as? BCOVOfflineVideoToken,
+               let offlineManager = BCOVOfflineVideoManager.sharedManager,
                let offlineVideoStatus = offlineManager.offlineVideoStatus(forToken: offlineVideoToken) {
                 progressView.isHidden = offlineVideoStatus.downloadState == .stateCompleted
                 progressView.progress =  Float(offlineVideoStatus.downloadPercent / 100.0)
@@ -89,13 +89,14 @@ final class VideoTableViewCell: UITableViewCell {
 
         var imageView = video.canBeDownloaded ? UIImageView(image: UIImage(named: "arrow.down.circle")) : nil
 
-        guard let offlineManager = BCOVOfflineVideoManager.shared(),
-              let offlineVideoStatusArray = offlineManager.offlineVideoStatus() else {
+        guard let offlineManager = BCOVOfflineVideoManager.sharedManager else {
             return imageView
         }
 
+        let offlineVideoStatusArray = offlineManager.offlineVideoStatus()
+
         for offlineVideoStatus in offlineVideoStatusArray {
-            guard let offlineVideo = offlineManager.videoObject(fromOfflineVideoToken: offlineVideoStatus.offlineVideoToken),
+            guard let offlineVideo = offlineManager.videoObject(fromOfflineVideoToken: offlineVideoStatus.offlineVideoToken as BCOVOfflineVideoToken),
                   offlineVideo.matches(with: video) else {
                 continue
             }

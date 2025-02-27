@@ -11,9 +11,9 @@ import BrightcovePlayerSDK
 
 
 fileprivate struct DefaultSettings {
-    static let Bitrate: Int64 = 1000000
-    static let RentalDuration: Int64 = 3600
-    static let PlayDuration: Int64 = 600
+    static let Bitrate: Int = 1000000
+    static let RentalDuration: Int = 3600
+    static let PlayDuration: Int = 600
 }
 
 
@@ -89,27 +89,27 @@ final class SettingsViewController: UIViewController {
         return licenseTypeSegmentedControl?.selectedSegmentIndex == 1
     }
 
-    var bitrate: Int64 {
+    var bitrate: Int {
         guard let textValue = bitrateTextField?.text,
-              let bitrate = Int64(textValue) else {
+              let bitrate = Int(textValue) else {
             return DefaultSettings.Bitrate
         }
 
         return bitrate
     }
 
-    var rentalDuration: Int64 {
+    var rentalDuration: Int {
         guard let textValue = rentalDurationTextField?.text,
-              let rentalDuration = Int64(textValue) else {
+              let rentalDuration = Int(textValue) else {
             return DefaultSettings.RentalDuration
         }
 
         return rentalDuration
     }
 
-    var playDuration: Int64 {
+    var playDuration: Int {
         guard let textValue = playDurationTextField?.text,
-              let playDuration = Int64(textValue) else {
+              let playDuration = Int(textValue) else {
             return DefaultSettings.PlayDuration
         }
 
@@ -134,13 +134,13 @@ final class SettingsViewController: UIViewController {
         let isOn = NSNumber(booleanLiteral: sender.isOn)
 
         let options = [
-            BCOVOfflineVideoManagerConstants.AllowsCellularDownloadKey: isOn,
-            BCOVOfflineVideoManagerConstants.AllowsCellularPlaybackKey: isOn,
-            BCOVOfflineVideoManagerConstants.AllowsCellularAnalyticsKey: isOn
+            BCOVOfflineVideoManager.AllowsCellularDownloadKey: isOn,
+            BCOVOfflineVideoManager.AllowsCellularPlaybackKey: isOn,
+            BCOVOfflineVideoManager.AllowsCellularAnalyticsKey: isOn
         ]
 
         // Re-initialize with same delegate, but new options.
-        BCOVOfflineVideoManager.initializeOfflineVideoManager(with: DownloadManager.shared,
+        BCOVOfflineVideoManager.initializeOfflineVideoManager(withDelegate: DownloadManager.shared,
                                                               options: options)
     }
 #endif

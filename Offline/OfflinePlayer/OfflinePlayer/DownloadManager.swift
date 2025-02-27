@@ -35,7 +35,7 @@ final class DownloadManager: NSObject {
 
         print("Requested bitrate: \(bitrate)")
 
-        downloadParameters[BCOVOfflineVideoManagerConstants.RequestedBitrateKey] = bitrate
+        downloadParameters[BCOVOfflineVideoManager.RequestedBitrateKey] = bitrate
 
         return downloadParameters
     }
@@ -116,10 +116,11 @@ final class DownloadManager: NSObject {
 
         // Next check to see if the video has already been downloaded
         // or is in the process of downloading
-        guard let offlineManager = BCOVOfflineVideoManager.shared(),
-              let offlineVideoTokens = offlineManager.offlineVideoTokens else {
+        guard let offlineManager = BCOVOfflineVideoManager.sharedManager else {
             return false
         }
+
+        let offlineVideoTokens = offlineManager.offlineVideoTokens
 
         for offlineVideoToken in offlineVideoTokens {
             guard let offlineVideo = offlineManager.videoObject(fromOfflineVideoToken: offlineVideoToken) else {
@@ -181,7 +182,7 @@ final class DownloadManager: NSObject {
                                                 object: videoDownload.video)
             }
         } else {
-            guard let offlineManager = BCOVOfflineVideoManager.shared() else {
+            guard let offlineManager = BCOVOfflineVideoManager.sharedManager else {
                 return
             }
 
@@ -222,26 +223,26 @@ final class DownloadManager: NSObject {
             videoDownloadQueue.remove(at: indexOfVideo)
         }
 
-        guard let offlineManager = BCOVOfflineVideoManager.shared() else {
+        guard let offlineManager = BCOVOfflineVideoManager.sharedManager else {
             return
         }
 
         // Display all available bitrates
-        offlineManager.variantBitrates(for: videoDownload.video) {
-            (bitrates: [NSNumber]?, error: Error?) in
+        offlineManager.variantBitrates(forVideo: videoDownload.video) {
+            (bitrates: [Int]?, error: Error?) in
 
             print("Variant Bitrates for video: \(videoDownload.video.localizedName ?? "unknown")")
 
             if let bitrates {
                 for bitrate in bitrates {
-                    print("\(bitrate.intValue)")
+                    print("\(bitrate)")
                 }
             }
         }
 
         var urlAsset: AVURLAsset?
         do {
-            urlAsset = try offlineManager.urlAsset(for: videoDownload.video)
+            urlAsset = try offlineManager.urlAsset(forVideo: videoDownload.video)
         } catch {}
 
         if let urlAsset {
@@ -310,10 +311,10 @@ final class DownloadManager: NSObject {
     }
 
     fileprivate class func mediaSelectionDescription(from mediaSelection: AVMediaSelection,
-                                                     for token: String) -> String {
+                                                     for token: BCOVOfflineVideoToken) -> String {
 
         // Get the offline video object and its path
-        guard let offlineManager = BCOVOfflineVideoManager.shared(),
+        guard let offlineManager = BCOVOfflineVideoManager.sharedManager,
               let video = offlineManager.videoObject(fromOfflineVideoToken: token),
               let videoPath = video.properties[BCOVOfflineVideo.FilePathPropertyKey] as? String else {
             return "MediaSelection(n/a)"
@@ -345,8 +346,8 @@ extension DownloadManager: BCOVOfflineVideoManagerDelegate {
 
         // The specific requested media selected option related to this
         // offline video token has progressed to the specified percent
-        guard let offlineVideoToken,
-              let offlineManager = BCOVOfflineVideoManager.shared(),
+        guard let offlineVideoToken = offlineVideoToken as? BCOVOfflineVideoToken,
+              let offlineManager = BCOVOfflineVideoManager.sharedManager,
               let offlineVideo = offlineManager.videoObject(fromOfflineVideoToken: offlineVideoToken) else {
 
             NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus,
@@ -365,8 +366,8 @@ extension DownloadManager: BCOVOfflineVideoManagerDelegate {
 
         // The specific requested media selected option related to this
         // offline video token has completed downloading
-        guard let offlineVideoToken,
-              let offlineManager = BCOVOfflineVideoManager.shared(),
+        guard let offlineVideoToken = offlineVideoToken as? BCOVOfflineVideoToken,
+              let offlineManager = BCOVOfflineVideoManager.sharedManager,
               let offlineVideoStatus = offlineManager.offlineVideoStatus(forToken: offlineVideoToken) else {
             return
         }
@@ -386,7 +387,7 @@ extension DownloadManager: BCOVOfflineVideoManagerDelegate {
             print("Download finished with error: \(error.localizedDescription)")
         }
 
-        guard let offlineManager = BCOVOfflineVideoManager.shared(),
+        guard let offlineVideoToken = offlineVideoToken as? BCOVOfflineVideoToken, let offlineManager = BCOVOfflineVideoManager.sharedManager,
               let offlineVideo = offlineManager.videoObject(fromOfflineVideoToken: offlineVideoToken) else {
 
             NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus,

@@ -10,8 +10,8 @@ import BrightcovePlayerSDK
 
 extension BCOVOfflineVideoStatus {
 
-    var offlineVideo: BCOVVideo {
-        return BCOVOfflineVideoManager.shared().videoObject(fromOfflineVideoToken: offlineVideoToken)
+    var offlineVideo: BCOVVideo? {
+        return BCOVOfflineVideoManager.sharedManager?.videoObject(fromOfflineVideoToken: offlineVideoToken as BCOVOfflineVideoToken)
     }
 
     var infoForDonwloadState: String {
@@ -20,7 +20,7 @@ extension BCOVOfflineVideoStatus {
                 return "download requested"
 
             case .stateDownloading:
-                let actualMegabytes = UIDevice.current.usedDiskSpace(forVideo: offlineVideo)
+                let actualMegabytes = UIDevice.current.usedDiskSpace(forVideo: offlineVideo!)
                 let totalDownloadTime = Date.timeIntervalSinceReferenceDate - downloadStartTime.timeIntervalSinceReferenceDate
                 let mbps = (actualMegabytes * downloadPercent / 100) / totalDownloadTime
                 let speed = String(format: "%0.2f %@", (mbps < 0.5 ? mbps * 1000 : mbps), (mbps < 0.5 ? "KB/s" : "MB/s"))
@@ -34,7 +34,7 @@ extension BCOVOfflineVideoStatus {
                 return "cancelled"
 
             case .stateCompleted:
-                let actualMegabytes = UIDevice.current.usedDiskSpace(forVideo: offlineVideo)
+                let actualMegabytes = UIDevice.current.usedDiskSpace(forVideo: offlineVideo!)
                 let totalDownloadTime = downloadEndTime.timeIntervalSinceReferenceDate - downloadStartTime.timeIntervalSinceReferenceDate
                 let mbps = actualMegabytes / totalDownloadTime
                 let speed = String(format: "%0.2f %@", (mbps < 0.5 ? mbps * 1000 : mbps), (mbps < 0.5 ? "KB/s" : "MB/s"))

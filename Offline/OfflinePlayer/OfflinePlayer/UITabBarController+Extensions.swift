@@ -61,11 +61,12 @@ extension UITabBarController {
     }
 
     func updateBadge() {
-        guard let offlineManager = BCOVOfflineVideoManager.shared(),
-              let offlineVideoStatusArray = offlineManager.offlineVideoStatus(),
+        guard let offlineManager = BCOVOfflineVideoManager.sharedManager,
               let downloadsViewController else {
             return
         }
+
+        let offlineVideoStatusArray = offlineManager.offlineVideoStatus()
 
         let filteredCount = offlineVideoStatusArray.filter({ $0.downloadState == .stateDownloading }).count
 
