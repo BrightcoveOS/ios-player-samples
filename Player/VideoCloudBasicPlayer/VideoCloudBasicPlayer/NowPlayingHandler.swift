@@ -43,9 +43,9 @@ final class NowPlayingHandler: NSObject {
         }
 
         center.togglePlayPauseCommand.addTarget { [self] _ in
-            guard let session else { return .commandFailed }
+            guard let session, let player = session.player else { return .commandFailed }
 
-            if session.player.timeControlStatus == .paused {
+            if player.timeControlStatus == .paused {
                 playbackController.play()
             } else {
                 playbackController.pause()
@@ -56,7 +56,7 @@ final class NowPlayingHandler: NSObject {
     }
 
     func updateNowPlayingInfoForAudioOnly() {
-        guard let customFields = session?.video.properties["custom_fields"] as? [String: Any] else {
+        guard let video = session?.video , let customFields = video.properties["custom_fields"] as? [String: Any] else {
             return
         }
 
@@ -123,8 +123,8 @@ extension NowPlayingHandler: BCOVPlaybackSessionConsumer {
 
         nowPlayingInfo = [String: AnyHashable]()
 
-        guard let videoName = session.video.localizedName(forLocale: nil),
-              let durationNum = session.video.properties[BCOVVideo.PropertyKeyDuration] as? NSNumber else {
+        guard let video = session.video, let videoName = video.localizedName(forLocale: nil),
+              let durationNum = video.properties[BCOVVideo.PropertyKeyDuration] as? NSNumber else {
             return
         }
 
@@ -137,7 +137,7 @@ extension NowPlayingHandler: BCOVPlaybackSessionConsumer {
         let infoCenter = MPNowPlayingInfoCenter.default()
         infoCenter.nowPlayingInfo = nowPlayingInfo
 
-        if let posterURL = session.video.properties[BCOVVideo.PropertyKeyPoster] as? String,
+        if let posterURL = video.properties[BCOVVideo.PropertyKeyPoster] as? String,
            let url = URL(string: posterURL) {
             DispatchQueue.global(qos: .background).async { [self] in
                 do {

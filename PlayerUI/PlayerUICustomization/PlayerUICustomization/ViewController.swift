@@ -375,8 +375,7 @@ extension ViewController: BCOVPUIPlayerViewDelegate {
 
 extension ViewController: BCOVPUIButtonAccessibilityDelegate {
 
-    func accessibilityLabel(for button: BCOVPUIButton!,
-                            isPrimaryState: Bool) -> String! {
+    func accessibilityLabelForButton(_ button: BCOVPUIButton, isPrimaryState: Bool) -> String? {
         switch button.tag {
             case BCOVPUIViewTag.buttonPlayback.rawValue:
                 return (isPrimaryState ?

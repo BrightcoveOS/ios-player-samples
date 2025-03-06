@@ -82,7 +82,7 @@ final class VASTOMViewController: BaseViewController {
                                  playbackSession: session,
                                  didEnterAdSequence: adSequence)
 
-        guard let displayContainer = session.video.properties[kBCOVIMAVideoPropertiesKeyAdDisplayContainer] as? IMAAdDisplayContainer,
+        guard let video = session.video, let displayContainer = video.properties[kBCOVIMAVideoPropertiesKeyAdDisplayContainer] as? IMAAdDisplayContainer,
               let playerView,
               let transparentOverlay = playerView.overlayView else {
             return
@@ -103,7 +103,7 @@ final class VASTOMViewController: BaseViewController {
                                  playbackSession: session,
                                  didExitAdSequence: adSequence)
 
-        guard let displayContainer = session.video.properties[kBCOVIMAVideoPropertiesKeyAdDisplayContainer] as? IMAAdDisplayContainer else { return }
+        guard let video = session.video, let displayContainer = video.properties[kBCOVIMAVideoPropertiesKeyAdDisplayContainer] as? IMAAdDisplayContainer else { return }
 
         displayContainer.unregisterAllFriendlyObstructions()
     }

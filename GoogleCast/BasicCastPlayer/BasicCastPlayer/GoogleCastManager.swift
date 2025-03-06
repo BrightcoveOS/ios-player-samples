@@ -257,7 +257,9 @@ final class GoogleCastManager: NSObject {
 extension GoogleCastManager: BCOVPlaybackSessionConsumer {
 
     func didAdvance(to session: BCOVPlaybackSession!) {
-        createMediaInfo(fromVideo: session.video)
+        if let video = session.video {
+            createMediaInfo(fromVideo: video)
+        }
         setupRemoteMediaClientWithMediaInfo()
     }
 
