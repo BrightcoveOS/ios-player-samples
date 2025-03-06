@@ -283,7 +283,7 @@ final class DownloadsViewController: UIViewController {
                 tableView.reloadData()
             }
 
-            let inProgressCount = offlineVideoStatusArray.filter({ $0.downloadState == .stateDownloading }).count
+            let inProgressCount = offlineVideoStatusArray.filter({ $0.downloadState == .downloading }).count
 
             switch inProgressCount {
                 case 0:
@@ -364,8 +364,8 @@ final class DownloadsViewController: UIViewController {
             return
         }
 
-        let showTaskButtons = ![BCOVOfflineVideoDownloadState.stateDownloading,
-                                BCOVOfflineVideoDownloadState.stateSuspended].contains(status.downloadState)
+        let showTaskButtons = ![BCOVOfflineVideoDownloadState.downloading,
+                                BCOVOfflineVideoDownloadState.suspended].contains(status.downloadState)
 
         playButton.isHidden = false
         moreButton.isHidden = false
@@ -376,9 +376,9 @@ final class DownloadsViewController: UIViewController {
         playButton.setTitle("Play", for: .normal)
 
         switch status.downloadState {
-            case .stateDownloading:
+            case .downloading:
                 pauseButton.setTitle("Pause", for: .normal)
-            case .stateSuspended:
+            case .suspended:
                 pauseButton.setTitle("Resume", for: .normal)
             default:
                 break
@@ -471,9 +471,9 @@ final class DownloadsViewController: UIViewController {
         }
 
         switch offlineVideoStatus.downloadState {
-            case .stateRequested,
-                    .stateDownloading,
-                    .stateSuspended:
+            case .requested,
+                 .downloading,
+                 .suspended:
                 offlineManager.cancelVideoDownload(selectedOfflineVideoToken)
             default:
                 break
@@ -510,7 +510,7 @@ final class DownloadsViewController: UIViewController {
             // instance solves the issue.
             playbackController.setVideos(nil)
 
-            if offlineVideoStatus.downloadState == .stateCancelled {
+            if offlineVideoStatus.downloadState == .cancelled {
                 UIAlertController.showWith(title: "",
                                            message: "This video is not currently playable. The download was cancelled.")
                 return
@@ -587,9 +587,9 @@ final class DownloadsViewController: UIViewController {
         }
 
         switch offlineVideoStatus.downloadState {
-            case .stateDownloading:
+            case .downloading:
                 offlineManager.pauseVideoDownload(selectedOfflineVideoToken)
-            case .stateSuspended:
+            case .suspended:
                 offlineManager.resumeVideoDownload(selectedOfflineVideoToken)
             default:
                 break
@@ -702,7 +702,7 @@ extension DownloadsViewController: UITableViewDataSource {
 
         let offlineVideoStatus = sofflineVideoStatusArray[indexPath.row]
 
-        return offlineVideoStatus.downloadState != .stateDownloading
+        return offlineVideoStatus.downloadState != .downloading
     }
 
     func tableView(_ tableView: UITableView,

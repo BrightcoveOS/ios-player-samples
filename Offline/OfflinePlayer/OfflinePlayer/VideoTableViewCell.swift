@@ -42,7 +42,7 @@ final class VideoTableViewCell: UITableViewCell {
                let offlineVideoToken = video.offlineVideoToken as? BCOVOfflineVideoToken,
                let offlineManager = BCOVOfflineVideoManager.sharedManager,
                let offlineVideoStatus = offlineManager.offlineVideoStatus(forToken: offlineVideoToken) {
-                progressView.isHidden = offlineVideoStatus.downloadState == .stateCompleted
+                progressView.isHidden = offlineVideoStatus.downloadState == .completed
                 progressView.progress =  Float(offlineVideoStatus.downloadPercent / 100.0)
             }
 
@@ -96,32 +96,32 @@ final class VideoTableViewCell: UITableViewCell {
         let offlineVideoStatusArray = offlineManager.offlineVideoStatus()
 
         for offlineVideoStatus in offlineVideoStatusArray {
-            guard let offlineVideo = offlineManager.videoObject(fromOfflineVideoToken: offlineVideoStatus.offlineVideoToken as BCOVOfflineVideoToken),
+            guard let token = offlineVideoStatus.offlineVideoToken, let offlineVideo = offlineManager.videoObject(fromOfflineVideoToken: token),
                   offlineVideo.matches(with: video) else {
                 continue
             }
 
             switch (offlineVideoStatus.downloadState) {
-                case .stateRequested,
-                        .stateDownloading,
-                        .licensePreloaded:
+                case .requested,
+                     .downloading,
+                     .licensePreloaded:
                     imageView = UIImageView(image: UIImage(named: "arrow.triangle.circlepath"))
                     break
 
-                case .stateSuspended:
+                case .suspended:
                     imageView = UIImageView(image: UIImage(named: "pause.circle"))
                     break
 
-                case .stateCancelled:
+                case .cancelled:
                     imageView = UIImageView(image: UIImage(named: "multiply.circle"))
                     imageView?.tintColor = .systemRed
                     break
 
-                case .stateCompleted:
+                case .completed:
                     imageView = UIImageView(image: UIImage(named: "checkmark.circle"))
                     break
 
-                case .stateError:
+                case .error:
                     imageView = UIImageView(image: UIImage(named: "exclamationmark.circle"))
                     imageView?.tintColor = .systemRed
                     break

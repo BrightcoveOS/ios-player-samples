@@ -130,8 +130,8 @@ final class DownloadManager: NSObject {
             if offlineVideo.matches(with: video) {
                 // If the status is error, alert the user and allow them to retry the download
                 if let offlineVideoStatus = offlineManager.offlineVideoStatus(forToken: offlineVideoToken),
-                   offlineVideoStatus.downloadState == .stateError ||
-                    offlineVideoStatus.downloadState == .stateCancelled {
+                   offlineVideoStatus.downloadState == .error ||
+                    offlineVideoStatus.downloadState == .cancelled {
                     UIAlertController.showWith(title: "Video Failed to Download",
                                                message: "The video \(video.localizedName ?? "unknown") previously failed to download or was cancelled, would you like to try again?",
                                                actionTitle: "Retry",
@@ -334,20 +334,16 @@ final class DownloadManager: NSObject {
 
 extension DownloadManager: BCOVOfflineVideoManagerDelegate {
 
-    func didCreateSharedBackgroundSesssionConfiguration(_ backgroundSessionConfiguration: URLSessionConfiguration!) {
+    func didCreateSharedBackgroundSesssionConfiguration(_ backgroundSessionConfiguration: URLSessionConfiguration) {
         // Helps prevent downloads from appearing to sometimes stall
         backgroundSessionConfiguration.isDiscretionary = false
     }
 
-    func offlineVideoToken(_ offlineVideoToken: String!,
-                           aggregateDownloadTask: AVAggregateAssetDownloadTask!,
-                           didProgressTo progressPercent: TimeInterval,
-                           for mediaSelection: AVMediaSelection!) {
+    func offlineVideoToken(_ offlineVideoToken: BCOVOfflineVideoToken, aggregateDownloadTask: AVAggregateAssetDownloadTask, didProgressTo progressPercent: TimeInterval, forMediaSelection mediaSelection: AVMediaSelection) {
 
         // The specific requested media selected option related to this
         // offline video token has progressed to the specified percent
-        guard let offlineVideoToken = offlineVideoToken as? BCOVOfflineVideoToken,
-              let offlineManager = BCOVOfflineVideoManager.sharedManager,
+        guard let offlineManager = BCOVOfflineVideoManager.sharedManager,
               let offlineVideo = offlineManager.videoObject(fromOfflineVideoToken: offlineVideoToken) else {
 
             NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus,
@@ -361,33 +357,30 @@ extension DownloadManager: BCOVOfflineVideoManagerDelegate {
                                         object: offlineVideo)
     }
 
-    func offlineVideoToken(_ offlineVideoToken: String!,
-                           didFinishMediaSelectionDownload mediaSelection: AVMediaSelection!) {
+    func offlineVideoToken(_ offlineVideoToken: BCOVOfflineVideoToken, didFinishMediaSelectionDownload mediaSelection: AVMediaSelection) {
 
         // The specific requested media selected option related to this
         // offline video token has completed downloading
-        guard let offlineVideoToken = offlineVideoToken as? BCOVOfflineVideoToken,
-              let offlineManager = BCOVOfflineVideoManager.sharedManager,
-              let offlineVideoStatus = offlineManager.offlineVideoStatus(forToken: offlineVideoToken) else {
+        guard let offlineManager = BCOVOfflineVideoManager.sharedManager,
+              let offlineVideoStatus = offlineManager.offlineVideoStatus(forToken: offlineVideoToken), let aggregateDownloadTask = offlineVideoStatus.aggregateDownloadTask else {
             return
         }
 
-        let urlAsset = offlineVideoStatus.aggregateDownloadTask.urlAsset
+        let urlAsset = aggregateDownloadTask.urlAsset
         let mediaSelectionDescription = DownloadManager.mediaSelectionDescription(from: mediaSelection,
                                                                                   with: urlAsset)
 
         print("didFinishMediaSelectionDownload: \(mediaSelectionDescription) for token: \(offlineVideoToken)")
     }
 
-    func offlineVideoToken(_ offlineVideoToken: String!,
-                           didFinishDownloadWithError error: Error?) {
+    func offlineVideoToken(_ offlineVideoToken: BCOVOfflineVideoToken, didFinishDownloadWithError error: (any Error)?) {
 
         // The video has completed downloading
         if let error {
             print("Download finished with error: \(error.localizedDescription)")
         }
 
-        guard let offlineVideoToken = offlineVideoToken as? BCOVOfflineVideoToken, let offlineManager = BCOVOfflineVideoManager.sharedManager,
+        guard let offlineManager = BCOVOfflineVideoManager.sharedManager,
               let offlineVideo = offlineManager.videoObject(fromOfflineVideoToken: offlineVideoToken) else {
 
             NotificationCenter.default.post(name: OfflinePlayerNotifications.UpdateStatus,

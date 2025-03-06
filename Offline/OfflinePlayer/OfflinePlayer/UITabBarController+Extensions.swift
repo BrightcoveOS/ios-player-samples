@@ -68,7 +68,7 @@ extension UITabBarController {
 
         let offlineVideoStatusArray = offlineManager.offlineVideoStatus()
 
-        let filteredCount = offlineVideoStatusArray.filter({ $0.downloadState == .stateDownloading }).count
+        let filteredCount = offlineVideoStatusArray.filter({ $0.downloadState == .downloading }).count
 
         downloadsViewController.tabBarItem.badgeValue = filteredCount > 0 ? "\(filteredCount)" : nil
     }
