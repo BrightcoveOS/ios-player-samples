@@ -39,10 +39,10 @@ final class VideoTableViewCell: UITableViewCell {
             detailLabel.text = "\(video.duration) / \(fileSize)\n\(video.localizedShortDescription ?? "")"
 
             if video.offline,
-               let offlineVideoToken = video.offlineVideoToken,
-               let offlineManager = BCOVOfflineVideoManager.shared(),
+               let offlineVideoToken = video.offlineVideoToken as? BCOVOfflineVideoToken,
+               let offlineManager = BCOVOfflineVideoManager.sharedManager,
                let offlineVideoStatus = offlineManager.offlineVideoStatus(forToken: offlineVideoToken) {
-                progressView.isHidden = offlineVideoStatus.downloadState == .stateCompleted
+                progressView.isHidden = offlineVideoStatus.downloadState == .completed
                 progressView.progress =  Float(offlineVideoStatus.downloadPercent / 100.0)
             }
 
@@ -60,7 +60,7 @@ final class VideoTableViewCell: UITableViewCell {
                 return VideoManager.shared.thumbnails[videoId]
             }
         } else {
-            if let urlPath = video.properties[kBCOVOfflineVideoPosterFilePathPropertyKey] as? String,
+            if let urlPath = video.properties[BCOVOfflineVideo.PosterFilePathPropertyKey] as? String,
                let image = UIImage(contentsOfFile: urlPath) {
                 return image
             }
@@ -89,38 +89,39 @@ final class VideoTableViewCell: UITableViewCell {
 
         var imageView = video.canBeDownloaded ? UIImageView(image: UIImage(named: "arrow.down.circle")) : nil
 
-        guard let offlineManager = BCOVOfflineVideoManager.shared(),
-              let offlineVideoStatusArray = offlineManager.offlineVideoStatus() else {
+        guard let offlineManager = BCOVOfflineVideoManager.sharedManager else {
             return imageView
         }
 
+        let offlineVideoStatusArray = offlineManager.offlineVideoStatus()
+
         for offlineVideoStatus in offlineVideoStatusArray {
-            guard let offlineVideo = offlineManager.videoObject(fromOfflineVideoToken: offlineVideoStatus.offlineVideoToken),
+            guard let token = offlineVideoStatus.offlineVideoToken, let offlineVideo = offlineManager.videoObject(fromOfflineVideoToken: token),
                   offlineVideo.matches(with: video) else {
                 continue
             }
 
             switch (offlineVideoStatus.downloadState) {
-                case .stateRequested,
-                        .stateDownloading,
-                        .licensePreloaded:
+                case .requested,
+                     .downloading,
+                     .licensePreloaded:
                     imageView = UIImageView(image: UIImage(named: "arrow.triangle.circlepath"))
                     break
 
-                case .stateSuspended:
+                case .suspended:
                     imageView = UIImageView(image: UIImage(named: "pause.circle"))
                     break
 
-                case .stateCancelled:
+                case .cancelled:
                     imageView = UIImageView(image: UIImage(named: "multiply.circle"))
                     imageView?.tintColor = .systemRed
                     break
 
-                case .stateCompleted:
+                case .completed:
                     imageView = UIImageView(image: UIImage(named: "checkmark.circle"))
                     break
 
-                case .stateError:
+                case .error:
                     imageView = UIImageView(image: UIImage(named: "exclamationmark.circle"))
                     imageView?.tintColor = .systemRed
                     break

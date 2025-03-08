@@ -43,7 +43,7 @@ extension BCOVVideo {
     }
 
     var offlineVideoToken: String? {
-        return properties[kBCOVOfflineVideoTokenPropertyKey] as? String
+        return properties[BCOVOfflineVideo.TokenPropertyKey] as? String
     }
 
     var license: String {
@@ -51,7 +51,7 @@ extension BCOVVideo {
             return "clear"
         }
 
-        if let purchase = properties[kBCOVFairPlayLicensePurchaseKey] as? NSNumber,
+        if let purchase = properties[BCOVFairPlayLicense.PurchaseKey] as? NSNumber,
            purchase.boolValue {
             return "purchase"
         }
@@ -60,11 +60,11 @@ extension BCOVVideo {
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
 
-        if let absoluteExpirationNumber = properties[kBCOVOfflineVideoLicenseAbsoluteExpirationTimePropertyKey] as? NSNumber {
+        if let absoluteExpirationNumber = properties[BCOVOfflineVideo.LicenseAbsoluteExpirationTimePropertyKey] as? NSNumber {
             let absoluteExpirationTime = absoluteExpirationNumber.doubleValue
             var expirationDate = Date(timeIntervalSinceReferenceDate: absoluteExpirationTime)
-            if let playDurationNumber = properties[kBCOVFairPlayLicensePlayDurationKey] as? NSNumber,
-               let initialPlayNumber = properties[kBCOVOfflineVideoInitialPlaybackTimeKey] as? NSNumber,
+            if let playDurationNumber = properties[BCOVFairPlayLicense.PlayDurationKey] as? NSNumber,
+               let initialPlayNumber = properties[BCOVOfflineVideo.InitialPlaybackTimeKey] as? NSNumber,
                playDurationNumber.intValue > 0 {
                 let initialPlayTime = TimeInterval(initialPlayNumber.intValue)
                 let initialPlayDate = Date(timeIntervalSinceReferenceDate: initialPlayTime)
@@ -74,8 +74,8 @@ extension BCOVVideo {
                 }
             }
             return "rental (expires \(dateFormatter.string(from: expirationDate)))"
-        } else if let rentalDurationNumber = properties[kBCOVFairPlayLicenseRentalDurationKey] as? NSNumber,
-                  let startTimeNumber = properties[kBCOVOfflineVideoDownloadStartTimePropertyKey] as? NSNumber {
+        } else if let rentalDurationNumber = properties[BCOVFairPlayLicense.RentalDurationKey] as? NSNumber,
+                  let startTimeNumber = properties[BCOVOfflineVideo.DownloadStartTimePropertyKey] as? NSNumber {
             let rentalDuration = rentalDurationNumber.doubleValue
             let startTime = startTimeNumber.doubleValue
             let startDate = Date(timeIntervalSinceReferenceDate: startTime)

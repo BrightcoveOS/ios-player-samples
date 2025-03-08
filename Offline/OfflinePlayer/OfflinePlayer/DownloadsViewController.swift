@@ -169,7 +169,7 @@ final class DownloadsViewController: UIViewController {
 
     fileprivate lazy var playbackController: BCOVPlaybackController? = {
         let sdkManager = BCOVPlayerSDKManager.sharedManager()
-        guard let offlineManager = BCOVOfflineVideoManager.shared() else {
+        guard let offlineManager = BCOVOfflineVideoManager.sharedManager else {
             return nil
         }
         let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
@@ -202,7 +202,7 @@ final class DownloadsViewController: UIViewController {
     }()
 
     // The offline video token of the video selected in the table
-    fileprivate lazy var selectedOfflineVideoToken: String? = nil {
+    fileprivate lazy var selectedOfflineVideoToken: BCOVOfflineVideoToken? = nil {
         didSet {
             resetVideoContainer()
 
@@ -213,7 +213,7 @@ final class DownloadsViewController: UIViewController {
     }
 
     // The offline video token playing in the video view
-    fileprivate lazy var currentlyPlayingOfflineVideoToken: String? = .init()
+    fileprivate lazy var currentlyPlayingOfflineVideoToken: BCOVOfflineVideoToken? = .init()
 
     fileprivate var freeSpaceTimer: Timer?
 
@@ -262,16 +262,18 @@ final class DownloadsViewController: UIViewController {
     @objc
     fileprivate func updateStatus(_ notification: NSNotification) {
         guard isVisible,
-              let offlineManager = BCOVOfflineVideoManager.shared(),
-              let offlineVideoStatusArray = offlineManager.offlineVideoStatus(),
-              let offlineVideoTokens = offlineManager.offlineVideoTokens else {
+              let offlineManager = BCOVOfflineVideoManager.sharedManager else {
             tableView.reloadData()
             return
         }
 
+        let offlineVideoStatusArray = offlineManager.offlineVideoStatus()
+
+        let offlineVideoTokens = offlineManager.offlineVideoTokens
+
         DispatchQueue.main.async { [self] in
             if let video = notification.object as? BCOVVideo,
-               let offlineVideoToken = video.offlineVideoToken,
+               let offlineVideoToken = video.offlineVideoToken as? BCOVOfflineVideoToken,
                let offlineVideoTokenIndex = offlineVideoTokens.firstIndex(where: { $0 == offlineVideoToken }) {
                 let indexPath = IndexPath(row: offlineVideoTokenIndex, section: 0)
                 tableView.reloadRows(at: [indexPath], with: .none)
@@ -281,7 +283,7 @@ final class DownloadsViewController: UIViewController {
                 tableView.reloadData()
             }
 
-            let inProgressCount = offlineVideoStatusArray.filter({ $0.downloadState == .stateDownloading }).count
+            let inProgressCount = offlineVideoStatusArray.filter({ $0.downloadState == .downloading }).count
 
             switch inProgressCount {
                 case 0:
@@ -329,14 +331,15 @@ final class DownloadsViewController: UIViewController {
         posterImageView.isHidden = selectedOfflineVideoToken == nil
         infoLabel.isHidden = selectedOfflineVideoToken == nil
 
-        guard let offlineManager = BCOVOfflineVideoManager.shared(),
+        guard let offlineManager = BCOVOfflineVideoManager.sharedManager,
+              let selectedOfflineVideoToken,
               let offlineVideoStatus = offlineManager.offlineVideoStatus(forToken: selectedOfflineVideoToken),
               let video = offlineManager.videoObject(fromOfflineVideoToken: selectedOfflineVideoToken) else {
             return
         }
 
         // Load poster image into the detail view
-        if let posterPathString = video.properties[kBCOVOfflineVideoPosterFilePathPropertyKey] as? String,
+        if let posterPathString = video.properties[BCOVOfflineVideo.PosterFilePathPropertyKey] as? String,
            let posterImage = UIImage(contentsOfFile: posterPathString) {
             posterImageView.backgroundColor = .clear
             posterImageView.image = posterImage
@@ -351,7 +354,7 @@ final class DownloadsViewController: UIViewController {
 
     fileprivate func updateButtonTitles() {
         guard let selectedOfflineVideoToken,
-              let offlineManager = BCOVOfflineVideoManager.shared(),
+              let offlineManager = BCOVOfflineVideoManager.sharedManager,
               let status = offlineManager.offlineVideoStatus(forToken: selectedOfflineVideoToken) else {
             playButton.isHidden = true
             moreButton.isHidden = true
@@ -361,8 +364,8 @@ final class DownloadsViewController: UIViewController {
             return
         }
 
-        let showTaskButtons = ![BCOVOfflineVideoDownloadState.stateDownloading,
-                                BCOVOfflineVideoDownloadState.stateSuspended].contains(status.downloadState)
+        let showTaskButtons = ![BCOVOfflineVideoDownloadState.downloading,
+                                BCOVOfflineVideoDownloadState.suspended].contains(status.downloadState)
 
         playButton.isHidden = false
         moreButton.isHidden = false
@@ -373,17 +376,17 @@ final class DownloadsViewController: UIViewController {
         playButton.setTitle("Play", for: .normal)
 
         switch status.downloadState {
-            case .stateDownloading:
+            case .downloading:
                 pauseButton.setTitle("Pause", for: .normal)
-            case .stateSuspended:
+            case .suspended:
                 pauseButton.setTitle("Resume", for: .normal)
             default:
                 break
         }
     }
 
-    fileprivate func deleteVideo(for offlineVideoToken: String) {
-        guard let offlineManager = BCOVOfflineVideoManager.shared() else { return }
+    fileprivate func deleteVideo(for offlineVideoToken: BCOVOfflineVideoToken) {
+        guard let offlineManager = BCOVOfflineVideoManager.sharedManager else { return }
 
         offlineManager.deleteOfflineVideo(offlineVideoToken)
 
@@ -397,8 +400,8 @@ final class DownloadsViewController: UIViewController {
                                         object: nil)
     }
 
-    fileprivate func renewLicense(for offlineVideoToken: String) {
-        guard let offlineManager = BCOVOfflineVideoManager.shared(),
+    fileprivate func renewLicense(for offlineVideoToken: BCOVOfflineVideoToken) {
+        guard let offlineManager = BCOVOfflineVideoManager.sharedManager,
               let offlineVideo = offlineManager.videoObject(fromOfflineVideoToken: offlineVideoToken) else {
             return
         }
@@ -417,7 +420,7 @@ final class DownloadsViewController: UIViewController {
                 offlineManager.renewFairPlayLicense(offlineVideoToken,
                                                     video: video,
                                                     parameters: licenseParamaters) {
-                    (offlineVideoToken: String?, error: Error?) in
+                    (offlineVideoToken: BCOVOfflineVideoToken?, error: Error?) in
 
                     if let error {
                         print("FairPlay license renewal completed with error: \(error.localizedDescription)")
@@ -426,7 +429,7 @@ final class DownloadsViewController: UIViewController {
                     if let offlineVideoToken {
                         let updatedVideo = video.update { (mutableVideo: BCOVMutableVideo) in
                             var mutableProperties = mutableVideo.properties
-                            mutableProperties[kBCOVOfflineVideoTokenPropertyKey] = offlineVideoToken
+                            mutableProperties[BCOVOfflineVideo.TokenPropertyKey] = offlineVideoToken
                             mutableVideo.properties = mutableProperties
                         }
 
@@ -452,7 +455,7 @@ final class DownloadsViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Delete Offline Video",
                                       style: .destructive) {
             [self] (action: UIAlertAction) in
-            guard let offlineVideoToken = video.offlineVideoToken else { return }
+            guard let offlineVideoToken = video.offlineVideoToken as? BCOVOfflineVideoToken else { return }
 
             deleteVideo(for: offlineVideoToken)
         })
@@ -462,15 +465,15 @@ final class DownloadsViewController: UIViewController {
 
     fileprivate func cancelVideoDownload() {
         guard let selectedOfflineVideoToken,
-              let offlineManager = BCOVOfflineVideoManager.shared(),
+              let offlineManager = BCOVOfflineVideoManager.sharedManager,
               let offlineVideoStatus = offlineManager.offlineVideoStatus(forToken: selectedOfflineVideoToken) else {
             return
         }
 
         switch offlineVideoStatus.downloadState {
-            case .stateRequested,
-                    .stateDownloading,
-                    .stateSuspended:
+            case .requested,
+                 .downloading,
+                 .suspended:
                 offlineManager.cancelVideoDownload(selectedOfflineVideoToken)
             default:
                 break
@@ -481,7 +484,7 @@ final class DownloadsViewController: UIViewController {
         // Log a variety of information to the debug console
         // about the currently selected offline video token.
         guard let selectedOfflineVideoToken,
-              let offlineManager = BCOVOfflineVideoManager.shared(),
+              let offlineManager = BCOVOfflineVideoManager.sharedManager,
               let offlineVideo = offlineManager.videoObject(fromOfflineVideoToken: selectedOfflineVideoToken) else {
             print("Token unavailable or video not found")
             return
@@ -494,7 +497,7 @@ final class DownloadsViewController: UIViewController {
     fileprivate func doPlayHideButton(_ sender: UIButton) {
         guard let playbackController,
               let selectedOfflineVideoToken,
-              let offlineManager = BCOVOfflineVideoManager.shared(),
+              let offlineManager = BCOVOfflineVideoManager.sharedManager,
               let offlineVideoStatus = offlineManager.offlineVideoStatus(forToken: selectedOfflineVideoToken),
               let titleLabel = sender.titleLabel else {
             return
@@ -507,19 +510,22 @@ final class DownloadsViewController: UIViewController {
             // instance solves the issue.
             playbackController.setVideos(nil)
 
-            if offlineVideoStatus.downloadState == .stateCancelled {
+            if offlineVideoStatus.downloadState == .cancelled {
                 UIAlertController.showWith(title: "",
                                            message: "This video is not currently playable. The download was cancelled.")
                 return
             }
 
-            if !offlineVideoStatus.offlineVideo.playableOffline {
+            if let video = offlineVideoStatus.offlineVideo, !video.playableOffline {
                 UIAlertController.showWith(title: "",
                                            message: "This video is not currently playable. The download may still be in progress.")
                 return
             }
 
-            playbackController.setVideos([offlineVideoStatus.offlineVideo])
+            if let video = offlineVideoStatus.offlineVideo {
+                playbackController.setVideos([video])
+            }
+
             currentlyPlayingOfflineVideoToken = selectedOfflineVideoToken
 
         }
@@ -535,7 +541,7 @@ final class DownloadsViewController: UIViewController {
     @IBAction
     fileprivate func doMoreButton(_ sender: UIButton) {
         guard let selectedOfflineVideoToken,
-              let offlineManager = BCOVOfflineVideoManager.shared(),
+              let offlineManager = BCOVOfflineVideoManager.sharedManager,
               let offlineVideo = offlineManager.videoObject(fromOfflineVideoToken: selectedOfflineVideoToken) else {
             return
         }
@@ -575,15 +581,15 @@ final class DownloadsViewController: UIViewController {
     fileprivate func doPauseResumeButton(_ sender: UIButton) {
         // Pause or resume based on the current state of the download
         guard let selectedOfflineVideoToken,
-              let offlineManager = BCOVOfflineVideoManager.shared(),
+              let offlineManager = BCOVOfflineVideoManager.sharedManager,
               let offlineVideoStatus = offlineManager.offlineVideoStatus(forToken: selectedOfflineVideoToken) else {
             return
         }
 
         switch offlineVideoStatus.downloadState {
-            case .stateDownloading:
+            case .downloading:
                 offlineManager.pauseVideoDownload(selectedOfflineVideoToken)
-            case .stateSuspended:
+            case .suspended:
                 offlineManager.resumeVideoDownload(selectedOfflineVideoToken)
             default:
                 break
@@ -623,17 +629,17 @@ extension DownloadsViewController: BCOVPlaybackControllerDelegate {
     func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession!,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
-        guard let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError else {
+        guard let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError, let video = session.video else {
             return
         }
 
         print("Error: \(error.localizedDescription)")
 
-        if error.code == kBCOVOfflineVideoManagerErrorCodeExpiredLicense {
+        if error.code == BCOVOfflineVideoManagerErrorCode.ExpiredLicense.rawValue {
             UIAlertController.showWith(title: "License Expired",
-                                       message: "The FairPlay license for the video \"\(session.video.localizedName ?? "unknown")\" has expired")
+                                       message: "The FairPlay license for the video \"\(video.localizedName ?? "unknown")\" has expired")
 
-            selectedOfflineVideoToken = session.video.offlineVideoToken
+            selectedOfflineVideoToken = video.offlineVideoToken as? BCOVOfflineVideoToken
         }
     }
 }
@@ -656,10 +662,11 @@ extension DownloadsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
-        guard let offlineManager = BCOVOfflineVideoManager.shared(),
-              let offlineVideoTokens = offlineManager.offlineVideoTokens else {
+        guard let offlineManager = BCOVOfflineVideoManager.sharedManager else {
             return 0
         }
+
+        let offlineVideoTokens = offlineManager.offlineVideoTokens
 
         return offlineVideoTokens.count
     }
@@ -668,11 +675,11 @@ extension DownloadsViewController: UITableViewDataSource {
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let videoCell = tableView.dequeueReusableCell(withIdentifier: "VideoTableViewCell",
                                                             for: indexPath) as? VideoTableViewCell,
-              let offlineManager = BCOVOfflineVideoManager.shared(),
-              let offlineVideoTokens = offlineManager.offlineVideoTokens else {
+              let offlineManager = BCOVOfflineVideoManager.sharedManager else {
             return UITableViewCell()
         }
 
+        let offlineVideoTokens = offlineManager.offlineVideoTokens
         let offlineVideoToken = offlineVideoTokens[indexPath.row]
         let offlineVideo = offlineManager.videoObject(fromOfflineVideoToken: offlineVideoToken)
 
@@ -687,23 +694,25 @@ extension DownloadsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView,
                    canEditRowAt indexPath: IndexPath) -> Bool {
-        guard let offlineManager = BCOVOfflineVideoManager.shared(),
-              let sofflineVideoStatusArray = offlineManager.offlineVideoStatus() else {
+        guard let offlineManager = BCOVOfflineVideoManager.sharedManager else {
             return false
         }
 
+        let sofflineVideoStatusArray = offlineManager.offlineVideoStatus()
+
         let offlineVideoStatus = sofflineVideoStatusArray[indexPath.row]
 
-        return offlineVideoStatus.downloadState != .stateDownloading
+        return offlineVideoStatus.downloadState != .downloading
     }
 
     func tableView(_ tableView: UITableView,
                    commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
-        guard let offlineManager = BCOVOfflineVideoManager.shared(),
-              let offlineVideoTokens = offlineManager.offlineVideoTokens else {
+        guard let offlineManager = BCOVOfflineVideoManager.sharedManager else {
             return
         }
+
+        let offlineVideoTokens = offlineManager.offlineVideoTokens
 
         let offlineVideoToken = offlineVideoTokens[indexPath.row]
 
@@ -721,10 +730,11 @@ extension DownloadsViewController: UITableViewDelegate {
 
         tableView.deselectRow(at: indexPath, animated: true)
 
-        guard let offlineManager = BCOVOfflineVideoManager.shared(),
-              let offlineVideoTokens = offlineManager.offlineVideoTokens else {
+        guard let offlineManager = BCOVOfflineVideoManager.sharedManager else {
             return
         }
+
+        let offlineVideoTokens = offlineManager.offlineVideoTokens
 
         selectedOfflineVideoToken = offlineVideoTokens[indexPath.row]
     }

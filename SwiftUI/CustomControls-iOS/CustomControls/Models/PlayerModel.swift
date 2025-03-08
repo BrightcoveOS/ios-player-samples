@@ -127,10 +127,10 @@ extension PlayerModel: BCOVPlaybackControllerDelegate {
     func playbackController(_ controller: BCOVPlaybackController!,
                             didAdvanceTo session: BCOVPlaybackSession!) {
         print("ViewController - Advanced to new session.")
-        if let item = session.player.currentItem,
+        if let player = session.player , let item = player.currentItem,
            item.responds(to: NSSelectorFromString("preferredForwardBufferDuration")) {
             guard session.player != nil else { return }
-            buffer = availableDuration(player: session.player)
+            buffer = availableDuration(player: player)
         }
     }
 
@@ -139,9 +139,9 @@ extension PlayerModel: BCOVPlaybackControllerDelegate {
                             didProgressTo progress: TimeInterval) {
         guard progress.isFinite else { return }
         self.progress = progress.rounded()
-        if let currentItem = session?.player.currentItem,
+        if let player = session.player, let currentItem = player.currentItem,
            currentItem.responds(to: NSSelectorFromString("preferredForwardBufferDuration")) {
-            buffer = availableDuration(player: session.player)
+            buffer = availableDuration(player: player)
         }
     }
 

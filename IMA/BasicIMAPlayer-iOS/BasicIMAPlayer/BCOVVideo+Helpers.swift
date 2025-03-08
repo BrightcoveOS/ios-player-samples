@@ -34,16 +34,16 @@ extension BCOVVideo {
                 return
             }
 
-            mutableVideo.cuePoints = BCOVCuePointCollection(array: [
-                BCOVCuePoint(type: kBCOVIMACuePointTypeAd,
+            mutableVideo.cuePoints = BCOVCuePointCollection(withArray: [
+                BCOVCuePoint(withType: kBCOVIMACuePointTypeAd,
                              position: .zero,
-                             properties: properties)!,
-                BCOVCuePoint(type: kBCOVIMACuePointTypeAd,
+                             properties: properties),
+                BCOVCuePoint(withType: kBCOVIMACuePointTypeAd,
                              position: midpointTime,
-                             properties: properties)!,
-                BCOVCuePoint(type: kBCOVIMACuePointTypeAd,
+                             properties: properties),
+                BCOVCuePoint(withType: kBCOVIMACuePointTypeAd,
                              position: cuePointPositionTypeAfter,
-                             properties: properties)!,
+                             properties: properties),
             ])
         }
     }
@@ -56,10 +56,10 @@ extension BCOVVideo {
 
             let preRollProperties = [kBCOVIMAAdTag: vastTag]
 
-            mutableVideo.cuePoints = BCOVCuePointCollection(array: [
-                BCOVCuePoint(type: kBCOVIMACuePointTypeAd,
+            mutableVideo.cuePoints = BCOVCuePointCollection(withArray: [
+                BCOVCuePoint(withType: kBCOVIMACuePointTypeAd,
                              position: CMTime.zero,
-                             properties: preRollProperties)!,
+                             properties: preRollProperties),
             ])
         }
     }

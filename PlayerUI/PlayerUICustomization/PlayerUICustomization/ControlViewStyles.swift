@@ -83,9 +83,9 @@ final class ControlViewStyles: NSObject {
 
             // Add markers to the slider for your own use
             slider.markerTickColor = .lightGray
-            slider.addMarker(at: 30, duration: 0.0, isAd: false, image: nil)
-            slider.addMarker(at: 60, duration: 0.0, isAd: false, image: nil)
-            slider.addMarker(at: 90, duration: 0.0, isAd: false, image: nil)
+            slider.addMarkerAt(30, duration: 0.0, isAd: false, image: nil)
+            slider.addMarkerAt(60, duration: 0.0, isAd: false, image: nil)
+            slider.addMarkerAt(90, duration: 0.0, isAd: false, image: nil)
         }
     }
 }

@@ -55,7 +55,7 @@ final class VideoManager: NSObject {
     }
 
     func usePlaylist(_ playlist: [BCOVVideo],
-                     with bitrate: Int64) {
+                     with bitrate: Int) {
 
         videos = playlist
         thumbnails = .init()
@@ -73,14 +73,14 @@ final class VideoManager: NSObject {
     }
 
     fileprivate func estimateDownloadSize(for video: BCOVVideo,
-                                          with bitrate: Int64) {
+                                          with bitrate: Int) {
         // Estimate download size for each video
         guard let videoId = video.videoId,
-              let offlineManager = BCOVOfflineVideoManager.shared() else {
+              let offlineManager = BCOVOfflineVideoManager.sharedManager else {
             return
         }
 
-        let options = [kBCOVOfflineVideoManagerRequestedBitrateKey: bitrate]
+        let options = [BCOVOfflineVideoManager.RequestedBitrateKey: bitrate]
 
         offlineManager.estimateDownloadSize(video, options: options) {
             (megabytes: Double, error: Error?) in

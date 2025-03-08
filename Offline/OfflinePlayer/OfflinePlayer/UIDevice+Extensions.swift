@@ -29,7 +29,7 @@ extension UIDevice {
     }
 
     func usedDiskSpaceWithUnits(forVideo video: BCOVVideo) -> String {
-        guard let videoFilePath = video.properties[kBCOVOfflineVideoFilePathPropertyKey] as? String else {
+        guard let videoFilePath = video.properties[BCOVOfflineVideo.FilePathPropertyKey] as? String else {
             return Formatter(.zero)
         }
 
@@ -37,7 +37,7 @@ extension UIDevice {
     }
 
     func usedDiskSpace(forVideo video: BCOVVideo) -> Double {
-        guard let videoFilePath = video.properties[kBCOVOfflineVideoFilePathPropertyKey] as? String,
+        guard let videoFilePath = video.properties[BCOVOfflineVideo.FilePathPropertyKey] as? String,
               let usedSpace = Double(Formatter(getDiskSpace(forFolderPath: videoFilePath),
                                                includeUnit: false)) else {
             return .zero
