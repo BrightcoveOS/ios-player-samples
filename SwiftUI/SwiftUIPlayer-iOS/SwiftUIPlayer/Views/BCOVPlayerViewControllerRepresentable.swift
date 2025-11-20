@@ -48,7 +48,7 @@ struct BCOVPlayerViewControllerRepresentable: UIViewControllerRepresentable {
 
         let playerViewController = BCOVPUIPlayerViewController(playbackController: playbackController,
                                                                options: options,
-                                                               controlsView: nil)!
+                                                               controlsView: nil)
         
         playbackController.options = [kBCOVAVPlayerViewControllerCompatibilityKey: false]
         playerViewController.delegate = playerModel
