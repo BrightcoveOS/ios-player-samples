@@ -29,9 +29,12 @@ struct VideoDetailView: View {
     var body: some View {
         VStack {
             VStack {
-                if controlType == .bcov {
+                switch controlType {
+                case .bcov:
                     BCOVPlayerUIView(playerModel: playerModel)
-                } else {
+                case .bcovViewController:
+                    BCOVPlayerViewControllerRepresentable(playerModel: playerModel)
+                case .native:
                     ApplePlayerUIView(playerModel: playerModel)
                 }
             }
