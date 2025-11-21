@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B4A79A12ECF79BE007C1AC0 /* BCOVPlayerViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4A79A02ECF79BE007C1AC0 /* BCOVPlayerViewControllerRepresentable.swift */; };
 		D60781C92BAA800B003E582A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D60781C82BAA800B003E582A /* Assets.xcassets */; };
 		D622616C260927A3003CEF82 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D622616B260927A3003CEF82 /* ContentView.swift */; };
 		D6226171260927A5003CEF82 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6226170260927A5003CEF82 /* Preview Assets.xcassets */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B4A79A02ECF79BE007C1AC0 /* BCOVPlayerViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCOVPlayerViewControllerRepresentable.swift; sourceTree = "<group>"; };
 		D60781C82BAA800B003E582A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../FairPlay/BasicFairPlayPlayer-iOS/BasicFairPlayPlayer/Assets.xcassets"; sourceTree = "<group>"; };
 		D6226164260927A3003CEF82 /* SwiftUIPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUIPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D622616B260927A3003CEF82 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 		E9D962FD2A5601C7009D7B5A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6B4A79A02ECF79BE007C1AC0 /* BCOVPlayerViewControllerRepresentable.swift */,
 				E9311DDC2A71EE8800DF7D92 /* ApplePlayerUIView.swift */,
 				D6226190260959BB003CEF82 /* BCOVPlayerUIView.swift */,
 				D622616B260927A3003CEF82 /* ContentView.swift */,
@@ -210,6 +213,7 @@
 				E9311DDD2A71EE8800DF7D92 /* ApplePlayerUIView.swift in Sources */,
 				E9D962F92A5356A9009D7B5A /* VideoDetailView.swift in Sources */,
 				D6AD6EF42AB0E60300CCA159 /* PlayerModel.swift in Sources */,
+				6B4A79A12ECF79BE007C1AC0 /* BCOVPlayerViewControllerRepresentable.swift in Sources */,
 				E9D9630E2A5724B8009D7B5A /* PlaylistModel.swift in Sources */,
 				E9D963062A5615AE009D7B5A /* TimeInterval+Extensions.swift in Sources */,
 				E9D963002A560B75009D7B5A /* ThumbnailView.swift in Sources */,

@@ -8,8 +8,28 @@
 import SwiftUI
 
 
+/// Player control type options for demonstrating different integration patterns.
+///
+/// This enum demonstrates three different approaches for integrating video players in SwiftUI:
+///
+/// **BCOV View** - Uses BCOVPUIPlayerView wrapped in UIViewRepresentable
+/// - Best for: Simple SwiftUI integration when you don't need IMA ads
+/// - Pattern: UIViewRepresentable wrapping a UIView
+/// - Limitation: May have view controller hierarchy issues with IMA ads
+///
+/// **BCOV ViewController** - Uses BCOVPUIPlayerViewController wrapped in UIViewControllerRepresentable
+/// - Best for: SwiftUI apps that need IMA ads or require proper view controller hierarchy
+/// - Pattern: UIViewControllerRepresentable wrapping a UIViewController
+/// - Benefit: Provides proper parent view controller for IMA's IMAAdViewController
+/// - Note: Recommended approach for production apps using ads
+///
+/// **AVPlayerViewController** - Uses Apple's native AVPlayerViewController
+/// - Best for: Simple playback with Apple's native UI
+/// - Pattern: UIViewControllerRepresentable wrapping AVPlayerViewController
+/// - Limitation: No Brightcove-specific features (analytics, ads, etc.)
 enum ControlType: String, Equatable, CaseIterable, Identifiable {
-    case bcov = "BCOVPUIPlayer"
+    case bcov = "BCOV View"
+    case bcovViewController = "BCOV ViewController"
     case native = "AVPlayerViewController"
 
     var id: String { rawValue }
