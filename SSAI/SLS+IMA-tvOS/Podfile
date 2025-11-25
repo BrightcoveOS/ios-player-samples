@@ -6,6 +6,6 @@ platform :tvos, '14.0'
 use_frameworks!
 
 target 'SLS_IMA-Player' do
-	pod 'Brightcove-Player-SSAI/XCFramework'
-	pod 'Brightcove-Player-IMA/XCFramework'
+  pod 'Brightcove-Player-SSAI/XCFramework'
+  pod 'Brightcove-Player-IMA/XCFramework'
 end

@@ -6,8 +6,8 @@ platform :ios, '12.0'
 use_frameworks!
 
 target 'BasicSSAIPlayer' do
-	pod 'Brightcove-Player-SSAI/XCFramework'
+  pod 'Brightcove-Player-SSAI/XCFramework'
 
-	# Open Measurement
-	# pod 'Brightcove-Player-OpenMeasurement'
+  # Open Measurement
+  # pod 'Brightcove-Player-OpenMeasurement'
 end

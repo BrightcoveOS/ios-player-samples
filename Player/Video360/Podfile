@@ -6,5 +6,5 @@ platform :ios, '12.0'
 use_frameworks!
 
 target 'Video360Player' do
-	pod 'Brightcove-Player-Core/XCFramework'
+  pod 'Brightcove-Player-Core/XCFramework'
 end
