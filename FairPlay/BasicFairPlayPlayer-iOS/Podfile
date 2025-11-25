@@ -1,3 +1,5 @@
+require_relative '../../Podfile.common'
+
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/brightcove/BrightcoveSpecs.git'
 
@@ -6,5 +8,5 @@ platform :ios, '12.0'
 use_frameworks!
 
 target 'BasicFairPlayPlayer' do
-  pod 'Brightcove-Player-Core/XCFramework'
+  brightcove_pod 'Brightcove-Player-Core'
 end

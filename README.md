@@ -21,6 +21,34 @@ To ensure you are using the latest releases of the Brightcove software component
 pod repo update
 ```
 
+### Using a Local SDK Build
+
+For SDK development, you can easily switch between the published SDK and a local development build by setting the `BRIGHTCOVE_LOCAL_SDK` environment variable.
+
+**Using the default local path (`../videocloud_agave`):**
+```bash
+BRIGHTCOVE_LOCAL_SDK=true pod install
+```
+
+**Using a custom path:**
+```bash
+BRIGHTCOVE_LOCAL_SDK=/path/to/your/sdk pod install
+```
+
+**Using the published SDK (default behavior):**
+```bash
+pod install
+```
+
+When using local SDK mode:
+- The helper automatically maps published pod names (e.g., `Brightcove-Player-Core`) to local podspec names (e.g., `BCOVPlayerSDK`)
+- Console output indicates which mode is active
+- If the local SDK path doesn't exist, the build will fail with a clear error message
+
+This feature is configured in `Podfile.common.rb` at the repository root.
+
+**Note:** Some samples use Swift Package Manager (SPM) instead of CocoaPods (e.g., `SwiftUI/CustomControls-iOS`). The local SDK switching feature only applies to CocoaPods-based samples.
+
 ### About Bitcode
 
 The ENABLE_BITCODE setting has been removed from all sample projects and the default value of the IDE is used instead. Xcode 14.0 has deprecated bitcode and the default setting is NO. The default bitcode setting in Xcode 13 is YES.

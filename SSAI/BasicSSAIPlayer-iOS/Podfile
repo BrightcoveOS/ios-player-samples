@@ -1,3 +1,5 @@
+require_relative '../../Podfile.common'
+
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/brightcove/BrightcoveSpecs.git'
 
@@ -6,8 +8,8 @@ platform :ios, '12.0'
 use_frameworks!
 
 target 'BasicSSAIPlayer' do
-  pod 'Brightcove-Player-SSAI/XCFramework'
+  brightcove_pod 'Brightcove-Player-SSAI'
 
   # Open Measurement
-  # pod 'Brightcove-Player-OpenMeasurement'
+  # brightcove_pod 'Brightcove-Player-OpenMeasurement'
 end

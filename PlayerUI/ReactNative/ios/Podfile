@@ -1,3 +1,5 @@
+require_relative '../../../Podfile.common'
+
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/brightcove/BrightcoveSpecs.git'
 
@@ -22,7 +24,7 @@ target 'ReactNativePlayer' do
   config = use_native_modules!
   use_react_native!(:path => config[:reactNativePath],:app_path => "#{Pod::Config.instance.installation_root}/..")
 
-  pod 'Brightcove-Player-IMA/XCFramework'
+  brightcove_pod 'Brightcove-Player-IMA'
 
   post_install do |installer|
     # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202

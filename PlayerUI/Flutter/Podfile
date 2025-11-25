@@ -1,3 +1,5 @@
+require_relative '../../Podfile.common'
+
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/brightcove/BrightcoveSpecs.git'
 
@@ -11,7 +13,7 @@ load File.join(flutter_application_path, '.ios', 'Flutter', 'podhelper.rb')
 target 'FlutterPlayer' do
 
   install_all_flutter_pods(flutter_application_path)
-  pod 'Brightcove-Player-IMA/XCFramework'
+  brightcove_pod 'Brightcove-Player-IMA'
 
   post_install do |installer|
     flutter_post_install(installer)
