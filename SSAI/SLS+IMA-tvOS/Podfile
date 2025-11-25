@@ -1,3 +1,5 @@
+require_relative '../../Podfile.common'
+
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/brightcove/BrightcoveSpecs.git'
 
@@ -6,6 +8,6 @@ platform :tvos, '14.0'
 use_frameworks!
 
 target 'SLS_IMA-Player' do
-  pod 'Brightcove-Player-SSAI/XCFramework'
-  pod 'Brightcove-Player-IMA/XCFramework'
+  brightcove_pod 'Brightcove-Player-SSAI'
+  brightcove_pod 'Brightcove-Player-IMA'
 end

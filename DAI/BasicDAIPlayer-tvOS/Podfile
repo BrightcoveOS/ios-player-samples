@@ -1,3 +1,5 @@
+require_relative '../../Podfile.common'
+
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/brightcove/BrightcoveSpecs.git'
 
@@ -6,5 +8,5 @@ platform :tvos, '14.0'
 use_frameworks!
 
 target 'BasicDAIPlayer' do
-  pod 'Brightcove-Player-DAI/XCFramework'
+  brightcove_pod 'Brightcove-Player-DAI'
 end
