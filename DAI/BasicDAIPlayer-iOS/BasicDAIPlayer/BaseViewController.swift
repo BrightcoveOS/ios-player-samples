@@ -86,6 +86,17 @@ class BaseViewController: UIViewController {
         return statusBarHidden
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        // Clean up the playback controller to break retain cycles
+        // created by the IMA SDK (IMARemoteControl in IMA SDK 3.27.4+).
+        // This ensures proper deallocation and stops audio playback.
+        if isBeingDismissed || isMovingFromParent {
+            playerView?.playbackController = nil
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
