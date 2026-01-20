@@ -1,0 +1,13 @@
+require_relative '../../Podfile.common'
+
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/brightcove/BrightcoveSpecs.git'
+
+platform :ios, '16.0'
+
+use_frameworks!
+
+target 'SwiftUIPlayer' do
+  brightcove_pod 'Brightcove-Player-Core'
+  brightcove_pod 'Brightcove-Player-IMA'
+end

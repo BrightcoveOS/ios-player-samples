@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  PlayerUICustomization
 //
-//  Copyright © 2024 Brightcove, Inc. All rights reserved.
+//  Copyright © 2026 Brightcove, Inc. All rights reserved.
 //
 
 // This sample app shows you how to use the PlayerUI control customization.

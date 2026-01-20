@@ -2,7 +2,7 @@
 //  BCOVVideoPlayerFactory.swift
 //  FlutterPlayer
 //
-//  Copyright © 2024 Brightcove, Inc. All rights reserved.
+//  Copyright © 2026 Brightcove, Inc. All rights reserved.
 //
 
 import UIKit

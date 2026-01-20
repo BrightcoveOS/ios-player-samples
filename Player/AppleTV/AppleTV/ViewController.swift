@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  AppleTV
 //
-//  Copyright © 2024 Brightcove, Inc. All rights reserved.
+//  Copyright © 2026 Brightcove, Inc. All rights reserved.
 //
 
 // This sample app shows how to set up and use the TV Player UI on tvOS.
