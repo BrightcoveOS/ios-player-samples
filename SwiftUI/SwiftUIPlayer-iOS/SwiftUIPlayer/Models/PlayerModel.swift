@@ -18,11 +18,10 @@ final class PlayerModel: NSObject, ObservableObject {
     @Published
     var pictureInPictureEnabled = false
 
-    fileprivate(set) lazy var avpvc: AVPlayerViewController = {
-        let avpvc = AVPlayerViewController()
-        avpvc.delegate = self
-        return avpvc
-    }()
+    @Published
+    var isExternalPlaybackActive = false
+
+    private(set) var currentVideoId: String?
 
     fileprivate(set) lazy var playbackController: BCOVPlaybackController? = {
         let sdkManager = BCOVPlayerSDKManager.sharedManager()
@@ -39,8 +38,43 @@ final class PlayerModel: NSObject, ObservableObject {
         playbackController.delegate = self
         playbackController.isAutoAdvance = true
         playbackController.isAutoPlay = true
+        playbackController.allowsExternalPlayback = true
+        playbackController.allowsBackgroundAudioPlayback = true
 
         return playbackController
+    }()
+
+    fileprivate(set) lazy var avpvc: AVPlayerViewController = {
+        let avpvc = AVPlayerViewController()
+        avpvc.delegate = self
+        return avpvc
+    }()
+
+    fileprivate(set) lazy var bcovPlayerView: BCOVPUIPlayerView? = {
+        let options = BCOVPUIPlayerViewOptions()
+        options.automaticControlTypeSelection = true
+        options.showPictureInPictureButton = true
+
+        guard let playbackController else { return nil }
+
+        let playerView = BCOVPUIPlayerView(playbackController: playbackController,
+                                           options: options,
+                                           controlsView: nil)
+        playerView?.delegate = self
+
+        return playerView
+    }()
+
+    fileprivate(set) lazy var bcovPlayerViewController: BCOVPUIPlayerViewController = {
+        let options = BCOVPUIPlayerViewOptions()
+        options.automaticControlTypeSelection = true
+        options.showPictureInPictureButton = true
+
+        let vc = BCOVPUIPlayerViewController(playbackController: playbackController,
+                                             options: options,
+                                             controlsView: nil)
+        vc.delegate = self
+        return vc
     }()
 
 }
@@ -87,7 +121,15 @@ extension PlayerModel: BCOVPlaybackControllerDelegate {
             avpvc.player = player
         }
 
+        currentVideoId = session?.video?.properties[BCOVVideo.PropertyKeyId] as? String
+
         print("PlayerModel - Advanced to new session.")
+    }
+
+    func playbackController(_ controller: BCOVPlaybackController!,
+                            playbackSession session: BCOVPlaybackSession,
+                            didChangeExternalPlaybackActive externalPlaybackActive: Bool) {
+        isExternalPlaybackActive = externalPlaybackActive
     }
 
     func playbackController(_ controller: BCOVPlaybackController!,

@@ -36,23 +36,9 @@ struct BCOVPlayerViewControllerRepresentable: UIViewControllerRepresentable {
     let playerModel: PlayerModel
 
     func makeUIViewController(context: Context) -> BCOVPUIPlayerViewController {
-        let options = BCOVPUIPlayerViewOptions()
-        options.automaticControlTypeSelection = true
-        options.showPictureInPictureButton = true
+        playerModel.playbackController?.options = [kBCOVAVPlayerViewControllerCompatibilityKey: false]
 
-        guard let playbackController = playerModel.playbackController else {
-            return BCOVPUIPlayerViewController(playbackController: nil,
-                                               options: options,
-                                               controlsView: nil)
-        }
-
-        let playerViewController = BCOVPUIPlayerViewController(playbackController: playbackController,
-                                                               options: options,
-                                                               controlsView: nil)
-        
-        playbackController.options = [kBCOVAVPlayerViewControllerCompatibilityKey: false]
-        playerViewController.delegate = playerModel
-        return playerViewController
+        return playerModel.bcovPlayerViewController
     }
 
     func updateUIViewController(_ uiViewController: BCOVPUIPlayerViewController, context: Context) {

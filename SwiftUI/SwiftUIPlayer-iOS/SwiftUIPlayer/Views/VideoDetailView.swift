@@ -46,7 +46,8 @@ struct VideoDetailView: View {
                 Button(action: {
                     if let playbackController = playerModel.playbackController,
                        !playerModel.fullscreenEnabled,
-                       !playerModel.pictureInPictureEnabled {
+                       !playerModel.pictureInPictureEnabled,
+                       !playerModel.isExternalPlaybackActive {
                         playbackController.setVideos(nil)
                     }
 
@@ -64,6 +65,13 @@ struct VideoDetailView: View {
         .onAppear {
             guard let playbackController = playerModel.playbackController else { return }
 
+            // Skip if this video is already playing on AirPlay
+            if playerModel.isExternalPlaybackActive &&
+               playerModel.currentVideoId == videoItem.id {
+                didSetVideo = true
+                return
+            }
+
             if !didSetVideo {
 #if targetEnvironment(simulator)
                 if videoItem.video.usesFairPlay {
@@ -72,7 +80,7 @@ struct VideoDetailView: View {
                 }
 #endif
                 playbackController.setVideos([videoItem.video])
-                didSetVideo.toggle()
+                didSetVideo = true
             }
         }
 #if targetEnvironment(simulator)
