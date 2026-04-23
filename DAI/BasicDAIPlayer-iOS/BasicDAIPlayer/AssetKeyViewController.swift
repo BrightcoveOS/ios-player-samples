@@ -27,7 +27,13 @@ final class AssetKeyViewController: BaseViewController {
 
         // BCOVDAIPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:
         // which allows us to modify the IMAStreamRequest object before it is used to load ads.
-        let daiPlaybackSessionOptions = [ kBCOVDAIOptionDAIPlaybackSessionDelegateKey: self ]
+        // kBCOVDAIOptionAutomaticRecoveryEnabledKey opts in to automatic DAI session
+        // recovery (on by default; see BCOVDAIComponent.h). Particularly relevant for
+        // Live DAI streams, where stitched ad URLs have a short TTL.
+        let daiPlaybackSessionOptions: [String: Any] = [
+            kBCOVDAIOptionDAIPlaybackSessionDelegateKey: self,
+            kBCOVDAIOptionAutomaticRecoveryEnabledKey: true
+        ]
 
         let daiSessionProvider = sdkManager.createDAISessionProvider(with: imaSettings,
                                                                      adsRenderingSettings: adsRenderingSettings,

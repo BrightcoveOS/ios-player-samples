@@ -61,13 +61,20 @@ final class ViewController: UIViewController {
 
         let adsRequestPolicy = BCOVDAIAdsRequestPolicy.videoProperties();
 
+        // Opt in to automatic DAI session recovery (on by default; see
+        // `kBCOVDAIOptionAutomaticRecoveryEnabledKey` in BCOVDAIComponent.h).
+        let daiOptions: [String: Any] = [
+            kBCOVDAIOptionAutomaticRecoveryEnabledKey: true
+        ]
+
         let daiSessionProvider = sdkManager.createDAISessionProvider(with: imaSettings,
                                                                      adsRenderingSettings: adsRenderingSettings,
                                                                      adsRequestPolicy: adsRequestPolicy,
                                                                      adContainer: playerView!.contentOverlayView,
                                                                      viewController: self,
                                                                      companionSlots: nil,
-                                                                     upstreamSessionProvider: fps)
+                                                                     upstreamSessionProvider: fps,
+                                                                     options: daiOptions)
 
         guard let playerView else {
             return nil
