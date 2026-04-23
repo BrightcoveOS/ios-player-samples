@@ -27,7 +27,12 @@ final class VideoPropertiesViewController: BaseViewController {
 
         // BCOVDAIPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:
         // which allows us to modify the IMAStreamRequest object before it is used to load ads.
-        let daiPlaybackSessionOptions = [ kBCOVDAIOptionDAIPlaybackSessionDelegateKey: self ]
+        // kBCOVDAIOptionAutomaticRecoveryEnabledKey opts in to automatic DAI session
+        // recovery (on by default; see BCOVDAIComponent.h).
+        let daiPlaybackSessionOptions: [String: Any] = [
+            kBCOVDAIOptionDAIPlaybackSessionDelegateKey: self,
+            kBCOVDAIOptionAutomaticRecoveryEnabledKey: true
+        ]
 
         let daiSessionProvider = sdkManager.createDAISessionProvider(with: imaSettings,
                                                                      adsRenderingSettings: adsRenderingSettings,
