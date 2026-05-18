@@ -116,6 +116,19 @@ final class IMAPlayerViewController: BCOVPUIPlayerViewController {
 
         let imaSettings = IMASettings()
         imaSettings.language = Locale.current.language.languageCode?.identifier ?? "en"
+        // Required companion to `allowsBackgroundAudioPlayback = true` (set
+        // below). Without it, IMA spins up its own internal AVPlayer for ads,
+        // separate from the BCOV content AVPlayer. The BCOV SDK's
+        // background→foreground layer detach/recreate logic only knows about
+        // the content player, so on app close/reopen during a pre-roll the
+        // ad's audio resumes but its video layer stays detached (audio-only
+        // ad), and when the ad ends the content also fails to render (black
+        // view). With this flag set, IMA renders ads through
+        // `IMAAVPlayerVideoDisplay` initialized with the content AVPlayer
+        // (BCOVIMASession.m:443), so the layer recreation handles ads too.
+        // The Brightcove IMA plugin README documents this as the required
+        // setting for AirPlay / PiP / background-audio configurations.
+        imaSettings.enableBackgroundPlayback = true
 
         let renderSettings = IMAAdsRenderingSettings()
         renderSettings.linkOpenerPresentingController = self
