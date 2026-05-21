@@ -116,6 +116,15 @@ final class IMAPlayerViewController: BCOVPUIPlayerViewController {
 
         let imaSettings = IMASettings()
         imaSettings.language = Locale.current.language.languageCode?.identifier ?? "en"
+        // Render ads through the content `AVPlayer` (via `IMAAVPlayerVideoDisplay`)
+        // rather than IMA's own internal ad player. Required for PiP and AirPlay
+        // continuity across ads: PiP is bound to the content `AVPlayerLayer`, so
+        // unless ads render into that same player the PiP overlay shows the paused
+        // content frame during an ad and PiP controls keep operating on content
+        // (scrub past the ad, etc.). With this on, `BCOVIMASession` wires up an
+        // `IMAPictureInPictureProxy` so the PiP controller's delegate callbacks
+        // are mediated through IMA.
+        imaSettings.enableBackgroundPlayback = true
 
         let renderSettings = IMAAdsRenderingSettings()
         renderSettings.linkOpenerPresentingController = self
