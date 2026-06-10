@@ -71,13 +71,12 @@ end
 # Helper to declare a Brightcove pod with automatic local/published switching
 #
 # @param name [String] The published pod name (e.g., 'Brightcove-Player-Core')
-# @param subspec [String] The subspec to use for published pods (default: '/XCFramework')
 #
 # Examples:
 #   brightcove_pod 'Brightcove-Player-Core'
 #   brightcove_pod 'Brightcove-Player-IMA'
 #
-def brightcove_pod(name, subspec: '/XCFramework')
+def brightcove_pod(name)
   local_sdk_path = brightcove_local_sdk_path
 
   if local_sdk_path
@@ -95,7 +94,7 @@ def brightcove_pod(name, subspec: '/XCFramework')
 
     _register_local_brightcove_pod(name, local_sdk_path)
   else
-    pod "#{name}#{subspec}"
+    pod name
   end
 end
 
