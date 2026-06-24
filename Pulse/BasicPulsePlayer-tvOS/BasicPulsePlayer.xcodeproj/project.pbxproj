@@ -14,6 +14,7 @@
 		D675A4E92BD4C80E008DD765 /* Pulse_tvOS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D675A4E82BD4C80E008DD765 /* Pulse_tvOS.xcframework */; };
 		D675A4EA2BD4C80E008DD765 /* Pulse_tvOS.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D675A4E82BD4C80E008DD765 /* Pulse_tvOS.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D6A5701E2BE74BE900ADA632 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6A5701D2BE74BE900ADA632 /* Assets.xcassets */; };
+		9972FB206F95D4115C8C7485 /* BrightcovePulse in Frameworks */ = {isa = PBXBuildFile; productRef = 717C08C143AD7D9BF0C19EB7 /* BrightcovePulse */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,6 +48,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D675A4E92BD4C80E008DD765 /* Pulse_tvOS.xcframework in Frameworks */,
+				9972FB206F95D4115C8C7485 /* BrightcovePulse in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +102,9 @@
 			dependencies = (
 			);
 			name = BasicPulsePlayer;
+			packageProductDependencies = (
+				717C08C143AD7D9BF0C19EB7 /* BrightcovePulse */,
+			);
 			productName = BasicPulsetvOSPlayer;
 			productType = "com.apple.product-type.application";
 		};
@@ -128,6 +133,9 @@
 			);
 			mainGroup = D64ED378241C20FD00C856DA;
 			productRefGroup = D64ED378241C20FD00C856DA;
+			packageReferences = (
+				C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */,
+			);
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -179,6 +187,25 @@
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
+			requirement = {
+				kind = exactVersion;
+				version = 7.2.15;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		717C08C143AD7D9BF0C19EB7 /* BrightcovePulse */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
+			productName = BrightcovePulse;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCBuildConfiguration section */
 		D64ED391241C20FE00C856DA /* Debug */ = {

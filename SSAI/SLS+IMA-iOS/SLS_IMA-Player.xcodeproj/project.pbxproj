@@ -12,6 +12,9 @@
 		D6CD23A824BCE207007FEA03 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CD23A724BCE207007FEA03 /* ViewController.swift */; };
 		D6CD23AB24BCE207007FEA03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6CD23A924BCE207007FEA03 /* Main.storyboard */; };
 		D6CD23B024BCE208007FEA03 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6CD23AE24BCE208007FEA03 /* LaunchScreen.storyboard */; };
+		747DA806A77DF21DCD7E0C1D /* BrightcoveSSAI in Frameworks */ = {isa = PBXBuildFile; productRef = 5B983BE3951DA8DE58CB0502 /* BrightcoveSSAI */; };
+		FFB3C70CDAC61923740B63AF /* BrightcoveIMA in Frameworks */ = {isa = PBXBuildFile; productRef = 78CF82638FE51829ADCD4A86 /* BrightcoveIMA */; };
+		1D180DB52D3725F05C2BD55C /* GoogleInteractiveMediaAds in Frameworks */ = {isa = PBXBuildFile; productRef = 1A8BBCE99D44C0AB31BF8B65 /* GoogleInteractiveMediaAds */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +32,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				747DA806A77DF21DCD7E0C1D /* BrightcoveSSAI in Frameworks */,
+				FFB3C70CDAC61923740B63AF /* BrightcoveIMA in Frameworks */,
+				1D180DB52D3725F05C2BD55C /* GoogleInteractiveMediaAds in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +87,11 @@
 			);
 			name = "SLS_IMA-Player";
 			productName = "SLS_IMA-Player";
+			packageProductDependencies = (
+				5B983BE3951DA8DE58CB0502 /* BrightcoveSSAI */,
+				78CF82638FE51829ADCD4A86 /* BrightcoveIMA */,
+				1A8BBCE99D44C0AB31BF8B65 /* GoogleInteractiveMediaAds */,
+			);
 			productReference = D6CD23A024BCE207007FEA03 /* SLS_IMA-Player.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -109,6 +120,10 @@
 			);
 			mainGroup = D6CD239724BCE207007FEA03;
 			productRefGroup = D6CD23A124BCE207007FEA03 /* Products */;
+			packageReferences = (
+				C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */,
+				5C9414777F2991E5C9FB72FC /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-ios" */,
+			);
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -160,6 +175,43 @@
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
+			requirement = {
+				kind = exactVersion;
+				version = 7.2.15;
+			};
+		};
+		5C9414777F2991E5C9FB72FC /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-interactive-media-ads-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.18.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5B983BE3951DA8DE58CB0502 /* BrightcoveSSAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
+			productName = BrightcoveSSAI;
+		};
+		78CF82638FE51829ADCD4A86 /* BrightcoveIMA */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
+			productName = BrightcoveIMA;
+		};
+		1A8BBCE99D44C0AB31BF8B65 /* GoogleInteractiveMediaAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C9414777F2991E5C9FB72FC /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-ios" */;
+			productName = GoogleInteractiveMediaAds;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCBuildConfiguration section */
 		D6CD23B224BCE208007FEA03 /* Debug */ = {

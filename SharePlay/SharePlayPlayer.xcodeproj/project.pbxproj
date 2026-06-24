@@ -14,6 +14,7 @@
 		E911F95027E37EED005111A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E911F94E27E37EED005111A5 /* LaunchScreen.storyboard */; };
 		E911F95927E37F99005111A5 /* WatchTogetherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911F95727E37F99005111A5 /* WatchTogetherWrapper.swift */; };
 		E911F95A27E37F99005111A5 /* WatchTogether.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911F95827E37F99005111A5 /* WatchTogether.swift */; };
+		DA3D5C84F8F64714512767C0 /* BrightcovePlayerSDK in Frameworks */ = {isa = PBXBuildFile; productRef = BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA3D5C84F8F64714512767C0 /* BrightcovePlayerSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +91,9 @@
 			);
 			name = SharePlayPlayer;
 			productName = SharePlayPlayer;
+			packageProductDependencies = (
+				BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */,
+			);
 			productReference = E911F94027E37EEB005111A5 /* SharePlayPlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -118,6 +123,9 @@
 			);
 			mainGroup = E911F93727E37EEB005111A5;
 			productRefGroup = E911F94127E37EEB005111A5 /* Products */;
+			packageReferences = (
+				C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */,
+			);
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -171,6 +179,25 @@
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
+			requirement = {
+				kind = exactVersion;
+				version = 7.2.15;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
+			productName = BrightcovePlayerSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E911F95227E37EED005111A5 /* Debug */ = {

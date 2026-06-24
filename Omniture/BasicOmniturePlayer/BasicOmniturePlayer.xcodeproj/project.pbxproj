@@ -16,6 +16,7 @@
 		D6672BAF2BD48F0A0014EE48 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6672BAE2BD48F0A0014EE48 /* WebKit.framework */; };
 		D6672BB22BD48F130014EE48 /* AdobeMobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6672BB02BD48F130014EE48 /* AdobeMobile.xcframework */; };
 		D6672BB42BD48F130014EE48 /* MediaSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6672BB12BD48F130014EE48 /* MediaSDK.xcframework */; };
+		F02A49D47B7CD05B64C1D6EB /* BrightcoveAMC in Frameworks */ = {isa = PBXBuildFile; productRef = 7B10FDAFB4535E13A31E38C6 /* BrightcoveAMC */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 				D6672BAF2BD48F0A0014EE48 /* WebKit.framework in Frameworks */,
 				D6672BB42BD48F130014EE48 /* MediaSDK.xcframework in Frameworks */,
 				D6672BB22BD48F130014EE48 /* AdobeMobile.xcframework in Frameworks */,
+				F02A49D47B7CD05B64C1D6EB /* BrightcoveAMC in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +97,9 @@
 			dependencies = (
 			);
 			name = BasicOmniturePlayer;
+			packageProductDependencies = (
+				7B10FDAFB4535E13A31E38C6 /* BrightcoveAMC */,
+			);
 			productName = BasicOmniturePlayer;
 			productType = "com.apple.product-type.application";
 		};
@@ -124,6 +129,9 @@
 			);
 			mainGroup = D6672B822BD48DBF0014EE48;
 			productRefGroup = D6672B822BD48DBF0014EE48;
+			packageReferences = (
+				C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */,
+			);
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -176,6 +184,25 @@
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
+			requirement = {
+				kind = exactVersion;
+				version = 7.2.15;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7B10FDAFB4535E13A31E38C6 /* BrightcoveAMC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
+			productName = BrightcoveAMC;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCBuildConfiguration section */
 		D6672B9D2BD48DC00014EE48 /* Debug */ = {
