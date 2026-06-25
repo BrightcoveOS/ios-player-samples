@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6BE732042FED2AE2007102B1 /* GoogleInteractiveMediaAdsTvOS in Frameworks */ = {isa = PBXBuildFile; productRef = 6BE732032FED2AE2007102B1 /* GoogleInteractiveMediaAdsTvOS */; };
+		82BFED4922019A475601CDB6 /* BrightcoveDAI in Frameworks */ = {isa = PBXBuildFile; productRef = 84953D2650C3AD5755A42E90 /* BrightcoveDAI */; };
 		D6B937462BF5AA270016D871 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6B937442BF5AA260016D871 /* Assets.xcassets */; };
 		D6F6FE932A140C7000B4102C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F6FE922A140C7000B4102C /* AppDelegate.swift */; };
 		D6F6FE952A140C7000B4102C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F6FE942A140C7000B4102C /* ViewController.swift */; };
 		D6F6FE982A140C7000B4102C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6F6FE962A140C7000B4102C /* Main.storyboard */; };
 		D6F6FE9D2A140C7100B4102C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6F6FE9B2A140C7100B4102C /* LaunchScreen.storyboard */; };
-		82BFED4922019A475601CDB6 /* BrightcoveDAI in Frameworks */ = {isa = PBXBuildFile; productRef = 84953D2650C3AD5755A42E90 /* BrightcoveDAI */; };
-		BB36EFD5CEB8BDE3EF3119DB /* GoogleInteractiveMediaAds in Frameworks */ = {isa = PBXBuildFile; productRef = 42005035CD3C2AFC60FC69F2 /* GoogleInteractiveMediaAds */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,8 +31,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BE732042FED2AE2007102B1 /* GoogleInteractiveMediaAdsTvOS in Frameworks */,
 				82BFED4922019A475601CDB6 /* BrightcoveDAI in Frameworks */,
-				BB36EFD5CEB8BDE3EF3119DB /* GoogleInteractiveMediaAds in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,11 +84,11 @@
 			dependencies = (
 			);
 			name = BasicDAIPlayer;
-			productName = BasicDAIPlayer;
 			packageProductDependencies = (
 				84953D2650C3AD5755A42E90 /* BrightcoveDAI */,
-				42005035CD3C2AFC60FC69F2 /* GoogleInteractiveMediaAds */,
+				6BE732032FED2AE2007102B1 /* GoogleInteractiveMediaAdsTvOS */,
 			);
+			productName = BasicDAIPlayer;
 			productReference = D6F6FE8F2A140C7000B4102C /* BasicDAIPlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -117,11 +117,11 @@
 				Base,
 			);
 			mainGroup = D6F6FE862A140C7000B4102C;
-			productRefGroup = D6F6FE902A140C7000B4102C /* Products */;
 			packageReferences = (
 				C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */,
-				BB216020E69F411227B2C386 /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-tvos" */,
+				6BE732022FED2AE2007102B1 /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-tvos" */,
 			);
+			productRefGroup = D6F6FE902A140C7000B4102C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -173,38 +173,6 @@
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
-			requirement = {
-				kind = exactVersion;
-				version = 7.2.15;
-			};
-		};
-		BB216020E69F411227B2C386 /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-tvos" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/googleads/swift-package-manager-google-interactive-media-ads-tvos";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.16.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		84953D2650C3AD5755A42E90 /* BrightcoveDAI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
-			productName = BrightcoveDAI;
-		};
-		42005035CD3C2AFC60FC69F2 /* GoogleInteractiveMediaAds */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BB216020E69F411227B2C386 /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-tvos" */;
-			productName = GoogleInteractiveMediaAds;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCBuildConfiguration section */
 		D6F6FE9E2A140C7100B4102C /* Debug */ = {
@@ -395,6 +363,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6BE732022FED2AE2007102B1 /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-tvos" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-interactive-media-ads-tvos";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 4.16.0;
+			};
+		};
+		C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.2.15;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6BE732032FED2AE2007102B1 /* GoogleInteractiveMediaAdsTvOS */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6BE732022FED2AE2007102B1 /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-tvos" */;
+			productName = GoogleInteractiveMediaAdsTvOS;
+		};
+		84953D2650C3AD5755A42E90 /* BrightcoveDAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
+			productName = BrightcoveDAI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D6F6FE872A140C7000B4102C /* Project object */;
 }
