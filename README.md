@@ -3,51 +3,40 @@ Brightcove Player SDK for iOS Samples
 
 Learn more about the [Brightcove Native Player SDKs](https://sdks.support.brightcove.com/getting-started/brightcove-native-player-sdks.html).
 
-ios-player-samples.git is a collection of sample applications for the Brightcove Player SDKs for iOS and tvOS, organized by subject area. An installation of [CocoaPods][cocoapods] 1.0.0 or higher is required to download the sample dependencies.
+ios-player-samples.git is a collection of sample applications for the Brightcove Player SDKs for iOS and tvOS, organized by subject area. The sample apps consume the Brightcove SDK through [Swift Package Manager](https://www.swift.org/documentation/package-manager/). The `PlayerUI/Flutter` and `PlayerUI/ReactNative` samples instead use [CocoaPods][cocoapods].
 
 ### Prerequisites
 
-1. CocoaPods 1.11+
-1. Xcode 13.0+, Xcode 14.0+ is recommended (refer to _About Bitcode_ below).
-1. iOS 12.0+ or tvOS 12.0+
+1. Xcode 15.0+
+1. iOS 12.0+ or tvOS 12.0+ (some samples require a higher deployment target — see the sample's own README)
+1. [CocoaPods][cocoapods] 1.11+ — only for the `PlayerUI/Flutter` and `PlayerUI/ReactNative` samples
 
 An Apple Developer Program account is required to run any sample app on a physical device. In order to provision your device, edit the sample app bundle identifier to make it unique to your organization.
 
-### About CocoaPods
+### Swift Package Manager
 
-To ensure you are using the latest releases of the Brightcove software components, update your Podspec repository before building any of the sample applications by running the following on the command line:
+Most samples consume the Brightcove SDK through Swift Package Manager. Open the sample's `.xcodeproj` in Xcode and the required packages are resolved automatically on the first build — there is no separate install step.
+
+### CocoaPods (Flutter and ReactNative samples only)
+
+The `PlayerUI/Flutter` and `PlayerUI/ReactNative` samples use CocoaPods. To ensure you are using the latest releases of the Brightcove software components, update your Podspec repository before building them:
 
 ```
 pod repo update
 ```
 
-### Using a Local SDK Build
+For SDK development against those two samples, you can switch between the published SDK and a local development build with the `BRIGHTCOVE_LOCAL_SDK` environment variable (configured in `Podfile.common.rb` at the repository root):
 
-For SDK development, you can easily switch between the published SDK and a local development build by setting the `BRIGHTCOVE_LOCAL_SDK` environment variable.
-
-**Using the default local path (`../videocloud_agave`):**
 ```bash
+# Published SDK (default)
+pod install
+
+# Local SDK at the default path (../videocloud_agave)
 BRIGHTCOVE_LOCAL_SDK=true pod install
-```
 
-**Using a custom path:**
-```bash
+# Local SDK at a custom path
 BRIGHTCOVE_LOCAL_SDK=/path/to/your/sdk pod install
 ```
-
-**Using the published SDK (default behavior):**
-```bash
-pod install
-```
-
-When using local SDK mode:
-- The helper automatically maps published pod names (e.g., `Brightcove-Player-Core`) to local podspec names (e.g., `BCOVPlayerSDK`)
-- Console output indicates which mode is active
-- If the local SDK path doesn't exist, the build will fail with a clear error message
-
-This feature is configured in `Podfile.common.rb` at the repository root.
-
-**Note:** Some samples use Swift Package Manager (SPM) instead of CocoaPods (e.g., `SwiftUI/CustomControls-iOS`). The local SDK switching feature only applies to CocoaPods-based samples.
 
 ### About Bitcode
 
@@ -63,22 +52,19 @@ From the [Xcode 14 Release Notes](https://developer.apple.com/documentation/xcod
 
 ### About Swift
 
-The Swift sample apps are written in Swift language version 4.2.
+The Swift sample apps are written in Swift 5.
 
 ### Instructions
 
 Unless otherwise instructed, samples can be run by following these steps:
 
-1. From the project directory, run `pod install`.
-1. Open the corresponding `.xcworkspace` file.
-1. Where the Podfile's pod directives do not specify that a dynamic framework is being installed, there is some additional setup required to build and run the project:
-    - Locate the `bcovpuiiconfont.ttf` file in the Pods/Brightcove-Player-SDK/ios/BrightcovePlayerSDK.framework folder.
-    - Add this file to your Xcode project listing so that the font file is copied into the app bundle.
-    - In the built app's bundle, the font file should end up at the same level as the app's Info.plist file.
-    - The font file supplies some of the BrightcovePlayerUI interface elements, but it does not need to be listed in the plist itself.
-1. There are README.md files in several of the samples that provide additional setup steps that are specific to those examples.
+1. Open the sample's `.xcodeproj` in Xcode.
+1. Build and run. Swift Package Manager resolves the Brightcove SDK — and, where applicable, the Google IMA and Google Cast packages — automatically on the first build.
+1. Several samples require an additional third-party SDK (for example FreeWheel, Pulse, or Adobe) that must be added manually; those samples have their own README.md with the extra steps.
 
-Note: If you intend to use these samples offline, be sure to run Cocoapods before going offline in order to download the required dependencies.
+The `PlayerUI/Flutter` and `PlayerUI/ReactNative` samples use CocoaPods instead — run `pod install` and open the generated `.xcworkspace`, as described in their READMEs.
+
+Note: package resolution requires network access on the first build. Once resolved, Xcode caches the packages for offline use.
 
 ### Samples
 

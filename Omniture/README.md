@@ -15,10 +15,4 @@ https://github.com/Adobe-Marketing-Cloud/mobile-services/archive/refs/tags/v4.21
 
 ### Brightcove SDKs
 
-Next, install the CocoaPods.
-
-```
-pod install
-```
-
-Open, build and run `BasicOmniturePlayer.xcworkspace`.
+The Brightcove SDK is provided via Swift Package Manager. Open `BasicOmniturePlayer.xcodeproj` in Xcode — the package resolves automatically on the first build — then build and run.

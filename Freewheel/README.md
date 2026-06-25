@@ -1,18 +1,12 @@
 # Basic FreeWheel Player
 
-The FreeWheel AdManager SDK is not installed by CocoaPods; You must manually add it to the application target of your project. It can be downloaded from the [FreeWheel website](https://hub.freewheel.tv/display/techdocs/AdManager+SDK+Integration+Downloads).
+The FreeWheel AdManager SDK is not distributed via Swift Package Manager; you must manually add it to the application target of your project. It can be downloaded from the [FreeWheel website](https://hub.freewheel.tv/display/techdocs/AdManager+SDK+Integration+Downloads).
 
 _Ensure that you are using the "AdManager Dynamic Build" version of AdManager._
 
 To add the AdManager xcframework to the BasicFreeWheelPlayer sample project
 
-1. cd to `ios-player-samples/FreeWheel/BasicFreeWheelPlayer-iOS` and install the Brightcove Player CocoaPods by running the following from the command line.
-
-```sh
-pod install
-```
-
-1. Open the BasicFreeWheelPlayer.xcworkspace document.
+1. Open `ios-player-samples/Freewheel/BasicFreeWheelPlayer-iOS/BasicFreeWheelPlayer.xcodeproj` in Xcode. Swift Package Manager resolves the Brightcove SDK automatically on the first build.
 
 1. In the Project Navigator, expand the BasicFreeWheelPlayer project.
 

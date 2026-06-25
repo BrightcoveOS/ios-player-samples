@@ -14,14 +14,10 @@ The mode is locked for the player session. To play with a different mode, naviga
 
 - iOS 17.0+
 - Xcode 16+
-- CocoaPods
 
 ## Setup
 
-```sh
-pod install
-open SwiftUIPlayerIMA.xcworkspace
-```
+Open `SwiftUIPlayerIMA.xcodeproj` in Xcode. Swift Package Manager resolves the Brightcove SDK and the Google Interactive Media Ads package automatically on the first build.
 
 ## Architecture
 
