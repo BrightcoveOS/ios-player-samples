@@ -22,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		6BE7320E2FED2F62007102B1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		D48BE7E0346C97E7D1E0B154 /* BasicOmniturePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicOmniturePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D63DC3FF2BE932C70049B06E /* BasicOmniturePlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "BasicOmniturePlayer-Bridging-Header.h"; path = "BasicOmniturePlayer/BasicOmniturePlayer-Bridging-Header.h"; sourceTree = "<group>"; };
 		D6672B8E2BD48DBF0014EE48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D6672B922BD48DBF0014EE48 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +58,7 @@
 				D63DC3FF2BE932C70049B06E /* BasicOmniturePlayer-Bridging-Header.h */,
 				D6672B8D2BD48DBF0014EE48 /* BasicOmniturePlayer */,
 				D6672BAD2BD48F0A0014EE48 /* Frameworks */,
+				D48BE7E0346C97E7D1E0B154 /* BasicOmniturePlayer.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,6 +107,7 @@
 				7B10FDAFB4535E13A31E38C6 /* BrightcoveAMC */,
 			);
 			productName = BasicOmniturePlayer;
+			productReference = D48BE7E0346C97E7D1E0B154 /* BasicOmniturePlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */

@@ -32,6 +32,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0E831BEACE979AD1190C0CFB /* BasicPulsePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicPulsePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D64ED384241C20FD00C856DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D64ED386241C20FD00C856DA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D64ED389241C20FD00C856DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -60,6 +61,7 @@
 			children = (
 				D64ED383241C20FD00C856DA /* BasicPulsePlayer */,
 				D675A4E72BD4C80E008DD765 /* Frameworks */,
+				0E831BEACE979AD1190C0CFB /* BasicPulsePlayer.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,6 +108,7 @@
 				717C08C143AD7D9BF0C19EB7 /* BrightcovePulse */,
 			);
 			productName = BasicPulsetvOSPlayer;
+			productReference = 0E831BEACE979AD1190C0CFB /* BasicPulsePlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
