@@ -179,7 +179,7 @@ final class ClosedCaptionMenuController: UITableViewController {
               let presentingViewController else { return }
 
         presentingViewController.dismiss(animated: true) {
-            currentSession.player.play()
+            currentSession.player?.play()
         }
     }
 }
@@ -269,16 +269,16 @@ extension ClosedCaptionMenuController {
         }
 
         let option = audibleMediaOptions[indexPath.row]
-        let displayName = currentSession.displayName(fromAudibleMediaSelectionOption: option) ?? ""
+        let displayName = currentSession.displayNameFromAudibleMediaSelectionOption(option) ?? ""
         cell.textLabel?.text = displayName
 
         // add a checkmark to the selected cell.
         let selectedOption = currentSession.selectedAudibleMediaOption
 
         // what's the index of the selectedOption?
-        let selectedOptionDisplayName = currentSession.displayName(fromAudibleMediaSelectionOption: selectedOption)
+        let selectedOptionDisplayName = selectedOption.flatMap(currentSession.displayNameFromAudibleMediaSelectionOption)
 
-        let selectionIndex = audibleMediaOptions.firstIndex(where: { currentSession.displayName(fromAudibleMediaSelectionOption: $0) == selectedOptionDisplayName })
+        let selectionIndex = audibleMediaOptions.firstIndex(where: { currentSession.displayNameFromAudibleMediaSelectionOption($0) == selectedOptionDisplayName })
         cell.accessoryType = selectionIndex == indexPath.row ? .checkmark : .none
 
         cell.accessibilityTraits = .button
@@ -305,7 +305,7 @@ extension ClosedCaptionMenuController {
             cell.textLabel?.text = ClosedCaptionMenuConfig.ClosedCaptionMenuAutoItemTitle
         } else {
             let option = legibleMediaOptions[indexPath.row - ClosedCaptionMenuConfig.LegibleOptionsOffsetFromOffItem]
-            cell.textLabel?.text = currentSession.displayName(fromLegibleMediaSelectionOption: option)
+            cell.textLabel?.text = currentSession.displayNameFromLegibleMediaSelectionOption(option)
         }
 
         // the current selection index.
@@ -318,8 +318,8 @@ extension ClosedCaptionMenuController {
                 selectionIndex = ClosedCaptionMenuConfig.LegibleOptionsAutoItemIndex
             } else {
                 // the selection is non-nil and unforced so it must be a user selection. find it.
-                let selectedOptionDisplayName = currentSession.displayName(fromLegibleMediaSelectionOption: selectedOption)
-                selectionIndex = legibleMediaOptions.firstIndex(where: { currentSession.displayName(fromLegibleMediaSelectionOption: $0) == selectedOptionDisplayName }) ?? 0
+                let selectedOptionDisplayName = currentSession.displayNameFromLegibleMediaSelectionOption(selectedOption)
+                selectionIndex = legibleMediaOptions.firstIndex(where: { currentSession.displayNameFromLegibleMediaSelectionOption($0) == selectedOptionDisplayName }) ?? 0
             }
         } else {
             // a nil selection option indicates the Off selection.

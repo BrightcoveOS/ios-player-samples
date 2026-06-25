@@ -220,7 +220,7 @@ extension ControlsViewController: BCOVPlaybackSessionConsumer {
                          didProgressTo progress: TimeInterval) {
         playheadLabel.text = formatTime(timeInterval: progress)
 
-        guard let currentItem = session.player.currentItem else {
+        guard let currentItem = session.player?.currentItem else {
             return
         }
 
