@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		D65403562BAB52AC00DD8346 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D65403552BAB52AC00DD8346 /* Assets.xcassets */; };
+		DA3D5C84F8F64714512767C0 /* BrightcovePlayerSDK in Frameworks */ = {isa = PBXBuildFile; productRef = BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */; };
 		E911F94427E37EEB005111A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911F94327E37EEB005111A5 /* AppDelegate.swift */; };
 		E911F94827E37EEB005111A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911F94727E37EEB005111A5 /* ViewController.swift */; };
 		E911F94B27E37EEB005111A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E911F94927E37EEB005111A5 /* Main.storyboard */; };
 		E911F95027E37EED005111A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E911F94E27E37EED005111A5 /* LaunchScreen.storyboard */; };
 		E911F95927E37F99005111A5 /* WatchTogetherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911F95727E37F99005111A5 /* WatchTogetherWrapper.swift */; };
 		E911F95A27E37F99005111A5 /* WatchTogether.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911F95827E37F99005111A5 /* WatchTogether.swift */; };
-		DA3D5C84F8F64714512767C0 /* BrightcovePlayerSDK in Frameworks */ = {isa = PBXBuildFile; productRef = BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,10 +90,10 @@
 			dependencies = (
 			);
 			name = SharePlayPlayer;
-			productName = SharePlayPlayer;
 			packageProductDependencies = (
 				BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */,
 			);
+			productName = SharePlayPlayer;
 			productReference = E911F94027E37EEB005111A5 /* SharePlayPlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -122,10 +122,10 @@
 				Base,
 			);
 			mainGroup = E911F93727E37EEB005111A5;
-			productRefGroup = E911F94127E37EEB005111A5 /* Products */;
 			packageReferences = (
 				C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */,
 			);
+			productRefGroup = E911F94127E37EEB005111A5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -179,25 +179,6 @@
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
-			requirement = {
-				kind = exactVersion;
-				version = 7.2.15;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
-			productName = BrightcovePlayerSDK;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E911F95227E37EED005111A5 /* Debug */ = {
@@ -380,6 +361,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.2.15;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
+			productName = BrightcovePlayerSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E911F93827E37EEB005111A5 /* Project object */;
 }

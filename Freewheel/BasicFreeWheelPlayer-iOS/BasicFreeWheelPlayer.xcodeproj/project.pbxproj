@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		197A0B6EEE6CB8FCA255A738 /* BrightcoveFW in Frameworks */ = {isa = PBXBuildFile; productRef = 55916FD30B29A7680AA43185 /* BrightcoveFW */; };
 		D60740D72BA0D4CF0075B82B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D60740D62BA0D4CF0075B82B /* Assets.xcassets */; };
 		D6672BBE2BD4BAC70014EE48 /* AdManager.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6672BBD2BD4BAC70014EE48 /* AdManager.xcframework */; };
 		D6672BBF2BD4BAC70014EE48 /* AdManager.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6672BBD2BD4BAC70014EE48 /* AdManager.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -14,7 +15,6 @@
 		E93A3D6F217E6BEF00F971F8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93A3D6E217E6BEF00F971F8 /* ViewController.swift */; };
 		E93A3D72217E6BEF00F971F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E93A3D70217E6BEF00F971F8 /* Main.storyboard */; };
 		E93A3D77217E6BF000F971F8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E93A3D75217E6BF000F971F8 /* LaunchScreen.storyboard */; };
-		197A0B6EEE6CB8FCA255A738 /* BrightcoveFW in Frameworks */ = {isa = PBXBuildFile; productRef = 55916FD30B29A7680AA43185 /* BrightcoveFW */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -102,10 +102,10 @@
 			dependencies = (
 			);
 			name = BasicFreeWheelPlayer;
-			productName = BasicFreewheelPlayer;
 			packageProductDependencies = (
 				55916FD30B29A7680AA43185 /* BrightcoveFW */,
 			);
+			productName = BasicFreewheelPlayer;
 			productReference = D65269142BE9666C00CC4227 /* BasicFreeWheelPlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -134,10 +134,10 @@
 				Base,
 			);
 			mainGroup = E93A3D60217E6BEF00F971F8;
-			productRefGroup = E93A3D60217E6BEF00F971F8;
 			packageReferences = (
 				C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */,
 			);
+			productRefGroup = E93A3D60217E6BEF00F971F8;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -189,25 +189,6 @@
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
-			requirement = {
-				kind = exactVersion;
-				version = 7.2.15;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		55916FD30B29A7680AA43185 /* BrightcoveFW */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
-			productName = BrightcoveFW;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E93A3D79217E6BF000F971F8 /* Debug */ = {
@@ -389,6 +370,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.2.15;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		55916FD30B29A7680AA43185 /* BrightcoveFW */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
+			productName = BrightcoveFW;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E93A3D61217E6BEF00F971F8 /* Project object */;
 }

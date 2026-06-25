@@ -432,8 +432,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.2.15;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

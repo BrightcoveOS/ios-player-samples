@@ -12,8 +12,8 @@
 		491576AA19D9F2B700B2E657 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 491576A819D9F2B700B2E657 /* Main.storyboard */; };
 		D6B08BB22BE614D000BFA9A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6B08BB02BE614D000BFA9A3 /* LaunchScreen.storyboard */; };
 		D6FC4B562BE63BB700172AE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6FC4B552BE63BB700172AE9 /* Assets.xcassets */; };
-		E984FCB22425394300085367 /* NowPlayingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E984FCB12425394300085367 /* NowPlayingHandler.swift */; };
 		DA3D5C84F8F64714512767C0 /* BrightcovePlayerSDK in Frameworks */ = {isa = PBXBuildFile; productRef = BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */; };
+		E984FCB22425394300085367 /* NowPlayingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E984FCB12425394300085367 /* NowPlayingHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,10 +93,10 @@
 			dependencies = (
 			);
 			name = VideoCloudBasicPlayer;
-			productName = VideoCloudBasicPlayer;
 			packageProductDependencies = (
 				BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */,
 			);
+			productName = VideoCloudBasicPlayer;
 			productReference = 4915769F19D9F2B700B2E657 /* VideoCloudBasicPlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -139,10 +139,10 @@
 				"zh-Hant",
 			);
 			mainGroup = 4915769619D9F2B700B2E657;
-			productRefGroup = 491576A019D9F2B700B2E657 /* Products */;
 			packageReferences = (
 				C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */,
 			);
+			productRefGroup = 491576A019D9F2B700B2E657 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -203,25 +203,6 @@
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
-			requirement = {
-				kind = exactVersion;
-				version = 7.2.15;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
-			productName = BrightcovePlayerSDK;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCBuildConfiguration section */
 		491576BC19D9F2B700B2E657 /* Debug */ = {
@@ -395,6 +376,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.2.15;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
+			productName = BrightcovePlayerSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4915769719D9F2B700B2E657 /* Project object */;
 }
