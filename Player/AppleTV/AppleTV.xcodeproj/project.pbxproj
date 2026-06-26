@@ -13,6 +13,7 @@
 		AA0C9401206C291E007A716A /* SampleInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0C9400206C291E007A716A /* SampleInfoViewController.swift */; };
 		D6A570162BE7247F00ADA632 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6A570152BE7247F00ADA632 /* Assets.xcassets */; };
 		D6A5702C2BE7501300ADA632 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6A5702A2BE7501300ADA632 /* LaunchScreen.storyboard */; };
+		DA3D5C84F8F64714512767C0 /* BrightcovePlayerSDK in Frameworks */ = {isa = PBXBuildFile; productRef = BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -52,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA3D5C84F8F64714512767C0 /* BrightcovePlayerSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +107,9 @@
 			dependencies = (
 			);
 			name = AppleTV;
+			packageProductDependencies = (
+				BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */,
+			);
 			productName = AppleTV;
 			productReference = 4910CD971C91DB4A00016798 /* AppleTV.app */;
 			productType = "com.apple.product-type.application";
@@ -142,6 +147,9 @@
 				"zh-Hans",
 			);
 			mainGroup = 4910CD8E1C91DB4A00016798;
+			packageReferences = (
+				C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */,
+			);
 			productRefGroup = 4910CD981C91DB4A00016798 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -372,6 +380,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.2.16;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
+			productName = BrightcovePlayerSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4910CD8F1C91DB4A00016798 /* Project object */;
 }

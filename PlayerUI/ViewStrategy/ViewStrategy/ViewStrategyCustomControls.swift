@@ -179,7 +179,7 @@ extension ViewStrategyCustomControls: BCOVPlaybackSessionConsumer {
 
     func playbackSession(_ session: BCOVPlaybackSession!,
                          didProgressTo progress: TimeInterval) {
-        guard let duration = session.player.currentItem?.duration,
+        guard let duration = session.player?.currentItem?.duration,
               duration.isValid,
               progress.isFinite else {
             return

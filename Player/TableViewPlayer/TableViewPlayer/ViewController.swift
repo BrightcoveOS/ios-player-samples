@@ -129,13 +129,14 @@ extension ViewController : BCOVPlaybackControllerDelegate {
     func playbackController(_ controller: BCOVPlaybackController!,
                             didAdvanceTo session: BCOVPlaybackSession!) {
 
-        guard let videoId = session.video.properties[BCOVVideo.PropertyKeyId] as? String,
-              let currentItem = session.player.currentItem,
+        guard let videoId = session.video?.properties[BCOVVideo.PropertyKeyId] as? String,
+              let player = session.player,
+              let currentItem = player.currentItem,
               let playbackConfiguration = playbackConfigurations[videoId] else {
             return
         }
 
-        session.player.isMuted = true
+        player.isMuted = true
         playbackConfiguration.playbackSession = session
 
         if currentItem.duration.isIndefinite,

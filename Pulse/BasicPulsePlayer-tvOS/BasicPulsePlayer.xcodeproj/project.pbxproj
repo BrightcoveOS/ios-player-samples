@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9972FB206F95D4115C8C7485 /* BrightcovePulse in Frameworks */ = {isa = PBXBuildFile; productRef = 717C08C143AD7D9BF0C19EB7 /* BrightcovePulse */; };
 		D64ED385241C20FD00C856DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64ED384241C20FD00C856DA /* AppDelegate.swift */; };
 		D64ED387241C20FD00C856DA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64ED386241C20FD00C856DA /* ViewController.swift */; };
 		D64ED38A241C20FD00C856DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D64ED388241C20FD00C856DA /* Main.storyboard */; };
@@ -31,6 +32,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0E831BEACE979AD1190C0CFB /* BasicPulsePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicPulsePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D64ED384241C20FD00C856DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D64ED386241C20FD00C856DA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D64ED389241C20FD00C856DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -47,6 +49,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D675A4E92BD4C80E008DD765 /* Pulse_tvOS.xcframework in Frameworks */,
+				9972FB206F95D4115C8C7485 /* BrightcovePulse in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +61,7 @@
 			children = (
 				D64ED383241C20FD00C856DA /* BasicPulsePlayer */,
 				D675A4E72BD4C80E008DD765 /* Frameworks */,
+				0E831BEACE979AD1190C0CFB /* BasicPulsePlayer.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,7 +104,11 @@
 			dependencies = (
 			);
 			name = BasicPulsePlayer;
+			packageProductDependencies = (
+				717C08C143AD7D9BF0C19EB7 /* BrightcovePulse */,
+			);
 			productName = BasicPulsetvOSPlayer;
+			productReference = 0E831BEACE979AD1190C0CFB /* BasicPulsePlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -127,6 +135,9 @@
 				Base,
 			);
 			mainGroup = D64ED378241C20FD00C856DA;
+			packageReferences = (
+				C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */,
+			);
 			productRefGroup = D64ED378241C20FD00C856DA;
 			projectDirPath = "";
 			projectRoot = "";
@@ -361,6 +372,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.2.16;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		717C08C143AD7D9BF0C19EB7 /* BrightcovePulse */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
+			productName = BrightcovePulse;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D64ED379241C20FD00C856DA /* Project object */;
 }

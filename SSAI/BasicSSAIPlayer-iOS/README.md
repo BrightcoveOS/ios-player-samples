@@ -6,7 +6,7 @@ The current version for Open Measurement is 1.4.13.
 
 To take advantage of IAB Open Measurement, keep the following points in mind:
 
-* Add `pod 'Brightcove-Player-OpenMeasurement'` in your Podfile to include it in your project.
+* The Open Measurement library ships as the `OMSDK_Brightcove` product of the `brightcove-player-sdk-ios` Swift Package; this sample already links it. In your own app, add the `OMSDK_Brightcove` product to your target to include it.
 * Provide a valid OMID Partner name using the new signature, `[BCOVPlayerSDKManager createSSAISessionProviderWithUpstreamSessionProvider:omidPartner]`.
 * If using VAST 4.1+, ads must be configured under `<AdVerifications>` nodes in their VAST documents per the VAST 4.1 specification; otherwise, `<Extension type="AdVerifications">` should be used.
 * Open Measurement is not supported by MacCatalyst.
@@ -24,7 +24,7 @@ To take advantage of IAB Open Measurement, keep the following points in mind:
  </AdVerifications>
  ```
 
-See the *Open Measurement* section of [brightcove-player-sdk-ios-ssai](https://github.com/brightcove/brightcove-player-sdk-ios-ssai#OpenMeasurement) for more information.
+See the [Brightcove Player SDK for iOS](https://github.com/brightcove/brightcove-player-sdk-ios) documentation for more information on Open Measurement.
 
 ## PAL SDK Integration
 

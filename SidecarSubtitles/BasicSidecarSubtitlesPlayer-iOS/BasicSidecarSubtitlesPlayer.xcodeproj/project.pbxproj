@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D6DB4FB42BA3724100F47C9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6DB4FB32BA3724100F47C9F /* Assets.xcassets */; };
+		DA3D5C84F8F64714512767C0 /* BrightcovePlayerSDK in Frameworks */ = {isa = PBXBuildFile; productRef = BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */; };
 		E9DEE561216E8D250033C285 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE560216E8D250033C285 /* AppDelegate.swift */; };
 		E9DEE563216E8D250033C285 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE562216E8D250033C285 /* ViewController.swift */; };
 		E9DEE566216E8D250033C285 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE564216E8D250033C285 /* Main.storyboard */; };
@@ -29,6 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA3D5C84F8F64714512767C0 /* BrightcovePlayerSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +82,9 @@
 			dependencies = (
 			);
 			name = BasicSidecarSubtitlesPlayer;
+			packageProductDependencies = (
+				BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */,
+			);
 			productName = BasicSidecarSubtitlesPlayer;
 			productReference = E9DEE55D216E8D250033C285 /* BasicSidecarSubtitlesPlayer.app */;
 			productType = "com.apple.product-type.application";
@@ -109,6 +114,9 @@
 				Base,
 			);
 			mainGroup = E9DEE554216E8D250033C285;
+			packageReferences = (
+				C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */,
+			);
 			productRefGroup = E9DEE55E216E8D250033C285 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -339,6 +347,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.2.16;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
+			productName = BrightcovePlayerSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E9DEE555216E8D250033C285 /* Project object */;
 }

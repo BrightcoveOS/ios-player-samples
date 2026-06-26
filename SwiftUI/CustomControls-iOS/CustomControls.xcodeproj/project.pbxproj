@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1677C4D328DC23E1009168EE /* CustomSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1677C4D228DC23E1009168EE /* CustomSliderView.swift */; };
+		6B7840D82FED375500A4EC07 /* BrightcovePlayerSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 6B7840D72FED375500A4EC07 /* BrightcovePlayerSDK */; };
 		D622616C260927A3003CEF82 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D622616B260927A3003CEF82 /* ContentView.swift */; };
 		D6226171260927A5003CEF82 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6226170260927A5003CEF82 /* Preview Assets.xcassets */; };
 		D6226174260927A5003CEF82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6226172260927A5003CEF82 /* LaunchScreen.storyboard */; };
@@ -20,9 +21,7 @@
 		D67A0A712AAF6D260038CE45 /* VideoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A0A702AAF6D260038CE45 /* VideoContainerView.swift */; };
 		D6AD6EF22AB0C18500CCA159 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AD6EF12AB0C18500CCA159 /* PlayerModel.swift */; };
 		D6DB4FBE2BA3830F00F47C9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6DB4FBD2BA3830F00F47C9F /* Assets.xcassets */; };
-		E9311DDB2A71E86800DF7D92 /* BrightcovePlayerSDK in Frameworks */ = {isa = PBXBuildFile; productRef = E9311DDA2A71E86800DF7D92 /* BrightcovePlayerSDK */; };
 		E9392E312A5EF97D00FB951A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9392E302A5EF97D00FB951A /* AppDelegate.swift */; };
-		E97FFA522C6660920095698D /* BrightcoveIMA in Frameworks */ = {isa = PBXBuildFile; productRef = E97FFA512C6660920095698D /* BrightcoveIMA */; };
 		E9AF8DBE2A57657D001C8EB0 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AF8DBD2A57657D001C8EB0 /* VideoModel.swift */; };
 		E9AF8DC02A577715001C8EB0 /* CustomControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AF8DBF2A577714001C8EB0 /* CustomControlsView.swift */; };
 		E9AF8DC22A577A94001C8EB0 /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AF8DC12A577A94001C8EB0 /* TimeInterval+Extensions.swift */; };
@@ -57,8 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9311DDB2A71E86800DF7D92 /* BrightcovePlayerSDK in Frameworks */,
-				E97FFA522C6660920095698D /* BrightcoveIMA in Frameworks */,
+				6B7840D82FED375500A4EC07 /* BrightcovePlayerSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,8 +146,7 @@
 			);
 			name = CustomControls;
 			packageProductDependencies = (
-				E9311DDA2A71E86800DF7D92 /* BrightcovePlayerSDK */,
-				E97FFA512C6660920095698D /* BrightcoveIMA */,
+				6B7840D72FED375500A4EC07 /* BrightcovePlayerSDK */,
 			);
 			productName = SwiftUICustomControls;
 			productReference = D6226164260927A3003CEF82 /* CustomControls.app */;
@@ -180,8 +177,7 @@
 			);
 			mainGroup = D622615B260927A3003CEF82;
 			packageReferences = (
-				E9311DD92A71E86800DF7D92 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */,
-				E97FFA502C6660920095698D /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios-ima" */,
+				6B7840D62FED375500A4EC07 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */,
 			);
 			productRefGroup = D6226165260927A3003CEF82 /* Products */;
 			projectDirPath = "";
@@ -430,34 +426,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E9311DD92A71E86800DF7D92 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
+		6B7840D62FED375500A4EC07 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios.git";
+			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
 			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		E97FFA502C6660920095698D /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios-ima" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios-ima.git";
-			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.2.16;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E9311DDA2A71E86800DF7D92 /* BrightcovePlayerSDK */ = {
+		6B7840D72FED375500A4EC07 /* BrightcovePlayerSDK */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E9311DD92A71E86800DF7D92 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
+			package = 6B7840D62FED375500A4EC07 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
 			productName = BrightcovePlayerSDK;
-		};
-		E97FFA512C6660920095698D /* BrightcoveIMA */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E97FFA502C6660920095698D /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios-ima" */;
-			productName = BrightcoveIMA;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

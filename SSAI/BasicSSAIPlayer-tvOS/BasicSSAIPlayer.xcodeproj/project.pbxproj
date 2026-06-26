@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		747DA806A77DF21DCD7E0C1D /* BrightcoveSSAI in Frameworks */ = {isa = PBXBuildFile; productRef = 5B983BE3951DA8DE58CB0502 /* BrightcoveSSAI */; };
 		D6A570222BE74C3F00ADA632 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6A570212BE74C3F00ADA632 /* Assets.xcassets */; };
 		D6A5703B2BE75FFC00ADA632 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6A570392BE75FFC00ADA632 /* LaunchScreen.storyboard */; };
 		E9227296223FFF67000474A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9227295223FFF67000474A4 /* AppDelegate.swift */; };
@@ -29,6 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				747DA806A77DF21DCD7E0C1D /* BrightcoveSSAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +82,9 @@
 			dependencies = (
 			);
 			name = BasicSSAIPlayer;
+			packageProductDependencies = (
+				5B983BE3951DA8DE58CB0502 /* BrightcoveSSAI */,
+			);
 			productName = BasicSSAIPlayer;
 			productReference = E9227292223FFF67000474A4 /* BasicSSAIPlayer.app */;
 			productType = "com.apple.product-type.application";
@@ -109,6 +114,9 @@
 				Base,
 			);
 			mainGroup = E9227289223FFF67000474A4;
+			packageReferences = (
+				C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */,
+			);
 			productRefGroup = E9227293223FFF67000474A4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -339,6 +347,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.2.16;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5B983BE3951DA8DE58CB0502 /* BrightcoveSSAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
+			productName = BrightcoveSSAI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E922728A223FFF67000474A4 /* Project object */;
 }

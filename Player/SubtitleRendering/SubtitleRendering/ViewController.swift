@@ -230,8 +230,8 @@ extension ViewController: BCOVPlaybackControllerDelegate {
             print("         A text track might be forcibly rendered in the video view.")
         }
 
-        session.player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 60),
-                                               queue: DispatchQueue.main) {
+        session.player?.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 60),
+                                                queue: DispatchQueue.main) {
             [self] (time: CMTime) in
 
             if let subtitle = subtitleManager?.subtitleForTime(time) {
