@@ -24,7 +24,7 @@ To take advantage of IAB Open Measurement, keep the following points in mind:
  </AdVerifications>
  ```
 
-See the *Open Measurement* section of [brightcove-player-sdk-ios-ssai](https://github.com/brightcove/brightcove-player-sdk-ios-ssai#OpenMeasurement) for more information.
+See the [Brightcove Player SDK for iOS](https://github.com/brightcove/brightcove-player-sdk-ios) documentation for more information on Open Measurement.
 
 ## PAL SDK Integration
 

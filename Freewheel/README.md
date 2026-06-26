@@ -12,6 +12,6 @@ To add the AdManager xcframework to the BasicFreeWheelPlayer sample project
 
 1. In Finder, select your `AdManager.xcframework` and drag it to the Frameworks group in the Xcode Project Navigator. When prompted, ensure that the AdManager.xcframework is being added to the BasicFreeWheelPlayer target.
 
-1. In Xcode under "Frameworks, Libraries and Dmbedded Content" set AdManager.xcframework to "Embed & Sign".
+1. In Xcode under "Frameworks, Libraries and Embedded Content" set AdManager.xcframework to "Embed & Sign".
 
-1. In the Project Navigator, select the BasicFreeWheelPlayer project. At the top of the Xcode Editor Area, choose Build Settings. Search for "Framework Search Paths". Add a framework search path that is the parent folder of your AdManager.framework (probably `iOS_AdManagerDistribution`).
+1. In the Project Navigator, select the BasicFreeWheelPlayer project. At the top of the Xcode Editor Area, choose Build Settings. Search for "Framework Search Paths". Add a framework search path that is the parent folder of your AdManager.xcframework (probably `iOS_AdManagerDistribution`).
