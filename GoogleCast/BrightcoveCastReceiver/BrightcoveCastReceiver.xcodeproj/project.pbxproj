@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6BE7320A2FED2D34007102B1 /* GoogleCast in Frameworks */ = {isa = PBXBuildFile; productRef = 6BE732092FED2D34007102B1 /* GoogleCast */; };
 		A0C995A9332A387D0C70CBD4 /* BrightcoveGoogleCast in Frameworks */ = {isa = PBXBuildFile; productRef = 25E21F91745E34F07280ACB2 /* BrightcoveGoogleCast */; };
 		D657E9C32BD2F3AD005A18F9 /* GCKUICastContainerViewController+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D657E9C22BD2F3AD005A18F9 /* GCKUICastContainerViewController+extensions.swift */; };
 		D657E9C52BD2F414005A18F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D657E9C42BD2F414005A18F9 /* Assets.xcassets */; };
@@ -33,7 +32,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6BE7320A2FED2D34007102B1 /* GoogleCast in Frameworks */,
 				A0C995A9332A387D0C70CBD4 /* BrightcoveGoogleCast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -89,7 +87,6 @@
 			name = BrightcoveCastReceiver;
 			packageProductDependencies = (
 				25E21F91745E34F07280ACB2 /* BrightcoveGoogleCast */,
-				6BE732092FED2D34007102B1 /* GoogleCast */,
 			);
 			productName = BrightcoveCastReceiver;
 			productReference = E9D831B024B3A3E400825557 /* BrightcoveCastReceiver.app */;
@@ -121,7 +118,6 @@
 			mainGroup = E9D831A724B3A3E400825557;
 			packageReferences = (
 				C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */,
-				6BE732082FED2D34007102B1 /* XCRemoteSwiftPackageReference "google-cast-sdk" */,
 			);
 			productRefGroup = E9D831B124B3A3E400825557 /* Products */;
 			projectDirPath = "";
@@ -356,20 +352,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6BE732082FED2D34007102B1 /* XCRemoteSwiftPackageReference "google-cast-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SRGSSR/google-cast-sdk";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 4.8.3;
-			};
-		};
 		C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 7.2.15;
+				minimumVersion = 7.2.16;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -379,11 +367,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
 			productName = BrightcoveGoogleCast;
-		};
-		6BE732092FED2D34007102B1 /* GoogleCast */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6BE732082FED2D34007102B1 /* XCRemoteSwiftPackageReference "google-cast-sdk" */;
-			productName = GoogleCast;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

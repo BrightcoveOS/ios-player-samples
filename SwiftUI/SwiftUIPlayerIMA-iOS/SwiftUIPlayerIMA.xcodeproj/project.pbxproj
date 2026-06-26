@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D180DB52D3725F05C2BD55C /* GoogleInteractiveMediaAds in Frameworks */ = {isa = PBXBuildFile; productRef = 1A8BBCE99D44C0AB31BF8B65 /* GoogleInteractiveMediaAds */; };
 		BC100001000000000000A001 /* SwiftUIPlayerIMAApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC100002000000000000A001 /* SwiftUIPlayerIMAApp.swift */; };
 		BC100003000000000000A001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC100004000000000000A001 /* AppDelegate.swift */; };
 		BC100005000000000000A001 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC100006000000000000A001 /* Config.swift */; };
@@ -48,7 +47,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFB3C70CDAC61923740B63AF /* BrightcoveIMA in Frameworks */,
-				1D180DB52D3725F05C2BD55C /* GoogleInteractiveMediaAds in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,7 +140,6 @@
 			name = SwiftUIPlayerIMA;
 			packageProductDependencies = (
 				78CF82638FE51829ADCD4A86 /* BrightcoveIMA */,
-				1A8BBCE99D44C0AB31BF8B65 /* GoogleInteractiveMediaAds */,
 			);
 			productName = SwiftUIPlayerIMA;
 			productReference = BC10001D000000000000A001 /* SwiftUIPlayerIMA.app */;
@@ -174,7 +171,6 @@
 			mainGroup = BC100021000000000000A001;
 			packageReferences = (
 				C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */,
-				5C9414777F2991E5C9FB72FC /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-ios" */,
 			);
 			productRefGroup = BC100023000000000000A001 /* Products */;
 			projectDirPath = "";
@@ -413,30 +409,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5C9414777F2991E5C9FB72FC /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/googleads/swift-package-manager-google-interactive-media-ads-ios";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 3.26.1;
-			};
-		};
 		C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 7.2.15;
+				minimumVersion = 7.2.16;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1A8BBCE99D44C0AB31BF8B65 /* GoogleInteractiveMediaAds */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5C9414777F2991E5C9FB72FC /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-ios" */;
-			productName = GoogleInteractiveMediaAds;
-		};
 		78CF82638FE51829ADCD4A86 /* BrightcoveIMA */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;

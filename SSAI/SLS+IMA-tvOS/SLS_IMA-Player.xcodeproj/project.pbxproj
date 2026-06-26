@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6B7840D52FED35E900A4EC07 /* GoogleInteractiveMediaAdsTvOS in Frameworks */ = {isa = PBXBuildFile; productRef = 6B7840D42FED35E900A4EC07 /* GoogleInteractiveMediaAdsTvOS */; };
 		747DA806A77DF21DCD7E0C1D /* BrightcoveSSAI in Frameworks */ = {isa = PBXBuildFile; productRef = 5B983BE3951DA8DE58CB0502 /* BrightcoveSSAI */; };
 		D6A570262BE74C8400ADA632 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6A570252BE74C8400ADA632 /* Assets.xcassets */; };
 		D6A570412BE7606400ADA632 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6A5703F2BE7606400ADA632 /* LaunchScreen.storyboard */; };
@@ -33,7 +32,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				747DA806A77DF21DCD7E0C1D /* BrightcoveSSAI in Frameworks */,
-				6B7840D52FED35E900A4EC07 /* GoogleInteractiveMediaAdsTvOS in Frameworks */,
 				FFB3C70CDAC61923740B63AF /* BrightcoveIMA in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -89,7 +87,6 @@
 			packageProductDependencies = (
 				5B983BE3951DA8DE58CB0502 /* BrightcoveSSAI */,
 				78CF82638FE51829ADCD4A86 /* BrightcoveIMA */,
-				6B7840D42FED35E900A4EC07 /* GoogleInteractiveMediaAdsTvOS */,
 			);
 			productName = "SLS_IMA-tvOSPlayer";
 			productReference = D6CD23C024BCE8C0007FEA03 /* SLS_IMA-Player.app */;
@@ -121,7 +118,6 @@
 			mainGroup = D6CD23B724BCE8C0007FEA03;
 			packageReferences = (
 				C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */,
-				6B7840D32FED35E900A4EC07 /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-tvos" */,
 			);
 			productRefGroup = D6CD23C124BCE8C0007FEA03 /* Products */;
 			projectDirPath = "";
@@ -355,20 +351,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6B7840D32FED35E900A4EC07 /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-tvos" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/googleads/swift-package-manager-google-interactive-media-ads-tvos";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 4.16.0;
-			};
-		};
 		C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/brightcove/brightcove-player-sdk-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 7.2.15;
+				minimumVersion = 7.2.16;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -378,11 +366,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C85C5BA77BF7F84A7FDD68E3 /* XCRemoteSwiftPackageReference "brightcove-player-sdk-ios" */;
 			productName = BrightcoveSSAI;
-		};
-		6B7840D42FED35E900A4EC07 /* GoogleInteractiveMediaAdsTvOS */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6B7840D32FED35E900A4EC07 /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-tvos" */;
-			productName = GoogleInteractiveMediaAdsTvOS;
 		};
 		78CF82638FE51829ADCD4A86 /* BrightcoveIMA */ = {
 			isa = XCSwiftPackageProductDependency;
