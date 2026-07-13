@@ -10,5 +10,5 @@ It shows how to:
 
 ## See also
 
-- `SwiftUI/SwiftUIPlayer-iOS/` — a SwiftUI player without custom controls.
-- `SwiftUI/SwiftUIPlayerIMA-iOS/` — SwiftUI with Google IMA ads.
+- `SwiftUI/SwiftUIPlayer/` — a SwiftUI player without custom controls.
+- `SwiftUI/SwiftUIPlayerIMA/` — SwiftUI with Google IMA ads.

@@ -1,4 +1,4 @@
-# SwiftUIPlayerIMA-iOS
+# SwiftUIPlayerIMA
 
 Reference sample showing how to integrate the **Brightcove Native Player SDK for iOS** with **Google Interactive Media Ads (IMA)** in a **SwiftUI** app.
 
@@ -88,4 +88,4 @@ hosts the app integrates with.
 ## See also
 
 - `IMA/BasicIMAPlayer-iOS/` — the canonical UIKit IMA sample (VAST, VMAP, and VAST+OMID variants).
-- `SwiftUI/SwiftUIPlayer-iOS/` — SwiftUI without ads, demonstrating multiple bridge approaches.
+- `SwiftUI/SwiftUIPlayer/` — SwiftUI without ads, demonstrating multiple bridge approaches.

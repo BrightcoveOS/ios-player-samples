@@ -6,7 +6,7 @@ _Ensure that you are using the "AdManager Dynamic Build" version of AdManager._
 
 To add the AdManager xcframework to the BasicFreeWheelPlayer sample project
 
-1. Open `ios-player-samples/Freewheel/BasicFreeWheelPlayer-iOS/BasicFreeWheelPlayer.xcodeproj` in Xcode. Swift Package Manager resolves the Brightcove SDK automatically on the first build.
+1. Open `ios-player-samples/FreeWheel/BasicFreeWheelPlayer.xcodeproj` in Xcode. Swift Package Manager resolves the Brightcove SDK automatically on the first build.
 
 1. In the Project Navigator, expand the BasicFreeWheelPlayer project.
 
