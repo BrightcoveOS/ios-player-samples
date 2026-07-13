@@ -7,9 +7,9 @@ This sample shows how to integrate React Native with the Brightcove Player SDKs 
 ## Prerequisites
 
 1. yarn
-1. CocoaPods 1.10+
-1. Xcode 13.0+
-1. iOS 13.4+
+1. CocoaPods 1.11+
+1. Xcode 15.0+
+1. iOS 14.0+
 
 ## Running Sample App
 

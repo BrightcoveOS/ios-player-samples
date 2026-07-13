@@ -5,7 +5,7 @@ The Brightcove Native Player SDK allows you to download and play back HLS videos
 
 ### Requirements:
 
-- iOS 12.0+
+- iOS 14.0+
 - Brightcove Native Player SDK v7.2.16+
 - Brightcove Account with Dynamic Delivery
 

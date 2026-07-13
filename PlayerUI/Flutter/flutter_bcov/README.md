@@ -1,6 +1,6 @@
 # flutter_bcov
 
-The *flutter_bcov* package contains two auxiliar classes and one widget to [display video](https://docs.flutter.dev/development/platform-integration/platform-views).
+The *flutter_bcov* package contains two auxiliary classes and one widget to [display video](https://docs.flutter.dev/development/platform-integration/platform-views).
 
 ## How to use flutter_bcov
 
@@ -29,7 +29,7 @@ The *PlaybackService* class is used to retrieve the video to be shown in your pl
 
 ### BCOVVideoPlayer
 
-The *BCOVVideoPlayer* class is the widget to be used to show the video. The class receives two paramters, *playbackController* and *playbackService*.
+The *BCOVVideoPlayer* class is the widget to be used to show the video. The class receives two parameters, *playbackController* and *playbackService*.
 
 ```dart
     BCOVVideoPlayer(

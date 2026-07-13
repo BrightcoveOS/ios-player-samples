@@ -4,13 +4,15 @@ View Strategy Sample
 `BCOVPlaybackController` objects are constructed with a view strategy, which allows you, as the client of the SDK, to define the exact UIView object that is returned from the playback controller’s view property. 
 
 ```
-func createPlaybackController(){
+func createPlaybackController() {
     let sdkManager = BCOVPlayerSDKManager.sharedManager()
 
-    let viewStrategy  = { (videoView: UIView? , playbackController: BCOVPlaybackController) in {
+    let viewStrategy: BCOVPlaybackControllerViewStrategy = { (videoView: UIView?, playbackController: BCOVPlaybackController?) -> UIView? in
+        guard let videoView, let playbackController else { return nil }
+
         let myControlsView = MyControlsView()
         let controlsAndVideoView = UIView()
-        videoView.frame = controlsAndVideoView.bounds
+        controlsAndVideoView.frame = videoView.bounds
         controlsAndVideoView.addSubview(videoView)
         controlsAndVideoView.addSubview(myControlsView)
         playbackController.addSessionConsumer(myControlsView)
@@ -22,8 +24,8 @@ func createPlaybackController(){
     playbackController = sdkManager.createPlaybackController(withViewStrategy: viewStrategy)
 
     playbackController.delegate = self
-    playbackController.autoPlay = true
-    playbackController.autoAdvance = true
+    playbackController.isAutoPlay = true
+    playbackController.isAutoAdvance = true
 
     playbackController.view.frame = videoContainerView.bounds
     playbackController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]

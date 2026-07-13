@@ -7,8 +7,8 @@ ios-player-samples.git is a collection of sample applications for the Brightcove
 
 ### Prerequisites
 
-1. Xcode 15.0+
-1. iOS 12.0+ or tvOS 12.0+ (some samples require a higher deployment target — see the sample's own README)
+1. Xcode 15.0+ (the `SwiftUI/SwiftUIPlayerIMA` sample requires Xcode 16.0+)
+1. iOS 14.0+ or tvOS 15.0+ (some samples require a higher deployment target — see the sample's own README)
 1. [CocoaPods][cocoapods] 1.11+ — only for the `PlayerUI/Flutter` and `PlayerUI/ReactNative` samples
 
 An Apple Developer Program account is required to run any sample app on a physical device. In order to provision your device, edit the sample app bundle identifier to make it unique to your organization.
@@ -18,6 +18,8 @@ An Apple Developer Program account is required to run any sample app on a physic
 Most samples consume the Brightcove SDK through Swift Package Manager. Open the sample's `.xcodeproj` in Xcode and the required packages are resolved automatically on the first build — there is no separate install step.
 
 ### CocoaPods (Flutter and ReactNative samples only)
+
+> **Note:** Brightcove's CocoaPods distribution is deprecated as of SDK 7.2.15 and will stop receiving updates once the CocoaPods Trunk becomes read-only (expected late 2026). New integrations should use Swift Package Manager; these two samples remain on CocoaPods until their framework integrations migrate.
 
 The `PlayerUI/Flutter` and `PlayerUI/ReactNative` samples use CocoaPods. To ensure you are using the latest releases of the Brightcove software components, update your Podspec repository before building them:
 
@@ -38,18 +40,6 @@ BRIGHTCOVE_LOCAL_SDK=true pod install
 BRIGHTCOVE_LOCAL_SDK=/path/to/your/sdk pod install
 ```
 
-### About Bitcode
-
-The ENABLE_BITCODE setting has been removed from all sample projects and the default value of the IDE is used instead. Xcode 14.0 has deprecated bitcode and the default setting is NO. The default bitcode setting in Xcode 13 is YES.
-
-Brightcove SDK versions 6.10.6 and above do not include bitcode images. If you are building sample projects using Xcode 13.4.1 or earlier, you must manually disable bitcode in your project settings.
-
-From the [Xcode 14 Release Notes](https://developer.apple.com/documentation/xcode-release-notes/xcode-14-release-notes):
-
-> Starting with Xcode 14, bitcode is no longer required for watchOS and tvOS applications, and the App Store no longer accepts bitcode submissions from Xcode 14.
-> 
-> Xcode no longer builds bitcode by default and generates a warning message if a project explicitly enables bitcode: “Building with bitcode is deprecated. Please update your project and/or target settings to disable bitcode.” The capability to build with bitcode will be removed in a future Xcode release. IPAs that contain bitcode will have the bitcode stripped before being submitted to the App Store. Debug symbols for past bitcode submissions remain available for download. (86118779)
-
 ### About Swift
 
 The Swift sample apps are written in Swift 5.
@@ -68,13 +58,17 @@ Note: package resolution requires network access on the first build. Once resolv
 
 ### Samples
 
+#### DAI
+
+DAI samples demonstrate how to use Google's Dynamic Ad Insertion (DAI) to request a single stream that stitches ads into the content server-side, for both VOD and live content. iOS and tvOS variants are provided.
+
 #### FairPlay
 
-FairPlay samples demonstrate how to play protected videos using FairPlay plugin that is integrated into the core BrightcovePlayerSDK framework. 
+The FairPlay sample demonstrates how to play protected videos using the FairPlay plugin that is integrated into the core BrightcovePlayerSDK framework.
 
-#### A note about the FairPlay sample apps
+#### A note about the FairPlay sample app
 
-In both of the FairPlay sample apps, there are references to `FairPlayPublisherId` and `FairPlayApplicationId`. These terms refer to FairPlay credentials that Brightcove does not provide, which are instead acquired through Apple directly.
+In the FairPlay sample app, there are references to `FairPlayPublisherId` and `FairPlayApplicationId`. These terms refer to FairPlay credentials that Brightcove does not provide, which are instead acquired through Apple directly.
 
 iOS does **not** allow FairPlay-protected video to display in a simulator so it's important to develop on an actual device.
 
@@ -112,6 +106,10 @@ PlayerUI samples demonstrate how to customize the player look and feel. These ar
 
 Pulse samples demonstrate how to play ads managed by INVIDI Technologies Pulse. These are intended to cover different configurations for the content.
 
+#### SharePlay
+
+SharePlay sample demonstrates how to use Apple's GroupActivities framework to synchronize Brightcove playback across participants in a FaceTime call.
+
 #### SidecarSubtitles
 
 SidecarSubtitles sample demonstrates how to add WebVTT subtitles to an HLS manifest from within an iOS/tvOS app using SidecarSubtitles plugin that is integrated into the core BrightcovePlayerSDK framework.
@@ -124,9 +122,13 @@ SSAI samples demonstrate how to use the SSAI plugin. These are intended to cover
 
 SubtitleRendering samples demonstrate how to parse and display WEBVTT files so that you can customize the positioning and look of your subtitles.
 
-#### SwiftUIPlayer
+#### SwiftUI
 
-SwiftUIPlayer demonstrates how to use `BCOVUIPlayerView` and `AVPlayerViewController` with SwiftUI and how to present content in fullscreen over a SwiftUI TabView.
+The SwiftUI samples demonstrate how to host the Brightcove player in a SwiftUI app:
+
+- **SwiftUIPlayer** — basic playback in SwiftUI, including presenting content in fullscreen over a SwiftUI `TabView`.
+- **CustomControls** — building your own custom playback controls in SwiftUI.
+- **SwiftUIPlayerIMA** — integrating Google IMA ads in a SwiftUI player.
 
 ### Feature Highlights
 
@@ -155,7 +157,7 @@ The following sample projects take advantage of this localization:
 
 * Player/VideoCloudBasicPlayer
 * Player/AppleTV
-* IMA/BasicIMAPlayer
-* SSAI/BasicSSAIPlayer
+* IMA/BasicIMAPlayer-iOS
+* SSAI/BasicSSAIPlayer-iOS
 
 [cocoapods]: http://www.cocoapods.org

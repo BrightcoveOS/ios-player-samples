@@ -4,4 +4,4 @@ The Brightcove SDK is provided via Swift Package Manager and resolves automatica
 
 The BasicPulsePlayer-iOS sample depends on the Ooyala Pulse and INVIDI Open Measurement (OM) SDKs. The BasicPulsePlayer-tvOS sample depends on the Ooyala Pulse SDK for tvOS.
 
-You can aquire the iOS SDKs [here](https://service.videoplaza.tv/proxy/ios-sdk/2/latest) and tvOS SDK [here](https://service.videoplaza.tv/proxy/tvos-sdk/2/latest).
+You can acquire the iOS SDKs [here](https://service.videoplaza.tv/proxy/ios-sdk/2/latest) and tvOS SDK [here](https://service.videoplaza.tv/proxy/tvos-sdk/2/latest).

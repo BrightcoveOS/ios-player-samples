@@ -1,5 +1,6 @@
-#Video 360 Player Sample App 
-##Purpose
+# Video 360 Player Sample App
+
+## Purpose
 
 This sample app shows how to retrieve and play a 360 video.
 

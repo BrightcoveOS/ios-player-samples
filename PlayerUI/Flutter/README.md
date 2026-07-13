@@ -7,13 +7,13 @@ This sample shows how to integrate Flutter with the Brightcove Player SDKs for i
 ## Prerequisites
 
 1. Flutter SDK
-1. CocoaPods 1.10+
-1. Xcode 13.0+
-1. iOS 12.0+
+1. CocoaPods 1.11+
+1. Xcode 15.0+
+1. iOS 14.0+
 
 ## About Flutter
 
-After you installed Flutter in your machine, run `flutter doctor` to verify that you have installed all the necessary dependencies. The minimium dependencies are:
+After you installed Flutter in your machine, run `flutter doctor` to verify that you have installed all the necessary dependencies. The minimum dependencies are:
 
 - Flutter SDK.
 - Xcode.

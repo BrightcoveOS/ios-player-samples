@@ -1,7 +1,8 @@
 DVR Live Sample
 ====================
 
-##Purpose
+## Purpose
+
 This sample is intended to show how to quickly integrate the Brightcove Native Player SDK into an iOS app with live HLS.
 
 ### How to Run

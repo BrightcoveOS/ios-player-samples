@@ -7,6 +7,6 @@ Adding the `BrightcoveDAI` product through Swift Package Manager automatically r
 
 ### Requirements:
 
-- Xcode 13+
+- Xcode 15+
 - iOS 14.0+
-- tvOS 14.0+
+- tvOS 15.0+
