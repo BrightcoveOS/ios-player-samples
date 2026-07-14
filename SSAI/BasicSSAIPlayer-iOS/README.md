@@ -1,5 +1,4 @@
-SSAI
---------------
+# BasicSSAIPlayer — Open Measurement & PAL
 
 The [IAB Open Measurement SDK (OM SDK)](https://iabtechlab.com/standards/open-measurement-sdk/) is no longer installed along with the SSAI Plugin for Brightcove Player SDK for iOS since v6.10.3.
 

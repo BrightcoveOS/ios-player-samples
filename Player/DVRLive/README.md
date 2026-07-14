@@ -1,5 +1,4 @@
-DVR Live Sample
-====================
+# Live / DVR (DVRLive)
 
 ## Purpose
 

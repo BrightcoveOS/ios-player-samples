@@ -1,9 +1,17 @@
-# Custom Controls App
+# Custom controls — UIKit (CustomControls)
 
-This sample is intended to show you how to use your own custom playback controls with the Brightcove-Player-SDK. One advantage to using Brightcove's `BCOVPUIPlayerView` is that you get VoiceOver support out of the box. If you implement your own custom controls you will be responsible for providing accessibility support. 
+Builds a complete set of playback controls in UIKit instead of using `BCOVPUIPlayerView`. The custom `ControlsViewController` is registered with `playbackController.add(...)` as a session consumer, and a custom Audio & Subtitles menu (`ClosedCaptionMenuController`) enables or disables the CC button based on the audio and text tracks available on the current `BCOVPlaybackSession`.
 
-This sample also demonstrates how to set up a custom Audio & Subtitles menu to allow users to select alternate audio and text tracks for a video. When the current `BCOVPlaybackSession` is set on `ClosedCaptionMenuController` the `closedCaptionButton` on  `ControlsViewController` will be enabled or disabled depending on the availability of text and/or audio tracks.
+## Key files
 
-You may wish to add `accessibilityLabel` values to each of your buttons, prevent playback controls from auto-hiding when VoiceOver is active, and implement `func accessibilityActivate() -> Bool` in your custom control's view so that you can hide or show controls when a user double taps with VoiceOver enabled.
+| File | Responsibility |
+|---|---|
+| `CustomControls/ViewController.swift` | Playback controller setup, video fetch, fullscreen presentation |
+| `CustomControls/ControlsViewController.swift` | The custom control bar (play/pause, scrubber, labels, CC button, auto-hide) |
+| `CustomControls/ClosedCaptionMenuController.swift` | Audio / subtitle track selection |
 
-For more information about implementing accessibility and VoiceOver support for your project see Apple's [Supporting VoiceOver in Your App](https://developer.apple.com/documentation/uikit/accessibility_for_ios_and_tvos/supporting_voiceover_in_your_app). 
+## Accessibility
+
+`BCOVPUIPlayerView` provides VoiceOver support out of the box; with custom controls that responsibility is yours. Add `accessibilityLabel` values to your buttons, prevent controls from auto-hiding while VoiceOver is active, and implement `accessibilityActivate()` so a VoiceOver double-tap can show or hide the controls. See Apple's [Supporting VoiceOver in Your App](https://developer.apple.com/documentation/uikit/accessibility_for_ios_and_tvos/supporting_voiceover_in_your_app).
+
+For the SwiftUI equivalent, see [`SwiftUI/CustomControls`](../../SwiftUI/CustomControls/). See the [UI Customization README](../) for shared setup.

@@ -13,7 +13,7 @@ The mode is locked for the player session. To play with a different mode, naviga
 ## Requirements
 
 - iOS 17.0+
-- Xcode 16+
+- Xcode 15.0+
 
 ## Setup
 

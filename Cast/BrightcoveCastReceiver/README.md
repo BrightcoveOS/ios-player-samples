@@ -1,7 +1,16 @@
-# Brightcove Cast Receiver
+# Casting — Brightcove CAF receiver (BrightcoveCastReceiver)
 
-The Brightcove Cast Receiver uses the new Cast Application Framework (CAF) SDK. The Brightcove Cast Receiver supports DRM protected videos, SSAI and `HLSv3` or superior.
+Casts to **Brightcove's Cast Application Framework (CAF) receiver** via `BCOVGoogleCastManager(forBrightcoveReceiverApp:)` configured with a `BCOVReceiverAppConfig`. Unlike the default Google receiver, the Brightcove receiver supports DRM-protected video, SSAI, and `HLSv3` or superior.
 
-The application ID for the Brightcove CAF Receiver is `341387A3` and is assigned to the constant `kBCOVCAFReceiverApplicationID`. You can verify the application ID by checking the [CAF Receiver config.json](https://players.brightcove.net/videojs-chromecast-receiver/2/config.json).
+The Brightcove CAF receiver's application id is `341387A3`, assigned to `kBCOVCAFReceiverApplicationID`; you can verify it in the [CAF receiver config.json](https://players.brightcove.net/videojs-chromecast-receiver/2/config.json).
 
-**NOTE: When using the Brightcove Cast Receiver app with the Brightcove Native SDKs, you must send the `catalogParams` object via the `customData` interface. A static URL is not supported. If you are correctly utilizing the `BCOVReceiverAppConfig` class this is handled for you.**
+> **Note:** When using the Brightcove receiver with the native SDK you must send the `catalogParams` object through the `customData` interface — a static URL is not supported. Using `BCOVReceiverAppConfig` handles this for you.
+
+## Key files
+
+| File | Responsibility |
+|---|---|
+| `BrightcoveCastReceiver/ViewController.swift` | `BCOVReceiverAppConfig` and `BCOVGoogleCastManager(forBrightcoveReceiverApp:)` |
+| `BrightcoveCastReceiver/AppDelegate.swift` | `GCKCastContext` setup with the Brightcove receiver app id |
+
+See the [Casting README](../) for shared setup.

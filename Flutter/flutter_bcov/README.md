@@ -1,46 +1,22 @@
 # flutter_bcov
 
-The *flutter_bcov* package contains two auxiliary classes and one widget to [display video](https://docs.flutter.dev/development/platform-integration/platform-views).
+`flutter_bcov` is the Flutter (Dart) side of the [`Flutter`](../) sample. It hosts the native Brightcove player as a [platform view](https://docs.flutter.dev/development/platform-integration/platform-views) and overlays Flutter-drawn controls on top of it.
 
-## How to use flutter_bcov
+## Structure
 
-### PlaybackController
+| File | Responsibility |
+|---|---|
+| `lib/main.dart` | Module entry point; provides a `BCOVViewModel` and shows `BCOVVideoPlayer` |
+| `lib/src/player_controller.dart` | The `BCOVVideoPlayer` widget — binds the view model to the player view |
+| `lib/src/player_view_widget.dart` | `PlayerView` — embeds the native player via `UiKitView` (`viewType: 'bcov.flutter/player_view'`) and overlays the controls |
+| `lib/src/controls_widget.dart` | `BCOVControls` — the Flutter play/pause button, seek bar, and thumbnail preview |
+| `lib/src/viewmodel.dart` | `BCOVViewModel` — bridges to the native player over the method/event channels |
 
-The *PlaybackController* class determines the behavior of your playback controller for autoAdvance and autoPlay. The default values for both is false.
+## How it talks to the native player
 
-```dart
-    PlaybackController(
-        autoPlay: true,
-        autoAdvance: true,
-    );
-```
+`BCOVViewModel` communicates with the native `BCOVVideoPlayer` (in `Flutter/FlutterPlayer/`) over two channels:
 
-### PlaybackService
+- **Method channel** `bcov.flutter/method_channel` (Dart → native): `playPause`, `seek`, `thumbnailAtTime`.
+- **Event channel** `bcov.flutter/event_channel` (native → Dart): `didAdvanceToPlaybackSession`, `didProgressTo`, `eventEnd`, and ad-sequence enter/exit — the view model maps these onto its `isPlaying` / `currentTime` / `totalTime` / `inAdSequence` state to drive the controls.
 
-The *PlaybackService* class is used to retrieve the video to be shown in your playback controller. The *accountId* and *videoId* are the only required values. The *policyKey*, *authToken* and *parameters* are optional values.
-
-```dart
-    PlaybackService(
-        accountId: '5434391461001',
-        policyKey: 'BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L',
-        videoId: '6140448705001',
-    );
-```
-
-### BCOVVideoPlayer
-
-The *BCOVVideoPlayer* class is the widget to be used to show the video. The class receives two parameters, *playbackController* and *playbackService*.
-
-```dart
-    BCOVVideoPlayer(
-        playbackController: PlaybackController(
-            autoPlay: true,
-            autoAdvance: true,
-        ),
-        playbackService: PlaybackService(
-            accountId: '5434391461001',
-            policyKey: 'BCpkADawqM0T8lW3nMChuAbrcunBBHmh4YkNl5e6ZrKQwPiK_Y83RAOF4DP5tyBF_ONBVgrEjqW6fbV0nKRuHvjRU3E8jdT9WMTOXfJODoPML6NUDCYTwTHxtNlr5YdyGYaCPLhMUZ3Xu61L',
-            videoId: '6140448705001',
-        ),
-    );
-```
+The account, policy key, and video id are set on the **native** side (`Flutter/FlutterPlayer/BCOVVideoPlayer.swift`), not in Dart. To build and run the sample, follow the setup in the [`Flutter` README](../).
