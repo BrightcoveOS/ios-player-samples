@@ -1,35 +1,12 @@
-View Strategy Sample
-=====================================
+# View strategy (ViewStrategy)
 
-`BCOVPlaybackController` objects are constructed with a view strategy, which allows you, as the client of the SDK, to define the exact UIView object that is returned from the playback controller’s view property. 
+A `BCOVPlaybackController` can be built with a *view strategy* — a closure that returns the exact `UIView` used as the controller's `view`. This sample uses it to compose the SDK's video view and a custom controls view into a single container, registering the controls as a session consumer inside the closure.
 
-```
-func createPlaybackController(){
-    let sdkManager = BCOVPlayerSDKManager.sharedManager()
+## Key files
 
-    let viewStrategy  = { (videoView: UIView? , playbackController: BCOVPlaybackController) in {
-        let myControlsView = MyControlsView()
-        let controlsAndVideoView = UIView()
-        videoView.frame = controlsAndVideoView.bounds
-        controlsAndVideoView.addSubview(videoView)
-        controlsAndVideoView.addSubview(myControlsView)
-        playbackController.addSessionConsumer(myControlsView)
-        
-        // This container view will become `playbackController.view`.
-        return controlsAndVideoView
-    }
+| File | Responsibility |
+|---|---|
+| `ViewStrategy/ViewController.swift` | Defines and uses the view-strategy closure |
+| `ViewStrategy/ViewStrategyCustomControls.swift` | The composed custom-controls `UIView` |
 
-    playbackController = sdkManager.createPlaybackController(withViewStrategy: viewStrategy)
-
-    playbackController.delegate = self
-    playbackController.autoPlay = true
-    playbackController.autoAdvance = true
-
-    playbackController.view.frame = videoContainerView.bounds
-    playbackController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
-    videoContainerView.addSubview(playbackController.view)
-}
-```
-
-The `BCOVPlaybackControllerViewStrategy` layers the controls view on top of the videoView. This composed view is then passed into the `BCOVPlayerSDKManager.sharedManager().createPlaybackController(withViewStrategy: viewStrategy)`
+See the [UI Customization README](../) for shared setup.

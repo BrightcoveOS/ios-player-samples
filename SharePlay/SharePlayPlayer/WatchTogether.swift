@@ -10,7 +10,7 @@ import GroupActivities
 struct WatchTogether: GroupActivity {
 
     // Specify the activity type to the system.
-    static let activityIdentifier = "com.companyname.SharePlayPlayer.watch-movie-together"
+    static let activityIdentifier = "com.brightcove.player.samples.SharePlayPlayer.watch-movie-together"
 
     var metadata: GroupActivityMetadata
     var sourceURL: String

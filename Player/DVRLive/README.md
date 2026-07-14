@@ -1,10 +1,11 @@
-DVR Live Sample
-====================
+# Live / DVR (DVRLive)
 
-##Purpose
-This sample is intended to show how to quickly integrate the Brightcove Native Player SDK into an iOS app with live HLS.
+Plays a live HLS stream with the live / DVR control layout, building the video from a raw HLS URL rather than the playback service.
 
-### How to Run
-To run the app, open `DVRLive.xcodeproj` in Xcode. Swift Package Manager resolves the Brightcove SDK automatically on the first build.
+## Key files
 
-This sample doesn't include a live HLS demo URL. You will need to add one to the project manually.
+| File | Responsibility |
+|---|---|
+| `DVRLive/ViewController.swift` | Live HLS source, the live / DVR control layout, playback |
+
+This sample ships without a live URL — set `kVideoURLString` to your own live HLS stream before running. See the [Playback README](../) for shared setup.
