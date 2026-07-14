@@ -32,32 +32,32 @@ BRIGHTCOVE_LOCAL_SDK=/path/to/sdk pod install   # local SDK at a custom path
 
 ## Capability coverage
 
-Each capability maps to one bucket folder. A capability available on both platforms ships an `-iOS` and a `-tvOS` variant; an iOS-only capability sits directly in its bucket. **Tiers** follow the cross-platform parity plan: _Core_ capabilities are the shared parity target, _Extended_ capabilities may stay one-sided, and _Exclusive_ capabilities are inherently platform-specific.
+Each capability maps to one bucket folder. A capability available on both platforms ships an `-iOS` and a `-tvOS` variant; an iOS-only capability sits directly in its bucket.
 
-| Capability | Tier | iOS / tvOS sample(s) |
-|---|---|---|
-| Basic playback | Core | [`Player/VideoCloudBasicPlayer`](Player/VideoCloudBasicPlayer/) (iOS), [`Player/AppleTV-tvOS`](Player/AppleTV-tvOS/) (tvOS) |
-| Video list / playlist | Core | [`Player/TableViewPlayer`](Player/TableViewPlayer/) |
-| Live / DVR | Core | [`Player/DVRLive`](Player/DVRLive/) |
-| 360° video | Core | [`Player/Video360`](Player/Video360/) |
-| Audio-only playback | Core | Roadmap — shown within [`Player/VideoCloudBasicPlayer`](Player/VideoCloudBasicPlayer/) |
-| Picture-in-Picture | Core | Roadmap — shown within [`Player/VideoCloudBasicPlayer`](Player/VideoCloudBasicPlayer/) and [`SwiftUI/SwiftUIPlayer`](SwiftUI/SwiftUIPlayer/) |
-| Thumbnail scrubbing | Core | Roadmap — shown within [`SwiftUI/CustomControls`](SwiftUI/CustomControls/) |
-| Custom controls | Core | [`PlayerUI/CustomControls`](PlayerUI/CustomControls/) (UIKit), [`SwiftUI/CustomControls`](SwiftUI/CustomControls/) (SwiftUI) |
-| Declarative UI | Core | [`SwiftUI/`](SwiftUI/) (three apps) |
-| Captions | Core | [`Captions/`](Captions/) (two apps) |
-| DRM (FairPlay) | Core | [`DRM/BasicFairPlayPlayer`](DRM/) |
-| Offline playback | Core | [`Offline/OfflinePlayer`](Offline/) |
-| IMA ads | Core | [`IMA/`](IMA/) (iOS + tvOS), [`SwiftUI/SwiftUIPlayerIMA`](SwiftUI/SwiftUIPlayerIMA/) |
-| DAI | Core | [`DAI/`](DAI/) (iOS + tvOS) |
-| SSAI | Core | [`SSAI/`](SSAI/) (iOS + tvOS, plus Server-Side Live + IMA) |
-| FreeWheel | Core | [`FreeWheel/BasicFreeWheelPlayer`](FreeWheel/) |
-| Pulse | Core | [`Pulse/`](Pulse/) (iOS + tvOS) |
-| Analytics (Omniture / Adobe) | Core | [`Analytics/BasicOmniturePlayer`](Analytics/) |
-| Casting (Chromecast) | Core | [`Cast/`](Cast/) (two apps) |
-| Vertical video | Extended (iOS-only) | [`Player/VerticalPlayer`](Player/VerticalPlayer/) |
-| Video preloading | Extended (iOS-only) | [`Player/VideoPreloading`](Player/VideoPreloading/) |
-| Co-watching (SharePlay) | Exclusive (iOS) | [`SharePlay/SharePlayPlayer`](SharePlay/) |
+| Capability | iOS / tvOS sample(s) |
+|---|---|
+| Basic playback | [`Player/VideoCloudBasicPlayer`](Player/VideoCloudBasicPlayer/) (iOS), [`Player/AppleTV-tvOS`](Player/AppleTV-tvOS/) (tvOS) |
+| Video list / playlist | [`Player/TableViewPlayer`](Player/TableViewPlayer/) |
+| Live / DVR | [`Player/DVRLive`](Player/DVRLive/) |
+| 360° video | [`Player/Video360`](Player/Video360/) |
+| Audio-only playback | Demonstrated within [`Player/VideoCloudBasicPlayer`](Player/VideoCloudBasicPlayer/) |
+| Picture-in-Picture | Demonstrated within [`Player/VideoCloudBasicPlayer`](Player/VideoCloudBasicPlayer/) and [`SwiftUI/SwiftUIPlayer`](SwiftUI/SwiftUIPlayer/) |
+| Thumbnail scrubbing | Demonstrated within [`SwiftUI/CustomControls`](SwiftUI/CustomControls/) |
+| Custom controls | [`PlayerUI/CustomControls`](PlayerUI/CustomControls/) (UIKit), [`SwiftUI/CustomControls`](SwiftUI/CustomControls/) (SwiftUI) |
+| Declarative UI | [`SwiftUI/`](SwiftUI/) (three apps) |
+| Captions | [`Captions/`](Captions/) (two apps) |
+| DRM (FairPlay) | [`DRM/BasicFairPlayPlayer`](DRM/) |
+| Offline playback | [`Offline/OfflinePlayer`](Offline/) |
+| IMA ads | [`IMA/`](IMA/) (iOS + tvOS), [`SwiftUI/SwiftUIPlayerIMA`](SwiftUI/SwiftUIPlayerIMA/) |
+| DAI | [`DAI/`](DAI/) (iOS + tvOS) |
+| SSAI | [`SSAI/`](SSAI/) (iOS + tvOS, plus Server-Side Live + IMA) |
+| FreeWheel | [`FreeWheel/BasicFreeWheelPlayer`](FreeWheel/) |
+| Pulse | [`Pulse/`](Pulse/) (iOS + tvOS) |
+| Analytics (Omniture / Adobe) | [`Analytics/BasicOmniturePlayer`](Analytics/) |
+| Casting (Chromecast) | [`Cast/`](Cast/) (two apps) |
+| Vertical video | [`Player/VerticalPlayer`](Player/VerticalPlayer/) |
+| Video preloading | [`Player/VideoPreloading`](Player/VideoPreloading/) |
+| Co-watching (SharePlay) | [`SharePlay/SharePlayPlayer`](SharePlay/) |
 
 The `Player` and `PlayerUI` buckets also carry UI samples that refine the above rather than add a new capability: Apple's native `AVPlayerViewController` controls ([`Player/NativeControls`](Player/NativeControls/)), runtime control-layout customization ([`PlayerUI/PlayerUICustomization`](PlayerUI/PlayerUICustomization/)), and view-strategy composition ([`PlayerUI/ViewStrategy`](PlayerUI/ViewStrategy/)).
 
