@@ -1,14 +1,14 @@
-# SwiftUI Custom Controls
+# Custom controls — SwiftUI (CustomControls)
 
-A SwiftUI sample app that demonstrates building a fully custom set of playback controls on top of the Brightcove Native Player SDK for iOS, instead of relying on the SDK's built-in `BCOVPUIPlayerView` controls.
+SwiftUI custom controls driven by an `ObservableObject` that observes `BCOVPlaybackController` delegate callbacks (progress, duration, buffered range). The SDK video view is bridged in with a `UIViewRepresentable`, and a WebVTT thumbnail preview is shown while scrubbing.
 
-It shows how to:
+## Key files
 
-- Drive play/pause and a custom scrubber from `BCOVPlaybackController` delegate callbacks (progress, duration, and buffered range).
-- Render a thumbnail preview image while scrubbing, sourced from the video's thumbnail (WebVTT) text track.
-- Auto-hide the controls during playback and toggle them with a tap.
+| File | Responsibility |
+|---|---|
+| `CustomControls/Models/PlayerModel.swift` | Playback controller + delegate → published UI state |
+| `CustomControls/Views/PlayerUIView.swift` | Composition, video load, thumbnail wiring |
+| `CustomControls/Views/VideoContainerView.swift` | `UIViewRepresentable` bridge for the SDK video view |
+| `CustomControls/Views/CustomControlsView.swift` | The SwiftUI control bar and scrubber |
 
-## See also
-
-- `SwiftUI/SwiftUIPlayer/` — a SwiftUI player without custom controls.
-- `SwiftUI/SwiftUIPlayerIMA/` — SwiftUI with Google IMA ads.
+For UIKit custom controls, see [`PlayerUI/CustomControls`](../../PlayerUI/CustomControls/). See the [Declarative UI README](../) for shared setup.

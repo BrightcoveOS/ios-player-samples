@@ -1,10 +1,6 @@
 # Basic playback — tvOS (AppleTV)
 
-The tvOS player. It plays a single video with `BCOVTVPlayerView` and `BCOVTVPlayerViewOptions` (automatic control-type selection), and adds a custom info panel to the player's overlay via a `BCOVPlaybackSessionConsumer`.
-
-## Requirements
-
-- tvOS 15.0+ (this sample is Apple TV only)
+The tvOS player (Apple TV only). It plays a single video with `BCOVTVPlayerView` and adds a custom info panel to the player's overlay.
 
 ## Key files
 

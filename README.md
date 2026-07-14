@@ -87,4 +87,8 @@ The Brightcove iOS SDK is localized for English (en), Arabic (ar), German (de), 
 - `IMA/BasicIMAPlayer-iOS`
 - `SSAI/BasicSSAIPlayer-iOS`
 
+## Support
+
+Use the [Support Portal](https://supportportal.brightcove.com/s/login/) or contact your Account Manager. To hear about new SDK releases, subscribe to the Brightcove Native Player SDKs [Google Group](https://groups.google.com/g/brightcove-native-player-sdks).
+
 [cocoapods]: http://www.cocoapods.org
