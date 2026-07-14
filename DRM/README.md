@@ -1,4 +1,4 @@
-# DRM (FairPlay)
+# DRM
 
 The `DRM` bucket demonstrates playback of FairPlay-protected video. The single sample, **BasicFairPlayPlayer**, plays one FairPlay-encrypted video from Video Cloud with the standard `BCOVPUIPlayerView` controls.
 

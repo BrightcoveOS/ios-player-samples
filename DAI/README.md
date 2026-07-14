@@ -1,4 +1,4 @@
-# DAI (Dynamic Ad Insertion)
+# DAI (Google Dynamic Ad Insertion)
 
 The Brightcove DAI plugin integrates the player with Google's Interactive Media Ads for a server-side stream request — a single stitched stream carrying both ads and content, for VOD or live.
 
@@ -17,5 +17,5 @@ Open the sample's `.xcodeproj` in Xcode and build; Swift Package Manager resolve
 
 | Sample | Platform | What it demonstrates |
 |---|---|---|
-| `BasicDAIPlayer-iOS` | iOS | Two stream-request policies via a menu: Video Properties (source-id + video-id, VOD) and Asset Key (live) |
-| `BasicDAIPlayer-tvOS` | tvOS | The Video Properties policy on tvOS with `BCOVTVPlayerView` |
+| [`BasicDAIPlayer-iOS`](BasicDAIPlayer-iOS/) | iOS | Two stream-request policies via a menu: Video Properties (source-id + video-id, VOD) and Asset Key (live) |
+| [`BasicDAIPlayer-tvOS`](BasicDAIPlayer-tvOS/) | tvOS | The Video Properties policy on tvOS with `BCOVTVPlayerView` |

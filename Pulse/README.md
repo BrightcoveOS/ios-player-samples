@@ -17,5 +17,5 @@ Open the sample's `.xcodeproj` in Xcode; Swift Package Manager resolves the Brig
 
 | Sample | Platform | What it demonstrates |
 |---|---|---|
-| `BasicPulsePlayer-iOS` | iOS | A table of 12 ad scenarios (pre/mid/post-roll, skippable, frequency capping, pause ads, mid-session extension, error cases) with a companion slot |
-| `BasicPulsePlayer-tvOS` | tvOS | Pulse playback on tvOS with fixed content metadata and midroll positions |
+| [`BasicPulsePlayer-iOS`](BasicPulsePlayer-iOS/) | iOS | A table of 12 ad scenarios (pre/mid/post-roll, skippable, frequency capping, pause ads, mid-session extension, error cases) with a companion slot |
+| [`BasicPulsePlayer-tvOS`](BasicPulsePlayer-tvOS/) | tvOS | Pulse playback on tvOS with fixed content metadata and midroll positions |
