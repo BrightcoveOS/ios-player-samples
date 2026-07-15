@@ -5,6 +5,22 @@
 //  Copyright © 2026 Brightcove, Inc. All rights reserved.
 //
 
+/*
+ * This sample app shows how to play Video Cloud content with FreeWheel ads.
+ *
+ * A FreeWheel session provider, created with
+ * `BCOVPlayerSDKManager.createFWSessionProvider(adContextPolicy:upstreamSessionProvider:options:)`,
+ * is layered on top of a FairPlay session provider so FairPlay-protected content
+ * still plays. The ad context policy closure runs before each session is delivered
+ * and builds the FreeWheel ad request: it sets the video display base, the request
+ * configuration (server URL, player profile, and player dimensions), the
+ * site-section and video-asset configurations, and the temporal slots for the
+ * preroll, midroll, and postroll ads.
+ *
+ * App Tracking Transparency authorization is requested on first activation, before
+ * content is loaded, so the ad request can use the advertising identifier.
+ */
+
 import AdSupport
 import AppTrackingTransparency
 import UIKit
@@ -155,14 +171,14 @@ final class ViewController: UIViewController {
         }
     }()
 
-    fileprivate lazy var statusBarHidden = false {
+    fileprivate var statusBarHidden = false {
         didSet {
             setNeedsStatusBarAppearanceUpdate()
         }
     }
 
     override var prefersStatusBarHidden: Bool {
-        return statusBarHidden
+        statusBarHidden
     }
 
     override func viewDidLoad() {
@@ -188,7 +204,7 @@ final class ViewController: UIViewController {
                     case .restricted:
                         print("Restricted Tracking Permission")
                     @unknown default:
-                        print("Default value Trackin Permission")
+                        print("Default value Tracking Permission")
                 }
 
                 print("IDFA: \(ASIdentifierManager.shared().advertisingIdentifier.uuidString)")
@@ -260,16 +276,11 @@ final class ViewController: UIViewController {
 extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-    }
-
-    func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }
