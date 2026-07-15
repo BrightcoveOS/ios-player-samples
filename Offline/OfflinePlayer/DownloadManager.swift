@@ -12,19 +12,22 @@ import BrightcovePlayerSDK
 
 struct VideoDownload {
     let video: BCOVVideo
-    let paramaters: [String: Any]
+    let parameters: [String: Any]
 }
 
 
 final class DownloadManager: NSObject {
 
-    static var shared = DownloadManager()
+    static let shared = DownloadManager()
 
     class var downloadParameters: [String: Any] {
         // Get base license parameters
         var downloadParameters = DownloadManager.licenseParameters
 
-        guard let window = UIApplication.shared.keyWindow,
+        guard let window = UIApplication.shared.connectedScenes
+                .compactMap({ $0 as? UIWindowScene })
+                .flatMap(\.windows)
+                .first(where: \.isKeyWindow),
               let rootViewController = window.rootViewController as? UITabBarController,
               let settingsViewController = rootViewController.settingsViewController else {
             return downloadParameters
@@ -33,21 +36,22 @@ final class DownloadManager: NSObject {
         // Add bitrate parameter for the primary download
         let bitrate = settingsViewController.bitrate
 
-        print("Requested bitrate: \(bitrate)")
-
         downloadParameters[BCOVOfflineVideoManager.RequestedBitrateKey] = bitrate
 
         return downloadParameters
     }
 
-    class var licenseParameters: [String: Any]  {
-        guard let window = UIApplication.shared.keyWindow,
+    class var licenseParameters: [String: Any] {
+        guard let window = UIApplication.shared.connectedScenes
+                .compactMap({ $0 as? UIWindowScene })
+                .flatMap(\.windows)
+                .first(where: \.isKeyWindow),
               let rootViewController = window.rootViewController as? UITabBarController,
               let settingsViewController = rootViewController.settingsViewController else {
             return .init()
         }
 
-        var licenseParamaters: [String: Any] = .init()
+        var licenseParameters: [String: Any] = .init()
 
         // Generate the license parameters based on the Settings tab
         let isPurchaseLicense = settingsViewController.purchaseLicenseType
@@ -55,25 +59,23 @@ final class DownloadManager: NSObject {
         // It's harmless to add it for non-FairPlay videos too.
 
         if isPurchaseLicense {
-            print("Requesting Purchase License")
-            licenseParamaters[BCOVFairPlayLicense.PurchaseKey] = true
+            licenseParameters[BCOVFairPlayLicense.PurchaseKey] = true
         } else {
             let rentalDuration = settingsViewController.rentalDuration
             let playDuration = settingsViewController.playDuration
 
-            print("Requesting Rental License\nrentalDuration: \(rentalDuration)\nplayDuration: \(playDuration)")
-            licenseParamaters[BCOVFairPlayLicense.RentalDurationKey] = rentalDuration
-            licenseParamaters[BCOVFairPlayLicense.PlayDurationKey] = playDuration
+            licenseParameters[BCOVFairPlayLicense.RentalDurationKey] = rentalDuration
+            licenseParameters[BCOVFairPlayLicense.PlayDurationKey] = playDuration
         }
 
-        return licenseParamaters
+        return licenseParameters
     }
 
     // The download queue.
     // Videos go into the preload queue first.
     // When all preloads are done, videos move to the download queue.
-    fileprivate lazy var videoPreloadQueue: [VideoDownload] = .init()
-    fileprivate lazy var videoDownloadQueue: [VideoDownload] = .init()
+    fileprivate var videoPreloadQueue: [VideoDownload] = .init()
+    fileprivate var videoDownloadQueue: [VideoDownload] = .init()
 
     func doDownload(forVideo video: BCOVVideo) {
         if videoAlreadyProcessing(video) {
@@ -81,7 +83,7 @@ final class DownloadManager: NSObject {
         }
 
         let videoDownload = VideoDownload(video: video,
-                                          paramaters: DownloadManager.downloadParameters)
+                                          parameters: DownloadManager.downloadParameters)
 
         videoPreloadQueue.append(videoDownload)
 
@@ -137,7 +139,6 @@ final class DownloadManager: NSObject {
                                                actionTitle: "Retry",
                                                cancelTitle: "Cancel") {
 
-                        print("Deleting previous download for video and attempting again.")
                         offlineManager.deleteOfflineVideo(offlineVideoToken)
                         DownloadManager.shared.doDownload(forVideo: video)
                     }
@@ -171,8 +172,6 @@ final class DownloadManager: NSObject {
         // If there's no FairPlay involved, the video is moved on
         // to the video download queue.
         if !videoDownload.video.usesFairPlay {
-            print("Video \"\(videoDownload.video.localizedName ?? "unknown")\" does not use FairPlay; preloading not necessary")
-
             videoDownloadQueue.append(videoDownload)
 
             DispatchQueue.main.async { [self] in
@@ -187,7 +186,7 @@ final class DownloadManager: NSObject {
             }
 
             offlineManager.preloadFairPlayLicense(videoDownload.video,
-                                                  parameters: videoDownload.paramaters) {
+                                                  parameters: videoDownload.parameters) {
                 (offlineVideoToken: String?, error: Error?) in
 
                 DispatchQueue.main.async { [weak self] in
@@ -280,7 +279,7 @@ final class DownloadManager: NSObject {
 
         offlineManager.requestVideoDownload(videoDownload.video,
                                             mediaSelections: mediaSelections,
-                                            parameters: videoDownload.paramaters) {
+                                            parameters: videoDownload.parameters) {
             (offlineVideoToken: String?, error: Error?) in
 
             DispatchQueue.main.async {
@@ -308,24 +307,6 @@ final class DownloadManager: NSObject {
         let audibleDisplayName = mediaSelection.selectedMediaOption(in: audibleMSG)?.displayName ?? "-"
 
         return "MediaSelection(obj:\(mediaSelection), legible:\(legibleDisplayName), audible:\(audibleDisplayName))"
-    }
-
-    fileprivate class func mediaSelectionDescription(from mediaSelection: AVMediaSelection,
-                                                     for token: BCOVOfflineVideoToken) -> String {
-
-        // Get the offline video object and its path
-        guard let offlineManager = BCOVOfflineVideoManager.sharedManager,
-              let video = offlineManager.videoObject(fromOfflineVideoToken: token),
-              let videoPath = video.properties[BCOVOfflineVideo.FilePathPropertyKey] as? String else {
-            return "MediaSelection(n/a)"
-        }
-
-        let videoPathURL = URL(fileURLWithPath: videoPath)
-        let urlAsset = AVURLAsset(url: videoPathURL)
-        let desc = DownloadManager.mediaSelectionDescription(from: mediaSelection,
-                                                             with: urlAsset)
-
-        return desc
     }
 }
 

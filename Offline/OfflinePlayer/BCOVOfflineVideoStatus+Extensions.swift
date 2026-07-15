@@ -17,7 +17,7 @@ extension BCOVOfflineVideoStatus {
         return BCOVOfflineVideoManager.sharedManager?.videoObject(fromOfflineVideoToken: offlineVideoToken)
     }
 
-    var infoForDonwloadState: String {
+    var infoForDownloadState: String {
         switch (downloadState) {
             case .requested:
                 return "download requested"

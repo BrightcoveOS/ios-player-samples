@@ -5,6 +5,23 @@
 //  Copyright © 2026 Brightcove, Inc. All rights reserved.
 //
 
+/*
+ * This sample app shows how to download Video Cloud videos, including
+ * FairPlay-protected content, for offline playback using
+ * `BCOVOfflineVideoManager`.
+ *
+ * The app has three tabs: Videos (this controller) browses the playlist and
+ * lets the user queue downloads; Downloads manages and plays downloaded videos;
+ * Settings configures the requested bitrate and the FairPlay license type
+ * (rental or purchase).
+ *
+ * This controller initializes the shared `BCOVOfflineVideoManager` in
+ * `viewDidLoad`, loads the playlist, and hands off download requests to
+ * `DownloadManager`. FairPlay-protected videos preload their license before the
+ * media is downloaded, and FairPlay content only plays on physical devices, not
+ * the simulator.
+ */
+
 import UIKit
 
 import BrightcovePlayerSDK
@@ -137,7 +154,7 @@ final class VideosViewController: UIViewController {
         return refreshControl
     }()
 
-    fileprivate lazy var statusBarHidden = false {
+    fileprivate var statusBarHidden = false {
         didSet {
             if let tabBarController {
                 tabBarController.tabBar.isHidden = statusBarHidden
@@ -251,15 +268,6 @@ final class VideosViewController: UIViewController {
 extension VideosViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-
-        if let source = session.source {
-            print("Session source details: \(source)")
-        }
-    }
-
-    func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession!,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
@@ -268,7 +276,7 @@ extension VideosViewController: BCOVPlaybackControllerDelegate {
         }
 
         // Report any errors that may have occurred with playback.
-        print("ViewController - Playback error: \(error.localizedDescription)")
+        print("VideosViewController - Playback error: \(error.localizedDescription)")
     }
 }
 
