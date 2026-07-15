@@ -1,6 +1,6 @@
 # Casting — default receiver (BasicCastPlayer)
 
-Casts to the **default Google media receiver** using Brightcove's `BCOVGoogleCastManager`, added to the playback controller with `playbackController.add(googleCastManager)`. The sample also ships a fully custom `GoogleCastManager` (a `BCOVPlaybackSessionConsumer`) — commented out — that you can swap in when you need behavior the plugin does not cover, such as custom source selection or media-info construction.
+Casts to the **default Google media receiver** using Brightcove's `BCOVGoogleCastManager`, added to the playback controller with `playbackController.add(googleCastManager)`. The sample also ships a fully custom `GoogleCastManager` (a `BCOVPlaybackSessionConsumer`) that you can swap in when you need behavior the plugin does not cover, such as custom source selection or media-info construction.
 
 The default receiver does **not** support DRM or ads and only handles `HLSv3`, `DASH`, and `MP4`. For DRM, SSAI, and HLSv3-or-superior, use [`BrightcoveCastReceiver`](../BrightcoveCastReceiver/).
 
