@@ -9,7 +9,7 @@ import AVFoundation
 import UIKit
 
 
-@UIApplicationMain
+@main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
