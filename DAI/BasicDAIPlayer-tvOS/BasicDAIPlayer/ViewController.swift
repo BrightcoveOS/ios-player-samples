@@ -5,7 +5,6 @@
 //  Copyright © 2026 Brightcove, Inc. All rights reserved.
 //
 
-import AdSupport
 import AppTrackingTransparency
 import UIKit
 import GoogleInteractiveMediaAds
@@ -21,15 +20,21 @@ let kVideoId = "1753980443013591663"
 let kGoogleDAISourceId = "2528370"
 let kGoogleDAIVideoId = "tears-of-steel"
 
+/// Demonstrates Dynamic Ad Insertion (DAI) playback on tvOS.
+///
+/// Chains a Google DAI session provider on top of a FairPlay session provider,
+/// requests a Video Cloud video, tags it with the Google DAI source and video
+/// IDs, and plays the ad-stitched stream in a `BCOVTVPlayerView` using the
+/// Video Properties stream-request policy.
 final class ViewController: UIViewController {
 
-    fileprivate lazy var playbackService: BCOVPlaybackService = {
+    private lazy var playbackService: BCOVPlaybackService = {
         let factory = BCOVPlaybackServiceRequestFactory(withAccountId: kAccountId,
                                                         policyKey: kPolicyKey)
         return .init(withRequestFactory: factory)
     }()
 
-    fileprivate lazy var playerView: BCOVTVPlayerView? = {
+    private lazy var playerView: BCOVTVPlayerView? = {
         let options = BCOVTVPlayerViewOptions()
         options.presentingViewController = self
         options.automaticControlTypeSelection = true
@@ -45,7 +50,7 @@ final class ViewController: UIViewController {
         return playerView
     }()
 
-    fileprivate lazy var playbackController: BCOVPlaybackController? = {
+    private lazy var playbackController: BCOVPlaybackController? = {
 
         let sdkManager = BCOVPlayerSDKManager.sharedManager()
         let authProxy = BCOVFPSBrightcoveAuthProxy(withPublisherId: nil,
@@ -55,11 +60,11 @@ final class ViewController: UIViewController {
                                                            upstreamSessionProvider: nil)
 
         let imaSettings = IMASettings()
-        imaSettings.language = NSLocale.current.languageCode!
+        imaSettings.language = NSLocale.current.languageCode ?? "en"
 
         let adsRenderingSettings = IMAAdsRenderingSettings()
 
-        let adsRequestPolicy = BCOVDAIAdsRequestPolicy.videoProperties();
+        let adsRequestPolicy = BCOVDAIAdsRequestPolicy.videoProperties()
 
         // Opt in to automatic DAI session recovery (on by default; see
         // `kBCOVDAIOptionAutomaticRecoveryEnabledKey` in BCOVDAIComponent.h).
@@ -102,34 +107,18 @@ final class ViewController: UIViewController {
     }
 
     override var preferredFocusEnvironments: [UIFocusEnvironment] {
-        return [playerView?.controlsView ?? self]
+        [playerView?.controlsView ?? self]
     }
 
     @objc
-    fileprivate func requestTrackingAuthorization() {
+    private func requestTrackingAuthorization() {
         if #available(tvOS 14.5, *) {
-            ATTrackingManager.requestTrackingAuthorization { status in
-                switch (status) {
-                    case .authorized:
-                        print("Authorized Tracking Permission")
-                    case .denied:
-                        print("Denied Tracking Permission")
-                    case .notDetermined:
-                        print("Not Determined Tracking Permission")
-                    case .restricted:
-                        print("Restricted Tracking Permission")
-                    @unknown default:
-                        print("Default value Trackin Permission")
-                }
-
-                print("IDFA: \(ASIdentifierManager.shared().advertisingIdentifier.uuidString)")
-
+            ATTrackingManager.requestTrackingAuthorization { _ in
                 DispatchQueue.main.async { [self] in
                     // Tracking authorization completed.
                     // Start loading ads here.
                     requestContentFromPlaybackService()
                 }
-
             }
         } else {
             requestContentFromPlaybackService()
@@ -140,7 +129,7 @@ final class ViewController: UIViewController {
                                                   object: nil)
     }
 
-    fileprivate func requestContentFromPlaybackService() {
+    private func requestContentFromPlaybackService() {
         let configuration = [BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId]
 
         playbackService.findVideo(withConfiguration: configuration,
@@ -177,7 +166,7 @@ final class ViewController: UIViewController {
 #endif
 
                 let updatedVideo = video.update { (mutableVideo: BCOVMutableVideo?) in
-                    guard let mutableVideo = mutableVideo else {
+                    guard let mutableVideo else {
                         return
                     }
 
@@ -204,22 +193,17 @@ final class ViewController: UIViewController {
 extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-    }
-
-    func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }
 
-        // Ad events are emitted by the BCOVIMA plugin through lifecycle events.
-        // The events are defined BCOVIMAComponent.h.
+        // Ad events are emitted by the BCOVDAI plugin through lifecycle events.
+        // The events are defined in BCOVDAIComponent.h.
         if kBCOVDAILifecycleEventAdsLoaderLoaded == lifecycleEvent.eventType,
            let adsManager = lifecycleEvent.properties[kBCOVDAILifecycleEventPropertyKeyAdsManager] as? IMAAdsManager {
             print("ViewController - Ads loaded.")
