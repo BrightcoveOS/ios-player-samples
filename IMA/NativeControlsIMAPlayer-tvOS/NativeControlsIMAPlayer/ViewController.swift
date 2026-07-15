@@ -5,7 +5,17 @@
 //  Copyright © 2026 Brightcove, Inc. All rights reserved.
 //
 
-import AdSupport
+/*
+ * This sample app shows how to play IMA ads with Apple's native
+ * `AVPlayerViewController` transport controls on tvOS.
+ *
+ * A VMAP ad tag is attached to the `BCOVVideo` under `kBCOVIMAAdTag`, so the
+ * BCOVIMA plugin schedules the ad breaks. The native playback controls are
+ * hidden while an ad sequence plays and restored when it ends, and the video's
+ * title, description, and poster are surfaced in the tvOS Info panel as
+ * external metadata.
+ */
+
 import AppTrackingTransparency
 import UIKit
 import GoogleInteractiveMediaAds
@@ -29,13 +39,13 @@ final class ViewController: UIViewController {
         return .init(withRequestFactory: factory)
     }()
 
-    fileprivate lazy var avpvc: AVPlayerViewController = {
-        let avpvc = AVPlayerViewController()
-        addChild(avpvc)
-        view.addSubview(avpvc.view)
-        avpvc.view.frame = view.bounds
-        avpvc.didMove(toParent: self)
-        return avpvc
+    fileprivate lazy var playerViewController: AVPlayerViewController = {
+        let playerViewController = AVPlayerViewController()
+        addChild(playerViewController)
+        view.addSubview(playerViewController.view)
+        playerViewController.view.frame = view.bounds
+        playerViewController.didMove(toParent: self)
+        return playerViewController
     }()
 
     fileprivate lazy var playbackController: BCOVPlaybackController? = {
@@ -47,7 +57,7 @@ final class ViewController: UIViewController {
                                                            upstreamSessionProvider: nil)
 
         let imaSettings = IMASettings()
-        imaSettings.language = NSLocale.current.languageCode!
+        imaSettings.language = NSLocale.current.languageCode ?? "en"
 
         let renderSettings = IMAAdsRenderingSettings()
         renderSettings.linkOpenerPresentingController = self
@@ -62,8 +72,8 @@ final class ViewController: UIViewController {
         guard let imaSessionProvider = sdkManager.createIMASessionProvider(with: imaSettings,
                                                                            adsRenderingSettings: renderSettings,
                                                                            adsRequestPolicy: adsRequestPolicy,
-                                                                           adContainer: avpvc.contentOverlayView,
-                                                                           viewController: avpvc,
+                                                                           adContainer: playerViewController.contentOverlayView,
+                                                                           viewController: playerViewController,
                                                                            companionSlots: nil,
                                                                            upstreamSessionProvider: fps,
                                                                            options: imaPlaybackSessionOptions) else {
@@ -96,28 +106,12 @@ final class ViewController: UIViewController {
     @objc
     fileprivate func requestTrackingAuthorization() {
         if #available(tvOS 14.5, *) {
-            ATTrackingManager.requestTrackingAuthorization { status in
-                switch (status) {
-                    case .authorized:
-                        print("Authorized Tracking Permission")
-                    case .denied:
-                        print("Denied Tracking Permission")
-                    case .notDetermined:
-                        print("Not Determined Tracking Permission")
-                    case .restricted:
-                        print("Restricted Tracking Permission")
-                    @unknown default:
-                        print("Default value Trackin Permission")
-                }
-
-                print("IDFA: \(ASIdentifierManager.shared().advertisingIdentifier.uuidString)")
-
+            ATTrackingManager.requestTrackingAuthorization { _ in
                 DispatchQueue.main.async { [self] in
                     // Tracking authorization completed.
                     // Start loading ads here.
                     requestContentFromPlaybackService()
                 }
-
             }
         } else {
             requestContentFromPlaybackService()
@@ -132,10 +126,11 @@ final class ViewController: UIViewController {
         let configuration = [BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId]
         playbackService.findVideo(withConfiguration: configuration,
                                   queryParameters: nil) {
-            [self] (video: BCOVVideo?,
-                    jsonResponse: Any?,
-                    error: Error?) in
-            guard let video,
+            [weak self] (video: BCOVVideo?,
+                         jsonResponse: Any?,
+                         error: Error?) in
+            guard let self,
+                  let video,
                   let playbackController else {
                 if let error {
                     print("ViewController - Error retrieving video: \(error.localizedDescription)")
@@ -160,8 +155,8 @@ final class ViewController: UIViewController {
 
                 alert.addAction(.init(title: "OK", style: .default))
 
-                DispatchQueue.main.async { [self] in
-                    present(alert, animated: true)
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true)
                 }
 
                 return
@@ -235,8 +230,6 @@ extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
                             didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-
         guard let video = session.video,
               let player = session.player,
               let currentItem = player.currentItem else {
@@ -249,31 +242,29 @@ extension ViewController: BCOVPlaybackControllerDelegate {
         }
 
         // Set the player on the AVPlayerViewController to begin playback
-        avpvc.player = player
+        playerViewController.player = player
     }
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            playbackSession session: BCOVPlaybackSession,
+                            playbackSession session: BCOVPlaybackSession!,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }
 
         // Ad events are emitted by the BCOVIMA plugin through lifecycle events.
-        // The events are defined BCOVIMAComponent.h.
+        // The events are defined in BCOVIMAComponent.h.
         if kBCOVIMALifecycleEventAdsLoaderLoaded == lifecycleEvent.eventType,
            let adsManager = lifecycleEvent.properties[kBCOVIMALifecycleEventPropertyKeyAdsManager] as? IMAAdsManager {
-            print("ViewController - Ads loaded.")
-
             // Lower the volume of ads by half.
             adsManager.volume = adsManager.volume / 2.0
             print("ViewController - IMAAdsManager.volume set to \(String(format: "%0.1f", adsManager.volume))")
 
         } else if kBCOVIMALifecycleEventAdsManagerDidReceiveAdEvent == lifecycleEvent.eventType,
-                  let adEvent = lifecycleEvent.properties["adEvent"] as? IMAAdEvent {
+                  let adEvent = lifecycleEvent.properties[kBCOVIMALifecycleEventPropertyKeyAdEvent] as? IMAAdEvent {
             switch adEvent.type {
                 case .STARTED:
                     print("ViewController - Ad Started.")
@@ -296,15 +287,13 @@ extension ViewController: BCOVPlaybackControllerAdsDelegate {
     func playbackController(_ controller: BCOVPlaybackController,
                             playbackSession session: BCOVPlaybackSession,
                             didEnterAdSequence adSequence: BCOVAdSequence) {
-        print("ViewController - Entering ad sequence")
-        avpvc.showsPlaybackControls = false
+        playerViewController.showsPlaybackControls = false
     }
 
     func playbackController(_ controller: BCOVPlaybackController,
                             playbackSession session: BCOVPlaybackSession,
                             didExitAdSequence adSequence: BCOVAdSequence) {
-        print("ViewController - Exiting ad sequence")
-        avpvc.showsPlaybackControls = true
+        playerViewController.showsPlaybackControls = true
     }
 
     func playbackController(_ controller: BCOVPlaybackController,
