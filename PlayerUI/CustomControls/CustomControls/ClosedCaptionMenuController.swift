@@ -33,7 +33,7 @@ final class ClosedCaptionMenuController: UITableViewController {
                         mediaOptionTypes.append(AVMediaCharacteristic.audible)
                     }
 
-                    if legibleMediaOptions.count > 0 {
+                    if !legibleMediaOptions.isEmpty {
                         mediaOptionTypes.append(AVMediaCharacteristic.legible)
                     }
 
@@ -44,7 +44,7 @@ final class ClosedCaptionMenuController: UITableViewController {
 
                         // Enable closed caption button if there are closed captions OR more than 1 soundtrack.
                         // Do this on main thread because closedCaptionEnabled changes the UI.
-                        let closedCaptionEnabled = legibleMediaOptions.count > 0 || audibleMediaOptions.count > 1
+                        let closedCaptionEnabled = !legibleMediaOptions.isEmpty || audibleMediaOptions.count > 1
                         controlsView.closedCaptionEnabled = closedCaptionEnabled
                     }
                 }
@@ -54,7 +54,7 @@ final class ClosedCaptionMenuController: UITableViewController {
 
     // sort the options in order of preferred language.
     fileprivate lazy var sortDescriptor = {
-        [self] (obj1: Any, obj2: Any) -> ComparisonResult in
+        (obj1: Any, obj2: Any) -> ComparisonResult in
 
         guard let option1 = obj1 as? AVMediaSelectionOption,
               let option2 = obj2 as? AVMediaSelectionOption else {
@@ -72,7 +72,7 @@ final class ClosedCaptionMenuController: UITableViewController {
         }
 
         // set up the sort order. boil the language IDs down to their language codes (en, instead of en_US).
-        var preferredLanguageCodes: [String] = .init()
+        var preferredLanguageCodes: [String] = []
         for aLanguage in NSLocale.preferredLanguages {
             guard let theLanguageCode = NSLocale.components(fromLocaleIdentifier: aLanguage)[NSLocale.Key.languageCode.rawValue] else {
                 continue
@@ -125,11 +125,9 @@ final class ClosedCaptionMenuController: UITableViewController {
 
         // construct a list of subtitles and closed captions with valid locales.
         var validLegibleOptions = [AVMediaSelectionOption]()
-        for option in legibleGroup.options {
-            if option.mediaType == .subtitle ||
-                option.mediaType == .closedCaption {
-                validLegibleOptions.append(option)
-            }
+        for option in legibleGroup.options where option.mediaType == .subtitle ||
+            option.mediaType == .closedCaption {
+            validLegibleOptions.append(option)
         }
 
         // return the list of playable, unforced subtitles & closed captions. refer
@@ -245,7 +243,7 @@ extension ClosedCaptionMenuController {
         return headerView
     }
 
-    fileprivate func tableViewSectionIsAudibleSection(_ section:  Int) -> Bool {
+    fileprivate func tableViewSectionIsAudibleSection(_ section: Int) -> Bool {
         guard let mediaOptionsTableViewSectionList else {
             return false
         }
@@ -253,7 +251,7 @@ extension ClosedCaptionMenuController {
         return mediaOptionsTableViewSectionList[section] == AVMediaCharacteristic.audible
     }
 
-    fileprivate func tableViewSectionIsLegibleSection(_ section:  Int) -> Bool {
+    fileprivate func tableViewSectionIsLegibleSection(_ section: Int) -> Bool {
         guard let mediaOptionsTableViewSectionList else {
             return false
         }
