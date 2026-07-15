@@ -5,6 +5,20 @@
 //  Copyright © 2026 Brightcove, Inc. All rights reserved.
 //
 
+/*
+ * This sample app shows how to play FairPlay-protected content from Video Cloud.
+ *
+ * The FairPlay session provider is created with
+ * `BCOVPlayerSDKManager.createFairPlaySessionProvider(withApplicationCertificate:authorizationProxy:upstreamSessionProvider:)`
+ * and used as the session provider for the playback controller. Passing `nil`
+ * for the application certificate and for the auth proxy's publisher and
+ * application IDs configures the provider to use Brightcove's FairPlay license
+ * service, the common Video Cloud setup.
+ *
+ * FairPlay content can only be decrypted on physical iOS and tvOS devices, so
+ * the sample detects the simulator and displays a warning instead of playing.
+ */
+
 import UIKit
 import BrightcovePlayerSDK
 
@@ -70,14 +84,14 @@ final class ViewController: UIViewController {
         return playbackController
     }()
 
-    fileprivate lazy var statusBarHidden = false {
+    fileprivate var statusBarHidden = false {
         didSet {
             setNeedsStatusBarAppearanceUpdate()
         }
     }
 
     override var prefersStatusBarHidden: Bool {
-        return statusBarHidden
+        statusBarHidden
     }
 
     override func viewDidLoad() {
@@ -137,16 +151,11 @@ final class ViewController: UIViewController {
 extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-    }
-
-    func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }
