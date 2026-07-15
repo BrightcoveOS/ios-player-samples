@@ -126,7 +126,9 @@ final class ViewController: UIViewController {
         let receiverAppConfig = BCOVReceiverAppConfig()
         receiverAppConfig.accountId = kAccountId
         receiverAppConfig.policyKey = kPolicyKey
-        receiverAppConfig.splashScreen = "https://picsum.photos/seed/brightcove/1280/720"
+
+        // You can specify a custom splash screen image
+        // receiverAppConfig.splashScreen = "https://your-domain.example/splash.jpg"
 
         // You can specify a customized player
         // receiverAppConfig.playerUrl = "https://players.brightcove.net/5434391461001/nVM2434Z1_default/index.min.js"
