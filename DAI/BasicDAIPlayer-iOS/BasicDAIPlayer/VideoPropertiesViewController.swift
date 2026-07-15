@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  VideoPropertiesViewController.swift
 //  BasicDAIPlayer
 //
 //  Copyright © 2026 Brightcove, Inc. All rights reserved.
@@ -17,13 +17,13 @@ final class VideoPropertiesViewController: BaseViewController {
         guard let fps else { return }
 
         let imaSettings = IMASettings()
-        imaSettings.language = NSLocale.current.languageCode!
+        imaSettings.language = NSLocale.current.languageCode ?? "en"
 
         let adsRenderingSettings = IMAAdsRenderingSettings()
         adsRenderingSettings.linkOpenerDelegate = self
         adsRenderingSettings.linkOpenerPresentingController = self
 
-        let adsRequestPolicy = BCOVDAIAdsRequestPolicy.videoProperties();
+        let adsRequestPolicy = BCOVDAIAdsRequestPolicy.videoProperties()
 
         // BCOVDAIPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:
         // which allows us to modify the IMAStreamRequest object before it is used to load ads.

@@ -17,7 +17,7 @@ final class AssetKeyViewController: BaseViewController {
         guard let fps else { return }
 
         let imaSettings = IMASettings()
-        imaSettings.language = NSLocale.current.languageCode!
+        imaSettings.language = NSLocale.current.languageCode ?? "en"
 
         let adsRenderingSettings = IMAAdsRenderingSettings()
         adsRenderingSettings.linkOpenerDelegate = self
