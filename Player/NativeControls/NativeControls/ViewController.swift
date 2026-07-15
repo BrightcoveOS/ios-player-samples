@@ -5,6 +5,18 @@
 //  Copyright © 2026 Brightcove, Inc. All rights reserved.
 //
 
+/*
+ * This sample app shows how to play Video Cloud content using Apple's native
+ * `AVPlayerViewController` transport controls instead of the Brightcove
+ * `BCOVPUIPlayerView`.
+ *
+ * The `kBCOVAVPlayerViewControllerCompatibilityKey` playback-controller option
+ * stops the SDK from creating a redundant `AVPlayerLayer`, since
+ * `AVPlayerViewController` already provides one. Each time the controller
+ * advances to a new session, that session's `AVPlayer` is handed to the
+ * `AVPlayerViewController`.
+ */
+
 import AVKit
 import UIKit
 import BrightcovePlayerSDK
@@ -27,14 +39,14 @@ final class ViewController: UIViewController {
         return .init(withRequestFactory: factory)
     }()
 
-    fileprivate lazy var avpvc: AVPlayerViewController = {
-        let avpvc = AVPlayerViewController()
-        avpvc.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        avpvc.view.frame = videoContainerView.bounds
-        videoContainerView.addSubview(avpvc.view)
-        addChild(avpvc)
-        avpvc.didMove(toParent: self)
-        return avpvc
+    fileprivate lazy var playerViewController: AVPlayerViewController = {
+        let playerViewController = AVPlayerViewController()
+        playerViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        playerViewController.view.frame = videoContainerView.bounds
+        videoContainerView.addSubview(playerViewController.view)
+        addChild(playerViewController)
+        playerViewController.didMove(toParent: self)
+        return playerViewController
     }()
 
     fileprivate lazy var playbackController: BCOVPlaybackController? = {
@@ -117,16 +129,15 @@ extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
                             didAdvanceTo session: BCOVPlaybackSession!) {
-        avpvc.player = session.player
-        print("ViewController - Advanced to new session.")
+        playerViewController.player = session.player
     }
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            playbackSession session: BCOVPlaybackSession,
+                            playbackSession session: BCOVPlaybackSession!,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }
