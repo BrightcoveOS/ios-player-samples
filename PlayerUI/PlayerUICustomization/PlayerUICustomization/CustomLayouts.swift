@@ -63,7 +63,7 @@ final class CustomLayouts: NSObject {
 
         let compactLayoutLines = [compactLayoutLine1, compactLayoutLine2]
 
-        // Put the two layout lines into a single control layout object.
+        // Put the layout lines into a single control layout object.
         let layout = BCOVPUIControlLayout(standardControls: standardLayoutLines,
                                           compactControls: compactLayoutLines)
 
@@ -207,7 +207,7 @@ final class CustomLayouts: NSObject {
 
         let compactLayoutLines = [compactLayoutLine1]
 
-        // Put the two layout lines into a single control layout object.
+        // Put the layout lines into a single control layout object.
         let layout = BCOVPUIControlLayout(standardControls: standardLayoutLines,
                                           compactControls: compactLayoutLines)
 
