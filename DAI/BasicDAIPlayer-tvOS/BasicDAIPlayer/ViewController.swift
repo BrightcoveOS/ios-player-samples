@@ -72,18 +72,18 @@ final class ViewController: UIViewController {
             kBCOVDAIOptionAutomaticRecoveryEnabledKey: true
         ]
 
+        guard let playerView else {
+            return nil
+        }
+
         let daiSessionProvider = sdkManager.createDAISessionProvider(with: imaSettings,
                                                                      adsRenderingSettings: adsRenderingSettings,
                                                                      adsRequestPolicy: adsRequestPolicy,
-                                                                     adContainer: playerView!.contentOverlayView,
+                                                                     adContainer: playerView.contentOverlayView,
                                                                      viewController: self,
                                                                      companionSlots: nil,
                                                                      upstreamSessionProvider: fps,
                                                                      options: daiOptions)
-
-        guard let playerView else {
-            return nil
-        }
 
         let playbackController = sdkManager.createPlaybackController(withSessionProvider: daiSessionProvider,
                                                                      viewStrategy: nil)

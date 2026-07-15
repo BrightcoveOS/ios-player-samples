@@ -77,6 +77,10 @@ final class DownloadManager: NSObject {
     fileprivate var videoPreloadQueue: [VideoDownload] = .init()
     fileprivate var videoDownloadQueue: [VideoDownload] = .init()
 
+    // Serializes all access to `videoPreloadQueue` and `videoDownloadQueue`,
+    // which are read and mutated from both the main queue and a background queue.
+    private let queueAccess = DispatchQueue(label: "com.brightcove.offlineplayer.download-queue")
+
     func doDownload(forVideo video: BCOVVideo) {
         if videoAlreadyProcessing(video) {
             return
@@ -85,7 +89,9 @@ final class DownloadManager: NSObject {
         let videoDownload = VideoDownload(video: video,
                                           parameters: DownloadManager.downloadParameters)
 
-        videoPreloadQueue.append(videoDownload)
+        queueAccess.sync {
+            videoPreloadQueue.append(videoDownload)
+        }
 
         DispatchQueue.main.async { [self] in
             runPreloadVideoQueue()
@@ -96,7 +102,8 @@ final class DownloadManager: NSObject {
         // First check to see if the video is in a preload queue
         // videoPreloadQueue is an array of NSDictionary objects,
         // with a BCOVVideo under each "video" key.
-        for videoDict in videoPreloadQueue {
+        let preloadQueue = queueAccess.sync { videoPreloadQueue }
+        for videoDict in preloadQueue {
             if videoDict.video.matches(with: video) {
                 UIAlertController.showWith(title: "Video Already in Preload Queue",
                                            message: "The video \(video.localizedName ?? "unknown") is already queued to be preloaded")
@@ -107,7 +114,8 @@ final class DownloadManager: NSObject {
 
         // First check to see if the video is in a download queue
         // videoDownloadQueue is an array of BCOVVideo objects
-        for videoDict in videoDownloadQueue {
+        let downloadQueue = queueAccess.sync { videoDownloadQueue }
+        for videoDict in downloadQueue {
             if videoDict.video.matches(with: video) {
                 UIAlertController.showWith(title: "Video Already in Download Queue",
                                            message: "The video \(video.localizedName ?? "unknown") is already queued to be downloaded")
@@ -156,7 +164,19 @@ final class DownloadManager: NSObject {
     }
 
     fileprivate func runPreloadVideoQueue() {
-        guard let videoDownload = videoPreloadQueue.first else {
+        let videoDownload: VideoDownload? = queueAccess.sync { () -> VideoDownload? in
+            guard let videoDownload = videoPreloadQueue.first else {
+                return nil
+            }
+
+            if let indexOfVideo = videoPreloadQueue.firstIndex(where: { $0.video.matches(with: videoDownload.video) }) {
+                videoPreloadQueue.remove(at: indexOfVideo)
+            }
+
+            return videoDownload
+        }
+
+        guard let videoDownload else {
             DispatchQueue.global(qos: .background).async { [self] in
                 downloadVideoFromQueue()
             }
@@ -164,15 +184,13 @@ final class DownloadManager: NSObject {
             return
         }
 
-        if let indexOfVideo = videoPreloadQueue.firstIndex(where: { $0.video.matches(with: videoDownload.video) }) {
-            videoPreloadQueue.remove(at: indexOfVideo)
-        }
-
         // Preloading only applies to FairPlay-protected videos.
         // If there's no FairPlay involved, the video is moved on
         // to the video download queue.
         if !videoDownload.video.usesFairPlay {
-            videoDownloadQueue.append(videoDownload)
+            queueAccess.sync {
+                videoDownloadQueue.append(videoDownload)
+            }
 
             DispatchQueue.main.async { [self] in
                 runPreloadVideoQueue()
@@ -201,7 +219,9 @@ final class DownloadManager: NSObject {
                             print("Preloaded \(offlineVideoToken)")
                         }
 
-                        videoDownloadQueue.append(videoDownload)
+                        queueAccess.sync {
+                            self.videoDownloadQueue.append(videoDownload)
+                        }
                     }
 
                     runPreloadVideoQueue()
@@ -214,12 +234,20 @@ final class DownloadManager: NSObject {
     }
 
     fileprivate func downloadVideoFromQueue() {
-        guard let videoDownload = videoDownloadQueue.first else {
-            return
+        let videoDownload: VideoDownload? = queueAccess.sync { () -> VideoDownload? in
+            guard let videoDownload = videoDownloadQueue.first else {
+                return nil
+            }
+
+            if let indexOfVideo = videoDownloadQueue.firstIndex(where: { $0.video.matches(with: videoDownload.video) }) {
+                videoDownloadQueue.remove(at: indexOfVideo)
+            }
+
+            return videoDownload
         }
 
-        if let indexOfVideo = videoDownloadQueue.firstIndex(where: { $0.video.matches(with: videoDownload.video) }) {
-            videoDownloadQueue.remove(at: indexOfVideo)
+        guard let videoDownload else {
+            return
         }
 
         guard let offlineManager = BCOVOfflineVideoManager.sharedManager else {

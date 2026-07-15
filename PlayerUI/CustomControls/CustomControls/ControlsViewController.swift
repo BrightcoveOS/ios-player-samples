@@ -46,13 +46,6 @@ final class ControlsViewController: UIViewController {
         return ccMenuController
     }()
 
-    fileprivate lazy var numberFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.paddingCharacter = "0"
-        formatter.minimumIntegerDigits = 2
-        return formatter
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -127,18 +120,11 @@ final class ControlsViewController: UIViewController {
             return "00:00"
         }
 
-        let hours = floor(timeInterval / 60.0 / 60.0)
-        let minutes = (timeInterval / 60).truncatingRemainder(dividingBy: 60)
-        let seconds = timeInterval.truncatingRemainder(dividingBy: 60)
-
-        guard let formattedMinutes = numberFormatter.string(from: NSNumber(value: minutes)),
-              let formattedSeconds = numberFormatter.string(from: NSNumber(value: seconds)) else {
-            return nil
-        }
-
-        return (hours > 0 ?
-                "\(hours):\(formattedMinutes):\(formattedSeconds)" :
-                    "\(formattedMinutes):\(formattedSeconds)")
+        let total = Int(timeInterval)
+        let hours = total / 3600
+        let minutes = (total / 60) % 60
+        let seconds = total % 60
+        return hours > 0 ? String(format: "%d:%02d:%02d", hours, minutes, seconds) : String(format: "%02d:%02d", minutes, seconds)
     }
 
     @IBAction

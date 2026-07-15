@@ -238,7 +238,8 @@ final class ViewController: UIViewController {
 
         guard let playerView,
               let controlsView = playerView.controlsView,
-              let hideableLayoutView = controlsView.layout.allLayoutItems.first(where: { ($0 as? BCOVPUILayoutView)?.tag == BCOVPUIViewTag.buttonPlayback.rawValue }) as? BCOVPUILayoutView else { return }
+              let layout = controlsView.layout,
+              let hideableLayoutView = layout.allLayoutItems.first(where: { ($0 as? BCOVPUILayoutView)?.tag == BCOVPUIViewTag.buttonPlayback.rawValue }) as? BCOVPUILayoutView else { return }
 
         // When the device is shaken, toggle the removal of the saved layout view.
         hideableLayoutView.isRemoved = !hideableLayoutView.isRemoved

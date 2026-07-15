@@ -74,13 +74,13 @@ final class BCOVPageViewController: UIPageViewController {
             self.videos = videos
 #endif
 
-            if let firstVideo = videos.first,
+            if let firstVideo = self.videos.first,
                let videoVC = newVideoViewController() {
                 videoVC.video = firstVideo
                 setViewControllers([videoVC], direction: .forward, animated: true)
             }
 
-            for video in videos {
+            for video in self.videos {
                 fetchPoster(video: video)
             }
         }

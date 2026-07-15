@@ -23,7 +23,10 @@ extension BCOVOfflineVideoStatus {
                 return "download requested"
 
             case .downloading:
-                let actualMegabytes = UIDevice.current.usedDiskSpace(forVideo: offlineVideo!)
+                guard let offlineVideo else {
+                    return String(format: "downloading\nProgress: %0.2f%%", downloadPercent)
+                }
+                let actualMegabytes = UIDevice.current.usedDiskSpace(forVideo: offlineVideo)
                 let totalDownloadTime = Date.timeIntervalSinceReferenceDate - (downloadStartTime?.timeIntervalSinceReferenceDate ?? 0)
                 let mbps = (actualMegabytes * downloadPercent / 100) / totalDownloadTime
                 let speed = String(format: "%0.2f %@", (mbps < 0.5 ? mbps * 1000 : mbps), (mbps < 0.5 ? "KB/s" : "MB/s"))
@@ -37,7 +40,10 @@ extension BCOVOfflineVideoStatus {
                 return "cancelled"
 
             case .completed:
-                let actualMegabytes = UIDevice.current.usedDiskSpace(forVideo: offlineVideo!)
+                guard let offlineVideo else {
+                    return "complete"
+                }
+                let actualMegabytes = UIDevice.current.usedDiskSpace(forVideo: offlineVideo)
                 let totalDownloadTime = (downloadEndTime?.timeIntervalSinceReferenceDate ?? .infinity) - (downloadStartTime?.timeIntervalSinceReferenceDate ?? 0)
                 let mbps = actualMegabytes / totalDownloadTime
                 let speed = String(format: "%0.2f %@", (mbps < 0.5 ? mbps * 1000 : mbps), (mbps < 0.5 ? "KB/s" : "MB/s"))

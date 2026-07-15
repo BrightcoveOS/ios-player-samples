@@ -268,7 +268,7 @@ extension BaseViewController: BCOVDAIPlaybackSessionDelegate {
         // for demo purposes, modify the adTagParameters
         // https://support.google.com/admanager/answer/7320899?hl=en
 
-        adsRequest.adTagParameters = [ "tfcd1": "1" ]
+        adsRequest.adTagParameters = [ "tfcd": "0" ]
     }
 }
 

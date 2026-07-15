@@ -14,7 +14,7 @@ final class AssetKeyViewController: BaseViewController {
 
     override func setupPlaybackController() {
         let sdkManager = BCOVPlayerSDKManager.sharedManager()
-        guard let fps else { return }
+        guard let fps, let playerView else { return }
 
         let imaSettings = IMASettings()
         imaSettings.language = NSLocale.current.languageCode ?? "en"
@@ -38,15 +38,11 @@ final class AssetKeyViewController: BaseViewController {
         let daiSessionProvider = sdkManager.createDAISessionProvider(with: imaSettings,
                                                                      adsRenderingSettings: adsRenderingSettings,
                                                                      adsRequestPolicy: adsRequestPolicy,
-                                                                     adContainer: playerView!.contentOverlayView,
+                                                                     adContainer: playerView.contentOverlayView,
                                                                      viewController: self,
                                                                      companionSlots: nil,
                                                                      upstreamSessionProvider: fps,
                                                                      options: daiPlaybackSessionOptions)
-
-        guard let playerView else {
-            return
-        }
 
         let playbackController = sdkManager.createPlaybackController(withSessionProvider: daiSessionProvider,
                                                                      viewStrategy: nil)

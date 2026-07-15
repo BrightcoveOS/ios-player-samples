@@ -177,11 +177,11 @@ extension PlayerViewModel: @preconcurrency BCOVPlaybackControllerDelegate {
             }
 
         case kBCOVIMALifecycleEventAdsLoaderFailed:
-            let description = (lifecycleEvent.properties["error"] as? NSError)?.localizedDescription ?? "unknown"
+            let description = (lifecycleEvent.properties[kBCOVIMALifecycleEventPropertyKeyAdError] as? IMAAdError)?.message ?? "unknown"
             Log.ads.error("IMA ads loader failed: \(description, privacy: .public)")
 
         case kBCOVIMALifecycleEventAdsManagerDidReceiveAdError:
-            let description = (lifecycleEvent.properties["error"] as? NSError)?.localizedDescription ?? "unknown"
+            let description = (lifecycleEvent.properties[kBCOVIMALifecycleEventPropertyKeyAdError] as? IMAAdError)?.message ?? "unknown"
             Log.ads.error("IMA ads manager error: \(description, privacy: .public)")
 
         case kBCOVIMALifecycleEventAdsLoaderLoaded:

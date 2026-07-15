@@ -11,14 +11,14 @@ import BrightcovePlayerSDK
 
 struct ThumbnailView: View {
 
-    @ObservedObject
+    @StateObject
     var imageLoader: ImageLoader
 
     let urlStr: String?
 
     init(urlStr: String?) {
         self.urlStr = urlStr
-        imageLoader = ImageLoader(urlString: urlStr ?? "")
+        _imageLoader = StateObject(wrappedValue: ImageLoader(urlString: urlStr ?? ""))
     }
 
     var body: some View {

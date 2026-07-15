@@ -85,6 +85,9 @@ final class ViewController: UIViewController {
     fileprivate var textTracks: [[String: Any]]? = .init()
     fileprivate var subtitleManager: SubtitleManager?
 
+    fileprivate var timeObserverToken: Any?
+    fileprivate weak var observedPlayer: AVPlayer?
+
     fileprivate var statusBarHidden = false {
         didSet {
             setNeedsStatusBarAppearanceUpdate()
@@ -93,6 +96,12 @@ final class ViewController: UIViewController {
 
     override var prefersStatusBarHidden: Bool {
         statusBarHidden
+    }
+
+    deinit {
+        if let token = timeObserverToken {
+            observedPlayer?.removeTimeObserver(token)
+        }
     }
 
     override func viewDidLoad() {
@@ -228,14 +237,20 @@ extension ViewController: BCOVPlaybackControllerDelegate {
             print("         A text track might be forcibly rendered in the video view.")
         }
 
-        session.player?.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 60),
-                                                queue: DispatchQueue.main) {
-            [self] (time: CMTime) in
+        if let token = timeObserverToken {
+            observedPlayer?.removeTimeObserver(token)
+        }
 
-            if let subtitle = subtitleManager?.subtitleForTime(time) {
-                subtitlesLabel.text = subtitle
+        timeObserverToken = session.player?.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 60),
+                                                                    queue: DispatchQueue.main) {
+            [weak self] (time: CMTime) in
+            guard let self else { return }
+
+            if let subtitle = self.subtitleManager?.subtitleForTime(time) {
+                self.subtitlesLabel.text = subtitle
             }
         }
+        observedPlayer = session.player
     }
 
     func playbackController(_ controller: BCOVPlaybackController!,

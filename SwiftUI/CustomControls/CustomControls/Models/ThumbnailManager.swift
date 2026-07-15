@@ -56,7 +56,7 @@ final class ThumbnailManager {
 
             session.dataTask(with: url) { data, response, error in
                 guard let data,
-                      error == nil else { return }
+                      error == nil else { promise(.failure(.fetchError)); return }
 
                 DispatchQueue.main.async { [self] in
                     guard let image = UIImage(data: data) else {

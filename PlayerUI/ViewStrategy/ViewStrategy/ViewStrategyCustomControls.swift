@@ -70,14 +70,14 @@ final class ViewStrategyCustomControls: UIView {
         addSubview(playPauseButton)
         addSubview(progressView)
 
-        NSLayoutConstraint.activate(constraints)
+        NSLayoutConstraint.activate(makeConstraints())
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override var constraints: [NSLayoutConstraint] {
+    private func makeConstraints() -> [NSLayoutConstraint] {
         let option: NSLayoutConstraint.FormatOptions = .directionLeadingToTrailing
         let views = [
             "superview": self,

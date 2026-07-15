@@ -213,7 +213,7 @@ final class DownloadsViewController: UIViewController {
     }
 
     // The offline video token playing in the video view
-    fileprivate var currentlyPlayingOfflineVideoToken: BCOVOfflineVideoToken? = .init()
+    fileprivate var currentlyPlayingOfflineVideoToken: BCOVOfflineVideoToken? = nil
 
     fileprivate var freeSpaceTimer: Timer?
 
@@ -261,17 +261,17 @@ final class DownloadsViewController: UIViewController {
 
     @objc
     fileprivate func updateStatus(_ notification: NSNotification) {
-        guard isVisible,
-              let offlineManager = BCOVOfflineVideoManager.sharedManager else {
-            tableView.reloadData()
-            return
-        }
-
-        let offlineVideoStatusArray = offlineManager.offlineVideoStatus()
-
-        let offlineVideoTokens = offlineManager.offlineVideoTokens
-
         DispatchQueue.main.async { [self] in
+            guard isVisible,
+                  let offlineManager = BCOVOfflineVideoManager.sharedManager else {
+                tableView.reloadData()
+                return
+            }
+
+            let offlineVideoStatusArray = offlineManager.offlineVideoStatus()
+
+            let offlineVideoTokens = offlineManager.offlineVideoTokens
+
             if let video = notification.object as? BCOVVideo,
                let offlineVideoToken = video.offlineVideoToken as? BCOVOfflineVideoToken,
                let offlineVideoTokenIndex = offlineVideoTokens.firstIndex(where: { $0 == offlineVideoToken }) {
@@ -303,10 +303,10 @@ final class DownloadsViewController: UIViewController {
     @objc
     fileprivate func updateFreeSpaceLabel() {
         if let freeDiskSpace = Double(UIDevice.current.freeDiskSpace) {
-            if freeDiskSpace < 50 {
-                freeSpaceLabel.textColor = .systemOrange
-            } else if freeDiskSpace < 10 {
+            if freeDiskSpace < 10 {
                 freeSpaceLabel.textColor = .systemRed
+            } else if freeDiskSpace < 50 {
+                freeSpaceLabel.textColor = .systemOrange
             } else {
                 freeSpaceLabel.textColor = .systemGray
             }

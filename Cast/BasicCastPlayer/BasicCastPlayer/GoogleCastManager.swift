@@ -10,7 +10,7 @@ import GoogleCast
 import BrightcovePlayerSDK
 
 
-protocol GoogleCastManagerDelegate {
+protocol GoogleCastManagerDelegate: AnyObject {
 
     var playbackController: BCOVPlaybackController? { get }
 
@@ -25,7 +25,7 @@ protocol GoogleCastManagerDelegate {
 
 final class GoogleCastManager: NSObject {
 
-    var delegate: GoogleCastManagerDelegate?
+    weak var delegate: GoogleCastManagerDelegate?
 
     fileprivate let sessionManager: GCKSessionManager
     fileprivate let castMediaController: GCKUIMediaController
@@ -134,8 +134,8 @@ final class GoogleCastManager: NSObject {
         currentVideo = video
 
         let videoURL = url.absoluteString
-        let name = video.properties[BCOVVideo.PropertyKeyName] as! String
-        let durationNumber = video.properties[BCOVVideo.PropertyKeyDuration] as! NSNumber
+        let name = video.properties[BCOVVideo.PropertyKeyName] as? String ?? ""
+        let durationNumber = video.properties[BCOVVideo.PropertyKeyDuration] as? NSNumber
 
         let metaData = GCKMediaMetadata(metadataType: .generic)
         metaData.setString(name, forKey: kGCKMetadataKeyTitle)
@@ -150,7 +150,7 @@ final class GoogleCastManager: NSObject {
 
         var mediaTracks = [GCKMediaTrack]()
 
-        let textTracks = video.properties[BCOVVideo.PropertyKeyTextTracks] as! [[String: AnyHashable]]
+        let textTracks = video.properties[BCOVVideo.PropertyKeyTextTracks] as? [[String: AnyHashable]] ?? []
 
         var trackIdentifier = 0
 
@@ -191,7 +191,7 @@ final class GoogleCastManager: NSObject {
         builder.streamType = .unknown
         builder.contentType = source.deliveryMethod
         builder.metadata = metaData
-        builder.streamDuration = durationNumber.doubleValue
+        builder.streamDuration = durationNumber?.doubleValue ?? 0
         builder.mediaTracks = mediaTracks
 
         castMediaInfo = builder.build()

@@ -40,7 +40,7 @@ final class SubtitleManager {
     }
 
     fileprivate func parseSubtitle(with subtitleString: String) {
-        subtitles = .init()
+        var parsed: [Subtitle] = .init()
 
         let lines = subtitleString.components(separatedBy: "\n")
         for line in lines {
@@ -51,7 +51,7 @@ final class SubtitleManager {
                                                     options: .caseInsensitive)
                 let matches = regex.matches(in: line,
                                             options: NSRegularExpression.MatchingOptions(rawValue: 0),
-                                            range: NSRange(location: 0, length: line.count))
+                                            range: NSRange(location: 0, length: (line as NSString).length))
 
                 if matches.count == 1 {
                     if let result = matches.first {
@@ -74,22 +74,22 @@ final class SubtitleManager {
                             break
                         }
 
-                        let startTime = (startTimeMinute * 60.0 * 60.0) + (startTimeSecond * 60) + (startTimeMS / 1000)
-                        let endTime = (endTimeMinute * 60.0 * 60.0) + (endTimeSecond * 60) + (endTimeMS / 1000)
+                        let startTime = (startTimeMinute * 60.0) + startTimeSecond + (startTimeMS / 1000.0)
+                        let endTime = (endTimeMinute * 60.0) + endTimeSecond + (endTimeMS / 1000.0)
 
                         // Create a new instance and assign the time range
                         let subtitle = Subtitle()
-                        subtitle.startTime = CMTimeMake(value: Int64(startTime),
-                                                                timescale: 60)
-                        subtitle.endTime = CMTimeMake(value: Int64(endTime),
-                                                              timescale: 60)
+                        subtitle.startTime = CMTime(seconds: startTime,
+                                                    preferredTimescale: 1000)
+                        subtitle.endTime = CMTime(seconds: endTime,
+                                                  preferredTimescale: 1000)
 
-                        subtitles.append(subtitle)
+                        parsed.append(subtitle)
                     }
                 }
 
                 if matches.count == 0 && !line.isEmpty {
-                    if let currentSubtitle = subtitles.last {
+                    if let currentSubtitle = parsed.last {
                         if let text = currentSubtitle.text {
                             currentSubtitle.text = text.appending(" \(line)")
                         } else {
@@ -101,6 +101,10 @@ final class SubtitleManager {
                 print("Error creating regex")
                 break
             }
+        }
+
+        DispatchQueue.main.async {
+            self.subtitles = parsed
         }
     }
 
