@@ -155,13 +155,13 @@ extension PlayerViewModel: @preconcurrency BCOVPlaybackControllerDelegate {
     }
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            playbackSession session: BCOVPlaybackSession,
+                            playbackSession session: BCOVPlaybackSession!,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
         let type = lifecycleEvent.eventType
 
         switch type {
         case kBCOVPlaybackSessionLifecycleEventFail:
-            if let error = lifecycleEvent.properties["error"] as? NSError {
+            if let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
                 Log.playback.error("Playback failed: \(error.localizedDescription, privacy: .public)")
                 status = .failed(message: error.localizedDescription)
             }
@@ -192,7 +192,7 @@ extension PlayerViewModel: @preconcurrency BCOVPlaybackControllerDelegate {
             }
 
         case kBCOVIMALifecycleEventAdsManagerDidReceiveAdEvent:
-            if let adEvent = lifecycleEvent.properties["adEvent"] as? IMAAdEvent {
+            if let adEvent = lifecycleEvent.properties[kBCOVIMALifecycleEventPropertyKeyAdEvent] as? IMAAdEvent {
                 Log.ads.info("Ad event: \(adEvent.typeString, privacy: .public)")
             }
 
