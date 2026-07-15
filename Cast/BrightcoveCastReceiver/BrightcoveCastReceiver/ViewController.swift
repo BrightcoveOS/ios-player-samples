@@ -33,8 +33,8 @@ final class ViewController: UIViewController {
     @IBOutlet fileprivate weak var headerTableView: UIView! {
         didSet {
             headerTableView.backgroundColor = .systemGroupedBackground
-            headerTableView.layer.borderColor = UIColor.init(white: 0.9,
-                                                             alpha: 1.0).cgColor
+            headerTableView.layer.borderColor = UIColor(white: 0.9,
+                                                        alpha: 1.0).cgColor
             headerTableView.layer.borderWidth = 0.3
             headerTableView.addSubview(headerLabel)
         }
@@ -122,7 +122,7 @@ final class ViewController: UIViewController {
         return playbackController
     }()
 
-    fileprivate var googleCastManager: BCOVGoogleCastManager  = {
+    fileprivate let googleCastManager: BCOVGoogleCastManager = {
         let receiverAppConfig = BCOVReceiverAppConfig()
         receiverAppConfig.accountId = kAccountId
         receiverAppConfig.policyKey = kPolicyKey
@@ -141,9 +141,9 @@ final class ViewController: UIViewController {
         return BCOVGoogleCastManager(forBrightcoveReceiverApp: receiverAppConfig)
     }()
 
-    fileprivate lazy var videos: [BCOVVideo] = .init()
+    fileprivate var videos: [BCOVVideo] = []
 
-    fileprivate lazy var statusBarHidden = false {
+    fileprivate var statusBarHidden = false {
         didSet {
             setNeedsStatusBarAppearanceUpdate()
         }
@@ -188,9 +188,11 @@ final class ViewController: UIViewController {
 
         playbackService.findPlaylist(withConfiguration: configuration,
                                      queryParameters: queryParams) {
-            [self] (playlist: BCOVPlaylist?,
-                    json: Any?,
-                    error: Error?) in
+            [weak self] (playlist: BCOVPlaylist?,
+                         json: Any?,
+                         error: Error?) in
+
+            guard let self else { return }
 
             if let playlist {
                 let videos = playlist.videos
@@ -215,11 +217,6 @@ final class ViewController: UIViewController {
 extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-    }
-
-    func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession!,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
@@ -228,7 +225,7 @@ extension ViewController: BCOVPlaybackControllerDelegate {
         }
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }
@@ -312,7 +309,7 @@ extension ViewController: UITableViewDataSource {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return videos.count > 0 ? 2 : 0
+        return !videos.isEmpty ? 2 : 0
     }
 
     func tableView(_ tableView: UITableView,
