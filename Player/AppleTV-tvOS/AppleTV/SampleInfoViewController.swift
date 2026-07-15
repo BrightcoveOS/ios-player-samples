@@ -12,20 +12,20 @@ final class SampleInfoViewController: UIViewController, BCOVPlaybackSessionConsu
 
     fileprivate weak var playerView: BCOVTVPlayerView?
 
-    fileprivate lazy var button1: UIButton = {
-        let button = UIButton.init(type: .system)
-        button.frame = CGRect.init(x:20, y:40, width:280, height:80)
-        button.setTitle("Button 1", for:.normal)
+    fileprivate lazy var firstButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: 20, y: 40, width: 280, height: 80)
+        button.setTitle("Button 1", for: .normal)
         button.addTarget(self,
                          action: #selector(buttonHandler),
                          for: .primaryActionTriggered)
         return button
     }()
 
-    fileprivate lazy var button2: UIButton = {
-        let button = UIButton.init(type: .system)
-        button.frame = CGRect.init(x:340, y:40, width:280, height:80)
-        button.setTitle("Button 2", for:.normal)
+    fileprivate lazy var secondButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: 340, y: 40, width: 280, height: 80)
+        button.setTitle("Button 2", for: .normal)
         button.addTarget(self,
                          action: #selector(buttonHandler),
                          for: .primaryActionTriggered)
@@ -42,8 +42,8 @@ final class SampleInfoViewController: UIViewController, BCOVPlaybackSessionConsu
 
         title = "Sample"
 
-        view.addSubview(button1)
-        view.addSubview(button2)
+        view.addSubview(firstButton)
+        view.addSubview(secondButton)
     }
 
     @objc
@@ -53,15 +53,13 @@ final class SampleInfoViewController: UIViewController, BCOVPlaybackSessionConsu
             return
         }
 
-        print("\(text) triggered")
-
         // Show a large label in the middle of the screen and fade it away.
         let fadingLabel: UILabel = {
-            let label: UILabel = .init(frame: CGRect.init(x:0, y:0, width:840, height:140))
+            let label: UILabel = .init(frame: CGRect(x: 0, y: 0, width: 840, height: 140))
             label.clipsToBounds = true
             label.textColor = .red
-            label.textAlignment = NSTextAlignment.center
-            label.backgroundColor = UIColor.init(white: 0.0, alpha: 0.4)
+            label.textAlignment = .center
+            label.backgroundColor = UIColor(white: 0.0, alpha: 0.4)
             label.font = UIFont.boldSystemFont(ofSize: 72.0)
             label.text = "\(text) Clicked"
             label.center = playerView.center
