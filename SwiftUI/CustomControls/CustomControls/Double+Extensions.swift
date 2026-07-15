@@ -12,7 +12,7 @@ import UIKit
 extension Double {
 
     var asCMTime: CMTime {
-        return CMTime(seconds: self,
-                      preferredTimescale: CMTimeScale(60))
+        CMTime(seconds: self,
+               preferredTimescale: CMTimeScale(60))
     }
 }

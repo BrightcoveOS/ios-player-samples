@@ -36,9 +36,7 @@ struct CustomControlsView: View {
                     playbackController.seek(to: CMTime(seconds: playerModel.progress,
                                                        preferredTimescale: CMTimeScale(1.0)),
                                             toleranceBefore: .zero,
-                                            toleranceAfter: .zero) { sliderChangeValue in
-                        if sliderChangeValue { print("Slider progress changed") }
-                    }
+                                            toleranceAfter: .zero) { _ in }
                 } onTouchSliderEvent: { _, _, isTrack in
                     guard let playbackController = playerModel.playbackController else { return }
 
@@ -61,9 +59,7 @@ struct CustomControlsView: View {
                 Button {
                     guard let playbackController = playerModel.playbackController else { return }
                     playbackController.seek(to: CMTime(seconds: playerModel.progress - 10,
-                                                       preferredTimescale: CMTimeScale(1.0))) { back in
-                        if back { print("Back - 10 second") }
-                    }
+                                                       preferredTimescale: CMTimeScale(1.0))) { _ in }
                 } label: {
                     Image(systemName: "gobackward.10")
                         .resizable()
@@ -83,9 +79,7 @@ struct CustomControlsView: View {
                 Button {
                     guard let playbackController = playerModel.playbackController else { return }
                     playbackController.seek(to: CMTime(seconds: playerModel.progress + 10,
-                                                       preferredTimescale: CMTimeScale(1.0))) { next in
-                        if next { print("Next + 10 second") }
-                    }
+                                                       preferredTimescale: CMTimeScale(1.0))) { _ in }
                 } label: {
                     Image(systemName: "goforward.10")
                         .resizable()

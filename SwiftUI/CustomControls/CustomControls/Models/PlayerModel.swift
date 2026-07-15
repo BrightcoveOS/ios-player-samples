@@ -80,8 +80,7 @@ extension PlayerModel: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
                             didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-        if let player = session.player , let item = player.currentItem,
+        if let player = session.player, let item = player.currentItem,
            item.responds(to: NSSelectorFromString("preferredForwardBufferDuration")) {
             guard session.player != nil else { return }
             buffer = availableDuration(player: player)
@@ -120,18 +119,6 @@ extension PlayerModel: BCOVPlaybackControllerDelegate {
                 isPlaying = false
                 timer?.invalidate()
                 showControls = true
-            case kBCOVPlaybackSessionLifecycleEventResumeFail:
-                print("resumeFail")
-            case kBCOVPlaybackSessionLifecycleEventResumeBegin:
-                print("play")
-            case kBCOVPlaybackSessionLifecycleEventFail:
-                print("failedToLoad")
-            case kBCOVPlaybackSessionLifecycleEventError:
-                print("error")
-            case kBCOVPlaybackSessionLifecycleEventPlaybackBufferEmpty:
-                print("bufferEmpty")
-            case kBCOVPlaybackSessionLifecycleEventPlaybackLikelyToKeepUp:
-                print("likelyToKeepUp")
             default: break
         }
     }

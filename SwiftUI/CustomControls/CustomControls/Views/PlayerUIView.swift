@@ -51,7 +51,7 @@ struct PlayerUIView: View {
                             break
                         case .failure(let error):
                             showAlert.toggle()
-                            print("VideoModel - Error retrieving video: \(error.localizedDescription)")
+                            print("PlayerUIView - Error retrieving video: \(error.localizedDescription)")
                     }
                 }, receiveValue: { video in
                     guard let playbackController = playerModel.playbackController else { return }

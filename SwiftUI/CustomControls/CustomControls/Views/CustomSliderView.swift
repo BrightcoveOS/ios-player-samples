@@ -92,7 +92,7 @@ struct CustomSliderView<ThumbnailView: View>: UIViewRepresentable {
                 case .began,
                         .moved,
                         .ended:
-                    onTouchSliderEvent(touchEvent.location(in:  sender),
+                    onTouchSliderEvent(touchEvent.location(in: sender),
                                        sender.thumbFrame,
                                        sender.isTracking)
 

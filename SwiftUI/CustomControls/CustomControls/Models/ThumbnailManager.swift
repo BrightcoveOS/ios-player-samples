@@ -22,7 +22,7 @@ final class ThumbnailManager {
     fileprivate var cancellables = [AnyCancellable]()
     fileprivate let cache = NSCache<NSString, UIImage>()
 
-    fileprivate lazy var thumbnails: [ThumbnailModel] = .init()
+    fileprivate var thumbnails: [ThumbnailModel] = .init()
     fileprivate lazy var session: URLSession = URLSession(configuration: .default)
 
     init(url: URL) {
@@ -117,8 +117,8 @@ fileprivate extension ThumbnailManager {
                 let regex = try NSRegularExpression(pattern: "([0-9]{2}):([0-9]{2}).([0-9]{3}) --> ([0-9]{2}):([0-9]{2}).([0-9]{3})",
                                                     options: .caseInsensitive)
                 let matches = regex.matches(in: line,
-                                            options: NSRegularExpression.MatchingOptions(rawValue: 0),
-                                            range: NSMakeRange(0, line.count))
+                                            options: [],
+                                            range: NSRange(location: 0, length: line.count))
                 if matches.count == 1 {
                     if let result = matches.first {
                         let startTimeMinuteRange = result.range(at: 1)
@@ -133,7 +133,7 @@ fileprivate extension ThumbnailManager {
                               let endTimeMinute = Double((line as NSString).substring(with: endTimeMinuteRange)),
                               let endTimeSecond = Double((line as NSString).substring(with: endTimeSecondRange)),
                               let endTimeMS = Double((line as NSString).substring(with: endTimeMSRange)) else {
-                            break;
+                            break
                         }
 
                         let startTime = (startTimeMinute * 60.0 * 60.0) + (startTimeSecond * 60) + (startTimeMS / 1000)
@@ -150,7 +150,7 @@ fileprivate extension ThumbnailManager {
                     }
                 }
 
-                if matches.count == 0 && line.count > 0 {
+                if matches.isEmpty && !line.isEmpty {
                     if let currentThumbnail = thumbnails.last {
                         guard let urlParse = URL(string: line) else {
                             break
