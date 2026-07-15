@@ -13,7 +13,7 @@ final class NowPlayingHandler: NSObject {
 
     fileprivate weak var session: BCOVPlaybackSession?
 
-    fileprivate lazy var nowPlayingInfo: [String: AnyHashable] = [:]
+    fileprivate var nowPlayingInfo: [String: AnyHashable] = [:]
 
     init(with playbackController: BCOVPlaybackController) {
         super.init()
@@ -42,8 +42,8 @@ final class NowPlayingHandler: NSObject {
             return .success
         }
 
-        center.togglePlayPauseCommand.addTarget { [self] _ in
-            guard let session, let player = session.player else { return .commandFailed }
+        center.togglePlayPauseCommand.addTarget { [weak self] _ in
+            guard let self, let session, let player = session.player else { return .commandFailed }
 
             if player.timeControlStatus == .paused {
                 playbackController.play()
@@ -56,7 +56,7 @@ final class NowPlayingHandler: NSObject {
     }
 
     func updateNowPlayingInfoForAudioOnly() {
-        guard let video = session?.video , let customFields = video.properties["custom_fields"] as? [String: Any] else {
+        guard let video = session?.video, let customFields = video.properties["custom_fields"] as? [String: Any] else {
             return
         }
 
@@ -95,7 +95,6 @@ extension NowPlayingHandler {
             let infoCenter = MPNowPlayingInfoCenter.default()
             nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = rate
             infoCenter.nowPlayingInfo = nowPlayingInfo
-            self.nowPlayingInfo = nowPlayingInfo
         }
     }
 }
@@ -121,7 +120,7 @@ extension NowPlayingHandler: BCOVPlaybackSessionConsumer {
                                    context: nil)
         }
 
-        nowPlayingInfo = [String: AnyHashable]()
+        nowPlayingInfo = [:]
 
         guard let video = session.video, let videoName = video.localizedName(forLocale: nil),
               let durationNum = video.properties[BCOVVideo.PropertyKeyDuration] as? NSNumber else {
@@ -143,10 +142,7 @@ extension NowPlayingHandler: BCOVPlaybackSessionConsumer {
                 do {
                     let imageData = try Data(contentsOf: url)
                     if let image = UIImage(data: imageData) {
-                        nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: image.size) {
-                            _ -> UIImage in
-                            return image
-                        }
+                        nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: image.size) { _ in image }
 
                         let infoCenter = MPNowPlayingInfoCenter.default()
                         infoCenter.nowPlayingInfo = nowPlayingInfo
