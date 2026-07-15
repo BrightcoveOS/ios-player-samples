@@ -60,15 +60,11 @@ final class VideoViewController: UIViewController {
         return playbackGesture
     }()
 
-    fileprivate lazy var didSetVideo = false
+    fileprivate var didSetVideo = false
 
     fileprivate weak var player: AVPlayer?
 
     weak var video: BCOVVideo?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -83,18 +79,19 @@ final class VideoViewController: UIViewController {
             if let posterURLStr = video.properties[BCOVVideo.PropertyKeyPoster] as? String,
                let posterURL = URL(string: posterURLStr) {
                 let urlRequest = URLRequest(url: posterURL)
-                URLSession.shared.dataTask(with: urlRequest) {
+                URLSession.shared.dataTask(with: urlRequest) { [weak self]
                     (data: Data?, response: URLResponse?, error: Error?) in
                     if let error {
                         print(error.localizedDescription)
                         return
                     }
 
-                    guard let data,
+                    guard let self,
+                          let data,
                           let image = UIImage(data: data) else { return }
 
-                    DispatchQueue.main.async { [self] in
-                        posterView.image = image
+                    DispatchQueue.main.async {
+                        self.posterView.image = image
                     }
                 }.resume()
             }
@@ -126,18 +123,19 @@ final class VideoViewController: UIViewController {
 
         let request = URLRequest(url: posterURL)
 
-        URLSession.shared.dataTask(with: request) {
+        URLSession.shared.dataTask(with: request) { [weak self]
             (data: Data?, response: URLResponse?, error: Error?) in
-            guard let data else { return }
+            guard let self,
+                  let data else { return }
             let message = "Check out this video, \"\(videoName)\", it's awesome."
             var items: [Any] = [message]
             if let posterImage = UIImage(data: data) {
                 items = [message, posterImage]
             }
-            DispatchQueue.main.async { [self] in
+            DispatchQueue.main.async {
                 let activityVC = UIActivityViewController(activityItems: items,
                                                           applicationActivities: nil)
-                present(activityVC, animated: true)
+                self.present(activityVC, animated: true)
             }
         }.resume()
     }
@@ -162,15 +160,14 @@ final class VideoViewController: UIViewController {
 // MARK: - BCOVPlaybackControllerDelegate
 
 extension VideoViewController: BCOVPlaybackControllerDelegate {
-    
-    func playbackController(_ controller: BCOVPlaybackController!, 
+
+    func playbackController(_ controller: BCOVPlaybackController!,
                             didAdvanceTo session: BCOVPlaybackSession!) {
         session.playerLayer.videoGravity = .resizeAspectFill
         player = session.player
-        print("ViewController - Advanced to new session.")
     }
-    
-    func playbackController(_ controller: BCOVPlaybackController!, 
+
+    func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession!,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
@@ -185,9 +182,9 @@ extension VideoViewController: BCOVPlaybackControllerDelegate {
         }
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
-            print("ViewController - Playback error: \(error.localizedDescription)")
+            print("VideoViewController - Playback error: \(error.localizedDescription)")
         }
     }
 }
