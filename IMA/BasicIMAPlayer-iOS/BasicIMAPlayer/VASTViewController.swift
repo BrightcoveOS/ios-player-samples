@@ -16,7 +16,7 @@ final class VASTViewController: BaseViewController {
 
     override func setupPlaybackController() {
         let imaSettings = IMASettings()
-        imaSettings.language = NSLocale.current.languageCode!
+        imaSettings.language = NSLocale.current.languageCode ?? "en"
 
         let renderSettings = IMAAdsRenderingSettings()
         renderSettings.linkOpenerPresentingController = self

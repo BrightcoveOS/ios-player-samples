@@ -69,8 +69,7 @@ class BaseViewController: UIViewController {
     var playbackController: BCOVPlaybackController?
 
     fileprivate var notificationReceipt: AnyObject?
-    fileprivate lazy var adIsPlaying = false
-    fileprivate lazy var isBrowserOpen = false
+    fileprivate var adIsPlaying = false
 
     fileprivate lazy var statusBarHidden = false {
         didSet {
@@ -97,7 +96,7 @@ class BaseViewController: UIViewController {
 
         if #available(iOS 14.5, *) {
             ATTrackingManager.requestTrackingAuthorization { status in
-                switch (status) {
+                switch status {
                     case .authorized:
                         print("Authorized Tracking Permission")
                     case .denied:
@@ -107,7 +106,7 @@ class BaseViewController: UIViewController {
                     case .restricted:
                         print("Restricted Tracking Permission")
                     @unknown default:
-                        print("Default value Trackin Permission")
+                        print("Default value Tracking Permission")
                 }
 
                 print("IDFA: \(ASIdentifierManager.shared().advertisingIdentifier.uuidString)")
@@ -132,13 +131,13 @@ class BaseViewController: UIViewController {
         notificationReceipt = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification,
                                                                      object: nil,
                                                                      queue: nil) {
-            [weak self] (notificatin: Notification) in
+            [weak self] (notification: Notification) in
             guard let self,
                   let playbackController else {
                 return
             }
 
-            if adIsPlaying && !isBrowserOpen {
+            if adIsPlaying {
                 playbackController.resumeAd()
             }
         }
@@ -148,10 +147,11 @@ class BaseViewController: UIViewController {
         let configuration = [BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId]
         playbackService.findVideo(withConfiguration: configuration,
                                   queryParameters: nil) {
-            [self] (video: BCOVVideo?,
-                    jsonResponse: Any?,
-                    error: Error?) in
-            guard let video,
+            [weak self] (video: BCOVVideo?,
+                         jsonResponse: Any?,
+                         error: Error?) in
+            guard let self,
+                  let video,
                   let playbackController else {
                 if let error {
                     print("ViewController - Error retrieving video: \(error.localizedDescription)")
@@ -177,7 +177,7 @@ class BaseViewController: UIViewController {
                 alert.addAction(.init(title: "OK", style: .default))
 
                 DispatchQueue.main.async { [self] in
-                    present(alert, animated: true)
+                    self.present(alert, animated: true)
                 }
 
                 return
@@ -204,16 +204,11 @@ class BaseViewController: UIViewController {
 extension BaseViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-    }
-
-    func playbackController(_ controller: BCOVPlaybackController!,
-                            playbackSession session: BCOVPlaybackSession,
+                            playbackSession session: BCOVPlaybackSession!,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }
@@ -222,23 +217,17 @@ extension BaseViewController: BCOVPlaybackControllerDelegate {
         // The events are defined BCOVIMAComponent.h.
         if kBCOVIMALifecycleEventAdsLoaderLoaded == lifecycleEvent.eventType,
            let adsManager = lifecycleEvent.properties[kBCOVIMALifecycleEventPropertyKeyAdsManager] as? IMAAdsManager {
-            print("ViewController - Ads loaded.")
-
             // Lower the volume of ads by half.
             adsManager.volume = adsManager.volume / 2.0
             print("ViewController - IMAAdsManager.volume set to \(String(format: "%0.1f", adsManager.volume))")
 
         } else if kBCOVIMALifecycleEventAdsManagerDidReceiveAdEvent == lifecycleEvent.eventType,
-                  let adEvent = lifecycleEvent.properties["adEvent"] as? IMAAdEvent {
+                  let adEvent = lifecycleEvent.properties[kBCOVIMALifecycleEventPropertyKeyAdEvent] as? IMAAdEvent {
             switch adEvent.type {
                 case .STARTED:
-                    print("ViewController - Ad Started.")
                     adIsPlaying = true
                 case .COMPLETE:
-                    print("ViewController - Ad Completed.")
                     adIsPlaying = false
-                case .ALL_ADS_COMPLETED:
-                    print("ViewController - All ads completed.")
                 default:
                     break
             }
@@ -306,13 +295,7 @@ extension BaseViewController: BCOVIMAPlaybackSessionDelegate {
 
 extension BaseViewController: IMALinkOpenerDelegate {
 
-    func linkOpenerDidOpen(inAppLink linkOpener: NSObject) {
-        print("ViewController - linkOpenerDidOpen")
-    }
-
     func linkOpenerDidClose(inAppLink linkOpener: NSObject) {
-        print("ViewController - linkOpenerDidClose")
-
         // Called when the in-app browser has closed.
         guard let playbackController else { return }
         playbackController.resumeAd()
