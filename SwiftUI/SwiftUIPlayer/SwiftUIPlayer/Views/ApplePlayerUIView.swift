@@ -21,10 +21,10 @@ struct ApplePlayerUIView: UIViewControllerRepresentable {
             playbackController.options = [kBCOVAVPlayerViewControllerCompatibilityKey: true]
         }
 
-        return playerModel.avpvc
+        return playerModel.avPlayerViewController
     }
 
-    func updateUIViewController(_ avpvc: AVPlayerViewController, context: Context) {}
+    func updateUIViewController(_ avPlayerViewController: AVPlayerViewController, context: Context) {}
 
 }
 

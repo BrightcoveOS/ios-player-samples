@@ -12,15 +12,15 @@ import BrightcovePlayerSDK
 struct VideoListRowView: View {
 
     fileprivate var id: String? {
-        return video.properties[BCOVVideo.PropertyKeyId] as? String
+        video.properties[BCOVVideo.PropertyKeyId] as? String
     }
 
     fileprivate var name: String? {
-        return video.properties[BCOVVideo.PropertyKeyName] as? String
+        video.properties[BCOVVideo.PropertyKeyName] as? String
     }
 
     fileprivate var urlStr: String? {
-        return video.properties[BCOVVideo.PropertyKeyThumbnail] as? String
+        video.properties[BCOVVideo.PropertyKeyThumbnail] as? String
     }
 
     fileprivate var duration: String {
