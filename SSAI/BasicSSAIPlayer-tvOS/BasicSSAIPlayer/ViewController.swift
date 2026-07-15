@@ -5,6 +5,21 @@
 //  Copyright © 2026 Brightcove, Inc. All rights reserved.
 //
 
+/*
+ * This sample app shows how to play Server-Side Ad Insertion (SSAI) content on
+ * tvOS using Dynamic Delivery.
+ *
+ * An SSAI session provider is created with
+ * `BCOVPlayerSDKManager.createSSAISessionProvider(withUpstreamSessionProvider:)`
+ * and chained on top of a FairPlay session provider, then used as the session
+ * provider for the playback controller. The ad-configuration id is supplied as
+ * a query parameter (`BCOVPlaybackService.ParamaterKeyAdConfigId`) when the
+ * video is requested, and playback is presented through `BCOVTVPlayerView`.
+ *
+ * Because SSAI relies on ad tracking, the app requests App Tracking
+ * Transparency authorization before loading content.
+ */
+
 import AdSupport
 import AppTrackingTransparency
 import UIKit
@@ -30,8 +45,6 @@ final class ViewController: UIViewController {
     fileprivate lazy var playerView: BCOVTVPlayerView? = {
         let options = BCOVTVPlayerViewOptions()
         options.presentingViewController = self
-        //options.hideControlsInterval = 3000
-        //options.hideControlsAnimationDuration = 0.2
 
         guard let playerView = BCOVTVPlayerView(options: options) else {
             return nil
@@ -71,7 +84,7 @@ final class ViewController: UIViewController {
     }()
 
     override var preferredFocusEnvironments: [UIFocusEnvironment] {
-        return [playerView?.controlsView ?? self]
+        [playerView?.controlsView ?? self]
     }
 
     override func viewDidLoad() {
@@ -97,7 +110,7 @@ final class ViewController: UIViewController {
                     case .restricted:
                         print("Restricted Tracking Permission")
                     @unknown default:
-                        print("Default value Trackin Permission")
+                        print("Default value Tracking Permission")
                 }
 
                 print("IDFA: \(ASIdentifierManager.shared().advertisingIdentifier.uuidString)")
@@ -171,16 +184,11 @@ final class ViewController: UIViewController {
 extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-    }
-
-    func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }

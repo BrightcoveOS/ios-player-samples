@@ -75,12 +75,12 @@ final class ViewController: UIViewController {
     }()
 
     fileprivate lazy var fullscreenVideoViewConstraints: [NSLayoutConstraint] = {
-        var insets = view.safeAreaInsets
+        let insets = view.safeAreaInsets
         return [
-            videoView.topAnchor.constraint(equalTo: fullscreenViewController.view.topAnchor, constant:insets.top),
+            videoView.topAnchor.constraint(equalTo: fullscreenViewController.view.topAnchor, constant: insets.top),
             videoView.rightAnchor.constraint(equalTo: fullscreenViewController.view.rightAnchor),
             videoView.leftAnchor.constraint(equalTo: fullscreenViewController.view.leftAnchor),
-            videoView.bottomAnchor.constraint(equalTo: fullscreenViewController.view.bottomAnchor, constant:-insets.bottom)
+            videoView.bottomAnchor.constraint(equalTo: fullscreenViewController.view.bottomAnchor, constant: -insets.bottom)
         ]
     }()
 
@@ -175,16 +175,11 @@ final class ViewController: UIViewController {
 extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-    }
-
-    func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }

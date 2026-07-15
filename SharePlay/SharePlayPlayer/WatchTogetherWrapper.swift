@@ -37,6 +37,7 @@ final class WatchTogetherWrapper: NSObject {
     weak var playbackController: BCOVPlaybackController?
 
     fileprivate var subscriptions = [AnyCancellable]()
+    fileprivate var listenerTask: Task<Void, Never>?
     fileprivate var watchTogether: WatchTogether?
     fileprivate var result: GroupActivityActivationResult?
     fileprivate var groupSession: GroupSession<WatchTogether>? {
@@ -84,10 +85,11 @@ final class WatchTogetherWrapper: NSObject {
             let result = await watchTogether.prepareForActivation()
             switch result {
                 case .activationPreferred:
-                    let didActivate = try await watchTogether.activate()
-                    if didActivate {
-                        delegate?.activityWasActivated()
-                    } else {
+                    do {
+                        let didActivate = try await watchTogether.activate()
+                        didActivate ? delegate?.activityWasActivated() : delegate?.activityFailedActivation()
+                    } catch {
+                        print("WatchTogetherWrapper - activation error: \(error.localizedDescription)")
                         delegate?.activityFailedActivation()
                     }
                     break
@@ -106,14 +108,20 @@ final class WatchTogetherWrapper: NSObject {
         }
     }
 
+    deinit {
+        listenerTask?.cancel()
+    }
+
     fileprivate func startListening() {
-        Task.init(priority: TaskPriority.background) {
+        listenerTask = Task(priority: .background) { [weak self] in
             for await groupSession in WatchTogether.sessions() {
+                guard let self else { return }
+
                 // Set the app's active group session.
                 self.groupSession = groupSession
 
                 // Remove previous subscriptions.
-                subscriptions.removeAll()
+                self.subscriptions.removeAll()
 
                 // Observe changes to the session state.
                 groupSession.$state.sink { [weak self] state in
@@ -134,7 +142,7 @@ final class WatchTogetherWrapper: NSObject {
                         self?.delegate?.groupSessionWasJoined()
                     }
 
-                }.store(in: &subscriptions)
+                }.store(in: &self.subscriptions)
 
                 // Observe when the local user or a remote participant starts an activity.
                 groupSession.$activity.sink { [playbackController] activity in
@@ -163,7 +171,7 @@ final class WatchTogetherWrapper: NSObject {
 
                     }
 
-                }.store(in: &subscriptions)
+                }.store(in: &self.subscriptions)
             }
         }
     }

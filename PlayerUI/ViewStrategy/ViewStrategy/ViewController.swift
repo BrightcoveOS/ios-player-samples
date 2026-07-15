@@ -5,6 +5,19 @@
 //  Copyright © 2026 Brightcove, Inc. All rights reserved.
 //
 
+/*
+ * This sample app shows how to build a `BCOVPlaybackController` with a custom
+ * view strategy.
+ *
+ * A view strategy is a closure the SDK calls to build the controller's `view`.
+ * It is passed to
+ * `BCOVPlayerSDKManager.createPlaybackController(withSessionProvider:viewStrategy:)`.
+ * Here the strategy composes the SDK's video view and a custom
+ * `ViewStrategyCustomControls` view into a single container, and registers the
+ * controls as a session consumer with `-add:` so they receive playback progress
+ * and lifecycle updates.
+ */
+
 import UIKit
 import BrightcovePlayerSDK
 
@@ -134,16 +147,11 @@ final class ViewController: UIViewController {
 extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-    }
-
-    func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }

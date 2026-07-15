@@ -5,6 +5,19 @@
 //  Copyright © 2026 Brightcove, Inc. All rights reserved.
 //
 
+/*
+ * This sample app shows the basic setup for playing a single video from
+ * Video Cloud: `BCOVPlaybackService.findVideo` retrieves the video and it is
+ * played in a `BCOVPUIPlayerView` driven by a playback controller.
+ *
+ * It also demonstrates several features layered on top of basic playback:
+ * AirPlay (external playback plus toggling the route detector), background
+ * audio via the `AVAudioSession` category, Picture-in-Picture through the
+ * player view delegate, and lock-screen Now Playing info and remote commands
+ * via `MPRemoteCommandCenter` / `MPNowPlayingInfoCenter` (see NowPlayingHandler),
+ * including artwork and audio-only assets built from Video Cloud custom fields.
+ */
+
 import AVKit
 import UIKit
 import BrightcovePlayerSDK
@@ -78,13 +91,13 @@ final class ViewController: UIViewController {
         return playbackController
     }()
 
-    fileprivate lazy var statusBarHidden = false {
+    fileprivate var statusBarHidden = false {
         didSet {
             setNeedsStatusBarAppearanceUpdate()
         }
     }
 
-    fileprivate lazy var nowPlayingHandler: NowPlayingHandler? = nil
+    fileprivate var nowPlayingHandler: NowPlayingHandler?
 
     fileprivate weak var currentPlayer: AVPlayer?
 
@@ -154,18 +167,18 @@ final class ViewController: UIViewController {
                 if currentPlayer.isMuted {
                     try AVAudioSession.sharedInstance().setCategory(.playback, options: .mixWithOthers)
                 } else {
-                    try AVAudioSession.sharedInstance().setCategory(.playback, options: AVAudioSession.CategoryOptions(rawValue: 0))
+                    try AVAudioSession.sharedInstance().setCategory(.playback, options: [])
                 }
             } else {
-                try AVAudioSession.sharedInstance().setCategory(.playback, options: AVAudioSession.CategoryOptions(rawValue: 0))
+                try AVAudioSession.sharedInstance().setCategory(.playback, options: [])
             }
         } catch {
-            print("AppDelegate - Error setting AVAudioSession category. Because of this, there may be no sound. \(error)")
+            print("ViewController - Error setting AVAudioSession category. Because of this, there may be no sound. \(error)")
         }
     }
 
     @IBAction
-    fileprivate func  muteButtonPressed(_ button: UIButton) {
+    fileprivate func muteButtonPressed(_ button: UIButton) {
         guard let currentPlayer else { return }
 
         if currentPlayer.isMuted {
@@ -187,8 +200,6 @@ extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
                             didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-
         currentPlayer = session.player
 
         if let routeDetector = playerView?.controlsView?.routeDetector {
@@ -202,7 +213,7 @@ extension ViewController: BCOVPlaybackControllerDelegate {
                             playbackSession session: BCOVPlaybackSession!,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }
@@ -213,12 +224,6 @@ extension ViewController: BCOVPlaybackControllerDelegate {
             // https://developer.apple.com/documentation/avfoundation/avroutedetector/2915762-routedetectionenabled
             routeDetector.isRouteDetectionEnabled = false
         }
-    }
-
-    func playbackController(_ controller: BCOVPlaybackController!,
-                            playbackSession session: BCOVPlaybackSession!,
-                            didProgressTo progress: TimeInterval) {
-        print("Progress: \(progress) seconds")
     }
 
     func playbackController(_ controller: BCOVPlaybackController!,
@@ -242,22 +247,6 @@ extension ViewController: BCOVPUIPlayerViewDelegate {
     func playerView(_ playerView: BCOVPUIPlayerView!,
                     willTransitionTo screenMode: BCOVPUIScreenMode) {
         statusBarHidden = screenMode == .full
-    }
-
-    func pictureInPictureControllerDidStartPicture(inPicture pictureInPictureController: AVPictureInPictureController) {
-        print("pictureInPictureControllerDidStartPicture")
-    }
-
-    func pictureInPictureControllerDidStopPicture(inPicture pictureInPictureController: AVPictureInPictureController) {
-        print("pictureInPictureControllerDidStopPicture")
-    }
-
-    func pictureInPictureControllerWillStartPicture(inPicture pictureInPictureController: AVPictureInPictureController) {
-        print("pictureInPictureControllerWillStartPicture")
-    }
-
-    func pictureInPictureControllerWillStopPicture(inPicture pictureInPictureController: AVPictureInPictureController) {
-        print("pictureInPictureControllerWillStopPicture")
     }
 
     func picture(_ pictureInPictureController: AVPictureInPictureController!,

@@ -18,7 +18,6 @@ struct ContentView: View {
 
     enum Tab {
         case videos
-        case other
     }
 
     var body: some View {
@@ -28,12 +27,6 @@ struct ContentView: View {
                     Label("Videos", systemImage: "list.triangle")
                 }
                 .tag(Tab.videos)
-
-            Text("Hello, world!")
-                .tabItem {
-                    Label("Other", systemImage: "info")
-                }
-                .tag(Tab.other)
         }
     }
 }

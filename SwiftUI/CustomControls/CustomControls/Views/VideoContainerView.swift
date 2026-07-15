@@ -14,7 +14,7 @@ struct VideoContainerView: UIViewRepresentable {
     let view: UIView?
 
     func makeUIView(context: Context) -> UIView {
-        return view ?? UIView(frame: .zero)
+        view ?? UIView(frame: .zero)
     }
 
     func updateUIView(_ uiView: UIView, context: Context) {}

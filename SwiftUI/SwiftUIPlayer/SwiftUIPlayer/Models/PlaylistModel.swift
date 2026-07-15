@@ -44,7 +44,7 @@ final class PlaylistModel: ObservableObject {
                 if let error {
                     print("PlaylistModel - Error retrieving video playlist: \(error.localizedDescription)")
                 }
-                
+
                 return
             }
 

@@ -24,7 +24,7 @@ final class VideoModel {
     }()
 
     func requestContentFromPlaybackService() -> Future<BCOVVideo, Error> {
-        return Future<BCOVVideo, Error> { [self] promise in
+        Future<BCOVVideo, Error> { [self] promise in
             let configuration = [BCOVPlaybackService.ConfigurationKeyAssetID: kVideoId]
 
             playbackService.findVideo(withConfiguration: configuration,

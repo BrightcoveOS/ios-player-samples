@@ -9,7 +9,7 @@
 // The PlayerUI code is now integrated in the BrightcovePlayerSDK module, so you
 // can begin using it without importing any other modules besides the BrightcovePlayerSDK.
 //
-// There are five sample layouts. When you run the app, you can dynamically
+// There are six sample layouts. When you run the app, you can dynamically
 // switch between all the layouts to see them in action.
 //
 // 1 - Built-in VOD Controls
@@ -93,7 +93,7 @@ final class ViewController: UIViewController {
         func setup(forControlsView controlsView: BCOVPUIBasicControlView,
                    compactLayoutMaximumWidth: CGFloat) {
 
-            lazy var controlLayout: BCOVPUIControlLayout? = nil
+            var controlLayout: BCOVPUIControlLayout? = nil
 
             switch self {
                 case .Basic:
@@ -162,12 +162,12 @@ final class ViewController: UIViewController {
         playerView.frame = videoContainerView.bounds
         videoContainerView.addSubview(playerView)
 
-        if playerView.controlsView != nil {
-            playerView.controlsView.durationLabel.accessibilityLabelPrefix = "Total Time"
-            playerView.controlsView.currentTimeLabel.accessibilityLabelPrefix = "As of now"
-            playerView.controlsView.progressSlider.accessibilityLabel = "Timeline"
+        if let controlsView = playerView.controlsView {
+            controlsView.durationLabel.accessibilityLabelPrefix = "Total Time"
+            controlsView.currentTimeLabel.accessibilityLabelPrefix = "As of now"
+            controlsView.progressSlider.accessibilityLabel = "Timeline"
 
-            playerView.controlsView.setButtonsAccessibilityDelegate(self)
+            controlsView.setButtonsAccessibilityDelegate(self)
         }
 
         return playerView
@@ -199,7 +199,7 @@ final class ViewController: UIViewController {
     }()
 
     fileprivate lazy var compactLayoutMaximumWidth: CGFloat = {
-        return (view.frame.width + view.frame.height) / 2
+        (view.frame.width + view.frame.height) / 2
     }()
 
     // Which layout are we displaying?
@@ -214,7 +214,7 @@ final class ViewController: UIViewController {
         }
     }
 
-    fileprivate lazy var statusBarHidden = false {
+    fileprivate var statusBarHidden = false {
         didSet {
             setNeedsStatusBarAppearanceUpdate()
         }
@@ -238,14 +238,13 @@ final class ViewController: UIViewController {
 
         guard let playerView,
               let controlsView = playerView.controlsView,
-              let hideableLayoutView = controlsView.layout.allLayoutItems.first(where: { ($0 as? BCOVPUILayoutView)?.tag == BCOVPUIViewTag.buttonPlayback.rawValue }) as? BCOVPUILayoutView else { return }
+              let layout = controlsView.layout,
+              let hideableLayoutView = layout.allLayoutItems.first(where: { ($0 as? BCOVPUILayoutView)?.tag == BCOVPUIViewTag.buttonPlayback.rawValue }) as? BCOVPUILayoutView else { return }
 
         // When the device is shaken, toggle the removal of the saved layout view.
-        print("motionBegan - hiding/showing layout view")
-
         hideableLayoutView.isRemoved = !hideableLayoutView.isRemoved
 
-        playerView.controlsView.setNeedsLayout()
+        controlsView.setNeedsLayout()
     }
 
     @objc
@@ -338,16 +337,11 @@ final class ViewController: UIViewController {
 extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-    }
-
-    func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }

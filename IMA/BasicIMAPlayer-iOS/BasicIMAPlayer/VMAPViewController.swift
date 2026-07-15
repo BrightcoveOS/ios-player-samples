@@ -14,7 +14,7 @@ final class VMAPViewController: BaseViewController {
 
     override func setupPlaybackController() {
         let imaSettings = IMASettings()
-        imaSettings.language = NSLocale.current.languageCode!
+        imaSettings.language = NSLocale.current.languageCode ?? "en"
 
         let renderSettings = IMAAdsRenderingSettings()
         renderSettings.linkOpenerPresentingController = self
@@ -31,7 +31,7 @@ final class VMAPViewController: BaseViewController {
 
         var adsRequestPolicy: BCOVIMAAdsRequestPolicy?
 
-        if (useVideoProperties) {
+        if useVideoProperties {
             adsRequestPolicy = .videoPropertiesVMAPAdTagUrl()
         } else {
             adsRequestPolicy = .init(vmapAdTagUrl: kVMAPAdTagURL)

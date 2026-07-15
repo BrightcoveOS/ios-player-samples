@@ -5,6 +5,19 @@
 //  Copyright © 2026 Brightcove, Inc. All rights reserved.
 //
 
+/*
+ * This sample app shows how to play a live HLS stream using the live / DVR
+ * control layout.
+ *
+ * The player view is given a controls view built with
+ * `BCOVPUIBasicControlView.withLiveDVRLayout()`, which presents the live-edge
+ * indicator and DVR scrubbing controls appropriate for a live stream.
+ *
+ * The video is built directly from a raw HLS URL with `BCOVSource` and
+ * `BCOVVideo` rather than being retrieved from the Playback Service, so set
+ * `kVideoURLString` to your own live HLS stream before running.
+ */
+
 import UIKit
 import BrightcovePlayerSDK
 
@@ -59,14 +72,14 @@ final class ViewController: UIViewController {
         return playbackController
     }()
 
-    fileprivate lazy var statusBarHidden = false {
+    fileprivate var statusBarHidden = false {
         didSet {
             setNeedsStatusBarAppearanceUpdate()
         }
     }
 
     override var prefersStatusBarHidden: Bool {
-        return statusBarHidden
+        statusBarHidden
     }
 
     override func viewDidLoad() {
@@ -118,16 +131,11 @@ final class ViewController: UIViewController {
 extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-    }
-
-    func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }

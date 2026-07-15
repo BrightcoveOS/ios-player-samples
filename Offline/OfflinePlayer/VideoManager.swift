@@ -19,7 +19,7 @@ let kPlaylistRefId = "brightcove-native-sdk-plist"
 
 final class VideoManager: NSObject {
 
-    static var shared = VideoManager()
+    static let shared = VideoManager()
 
     fileprivate lazy var playbackService: BCOVPlaybackService = {
         let factory = BCOVPlaybackServiceRequestFactory(withAccountId: kAccountId,
@@ -27,9 +27,9 @@ final class VideoManager: NSObject {
         return .init(withRequestFactory: factory)
     }()
 
-    fileprivate(set) lazy var videos: [BCOVVideo] = .init()
-    fileprivate(set) lazy var thumbnails: [String: UIImage] = .init()
-    fileprivate(set) lazy var downloadSize: [String: Double] = .init()
+    fileprivate(set) var videos: [BCOVVideo] = .init()
+    fileprivate(set) var thumbnails: [String: UIImage] = .init()
+    fileprivate(set) var downloadSize: [String: Double] = .init()
 
     func retrievePlaylist(with configuration: [String: Any],
                           queryParameters: [String: Any]?,

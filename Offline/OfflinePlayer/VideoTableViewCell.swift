@@ -10,7 +10,7 @@ import UIKit
 import BrightcovePlayerSDK
 
 
-protocol VideoTableViewCellDelegate: class {
+protocol VideoTableViewCellDelegate: AnyObject {
     func performDownload(forVideo video: BCOVVideo)
 }
 
@@ -43,7 +43,7 @@ final class VideoTableViewCell: UITableViewCell {
                let offlineManager = BCOVOfflineVideoManager.sharedManager,
                let offlineVideoStatus = offlineManager.offlineVideoStatus(forToken: offlineVideoToken) {
                 progressView.isHidden = offlineVideoStatus.downloadState == .completed
-                progressView.progress =  Float(offlineVideoStatus.downloadPercent / 100.0)
+                progressView.progress = Float(offlineVideoStatus.downloadPercent / 100.0)
             }
 
             accessoryView = !(UIDevice.current.isSimulator && video.usesFairPlay) ? actionAccessoryView : nil

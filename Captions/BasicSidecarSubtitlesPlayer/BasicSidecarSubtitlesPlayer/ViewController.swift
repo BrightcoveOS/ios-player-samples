@@ -19,7 +19,7 @@
  *
  * `-textTracks` creates the array of subtitle dictionaries.
  * When creating these dictionaries, be sure to make note of which fields
- * are required are optional as specified in BCOVSSComponent.h.
+ * are required or optional as specified in BCOVSSComponent.h.
  *
  * Note that in this sample the subtitle track does not match the audio of the
  * video; it's only used as an example.
@@ -126,14 +126,14 @@ final class ViewController: UIViewController {
         ]
     }()
 
-    fileprivate lazy var statusBarHidden = false {
+    fileprivate var statusBarHidden = false {
         didSet {
             setNeedsStatusBarAppearanceUpdate()
         }
     }
 
     override var prefersStatusBarHidden: Bool {
-        return statusBarHidden
+        statusBarHidden
     }
 
     override func viewDidLoad() {
@@ -211,16 +211,11 @@ final class ViewController: UIViewController {
 extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-    }
-
-    func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }

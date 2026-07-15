@@ -40,7 +40,7 @@ final class ViewController: UIViewController {
         playerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         let sampleInfoVC = SampleInfoViewController(playerView: playerView)
-        sampleInfoVC.preferredContentSize = CGSizeMake(0, 200)
+        sampleInfoVC.preferredContentSize = CGSize(width: 0, height: 200)
         playerView.controlsView.customInfoViewControllers = [sampleInfoVC]
 
         view.addSubview(playerView)
@@ -57,7 +57,7 @@ final class ViewController: UIViewController {
         let fps = sdkManager.createFairPlaySessionProvider(withApplicationCertificate: nil,
                                                            authorizationProxy: authProxy,
                                                            upstreamSessionProvider: nil)
-        guard let playerView else{
+        guard let playerView else {
             return nil
         }
 
@@ -129,16 +129,11 @@ final class ViewController: UIViewController {
 extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-    }
-
-    func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }

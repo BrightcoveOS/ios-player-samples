@@ -9,8 +9,8 @@ Basic Dynamic Delivery SSAI playback: the sample chains a Brightcove SSAI sessio
 | `BasicSSAIPlayer/ViewController.swift` | SSAI session provider, content request with the ad-config id, companion slot |
 | `BasicSSAIPlayer/AppDelegate.swift` | Configures `AVAudioSession` for playback |
 
-## Optional: Open Measurement and PAL
+## Optional: Open Measurement
 
-The project links the Open Measurement product for IAB viewability and includes commented-out scaffolding for Google's PAL SDK. Both are opt-in and off by default. For setup — the OMID partner signature, the VAST 4.1 ad-verification requirements, and adding the PAL SDK — see the [Brightcove Player SDK for iOS](https://github.com/brightcove/brightcove-player-sdk-ios) documentation.
+The project links the Open Measurement product for IAB viewability. It is opt-in and off by default. For setup — the OMID partner signature and the VAST 4.1 ad-verification requirements — see the [Brightcove Player SDK for iOS](https://github.com/brightcove/brightcove-player-sdk-ios) documentation.
 
 See the [SSAI README](../) for shared setup.

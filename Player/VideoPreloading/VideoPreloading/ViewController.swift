@@ -5,6 +5,21 @@
 //  Copyright © 2026 Brightcove, Inc. All rights reserved.
 //
 
+/*
+ * This sample app shows how to seamlessly advance between videos by preloading
+ * the next video while the current one is still playing ("double buffering").
+ *
+ * Two `BCOVPlaybackController`s share a single `BCOVPUIPlayerView`. While the
+ * current controller plays, `VideoPreloadManager` loads the upcoming video into
+ * the other controller so it is ready to display the moment playback ends.
+ * Preloading starts once the current video passes the 75% progress threshold
+ * (`kPreloadNextSessionThreshold`), reported through `-didProgressTo`. Because
+ * auto-advance is disabled, the manager swaps the player view's controller on
+ * the playback-end lifecycle event.
+ *
+ * The playlist is fetched by reference id with `-findPlaylistWithConfiguration:`.
+ */
+
 import UIKit
 import BrightcovePlayerSDK
 
@@ -46,14 +61,14 @@ final class ViewController: UIViewController {
         return playerView
     }()
 
-    fileprivate lazy var statusBarHidden = false {
+    fileprivate var statusBarHidden = false {
         didSet {
             setNeedsStatusBarAppearanceUpdate()
         }
     }
 
     override var prefersStatusBarHidden: Bool {
-        return statusBarHidden
+        statusBarHidden
     }
 
     fileprivate lazy var videoPreloadManager: VideoPreloadManager? = {
@@ -71,11 +86,12 @@ final class ViewController: UIViewController {
         let configuration = [BCOVPlaybackService.ConfigurationKeyAssetReferenceID: kPlaylistRefId]
         playbackService.findPlaylist(withConfiguration: configuration,
                                      queryParameters: nil) {
-            [self] (playlist: BCOVPlaylist?,
-                    json: Any?,
-                    error: Error?) in
+            [weak self] (playlist: BCOVPlaylist?,
+                         json: Any?,
+                         error: Error?) in
 
-            guard let videoPreloadManager,
+            guard let self,
+                  let videoPreloadManager,
                   let playlist else {
                 if let error {
                     print("ViewController - Error retrieving video playlist: \(error.localizedDescription)")
@@ -101,11 +117,6 @@ final class ViewController: UIViewController {
 extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-    }
-
-    func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
         if kBCOVPlaybackSessionLifecycleEventEnd == lifecycleEvent.eventType,
@@ -115,12 +126,10 @@ extension ViewController: BCOVPlaybackControllerDelegate {
     }
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            playbackSession session: BCOVPlaybackSession!,
+                            playbackSession session: BCOVPlaybackSession,
                             didProgressTo progress: TimeInterval) {
-        print("Progress: \(progress) seconds")
-
         if let videoPreloadManager {
-            videoPreloadManager.preloadNextVideoIfNeccessary(session)
+            videoPreloadManager.preloadNextVideoIfNecessary(session)
         }
     }
 }

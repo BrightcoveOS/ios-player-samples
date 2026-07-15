@@ -5,6 +5,24 @@
 //  Copyright © 2026 Brightcove, Inc. All rights reserved.
 //
 
+/*
+ * This sample app shows how to layer client-side Google IMA ads (a VMAP tag) on
+ * top of server-side ad insertion (SSAI), for a Server-Side Live + IMA workflow.
+ *
+ * The playback controller is built from a chain of session providers created by
+ * `BCOVPlayerSDKManager`. A FairPlay provider is the base; it is the upstream of
+ * the IMA provider, which is in turn the upstream of the SSAI provider. The SSAI
+ * provider is handed to the playback controller, so each session flows
+ * FairPlay → IMA → SSAI.
+ *
+ * `BCOVIMAAdsRequestPolicy(vmapAdTagUrl:)` selects a VMAP / Server Side Ad Rules
+ * policy for the IMA ads, and `BCOVIMAPlaybackSessionDelegate` lets the sample
+ * adjust each `IMAAdsRequest` before ads are loaded.
+ *
+ * FairPlay content can only be decrypted on physical devices, so the sample
+ * detects the simulator and displays a warning instead of playing.
+ */
+
 import AdSupport
 import AppTrackingTransparency
 import UIKit
@@ -59,14 +77,14 @@ final class ViewController: UIViewController {
                                                          applicationId: nil)
 
         let imaSettings = IMASettings()
-        imaSettings.language = NSLocale.current.languageCode!
+        imaSettings.language = NSLocale.current.languageCode ?? "en"
 
         let renderSettings = IMAAdsRenderingSettings()
         renderSettings.linkOpenerPresentingController = self
         renderSettings.linkOpenerDelegate = self
 
         // BCOVIMAAdsRequestPolicy provides methods to specify VAST or VMAP/Server Side Ad Rules. Select the appropriate method to select your ads policy.
-        let adsRequestPolicy = BCOVIMAAdsRequestPolicy.init(vmapAdTagUrl: kViewControllerVMAPAdTagURL)
+        let adsRequestPolicy = BCOVIMAAdsRequestPolicy(vmapAdTagUrl: kViewControllerVMAPAdTagURL)
 
         // BCOVIMAPlaybackSessionDelegate defines -willCallIMAAdsLoaderRequestAdsWithRequest:forPosition:
         // which allows us to modify the IMAAdsRequest object before it is used to load ads.
@@ -102,14 +120,14 @@ final class ViewController: UIViewController {
         return playbackController
     }()
 
-    fileprivate lazy var statusBarHidden = false {
+    fileprivate var statusBarHidden = false {
         didSet {
             setNeedsStatusBarAppearanceUpdate()
         }
     }
 
     override var prefersStatusBarHidden: Bool {
-        return statusBarHidden
+        statusBarHidden
     }
 
     override func viewDidLoad() {
@@ -135,7 +153,7 @@ final class ViewController: UIViewController {
                     case .restricted:
                         print("Restricted Tracking Permission")
                     @unknown default:
-                        print("Default value Trackin Permission")
+                        print("Default value Tracking Permission")
                 }
 
                 print("IDFA: \(ASIdentifierManager.shared().advertisingIdentifier.uuidString)")
@@ -208,16 +226,11 @@ final class ViewController: UIViewController {
 extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-    }
-
-    func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }

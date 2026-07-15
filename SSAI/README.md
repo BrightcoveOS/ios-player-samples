@@ -22,7 +22,7 @@ The samples request App Tracking Transparency authorization and enable arbitrary
 
 | Sample | Platform | What it demonstrates |
 |---|---|---|
-| [`BasicSSAIPlayer-iOS`](BasicSSAIPlayer-iOS/) | iOS | Dynamic Delivery SSAI VOD playback with companion ad slots; optional Open Measurement and Google PAL |
+| [`BasicSSAIPlayer-iOS`](BasicSSAIPlayer-iOS/) | iOS | Dynamic Delivery SSAI VOD playback with companion ad slots; optional Open Measurement |
 | [`BasicSSAIPlayer-tvOS`](BasicSSAIPlayer-tvOS/) | tvOS | The same SSAI playback on tvOS with `BCOVTVPlayerView` |
 | [`SLS-IMA-iOS`](SLS-IMA-iOS/) | iOS | Client-side Google IMA ads (a VMAP tag) layered on SSAI, for a Server-Side Live + IMA workflow |
 | [`SLS-IMA-tvOS`](SLS-IMA-tvOS/) | tvOS | The same IMA-over-SSAI chain on tvOS |

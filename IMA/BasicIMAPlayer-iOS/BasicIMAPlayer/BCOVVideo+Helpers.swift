@@ -21,8 +21,8 @@ extension BCOVVideo {
             return self
         }
 
-        let durationMiliSeconds = durationNum.doubleValue
-        let midpointSeconds = (durationMiliSeconds / 2) / 1000
+        let durationMilliseconds = durationNum.doubleValue
+        let midpointSeconds = (durationMilliseconds / 2) / 1000
         let midpointTime = CMTimeMakeWithSeconds(midpointSeconds, preferredTimescale: 1)
 
         let cuePointPositionTypeAfter = CMTime.positiveInfinity

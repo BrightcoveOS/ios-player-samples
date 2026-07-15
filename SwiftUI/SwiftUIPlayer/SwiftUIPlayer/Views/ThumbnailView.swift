@@ -11,21 +11,21 @@ import BrightcovePlayerSDK
 
 struct ThumbnailView: View {
 
-    @ObservedObject
-    var imageLoader:ImageLoader
+    @StateObject
+    var imageLoader: ImageLoader
 
     let urlStr: String?
 
     init(urlStr: String?) {
         self.urlStr = urlStr
-        imageLoader = ImageLoader(urlString: urlStr ?? "")
+        _imageLoader = StateObject(wrappedValue: ImageLoader(urlString: urlStr ?? ""))
     }
 
     var body: some View {
         Image(uiImage: UIImage(data: imageLoader.data) ?? UIImage())
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .frame(width:50, height:50)
+            .frame(width: 50, height: 50)
     }
 }
 

@@ -183,7 +183,7 @@ final class ViewController: UIViewController {
     fileprivate var videoItem: BCOVPulseVideoItem?
     fileprivate var video: BCOVVideo?
 
-    fileprivate lazy var statusBarHidden = false {
+    fileprivate var statusBarHidden = false {
         didSet {
             setNeedsStatusBarAppearanceUpdate()
         }
@@ -216,7 +216,7 @@ final class ViewController: UIViewController {
                     case .restricted:
                         print("Restricted Tracking Permission")
                     @unknown default:
-                        print("Default value Trackin Permission")
+                        print("Default value Tracking Permission")
                 }
 
                 print("IDFA: \(ASIdentifierManager.shared().advertisingIdentifier.uuidString)")
@@ -263,16 +263,11 @@ final class ViewController: UIViewController {
 extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-    }
-
-    func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }
@@ -321,7 +316,7 @@ extension ViewController: BCOVPUIPlayerViewDelegate {
 }
 
 
-// MARK: - BCOVPlaybackControllerDelegate
+// MARK: - BCOVPulsePlaybackSessionDelegate
 
 extension ViewController: BCOVPulsePlaybackSessionDelegate {
 
@@ -355,9 +350,9 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let videoCell = tableView.dequeueReusableCell(withIdentifier: "VideoTableViewCell",
-                                                      for: indexPath) as UITableViewCell
+                                                      for: indexPath)
 
-        let item = videoItems[indexPath.item]
+        let item = videoItems[indexPath.row]
 
         videoCell.textLabel?.text = item.title ?? ""
         videoCell.textLabel?.textColor = .black

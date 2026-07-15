@@ -13,7 +13,9 @@ final class NowPlayingHandler: NSObject {
 
     fileprivate weak var session: BCOVPlaybackSession?
 
-    fileprivate lazy var nowPlayingInfo: [String: AnyHashable] = [:]
+    fileprivate var nowPlayingInfo: [String: AnyHashable] = [:]
+
+    private var commandTargets: [(MPRemoteCommand, Any)] = []
 
     init(with playbackController: BCOVPlaybackController) {
         super.init()
@@ -21,17 +23,20 @@ final class NowPlayingHandler: NSObject {
         playbackController.add(self)
 
         let center = MPRemoteCommandCenter.shared()
-        center.pauseCommand.addTarget { _ in
+
+        let pauseTarget = center.pauseCommand.addTarget { _ in
             playbackController.pause()
             return .success
         }
+        commandTargets.append((center.pauseCommand, pauseTarget))
 
-        center.playCommand.addTarget { _ in
+        let playTarget = center.playCommand.addTarget { _ in
             playbackController.play()
             return .success
         }
+        commandTargets.append((center.playCommand, playTarget))
 
-        center.changePlaybackPositionCommand.addTarget { command in
+        let changePlaybackPositionTarget = center.changePlaybackPositionCommand.addTarget { command in
             guard let playbackPositionCommandEvent = command as? MPChangePlaybackPositionCommandEvent else {
                 return .commandFailed
             }
@@ -41,9 +46,10 @@ final class NowPlayingHandler: NSObject {
 
             return .success
         }
+        commandTargets.append((center.changePlaybackPositionCommand, changePlaybackPositionTarget))
 
-        center.togglePlayPauseCommand.addTarget { [self] _ in
-            guard let session, let player = session.player else { return .commandFailed }
+        let togglePlayPauseTarget = center.togglePlayPauseCommand.addTarget { [weak self] _ in
+            guard let self, let session, let player = session.player else { return .commandFailed }
 
             if player.timeControlStatus == .paused {
                 playbackController.play()
@@ -53,10 +59,17 @@ final class NowPlayingHandler: NSObject {
 
             return .success
         }
+        commandTargets.append((center.togglePlayPauseCommand, togglePlayPauseTarget))
+    }
+
+    deinit {
+        for (cmd, token) in commandTargets {
+            cmd.removeTarget(token)
+        }
     }
 
     func updateNowPlayingInfoForAudioOnly() {
-        guard let video = session?.video , let customFields = video.properties["custom_fields"] as? [String: Any] else {
+        guard let video = session?.video, let customFields = video.properties["custom_fields"] as? [String: Any] else {
             return
         }
 
@@ -95,7 +108,6 @@ extension NowPlayingHandler {
             let infoCenter = MPNowPlayingInfoCenter.default()
             nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = rate
             infoCenter.nowPlayingInfo = nowPlayingInfo
-            self.nowPlayingInfo = nowPlayingInfo
         }
     }
 }
@@ -121,7 +133,7 @@ extension NowPlayingHandler: BCOVPlaybackSessionConsumer {
                                    context: nil)
         }
 
-        nowPlayingInfo = [String: AnyHashable]()
+        nowPlayingInfo = [:]
 
         guard let video = session.video, let videoName = video.localizedName(forLocale: nil),
               let durationNum = video.properties[BCOVVideo.PropertyKeyDuration] as? NSNumber else {
@@ -139,22 +151,27 @@ extension NowPlayingHandler: BCOVPlaybackSessionConsumer {
 
         if let posterURL = video.properties[BCOVVideo.PropertyKeyPoster] as? String,
            let url = URL(string: posterURL) {
-            DispatchQueue.global(qos: .background).async { [self] in
-                do {
-                    let imageData = try Data(contentsOf: url)
-                    if let image = UIImage(data: imageData) {
-                        nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: image.size) {
-                            _ -> UIImage in
-                            return image
-                        }
-
-                        let infoCenter = MPNowPlayingInfoCenter.default()
-                        infoCenter.nowPlayingInfo = nowPlayingInfo
-                    }
-                } catch {
+            URLSession.shared.dataTask(with: url) { [weak self] (data: Data?,
+                                                                 response: URLResponse?,
+                                                                 error: Error?) in
+                if let error {
                     print("Error getting thumbnail image data: \(error.localizedDescription)")
+                    return
                 }
-            }
+
+                DispatchQueue.main.async {
+                    guard let self,
+                          let data,
+                          let image = UIImage(data: data) else {
+                        return
+                    }
+
+                    self.nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: image.size) { _ in image }
+
+                    let infoCenter = MPNowPlayingInfoCenter.default()
+                    infoCenter.nowPlayingInfo = self.nowPlayingInfo
+                }
+            }.resume()
         }
     }
 

@@ -11,7 +11,7 @@ import GoogleCast
 import BrightcoveGoogleCast
 
 
-@UIApplicationMain
+@main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
@@ -58,7 +58,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         castContainerViewController = GCKCastContext.sharedInstance().createCastContainerController(for: navigationController)
         castContainerViewController?.miniMediaControlsItemEnabled = true
 
-        window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = castContainerViewController
         window?.makeKeyAndVisible()
 

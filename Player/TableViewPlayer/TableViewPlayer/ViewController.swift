@@ -5,6 +5,18 @@
 //  Copyright © 2026 Brightcove, Inc. All rights reserved.
 //
 
+/*
+ * This sample app shows how to play many videos at once in a `UITableView`,
+ * with one `BCOVPlaybackController` per cell loaded from a playlist.
+ *
+ * Running multiple players simultaneously is resource-intensive, so each
+ * controller limits its memory footprint through buffer optimization
+ * (`kBCOVBufferOptimizerMethodKey` with a 1–5 second window) and by disabling
+ * thumbnail seeking. Playback follows the scroll: videos play when the table
+ * stops scrolling and pause when it starts, and only one cell is unmuted at a
+ * time. Live videos are dropped from the list as their sessions advance.
+ */
+
 import UIKit
 import BrightcovePlayerSDK
 
@@ -34,8 +46,8 @@ final class ViewController: UITableViewController {
         return .init(withRequestFactory: factory)
     }()
 
-    fileprivate lazy var playbackConfigurations = [String: PlaybackConfiguration]()
-    fileprivate lazy var videos: [BCOVVideo]? = nil {
+    fileprivate var playbackConfigurations = [String: PlaybackConfiguration]()
+    fileprivate var videos: [BCOVVideo]? {
         didSet {
             guard let videos else { return }
 
@@ -77,7 +89,7 @@ final class ViewController: UITableViewController {
         }
     }
 
-    fileprivate lazy var isScrolling = false
+    fileprivate var isScrolling = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,9 +103,11 @@ final class ViewController: UITableViewController {
         let configuration = [ BCOVPlaybackService.ConfigurationKeyAssetID: kPlaylistId]
         playbackService.findPlaylist(withConfiguration: configuration,
                                      queryParameters: nil) {
-            [self] (playlist: BCOVPlaylist?,
-                    json: Any?,
-                    error: Error?) in
+            [weak self] (playlist: BCOVPlaylist?,
+                         json: Any?,
+                         error: Error?) in
+            guard let self else { return }
+
             guard let playlist else {
                 if let error {
                     print("ViewController - Error retrieving video playlist: \(error.localizedDescription)")
@@ -124,7 +138,7 @@ final class ViewController: UITableViewController {
 
 // MARK: - BCOVPlaybackControllerDelegate
 
-extension ViewController : BCOVPlaybackControllerDelegate {
+extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
                             didAdvanceTo session: BCOVPlaybackSession!) {
@@ -155,7 +169,7 @@ extension ViewController {
 
     override func tableView(_ tableView: UITableView,
                             numberOfRowsInSection section: Int) -> Int {
-        guard let videos else { return 0}
+        guard let videos else { return 0 }
         return videos.count
     }
 

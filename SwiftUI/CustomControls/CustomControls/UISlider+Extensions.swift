@@ -11,7 +11,7 @@ import UIKit
 extension UISlider {
 
     var trackBounds: CGRect {
-        return trackRect(forBounds: bounds)
+        trackRect(forBounds: bounds)
     }
 
     var trackFrame: CGRect {
@@ -21,14 +21,14 @@ extension UISlider {
     }
 
     var thumbBounds: CGRect {
-        return thumbRect(forBounds: frame,
-                         trackRect: trackBounds,
-                         value: value)
+        thumbRect(forBounds: frame,
+                  trackRect: trackBounds,
+                  value: value)
     }
 
     var thumbFrame: CGRect {
-        return thumbRect(forBounds: bounds,
-                         trackRect: trackFrame,
-                         value: value)
+        thumbRect(forBounds: bounds,
+                  trackRect: trackFrame,
+                  value: value)
     }
 }

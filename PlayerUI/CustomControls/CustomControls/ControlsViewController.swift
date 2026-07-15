@@ -12,7 +12,7 @@ import BrightcovePlayerSDK
 fileprivate struct ControlConstants {
     static let VisibleDuration: TimeInterval = 5.0
     static let AnimateInDuration: TimeInterval = 0.1
-    static let AnimateOutDuraton: TimeInterval = 0.2
+    static let AnimateOutDuration: TimeInterval = 0.2
 }
 
 
@@ -31,26 +31,19 @@ final class ControlsViewController: UIViewController {
     weak var currentPlayer: AVPlayer?
     weak var playbackController: BCOVPlaybackController?
 
-    var closedCaptionEnabled: Bool = false {
+    var closedCaptionEnabled = false {
         didSet {
             closedCaptionButton.isEnabled = closedCaptionEnabled
         }
     }
 
     fileprivate var controlTimer: Timer?
-    fileprivate var playingOnSeek: Bool = false
+    fileprivate var playingOnSeek = false
 
     fileprivate lazy var ccMenuController: ClosedCaptionMenuController = {
         let ccMenuController = ClosedCaptionMenuController(style: .grouped)
         ccMenuController.controlsView = self
         return ccMenuController
-    }()
-
-    fileprivate lazy var numberFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.paddingCharacter = "0"
-        formatter.minimumIntegerDigits = 2
-        return formatter
     }()
 
     override func viewDidLoad() {
@@ -75,7 +68,7 @@ final class ControlsViewController: UIViewController {
         if playPauseButton.isSelected {
             if controlsContainer.alpha == 0.0 {
                 fadeControlsIn()
-            } else if (controlsContainer.alpha == 1.0) {
+            } else if controlsContainer.alpha == 1.0 {
                 fadeControlsOut()
             }
         }
@@ -84,7 +77,7 @@ final class ControlsViewController: UIViewController {
     fileprivate func fadeControlsIn() {
         UIView.animate(withDuration: ControlConstants.AnimateInDuration) { [self] in
             showControls()
-        } completion:{ [self] (finished: Bool) in
+        } completion: { [self] (finished: Bool) in
             if finished {
                 reestablishTimer()
             }
@@ -93,7 +86,7 @@ final class ControlsViewController: UIViewController {
 
     @objc
     fileprivate func fadeControlsOut() {
-        UIView.animate(withDuration: ControlConstants.AnimateOutDuraton) { [self] in
+        UIView.animate(withDuration: ControlConstants.AnimateOutDuration) { [self] in
             hideControls()
         }
     }
@@ -127,18 +120,11 @@ final class ControlsViewController: UIViewController {
             return "00:00"
         }
 
-        let hours  = floor(timeInterval / 60.0 / 60.0)
-        let minutes = (timeInterval / 60).truncatingRemainder(dividingBy: 60)
-        let seconds = timeInterval.truncatingRemainder(dividingBy: 60)
-
-        guard let formattedMinutes = numberFormatter.string(from: NSNumber(value: minutes)),
-              let formattedSeconds = numberFormatter.string(from: NSNumber(value: seconds)) else {
-            return nil
-        }
-
-        return (hours > 0 ?
-                "\(hours):\(formattedMinutes):\(formattedSeconds)" :
-                    "\(formattedMinutes):\(formattedSeconds)")
+        let total = Int(timeInterval)
+        let hours = total / 3600
+        let minutes = (total / 60) % 60
+        let seconds = total % 60
+        return hours > 0 ? String(format: "%d:%02d:%02d", hours, minutes, seconds) : String(format: "%02d:%02d", minutes, seconds)
     }
 
     @IBAction
@@ -154,8 +140,8 @@ final class ControlsViewController: UIViewController {
 
     @IBAction
     fileprivate func handlePlayheadSliderTouchEnd(_ slider: UISlider) {
-        if let currentTime = currentPlayer?.currentItem {
-            let newCurrentTime = Float64(slider.value) * CMTimeGetSeconds(currentTime.duration)
+        if let currentItem = currentPlayer?.currentItem {
+            let newCurrentTime = Float64(slider.value) * CMTimeGetSeconds(currentItem.duration)
             let seekToTime = CMTimeMakeWithSeconds(newCurrentTime, preferredTimescale: 600)
 
             playbackController?.seek(to: seekToTime) { [self] (finished: Bool) in
@@ -173,8 +159,8 @@ final class ControlsViewController: UIViewController {
 
     @IBAction
     fileprivate func handlePlayheadSliderValueChanged(_ slider: UISlider) {
-        if let currentTime = currentPlayer?.currentItem {
-            let currentTime = Float64(slider.value) * CMTimeGetSeconds(currentTime.duration)
+        if let currentItem = currentPlayer?.currentItem {
+            let currentTime = Float64(slider.value) * CMTimeGetSeconds(currentItem.duration)
             playheadLabel.text = formatTime(timeInterval: currentTime)
         }
     }
@@ -234,7 +220,7 @@ extension ControlsViewController: BCOVPlaybackSessionConsumer {
 
         switch lifecycleEvent.eventType {
             case kBCOVPlaybackSessionLifecycleEventPlay:
-                playPauseButton?.isSelected = true
+                playPauseButton.isSelected = true
                 reestablishTimer()
             case kBCOVPlaybackSessionLifecycleEventPause:
                 playPauseButton.isSelected = false

@@ -1,6 +1,6 @@
 //
 //  PlayerModel.swift
-//  SwiftUICustomControls
+//  SwiftUIPlayer
 //
 //  Copyright © 2026 Brightcove, Inc. All rights reserved.
 //
@@ -44,10 +44,10 @@ final class PlayerModel: NSObject, ObservableObject {
         return playbackController
     }()
 
-    fileprivate(set) lazy var avpvc: AVPlayerViewController = {
-        let avpvc = AVPlayerViewController()
-        avpvc.delegate = self
-        return avpvc
+    fileprivate(set) lazy var avPlayerViewController: AVPlayerViewController = {
+        let avPlayerViewController = AVPlayerViewController()
+        avPlayerViewController.delegate = self
+        return avPlayerViewController
     }()
 
     fileprivate(set) lazy var bcovPlayerView: BCOVPUIPlayerView? = {
@@ -118,12 +118,10 @@ extension PlayerModel: BCOVPlaybackControllerDelegate {
            let options = controller.options,
            let useNative = options[kBCOVAVPlayerViewControllerCompatibilityKey] as? Bool,
            useNative {
-            avpvc.player = player
+            avPlayerViewController.player = player
         }
 
         currentVideoId = session?.video?.properties[BCOVVideo.PropertyKeyId] as? String
-
-        print("PlayerModel - Advanced to new session.")
     }
 
     func playbackController(_ controller: BCOVPlaybackController!,
@@ -137,7 +135,7 @@ extension PlayerModel: BCOVPlaybackControllerDelegate {
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("PlayerModel - Playback error: \(error.localizedDescription)")
         }

@@ -5,6 +5,23 @@
 //  Copyright © 2026 Brightcove, Inc. All rights reserved.
 //
 
+/*
+ * This sample app shows how to play a Video Cloud video together with remote
+ * participants using SharePlay.
+ *
+ * `WatchTogether` is the `GroupActivity` shared with the group. When the user
+ * starts SharePlay, `WatchTogetherWrapper.activateNewActivity(withVideo:withSource:)`
+ * advertises it; the wrapper then listens for the resulting `GroupSession`,
+ * joins it, and hands the video's source URL to every participant so each
+ * device plays the same content.
+ *
+ * Synchronized playback is driven by AVPlayer's playback coordinator:
+ * `WatchTogetherWrapper` registers as a `BCOVPlaybackSessionConsumer` to obtain
+ * the session's `AVPlayer`, then calls
+ * `player.playbackCoordinator.coordinateWithSession(_:)` so play, pause, and
+ * seek stay in sync across the group.
+ */
+
 import UIKit
 import BrightcovePlayerSDK
 
@@ -97,14 +114,14 @@ final class ViewController: UIViewController {
 
     fileprivate var playWithSharePlay = false
 
-    fileprivate lazy var statusBarHidden = false {
+    fileprivate var statusBarHidden = false {
         didSet {
             setNeedsStatusBarAppearanceUpdate()
         }
     }
 
     override var prefersStatusBarHidden: Bool {
-        return statusBarHidden
+        statusBarHidden
     }
 
     override func viewDidLoad() {
@@ -155,13 +172,11 @@ final class ViewController: UIViewController {
 
             if playWithSharePlay {
                 if let source = sourceSelectionPolicy(video) {
-                    print("ViewController - Playing video with SharePlay")
                     watchTogether.activateNewActivity(withVideo: video,
                                                       withSource: source)
                 }
             } else {
                 if let playbackController {
-                    print("ViewController - Playing video locally")
                     playbackController.setVideos([video])
                 }
             }
@@ -199,8 +214,6 @@ final class ViewController: UIViewController {
 extension ViewController: WatchTogetherWrapperDelegate {
 
     func groupSessionWasJoined() {
-        print("ViewController - Activity was Joined")
-
         DispatchQueue.main.async { [self] in
             updateSessionLabel(withStatus: "Joined")
             endSharePlayButton.isEnabled = true
@@ -208,8 +221,6 @@ extension ViewController: WatchTogetherWrapperDelegate {
     }
 
     func groupSessionWasInvalidated() {
-        print("ViewController - Activity was Invalidated")
-
         DispatchQueue.main.async { [self] in
             updateSessionLabel(withStatus: "Inactive")
             endSharePlayButton.isEnabled = false
@@ -217,8 +228,6 @@ extension ViewController: WatchTogetherWrapperDelegate {
     }
 
     func activityWasDisabled() {
-        print("ViewController - Activity was Disabled or No Activity Active")
-
         DispatchQueue.main.async { [self] in
             updateSessionLabel(withStatus: "Inactive")
             endSharePlayButton.isEnabled = false
@@ -240,16 +249,11 @@ extension ViewController: WatchTogetherWrapperDelegate {
 extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-    }
-
-    func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }

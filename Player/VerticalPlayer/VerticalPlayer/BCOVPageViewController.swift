@@ -5,6 +5,19 @@
 //  Copyright © 2026 Brightcove, Inc. All rights reserved.
 //
 
+/*
+ * This sample app shows how to build a vertical, full-screen paging video
+ * feed (in the style of TikTok or Reels) from a Video Cloud playlist.
+ *
+ * A `UIPageViewController` provides swipe paging and wraps around from the
+ * last video back to the first. Each page is a `VideoViewController` running
+ * its own `BCOVPlaybackController`, and each session uses a `.resizeAspectFill`
+ * video gravity so the video fills the screen.
+ *
+ * `-requestContentFromPlaybackService` loads the playlist and prefetches every
+ * video's poster image so it is cached before its page appears.
+ */
+
 import UIKit
 import BrightcovePlayerSDK
 
@@ -23,7 +36,7 @@ final class BCOVPageViewController: UIPageViewController {
         return .init(withRequestFactory: factory)
     }()
 
-    fileprivate lazy var videos: [BCOVVideo] = .init()
+    fileprivate var videos: [BCOVVideo] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,12 +54,13 @@ final class BCOVPageViewController: UIPageViewController {
     fileprivate func requestContentFromPlaybackService() {
         let configuration = [ BCOVPlaybackService.ConfigurationKeyAssetID: kPlaylistId]
         playbackService.findPlaylist(withConfiguration: configuration, queryParameters: nil) {
-            [self] (playlist: BCOVPlaylist?,
-                    json: Any?,
-                    error: Error?) in
-            guard let playlist else {
+            [weak self] (playlist: BCOVPlaylist?,
+                         json: Any?,
+                         error: Error?) in
+            guard let self,
+                  let playlist else {
                 if let error {
-                    print("ViewController - Error retrieving video playlist: \(error.localizedDescription)")
+                    print("BCOVPageViewController - Error retrieving video playlist: \(error.localizedDescription)")
                 }
 
                 return
@@ -60,13 +74,13 @@ final class BCOVPageViewController: UIPageViewController {
             self.videos = videos
 #endif
 
-            if let firstVideo = videos.first,
+            if let firstVideo = self.videos.first,
                let videoVC = newVideoViewController() {
                 videoVC.video = firstVideo
                 setViewControllers([videoVC], direction: .forward, animated: true)
             }
 
-            for video in videos {
+            for video in self.videos {
                 fetchPoster(video: video)
             }
         }
@@ -110,8 +124,6 @@ extension BCOVPageViewController: UIPageViewControllerDataSource {
             previousVideoIndex = currentVideoIndex - 1
         }
 
-        print("using video at index \(previousVideoIndex)")
-
         let video = videos[previousVideoIndex]
         videoVC.video = video
 
@@ -134,8 +146,6 @@ extension BCOVPageViewController: UIPageViewControllerDataSource {
         } else {
             nextVideoIndex = currentVideoIndex + 1
         }
-
-        print("using video at index \(nextVideoIndex)")
 
         let video = videos[nextVideoIndex]
         videoVC.video = video

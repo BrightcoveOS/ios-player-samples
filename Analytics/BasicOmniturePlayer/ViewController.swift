@@ -111,7 +111,7 @@ final class ViewController: UIViewController {
             // You can set video length to 0. Omniture plugin will update it later for you.
             let settings = ADBMobile.mediaCreateSettings(withName: "BCOVOmniturePlayerMediaSettings",
                                                          length: 0,
-                                                         playerName: "BasicOmmiturePlayer",
+                                                         playerName: "BasicOmniturePlayer",
                                                          playerID: "BasicOmniturePlayer")
 
             // Adobe media analytics setting customization
@@ -126,14 +126,14 @@ final class ViewController: UIViewController {
                                                              delegate: self)
     }()
 
-    fileprivate lazy var statusBarHidden = false {
+    fileprivate var statusBarHidden = false {
         didSet {
             setNeedsStatusBarAppearanceUpdate()
         }
     }
 
     override var prefersStatusBarHidden: Bool {
-        return statusBarHidden
+        statusBarHidden
     }
 
     override func viewDidLoad() {
@@ -193,16 +193,11 @@ final class ViewController: UIViewController {
 extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
-                            didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-    }
-
-    func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }

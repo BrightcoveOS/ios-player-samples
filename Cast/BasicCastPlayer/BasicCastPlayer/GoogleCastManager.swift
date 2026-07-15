@@ -10,7 +10,7 @@ import GoogleCast
 import BrightcovePlayerSDK
 
 
-protocol GoogleCastManagerDelegate {
+protocol GoogleCastManagerDelegate: AnyObject {
 
     var playbackController: BCOVPlaybackController? { get }
 
@@ -25,17 +25,17 @@ protocol GoogleCastManagerDelegate {
 
 final class GoogleCastManager: NSObject {
 
-    var delegate: GoogleCastManagerDelegate?
+    weak var delegate: GoogleCastManagerDelegate?
 
-    fileprivate var sessionManager: GCKSessionManager
-    fileprivate var castMediaController: GCKUIMediaController
+    fileprivate let sessionManager: GCKSessionManager
+    fileprivate let castMediaController: GCKUIMediaController
     fileprivate var currentProgress: TimeInterval?
     fileprivate var currentVideo: BCOVVideo?
     fileprivate var castStreamPosition: TimeInterval?
     fileprivate let posterImageSize = CGSize(width: 480,
                                              height: 720)
-    fileprivate var didContinueCurrentVideo: Bool = false
-    fileprivate var suitableSourceNotFound: Bool = false
+    fileprivate var didContinueCurrentVideo = false
+    fileprivate var suitableSourceNotFound = false
     fileprivate var castMediaInfo: GCKMediaInformation?
 
     override init() {
@@ -56,7 +56,7 @@ final class GoogleCastManager: NSObject {
                 }
 
                 return url.absoluteString.hasPrefix("http://")
-            }else{
+            } else {
                 return false
             }
         }
@@ -66,7 +66,7 @@ final class GoogleCastManager: NSObject {
         var mp4Source: BCOVSource?
 
         for source in filteredSources {
-            let urlString = source.url!.absoluteString
+            guard let urlString = source.url?.absoluteString else { continue }
             let deliveryMethod = source.deliveryMethod
 
             if urlString.contains("hls/v3") &&
@@ -134,8 +134,8 @@ final class GoogleCastManager: NSObject {
         currentVideo = video
 
         let videoURL = url.absoluteString
-        let name = video.properties[BCOVVideo.PropertyKeyName] as! String
-        let durationNumber = video.properties[BCOVVideo.PropertyKeyDuration] as! NSNumber
+        let name = video.properties[BCOVVideo.PropertyKeyName] as? String ?? ""
+        let durationNumber = video.properties[BCOVVideo.PropertyKeyDuration] as? NSNumber
 
         let metaData = GCKMediaMetadata(metadataType: .generic)
         metaData.setString(name, forKey: kGCKMetadataKeyTitle)
@@ -150,7 +150,7 @@ final class GoogleCastManager: NSObject {
 
         var mediaTracks = [GCKMediaTrack]()
 
-        let textTracks = video.properties[BCOVVideo.PropertyKeyTextTracks] as! [[String: AnyHashable]]
+        let textTracks = video.properties[BCOVVideo.PropertyKeyTextTracks] as? [[String: AnyHashable]] ?? []
 
         var trackIdentifier = 0
 
@@ -191,7 +191,7 @@ final class GoogleCastManager: NSObject {
         builder.streamType = .unknown
         builder.contentType = source.deliveryMethod
         builder.metadata = metaData
-        builder.streamDuration = durationNumber.doubleValue
+        builder.streamDuration = durationNumber?.doubleValue ?? 0
         builder.mediaTracks = mediaTracks
 
         castMediaInfo = builder.build()
@@ -219,7 +219,7 @@ final class GoogleCastManager: NSObject {
 
         if let castSession = GCKCastContext.sharedInstance().sessionManager.currentSession,
            let remoteMediaClient = castSession.remoteMediaClient,
-           let castMediaInfo = castMediaInfo {
+           let castMediaInfo {
             remoteMediaClient.loadMedia(castMediaInfo, with: options)
         }
     }

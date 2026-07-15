@@ -63,8 +63,8 @@ final class VideoPreloadManager: NSObject {
         return playbackController
     }()
 
-    fileprivate lazy var didBeginPreloadingNextSession: Bool = false
-    fileprivate lazy var currentVideoIndex: Int = 0
+    fileprivate var didBeginPreloadingNextSession = false
+    fileprivate var currentVideoIndex = 0
 
     fileprivate let autoPlayEnabled: Bool
     fileprivate weak var playerView: BCOVPUIPlayerView?
@@ -84,7 +84,7 @@ final class VideoPreloadManager: NSObject {
          and shouldAutoPlay: Bool,
          and delegate: BCOVPlaybackControllerDelegate?) {
 
-        self.delegate = delegate;
+        self.delegate = delegate
         self.autoPlayEnabled = shouldAutoPlay
 
         // Keep a weak reference to the BCOVPUIPlayerView object so we can
@@ -94,7 +94,7 @@ final class VideoPreloadManager: NSObject {
         super.init()
     }
 
-    func preloadNextVideoIfNeccessary(_ currentSession: BCOVPlaybackSession) {
+    func preloadNextVideoIfNecessary(_ currentSession: BCOVPlaybackSession) {
         if shouldPreloadNextSession(currentSession) {
             preloadNextSession()
         }
