@@ -82,17 +82,17 @@ final class ViewController: UIViewController {
         return playbackController
     }()
 
-    fileprivate lazy var textTracks: [[String: Any]]? = .init()
+    fileprivate var textTracks: [[String: Any]]? = .init()
     fileprivate var subtitleManager: SubtitleManager?
 
-    fileprivate lazy var statusBarHidden = false {
+    fileprivate var statusBarHidden = false {
         didSet {
             setNeedsStatusBarAppearanceUpdate()
         }
     }
 
     override var prefersStatusBarHidden: Bool {
-        return statusBarHidden
+        statusBarHidden
     }
 
     override func viewDidLoad() {
@@ -175,8 +175,8 @@ final class ViewController: UIViewController {
 
         // Now update the BCOVVideo with our new text tracks array
         let updatedVideo = video.update { [self] (mutableVideo: BCOVMutableVideo) in
-            if let textTracks{
-               var props = mutableVideo.properties
+            if let textTracks {
+                var props = mutableVideo.properties
                 props["text_tracks"] = textTracks
                 mutableVideo.properties = props
             }
@@ -223,9 +223,7 @@ extension ViewController: BCOVPlaybackControllerDelegate {
 
     func playbackController(_ controller: BCOVPlaybackController!,
                             didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController - Advanced to new session.")
-
-        if (UIAccessibility.isClosedCaptioningEnabled) {
+        if UIAccessibility.isClosedCaptioningEnabled {
             print("WARNING: Closed Captions + SDH is enabled in the device Accessibility settings.")
             print("         A text track might be forcibly rendered in the video view.")
         }
@@ -245,7 +243,7 @@ extension ViewController: BCOVPlaybackControllerDelegate {
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
 
         if kBCOVPlaybackSessionLifecycleEventFail == lifecycleEvent.eventType,
-           let error = lifecycleEvent.properties["error"] as? NSError {
+           let error = lifecycleEvent.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
             // Report any errors that may have occurred with playback.
             print("ViewController - Playback error: \(error.localizedDescription)")
         }
@@ -264,7 +262,7 @@ extension ViewController: BCOVPUIPlayerViewDelegate {
 }
 
 
-// MARK: UITableViewDelegate
+// MARK: - UITableViewDelegate
 
 extension ViewController: UITableViewDelegate {
 
@@ -283,7 +281,7 @@ extension ViewController: UITableViewDelegate {
     }
 }
 
-// MARK: UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension ViewController: UITableViewDataSource {
 

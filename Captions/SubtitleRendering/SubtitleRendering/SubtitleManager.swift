@@ -18,18 +18,19 @@ final class Subtitle {
 
 final class SubtitleManager {
 
-    fileprivate lazy var subtitles: [Subtitle] = .init()
+    fileprivate var subtitles: [Subtitle] = .init()
 
     init(subtitleURL: URL) {
         URLSession.shared.dataTask(with: URLRequest(url: subtitleURL)) {
-            [self] (data: Data?, response: URLResponse?, error: Error?) in
+            [weak self] (data: Data?, response: URLResponse?, error: Error?) in
 
             if let error {
                 print("SubtitleManager encountered error: \(error.localizedDescription)")
                 return
             }
 
-            guard let data,
+            guard let self,
+                  let data,
                   let subtitleString = String(data: data, encoding: .utf8) else {
                 return
             }
@@ -50,7 +51,7 @@ final class SubtitleManager {
                                                     options: .caseInsensitive)
                 let matches = regex.matches(in: line,
                                             options: NSRegularExpression.MatchingOptions(rawValue: 0),
-                                            range: NSMakeRange(0, line.count))
+                                            range: NSRange(location: 0, length: line.count))
 
                 if matches.count == 1 {
                     if let result = matches.first {
