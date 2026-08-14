@@ -44,7 +44,7 @@ final class ViewController: UIViewController {
         }
 
         // Hide built-in CC button
-        if let ccButton = playerView.controlsView.closedCaptionButton {
+        if let ccButton = playerView.controlsView?.closedCaptionButton {
             ccButton.isHidden = true
         }
 

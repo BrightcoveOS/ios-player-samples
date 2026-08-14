@@ -207,9 +207,10 @@ final class ViewController: UIViewController {
         didSet {
             layoutLabel.text = layout.rawValue
 
-            guard let playerView else { return }
+            guard let playerView,
+                  let controlsView = playerView.controlsView else { return }
 
-            layout.setup(forControlsView: playerView.controlsView,
+            layout.setup(forControlsView: controlsView,
                          compactLayoutMaximumWidth: compactLayoutMaximumWidth)
         }
     }
@@ -318,12 +319,13 @@ final class ViewController: UIViewController {
         layout = layout.nextLayout()
 
         // Apply styles for specific layouts
-        if let playerView {
+        if let playerView,
+           let controlsView = playerView.controlsView {
             switch layout {
                 case .Simple:
-                    ControlViewStyles.Simple(forControlsView: playerView.controlsView)
+                    ControlViewStyles.Simple(forControlsView: controlsView)
                 case .Complex:
-                    ControlViewStyles.Complex(forControlsView: playerView.controlsView)
+                    ControlViewStyles.Complex(forControlsView: controlsView)
                 default:
                     break
             }
