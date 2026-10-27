@@ -10,6 +10,7 @@
 		D6B08BAD2BE586E700BFA9A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6B08BAC2BE586E700BFA9A3 /* Assets.xcassets */; };
 		DA3D5C84F8F64714512767C0 /* BrightcovePlayerSDK in Frameworks */ = {isa = PBXBuildFile; productRef = BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */; };
 		E92272FB2243F8C5000474A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92272FA2243F8C5000474A4 /* AppDelegate.swift */; };
+		88F8AE16CE872BF5298C877C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044EA017304119BC493BFDEE /* SceneDelegate.swift */; };
 		E92272FD2243F8C5000474A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92272FC2243F8C5000474A4 /* ViewController.swift */; };
 		E92273002243F8C5000474A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E92272FE2243F8C5000474A4 /* Main.storyboard */; };
 		E92273052243F8C6000474A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E92273032243F8C6000474A4 /* LaunchScreen.storyboard */; };
@@ -20,6 +21,7 @@
 		D6B08BAC2BE586E700BFA9A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E92272F72243F8C5000474A4 /* VideoPreloading.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoPreloading.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E92272FA2243F8C5000474A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		044EA017304119BC493BFDEE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E92272FC2243F8C5000474A4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E92272FF2243F8C5000474A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E92273042243F8C6000474A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				E92273032243F8C6000474A4 /* LaunchScreen.storyboard */,
 				E92272FE2243F8C5000474A4 /* Main.storyboard */,
 				E92272FA2243F8C5000474A4 /* AppDelegate.swift */,
+				044EA017304119BC493BFDEE /* SceneDelegate.swift */,
 				E92272FC2243F8C5000474A4 /* ViewController.swift */,
 				E922730C2243FB85000474A4 /* VideoPreloadManager.swift */,
 			);
@@ -149,6 +152,7 @@
 			files = (
 				E92272FD2243F8C5000474A4 /* ViewController.swift in Sources */,
 				E92272FB2243F8C5000474A4 /* AppDelegate.swift in Sources */,
+				88F8AE16CE872BF5298C877C /* SceneDelegate.swift in Sources */,
 				E922730D2243FB85000474A4 /* VideoPreloadManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,7 +230,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -281,7 +285,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

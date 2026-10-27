@@ -14,7 +14,6 @@ import BrightcoveGoogleCast
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
     var castContainerViewController: GCKUICastContainerViewController?
 
     func application(_ application: UIApplication,
@@ -57,9 +56,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = storyboard.instantiateViewController(withIdentifier: "NavController")
         castContainerViewController = GCKCastContext.sharedInstance().createCastContainerController(for: navigationController)
         castContainerViewController?.miniMediaControlsItemEnabled = true
-
-        window?.rootViewController = castContainerViewController
-        window?.makeKeyAndVisible()
 
         return true
     }

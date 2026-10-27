@@ -10,6 +10,7 @@
 		D6B08B922BE4AE7000BFA9A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6B08B912BE4AE7000BFA9A3 /* Assets.xcassets */; };
 		DA3D5C84F8F64714512767C0 /* BrightcovePlayerSDK in Frameworks */ = {isa = PBXBuildFile; productRef = BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */; };
 		E9DEE523216D42FD0033C285 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE522216D42FD0033C285 /* AppDelegate.swift */; };
+		21143DC0DCA37B808E47F89D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D40C5B229F4DF42C55E5C70 /* SceneDelegate.swift */; };
 		E9DEE525216D42FD0033C285 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE524216D42FD0033C285 /* ViewController.swift */; };
 		E9DEE528216D42FD0033C285 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE526216D42FD0033C285 /* Main.storyboard */; };
 		E9DEE52D216D42FE0033C285 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE52B216D42FE0033C285 /* LaunchScreen.storyboard */; };
@@ -19,6 +20,7 @@
 		D6B08B912BE4AE7000BFA9A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9DEE51F216D42FD0033C285 /* DVRLive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DVRLive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9DEE522216D42FD0033C285 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8D40C5B229F4DF42C55E5C70 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E9DEE524216D42FD0033C285 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E9DEE527216D42FD0033C285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E9DEE52C216D42FE0033C285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				E9DEE52B216D42FE0033C285 /* LaunchScreen.storyboard */,
 				E9DEE526216D42FD0033C285 /* Main.storyboard */,
 				E9DEE522216D42FD0033C285 /* AppDelegate.swift */,
+				8D40C5B229F4DF42C55E5C70 /* SceneDelegate.swift */,
 				E9DEE524216D42FD0033C285 /* ViewController.swift */,
 			);
 			path = DVRLive;
@@ -145,6 +148,7 @@
 			files = (
 				E9DEE525216D42FD0033C285 /* ViewController.swift in Sources */,
 				E9DEE523216D42FD0033C285 /* AppDelegate.swift in Sources */,
+				21143DC0DCA37B808E47F89D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,7 +224,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -274,7 +278,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

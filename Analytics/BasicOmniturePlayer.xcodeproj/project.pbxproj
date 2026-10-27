@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6BE7320F2FED2F62007102B1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BE7320E2FED2F62007102B1 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D6672B8F2BD48DBF0014EE48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6672B8E2BD48DBF0014EE48 /* AppDelegate.swift */; };
+		38FB31C3904C490AAB425349 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647EB97F780EE577097A8BED /* SceneDelegate.swift */; };
 		D6672B932BD48DBF0014EE48 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6672B922BD48DBF0014EE48 /* ViewController.swift */; };
 		D6672BA42BD48EA10014EE48 /* ADBMobileConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = D6672BA32BD48EA10014EE48 /* ADBMobileConfig.json */; };
 		D6672BA62BD48EB10014EE48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6672BA52BD48EB10014EE48 /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 		D48BE7E0346C97E7D1E0B154 /* BasicOmniturePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicOmniturePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D63DC3FF2BE932C70049B06E /* BasicOmniturePlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "BasicOmniturePlayer-Bridging-Header.h"; path = "BasicOmniturePlayer/BasicOmniturePlayer-Bridging-Header.h"; sourceTree = "<group>"; };
 		D6672B8E2BD48DBF0014EE48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		647EB97F780EE577097A8BED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D6672B922BD48DBF0014EE48 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D6672B9C2BD48DC00014EE48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6672BA32BD48EA10014EE48 /* ADBMobileConfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ADBMobileConfig.json; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				D6672BA92BD48EC50014EE48 /* LaunchScreen.storyboard */,
 				D6672BA72BD48EC50014EE48 /* Main.storyboard */,
 				D6672B8E2BD48DBF0014EE48 /* AppDelegate.swift */,
+				647EB97F780EE577097A8BED /* SceneDelegate.swift */,
 				D6672B922BD48DBF0014EE48 /* ViewController.swift */,
 			);
 			path = BasicOmniturePlayer;
@@ -168,6 +171,7 @@
 			files = (
 				D6672B932BD48DBF0014EE48 /* ViewController.swift in Sources */,
 				D6672B8F2BD48DBF0014EE48 /* AppDelegate.swift in Sources */,
+				38FB31C3904C490AAB425349 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,7 +248,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -300,7 +304,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

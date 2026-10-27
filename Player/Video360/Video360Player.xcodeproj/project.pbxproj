@@ -10,6 +10,7 @@
 		D6B08BA92BE57DBE00BFA9A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6B08BA82BE57DBE00BFA9A3 /* Assets.xcassets */; };
 		DA3D5C84F8F64714512767C0 /* BrightcovePlayerSDK in Frameworks */ = {isa = PBXBuildFile; productRef = BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */; };
 		E9DEE543216E39F60033C285 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE542216E39F60033C285 /* AppDelegate.swift */; };
+		1DBD510C22786329E326BDC5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F963D2BACBDE4E2A01895D6E /* SceneDelegate.swift */; };
 		E9DEE545216E39F60033C285 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE544216E39F60033C285 /* ViewController.swift */; };
 		E9DEE548216E39F60033C285 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE546216E39F60033C285 /* Main.storyboard */; };
 		E9DEE54D216E39F70033C285 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE54B216E39F70033C285 /* LaunchScreen.storyboard */; };
@@ -19,6 +20,7 @@
 		D6B08BA82BE57DBE00BFA9A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9DEE53F216E39F60033C285 /* Video360Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Video360Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9DEE542216E39F60033C285 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F963D2BACBDE4E2A01895D6E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E9DEE544216E39F60033C285 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E9DEE547216E39F60033C285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E9DEE54C216E39F70033C285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				E9DEE54B216E39F70033C285 /* LaunchScreen.storyboard */,
 				E9DEE546216E39F60033C285 /* Main.storyboard */,
 				E9DEE542216E39F60033C285 /* AppDelegate.swift */,
+				F963D2BACBDE4E2A01895D6E /* SceneDelegate.swift */,
 				E9DEE544216E39F60033C285 /* ViewController.swift */,
 			);
 			path = Video360Player;
@@ -146,6 +149,7 @@
 			files = (
 				E9DEE545216E39F60033C285 /* ViewController.swift in Sources */,
 				E9DEE543216E39F60033C285 /* AppDelegate.swift in Sources */,
+				1DBD510C22786329E326BDC5 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,7 +226,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -277,7 +281,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

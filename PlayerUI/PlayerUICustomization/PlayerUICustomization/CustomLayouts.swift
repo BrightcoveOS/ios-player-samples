@@ -165,8 +165,8 @@ final class CustomLayouts: NSObject {
             button.setTitleColor(.yellow, for: .highlighted)
             buttonLayoutView.addSubview(button)
 
-            if let window = UIApplication.shared.delegate?.window,
-               let viewController = window?.rootViewController as? ViewController {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let viewController = windowScene.windows.first?.rootViewController as? ViewController {
                 button.addTarget(viewController,
                                  action: #selector(ViewController.handleButtonTap),
                                  for: .touchUpInside)
