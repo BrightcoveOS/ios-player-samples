@@ -12,6 +12,7 @@
 		491576AA19D9F2B700B2E657 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 491576A819D9F2B700B2E657 /* Main.storyboard */; };
 		D6B08BB22BE614D000BFA9A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6B08BB02BE614D000BFA9A3 /* LaunchScreen.storyboard */; };
 		D6FC4B562BE63BB700172AE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6FC4B552BE63BB700172AE9 /* Assets.xcassets */; };
+		A1B2C3D4E5F60718293A4B5D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B5C /* SceneDelegate.swift */; };
 		DA3D5C84F8F64714512767C0 /* BrightcovePlayerSDK in Frameworks */ = {isa = PBXBuildFile; productRef = BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */; };
 		E984FCB22425394300085367 /* NowPlayingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E984FCB12425394300085367 /* NowPlayingHandler.swift */; };
 /* End PBXBuildFile section */
@@ -32,6 +33,7 @@
 		E962EED625DC2768007ABEFF /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		E962EED825DC276B007ABEFF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		E962EEDA25DC2770007ABEFF /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B5C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E984FCB12425394300085367 /* NowPlayingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,6 +74,7 @@
 				491576A819D9F2B700B2E657 /* Main.storyboard */,
 				491576A419D9F2B700B2E657 /* AppDelegate.swift */,
 				E984FCB12425394300085367 /* NowPlayingHandler.swift */,
+				A1B2C3D4E5F60718293A4B5C /* SceneDelegate.swift */,
 				491576A619D9F2B700B2E657 /* ViewController.swift */,
 			);
 			path = VideoCloudBasicPlayer;
@@ -172,6 +175,7 @@
 				491576A719D9F2B700B2E657 /* ViewController.swift in Sources */,
 				491576A519D9F2B700B2E657 /* AppDelegate.swift in Sources */,
 				E984FCB22425394300085367 /* NowPlayingHandler.swift in Sources */,
+				A1B2C3D4E5F60718293A4B5D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,7 +256,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.brightcove.player.samples.$(PRODUCT_NAME:rfc1034identifier)";
@@ -303,7 +307,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.brightcove.player.samples.$(PRODUCT_NAME:rfc1034identifier)";
 				SDKROOT = iphoneos;
@@ -321,6 +325,7 @@
 				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = VideoCloud;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -341,6 +346,7 @@
 				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = VideoCloud;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

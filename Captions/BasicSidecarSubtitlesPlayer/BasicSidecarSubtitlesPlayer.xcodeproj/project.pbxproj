@@ -10,6 +10,7 @@
 		D6DB4FB42BA3724100F47C9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6DB4FB32BA3724100F47C9F /* Assets.xcassets */; };
 		DA3D5C84F8F64714512767C0 /* BrightcovePlayerSDK in Frameworks */ = {isa = PBXBuildFile; productRef = BB8AF77A5AD1128486C4AEEF /* BrightcovePlayerSDK */; };
 		E9DEE561216E8D250033C285 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE560216E8D250033C285 /* AppDelegate.swift */; };
+		CD86AFA16578728ADBD2601D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A14FC53EBB56D331CFC7CD4 /* SceneDelegate.swift */; };
 		E9DEE563216E8D250033C285 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEE562216E8D250033C285 /* ViewController.swift */; };
 		E9DEE566216E8D250033C285 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE564216E8D250033C285 /* Main.storyboard */; };
 		E9DEE56B216E8D260033C285 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEE569216E8D260033C285 /* LaunchScreen.storyboard */; };
@@ -19,6 +20,7 @@
 		D6DB4FB32BA3724100F47C9F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9DEE55D216E8D250033C285 /* BasicSidecarSubtitlesPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicSidecarSubtitlesPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9DEE560216E8D250033C285 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8A14FC53EBB56D331CFC7CD4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E9DEE562216E8D250033C285 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E9DEE565216E8D250033C285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E9DEE56A216E8D260033C285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				E9DEE569216E8D260033C285 /* LaunchScreen.storyboard */,
 				E9DEE564216E8D250033C285 /* Main.storyboard */,
 				E9DEE560216E8D250033C285 /* AppDelegate.swift */,
+				8A14FC53EBB56D331CFC7CD4 /* SceneDelegate.swift */,
 				E9DEE562216E8D250033C285 /* ViewController.swift */,
 			);
 			path = BasicSidecarSubtitlesPlayer;
@@ -146,6 +149,7 @@
 			files = (
 				E9DEE563216E8D250033C285 /* ViewController.swift in Sources */,
 				E9DEE561216E8D250033C285 /* AppDelegate.swift in Sources */,
+				CD86AFA16578728ADBD2601D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,7 +226,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -277,7 +281,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

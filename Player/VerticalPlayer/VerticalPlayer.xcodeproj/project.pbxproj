@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D6B08BA32BE534B100BFA9A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6B08BA22BE534B100BFA9A3 /* Assets.xcassets */; };
 		E96CB8F72AC487750035A454 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96CB8F62AC487750035A454 /* AppDelegate.swift */; };
+		1C97DFE3E7971B403B8BC2D5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A1D9304E65D5E0FF3BEF0A /* SceneDelegate.swift */; };
 		E96CB8FB2AC487750035A454 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96CB8FA2AC487750035A454 /* VideoViewController.swift */; };
 		E96CB8FE2AC487750035A454 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E96CB8FC2AC487750035A454 /* Main.storyboard */; };
 		E96CB9032AC487770035A454 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E96CB9012AC487770035A454 /* LaunchScreen.storyboard */; };
@@ -20,6 +21,7 @@
 		D6B08BA22BE534B100BFA9A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E96CB8F32AC487750035A454 /* VerticalPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VerticalPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E96CB8F62AC487750035A454 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		47A1D9304E65D5E0FF3BEF0A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E96CB8FA2AC487750035A454 /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		E96CB8FD2AC487750035A454 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E96CB9022AC487770035A454 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				E96CB8FC2AC487750035A454 /* Main.storyboard */,
 				E96CB9012AC487770035A454 /* LaunchScreen.storyboard */,
 				E96CB8F62AC487750035A454 /* AppDelegate.swift */,
+				47A1D9304E65D5E0FF3BEF0A /* SceneDelegate.swift */,
 				E96CB90D2AC5F8980035A454 /* BCOVPageViewController.swift */,
 				E96CB8FA2AC487750035A454 /* VideoViewController.swift */,
 			);
@@ -149,6 +152,7 @@
 			files = (
 				E96CB8FB2AC487750035A454 /* VideoViewController.swift in Sources */,
 				E96CB8F72AC487750035A454 /* AppDelegate.swift in Sources */,
+				1C97DFE3E7971B403B8BC2D5 /* SceneDelegate.swift in Sources */,
 				E96CB90E2AC5F8980035A454 /* BCOVPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,7 +231,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -284,7 +288,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -302,7 +306,7 @@
 				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Vertical;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -323,7 +327,7 @@
 				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Vertical;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

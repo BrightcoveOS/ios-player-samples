@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		49E4336D1C0F4CD900E73634 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E4336C1C0F4CD900E73634 /* AppDelegate.swift */; };
+		472AD3B3996F5D438CC6AA5C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B3567F215CFFC5BB63D3A /* SceneDelegate.swift */; };
 		49E4336F1C0F4CD900E73634 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E4336E1C0F4CD900E73634 /* ViewController.swift */; };
 		49E433721C0F4CD900E73634 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49E433701C0F4CD900E73634 /* Main.storyboard */; };
 		49E433741C0F4CD900E73634 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49E433731C0F4CD900E73634 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* Begin PBXFileReference section */
 		49E433691C0F4CD900E73634 /* BasicFairPlayPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicFairPlayPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49E4336C1C0F4CD900E73634 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0D5B3567F215CFFC5BB63D3A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		49E4336E1C0F4CD900E73634 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		49E433711C0F4CD900E73634 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		49E433731C0F4CD900E73634 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				49E433751C0F4CD900E73634 /* LaunchScreen.storyboard */,
 				49E433701C0F4CD900E73634 /* Main.storyboard */,
 				49E4336C1C0F4CD900E73634 /* AppDelegate.swift */,
+				0D5B3567F215CFFC5BB63D3A /* SceneDelegate.swift */,
 				49E4336E1C0F4CD900E73634 /* ViewController.swift */,
 			);
 			path = BasicFairPlayPlayer;
@@ -146,6 +149,7 @@
 			files = (
 				49E4336F1C0F4CD900E73634 /* ViewController.swift in Sources */,
 				49E4336D1C0F4CD900E73634 /* AppDelegate.swift in Sources */,
+				472AD3B3996F5D438CC6AA5C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +220,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -264,7 +268,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;

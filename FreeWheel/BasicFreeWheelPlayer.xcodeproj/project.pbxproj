@@ -12,6 +12,7 @@
 		D6672BBE2BD4BAC70014EE48 /* AdManager.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6672BBD2BD4BAC70014EE48 /* AdManager.xcframework */; };
 		D6672BBF2BD4BAC70014EE48 /* AdManager.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6672BBD2BD4BAC70014EE48 /* AdManager.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E93A3D6D217E6BEF00F971F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93A3D6C217E6BEF00F971F8 /* AppDelegate.swift */; };
+		95B298B31E157889508F2FF6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8E78E08E948F983ADE766E /* SceneDelegate.swift */; };
 		E93A3D6F217E6BEF00F971F8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93A3D6E217E6BEF00F971F8 /* ViewController.swift */; };
 		E93A3D72217E6BEF00F971F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E93A3D70217E6BEF00F971F8 /* Main.storyboard */; };
 		E93A3D77217E6BF000F971F8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E93A3D75217E6BF000F971F8 /* LaunchScreen.storyboard */; };
@@ -36,6 +37,7 @@
 		D65269142BE9666C00CC4227 /* BasicFreeWheelPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicFreeWheelPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6672BBD2BD4BAC70014EE48 /* AdManager.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AdManager.xcframework; sourceTree = "<group>"; };
 		E93A3D6C217E6BEF00F971F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AB8E78E08E948F983ADE766E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E93A3D6E217E6BEF00F971F8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E93A3D71217E6BEF00F971F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E93A3D76217E6BF000F971F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				E93A3D75217E6BF000F971F8 /* LaunchScreen.storyboard */,
 				E93A3D70217E6BEF00F971F8 /* Main.storyboard */,
 				E93A3D6C217E6BEF00F971F8 /* AppDelegate.swift */,
+				AB8E78E08E948F983ADE766E /* SceneDelegate.swift */,
 				E93A3D6E217E6BEF00F971F8 /* ViewController.swift */,
 			);
 			path = BasicFreeWheelPlayer;
@@ -166,6 +169,7 @@
 			files = (
 				E93A3D6F217E6BEF00F971F8 /* ViewController.swift in Sources */,
 				E93A3D6D217E6BEF00F971F8 /* AppDelegate.swift in Sources */,
+				95B298B31E157889508F2FF6 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,7 +246,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -298,7 +302,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

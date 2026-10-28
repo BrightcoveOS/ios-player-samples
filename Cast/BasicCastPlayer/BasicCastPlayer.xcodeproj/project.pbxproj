@@ -12,6 +12,7 @@
 		D657E9BC2BD2B8C7005A18F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D657E9BB2BD2B8C7005A18F9 /* Assets.xcassets */; };
 		E915F98F23F1FAA700F5A64A /* GoogleCastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E915F98E23F1FAA700F5A64A /* GoogleCastManager.swift */; };
 		E9FF7E6121BACA72000189E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FF7E6021BACA72000189E0 /* AppDelegate.swift */; };
+		7591837D432619BD60F4515F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387B0A8E1F1670B06B7C4B1F /* SceneDelegate.swift */; };
 		E9FF7E6321BACA72000189E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FF7E6221BACA72000189E0 /* ViewController.swift */; };
 		E9FF7E6621BACA72000189E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9FF7E6421BACA72000189E0 /* Main.storyboard */; };
 		E9FF7E6B21BACA73000189E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9FF7E6921BACA73000189E0 /* LaunchScreen.storyboard */; };
@@ -37,6 +38,7 @@
 		E9B758952278E3AA008D1362 /* BasicCastPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BasicCastPlayer.entitlements; sourceTree = "<group>"; };
 		E9FF7E5D21BACA72000189E0 /* BasicCastPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicCastPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9FF7E6021BACA72000189E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		387B0A8E1F1670B06B7C4B1F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E9FF7E6221BACA72000189E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E9FF7E6521BACA72000189E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E9FF7E6A21BACA73000189E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				E9FF7E6421BACA72000189E0 /* Main.storyboard */,
 				D657E9BB2BD2B8C7005A18F9 /* Assets.xcassets */,
 				E9FF7E6021BACA72000189E0 /* AppDelegate.swift */,
+				387B0A8E1F1670B06B7C4B1F /* SceneDelegate.swift */,
 				D657E9B92BD2B7B2005A18F9 /* GCKUICastContainerViewController+extensions.swift */,
 				E915F98E23F1FAA700F5A64A /* GoogleCastManager.swift */,
 				E9FF7E6221BACA72000189E0 /* ViewController.swift */,
@@ -174,6 +177,7 @@
 				E915F98F23F1FAA700F5A64A /* GoogleCastManager.swift in Sources */,
 				E9FF7E6321BACA72000189E0 /* ViewController.swift in Sources */,
 				E9FF7E6121BACA72000189E0 /* AppDelegate.swift in Sources */,
+				7591837D432619BD60F4515F /* SceneDelegate.swift in Sources */,
 				D657E9BA2BD2B7B2005A18F9 /* GCKUICastContainerViewController+extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,7 +255,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -306,7 +310,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
